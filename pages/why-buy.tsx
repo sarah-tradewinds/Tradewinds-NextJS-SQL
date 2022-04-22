@@ -1,7 +1,7 @@
 import Button from 'components/website/common/form/button';
 import {
-  WhyBuyOperationSubTile,
-  WhyBuyOperationTile
+	WhyBuyOperationSubTile,
+	WhyBuyOperationTile
 } from 'components/website/common/why-buy/why-buy-operation-tile';
 import WhyBuyTile from 'components/website/common/why-buy/why-buy-tile';
 import { NextPage } from 'next';

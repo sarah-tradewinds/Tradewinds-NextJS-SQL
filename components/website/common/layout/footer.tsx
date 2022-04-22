@@ -25,7 +25,7 @@ const Footer: React.FC = () => {
 						src={
 							isEco
 								? '/eco-tradewinds.png'
-								: '/static/Images/EcoPage/footerlogo.png'
+								: '/static/images/EcoPage/footerlogo.png'
 						}
 						className=""
 					/>

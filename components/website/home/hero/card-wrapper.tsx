@@ -12,7 +12,7 @@ const CardWrapper = () => {
 			/>
 			<CardA
 				title="Why Buy?"
-				imageUrl="/static/Images/TWsell.png"
+				imageUrl="/static/images/TWsell.png"
 				subtitle="Lorem ipsum dolor sit amet, consecamet Lorem ipsum dolor sit amet"
 				name="Name Here"
 			/>

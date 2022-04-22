@@ -29,6 +29,7 @@
     "react-responsive-carousel": "^3.2.23",
     "react-simple-image-slider": "^2.4.1",
     "react-slick": "^0.28.1",
+    "sharp": "^0.30.4",
     "slick-carousel": "^1.8.1",
     "tw-elements": "^1.0.0-alpha11",
     "zustand": "^3.7.1"

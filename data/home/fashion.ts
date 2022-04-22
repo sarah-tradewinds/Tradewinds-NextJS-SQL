@@ -17,7 +17,7 @@ interface fashionType {
 const fashion: fashionType = {
 	category: {
 		title: 'Fashion Accessories',
-		image: '/static/Images/TWFashion.png',
+		image: '/static/images/TWFashion.png',
 		desc: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem',
 		btnTxt: 'source now',
 		bgHexColor: '#EBDEDA'
@@ -26,54 +26,54 @@ const fashion: fashionType = {
 		{
 			id: 1,
 			title: 'Fashion Accessories',
-			img: '/static/Images/TWFashionMini1.png',
+			img: '/static/images/TWFashionMini1.png',
 			clr: 'bg-fashion'
 		},
 		{
 			id: 2,
 			title: 'Belts & Accessories ',
-			img: '/static/Images/TWFashionMini2.png',
+			img: '/static/images/TWFashionMini2.png',
 			clr: 'bg-fashion'
 		},
 		{
 			id: 3,
 			title: 'Hair Accessories',
-			img: '/static/Images/TWFashionMini3.png',
+			img: '/static/images/TWFashionMini3.png',
 			clr: 'bg-fashion'
 		},
 		{
 			id: 4,
 			title: 'Belt Buckles',
-			img: '/static/Images/TWFashionMini4.png',
+			img: '/static/images/TWFashionMini4.png',
 			clr: 'bg-fashion'
 		},
 		{
 			id: 5,
 			title: 'Gloves & Mittens ',
-			img: '/static/Images/TWFashionMini5.png',
+			img: '/static/images/TWFashionMini5.png',
 			clr: 'bg-fashion'
 		},
 		{
 			id: 6,
 			title: 'Hats & Caps',
-			img: '/static/Images/TWFashionMini6.png',
+			img: '/static/images/TWFashionMini6.png',
 			clr: 'bg-fashion'
 		},
 		{
 			id: 7,
 			title: 'Sports Caps ',
-			img: '/static/Images/TWFashionMini7.png',
+			img: '/static/images/TWFashionMini7.png',
 			clr: 'bg-fashion'
 		}
 		// {
 		// 	id: 8,
 		// 	title: 'safty',
-		// 	img: '/static/Images/TWAgricultureMini7.png'
+		// 	img: '/static/images/TWAgricultureMini7.png'
 		// },
 		// {
 		// 	id: 9,
 		// 	title: 'eco',
-		// 	img: '/static/Images/TWAgricultureMini7.png'
+		// 	img: '/static/images/TWAgricultureMini7.png'
 		// }
 	]
 };

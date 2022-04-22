@@ -33,14 +33,14 @@ const SubCategoryCard = ({
 					<div className="hidden gap-2 md:flex">
 						<div className="relative h-5 w-5">
 							<Image
-								src="/static/Images/TWSafety.png"
+								src="/static/images/TWSafety.png"
 								alt="Logo"
 								layout="fill"
 							/>
 						</div>
 						<div className="relative h-5 w-5">
 							<Image
-								src="/static/Images/TWEco.png"
+								src="/static/images/TWEco.png"
 								alt="Logo"
 								layout="fill"
 							/>

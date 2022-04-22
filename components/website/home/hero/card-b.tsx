@@ -9,7 +9,7 @@ const CardB = () => {
 				<div>
 					<div className="relative h-[40px] w-[60px] md:h-[56px] md:w-[64px] lg:h-[130px] lg:w-[150px] pc:hidden">
 						<Image
-							src="/static/Images/TWVector.png"
+							src="/static/images/TWVector.png"
 							alt=""
 							layout="fill"
 							className="object-cover"
