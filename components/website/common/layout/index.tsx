@@ -14,7 +14,9 @@ import {
 } from 'react-icons/md';
 import { useHomeStore } from 'store/home';
 
-const Layout: React.FC = ({ children }: { children: JSX.Element }) => {
+const Layout: React.FC = (props) => {
+	const { children } = props;
+
 	const isEco = useHomeStore((state) => state.isEco);
 
 	return (
