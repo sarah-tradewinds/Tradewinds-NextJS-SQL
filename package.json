@@ -1,0 +1,55 @@
+{
+  "name": "tradewinds-website",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "i18nexus pull -k 8_XovMllr3BipaYjehBx8A && next dev",
+    "build": "i18nexus pull -k 8_XovMllr3BipaYjehBx8A && next build",
+    "start": "i18nexus pull -k 8_XovMllr3BipaYjehBx8A && next start",
+    "prod": "next build && next start",
+    "lint": "next lint",
+    "lint:fix": "npx next lint --fix .",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx,jsx}": [
+      "eslint --fix"
+    ]
+  },
+  "dependencies": {
+    "@headlessui/react": "^1.5.0",
+    "axios": "^0.26.1",
+    "infer-next-props-type": "^0.0.4",
+    "lint-staged": "^12.3.5",
+    "next": "12.1.0",
+    "next-i18next": "^10.5.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-icons": "^4.3.1",
+    "react-responsive-carousel": "^3.2.23",
+    "react-simple-image-slider": "^2.4.1",
+    "react-slick": "^0.28.1",
+    "slick-carousel": "^1.8.1",
+    "tw-elements": "^1.0.0-alpha11",
+    "zustand": "^3.7.1"
+  },
+  "devDependencies": {
+    "@types/node": "17.0.21",
+    "@types/react": "17.0.40",
+    "@types/react-slick": "^0.23.8",
+    "autoprefixer": "^10.4.2",
+    "eslint": "8.11.0",
+    "eslint-config-next": "12.1.0",
+    "eslint-config-prettier": "^8.5.0",
+    "husky": "^7.0.4",
+    "i18nexus-cli": "^2.1.0",
+    "postcss": "^8.4.8",
+    "postcss-import": "^14.0.2",
+    "postcss-nesting": "^10.1.3",
+    "prettier": "^2.6.1",
+    "prettier-plugin-tailwindcss": "^0.1.8",
+    "pretty-quick": "^3.1.3",
+    "tailwindcss": "^3.0.23",
+    "typescript": "4.6.2"
+  }
+}

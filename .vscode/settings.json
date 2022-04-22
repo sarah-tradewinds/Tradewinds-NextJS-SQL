@@ -1,0 +1,48 @@
+{
+  // Prettier Config
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.printWidth": 72,
+
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.organizeImports": true,
+    "source.fixAll.eslint.format": true,
+    "source.fixAll.eslint.eslint-disable-line": true,
+    "source.fixAll.eslint.eslint-disable-next-line": true,
+    "source.fixAll.eslint.eslint-disable-line-and-warn": true,
+    "source.fixAll.eslint.eslint-disable-next-line-and-warn": true,
+    "source.fixAll.eslint.eslint-disable-line-and-warn-no-trailing-comma": true,
+    "source.fixAll.eslint.eslint-disable-next-line-and-warn-no-trailing-comma": true
+  },
+  "jest.autoRun": "off",
+  "editor.fontSize": 16,
+  "files.associations": {
+    "*.js": "javascriptreact",
+    "*.jsx": "javascriptreact",
+    "*.ts": "typescriptreact",
+    "*.tsx": "typescriptreact"
+  },
+  "cSpell.words": [
+    "agri",
+    "browserslist",
+    "headlessui",
+    "heroicons",
+    "semibold",
+    "tailwindcss",
+    "tradewinds",
+    "TTFB",
+    "zustand"
+  ],
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[dotenv]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[ignore]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  }
+}

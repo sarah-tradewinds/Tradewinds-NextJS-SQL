@@ -1,0 +1,13 @@
+.gitkeep
+.env*
+*.ico
+*.lock
+.next
+.yarn
+.pnp.*
+node_modules
+build
+coverage
+.vscode
+.editorconfig
+.husky

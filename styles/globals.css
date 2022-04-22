@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components {
+
+  .nav-link {
+    cursor: pointer;
+    position: relative;
+    @apply md:text-primary-main md:dark:text-accent-secondary-eco md:px-2 md:border-b-0 text-[15px] md:font-normal md:w-auto md:py-0 md:my-0 font-semibold w-10/12 py-2 my-2 border-b-2 border-gray/40
+
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    background: theme('colors.primary-main');
+    width: 50%;
+    height: 1px;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+  }
+  .nav-link:hover::after {
+    width: 100%;
+    opacity: 1;
+  }
+  .btn-primary {
+    @apply py-2 px-4 bg-accent-orange text-white font-semibold rounded-lg shadow-md hover:bg-accent-orange focus:outline-none focus:ring-2 focus:ring-accent-orange focus:ring-opacity-75;
+  }
+}
