@@ -8,6 +8,7 @@ const CategoriesFilter: React.FC = (props) => {
 	return (
 		<div>
 			<Collapse
+				isOpen={true}
 				contentClassName="ml-0 py-2 px-1"
 				leading={<AiOutlinePlus />}
 				title={

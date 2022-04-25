@@ -1,5 +1,5 @@
 interface CollapseProps {
-	isOpen: boolean;
+	isOpen?: boolean;
 	leading?: any;
 	title?: any;
 	subtitle?: any;
