@@ -9,12 +9,14 @@ const CardWrapper = () => {
 				imageUrl="/become-a-vendor.png"
 				subtitle="Lorem ipsum dolor sit amet, consecamet Lorem ipsum dolor sit amet"
 				name="Name Here"
+				href="/why-sell-on-tradewinds"
 			/>
 			<CardA
 				title="Why Buy?"
 				imageUrl="/static/images/TWsell.png"
 				subtitle="Lorem ipsum dolor sit amet, consecamet Lorem ipsum dolor sit amet"
 				name="Name Here"
+				href="/why-buy"
 			/>
 			<CardB />
 		</div>

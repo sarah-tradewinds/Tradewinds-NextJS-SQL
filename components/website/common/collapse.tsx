@@ -1,7 +1,5 @@
-import { useState } from 'react';
-
 interface CollapseProps {
-	initialValue?: boolean;
+	isOpen: boolean;
 	leading?: any;
 	title?: any;
 	subtitle?: any;
@@ -10,13 +8,12 @@ interface CollapseProps {
 	collapseHeadBgHexColor?: string;
 	isReverse?: boolean;
 	onLeadingClick?: () => any;
-	onTrailingClick?: () => any;
-	onTileClick?: () => any;
+	onContentClick?: () => any;
 }
 
 const Collapse: React.FC<CollapseProps> = (props) => {
 	const {
-		initialValue = false,
+		isOpen,
 		leading,
 		title,
 		subtitle,
@@ -24,19 +21,12 @@ const Collapse: React.FC<CollapseProps> = (props) => {
 		collapseHeadBgHexColor,
 		isReverse,
 		children,
-		onTileClick,
+		onLeadingClick,
+		onContentClick,
 		contentClassName
 	} = props;
 
-	const [isOpen, setIsOpen] = useState<boolean>(initialValue);
-
-	const collapseHandler = () => {
-		setIsOpen((prevState) => !prevState);
-
-		if (onTileClick) {
-			onTileClick();
-		}
-	}; // End of collapseHandler
+	const collapseHandler = () => {}; // End of collapseHandler
 
 	const transition = `transition-all duration-500`;
 	let childClassName = `h-0 overflow-hidden ${transition}`;
@@ -49,14 +39,16 @@ const Collapse: React.FC<CollapseProps> = (props) => {
 		<div>
 			{/* Header */}
 			<div
-				onClick={collapseHandler}
 				className={`justify-betweens relative flex cursor-pointer ${
 					isReverse ? 'flex-row-reverse' : ''
 				} items-center`}
 				style={{ backgroundColor: collapseHeadBgHexColor }}
 			>
-				<div>{leading}</div>
-				<div className={`ml-4 p-2 ${contentClassName}`}>
+				<div onClick={onLeadingClick}>{leading}</div>
+				<div
+					onClick={onContentClick}
+					className={`ml-4 p-2 ${contentClassName}`}
+				>
 					<p>{title}</p>
 					<p>{subtitle}</p>
 				</div>

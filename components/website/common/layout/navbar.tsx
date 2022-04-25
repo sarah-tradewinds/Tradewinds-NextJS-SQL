@@ -122,7 +122,8 @@ const Header: React.FC = () => {
 					<nav className="flex cursor-pointer flex-col items-start justify-start md:flex-row md:divide-x">
 						<Link href="/eco">
 							<a
-								className="nav-link hidden items-center justify-center gap-2 md:flex"
+								onClick={drawerHandler}
+								className="nav-link flex items-center gap-2 md:justify-center"
 								id="bg-eco"
 							>
 								<Image
@@ -136,15 +137,6 @@ const Header: React.FC = () => {
 							</a>
 						</Link>
 
-						<Link href="/eco">
-							<a
-								className="nav-link md:hidden"
-								id="bg-eco"
-								onClick={drawerHandler}
-							>
-								Eco
-							</a>
-						</Link>
 						<Link href="/why-sell-on-tradewinds">
 							<a onClick={drawerHandler} className="nav-link">
 								Why Sell on TW?

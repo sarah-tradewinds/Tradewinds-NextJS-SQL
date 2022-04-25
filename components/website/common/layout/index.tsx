@@ -27,7 +27,7 @@ const Layout: React.FC = (props) => {
 			<main className="bg-bg-main dark:bg-bg-eco">{children}</main>
 
 			{/* Bottom navbar for small screen */}
-			<div className="fixed bottom-0 left-0 right-0 z-[1000] bg-primary-main md:hidden">
+			<div className="fixed bottom-0 left-0 right-0 z-[1000] bg-primary-main dark:bg-primary-eco md:hidden">
 				<div className="flex items-center justify-between">
 					<Link href="/">
 						<a className="ml-4">

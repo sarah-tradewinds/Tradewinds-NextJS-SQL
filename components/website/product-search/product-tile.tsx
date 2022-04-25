@@ -1,7 +1,12 @@
-import { metadataList } from 'data/product-search/metadata-list';
 import Image from 'next/image';
+import Link from 'next/link';
+
+// components
 import MetadataList from './metadata/metadata-list';
 import MetadataTile from './metadata/metadata-tile';
+
+// data
+import { metadataList } from 'data/product-search/metadata-list';
 
 interface ProductTileProps {
 	name: string;
@@ -36,24 +41,32 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 				<div className="grid grid-cols-12 gap-4 md:gap-0">
 					{/* Product Image Container */}
 					<div className="col-span-5 md:col-span-3">
-						<div className="relative h-full w-full">
-							<Image
-								src={imageUrl}
-								alt={alt}
-								layout="fill"
-								className="object-contain"
-							/>
-						</div>
+						<Link href={`/product/${slug}`}>
+							<a>
+								<div className="relative h-full w-full">
+									<Image
+										src={imageUrl}
+										alt={alt}
+										layout="fill"
+										className="object-contain"
+									/>
+								</div>
+							</a>
+						</Link>
 					</div>
 
 					{/* Content */}
 					<div className="col-span-7 space-y-4 md:col-span-9 md:p-4">
 						{/* Product Info and keywords*/}
 						<div className="hidden space-y-4 md:block">
-							<h2 className="md:text-[16px] lg:text-[15px]">
-								<span className="font-semibold">{name}: </span>
-								<span className="text-gray">{description}</span>
-							</h2>
+							<Link href={`/product/${slug}`}>
+								<a>
+									<h2 className="md:text-[16px] lg:text-[15px]">
+										<span className="font-semibold">{name}: </span>
+										<span className="text-gray">{description}</span>
+									</h2>
+								</a>
+							</Link>
 							<div className="flex justify-between font-semibold text-primary-main md:text-[12px] lg:text-[16px]">
 								{keywords.map((keyword) => (
 									<span key={keyword}>{keyword}</span>

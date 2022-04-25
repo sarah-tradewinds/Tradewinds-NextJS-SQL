@@ -1,4 +1,6 @@
+import Button from 'components/website/common/form/button';
 import Image from 'next/image';
+
 const CardB = () => {
 	return (
 		<div className="flex flex-1 flex-col justify-between gap-3 rounded bg-secondary p-3 transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg sm:gap-0 lg:p-6  pc:h-[300px]">
@@ -22,9 +24,14 @@ const CardB = () => {
 						Lorem ipsum dolor sit amet consectetur, adipisicing elit.
 						Modi, fuga?
 					</p>
-					<button className="lg:font-[16px] font-[12px] rounded bg-accent-secondary-main font-montserrat text-white shadow-lg transition-colors duration-300 ease-in-out hover:bg-accent-secondary-main/70 sm:w-full sm:py-2 lg:w-6/12 lg:p-1 pc:w-4/12 pc:py-[0.4rem] pc:text-xs">
+					<Button
+						href="/what-is-rfq"
+						variant="product"
+						// className="lg:font-[16px] font-[12px] whitespace-nowrap shadow-lg transition-colors duration-300 ease-in-out hover:bg-accent-secondary-main/70 sm:w-full sm:py-2 lg:w-6/12 lg:p-1 pc:w-4/12 pc:py-[0.4rem] pc:text-xs"
+						className="lg:font-[16px] font-[12px] whitespace-nowrap shadow-lg transition-colors duration-300 ease-in-out hover:bg-accent-secondary-main/70"
+					>
 						Learn More
-					</button>
+					</Button>
 				</div>
 			</div>
 			<p className="font-mont text-base text-gray pc:hidden">

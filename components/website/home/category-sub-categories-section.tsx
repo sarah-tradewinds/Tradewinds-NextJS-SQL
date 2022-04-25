@@ -1,8 +1,8 @@
 import Image from 'next/image';
-
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+
 import { HiMinusCircle, HiPlusCircle } from 'react-icons/hi';
-import { useHomeStore } from 'store/home';
 import { CatSubCatSectionType } from 'types/home';
 import Collapse from '../common/collapse';
 import CatSubCatActionCard from './common/cat-sub-cat-action-card';
@@ -18,12 +18,11 @@ type CategorySubCategoriesSectionProps = {
 const CategorySubCategoriesSection: React.FC<
 	CategorySubCategoriesSectionProps
 > = ({ catSubCat, isReverse, applyBgColor }) => {
-	const isHidden = useHomeStore((state) => state.isHidden);
-	const setIsHidden = useHomeStore((state) => state.setIsHidden);
-
 	const [screenSize, setScreenSize] = useState<null | number>(null);
 	const [isTablet, setIsTablet] = useState<boolean>(false);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
+
+	const router = useRouter();
 
 	const { category } = catSubCat;
 
@@ -41,7 +40,7 @@ const CategorySubCategoriesSection: React.FC<
 		.map((subCat, index) => (
 			<div
 				key={subCat.id}
-				className={`mb-2 pc:border-b pc:border-gray/40 pc:last:border-b-0`}
+				className={`mb-2 md:mb-0 pc:border-b pc:border-gray/40 pc:last:border-b-0`}
 			>
 				<SubCategoryCard
 					subCat={subCat}
@@ -57,12 +56,14 @@ const CategorySubCategoriesSection: React.FC<
 
 	return (
 		<div className=" bg-primary-main">
-			{/* For Small Screen */}
+			{/* For Small Screen- Collapse */}
 			<div className="md:hidden">
 				<Collapse
+					isOpen={isOpen}
 					collapseHeadBgHexColor={category.bgHexColor}
 					isReverse={isReverse}
-					onTileClick={() => setIsOpen((preState) => !preState)}
+					onLeadingClick={() => setIsOpen((preState) => !preState)}
+					onContentClick={() => router.push('/product-search')}
 					leading={
 						isOpen ? (
 							<HiMinusCircle className="m-1 text-3xl text-primary-main" />
@@ -113,7 +114,7 @@ const CategorySubCategoriesSection: React.FC<
 			</div>
 
 			{/* For Medium and Large screen */}
-			<div className="hidden grid-cols-12 gap-4 bg-white p-4 md:grid lg:gap-8 lg:p-8">
+			<div className="hidden grid-cols-12 items-end gap-4 bg-white p-4 md:grid lg:gap-8 2xl:p-8">
 				{/* Category */}
 				<div className="md:col-span-4 xl:col-span-3">
 					<CategoryCard
@@ -134,7 +135,7 @@ const CategorySubCategoriesSection: React.FC<
 
 				{/* Sub categories */}
 				<div className="md:col-span-8 xl:col-span-9">
-					<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+					<div className="grid items-end gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 						{/* TODO: Data Slicing to be done based on the screen width with a stat*/}
 						{subCategories}
 

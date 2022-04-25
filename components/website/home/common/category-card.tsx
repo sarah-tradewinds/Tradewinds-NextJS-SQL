@@ -44,13 +44,14 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 				className={`relative mt-4 flex h-full flex-col justify-between space-y-4 rounded-lg bg-agri-main p-4`}
 				style={{ backgroundColor: bgHexColor }}
 			>
-				<p className="mt-4 w-3/4  lg:text-[18px]">
+				<p className="mt-2 w-3/4 lg:text-[18px]">
 					<span className="font-semibold text-primary-main dark:text-accent-secondary-eco">
 						Name Here {` `}
 					</span>
 					<span className="text-gray">{description}</span>
 				</p>
 
+				{/* Image */}
 				<div className="absolute -top-12 right-0">
 					<div className="relative h-[60px] w-[60px] md:h-[100px] md:w-[100px] lg:h-[120px] lg:w-[120px]">
 						<Image src={imageUrl} alt={alt || slug} layout="fill" />
@@ -60,7 +61,7 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 				<div>
 					<Link href={`/product-search`}>
 						<a
-							className={`bg-[${bgHexColor}]/70 flex h-[40px] w-[156px] items-center justify-center rounded-md border border-black/20 text-[18px] text-white`}
+							className={`bg-[${bgHexColor}]/70 flex h-[40px] w-[156px] items-center justify-center rounded-md border border-black/20 text-[18px] uppercase text-white`}
 						>
 							{buttonText}
 						</a>
