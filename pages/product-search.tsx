@@ -5,6 +5,7 @@ import Image from 'next/image';
 import ProductList from 'components/website/product-search/product-list';
 
 // data
+import CompareProductList from 'components/website/compare/compare-product-list';
 import MainCategoryCard from 'components/website/product-search/main-category-card';
 import ProductFilter from 'components/website/product-search/product-filter/product-filter';
 import SubCategoryList from 'components/website/product-search/sub-category-list';
@@ -21,7 +22,7 @@ const ProductSearchPage: NextPage = (props) => {
 				<Image src="/catagarie-seach-header.png" alt="" layout="fill" />
 			</div>
 
-			<div className="grid grid-cols-12 gap-4 md:p-4 lg:gap-6 lg:p-6">
+			<div className="relative grid grid-cols-12 gap-4 md:p-4 lg:gap-6 lg:p-6">
 				{/* Side container */}
 				<div className="col-span-4 hidden space-y-8 md:block lg:col-span-3">
 					{/* filters */}
@@ -99,6 +100,9 @@ const ProductSearchPage: NextPage = (props) => {
 						</div>
 					</div>
 				</div>
+
+				{/* Compare */}
+				<CompareProductList products={products} />
 			</div>
 		</>
 	);
