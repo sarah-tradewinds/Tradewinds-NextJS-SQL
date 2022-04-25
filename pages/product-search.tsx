@@ -11,6 +11,7 @@ import SubCategoryList from 'components/website/product-search/sub-category-list
 import SubCategoryTile from 'components/website/product-search/sub-category-tile';
 import { products } from 'data/product-search/products';
 import { subCategories } from 'data/product-search/sub-category';
+import Slider from 'react-slick';
 
 const ProductSearchPage: NextPage = (props) => {
 	return (
@@ -58,23 +59,24 @@ const ProductSearchPage: NextPage = (props) => {
 							/>
 
 							{/* For small screen only */}
-							<div className="w-screens flex items-center justify-between px-2 py-4 md:hidden">
-								<SubCategoryTile
-									imageUrl={subCategories[0].imageUrl}
-									title={subCategories[0].name}
-									showBorder={true}
-								/>
-								<SubCategoryTile
-									imageUrl={subCategories[1].imageUrl}
-									title={subCategories[1].name}
-								/>
-								<div className="relative h-[31px] w-[37px]">
-									<Image
-										src={subCategories[2].imageUrl}
-										alt=""
-										layout="fill"
-									/>
-								</div>
+							<div className="px-2 py-4 md:hidden">
+								<Slider
+									{...{
+										infinite: true,
+										speed: 500,
+										slidesToShow: 2,
+										slidesToScroll: 1
+									}}
+								>
+									{subCategories.map((subCategory) => (
+										<div key={subCategory.name}>
+											<SubCategoryTile
+												imageUrl={subCategory.imageUrl}
+												title={subCategory.name}
+											/>
+										</div>
+									))}
+								</Slider>
 							</div>
 						</div>
 					</div>
