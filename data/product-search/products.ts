@@ -47,5 +47,21 @@ export const products = [
 		alt: '',
 		rating: 5.0,
 		totalReviewCount: 400
+	},
+	{
+		id: 4,
+		name: 'Unknown Tractor',
+		title: '',
+		description:
+			'This is unknown tractor elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat ',
+		slug: 'unknown-tractor',
+		minPrice: 2.29,
+		maxPrice: 5.0,
+		minimumOrderQuantity: 100,
+		keywords: ['Tractor', 'Red', 'Affordable', 'Fast'],
+		imageUrl: '/vehicles/yellow-tractor.png',
+		alt: '',
+		rating: 5.0,
+		totalReviewCount: 400
 	}
 ];

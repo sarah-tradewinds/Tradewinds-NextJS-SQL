@@ -1,36 +1,68 @@
-import Button from 'components/website/common/form/button';
-import Input from 'components/website/common/form/input';
-import MetadataList from 'components/website/product-search/metadata/metadata-list';
-import VerifiedAndRating from 'components/website/product-search/verified-and-rating';
-import { metadataList } from 'data/product-search/metadata-list';
 import Image from 'next/image';
 
-const CompareProductTile: React.FC = (props) => {
+// components
+import Button from 'components/website/common/form/button';
+import MetadataList from 'components/website/product-search/metadata/metadata-list';
+import VerifiedAndRating from '../product-search/verified-and-rating';
+
+// data
+import { metadataList } from 'data/product-search/metadata-list';
+import Input from '../common/form/input';
+
+interface CompareProductTileProps {
+	id: string;
+	imageUrl: string;
+	alt?: string;
+	name: string;
+	description: string;
+	minPrice: number;
+	maxPrice: number;
+	minimumOrderQuantity: number;
+	className?: string;
+	onProductRemove?: () => any;
+}
+
+const CompareProductTile: React.FC<CompareProductTileProps> = (
+	props
+) => {
+	const {
+		imageUrl,
+		alt,
+		name,
+		description,
+		maxPrice,
+		minPrice,
+		minimumOrderQuantity,
+		className,
+		onProductRemove
+	} = props;
+
 	return (
-		<div className="relative w-[400px] space-y-8 border p-4">
-			<Button className="absolute -right-4 top-0 !text-[24px]  text-gray/40">
+		<div className={`relative space-y-4 p-4 lg:space-y-8 ${className}`}>
+			<Button
+				onClick={onProductRemove}
+				className="absolute -right-4 top-0 !text-[24px] text-gray/40"
+			>
 				x
 			</Button>
-			<div className="relative h-[202px] w-[315px]">
-				<Image
-					src="/vehicles/red-tractor.png"
-					alt="red-tractor"
-					layout="fill"
-				/>
+			<div className="relative h-[202px] w-[240px]">
+				<Image src={imageUrl} alt={alt} layout="fill" />
 			</div>
 
+			{/* Content */}
 			<p className="text-[15px]">
-				<span className="font-semibold">Product name:</span> product
-				desciption adipiscing elit, sed diam nonummy nibh euismod
-				tincidunt ut laoreet dolore magna aliquam erat{' '}
+				<span className="font-semibold">{name}:</span>
+				<span>{description}</span>
 			</p>
-			<div className="text-[21px] font-semibold text-primary-main">
-				<p>$2.29 - $5.00 /piece</p>
-				<p>100 Pieces /Min. Order</p>
+			<div className="text-[18px] font-semibold text-primary-main lg:text-[21px]">
+				<p>
+					${minPrice} - ${maxPrice} /piece
+				</p>
+				<p>{minimumOrderQuantity} Pieces /Min. Order</p>
 			</div>
 
 			{/* Rating and metadata container */}
-			<div className="flex justify-between">
+			<div className="flex flex-col items-center space-y-6 lg:flex-row lg:items-start lg:justify-between lg:space-y-0 lg:space-x-4">
 				<VerifiedAndRating rating={4} totalReviewCount={105} />
 				<MetadataList
 					metadataList={[
@@ -44,20 +76,31 @@ const CompareProductTile: React.FC = (props) => {
 			</div>
 
 			{/* Action Button */}
-			<div className="flex justify-between">
-				<Button variant="buyer">Message Seller</Button>
-				<Button variant="special">Submit RFQ</Button>
-			</div>
-
-			{/* Save checkbox */}
-			<div className="flex items-center space-x-2">
-				<Input id="save" type="checkbox" className="h-6 w-6" />
-				<label
-					htmlFor="save"
-					className="mb-1 text-[13px] text-accent-primary-main"
+			<div className="flex flex-col items-center justify-between space-y-4 lg:flex-row lg:items-start lg:space-y-0">
+				<Button
+					variant="buyer"
+					className="w-[124px] !px-2 !text-[12px] !font-medium lg:w-auto"
 				>
-					Save
-				</label>
+					Message Seller
+				</Button>
+				<Button
+					variant="special"
+					className="w-[124px] !px-2 !text-[12px] !font-medium lg:w-auto"
+				>
+					Submit RFQ
+				</Button>
+				{/* Save checkbox */}
+			</div>
+			<div className="flex justify-center lg:justify-start">
+				<div className="flex w-[124px] items-center space-x-2">
+					<Input id="save" type="checkbox" className="h-6 w-6" />
+					<label
+						htmlFor="save"
+						className="mb-1 text-[13px] text-accent-primary-main"
+					>
+						Save
+					</label>
+				</div>
 			</div>
 		</div>
 	);

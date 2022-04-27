@@ -32,7 +32,11 @@ export const useProductStore = create<ProductState>((set) => ({
 	products: products,
 	addProductToCompareList: (product: any) =>
 		set((state) => {
+			if (state.products.length >= 4) {
+				return { products: state.products };
+			}
 			const productId = product.id;
+
 			return {
 				products: state.products.map((product) => {
 					if (product.id === productId) {
