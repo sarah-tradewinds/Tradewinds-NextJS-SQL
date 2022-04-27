@@ -2,11 +2,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 // components
-import MetadataList from './metadata/metadata-list';
 import MetadataTile from './metadata/metadata-tile';
 
 // data
 import { metadataList } from 'data/product-search/metadata-list';
+import { MdBookmark, MdOutlineBookmarkBorder } from 'react-icons/md';
 
 interface ProductTileProps {
 	name: string;
@@ -20,6 +20,7 @@ interface ProductTileProps {
 	minOrderQuantity: number;
 	totalReviewCount?: number;
 	onCompareClick?: () => any;
+	isInCompareList?: false;
 }
 
 const ProductTile: React.FC<ProductTileProps> = (props) => {
@@ -34,8 +35,62 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 		maxPrice,
 		minOrderQuantity,
 		totalReviewCount,
-		onCompareClick
+		onCompareClick,
+		isInCompareList
 	} = props;
+
+	const metadataElements = (
+		<div className={`grid grid-cols-3 gap-4 text-[12px] text-gray`}>
+			<MetadataTile
+				key={metadataList[0].title}
+				imageUrl={metadataList[0].imageUrl}
+				alt={metadataList[0].title}
+				title={metadataList[0].title}
+			/>
+			<MetadataTile
+				key={metadataList[1].title}
+				imageUrl={metadataList[1].imageUrl}
+				alt={metadataList[1].title}
+				title={metadataList[1].title}
+			/>
+			{/* compare */}
+			<MetadataTile
+				key={metadataList[2].title}
+				// imageUrl={metadataList[2].imageUrl}
+				icon={
+					<div className="text-[32px]">
+						{isInCompareList ? (
+							<MdBookmark className="text-[#FC5267]" />
+						) : (
+							<MdOutlineBookmarkBorder className="text-accent-primary-main" />
+						)}
+					</div>
+				}
+				alt={metadataList[2].title}
+				title={metadataList[2].title}
+				onClick={onCompareClick}
+				className="cursor-pointer"
+			/>
+			<MetadataTile
+				key={metadataList[3].title}
+				imageUrl={metadataList[3].imageUrl}
+				alt={metadataList[3].title}
+				title={metadataList[3].title}
+			/>
+			<MetadataTile
+				key={metadataList[4].title}
+				imageUrl={metadataList[4].imageUrl}
+				alt={metadataList[4].title}
+				title={metadataList[4].title}
+			/>
+			<MetadataTile
+				key={metadataList[5].title}
+				imageUrl={metadataList[5].imageUrl}
+				alt={metadataList[5].title}
+				title={metadataList[5].title}
+			/>
+		</div>
+	);
 
 	return (
 		<div className="grid w-full grid-cols-12 overflow-hidden bg-white md:rounded-xl md:shadow-md lg:p-4">
@@ -110,71 +165,17 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 							</div>
 						</div>
 
-						{/* Metadata */}
-
-						{/* <MetadataList
-							metadataList={metadataList}
-							className="hidden lg:grid"
-						/> */}
-						<div
-							className={`hidden grid-cols-3 gap-4 text-[12px] text-gray lg:grid`}
-						>
-							<MetadataTile
-								key={metadataList[0].title}
-								imageUrl={metadataList[0].imageUrl}
-								alt={metadataList[0].title}
-								title={metadataList[0].title}
-							/>
-							<MetadataTile
-								key={metadataList[1].title}
-								imageUrl={metadataList[1].imageUrl}
-								alt={metadataList[1].title}
-								title={metadataList[1].title}
-							/>
-							<MetadataTile
-								key={metadataList[2].title}
-								imageUrl={metadataList[2].imageUrl}
-								alt={metadataList[2].title}
-								title={metadataList[2].title}
-								onClick={onCompareClick}
-							/>
-							<MetadataTile
-								key={metadataList[3].title}
-								imageUrl={metadataList[3].imageUrl}
-								alt={metadataList[3].title}
-								title={metadataList[3].title}
-							/>
-							<MetadataTile
-								key={metadataList[4].title}
-								imageUrl={metadataList[4].imageUrl}
-								alt={metadataList[4].title}
-								title={metadataList[4].title}
-							/>
-							<MetadataTile
-								key={metadataList[5].title}
-								imageUrl={metadataList[5].imageUrl}
-								alt={metadataList[5].title}
-								title={metadataList[5].title}
-							/>
-
-							{/* {metadataList.map((metadata) => (
-								<MetadataTile
-									key={metadataList[0].title}
-									imageUrl={metadataList[0].imageUrl}
-									alt={metadataList[0].title}
-									title={metadataList[0].title}
-								/>
-							))} */}
-						</div>
+						{/* Metadata for large screen*/}
+						<div className={`hidden lg:block`}>{metadataElements}</div>
 					</div>
 				</div>
 			</div>
 
-			{/*Metadata and Reviews count and rating. For desktop */}
-			<div className="col-span-12 px-2 pb-4 md:px-6 lg:col-span-3 ">
+			{/*Metadata and Reviews count and rating. For medium screen */}
+			<div className="col-span-12 pb-4 md:px-6 lg:col-span-3 lg:px-2 ">
 				<div className="grid h-full grid-cols-12">
 					<div className="col-span-10 hidden md:block lg:hidden">
-						<MetadataList metadataList={metadataList} />
+						{metadataElements}
 					</div>
 
 					<div className="col-span-12 md:col-span-2 lg:col-span-12">

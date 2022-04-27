@@ -1,21 +1,39 @@
 import Image from 'next/image';
 
 interface MetadataTileProps {
-	imageUrl: string;
+	imageUrl?: string;
 	alt?: string;
 	title: string;
+	icon?: any;
 	className?: string;
+	imageContainerClassName?: string;
 	onClick?: () => any;
 }
 
 const MetadataTile: React.FC<MetadataTileProps> = (props) => {
-	const { imageUrl, alt, title, onClick } = props;
+	const {
+		imageUrl,
+		alt,
+		title,
+		icon,
+		onClick,
+		className,
+		imageContainerClassName
+	} = props;
 
 	return (
-		<div className="flex items-center space-x-2" onClick={onClick}>
-			<div className="relative h-[12px] w-[12px] lg:h-[24px] lg:w-[24px]">
-				<Image src={imageUrl} alt={alt} layout="fill" />
-			</div>
+		<div
+			className={`flex items-center space-x-2 ${className}`}
+			onClick={onClick}
+		>
+			{imageUrl && (
+				<div
+					className={`relative h-[12px] w-[12px] lg:h-[24px] lg:w-[24px] ${imageContainerClassName}`}
+				>
+					<Image src={imageUrl} alt={alt} layout="fill" />
+				</div>
+			)}
+			{icon}
 
 			<span className="text-[10px] text-accent-primary-main md:text-[12px] lg:text-[13px]">
 				{title}

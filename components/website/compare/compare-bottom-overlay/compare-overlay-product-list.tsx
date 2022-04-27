@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import Button from '../../common/form/button';
 import CompareProductTile from './compare-overlay-product-tile';
 import CompareProductBottomOverlay from './compare-product-bootom-overlay';
@@ -11,10 +12,17 @@ interface CompareProductListProps {
 const CompareProductList: React.FC<CompareProductListProps> = (
 	props
 ) => {
+	const [isOpen, setIsOpen] = useState(false);
+
 	const { products, onClearAllClick, onRemoveCompareProduct } = props;
 
+	useEffect(() => {
+		if (products.length === 1) {
+			setIsOpen(true);
+		}
+	}, [products.length]);
+
 	const getPlaceholder = () => {
-		console.log(4 - products.length);
 		const productHolderList = [];
 		for (let i = 1; i <= 4 - products.length; i++) {
 			productHolderList.push(i);
@@ -22,11 +30,12 @@ const CompareProductList: React.FC<CompareProductListProps> = (
 		return productHolderList;
 	};
 
-	console.log(getPlaceholder());
-
 	return (
 		<div className="relative">
-			<CompareProductBottomOverlay>
+			<CompareProductBottomOverlay
+				isOpen={isOpen}
+				onClose={() => setIsOpen((prevState) => !prevState)}
+			>
 				<div className="flex flex-wrap items-center justify-center space-x-6 py-4 px-4 md:flex-nowrap 2xl:px-16">
 					{products.map((product) => (
 						<CompareProductTile

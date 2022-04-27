@@ -10,13 +10,21 @@ import MainCategoryCard from 'components/website/product-search/main-category-ca
 import ProductFilter from 'components/website/product-search/product-filter/product-filter';
 import SubCategoryList from 'components/website/product-search/sub-category-list';
 import SubCategoryTile from 'components/website/product-search/sub-category-tile';
-import { products } from 'data/product-search/products';
 import { subCategories } from 'data/product-search/sub-category';
-import { useState } from 'react';
 import Slider from 'react-slick';
+import { useProductStore } from 'store/product-store';
 
 const ProductSearchPage: NextPage = (props) => {
-	const [compareProducts, setCompareProducts] = useState<any[]>([]);
+	const {
+		addProductToCompareList,
+		products,
+		removeProductFromCompareList,
+		removeAllProductFromCompareList
+	} = useProductStore();
+
+	const compareProducts = products.filter(
+		(product) => product.isInCompareList
+	);
 
 	return (
 		<>
@@ -89,28 +97,12 @@ const ProductSearchPage: NextPage = (props) => {
 					<div className="space-y-4 md:space-y-8">
 						<ProductList
 							products={products}
-							onCompareClick={(selectedProduct) => {
-								if (compareProducts.length >= 4) {
-									return;
-								}
-								setCompareProducts((prevState) => [
-									...prevState,
-									selectedProduct
-								]);
-							}}
+							onCompareClick={addProductToCompareList}
 						/>
 						{/* TODO: TMP */}
 						<ProductList
 							products={products}
-							onCompareClick={(selectedProduct) => {
-								if (compareProducts.length >= 4) {
-									return;
-								}
-								setCompareProducts((prevState) => [
-									...prevState,
-									selectedProduct
-								]);
-							}}
+							onCompareClick={addProductToCompareList}
 						/>
 					</div>
 
@@ -130,14 +122,8 @@ const ProductSearchPage: NextPage = (props) => {
 				{compareProducts.length > 0 && (
 					<CompareProductList
 						products={compareProducts}
-						onClearAllClick={() => setCompareProducts([])}
-						onRemoveCompareProduct={(compareProductId) => {
-							setCompareProducts((prevState) => {
-								return prevState.filter(
-									(product) => product.id != compareProductId
-								);
-							});
-						}}
+						onClearAllClick={removeAllProductFromCompareList}
+						onRemoveCompareProduct={removeProductFromCompareList}
 					/>
 				)}
 			</div>

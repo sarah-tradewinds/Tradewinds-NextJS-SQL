@@ -1,14 +1,21 @@
-import { useState } from 'react';
+// Third party packages
 import {
 	MdOutlineKeyboardArrowDown,
 	MdOutlineKeyboardArrowUp
 } from 'react-icons/md';
+
+// components
 import Button from '../../common/form/button';
 
-const CompareProductBottomOverlay: React.FC = (props) => {
-	const { children } = props;
+interface CompareProductBottomOverlayProps {
+	isOpen: boolean;
+	onClose: () => any;
+}
 
-	const [isOpen, setIsOpen] = useState(false);
+const CompareProductBottomOverlay: React.FC<
+	CompareProductBottomOverlayProps
+> = (props) => {
+	const { children, isOpen, onClose } = props;
 
 	let overlayClassName = `fixed bottom-0 left-0 right-0 z-[5000000000] bg-black/60 transform transition-all duration-500`;
 	if (!isOpen) {
@@ -23,7 +30,7 @@ const CompareProductBottomOverlay: React.FC = (props) => {
 			<div className="relative">
 				{/* Show and Hide compare container */}
 				<div className="absolute -top-10 left-1/2 z-[5000000000] flex w-[245px] -translate-x-1/2 justify-center rounded-tl rounded-tr bg-black/60 text-white">
-					<Button onClick={() => setIsOpen((prevState) => !prevState)}>
+					<Button onClick={onClose}>
 						{isOpen ? (
 							<MdOutlineKeyboardArrowDown className="text-[24px] " />
 						) : (

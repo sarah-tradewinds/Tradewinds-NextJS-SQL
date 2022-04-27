@@ -26,6 +26,7 @@ const ProductList: React.FC<ProductListProps> = ({
 						minPrice={product.minPrice}
 						totalReviewCount={product.totalReviewCount}
 						onCompareClick={() => onCompareClick(product)}
+						isInCompareList={product.isInCompareList}
 					/>
 				);
 			})}
