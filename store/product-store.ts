@@ -32,7 +32,14 @@ export const useProductStore = create<ProductState>((set) => ({
 	products: products,
 	addProductToCompareList: (product: any) =>
 		set((state) => {
-			if (state.products.length >= 4) {
+			let comparedProductCount = 0;
+
+			state.products.forEach((product) => {
+				if (product.isInCompareList) {
+					comparedProductCount += 1;
+				}
+			});
+			if (comparedProductCount >= 4) {
 				return { products: state.products };
 			}
 			const productId = product.id;
