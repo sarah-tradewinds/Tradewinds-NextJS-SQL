@@ -19,6 +19,7 @@ interface ProductTileProps {
 	maxPrice: number;
 	minOrderQuantity: number;
 	totalReviewCount?: number;
+	onCompareClick?: () => any;
 }
 
 const ProductTile: React.FC<ProductTileProps> = (props) => {
@@ -32,7 +33,8 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 		minPrice,
 		maxPrice,
 		minOrderQuantity,
-		totalReviewCount
+		totalReviewCount,
+		onCompareClick
 	} = props;
 
 	return (
@@ -84,6 +86,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 								<h4>{minOrderQuantity} Pieces /Min. Order</h4>
 							</div>
 
+							{/* For small screen only */}
 							<div className="col-span-12 mt-2 space-y-2 md:hidden">
 								<MetadataTile
 									imageUrl={metadataList[0].imageUrl}
@@ -108,10 +111,61 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 						</div>
 
 						{/* Metadata */}
-						<MetadataList
+
+						{/* <MetadataList
 							metadataList={metadataList}
 							className="hidden lg:grid"
-						/>
+						/> */}
+						<div
+							className={`hidden grid-cols-3 gap-4 text-[12px] text-gray lg:grid`}
+						>
+							<MetadataTile
+								key={metadataList[0].title}
+								imageUrl={metadataList[0].imageUrl}
+								alt={metadataList[0].title}
+								title={metadataList[0].title}
+							/>
+							<MetadataTile
+								key={metadataList[1].title}
+								imageUrl={metadataList[1].imageUrl}
+								alt={metadataList[1].title}
+								title={metadataList[1].title}
+							/>
+							<MetadataTile
+								key={metadataList[2].title}
+								imageUrl={metadataList[2].imageUrl}
+								alt={metadataList[2].title}
+								title={metadataList[2].title}
+								onClick={onCompareClick}
+							/>
+							<MetadataTile
+								key={metadataList[3].title}
+								imageUrl={metadataList[3].imageUrl}
+								alt={metadataList[3].title}
+								title={metadataList[3].title}
+							/>
+							<MetadataTile
+								key={metadataList[4].title}
+								imageUrl={metadataList[4].imageUrl}
+								alt={metadataList[4].title}
+								title={metadataList[4].title}
+							/>
+							<MetadataTile
+								key={metadataList[5].title}
+								imageUrl={metadataList[5].imageUrl}
+								alt={metadataList[5].title}
+								title={metadataList[5].title}
+							/>
+
+							{/* {metadataList.map((metadata) => (
+								<MetadataTile
+									key={metadataList[0].title}
+									imageUrl={metadataList[0].imageUrl}
+									alt={metadataList[0].title}
+									title={metadataList[0].title}
+								/>
+							))} */}
+						</div>
 					</div>
 				</div>
 			</div>
@@ -156,6 +210,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 									<MetadataTile
 										imageUrl={metadataList[5].imageUrl}
 										title={metadataList[5].title}
+										onClick={onCompareClick}
 									/>
 								</div>
 							</div>

@@ -4,10 +4,11 @@ interface VerifiedAndRatingProps {
 	isVerified?: boolean;
 	rating: number;
 	totalReviewCount: number;
+	hideButton?: boolean;
 }
 
 const VerifiedAndRating: React.FC<VerifiedAndRatingProps> = (props) => {
-	const { isVerified, rating, totalReviewCount } = props;
+	const { isVerified, rating, totalReviewCount, hideButton } = props;
 
 	return (
 		<div>
@@ -25,9 +26,11 @@ const VerifiedAndRating: React.FC<VerifiedAndRatingProps> = (props) => {
 				</div>
 			</div>
 
-			<button className="rounded-md border border-accent-primary-main p-2 font-semibold text-accent-primary-main">
-				Message Vendor
-			</button>
+			{hideButton && (
+				<button className="rounded-md border border-accent-primary-main p-2 font-semibold text-accent-primary-main">
+					Message Vendor
+				</button>
+			)}
 		</div>
 	);
 };

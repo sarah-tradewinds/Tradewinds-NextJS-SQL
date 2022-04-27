@@ -2,9 +2,13 @@ import ProductTile from './product-tile';
 
 interface ProductListProps {
 	products: any[];
+	onCompareClick: (payload: any) => any;
 }
 
-const ProductList: React.FC<ProductListProps> = ({ products }) => {
+const ProductList: React.FC<ProductListProps> = ({
+	products,
+	onCompareClick
+}) => {
 	return (
 		<div className="grid grid-cols-1 gap-4 md:gap-8">
 			{products.map((product) => {
@@ -21,6 +25,7 @@ const ProductList: React.FC<ProductListProps> = ({ products }) => {
 						minOrderQuantity={product.minimumOrderQuantity}
 						minPrice={product.minPrice}
 						totalReviewCount={product.totalReviewCount}
+						onCompareClick={() => onCompareClick(product)}
 					/>
 				);
 			})}

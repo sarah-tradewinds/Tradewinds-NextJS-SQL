@@ -5,13 +5,14 @@ interface MetadataTileProps {
 	alt?: string;
 	title: string;
 	className?: string;
+	onClick?: () => any;
 }
 
 const MetadataTile: React.FC<MetadataTileProps> = (props) => {
-	const { imageUrl, alt, title } = props;
+	const { imageUrl, alt, title, onClick } = props;
 
 	return (
-		<div className="flex items-center space-x-2">
+		<div className="flex items-center space-x-2" onClick={onClick}>
 			<div className="relative h-[12px] w-[12px] lg:h-[24px] lg:w-[24px]">
 				<Image src={imageUrl} alt={alt} layout="fill" />
 			</div>

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { MdOutlineClose } from 'react-icons/md';
-import Button from '../common/form/button';
+import Button from '../../common/form/button';
 
 interface CompareProductTileProps {
 	imageUrl: string;
@@ -8,19 +8,33 @@ interface CompareProductTileProps {
 	title: string;
 	minPrice: number;
 	maxPrice: number;
+	className?: string;
+	onRemoveCompareProduct?: () => any;
 }
 
 const CompareProductTile: React.FC<CompareProductTileProps> = (
 	props
 ) => {
-	const { imageUrl, alt, title, minPrice, maxPrice } = props;
+	const {
+		imageUrl,
+		alt,
+		title,
+		minPrice,
+		maxPrice,
+		className,
+		onRemoveCompareProduct
+	} = props;
 
 	return (
-		<div className="relative flex items-center space-x-2  bg-white p-2 lg:w-[180px] xl:w-[240px] 2xl:w-[250px]">
-			<div className="relative h-[44px] w-[65px]">
+		<div
+			className={`relative flex items-center space-x-2  bg-white md:p-2 lg:w-[180px] xl:w-[240px] 2xl:w-[250px] ${className}`}
+		>
+			<div className="relative h-[65px] w-[65px] lg:h-[44px] lg:w-[65px]">
 				<Image src={imageUrl} alt={alt} layout="fill" />
 			</div>
-			<div className="w-[250px] space-y-2 text-[12px]">
+
+			{/* Content */}
+			<div className="hidden w-[250px] space-y-2 text-[12px] lg:block">
 				<p>{title}</p>
 				<p className="font-semibold">
 					${minPrice} - ${maxPrice}/piece
@@ -29,7 +43,7 @@ const CompareProductTile: React.FC<CompareProductTileProps> = (
 
 			{/* Close button */}
 			<div className="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-[#FC5267]">
-				<Button>
+				<Button onClick={onRemoveCompareProduct}>
 					<MdOutlineClose className="text-white" />
 				</Button>
 			</div>

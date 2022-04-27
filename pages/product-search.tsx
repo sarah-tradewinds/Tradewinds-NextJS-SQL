@@ -5,16 +5,19 @@ import Image from 'next/image';
 import ProductList from 'components/website/product-search/product-list';
 
 // data
-import CompareProductList from 'components/website/compare/compare-product-list';
+import CompareProductList from 'components/website/compare/compare-bottom-overlay/compare-overlay-product-list';
 import MainCategoryCard from 'components/website/product-search/main-category-card';
 import ProductFilter from 'components/website/product-search/product-filter/product-filter';
 import SubCategoryList from 'components/website/product-search/sub-category-list';
 import SubCategoryTile from 'components/website/product-search/sub-category-tile';
 import { products } from 'data/product-search/products';
 import { subCategories } from 'data/product-search/sub-category';
+import { useState } from 'react';
 import Slider from 'react-slick';
 
 const ProductSearchPage: NextPage = (props) => {
+	const [compareProducts, setCompareProducts] = useState<any[]>([]);
+
 	return (
 		<>
 			{/* Banner */}
@@ -39,7 +42,7 @@ const ProductSearchPage: NextPage = (props) => {
 					</div>
 				</div>
 
-				{/* product list */}
+				{/* product list and Category container*/}
 				<div className="col-span-12 md:col-span-8 md:space-y-8 lg:col-span-9">
 					{/* Category and categories list */}
 					<div className="grid grid-cols-12 md:gap-0 md:rounded-md md:bg-white md:p-4 md:shadow-md lg:gap-2">
@@ -84,9 +87,31 @@ const ProductSearchPage: NextPage = (props) => {
 
 					{/* Product List */}
 					<div className="space-y-4 md:space-y-8">
-						<ProductList products={products} />
+						<ProductList
+							products={products}
+							onCompareClick={(selectedProduct) => {
+								if (compareProducts.length >= 4) {
+									return;
+								}
+								setCompareProducts((prevState) => [
+									...prevState,
+									selectedProduct
+								]);
+							}}
+						/>
 						{/* TODO: TMP */}
-						<ProductList products={products} />
+						<ProductList
+							products={products}
+							onCompareClick={(selectedProduct) => {
+								if (compareProducts.length >= 4) {
+									return;
+								}
+								setCompareProducts((prevState) => [
+									...prevState,
+									selectedProduct
+								]);
+							}}
+						/>
 					</div>
 
 					{/* Pagination */}
@@ -102,7 +127,19 @@ const ProductSearchPage: NextPage = (props) => {
 				</div>
 
 				{/* Compare */}
-				<CompareProductList products={products} />
+				{compareProducts.length > 0 && (
+					<CompareProductList
+						products={compareProducts}
+						onClearAllClick={() => setCompareProducts([])}
+						onRemoveCompareProduct={(compareProductId) => {
+							setCompareProducts((prevState) => {
+								return prevState.filter(
+									(product) => product.id != compareProductId
+								);
+							});
+						}}
+					/>
+				)}
 			</div>
 		</>
 	);
