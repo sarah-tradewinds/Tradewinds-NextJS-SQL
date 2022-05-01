@@ -4,69 +4,48 @@ import Image from 'next/image';
 import Button from 'components/website/common/form/button';
 import MetadataList from 'components/website/product-search/metadata/metadata-list';
 import { metadataList } from 'data/product-search/metadata-list';
+import ImageContainer from './product-details-images/image-contaier';
 
 const ProductDetailsTile: React.FC = (props) => {
+	const thumbnails = [
+		{
+			imageUrl: '/vehicles/yellow-tractor.png',
+			alt: ''
+		},
+		{
+			imageUrl: '/vehicles/yellow-tractor.png',
+			alt: ''
+		},
+		{
+			imageUrl: '/vehicles/yellow-tractor.png',
+			alt: ''
+		},
+		{
+			imageUrl: '/vehicles/yellow-tractor.png',
+			alt: ''
+		},
+		{
+			imageUrl: '/vehicles/yellow-tractor.png',
+			alt: ''
+		},
+		{
+			imageUrl: '/vehicles/yellow-tractor.png',
+			alt: ''
+		}
+	];
+
 	return (
 		<div className="grid grid-cols-12 gap-8 bg-white">
 			{/* Images container */}
-			<div className="col-span-5 p-8">
-				{/* Main Image */}
-				<div className="relative h-[475px] w-full">
-					<Image
-						src="/vehicles/yellow-tractor.png"
-						alt=""
-						layout="fill"
-					/>
-				</div>
-				{/* Thumbnails */}
-				<div className="grid grid-cols-3 gap-4">
-					<div className="relative h-[136px] w-full">
-						<Image
-							src="/vehicles/yellow-tractor.png"
-							alt=""
-							layout="fill"
-						/>
-					</div>
-					<div className="relative h-[136px] w-full">
-						<Image
-							src="/vehicles/yellow-tractor.png"
-							alt=""
-							layout="fill"
-						/>
-					</div>
-					<div className="relative h-[136px] w-full">
-						<Image
-							src="/vehicles/yellow-tractor.png"
-							alt=""
-							layout="fill"
-						/>
-					</div>
-					<div className="relative h-[136px] w-full">
-						<Image
-							src="/vehicles/yellow-tractor.png"
-							alt=""
-							layout="fill"
-						/>
-					</div>
-					<div className="relative h-[136px] w-full">
-						<Image
-							src="/vehicles/yellow-tractor.png"
-							alt=""
-							layout="fill"
-						/>
-					</div>
-					<div className="relative h-[136px] w-full">
-						<Image
-							src="/vehicles/yellow-tractor.png"
-							alt=""
-							layout="fill"
-						/>
-					</div>
-				</div>
-			</div>
+			<ImageContainer
+				className="col-span-12 p-8 xl:col-span-5"
+				imageUrl="/vehicles/yellow-tractor.png"
+				alt=""
+				thumbnails={thumbnails}
+			/>
 
 			{/* Product details */}
-			<div className="col-span-7 space-y-4 p-8">
+			<div className="col-span-12 space-y-4 px-24 py-8 lg:p-8 xl:col-span-7">
 				{/* Product name and sku info */}
 				<div className="flex items-center justify-between">
 					<h1 className="text-[30px] font-semibold text-primary-main">
