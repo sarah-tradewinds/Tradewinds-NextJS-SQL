@@ -1,5 +1,7 @@
 import Image from 'next/image';
-import Slider from 'react-slick';
+
+// Third party packages
+import { useKeenSlider } from 'keen-slider/react'; // import from 'keen-slider/react.es' for to get an ES module
 
 interface CountrySliderProps {
 	countries: {
@@ -12,15 +14,24 @@ interface CountrySliderProps {
 const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 	const { countries } = props;
 
-	const flagSliderSetting = {
-		dots: false,
-		arrows: false,
-		infinite: true,
-		autoplay: true,
-		speed: 500,
-		slidesToShow: 5,
-		slidesToScroll: 1
-	};
+	const [ref] = useKeenSlider<HTMLDivElement>({
+		loop: true,
+		slides: {
+			perView: 2,
+			spacing: 8
+		},
+		breakpoints: {
+			'(min-width: 640px)': {
+				slides: { perView: 3, spacing: 10 }
+			},
+			'(min-width: 768px)': {
+				slides: { perView: 4, spacing: 8 }
+			},
+			'(min-width: 1024px)': {
+				slides: { perView: 5, spacing: 8 }
+			}
+		}
+	});
 
 	return (
 		<div className="bg-gradient-to-r from-primary-main to-primary-main/80 pb-6 dark:from-primary-eco dark:to-primary-eco/80">
@@ -32,13 +43,12 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 				<div className="w-40   border border-white md:w-56 lg:w-80"></div>
 			</div>
 
-			<Slider
-				{...flagSliderSetting}
-				className="mx-auto"
-				centerMode={true}
-			>
+			<div ref={ref} className="keen-slider">
 				{countries.map((country) => (
-					<div key={country.imageUrl} className="h-[80px] w-[180px]">
+					<div
+						key={country.imageUrl}
+						className="keen-slider__slide h-[80px] w-[180px] px-4"
+					>
 						<Image
 							src={country.imageUrl}
 							alt=""
@@ -47,7 +57,7 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 						/>
 					</div>
 				))}
-			</Slider>
+			</div>
 		</div>
 	);
 };

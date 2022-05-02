@@ -1,17 +1,22 @@
 import { NextPage } from 'next';
 import Image from 'next/image';
 
-// components
-import ProductList from 'components/website/product-search/product-list';
+// Third party packages
+import { useKeenSlider } from 'keen-slider/react';
 
-// data
+// components
+
 import CompareProductList from 'components/website/compare/compare-bottom-overlay/compare-overlay-product-list';
 import MainCategoryCard from 'components/website/product-search/main-category-card';
 import ProductFilter from 'components/website/product-search/product-filter/product-filter';
+import ProductList from 'components/website/product-search/product-list';
 import SubCategoryList from 'components/website/product-search/sub-category-list';
-import SubCategoryTile from 'components/website/product-search/sub-category-tile';
+
+// data
 import { subCategories } from 'data/product-search/sub-category';
-import Slider from 'react-slick';
+
+// stores
+import SubCategoryTile from 'components/website/product-search/sub-category-tile';
 import { useProductStore } from 'store/product-store';
 
 const ProductSearchPage: NextPage = (props) => {
@@ -21,6 +26,14 @@ const ProductSearchPage: NextPage = (props) => {
 		removeProductFromCompareList,
 		removeAllProductFromCompareList
 	} = useProductStore();
+
+	const [ref] = useKeenSlider<HTMLDivElement>({
+		loop: true,
+		slides: {
+			perView: 2,
+			spacing: 8
+		}
+	});
 
 	const compareProducts = products.filter(
 		(product) => product.isInCompareList
@@ -72,7 +85,20 @@ const ProductSearchPage: NextPage = (props) => {
 
 							{/* For small screen only */}
 							<div className="px-2 py-4 md:hidden">
-								<Slider
+								<div ref={ref} className="keen-slider">
+									{subCategories.map((subCategory) => (
+										<div
+											key={subCategory.name}
+											className="keen-slider__slide"
+										>
+											<SubCategoryTile
+												imageUrl={subCategory.imageUrl}
+												title={subCategory.name}
+											/>
+										</div>
+									))}
+								</div>
+								{/* <Slider
 									{...{
 										infinite: true,
 										speed: 500,
@@ -88,7 +114,7 @@ const ProductSearchPage: NextPage = (props) => {
 											/>
 										</div>
 									))}
-								</Slider>
+								</Slider> */}
 							</div>
 						</div>
 					</div>

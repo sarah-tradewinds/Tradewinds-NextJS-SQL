@@ -1,7 +1,10 @@
+import { useKeenSlider } from 'keen-slider/react';
 import Image from 'next/image';
 import { MdOutlineClose } from 'react-icons/md';
-import Slider from 'react-slick';
 import ThumbnailList from './thumbnail-list';
+
+// styles
+import 'keen-slider/keen-slider.min.css';
 
 interface ImageContainerProps {
 	imageUrl: string;
@@ -16,6 +19,14 @@ interface ImageContainerProps {
 const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 	const { imageUrl, alt, thumbnails, className } = props;
 
+	const [ref] = useKeenSlider<HTMLDivElement>({
+		loop: true,
+		slides: {
+			perView: 4,
+			spacing: 8
+		}
+	});
+
 	return (
 		<div className={className}>
 			{/* Main Image */}
@@ -29,7 +40,7 @@ const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 
 			{/* Thumbnails Slider only for small and medium screen */}
 			<div className="relative hidden md:block lg:hidden">
-				<Slider
+				{/* <Slider
 					{...{
 						slidesToShow: 5
 					}}
@@ -46,7 +57,23 @@ const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 							/>
 						</div>
 					))}
-				</Slider>
+				</Slider> */}
+				<div ref={ref} className="keen-slider">
+					{thumbnails.map((thumbnail) => (
+						<div
+							key={thumbnail.imageUrl}
+							className="keen-slider__slide"
+						>
+							<div className="relative h-[136px] w-full">
+								<Image
+									src={thumbnail.imageUrl}
+									alt={thumbnail.alt}
+									layout="fill"
+								/>
+							</div>
+						</div>
+					))}
+				</div>
 				<div className="absolute top-0 h-[120px] w-[94px] bg-white/80"></div>
 				<div className="absolute top-0 right-0 h-[120px] w-[94px] bg-white/80"></div>
 			</div>

@@ -4,14 +4,14 @@ import CategorySubCategoriesSection from 'components/website/home/category-sub-c
 import CountrySlider from 'components/website/home/country-slider';
 import Hero from 'components/website/home/hero';
 import {
-  AgriData,
-  apparelData,
-  beautyData,
-  countries,
-  fabricData,
-  fashionData,
-  healthData,
-  HeroCarouselData
+	AgriData,
+	apparelData,
+	beautyData,
+	countries,
+	fabricData,
+	fashionData,
+	healthData,
+	HeroCarouselData
 } from 'data/home';
 import { CatSubCatSectionType, HeroCarouselType } from 'types/home';
 
@@ -22,8 +22,8 @@ type Props = {
 
 const Home = ({ heroCarouselData, agriData }: Props) => {
 	const searchCategoriesBanner = (
-		<div className="flex items-center justify-center bg-accent-primary-main p-4 text-white dark:bg-accent-primary-eco md:p-8 lg:p-14">
-			<h3 className="text-[21px] leading-[26px] md:mr-8 md:text-[48px] md:leading-[44px] lg:whitespace-nowrap lg:text-[72px]">
+		<div className="flex items-center justify-center bg-accent-primary-main p-4 text-white dark:bg-accent-primary-eco md:p-8 xl:p-14">
+			<h3 className="text-[21px] leading-[26px] md:mr-8 md:text-[48px] md:leading-[44px] lg:whitespace-nowrap xl:text-[72px]">
 				Search from 6,500 categories
 			</h3>
 			<Button variant="special" className="whitespace-nowrap !px-4">
