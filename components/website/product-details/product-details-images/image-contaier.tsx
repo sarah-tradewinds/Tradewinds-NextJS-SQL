@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { MdOutlineClose } from 'react-icons/md';
 import Slider from 'react-slick';
 import ThumbnailList from './thumbnail-list';
 
@@ -18,12 +19,16 @@ const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 	return (
 		<div className={className}>
 			{/* Main Image */}
-			<div className="relative h-[475px] w-full">
+			<div className="relative h-[211px] w-full md:h-[475px]">
 				<Image src={imageUrl} alt={alt} layout="fill" />
+
+				<button className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-primary-eco !p-0 md:hidden">
+					<MdOutlineClose className="text-[24px] font-bold text-white" />
+				</button>
 			</div>
 
 			{/* Thumbnails Slider only for small and medium screen */}
-			<div className="relative lg:hidden">
+			<div className="relative hidden md:block lg:hidden">
 				<Slider
 					{...{
 						slidesToShow: 5

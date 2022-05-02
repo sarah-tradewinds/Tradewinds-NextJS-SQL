@@ -4,14 +4,18 @@ import CompanyProfileTab from './company-profile-tab';
 import ProductDetailsTab from './product-details-tab';
 import ReviewsDetailsTab from './product-reviews-details-tab';
 
-const ProductDetailsTabContainer: React.FC = (props) => {
+const ProductDetailsTabContainer: React.FC<{ className?: string }> = (
+	props
+) => {
+	const { className } = props;
+
 	const selectedClassName =
 		'font-semibold text-primary-main rounded-b-none rounded-t-md';
 	const unSelectedClassName =
 		'rounded-none rounded-t-md mb-2 text-[21px] font-normal text-gray';
 
 	return (
-		<div className="mx-8 rounded bg-white">
+		<div className={`mx-8 rounded bg-white ${className}`}>
 			<Tab.Group>
 				<Tab.List className="flex space-x-4 bg-gray/20">
 					<Tab
