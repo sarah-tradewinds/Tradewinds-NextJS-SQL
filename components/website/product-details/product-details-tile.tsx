@@ -38,14 +38,14 @@ const ProductDetailsTile: React.FC = (props) => {
 		<div className="grid grid-cols-12 gap-8 bg-white">
 			{/* Images container */}
 			<ImageContainer
-				className="col-span-12 md:first-letter:p-8 xl:col-span-5"
+				className="col-span-12 md:first-letter:p-8 lg:col-span-5"
 				imageUrl="/vehicles/yellow-tractor.png"
 				alt=""
 				thumbnails={thumbnails}
 			/>
 
 			{/* Product details */}
-			<div className="col-span-12 space-y-4 py-8 px-4 md:px-24 lg:p-8 xl:col-span-7">
+			<div className="col-span-12 space-y-4 py-8 px-4 md:px-24 lg:col-span-7 lg:p-8">
 				{/* Product name and sku info */}
 				<div className="flex items-center justify-between">
 					<h1 className="text-[18px] font-semibold text-primary-main lg:text-[30px]">
