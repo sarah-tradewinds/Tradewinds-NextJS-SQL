@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 interface CollapseProps {
 	isOpen?: boolean;
 	leading?: any;
@@ -26,12 +28,20 @@ const Collapse: React.FC<CollapseProps> = (props) => {
 		contentClassName
 	} = props;
 
+	const [isCollapse, setIsCollapse] = useState(false);
+
+	useEffect(() => {
+		if (isOpen === undefined) {
+			setIsCollapse((prevState) => !prevState);
+		}
+	}, [isOpen]);
+
 	const collapseHandler = () => {}; // End of collapseHandler
 
 	const transition = `transition-all duration-500`;
 	let childClassName = `h-0 overflow-hidden ${transition}`;
 
-	if (isOpen) {
+	if (isCollapse) {
 		childClassName = `${transition} h-auto`;
 	}
 

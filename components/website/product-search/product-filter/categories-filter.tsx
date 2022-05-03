@@ -2,148 +2,45 @@
 import { AiOutlinePlus } from 'react-icons/ai';
 
 // data
-import Collapse from 'components/website/common/collapse';
+import { Disclosure } from '@headlessui/react';
+import { categories } from 'data/home/mega-menu';
 
 const CategoriesFilter: React.FC = (props) => {
 	return (
-		<div>
-			<Collapse
-				isOpen={true}
-				contentClassName="ml-0 py-2 px-1"
-				leading={<AiOutlinePlus />}
-				title={
-					<span className="text-[15px] font-semibold">Agriculture</span>
-				}
-			>
-				<div className="ml-4">
-					<Collapse
-						contentClassName="ml-0 py-2 px-1"
-						leading={<AiOutlinePlus />}
-						title={
-							<span className=" text-[15px] font-semibold">
-								Agriculture Equipment
-							</span>
-						}
-					>
-						<div className="ml-4">
-							<Collapse
-								contentClassName="ml-0 py-2 px-1"
-								leading={<AiOutlinePlus />}
-								title={
+		<div className="mt-4 space-y-4">
+			{categories.map((category) => {
+				return (
+					<Disclosure key={category.name}>
+						{({ open }) => (
+							<>
+								<Disclosure.Button className="flex items-center space-x-2">
+									<AiOutlinePlus />
 									<span className="text-[15px] font-semibold">
-										Agricultural Greenhouses
+										{category.name}
 									</span>
-								}
-							></Collapse>
-						</div>
-					</Collapse>
-				</div>
-			</Collapse>
-			<Collapse
-				contentClassName="ml-0 py-2 px-1"
-				leading={<AiOutlinePlus />}
-				title="Agriculture"
-			>
-				<div className="ml-4">
-					<Collapse
-						contentClassName="ml-0 py-2 px-1"
-						leading={<AiOutlinePlus />}
-						title="Equipment"
-					>
-						<div className="ml-4">
-							<Collapse
-								contentClassName="ml-0 py-2 px-1"
-								leading={<AiOutlinePlus />}
-								title="Agriculture"
-							></Collapse>
-						</div>
-					</Collapse>
-				</div>
-			</Collapse>
-			<Collapse
-				contentClassName="ml-0 py-2 px-1"
-				leading={<AiOutlinePlus />}
-				title="Agriculture"
-			>
-				<div className="ml-4">
-					<Collapse
-						contentClassName="ml-0 py-2 px-1"
-						leading={<AiOutlinePlus />}
-						title="Equipment"
-					>
-						<div className="ml-4">
-							<Collapse
-								contentClassName="ml-0 py-2 px-1"
-								leading={<AiOutlinePlus />}
-								title="Agriculture"
-							></Collapse>
-						</div>
-					</Collapse>
-				</div>
-			</Collapse>
-			<Collapse
-				contentClassName="ml-0 py-2 px-1"
-				leading={<AiOutlinePlus />}
-				title="Agriculture"
-			>
-				<div className="ml-4">
-					<Collapse
-						contentClassName="ml-0 py-2 px-1"
-						leading={<AiOutlinePlus />}
-						title="Equipment"
-					>
-						<div className="ml-4">
-							<Collapse
-								contentClassName="ml-0 py-2 px-1"
-								leading={<AiOutlinePlus />}
-								title="Agriculture"
-							></Collapse>
-						</div>
-					</Collapse>
-				</div>
-			</Collapse>
-			<Collapse
-				contentClassName="ml-0 py-2 px-1"
-				leading={<AiOutlinePlus />}
-				title="Agriculture"
-			>
-				<div className="ml-4">
-					<Collapse
-						contentClassName="ml-0 py-2 px-1"
-						leading={<AiOutlinePlus />}
-						title="Equipment"
-					>
-						<div className="ml-4">
-							<Collapse
-								contentClassName="ml-0 py-2 px-1"
-								leading={<AiOutlinePlus />}
-								title="Agriculture"
-							></Collapse>
-						</div>
-					</Collapse>
-				</div>
-			</Collapse>
-			<Collapse
-				contentClassName="ml-0 py-2 px-1"
-				leading={<AiOutlinePlus />}
-				title="Agriculture"
-			>
-				<div className="ml-4">
-					<Collapse
-						contentClassName="ml-0 py-2 px-1"
-						leading={<AiOutlinePlus />}
-						title="Equipment"
-					>
-						<div className="ml-4">
-							<Collapse
-								contentClassName="ml-0 py-2 px-1"
-								leading={<AiOutlinePlus />}
-								title="Agriculture"
-							></Collapse>
-						</div>
-					</Collapse>
-				</div>
-			</Collapse>
+								</Disclosure.Button>
+								<Disclosure.Panel className="text-gray-500 px-4 text-sm">
+									<Disclosure>
+										{({ open }) => (
+											<>
+												<Disclosure.Button className="flex items-center space-x-2">
+													<AiOutlinePlus />
+													<span className="text-[15px] font-semibold">
+														Agriculture
+													</span>
+												</Disclosure.Button>
+												<Disclosure.Panel className="ml-5 mt-4 text-[15px] font-semibold">
+													Agriculture
+												</Disclosure.Panel>
+											</>
+										)}
+									</Disclosure>
+								</Disclosure.Panel>
+							</>
+						)}
+					</Disclosure>
+				);
+			})}
 		</div>
 	);
 };
