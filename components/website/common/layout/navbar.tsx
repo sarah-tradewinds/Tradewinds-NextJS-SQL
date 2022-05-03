@@ -2,7 +2,7 @@ import { Popover, Transition } from '@headlessui/react';
 import MegaMenu from 'components/website/home/common/mega-menu/mega-menu';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import {
 	HiOutlineMenuAlt1,
 	HiOutlineSearch,
@@ -15,6 +15,7 @@ import { useAuthStore } from 'store/auth';
 
 const Header: React.FC = () => {
 	const [isOpen, setIsOpen] = useState(false);
+	const buttonRef = useRef(null); // useRef<HTMLButtonElement>(null)
 
 	const authStore = useAuthStore();
 
@@ -24,6 +25,29 @@ const Header: React.FC = () => {
 
 	const drawerHandler = () => {
 		setIsOpen((pevState) => !pevState);
+	};
+
+	const onHover = (
+		isOpen: boolean,
+		action: 'onMouseEnter' | 'onMouseLeave',
+		location: 'button' | 'menu'
+	) => {
+		if (
+			!isOpen &&
+			action === 'onMouseEnter'
+			// || (isOpen && action === 'onMouseLeave')
+		) {
+			(buttonRef?.current as any)?.click();
+		}
+
+		if (
+			isOpen &&
+			action === 'onMouseLeave' &&
+			location === 'menu'
+			// || (isOpen && action === 'onMouseLeave')
+		) {
+			(buttonRef?.current as any)?.click();
+		}
 	};
 
 	return (
@@ -101,22 +125,44 @@ const Header: React.FC = () => {
         "
 				>
 					<Popover className="relative hidden md:inline-block">
-						<Popover.Button className="font-semibold text-primary-main dark:text-accent-secondary-eco">
-							Categories <span className="hidden md:inline">&gt;</span>
-						</Popover.Button>
+						{({ open }) => (
+							<>
+								<Popover.Button
+									ref={buttonRef}
+									onMouseEnter={() =>
+										onHover(open, 'onMouseEnter', 'button')
+									}
+									onMouseLeave={() =>
+										onHover(open, 'onMouseLeave', 'button')
+									}
+									className="font-semibold text-primary-main outline-none dark:text-accent-secondary-eco"
+								>
+									Categories{' '}
+									<span className="hidden md:inline">&gt;</span>
+								</Popover.Button>
 
-						<Transition
-							enter="transition duration-100 ease-out"
-							enterFrom="transform scale-95 opacity-0"
-							enterTo="transform scale-100 opacity-100"
-							leave="transition duration-75 ease-out"
-							leaveFrom="transform scale-100 opacity-100"
-							leaveTo="transform scale-95 opacity-0"
-						>
-							<Popover.Panel className="fixed left-0 right-0 z-10 mt-2">
-								<MegaMenu />
-							</Popover.Panel>
-						</Transition>
+								<Transition
+									enter="transition duration-100 ease-out"
+									enterFrom="transform scale-95 opacity-0"
+									enterTo="transform scale-100 opacity-100"
+									leave="transition duration-75 ease-out"
+									leaveFrom="transform scale-100 opacity-100"
+									leaveTo="transform scale-95 opacity-0"
+								>
+									<Popover.Panel
+										className="fixed left-0 right-0 z-10 mt-2"
+										onMouseEnter={() =>
+											onHover(open, 'onMouseEnter', 'menu')
+										}
+										onMouseLeave={() =>
+											onHover(open, 'onMouseLeave', 'menu')
+										}
+									>
+										<MegaMenu />
+									</Popover.Panel>
+								</Transition>
+							</>
+						)}
 					</Popover>
 
 					<nav className="flex cursor-pointer flex-col items-start justify-start md:flex-row md:divide-x">
