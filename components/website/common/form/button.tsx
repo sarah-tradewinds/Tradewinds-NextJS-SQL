@@ -4,7 +4,7 @@ interface ButtonProps {
 	variant?: 'buyer' | 'product' | 'special' | 'eco-2nd-product';
 	className?: string;
 	href?: string;
-	onClick?: () => any;
+	onClick?: (event: any) => any;
 }
 
 const Button: React.FC<ButtonProps> = (props) => {
