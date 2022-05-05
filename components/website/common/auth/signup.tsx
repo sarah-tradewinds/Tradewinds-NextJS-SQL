@@ -35,6 +35,8 @@ const SignUp: React.FC = () => {
 	const [error, setError] = useState<any>({});
 	const { isSignUpOpen, setIsSignUpOpen } = useAuthStore();
 	const [loading, setLoading] = useState(false);
+	const regPassword =
+		/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
 	const router = useRouter();
 	const [signupResult, setSignupResult] = useState({
 		message: '',
@@ -47,9 +49,7 @@ const SignUp: React.FC = () => {
 		'last_name',
 		'country',
 		'email',
-		'phoneNumber',
-		'password',
-		'confirm_password'
+		'phoneNumber'
 	];
 
 	const [signupData, setSignupData] = useState<any>({
@@ -85,6 +85,7 @@ const SignUp: React.FC = () => {
 			signupDone: false
 		});
 		await validateData();
+		await validatePassword();
 
 		if ((error as any)?.hasError || Object.keys(error).length > 0) {
 			return false;
@@ -172,8 +173,9 @@ const SignUp: React.FC = () => {
 
 			if (
 				field === 'phoneNumber' &&
-				// (signupData[field] === null || signupData[field] === 0 || signupData?[field].toString().length < 10)
-				signupData[field] //|| (signupData?[field] ? signupData?[field].toString().length : 0) < 10
+				(signupData[field] === null ||
+					signupData[field] === 0 ||
+					signupData[field].toString().length < 10)
 			) {
 				error[field] = true;
 				errorFound = true;
@@ -191,6 +193,51 @@ const SignUp: React.FC = () => {
 
 		if (errorFound) setError({ ...error, hasError: true });
 	};
+
+	const validatePassword = () => {
+		setError({
+			...error,
+			password: ''
+		});
+
+		if (!(signupData?.password && signupData?.confirm_password)) {
+			setError({ ...error, password: 'Please enter both password' });
+			return false;
+		}
+		if (signupData?.password !== signupData?.confirm_password) {
+			setError({ ...error, password: 'Password do not match' });
+			return false;
+		}
+		if (signupData?.password?.length < 8) {
+			setError({
+				...error,
+				password: 'Password should be at least 8 characters long'
+			});
+			return false;
+		}
+
+		if (!regPassword.test(signupData?.password)) {
+			setError({
+				...error,
+				password: 'Password policy is not followed'
+			});
+
+			return false;
+		}
+
+		if (!regPassword.test(signupData?.confirm_password)) {
+			setError({
+				...error,
+				confirm_password: 'Password policy is not followed'
+			});
+
+			return false;
+		}
+
+		return true;
+	};
+
+	console.log('signupData', signupData, error);
 
 	return (
 		<Modal
@@ -321,7 +368,7 @@ const SignUp: React.FC = () => {
 									/>
 									{error?.password && (
 										<span className={`text-[12px] text-[red]`}>
-											Please enter password
+											{error?.password}
 										</span>
 									)}
 									<Input
@@ -331,7 +378,7 @@ const SignUp: React.FC = () => {
 										icon={<HiSparkles />}
 										required={true}
 										className="w-full"
-										invalid={error?.confirm_password}
+										invalid={error?.password}
 										onChange={(
 											e: React.FormEvent<HTMLInputElement>
 										) => {
@@ -342,6 +389,11 @@ const SignUp: React.FC = () => {
 											);
 										}}
 									/>
+									{error?.confirm_password && (
+										<span className={`text-[12px] text-[red]`}>
+											{error?.confirm_password}
+										</span>
+									)}
 									<div className="mx-4 space-y-4 text-gray">
 										<div className="flex space-x-2">
 											<Input
