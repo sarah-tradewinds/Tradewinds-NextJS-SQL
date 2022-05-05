@@ -91,22 +91,11 @@ const SignUp: React.FC = () => {
 			return false;
 		}
 
-		// const requestOptions = {
-		// 	method: 'POST',
-		// 	headers: { 'Content-Type': 'application/json' },
-		// 	body: JSON.stringify(signupData)
-		// };
-
 		setLoading(true);
 
 		await userSignup(signupData)
-			// .then((response) => {
-			// 	console.log('response', response);
-			// 	return response ? response.json() : {};
-			// 	// return {};
-			// })
 			.then((res) => {
-				console.log('data response', res);
+				// console.log('data response', res);
 				if (res.status === 200)
 					setSignupResult({
 						message: 'User created',
@@ -129,40 +118,6 @@ const SignUp: React.FC = () => {
 				});
 				setLoading(false);
 			});
-
-		// await fetch(
-		// 	'https://tradewinds-dev.eastus.cloudapp.azure.com/api/v1/user',
-		// 	requestOptions
-		// )
-		// 	.then((response) => {
-		// 		console.log('response', response);
-		// 		return response ? response.json() : {};
-		// 		// return {};
-		// 	})
-		// 	.then((data) => {
-		// 		console.log('data response', data);
-		// 		if (data.status === 200)
-		// 			setSignupResult({
-		// 				message: 'User created',
-		// 				result: true,
-		// 				signupDone: true
-		// 			});
-		// 		else
-		// 			setSignupResult({
-		// 				message: data.error,
-		// 				result: false,
-		// 				signupDone: true
-		// 			});
-		// 		setLoading(false);
-		// 	})
-		// 	.catch((err) => {
-		// 		setSignupResult({
-		// 			message: `Error: ${err.message}`,
-		// 			result: false,
-		// 			signupDone: true
-		// 		});
-		// 		setLoading(false);
-		// 	});
 	};
 
 	const validateData = () => {
@@ -236,8 +191,6 @@ const SignUp: React.FC = () => {
 
 		return true;
 	};
-
-	console.log('signupData', signupData, error);
 
 	return (
 		<Modal
