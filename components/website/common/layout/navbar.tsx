@@ -2,7 +2,7 @@ import { Popover, Transition } from '@headlessui/react';
 import MegaMenu from 'components/website/home/common/mega-menu/mega-menu';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
 	HiOutlineMenuAlt1,
 	HiOutlineSearch,
@@ -11,48 +11,48 @@ import {
 } from 'react-icons/hi';
 
 // stores
+import { useRouter } from 'next/router';
+import {
+	AiOutlineDashboard,
+	AiOutlineShoppingCart
+} from 'react-icons/ai';
+import { BiMessageDetail } from 'react-icons/bi';
+import { FiLogOut } from 'react-icons/fi';
 import { useAuthStore } from 'store/auth';
 
-const Header: React.FC = () => {
-	const [isOpen, setIsOpen] = useState(false);
-	const buttonRef = useRef(null); // useRef<HTMLButtonElement>(null)
-
+const Header = () => {
 	const authStore = useAuthStore();
+	const [isOpen, setIsOpen] = useState(false);
+	const router = useRouter();
+	const [showLogout, setShowLogout] = useState(false);
+	const [userData, setUserData] = useState({
+		userId: '',
+		firstName: '',
+		lastName: ''
+	});
 
 	let classes = `bg-white dark:bg-accent-primary-eco md:bg-bg-main sm:h-[40px] h-[100vh] w-[60%] sm:w-full sm:grid sm:place-items-center sm:relative absolute opacity-100 transition-all ease-in-out duration-300 ${
 		!isOpen ? 'pc:w-0 pc:opacity-0 pc: overflow-hidden' : ''
 	}`;
 
+	useEffect(() => {
+		setUserData({
+			firstName: localStorage.getItem('tw-firstName') || '',
+			lastName: localStorage.getItem('tw-lastName') || '',
+			userId: localStorage.getItem('tw-userId') || ''
+		});
+	}, []);
+
 	const drawerHandler = () => {
 		setIsOpen((pevState) => !pevState);
 	};
 
-	const onHover = (
-		isOpen: boolean,
-		action: 'onMouseEnter' | 'onMouseLeave',
-		location: 'button' | 'menu'
-	) => {
-		if (
-			!isOpen &&
-			action === 'onMouseEnter'
-			// || (isOpen && action === 'onMouseLeave')
-		) {
-			(buttonRef?.current as any)?.click();
-		}
-
-		if (
-			isOpen &&
-			action === 'onMouseLeave' &&
-			location === 'menu'
-			// || (isOpen && action === 'onMouseLeave')
-		) {
-			(buttonRef?.current as any)?.click();
-		}
-	};
-
 	return (
 		<header className="sticky top-0 z-[1000] w-full bg-primary-main dark:bg-primary-eco">
-			<div className="mx-auto flex h-[50px] w-[96%] items-center justify-between sm:h-[80px]">
+			<div
+				className="mx-auto flex h-[50px] w-[96%] items-center justify-between sm:h-[80px]"
+				onClick={() => setShowLogout(false)}
+			>
 				<button
 					type="button"
 					className="flex sm:hidden"
@@ -95,22 +95,65 @@ const Header: React.FC = () => {
 					<HiOutlineSearch className="h-6 w-[16%] cursor-pointer text-center text-white xl:w-[4%]" />
 				</label>
 
-				<div className="hidden items-center justify-center gap-4 sm:flex">
-					<button
-						type="button"
-						className="rounded-sm border-[1px] bg-transparent px-5 py-2 text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary"
-						onClick={authStore.setIsSignUpOpen}
-					>
-						Sign Up
-					</button>
-					<button
-						type="button"
-						className="rounded-sm border-[1px] border-secondary bg-secondary px-5 py-2 text-white transition duration-300 ease-in-out hover:border-white hover:bg-transparent"
-						onClick={authStore.setIsLoginOpen}
-					>
-						Log In
-					</button>
-				</div>
+				{userData?.userId ? (
+					<div className="hidden items-center justify-center gap-1 sm:flex">
+						<div className="rounded-sm bg-transparent px-5 py-2 text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-[#033e6b]">
+							<div className="flex items-center justify-center text-center">
+								<AiOutlineShoppingCart size={35} />
+							</div>
+							<div
+								className="w-[100%]"
+								onMouseEnter={() => setShowLogout(true)}
+							>
+								{`Hi, ${userData?.firstName}`}
+							</div>
+
+							{showLogout && (
+								<div className="text-gray-700 absolute z-50 mt-3 inline-block w-[200px] bg-[#00AEEF] p-2 pt-3 hover:bg-[#057fac]">
+									<div
+										className="flex cursor-pointer"
+										onClick={() => {
+											localStorage.removeItem('tw-userId');
+											setShowLogout(false);
+											router.reload();
+										}}
+									>
+										<FiLogOut size={20} className="mr-2" /> Logout
+									</div>
+								</div>
+							)}
+						</div>
+						<div className=" items-center justify-center rounded-sm bg-transparent bg-[#00AEEF] px-5 py-2 text-center text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary">
+							<div className="flex  items-center justify-center text-center">
+								<AiOutlineDashboard size={35} />
+							</div>
+							<div className="w-[100%]">Dashboard</div>
+						</div>
+						<div className=" items-center justify-center rounded-sm  bg-secondary px-5 py-2 text-center text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08]">
+							<div className="flex  items-center justify-center text-center">
+								<BiMessageDetail size={35} />
+							</div>
+							<div className="w-[100%]">Submit RFQ</div>
+						</div>
+					</div>
+				) : (
+					<div className="hidden items-center justify-center gap-4 sm:flex">
+						<button
+							type="button"
+							className="rounded-sm border-[1px] bg-transparent px-5 py-2 text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary"
+							onClick={authStore.setIsSignUpOpen}
+						>
+							Sign Up
+						</button>
+						<button
+							type="button"
+							className="rounded-sm border-[1px] border-secondary bg-secondary px-5 py-2 text-white transition duration-300 ease-in-out hover:border-white hover:bg-transparent"
+							onClick={authStore.setIsLoginOpen}
+						>
+							Log In
+						</button>
+					</div>
+				)}
 
 				{/* Mobile Right Side Icons */}
 				<div className="flex gap-3 sm:hidden">
@@ -125,51 +168,28 @@ const Header: React.FC = () => {
         "
 				>
 					<Popover className="relative hidden md:inline-block">
-						{({ open }) => (
-							<>
-								<Popover.Button
-									ref={buttonRef}
-									onMouseEnter={() =>
-										onHover(open, 'onMouseEnter', 'button')
-									}
-									onMouseLeave={() =>
-										onHover(open, 'onMouseLeave', 'button')
-									}
-									className="font-semibold text-primary-main outline-none dark:text-accent-secondary-eco"
-								>
-									Categories{' '}
-									<span className="hidden md:inline">&gt;</span>
-								</Popover.Button>
+						<Popover.Button className="font-semibold text-primary-main dark:text-accent-secondary-eco">
+							Categories <span className="hidden md:inline">&gt;</span>
+						</Popover.Button>
 
-								<Transition
-									enter="transition duration-100 ease-out"
-									enterFrom="transform scale-95 opacity-0"
-									enterTo="transform scale-100 opacity-100"
-									leave="transition duration-75 ease-out"
-									leaveFrom="transform scale-100 opacity-100"
-									leaveTo="transform scale-95 opacity-0"
-								>
-									<Popover.Panel
-										className="fixed left-0 right-0 z-10 mt-2"
-										onMouseEnter={() =>
-											onHover(open, 'onMouseEnter', 'menu')
-										}
-										onMouseLeave={() =>
-											onHover(open, 'onMouseLeave', 'menu')
-										}
-									>
-										<MegaMenu />
-									</Popover.Panel>
-								</Transition>
-							</>
-						)}
+						<Transition
+							enter="transition duration-100 ease-out"
+							enterFrom="transform scale-95 opacity-0"
+							enterTo="transform scale-100 opacity-100"
+							leave="transition duration-75 ease-out"
+							leaveFrom="transform scale-100 opacity-100"
+							leaveTo="transform scale-95 opacity-0"
+						>
+							<Popover.Panel className="fixed left-0 right-0 z-10 mt-2">
+								<MegaMenu />
+							</Popover.Panel>
+						</Transition>
 					</Popover>
 
 					<nav className="flex cursor-pointer flex-col items-start justify-start md:flex-row md:divide-x">
 						<Link href="/eco">
 							<a
-								onClick={drawerHandler}
-								className="nav-link flex items-center gap-2 md:justify-center"
+								className="nav-link hidden items-center justify-center gap-2 md:flex"
 								id="bg-eco"
 							>
 								<Image
@@ -183,6 +203,15 @@ const Header: React.FC = () => {
 							</a>
 						</Link>
 
+						<Link href="/eco">
+							<a
+								className="nav-link md:hidden"
+								id="bg-eco"
+								onClick={drawerHandler}
+							>
+								Eco
+							</a>
+						</Link>
 						<Link href="/why-sell-on-tradewinds">
 							<a onClick={drawerHandler} className="nav-link">
 								Why Sell on TW?

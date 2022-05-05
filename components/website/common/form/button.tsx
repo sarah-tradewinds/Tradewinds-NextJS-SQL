@@ -5,10 +5,12 @@ interface ButtonProps {
 	className?: string;
 	href?: string;
 	onClick?: (event: any) => any;
+	disabled?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = (props) => {
-	const { variant, children, className, onClick, href } = props;
+	const { variant, children, className, onClick, href, disabled } =
+		props;
 
 	const buttonBaseClassName = `min-h-[40px] px-8 rounded-md text-sm font-semibold text-white tracking-wider`;
 
@@ -47,6 +49,7 @@ const Button: React.FC<ButtonProps> = (props) => {
 		<button
 			onClick={onClick}
 			className={`${buttonClassName} ${className}`}
+			disabled={disabled}
 		>
 			{children}
 		</button>
