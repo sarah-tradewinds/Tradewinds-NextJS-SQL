@@ -2,7 +2,7 @@ import { Popover, Transition } from '@headlessui/react';
 import MegaMenu from 'components/website/home/common/mega-menu/mega-menu';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
 	HiOutlineMenuAlt1,
 	HiOutlineSearch,
@@ -30,6 +30,7 @@ const Header = () => {
 		firstName: '',
 		lastName: ''
 	});
+	const buttonRef = useRef(null); // useRef<HTMLButtonElement>(null)
 
 	let classes = `bg-white dark:bg-accent-primary-eco md:bg-bg-main sm:h-[40px] h-[100vh] w-[60%] sm:w-full sm:grid sm:place-items-center sm:relative absolute opacity-100 transition-all ease-in-out duration-300 ${
 		!isOpen ? 'pc:w-0 pc:opacity-0 pc: overflow-hidden' : ''
