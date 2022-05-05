@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 interface CollapseProps {
 	isOpen?: boolean;
@@ -15,7 +15,7 @@ interface CollapseProps {
 
 const Collapse: React.FC<CollapseProps> = (props) => {
 	const {
-		isOpen,
+		// isOpen,
 		leading,
 		title,
 		subtitle,
@@ -28,20 +28,20 @@ const Collapse: React.FC<CollapseProps> = (props) => {
 		contentClassName
 	} = props;
 
-	const [isCollapse, setIsCollapse] = useState(false);
+	const [isOpen, setIsOpen] = useState(false);
 
-	useEffect(() => {
-		if (isOpen === undefined) {
-			setIsCollapse((prevState) => !prevState);
-		}
-	}, [isOpen]);
+	// useEffect(() => {
+	//  if (isOpen === undefined) {
+	//    setIsCollapse((prevState) => !prevState);
+	//  }
+	// }, [isOpen]);
 
 	const collapseHandler = () => {}; // End of collapseHandler
 
 	const transition = `transition-all duration-500`;
 	let childClassName = `h-0 overflow-hidden ${transition}`;
 
-	if (isCollapse) {
+	if (isOpen) {
 		childClassName = `${transition} h-auto`;
 	}
 
@@ -54,7 +54,16 @@ const Collapse: React.FC<CollapseProps> = (props) => {
 				} items-center`}
 				style={{ backgroundColor: collapseHeadBgHexColor }}
 			>
-				<div onClick={onLeadingClick}>{leading}</div>
+				<div
+					onClick={() => {
+						setIsOpen((prevState) => !prevState);
+						if (onLeadingClick) {
+							onLeadingClick();
+						}
+					}}
+				>
+					{leading}
+				</div>
 				<div
 					onClick={onContentClick}
 					className={`ml-4 p-2 ${contentClassName}`}

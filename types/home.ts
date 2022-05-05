@@ -1,7 +1,11 @@
 type HeroCarouselType = {
+	id?: string;
 	order: number;
-	img: string;
+	image: string;
 	link?: string;
+	title?: any;
+	description?: any;
+	action?: any;
 };
 
 type EcoCarouselType = {
@@ -10,6 +14,7 @@ type EcoCarouselType = {
 };
 
 type Category = {
+	id?: string;
 	title: string;
 	slug?: string;
 	image: string;
@@ -19,8 +24,9 @@ type Category = {
 };
 
 type subCategories = {
-	id: number;
+	id: string | number;
 	title: string;
+	slug?: string;
 	img: string;
 	clr: string;
 };

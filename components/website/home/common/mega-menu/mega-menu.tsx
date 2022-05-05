@@ -8,7 +8,8 @@ import {
 
 // data
 import { countries } from 'data/home';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import useSWR from 'swr';
 import { categories } from '../../../../../data/home/mega-menu';
 
 interface MegaMenuProps {
@@ -18,76 +19,97 @@ interface MegaMenuProps {
 const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 	const { className } = props;
 
-	const [selectedCategory, setSelectedCategory] = useState({
-		slug: '' || categories[0].slug,
-		subCategory: categories[0].subCategory || []
+	const { data } = useSWR('/categories?page=1&limit=100');
+
+	const mainCategories = data?.data;
+
+	const [selectedMainCategory, setSelectedMainCategory] = useState({
+		slug: '',
+		categories: []
 	});
+
+	useEffect(() => {
+		if (mainCategories) {
+			setSelectedMainCategory({
+				slug: '' || mainCategories[0]?.slug,
+				categories: mainCategories[0]?.category || []
+			});
+		}
+	}, [mainCategories]);
 
 	const megaMenuClassName = `grid grid-cols-12 border bg-white text-sm text-gray h-[440px] shadow-lg overflow-y-auto ${className}`;
 
 	return (
 		<div className={megaMenuClassName}>
-			{/* Main Categories */}
-			<ul className="col-span-2 space-y-4 border-l border-r-2 border-r-gray/40 py-4  pl-4 shadow-lg">
-				{categories.map((category: any) => {
-					const { slug } = category;
+			{!data ? <p>Loading...</p> : ''}
 
-					const isSelected = slug === selectedCategory.slug;
+			{mainCategories && (
+				<>
+					{/* Main Categories */}
+					<ul className="col-span-2 space-y-4 border-l border-r-2 border-r-gray/40 py-4  pl-4 shadow-lg">
+						{mainCategories.map((mainCategory: any) => {
+							const { slug } = mainCategory;
 
-					return (
-						<li
-							key={slug}
-							className={`flex cursor-pointer justify-between hover:text-primary-main ${
-								isSelected ? ' text-primary-main' : ''
-							}`}
-							onClick={() =>
-								setSelectedCategory({
-									slug: slug,
-									subCategory: category.subCategory
-								})
-							}
-						>
-							<span>{category.name}</span>
-							<span className="hover: text-2xl hover:text-primary-main">
-								{isSelected ? (
-									<MdKeyboardArrowDown className="font-semibold" />
-								) : (
-									<MdKeyboardArrowRight />
-								)}
-							</span>
-						</li>
-					);
-				})}
-			</ul>
+							const isSelected = slug === selectedMainCategory.slug;
 
-			{/* Sub and Sub-Sub Categories */}
-			<ul className="col-span-4 h-full columns-2 px-4 pb-2">
-				{selectedCategory.subCategory &&
-					selectedCategory.subCategory.map((subCategory) => {
-						const { subSubCategory } = subCategory;
+							return (
+								<li
+									key={slug}
+									className={`flex cursor-pointer justify-between hover:text-primary-main ${
+										isSelected ? ' text-primary-main' : ''
+									}`}
+									onClick={() =>
+										setSelectedMainCategory({
+											slug: slug,
+											categories: mainCategory.category
+										})
+									}
+								>
+									<span>{mainCategory.title?.en}</span>
+									<span className="hover: text-2xl hover:text-primary-main">
+										{isSelected ? (
+											<MdKeyboardArrowDown className="font-semibold" />
+										) : (
+											<MdKeyboardArrowRight />
+										)}
+									</span>
+								</li>
+							);
+						})}
+					</ul>
 
-						return (
-							<li
-								key={subCategory.slug}
-								className="cursor-pointer border-r border-dashed border-r-gray/40 py-4"
-								onClick={() => {}}
-							>
-								<p className="pb-2 font-semibold">{subCategory.name}</p>
+					{/* Sub and Sub-Sub Categories */}
+					<ul className="col-span-4 h-full columns-2 px-4 pb-2">
+						{selectedMainCategory.categories &&
+							selectedMainCategory.categories.map((category: any) => {
+								const { subCategory } = category;
+								const subCategories = subCategory || [];
+								return (
+									<li
+										key={category.slug}
+										className="cursor-pointer border-r border-dashed border-r-gray/40 py-4"
+										onClick={() => {}}
+									>
+										<p className="pb-2 font-semibold">
+											{category.title?.en}
+										</p>
 
-								<ul>
-									{subSubCategory.map((subSubCategory) => (
-										<li
-											key={subSubCategory.slug}
-											className="cursor-pointer pb-2"
-										>
-											{subSubCategory.name}
-										</li>
-									))}
-								</ul>
-							</li>
-						);
-					})}
-			</ul>
+										<ul>
+											{subCategories.map((subCategory: any) => (
+												<li
+													key={subCategory.slug}
+													className="cursor-pointer pb-2"
+												>
+													{subCategory.title?.en}
+												</li>
+											))}
+										</ul>
+									</li>
+								);
+							})}
+					</ul>
+				</>
+			)}
 
 			{/* Others */}
 			<div className="col-span-2 space-y-4 border-r border-r-gray/40 p-4">

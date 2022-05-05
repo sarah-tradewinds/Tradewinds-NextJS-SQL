@@ -50,7 +50,7 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 						className="keen-slider__slide h-[80px] w-[180px] px-4"
 					>
 						<Image
-							src={country.imageUrl}
+							src={country.imageUrl || '/flags/frame.png'}
 							alt=""
 							width={180}
 							height={80}

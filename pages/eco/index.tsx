@@ -3,16 +3,23 @@ import AddBanner from 'components/website/home/ads-banner';
 import CategorySubCategoriesSection from 'components/website/home/category-sub-categories-section';
 import CountrySlider from 'components/website/home/country-slider';
 import Hero from 'components/website/home/hero';
+
+import { countries } from 'data/home';
+
+// lib
 import {
-  AgriData,
-  apparelData,
-  beautyData,
-  countries,
-  fabricData,
-  fashionData,
-  healthData,
-  HeroCarouselData
-} from 'data/home';
+	getCardAList,
+	getCardB,
+	getHeroCarousels,
+	getHomeCategories,
+	getHomeCountries
+} from 'lib/home.lib';
+import {
+	GetStaticProps,
+	InferGetStaticPropsType,
+	NextPage
+} from 'next';
+
 import { useEffect } from 'react';
 import { useHomeStore } from 'store/home';
 import { CatSubCatSectionType, HeroCarouselType } from 'types/home';
@@ -22,7 +29,17 @@ type Props = {
 	agriData: CatSubCatSectionType;
 };
 
-const Home = ({ heroCarouselData, agriData }: Props) => {
+const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
+	props
+) => {
+	const {
+		heroCarousels = [],
+		cardAList = [],
+		cardBData = {},
+		homeCategories = [],
+		homeCountries = []
+	} = props;
+
 	const setIsEco = useHomeStore(({ setIsEco }) => setIsEco);
 
 	useEffect(() => {
@@ -45,42 +62,37 @@ const Home = ({ heroCarouselData, agriData }: Props) => {
 
 	return (
 		<>
-			<Hero hcd={heroCarouselData} />
+			<Hero
+				hcd={heroCarousels}
+				cardAList={cardAList}
+				cardBData={cardBData}
+			/>
 
+			{/* Category and sub categories */}
 			<div className="mt-12 space-y-12 md:mt-0 md:space-y-8 md:px-4 lg:px-8">
-				{/* Agriculture Section  */}
-				<CategorySubCategoriesSection catSubCat={agriData} />
-				{/* Health Section */}
-				<CategorySubCategoriesSection
-					catSubCat={healthData}
-					isReverse={true}
-					applyBgColor={true}
-				/>
-				{/* Apparel Section */}
-				<CategorySubCategoriesSection catSubCat={apparelData} />
-			</div>
+				{homeCategories &&
+					homeCategories.map(
+						(homeCategory: CatSubCatSectionType, index: number) => {
+							const canIDisplayFlags = Math.floor(
+								homeCategories.length / 2
+							);
+							return (
+								<>
+									<CategorySubCategoriesSection
+										key={homeCategory.category.id}
+										catSubCat={homeCategory}
+									/>
 
-			{/*  Search Categories Banner */}
-			<div className="my-8 hidden md:block">
-				{searchCategoriesBanner}
-			</div>
-
-			<div className="mt-12 mb-8 space-y-12 md:mt-0 md:space-y-8 md:px-4 lg:px-8">
-				{/* Beauty and Personal care Section */}
-				<CategorySubCategoriesSection
-					catSubCat={beautyData}
-					isReverse={true}
-				/>
-				{/* Fashion Accessories Section */}
-				<CategorySubCategoriesSection
-					catSubCat={fashionData}
-					applyBgColor={true}
-				/>
-				{/* Fabric Section */}
-				<CategorySubCategoriesSection
-					catSubCat={fabricData}
-					isReverse={true}
-				/>
+									{/*  Search Categories Banner */}
+									{canIDisplayFlags === index && (
+										<div className="my-8 hidden md:block">
+											{searchCategoriesBanner}
+										</div>
+									)}
+								</>
+							);
+						}
+					)}
 			</div>
 
 			{/*  Search Categories Banner */}
@@ -96,14 +108,38 @@ const Home = ({ heroCarouselData, agriData }: Props) => {
 	);
 };
 
-export default Home;
+export default HomePage;
 
 // Static Props
-export const getStaticProps = async () => {
-	const heroCarouselData: HeroCarouselType[] = HeroCarouselData;
-	const agriData: CatSubCatSectionType = AgriData;
 
-	return {
-		props: { heroCarouselData, agriData }
-	};
+// Static Props
+export const getStaticProps: GetStaticProps = async () => {
+	try {
+		const heroCarousels = await getHeroCarousels();
+		const cardAList = await getCardAList();
+		const cardBData = await getCardB();
+		const homeCategories = await getHomeCategories();
+		const homeCountries = await getHomeCountries();
+
+		return {
+			props: {
+				heroCarousels,
+				cardAList,
+				cardBData,
+				homeCategories: homeCategories ?? [],
+				homeCountries
+			}
+		};
+	} catch (error) {
+		console.log((error as any).message);
+		return {
+			props: {
+				heroCarousels: [],
+				cardAList: [],
+				cardBData: {},
+				homeCategories: [],
+				homeCountries: []
+			}
+		};
+	}
 };
