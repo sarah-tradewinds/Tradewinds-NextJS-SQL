@@ -9,6 +9,7 @@ interface InputProps {
 	containerClassName?: string;
 	className?: string;
 	required?: boolean;
+	invalid?: boolean;
 }
 
 const Input: React.FC<InputProps> = (props) => {
@@ -22,10 +23,13 @@ const Input: React.FC<InputProps> = (props) => {
 		icon,
 		containerClassName,
 		className,
-		required
+		required,
+		invalid
 	} = props;
 
-	const inputClassName = `rounded-md border-2 border-accent-primary-main py-2 pl-8 pr-4 focus:outline-none ${className}`;
+	const inputClassName = `rounded-md border-2 py-2 pl-8 pr-4 focus:outline-none ${
+		invalid ? 'border-accent-error' : 'border-accent-primary-main'
+	} ${className}`;
 
 	return (
 		<div className={`relative ${containerClassName}`}>

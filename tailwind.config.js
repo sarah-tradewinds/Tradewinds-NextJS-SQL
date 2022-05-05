@@ -21,11 +21,15 @@ module.exports = {
 			'bg-eco': '#F9ECD7',
 			'primary-main': '#044E86',
 			'primary-eco': '#49590F',
+			error: '#f23030',
+			success: '#166b22',
 			secondary: '#F6AB33',
 			'accent-primary-eco': '#E0CAB0',
 			'accent-primary-main': '#00AEEF',
 			'accent-secondary-eco': '#712A10',
 			'accent-secondary-main': '#30B34A',
+			'accent-error': '#f23030',
+			'accent-success': '#166b22',
 			gray: '#575858',
 
 			// Onetime Colors
