@@ -38,7 +38,7 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 					</Link>
 
 					{/* TODO: Tmp */}
-					<div className="absolute top-16 left-4 w-[90%] space-y-2 bg-black/60 p-4 text-white md:left-16 md:top-40 md:w-auto">
+					<div className="absolute left-4 top-16 z-[4] w-[90%] space-y-2 bg-black/60 p-4 text-white md:left-16 md:top-40 md:w-auto">
 						<p className="text-[24px] font-semibold xl:text-[32px]">
 							{item.title?.en}
 						</p>
@@ -51,6 +51,8 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 							</Button>
 						</div>
 					</div>
+
+					<div className="absolute inset-0 z-[2] h-full w-full bg-gradient-to-t from-bg-main to-transparent"></div>
 				</div>
 			))}
 		</Slider>

@@ -15,8 +15,6 @@ const Index = ({ hcd, cardAList, cardBData }: Props) => {
 			<div className="absolute bottom-0 z-[3] md:bottom-16 lg:bottom-32 xl:bottom-16">
 				<CardWrapper cardAList={cardAList} cardBData={cardBData} />
 			</div>
-
-			<div className="absolute inset-0 z-[2] h-full w-full bg-gradient-to-t from-bg-main to-transparent"></div>
 		</section>
 	);
 };
