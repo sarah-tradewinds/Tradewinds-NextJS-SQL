@@ -7,7 +7,7 @@ export const getHeroCarousels = async () => {
 		);
 		return data.data || [];
 	} catch (error) {
-		console.log(error);
+		console.log('[getHeroCarousels] =', error);
 		const { data } = (error as any).response || {};
 		throw Error(data || 'Error occurred in getHeroCarousels');
 	}
@@ -21,6 +21,7 @@ export const getCardAList = async () => {
 
 		return data.data || [];
 	} catch (error) {
+		console.log('[getCardAList] =', error);
 		const { data } = (error as any).response || {};
 		throw Error(data || 'Error occurred getCardAList');
 	}
@@ -34,6 +35,7 @@ export const getCardB = async () => {
 
 		return data.data ? data.data[0] : {};
 	} catch (error) {
+		console.log('[getCardB] =', error);
 		const { data } = (error as any).response || {};
 		throw Error(data || 'Error occurred getCardB');
 	}
@@ -79,6 +81,7 @@ export const getHomeCategories = async () => {
 
 		return homeCategories || [];
 	} catch (error) {
+		console.log('[getHomeCategories] =', error);
 		const { data } = (error as any).response || {};
 		throw Error(data || 'Error occurred getHomeCategories');
 	}
@@ -92,6 +95,7 @@ export const getHomeCountries = async () => {
 
 		return data.data || [];
 	} catch (error) {
+		console.log('[getHomeCountries] =', error);
 		const { data } = (error as any).response || {};
 		throw Error(data || 'Error occurred getHomeCountries');
 	}
