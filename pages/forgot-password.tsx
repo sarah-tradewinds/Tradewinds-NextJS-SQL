@@ -5,11 +5,18 @@ import { useAuthStore } from 'store/auth';
 
 import { AiOutlineMail } from 'react-icons/ai';
 import { RiLockPasswordLine } from 'react-icons/ri';
-// https://tradewinds-dev-public.s3.us-east-2.amazonaws.com/index.html#/verify?verify_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFqYXkuc3NzaGFybWFAZ21haWwuY29tIiwiZXhwIjoxNjUxNTg0MDc1fQ.sj29JceE-8t6KRRu2oLPB_2ENJTO0SQnxB8PqEEyIks
+import {
+	forgetPasswordChange,
+	forgetPasswordGenerateLink
+} from '../components/website/common/auth/auth-services';
 
 const ForgotPassword = () => {
 	const authStore = useAuthStore();
 	const [email, setEmail] = useState('');
+	const [error, setError] = useState({ p1: '', p2: '' });
+	const [password, setPassword] = useState({ p1: '', p2: '' });
+	const regPassword =
+		/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
 	const [status, setStatus] = useState({
 		isDone: false,
 		isForgotEmailSent: false,
@@ -19,46 +26,10 @@ const ForgotPassword = () => {
 	const [loading, setLoading] = useState(false);
 	const router = useRouter();
 	const [token, setToken] = useState<string>('');
-	const [verifyStatus, setVerifyStatus] = useState({
-		isDone: false,
-		result: false,
-		message: ''
-	});
 
 	useEffect(() => {
 		setToken(router?.query?.verify_token as string);
 	}, [router.query]);
-
-	useEffect(() => {
-		return;
-		// if (token) {
-		// 	const requestOptions = {
-		// 		method: 'GET',
-		// 		headers: { 'Content-Type': 'application/json' }
-		// 	};
-
-		// 	fetch(
-		// 		`https://tradewinds-dev.eastus.cloudapp.azure.com/api/v1/verify_account?verify_token=${token}`,
-		// 		requestOptions
-		// 	)
-		// 		.then((response) => response.json())
-		// 		.then((data) => {
-		// 			if (data.message === 'Account verified, log in')
-		// 				setVerifyStatus({
-		// 					message: '',
-		// 					result: true,
-		// 					isDone: true
-		// 				});
-		// 			else
-		// 				setVerifyStatus({
-		// 					message: data.error,
-		// 					result: false,
-		// 					isDone: true
-		// 				});
-		// 			// setLoading(false);
-		// 		});
-		// }
-	}, [token]);
 
 	const isValidEmail = () => {
 		return email ? true : false;
@@ -70,26 +41,109 @@ const ForgotPassword = () => {
 		router.push('/');
 	};
 
-	const submitChangePassword = () => {
+	const submitChangePassword = async () => {
+		if (!validatePassword()) return;
+
 		setLoading(true);
-		setTimeout(() => {
+
+		const params = {
+			new_password: password.p1,
+			confirm_password: password.p2
+		};
+
+		await forgetPasswordChange(params, token).then((response) => {
+			console.log('response', response);
+			if (response.status === 200)
+				setStatus({
+					...status,
+					isDone: true,
+					message: response.message,
+					result: true
+				});
+			else
+				setStatus({
+					...status,
+					isDone: true,
+					result: false,
+					message: response.message
+				});
 			setLoading(false);
-			setStatus({ ...status, isDone: true, result: false });
-		}, 2000);
+		});
 	};
 
-	const submitPasswordResetRequest = () => {
+	const submitPasswordResetRequest = async () => {
+		if (!email) return;
 		setLoading(true);
-		setTimeout(() => {
-			setLoading(false);
-			setStatus({ ...status, isForgotEmailSent: true });
-		}, 2000);
+
+		await forgetPasswordGenerateLink({ email: email }).then(
+			(response) => {
+				console.log('response', response);
+				if (response.status === 200)
+					setStatus({
+						...status,
+						isForgotEmailSent: true
+					});
+				else
+					setStatus({
+						...status,
+						isForgotEmailSent: false,
+						message: response.message
+					});
+				setLoading(false);
+			}
+		);
+	};
+
+	const validatePassword = () => {
+		setError({
+			...error,
+			p1: '',
+			p2: ''
+		});
+
+		if (!(password?.p1 && password?.p2)) {
+			if (!password?.p1)
+				setError({ ...error, p1: 'Please enter both password' });
+			if (!password?.p2)
+				setError({ ...error, p2: 'Please enter both password' });
+			return false;
+		}
+		if (password?.p1 !== password?.p2) {
+			setError({ ...error, p2: 'Password do not match' });
+			return false;
+		}
+		if (password?.p1?.length < 8) {
+			setError({
+				...error,
+				p1: 'Password should be at least 8 characters long'
+			});
+			return false;
+		}
+
+		if (!regPassword.test(password?.p2)) {
+			setError({
+				...error,
+				p2: 'Password policy is not followed'
+			});
+
+			return false;
+		}
+
+		if (!regPassword.test(password?.p1)) {
+			setError({
+				...error,
+				p1: 'Password policy is not followed'
+			});
+
+			return false;
+		}
+
+		return true;
 	};
 
 	return (
 		<>
 			<div className="flex h-screen bg-primary-main">
-				{/* Invalid request without token */}
 				{!token && !status.isForgotEmailSent && (
 					<div className="border-primaryBorder shadow-default m-auto w-full max-w-md rounded-lg border bg-[#c7ecff] py-10 px-4">
 						<h1 className="mt-4 mb-4 text-center text-3xl font-bold">
@@ -106,10 +160,17 @@ const ForgotPassword = () => {
 							placeholder="Email*"
 							icon={<AiOutlineMail />}
 							className="w-full"
-							onChange={(e: React.FormEvent<HTMLInputElement>) =>
-								setEmail(e.currentTarget.value)
-							}
+							onChange={(e: React.FormEvent<HTMLInputElement>) => {
+								setEmail(e.currentTarget.value);
+								setStatus({ ...status, message: '' });
+							}}
 						/>
+
+						{status.message && !status.isForgotEmailSent && (
+							<div className=" mt-2 text-sm text-[red]">
+								{status.message}
+							</div>
+						)}
 
 						<button
 							className="mt-3 rounded border border-[green] bg-[green] py-2 px-4 text-sm hover:bg-opacity-75 focus:outline-none disabled:opacity-60 "
@@ -238,10 +299,24 @@ const ForgotPassword = () => {
 								placeholder="Enter new password*"
 								icon={<RiLockPasswordLine />}
 								className="w-full"
-								onChange={(e: React.FormEvent<HTMLInputElement>) =>
-									setEmail(e.currentTarget.value)
-								}
+								invalid={error.p1 ? true : false}
+								onChange={(e: React.FormEvent<HTMLInputElement>) => {
+									setPassword({
+										...password,
+										p1: e.currentTarget.value
+									});
+									setError({
+										...error,
+										p1: '',
+										p2: ''
+									});
+								}}
 							/>
+							{error?.p1 && (
+								<span className={`text-[12px] text-[red]`}>
+									{error?.p1}
+								</span>
+							)}
 
 							<Input
 								name="email"
@@ -249,19 +324,34 @@ const ForgotPassword = () => {
 								placeholder="Enter confirm password*"
 								icon={<RiLockPasswordLine />}
 								className="mt-2 w-full"
-								onChange={(e: React.FormEvent<HTMLInputElement>) =>
-									setEmail(e.currentTarget.value)
-								}
+								invalid={error.p2 ? true : false}
+								onChange={(e: React.FormEvent<HTMLInputElement>) => {
+									setPassword({
+										...password,
+										p2: e.currentTarget.value
+									});
+									setError({
+										...error,
+										p1: '',
+										p2: ''
+									});
+								}}
 							/>
-							<span className="text-[11px]">
+							{error?.p2 && (
+								<span className={`text-[12px] text-[red]`}>
+									{error?.p2}
+								</span>
+							)}
+
+							<p className="text-[11px]">
 								Your password must be 8-20 characters long and should
 								contain at least one special character, one uppercase
 								letter and one number.
-							</span>
+							</p>
 
 							<button
 								className="mt-3 rounded border border-[green] bg-[green] py-2 px-4 text-sm hover:bg-opacity-75 focus:outline-none disabled:opacity-60 "
-								disabled={(isValidEmail() ? false : true) || loading}
+								disabled={loading}
 								onClick={submitChangePassword}
 								type="button"
 							>

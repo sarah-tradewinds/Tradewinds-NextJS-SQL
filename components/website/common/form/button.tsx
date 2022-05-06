@@ -12,7 +12,7 @@ const Button: React.FC<ButtonProps> = (props) => {
 	const { variant, children, className, onClick, href, disabled } =
 		props;
 
-	const buttonBaseClassName = `min-h-[40px] px-8 rounded-md text-sm font-semibold text-white tracking-wider`;
+	const buttonBaseClassName = `min-h-[40px] px-8 rounded-md text-sm font-semibold text-white tracking-wider disabled:opacity-60`;
 
 	let buttonClassName = buttonBaseClassName;
 

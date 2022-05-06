@@ -7,6 +7,7 @@ import Button from 'components/website/common/form/button';
 import CompareProductTile from 'components/website/compare/compare-product.tile';
 import Specs from 'components/website/compare/specs/specs';
 import { specs1, specs2 } from 'data/specs';
+import { useKeenSlider } from 'keen-slider/react';
 import { useState } from 'react';
 import {
 	MdOutlineBookmarkBorder,
@@ -27,6 +28,19 @@ const ComparePage: NextPage = (props) => {
 		(product) => product.isInCompareList
 	);
 
+	const [ref] = useKeenSlider<HTMLDivElement>({
+		rtl: true,
+		slides: {
+			perView: 1,
+			spacing: 8
+		},
+		breakpoints: {
+			'(min-width: 768px)': {
+				slides: { perView: 3, spacing: 8 }
+			}
+		}
+	});
+
 	return (
 		<div className="rounded bg-white p-4">
 			<div>
@@ -46,10 +60,27 @@ const ComparePage: NextPage = (props) => {
 					</Button>
 				</div>
 
-				<div className="grid grid-cols-3 gap-4 divide-x-2 divide-gray/20 lg:grid-cols-4">
+				<div className="lg:hidden">
+					<div ref={ref} className="keen-slider">
+						{compareProducts.map((compareProduct) => {
+							const { id } = compareProduct;
+							return (
+								<div key={id} className="keen-slider__slide">
+									<CompareProductTile
+										{...compareProduct}
+										onProductRemove={() =>
+											removeProductFromCompareList(id)
+										}
+									/>
+								</div>
+							);
+						})}
+					</div>
+				</div>
+
+				<div className="hidden grid-cols-3 gap-4 divide-x-2 divide-gray/20 lg:grid lg:grid-cols-4">
 					{compareProducts.map((compareProduct) => {
 						const { id } = compareProduct;
-
 						return (
 							<CompareProductTile
 								key={id}
@@ -58,9 +89,6 @@ const ComparePage: NextPage = (props) => {
 							/>
 						);
 					})}
-					{/* <CompareProductTile />
-					<CompareProductTile />
-					<CompareProductTile className="hidden lg:block" /> */}
 				</div>
 
 				{/* Spec */}
