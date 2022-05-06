@@ -113,8 +113,14 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 					</div>
 
 					{/* Content */}
-					<div className="col-span-7 space-y-4 md:col-span-9 md:p-4">
+					<div className="col-span-7 p-2 md:col-span-9 md:space-y-4 md:p-4">
 						{/* Product Info and keywords*/}
+
+						<Link href={`/product/${slug}`}>
+							<a className="text-[12px] text-primary-main md:hidden">
+								{name}
+							</a>
+						</Link>
 						<div className="hidden space-y-4 md:block">
 							<Link href={`/product/${slug}`}>
 								<a>
