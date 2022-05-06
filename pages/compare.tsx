@@ -29,7 +29,6 @@ const ComparePage: NextPage = (props) => {
 	);
 
 	const [ref] = useKeenSlider<HTMLDivElement>({
-		rtl: true,
 		slides: {
 			perView: 1,
 			spacing: 8
