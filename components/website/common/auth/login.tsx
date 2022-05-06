@@ -45,11 +45,6 @@ const Login: React.FC = () => {
 
 		await userLogin(loginData)
 			.then(async (response) => {
-				// console.log(
-				// 	'login response',
-				// 	response,
-				// 	response?.data?.access_token?.token
-				// );
 				if (response?.status === 200) {
 					localStorage.setItem('tw-email', loginData.email);
 					localStorage.setItem(
@@ -64,7 +59,7 @@ const Login: React.FC = () => {
 					await getCurrentUser(
 						response?.data?.access_token?.token
 					).then((userRes) => {
-						// console.log('login response', userRes, userRes);
+						console.log('login response', userRes, userRes);
 						localStorage.setItem(
 							'tw-firstName',
 							userRes.data.first_name
