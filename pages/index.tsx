@@ -73,7 +73,6 @@ const HomePage: NextPage<
 								homeCategories.length / 2
 							);
 							if (index !== 0) {
-								console.log(isReverse);
 								isReverse = !isReverse;
 							}
 							return (
