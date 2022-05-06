@@ -10,6 +10,7 @@ interface InputProps {
 	className?: string;
 	required?: boolean;
 	invalid?: boolean;
+	isSmall?: boolean;
 }
 
 const Input: React.FC<InputProps> = (props) => {
@@ -24,10 +25,13 @@ const Input: React.FC<InputProps> = (props) => {
 		containerClassName,
 		className,
 		required,
-		invalid
+		invalid,
+		isSmall
 	} = props;
 
-	const inputClassName = `rounded-md border-2 py-2 pl-8 pr-4 focus:outline-none ${
+	const inputClassName = `rounded-md border-2 ${
+		isSmall ? 'py-1' : 'py-2'
+	} pl-8 pr-4 focus:outline-none ${
 		invalid ? 'border-accent-error' : 'border-accent-primary-main'
 	} ${className}`;
 

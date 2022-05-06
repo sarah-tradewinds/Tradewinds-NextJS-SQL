@@ -1,4 +1,5 @@
-const BASE_URL = 'https://tradewinds-dev.eastus.cloudapp.azure.com';
+const BASE_URL =
+	'https://tradewinds-dev.eastus.cloudapp.azure.com/services/api';
 
 const fetchService = async (
 	url: any,

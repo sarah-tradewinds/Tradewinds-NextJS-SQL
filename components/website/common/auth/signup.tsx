@@ -16,18 +16,6 @@ import { Modal } from '../modal/modal';
 import { buttonSpinner } from '../spinners/custom-spinners';
 import { userSignup } from './auth-services';
 
-interface ISignupData {
-	country: string;
-	countryCode: string;
-	email: string;
-	first_name: string;
-	last_name: string;
-	password: string;
-	confirm_password: string;
-	phoneNumber: number | null;
-	roles: [string];
-}
-
 const SignUp: React.FC = () => {
 	const BUTTON_SPINNER = buttonSpinner();
 	const authStore = useAuthStore();
@@ -85,7 +73,8 @@ const SignUp: React.FC = () => {
 			signupDone: false
 		});
 		await validateData();
-		await validatePassword();
+
+		if (!validatePassword()) return;
 
 		if ((error as any)?.hasError || Object.keys(error).length > 0) {
 			return false;
@@ -111,6 +100,7 @@ const SignUp: React.FC = () => {
 				setLoading(false);
 			})
 			.catch((err) => {
+				console.log('signup error', err);
 				setSignupResult({
 					message: `Error: ${err.message}`,
 					result: false,
@@ -123,7 +113,7 @@ const SignUp: React.FC = () => {
 	const validateData = () => {
 		let errorFound = false;
 
-		for (let i = 0; i < mandatoryFields.length - 1; i++) {
+		for (let i = 0; i < mandatoryFields.length; i++) {
 			const field = mandatoryFields[i];
 
 			if (
@@ -132,7 +122,7 @@ const SignUp: React.FC = () => {
 					signupData[field] === 0 ||
 					signupData[field].toString().length < 10)
 			) {
-				error[field] = true;
+				error['phoneNumber'] = true;
 				errorFound = true;
 			} else {
 				if (
@@ -156,7 +146,13 @@ const SignUp: React.FC = () => {
 		});
 
 		if (!(signupData?.password && signupData?.confirm_password)) {
-			setError({ ...error, password: 'Please enter both password' });
+			if (!signupData?.password)
+				setError({ ...error, password: 'Please enter both password' });
+			if (!signupData?.confirm_password)
+				setError({
+					...error,
+					confirm_password: 'Please enter both password'
+				});
 			return false;
 		}
 		if (signupData?.password !== signupData?.confirm_password) {
@@ -195,23 +191,24 @@ const SignUp: React.FC = () => {
 	return (
 		<Modal
 			open={isSignUpOpen}
-			className="left-8 top-1/2 -translate-y-1/2 transform  lg:left-1/2 lg:-top-10 lg:-translate-x-1/2 lg:-translate-y-0"
+			className="left-8 top-1/2 -translate-y-1/2 transform lg:left-1/2 lg:-top-10 lg:-translate-x-1/2 lg:-translate-y-0"
 			onClose={setIsSignUpOpen}
 		>
 			<div className="flex items-center justify-center ">
 				{!signupResult.result ? (
-					<div className="mt-16 flex w-screen justify-center rounded-md bg-white p-8 shadow-md lg:w-[1000px] lg:justify-start lg:p-16">
+					<div className="mt-12 flex w-screen justify-center rounded-md bg-white py-4 shadow-md lg:w-[1000px] lg:justify-start lg:px-16">
 						<div className="flex flex-col items-center border-gray/40 pr-24 lg:border-r">
 							<h2 className="mb-8 border-b border-gray/40 pb-4 text-4xl font-semibold text-black">
 								Create an Account
 							</h2>
 
-							<div className="flex w-full justify-center border-b border-gray/40  pb-8">
+							<div className="flex w-full justify-center border-b border-gray/40 pb-4">
 								<form className="w-[360px] space-y-4">
 									<Input
 										name="first_name"
 										placeholder="Give Name"
 										icon={<HiSparkles />}
+										isSmall={true}
 										required={true}
 										className="w-full"
 										invalid={error?.first_name}
@@ -231,6 +228,7 @@ const SignUp: React.FC = () => {
 										name="last_name"
 										placeholder="Surname"
 										icon={<HiSparkles />}
+										isSmall={true}
 										required={true}
 										className="w-full"
 										invalid={error?.last_name}
@@ -250,6 +248,7 @@ const SignUp: React.FC = () => {
 										name="country"
 										placeholder="Country"
 										icon={<HiSparkles />}
+										isSmall={true}
 										required={true}
 										className="w-full"
 										invalid={error?.country}
@@ -270,6 +269,7 @@ const SignUp: React.FC = () => {
 										type="email"
 										placeholder="Email"
 										icon={<HiSparkles />}
+										isSmall={true}
 										required={true}
 										className="w-full"
 										invalid={error?.email}
@@ -290,6 +290,7 @@ const SignUp: React.FC = () => {
 										type="number"
 										placeholder="Phone number"
 										icon={<HiSparkles />}
+										isSmall={true}
 										required={true}
 										className="w-full"
 										invalid={error?.phoneNumber}
@@ -310,6 +311,7 @@ const SignUp: React.FC = () => {
 										type="password"
 										placeholder="Password"
 										icon={<HiSparkles />}
+										isSmall={true}
 										className="w-full"
 										invalid={error?.password}
 										onChange={(e: React.FormEvent<HTMLInputElement>) =>
@@ -329,6 +331,7 @@ const SignUp: React.FC = () => {
 										type="password"
 										placeholder="Verify Password"
 										icon={<HiSparkles />}
+										isSmall={true}
 										required={true}
 										className="w-full"
 										invalid={error?.password}
@@ -347,7 +350,7 @@ const SignUp: React.FC = () => {
 											{error?.confirm_password}
 										</span>
 									)}
-									<div className="mx-4 space-y-4 text-gray">
+									<div className="mx-2  text-gray">
 										<div className="flex space-x-2">
 											<Input
 												name="isSubscribeToEmail"
@@ -363,8 +366,7 @@ const SignUp: React.FC = () => {
 												htmlFor="isSubscribeToEmail"
 												className="text-sm"
 											>
-												Send me occasional emails about Tradewinds
-												Marketplace
+												Send me occasional emails about TWM
 											</label>
 										</div>
 										<div className="flex space-x-2">
@@ -390,7 +392,6 @@ const SignUp: React.FC = () => {
 										variant="product"
 										className="w-full"
 										disabled={loading}
-										// style={{ marginTop: '-140px' }}
 										onClick={(e: React.MouseEvent<HTMLElement>) =>
 											createUser(e)
 										}
@@ -416,7 +417,7 @@ const SignUp: React.FC = () => {
 							</div>
 							<div>
 								<Button
-									className="mt-8 rounded-lg border border-accent-primary-main text-accent-primary-main"
+									className="mt-4 rounded-lg border border-accent-primary-main text-accent-primary-main"
 									onClick={() => {
 										authStore.setIsSignUpOpen();
 										authStore.setIsLoginOpen();
@@ -424,7 +425,7 @@ const SignUp: React.FC = () => {
 								>
 									Already have an account? Log in
 								</Button>
-								<p
+								{/* <p
 									className="mt-8 cursor-pointer text-center text-sm text-accent-primary-main underline"
 									onClick={() => {
 										authStore.setIsSignUpOpen();
@@ -432,7 +433,7 @@ const SignUp: React.FC = () => {
 									}}
 								>
 									Forgot Password?
-								</p>
+								</p> */}
 							</div>
 						</div>
 
