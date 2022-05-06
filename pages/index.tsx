@@ -1,6 +1,6 @@
 import {
-	GetStaticProps,
-	InferGetStaticPropsType,
+	GetServerSideProps,
+	InferGetServerSidePropsType,
 	NextPage
 } from 'next';
 
@@ -20,6 +20,7 @@ import {
 	getHomeCountries
 } from 'lib/home.lib';
 
+import useSWR from 'swr';
 import { CatSubCatSectionType, HeroCarouselType } from 'types/home';
 
 type Props = {
@@ -27,9 +28,9 @@ type Props = {
 	agriData: CatSubCatSectionType;
 };
 
-const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
-	props
-) => {
+const HomePage: NextPage<
+	InferGetServerSidePropsType<GetServerSideProps>
+> = (props) => {
 	const {
 		heroCarousels = [],
 		cardAList = [],
@@ -37,6 +38,9 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 		homeCategories = [],
 		homeCountries = []
 	} = props;
+
+	// Loading mega-menu data here
+	useSWR('/categories?page=1&limit=100');
 
 	const searchCategoriesBanner = (
 		<div className="flex items-center justify-center bg-accent-primary-main p-4 text-white dark:bg-accent-primary-eco md:p-8 xl:p-14">
@@ -108,7 +112,7 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 export default HomePage;
 
 // Static Props
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
 	try {
 		const heroCarousels = await getHeroCarousels();
 		const cardAList = await getCardAList();
