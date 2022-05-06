@@ -10,7 +10,7 @@ export default function Document() {
 					rel="stylesheet"
 				/>
 			</Head>
-			<body className="bg-homepage-bg font-montserrat">
+			<body className="bg-homepage-bg font-montserrats">
 				<Main />
 				<NextScript />
 			</body>
