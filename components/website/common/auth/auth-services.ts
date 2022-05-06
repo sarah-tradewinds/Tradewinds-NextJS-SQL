@@ -3,7 +3,8 @@ import fetch from '../../../../data/api/service-helpers';
 const URLS = {
 	GET_CURRENT_USER: '/services/api/v1/auth/user/me',
 	USER_LOGIN: '/services/api/v1/auth/login',
-	USER_SIGNUP: '/services/api/v1/auth/signup'
+	USER_SIGNUP: '/services/api/v1/auth/signup',
+	VERIFY_USER: '/services/api/v1/auth/activate_account'
 };
 
 const forgetPasswordChange = async (params: any) => {
@@ -78,10 +79,24 @@ const userSignup = async (params: any) => {
 		});
 };
 
+const verifyUser = async (userId: any) => {
+	return await fetch(`${URLS.VERIFY_USER}/${userId}`, {
+		method: 'POST'
+	})
+		.then((response) => {
+			return response;
+		})
+		.catch((err) => {
+			console.log('err', err);
+			throw new Error('Internal server error');
+		});
+};
+
 export {
 	forgetPasswordChange,
 	forgetPasswordGenerateLink,
 	getCurrentUser,
 	userLogin,
-	userSignup
+	userSignup,
+	verifyUser
 };
