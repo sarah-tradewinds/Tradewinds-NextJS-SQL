@@ -59,7 +59,6 @@ const CategorySubCategoriesSection: React.FC<
 			{/* For Small Screen- Collapse */}
 			<div className="md:hidden">
 				<Collapse
-					isOpen={isOpen}
 					collapseHeadBgHexColor={category.bgHexColor}
 					isReverse={isReverse}
 					onLeadingClick={() => setIsOpen((preState) => !preState)}

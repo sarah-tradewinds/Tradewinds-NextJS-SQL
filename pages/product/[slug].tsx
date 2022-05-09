@@ -11,7 +11,7 @@ import ProductDetailsTab from 'components/website/product-details/product-detail
 import ProductDetailsTabContainer from 'components/website/product-details/product-details-tab/product-details-tab-container';
 import ProductReviewsDetailsTab from 'components/website/product-details/product-details-tab/product-reviews-details-tab';
 import SimilarProductList from 'components/website/product-details/similar-product-list';
-import { AgriData } from 'data/home';
+import beauty from 'data/home/beauty';
 
 const ProductDetailsPage: NextPage = (props) => {
 	return (
@@ -39,7 +39,15 @@ const ProductDetailsPage: NextPage = (props) => {
 
 			{/* Categories */}
 			<div className="mx-4 rounded bg-white">
-				<CategorySubCategoriesSection catSubCat={AgriData} />
+				<CategorySubCategoriesSection
+					catSubCat={{
+						...beauty,
+						category: {
+							...beauty.category,
+							title: 'Deals of the Month'
+						}
+					}}
+				/>
 			</div>
 
 			{/* Fixed container for small screen only */}
