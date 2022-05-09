@@ -23,7 +23,7 @@ const MetadataTile: React.FC<MetadataTileProps> = (props) => {
 
 	return (
 		<div
-			className={`flex items-center space-x-2 ${className}`}
+			className={`flex items-center space-x-2 ${className} `}
 			onClick={onClick}
 		>
 			{imageUrl && (

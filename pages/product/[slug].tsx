@@ -5,11 +5,13 @@ import ProductDetailsTile from 'components/website/product-details/product-detai
 
 // data
 import Button from 'components/website/common/form/button';
+import CategorySubCategoriesSection from 'components/website/home/category-sub-categories-section';
 import CompanyProfileTab from 'components/website/product-details/product-details-tab/company-profile-tab';
 import ProductDetailsTab from 'components/website/product-details/product-details-tab/product-details-tab';
 import ProductDetailsTabContainer from 'components/website/product-details/product-details-tab/product-details-tab-container';
 import ProductReviewsDetailsTab from 'components/website/product-details/product-details-tab/product-reviews-details-tab';
 import SimilarProductList from 'components/website/product-details/similar-product-list';
+import { AgriData } from 'data/home';
 
 const ProductDetailsPage: NextPage = (props) => {
 	return (
@@ -31,12 +33,13 @@ const ProductDetailsPage: NextPage = (props) => {
 				<SimilarProductList
 					title="Similar Product"
 					similarProducts={[{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }]}
+					className="px-8"
 				/>
 			</div>
 
 			{/* Categories */}
 			<div className="mx-4 rounded bg-white">
-				{/* <CategorySubCategoriesSection catSubCat={AgriData} /> */}
+				<CategorySubCategoriesSection catSubCat={AgriData} />
 			</div>
 
 			{/* Fixed container for small screen only */}

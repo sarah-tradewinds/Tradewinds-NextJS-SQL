@@ -93,8 +93,8 @@ const ComparePage: NextPage = (props) => {
 				{/* Spec */}
 				<div className="mx-4 mt-16">
 					<Collapse
-						isOpen={isSpecCollapseOpen}
-						title={
+						initialValue={true}
+						leading={
 							<Button
 								onClick={() =>
 									setIsSpecCollapseOpen((prevState) => !prevState)

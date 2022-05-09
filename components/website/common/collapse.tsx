@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 interface CollapseProps {
-	isOpen?: boolean;
+	initialValue?: boolean;
 	leading?: any;
 	title?: any;
 	subtitle?: any;
@@ -15,7 +15,7 @@ interface CollapseProps {
 
 const Collapse: React.FC<CollapseProps> = (props) => {
 	const {
-		// isOpen,
+		initialValue,
 		leading,
 		title,
 		subtitle,
@@ -28,13 +28,7 @@ const Collapse: React.FC<CollapseProps> = (props) => {
 		contentClassName
 	} = props;
 
-	const [isOpen, setIsOpen] = useState(false);
-
-	// useEffect(() => {
-	//  if (isOpen === undefined) {
-	//    setIsCollapse((prevState) => !prevState);
-	//  }
-	// }, [isOpen]);
+	const [isOpen, setIsOpen] = useState(initialValue);
 
 	const collapseHandler = () => {}; // End of collapseHandler
 

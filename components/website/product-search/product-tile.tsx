@@ -56,7 +56,6 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 			{/* compare */}
 			<MetadataTile
 				key={metadataList[2].title}
-				// imageUrl={metadataList[2].imageUrl}
 				icon={
 					<div className="text-[32px]">
 						{isInCompareList ? (
@@ -113,9 +112,8 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 					</div>
 
 					{/* Content */}
-					<div className="col-span-7 p-2 md:col-span-9 md:space-y-4 md:p-4">
+					<div className="col-span-7 md:col-span-9">
 						{/* Product Info and keywords*/}
-
 						<Link href={`/product/${slug}`}>
 							<a className="text-[12px] text-primary-main md:hidden">
 								{name}
