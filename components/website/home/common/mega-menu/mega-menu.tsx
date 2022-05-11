@@ -1,16 +1,12 @@
-import Image from 'next/image';
-
 // Third party packages
-import {
-	MdKeyboardArrowDown,
-	MdKeyboardArrowRight
-} from 'react-icons/md';
+import { MdPlayArrow } from 'react-icons/md';
 
 // data
-import { countries } from 'data/home';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
-import { categories } from '../../../../../data/home/mega-menu';
+
+// styles
+import styles from './mega-menu.module.css';
 
 interface MegaMenuProps {
 	className?: string;
@@ -37,7 +33,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 		}
 	}, [mainCategories]);
 
-	const megaMenuClassName = `grid grid-cols-12 border bg-white text-sm text-gray h-[440px] shadow-lg overflow-y-auto ${className}`;
+	const megaMenuClassName = `grid grid-cols-12 border bg-white text-sm text-gray shadow-lg overflow-y-autos ${className}`;
 
 	return (
 		<div className={megaMenuClassName}>
@@ -46,40 +42,75 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 			{mainCategories && (
 				<>
 					{/* Main Categories */}
-					<ul className="col-span-2 space-y-4 border-l border-r-2 border-r-gray/40 py-4  pl-4 shadow-lg">
-						{mainCategories.map((mainCategory: any) => {
-							const { slug } = mainCategory;
+					<div
+						className={`col-span-3 max-h-[438px] space-y-4 overflow-auto py-4 shadow-xl ${styles.megaMenuScrollbar}`}
+						style={{ direction: 'rtl' }}
+					>
+						<ul className="space-y-4">
+							{mainCategories.map((mainCategory: any) => {
+								const { slug } = mainCategory;
 
-							const isSelected = slug === selectedMainCategory.slug;
+								const isSelected = slug === selectedMainCategory.slug;
 
-							return (
-								<li
-									key={slug}
-									className={`flex cursor-pointer justify-between hover:text-primary-main ${
-										isSelected ? ' text-primary-main' : ''
-									}`}
-									onClick={() =>
-										setSelectedMainCategory({
-											slug: slug,
-											categories: mainCategory.category
-										})
-									}
-								>
-									<span>{mainCategory.title?.en}</span>
-									<span className="hover: text-2xl hover:text-primary-main">
-										{isSelected ? (
-											<MdKeyboardArrowDown className="font-semibold" />
-										) : (
-											<MdKeyboardArrowRight />
-										)}
-									</span>
-								</li>
-							);
-						})}
-					</ul>
+								return (
+									<li
+										key={slug}
+										className={`flex cursor-pointer justify-between pl-4 text-[15px] hover:text-primary-eco ${
+											isSelected
+												? ' bg-bg-eco font-semibold text-primary-eco'
+												: ''
+										}`}
+										onClick={() =>
+											setSelectedMainCategory({
+												slug: slug,
+												categories: mainCategory.category
+											})
+										}
+									>
+										<span className="hover: text-2xl hover:text-primary-main">
+											{isSelected && (
+												<MdPlayArrow className="font-semibold" />
+											)}
+										</span>
+										<span>{mainCategory.title?.en}</span>
+									</li>
+								);
+							})}
+
+							{mainCategories.map((mainCategory: any) => {
+								const { slug } = mainCategory;
+
+								const isSelected = slug === selectedMainCategory.slug;
+
+								return (
+									<li
+										key={slug}
+										className={`flex cursor-pointer justify-between pl-4 text-[15px] hover:text-primary-eco ${
+											isSelected
+												? ' bg-bg-eco font-semibold text-primary-eco'
+												: ''
+										}`}
+										onClick={() =>
+											setSelectedMainCategory({
+												slug: slug,
+												categories: mainCategory.category
+											})
+										}
+									>
+										<span className="hover: text-2xl hover:text-primary-main">
+											{isSelected && (
+												<MdPlayArrow className="font-semibold" />
+											)}
+										</span>
+										<span>{mainCategory.title?.en}</span>
+									</li>
+								);
+							})}
+						</ul>
+					</div>
 
 					{/* Sub and Sub-Sub Categories */}
-					<ul className="col-span-4 h-full columns-2 px-4 pb-2">
+					<ul className="col-span-9 h-full columns-4 bg-white pl-4 pb-2 dark:bg-bg-eco lg:columns-5">
 						{selectedMainCategory.categories &&
 							selectedMainCategory.categories.map((category: any) => {
 								const { subCategory } = category;
@@ -87,10 +118,10 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 								return (
 									<li
 										key={category.slug}
-										className="cursor-pointer border-r border-dashed border-r-gray/40 py-4"
+										className="cursor-pointer border-r border-dashed border-r-gray/40 py-4 text-[15px]"
 										onClick={() => {}}
 									>
-										<p className="pb-2 font-semibold">
+										<p className="pb-2 font-semibold text-primary-eco">
 											{category.title?.en}
 										</p>
 
@@ -112,7 +143,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 			)}
 
 			{/* Others */}
-			<div className="col-span-2 space-y-4 border-r border-r-gray/40 p-4">
+			{/* <div className="col-span-2 space-y-4 border-r border-r-gray/40 p-4">
 				<p className="font-semibold tracking-wide">
 					with a longer title
 				</p>
@@ -129,20 +160,20 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 						))}
 					</ul>
 				</div>
-			</div>
+			</div> */}
 
 			{/* Banner and shop by country */}
 			<div className="col-span-4">
-				<div className="relative h-[200px] w-full">
+				{/* <div className="relative h-[200px] w-full">
 					<Image
 						src="/yoga.avif"
 						alt=""
 						layout="fill"
 						className="object-cover"
 					/>
-				</div>
+				</div> */}
 				{/* List of countries */}
-				<div className="p-4">
+				{/* <div className="p-4">
 					<p className="text-accent-secondary-main">Shop Country</p>
 					<div className="flex flex-wrap">
 						{countries.map((country) => (
@@ -154,7 +185,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 							</div>
 						))}
 					</div>
-				</div>
+				</div> */}
 			</div>
 		</div>
 	);

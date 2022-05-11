@@ -1,0 +1,19 @@
+
+.megaMenuScrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* .megaMenuScrollbar::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+} */
+
+.megaMenuScrollbar::-webkit-scrollbar-thumb {
+  background-color: green;
+}
+
+
+.megaMenuScrollbar::-webkit-scrollbar-track {
+  width: 4px;
+  background-color: #575858;
+}
+

@@ -11,6 +11,7 @@ interface InputProps {
 	required?: boolean;
 	invalid?: boolean;
 	isSmall?: boolean;
+	checked?: boolean;
 }
 
 const Input: React.FC<InputProps> = (props) => {
@@ -26,7 +27,8 @@ const Input: React.FC<InputProps> = (props) => {
 		className,
 		required,
 		invalid,
-		isSmall
+		isSmall,
+		checked
 	} = props;
 
 	const inputClassName = `rounded-md border-2 ${
@@ -46,6 +48,7 @@ const Input: React.FC<InputProps> = (props) => {
 				onChange={onChange}
 				required={required}
 				className={inputClassName}
+				checked={checked}
 			/>
 			<span className="absolute left-3 top-1/2 -translate-y-1/2 transform">
 				{icon}

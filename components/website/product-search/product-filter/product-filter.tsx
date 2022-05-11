@@ -2,6 +2,7 @@
 import Button from 'components/website/common/form/button';
 import Input from 'components/website/common/form/input';
 import CategoriesFilter from 'components/website/product-search/product-filter/categories-filter';
+import React from 'react';
 import CountrySearchFilter from './country-filter';
 
 const ProductFilter: React.FC = (props) => {
@@ -48,10 +49,11 @@ const ProductFilter: React.FC = (props) => {
 			</div>
 
 			{/* country search filter */}
-			<div>
+			<div className="space-y-4">
 				<h4 className="text-[18px] font-semibold text-gray">
 					Supplier Country/ Region
 				</h4>
+
 				<CountrySearchFilter />
 			</div>
 		</div>
