@@ -38,6 +38,9 @@ module.exports = {
 		extend: {
 			screens: {
 				pc: { raw: '(max-width: 640px)' }
+			},
+			boxShadow: {
+				'mega-menu': '2px 0px 4px rgba(0, 0, 0, 0.25)'
 			}
 		}
 	},

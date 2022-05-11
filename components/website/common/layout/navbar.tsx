@@ -53,21 +53,12 @@ const Header = () => {
 		action: 'onMouseEnter' | 'onMouseLeave',
 		location: 'button' | 'menu'
 	) => {
-		if (
-			!isOpen &&
-			action === 'onMouseEnter'
-			// || (isOpen && action === 'onMouseLeave')
-		) {
-			(buttonRef?.current as any)?.click();
+		if (!isOpen && action === 'onMouseEnter') {
+			// (buttonRef?.current as any)?.click();
 		}
 
-		if (
-			isOpen &&
-			action === 'onMouseLeave' &&
-			location === 'menu'
-			// || (isOpen && action === 'onMouseLeave')
-		) {
-			(buttonRef?.current as any)?.click();
+		if (isOpen && action === 'onMouseLeave' && location === 'menu') {
+			// (buttonRef?.current as any)?.click();
 		}
 	};
 

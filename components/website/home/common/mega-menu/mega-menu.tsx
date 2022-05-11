@@ -1,11 +1,12 @@
 // Third party packages
-import { MdPlayArrow } from 'react-icons/md';
+import { MdKeyboardArrowLeft, MdPlayArrow } from 'react-icons/md';
 
 // data
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import useSWR from 'swr';
 
 // styles
+import { Disclosure } from '@headlessui/react';
 import styles from './mega-menu.module.css';
 
 interface MegaMenuProps {
@@ -33,20 +34,57 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 		}
 	}, [mainCategories]);
 
-	const megaMenuClassName = `grid grid-cols-12 border bg-white text-sm text-gray shadow-lg overflow-y-autos ${className}`;
+	const megaMenuRef = useRef(null);
+
+	useEffect(() => {
+		console.log(megaMenuRef);
+	});
+
+	const megaMenuClassName = `relative grid grid-cols-12 border bg-white text-sm text-gray shadow-lg overflow-y-autos ${className}`;
 
 	return (
-		<div className={megaMenuClassName}>
+		<div className={megaMenuClassName} ref={megaMenuRef}>
 			{!data ? <p>Loading...</p> : ''}
 
 			{mainCategories && (
 				<>
 					{/* Main Categories */}
 					<div
-						className={`col-span-3 max-h-[438px] space-y-4 overflow-auto py-4 shadow-xl ${styles.megaMenuScrollbar}`}
+						className={`col-span-3 my-1 ml-4 max-h-[438px] space-y-4 overflow-auto pl-2 ${styles.megaMenuScrollbar}`}
 						style={{ direction: 'rtl' }}
 					>
-						<ul className="space-y-4">
+						<ul className="mr-1 space-y-1 shadow-mega-menu">
+							{mainCategories.map((mainCategory: any) => {
+								const { slug } = mainCategory;
+
+								const isSelected = slug === selectedMainCategory.slug;
+
+								return (
+									<li
+										key={slug}
+										className={`flex cursor-pointer justify-between pl-4 text-[15px] hover:text-primary-eco ${
+											isSelected
+												? ' bg-bg-eco/60 font-semibold text-primary-eco'
+												: ''
+										}`}
+										onClick={() =>
+											setSelectedMainCategory({
+												slug: slug,
+												categories: mainCategory.category
+											})
+										}
+									>
+										<span className="hover: text-2xl hover:text-primary-main">
+											{isSelected && (
+												<MdPlayArrow className="font-semibold" />
+											)}
+										</span>
+										<span>{mainCategory.title?.en}</span>
+									</li>
+								);
+							})}
+
+							{/* TMP */}
 							{mainCategories.map((mainCategory: any) => {
 								const { slug } = mainCategory;
 
@@ -77,6 +115,38 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 								);
 							})}
 
+							{/* TMP */}
+							{mainCategories.map((mainCategory: any) => {
+								const { slug } = mainCategory;
+
+								const isSelected = slug === selectedMainCategory.slug;
+
+								return (
+									<li
+										key={slug}
+										className={`flex cursor-pointer justify-between pl-4 text-[15px] hover:text-primary-eco ${
+											isSelected
+												? ' bg-bg-eco font-semibold text-primary-eco'
+												: ''
+										}`}
+										onClick={() =>
+											setSelectedMainCategory({
+												slug: slug,
+												categories: mainCategory.category
+											})
+										}
+									>
+										<span className="hover: text-2xl hover:text-primary-main">
+											{isSelected && (
+												<MdPlayArrow className="font-semibold" />
+											)}
+										</span>
+										<span>{mainCategory.title?.en}</span>
+									</li>
+								);
+							})}
+
+							{/* TMP */}
 							{mainCategories.map((mainCategory: any) => {
 								const { slug } = mainCategory;
 
@@ -109,7 +179,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 						</ul>
 					</div>
 
-					{/* Sub and Sub-Sub Categories */}
+					{/* Sub, Sub-Sub Categories and specific category*/}
 					<ul className="col-span-9 h-full columns-4 bg-white pl-4 pb-2 dark:bg-bg-eco lg:columns-5">
 						{selectedMainCategory.categories &&
 							selectedMainCategory.categories.map((category: any) => {
@@ -118,7 +188,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 								return (
 									<li
 										key={category.slug}
-										className="cursor-pointer border-r border-dashed border-r-gray/40 py-4 text-[15px]"
+										className="cursor-pointer border-r border-dashed border-r-gray/40 py-1 text-[15px]"
 										onClick={() => {}}
 									>
 										<p className="pb-2 font-semibold text-primary-eco">
@@ -126,14 +196,48 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 										</p>
 
 										<ul>
-											{subCategories.map((subCategory: any) => (
-												<li
-													key={subCategory.slug}
-													className="cursor-pointer pb-2"
-												>
-													{subCategory.title?.en}
-												</li>
-											))}
+											{subCategories.map((subCategory: any) => {
+												const { specificCategories = subCategories } =
+													subCategory || {};
+
+												return (
+													<li
+														key={subCategory.slug}
+														className="cursor-pointer pb-2"
+													>
+														{/* Specific category */}
+														<Disclosure>
+															{({ open }) => (
+																<>
+																	<Disclosure.Button className="flex items-center">
+																		<MdKeyboardArrowLeft
+																			className={`${
+																				open
+																					? '-rotate-90 transform'
+																					: ''
+																			} h-5 w-5`}
+																		/>
+																		<span>{subCategory.title?.en}</span>
+																	</Disclosure.Button>
+
+																	<Disclosure.Panel>
+																		{specificCategories.map(
+																			(specificCategory: any) => (
+																				<button
+																					key={specificCategory.id}
+																					className="pl-6"
+																				>
+																					{specificCategory.title?.en}
+																				</button>
+																			)
+																		)}
+																	</Disclosure.Panel>
+																</>
+															)}
+														</Disclosure>
+													</li>
+												);
+											})}
 										</ul>
 									</li>
 								);
@@ -141,52 +245,6 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 					</ul>
 				</>
 			)}
-
-			{/* Others */}
-			{/* <div className="col-span-2 space-y-4 border-r border-r-gray/40 p-4">
-				<p className="font-semibold tracking-wide">
-					with a longer title
-				</p>
-
-				<div className="space-y-1">
-					<p className="font-semibold tracking-wide">
-						Hey Here is a new category
-					</p>
-					<ul className=" space-y-2">
-						{categories.map((category: any) => (
-							<li key={category.slug} className="cursor-pointer">
-								{category.name}
-							</li>
-						))}
-					</ul>
-				</div>
-			</div> */}
-
-			{/* Banner and shop by country */}
-			<div className="col-span-4">
-				{/* <div className="relative h-[200px] w-full">
-					<Image
-						src="/yoga.avif"
-						alt=""
-						layout="fill"
-						className="object-cover"
-					/>
-				</div> */}
-				{/* List of countries */}
-				{/* <div className="p-4">
-					<p className="text-accent-secondary-main">Shop Country</p>
-					<div className="flex flex-wrap">
-						{countries.map((country) => (
-							<div
-								key={country.imageUrl}
-								className="relative m-2 h-16 w-16"
-							>
-								<Image src={country.imageUrl} alt="" layout="fill" />
-							</div>
-						))}
-					</div>
-				</div> */}
-			</div>
 		</div>
 	);
 };
