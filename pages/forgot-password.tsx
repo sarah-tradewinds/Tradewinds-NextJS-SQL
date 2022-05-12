@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAuthStore } from 'store/auth';
 
+import Seo from 'components/website/common/seo';
 import { AiOutlineMail } from 'react-icons/ai';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import {
@@ -143,6 +144,7 @@ const ForgotPassword = () => {
 
 	return (
 		<>
+			<Seo title="Forgot password page" description="" />
 			<div className="flex h-screen bg-primary-main">
 				{!token && !status.isForgotEmailSent && (
 					<div className="border-primaryBorder shadow-default m-auto w-full max-w-md rounded-lg border bg-[#c7ecff] py-10 px-4">

@@ -20,6 +20,7 @@ import {
 	getHomeCountries
 } from 'lib/home.lib';
 
+import Seo from 'components/website/common/seo';
 import useSWR from 'swr';
 import { CatSubCatSectionType, HeroCarouselType } from 'types/home';
 
@@ -58,6 +59,7 @@ const HomePage: NextPage<
 
 	return (
 		<>
+			<Seo title="Home page" description="" />
 			<Hero
 				hcd={heroCarousels}
 				cardAList={cardAList}

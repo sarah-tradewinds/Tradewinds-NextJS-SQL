@@ -1,5 +1,6 @@
 import CountryFlagTile from 'components/website/common/search-by-country/country-flag-tile';
 import LocationHolder from 'components/website/common/search-by-country/location-holder';
+import Seo from 'components/website/common/seo';
 import { NextPage } from 'next';
 import Image from 'next/image';
 
@@ -89,56 +90,60 @@ const SearchByCountryPage: NextPage = (props) => {
 	);
 
 	return (
-		<div className="relative md:bg-white">
-			{/* Headers */}
-			<div className="absolute inset-0">
-				<div className="relative h-[580px] md:h-[800px] lg:h-[1200px]">
-					<Image
-						src="/static/images/search-by-country-images/search-by-country-header.png"
-						alt=""
-						layout="fill"
-						className="object-cover"
-					/>
-					<h1 className="absolute inset-0 top-16 text-center text-[35px] font-semibold text-white md:top-24 md:text-[40px] lg:top-16 lg:text-[96px]">
-						Search By Country
-					</h1>
-				</div>
-			</div>
+		<>
+			<Seo title="Search by country page" description="" />
 
-			{/* Island and flags */}
-			<div className="z-[1] flex flex-col items-center p-8 pt-[208px] md:pt-[300px] lg:pt-[440px]">
-				<div className="flex flex-col space-y-24 md:flex-row md:space-y-0 md:space-x-4 lg:space-x-16">
-					<div className="flex flex-col items-center space-y-12">
-						<LocationHolder
-							title="North America"
-							imageUrl="/static/images/search-by-country-images/north-america.png"
+			<div className="relative md:bg-white">
+				{/* Headers */}
+				<div className="absolute inset-0">
+					<div className="relative h-[580px] md:h-[800px] lg:h-[1200px]">
+						<Image
+							src="/static/images/search-by-country-images/search-by-country-header.png"
+							alt=""
+							layout="fill"
+							className="object-cover"
 						/>
-						{flagBlock1}
+						<h1 className="absolute inset-0 top-16 text-center text-[35px] font-semibold text-white md:top-24 md:text-[40px] lg:top-16 lg:text-[96px]">
+							Search By Country
+						</h1>
 					</div>
-					<div className="flex flex-col items-center space-y-12">
-						<LocationHolder
-							title="The Caribbean"
-							imageUrl="/static/images/search-by-country-images/the-caribbean.png"
-						/>
-						{flagBlock2}
-					</div>
-					<div className="flex flex-col items-center space-y-12">
-						<LocationHolder
-							title="Mexico and Central America"
-							imageUrl="/static/images/search-by-country-images/mexico-and-central-america.png"
-						/>
-						{flagBlock3}
-					</div>
-					<div className="flex flex-col items-center space-y-12">
-						<LocationHolder
-							title="South America"
-							imageUrl="/static/images/search-by-country-images/south-america.png"
-						/>
-						{flagBlock4}
+				</div>
+
+				{/* Island and flags */}
+				<div className="z-[1] flex flex-col items-center p-8 pt-[208px] md:pt-[300px] lg:pt-[440px]">
+					<div className="flex flex-col space-y-24 md:flex-row md:space-y-0 md:space-x-4 lg:space-x-16">
+						<div className="flex flex-col items-center space-y-12">
+							<LocationHolder
+								title="North America"
+								imageUrl="/static/images/search-by-country-images/north-america.png"
+							/>
+							{flagBlock1}
+						</div>
+						<div className="flex flex-col items-center space-y-12">
+							<LocationHolder
+								title="The Caribbean"
+								imageUrl="/static/images/search-by-country-images/the-caribbean.png"
+							/>
+							{flagBlock2}
+						</div>
+						<div className="flex flex-col items-center space-y-12">
+							<LocationHolder
+								title="Mexico and Central America"
+								imageUrl="/static/images/search-by-country-images/mexico-and-central-america.png"
+							/>
+							{flagBlock3}
+						</div>
+						<div className="flex flex-col items-center space-y-12">
+							<LocationHolder
+								title="South America"
+								imageUrl="/static/images/search-by-country-images/south-america.png"
+							/>
+							{flagBlock4}
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useAuthStore } from 'store/auth';
 import { buttonSpinner } from '../components/website/common/spinners/custom-spinners';
 
+import Seo from 'components/website/common/seo';
 import { verifyUser } from '../components/website/common/auth/auth-services';
 
 const Verify = () => {
@@ -49,6 +50,7 @@ const Verify = () => {
 
 	return (
 		<>
+			<Seo title="Verify page" description="" />
 			<div className="flex h-screen bg-primary-main">
 				{/* Invalid request without token */}
 				{!token && (

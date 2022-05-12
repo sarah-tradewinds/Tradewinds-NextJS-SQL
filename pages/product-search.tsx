@@ -16,6 +16,7 @@ import SubCategoryList from 'components/website/product-search/sub-category-list
 import { subCategories } from 'data/product-search/sub-category';
 
 // stores
+import Seo from 'components/website/common/seo';
 import SubCategoryTile from 'components/website/product-search/sub-category-tile';
 import { useProductStore } from 'store/product-store';
 
@@ -41,6 +42,8 @@ const ProductSearchPage: NextPage = (props) => {
 
 	return (
 		<>
+			<Seo title="Product search page" description="" />
+
 			{/* Banner */}
 			<div className="relative h-[103px] md:h-[234px]">
 				<Image src="/catagarie-seach-header.png" alt="" layout="fill" />
