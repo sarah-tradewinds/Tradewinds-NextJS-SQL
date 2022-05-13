@@ -2,7 +2,7 @@ module.exports = {
 	darkMode: 'class',
 	content: [
 		'./src/**/*.{html,js}',
-		'./node_modules/tw-elements/dist/js/**/*.js',
+		// './node_modules/tw-elements/dist/js/**/*.js',
 		'./pages/**/*.{js,ts,jsx,tsx}',
 		'./components/**/*.{js,ts,jsx,tsx}'
 	],
@@ -43,6 +43,6 @@ module.exports = {
 				'mega-menu': '2px 0px 4px rgba(0, 0, 0, 0.25)'
 			}
 		}
-	},
-	plugins: [require('tw-elements/dist/plugin')]
+	}
+	// plugins: [require('tw-elements/dist/plugin')]
 };

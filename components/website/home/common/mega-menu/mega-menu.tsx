@@ -96,84 +96,13 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 			)}
 
 			{/* Categories */}
-			{selectedMainCategory.categories && (
-				<ul className="col-span-3 mr-1 space-y-1 pl-4">
-					{selectedMainCategory.categories.map((category: any) => {
-						const { slug, title, subCategory } = category;
+			{selectedMainCategory.categories &&
+				selectedMainCategory.categories.length > 0 && (
+					<ul className="col-span-3 space-y-1 border-r border-dashed pl-4 dark:bg-[#FCF5EB]">
+						{selectedMainCategory.categories.map((category: any) => {
+							const { slug, title, subCategory } = category;
 
-						const isSelected = slug === selectedCategory.categorySlug;
-
-						return (
-							<li
-								key={slug}
-								className={`flex cursor-pointer items-center justify-between text-[15px] dark:hover:text-primary-eco ${
-									isSelected
-										? ' bg-bg-eco/60 font-semibold dark:text-primary-eco'
-										: ''
-								}`}
-								onMouseEnter={() =>
-									setSelectedCategory({
-										categorySlug: slug,
-										subCategories: subCategory || []
-									})
-								}
-							>
-								<span>{title?.en}</span>
-								<span className="hover: text-2xl hover:text-primary-main">
-									{isSelected && (
-										<MdPlayArrow className="font-semibold" />
-									)}
-								</span>
-							</li>
-						);
-					})}
-				</ul>
-			)}
-
-			{/* Sub Categories */}
-			{selectedCategory.subCategories && (
-				<ul className="col-span-3 mr-1 space-y-1 pl-4">
-					{selectedCategory.subCategories.map((subCategory: any) => {
-						const { slug, title, subSubCategory } = subCategory;
-
-						const isSelected =
-							slug === selectedSubCategory.subCategorySlug;
-
-						return (
-							<li
-								key={slug}
-								className={`flex cursor-pointer items-center justify-between text-[15px] dark:hover:text-primary-eco ${
-									isSelected
-										? ' bg-bg-eco/60 font-semibold dark:text-primary-eco'
-										: ''
-								}`}
-								onMouseEnter={() =>
-									setSelectedSubCategory({
-										subCategorySlug: slug,
-										specificCategories: subSubCategory || []
-									})
-								}
-							>
-								<span>{title?.en}</span>
-								<span className="hover: text-2xl hover:text-primary-main">
-									{isSelected && (
-										<MdPlayArrow className="font-semibold" />
-									)}
-								</span>
-							</li>
-						);
-					})}
-				</ul>
-			)}
-
-			{/* Specific Categories */}
-			{selectedSubCategory.specificCategories && (
-				<ul className="col-span-3 mr-1 space-y-1 pl-4">
-					{selectedSubCategory.specificCategories.map(
-						(specificCategory: any) => {
-							const { slug, title } = specificCategory;
-
-							const isSelected = slug === selectedSpecificCategory;
+							const isSelected = slug === selectedCategory.categorySlug;
 
 							return (
 								<li
@@ -183,7 +112,12 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 											? ' bg-bg-eco/60 font-semibold dark:text-primary-eco'
 											: ''
 									}`}
-									onMouseEnter={() => setSelectedSpecificCategory(slug)}
+									onMouseEnter={() =>
+										setSelectedCategory({
+											categorySlug: slug,
+											subCategories: subCategory || []
+										})
+									}
 								>
 									<span>{title?.en}</span>
 									<span className="hover: text-2xl hover:text-primary-main">
@@ -193,10 +127,81 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 									</span>
 								</li>
 							);
-						}
-					)}
-				</ul>
-			)}
+						})}
+					</ul>
+				)}
+
+			{/* Sub Categories */}
+			{selectedCategory.subCategories &&
+				selectedCategory.subCategories.length > 0 && (
+					<ul className="col-span-3 space-y-1 border-r border-dashed pl-4 dark:bg-[#FCF5EB]">
+						{selectedCategory.subCategories.map((subCategory: any) => {
+							const { slug, title, subSubCategory } = subCategory;
+
+							const isSelected =
+								slug === selectedSubCategory.subCategorySlug;
+
+							return (
+								<li
+									key={slug}
+									className={`flex cursor-pointer items-center justify-between text-[15px] dark:hover:text-primary-eco ${
+										isSelected
+											? ' bg-bg-eco/60 font-semibold dark:text-primary-eco'
+											: ''
+									}`}
+									onMouseEnter={() =>
+										setSelectedSubCategory({
+											subCategorySlug: slug,
+											specificCategories: subSubCategory || []
+										})
+									}
+								>
+									<span>{title?.en}</span>
+									<span className="hover: text-2xl hover:text-primary-main">
+										{isSelected && (
+											<MdPlayArrow className="font-semibold" />
+										)}
+									</span>
+								</li>
+							);
+						})}
+					</ul>
+				)}
+
+			{/* Specific Categories */}
+			{selectedSubCategory.specificCategories &&
+				selectedSubCategory.specificCategories.length > 0 && (
+					<ul className="col-span-3 space-y-1 pl-4 dark:bg-[#FCF5EB]">
+						{selectedSubCategory.specificCategories.map(
+							(specificCategory: any) => {
+								const { slug, title } = specificCategory;
+
+								const isSelected = slug === selectedSpecificCategory;
+
+								return (
+									<li
+										key={slug}
+										className={`flex cursor-pointer items-center justify-between text-[15px] dark:hover:text-primary-eco ${
+											isSelected
+												? ' bg-bg-eco/60 font-semibold dark:text-primary-eco'
+												: ''
+										}`}
+										onMouseEnter={() =>
+											setSelectedSpecificCategory(slug)
+										}
+									>
+										<span>{title?.en}</span>
+										<span className="hover: text-2xl hover:text-primary-main">
+											{isSelected && (
+												<MdPlayArrow className="font-semibold" />
+											)}
+										</span>
+									</li>
+								);
+							}
+						)}
+					</ul>
+				)}
 		</div>
 	);
 };

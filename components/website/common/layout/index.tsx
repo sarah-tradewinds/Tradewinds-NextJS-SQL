@@ -1,11 +1,14 @@
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
 // Third party packages
 import { SWRConfig } from 'swr';
 
 // components
-import Login from '../auth/login';
-import SignUpPage from '../auth/signup';
+const Login = dynamic(() => import('../auth/login'));
+const SignUpPage = dynamic(() => import('../auth/signup'));
+// import Login from '../auth/login';
+// import SignUpPage from '../auth/signup';
 import Footer from './footer';
 import NavBar from './navbar';
 
