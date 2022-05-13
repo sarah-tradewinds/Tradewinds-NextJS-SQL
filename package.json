@@ -9,17 +9,22 @@
     "prod": "next build && next start",
     "lint": "next lint",
     "lint:fix": "npx next lint --fix .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "find:unused": "next-unused"
   },
   "lint-staged": {
     "*.{js,ts,tsx,jsx}": [
       "eslint --fix"
     ]
   },
+  "next-unused": {
+    "include": [
+      "components"
+    ]
+  },
   "dependencies": {
     "@headlessui/react": "^1.5.0",
     "axios": "^0.26.1",
-    "infer-next-props-type": "^0.0.4",
     "keen-slider": "^6.6.12",
     "lint-staged": "^12.3.5",
     "next": "12.1.0",
@@ -47,6 +52,7 @@
     "eslint-config-prettier": "^8.5.0",
     "husky": "^7.0.4",
     "i18nexus-cli": "^2.1.0",
+    "next-unused": "^0.0.6",
     "postcss": "^8.4.8",
     "postcss-import": "^14.0.2",
     "postcss-nesting": "^10.1.3",

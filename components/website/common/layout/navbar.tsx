@@ -1,5 +1,6 @@
+import dynamic from 'next/dynamic';
+
 import { Popover, Transition } from '@headlessui/react';
-import MegaMenu from 'components/website/home/common/mega-menu/mega-menu';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
@@ -9,6 +10,9 @@ import {
 	HiOutlineShoppingCart,
 	HiX
 } from 'react-icons/hi';
+const MegaMenu = dynamic(
+	() => import('components/website/home/common/mega-menu/mega-menu')
+);
 
 // stores
 import { useRouter } from 'next/router';

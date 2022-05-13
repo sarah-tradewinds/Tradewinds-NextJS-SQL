@@ -1,6 +1,6 @@
 import {
-	GetServerSideProps,
-	InferGetServerSidePropsType,
+	GetStaticProps,
+	InferGetStaticPropsType,
 	NextPage
 } from 'next';
 
@@ -29,9 +29,9 @@ type Props = {
 	agriData: CatSubCatSectionType;
 };
 
-const HomePage: NextPage<
-	InferGetServerSidePropsType<GetServerSideProps>
-> = (props) => {
+const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
+	props
+) => {
 	const {
 		heroCarousels = [],
 		cardAList = [],
@@ -113,7 +113,7 @@ const HomePage: NextPage<
 export default HomePage;
 
 // Static Props
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
 	try {
 		const heroCarousels = await getHeroCarousels();
 		const cardAList = await getCardAList();
@@ -139,7 +139,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
 				cardBData: {},
 				homeCategories: [],
 				homeCountries: []
-			}
+			},
+			revalidate: 30
 		};
 	}
 };
