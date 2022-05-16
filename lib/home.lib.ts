@@ -3,8 +3,9 @@ import { axiosInstance } from 'utils/axios-instance.utils';
 export const getHeroCarousels = async () => {
 	try {
 		const { data } = await axiosInstance.get(
-			'/carousel/getallcarousel?limit=10&page=1'
+			'/carousel/getallcarousel'
 		);
+		// console.log(data.data);
 		return data.data || [];
 	} catch (error) {
 		console.log('[getHeroCarousels] =', error);
@@ -15,9 +16,7 @@ export const getHeroCarousels = async () => {
 
 export const getCardAList = async () => {
 	try {
-		const { data } = await axiosInstance.get(
-			'/cardA/getallcardA?limit=2&page=1'
-		);
+		const { data } = await axiosInstance.get('/cardA/getallcardA');
 
 		return data.data || [];
 	} catch (error) {
@@ -29,9 +28,7 @@ export const getCardAList = async () => {
 
 export const getCardB = async () => {
 	try {
-		const { data } = await axiosInstance.get(
-			'/cardB/getallcardB?limit=1&page=1'
-		);
+		const { data } = await axiosInstance.get('/cardB/getallcardB');
 
 		return data.data ? data.data[0] : {};
 	} catch (error) {
@@ -43,9 +40,7 @@ export const getCardB = async () => {
 
 export const getHomeCategories = async () => {
 	try {
-		const { data } = await axiosInstance.get(
-			'/categories?page=1&limit=7'
-		);
+		const { data } = await axiosInstance.get('/categories');
 		const homeCategories: any[] = [];
 
 		data.data.forEach((mainCategory: any) => {
@@ -78,6 +73,10 @@ export const getHomeCategories = async () => {
 			}
 		});
 
+		if (homeCategories.length > 0) {
+			return homeCategories.slice(0, 7);
+		}
+
 		return homeCategories || [];
 	} catch (error) {
 		console.log('[getHomeCategories] =', error);
@@ -88,9 +87,7 @@ export const getHomeCategories = async () => {
 
 export const getHomeCountries = async () => {
 	try {
-		const { data } = await axiosInstance.get(
-			'/country/getallcountry?limit=10&page=1'
-		);
+		const { data } = await axiosInstance.get('/country/getallcountry');
 
 		return data.data || [];
 	} catch (error) {
@@ -99,3 +96,17 @@ export const getHomeCountries = async () => {
 		throw Error(data || 'Error occurred getHomeCountries');
 	}
 }; // End of getHomeCountries function
+
+export const getHomeAdvertisments = async () => {
+	try {
+		const { data } = await axiosInstance.get(
+			'/advertisement/getalladvertisement'
+		);
+
+		return data.data || [];
+	} catch (error) {
+		console.log('[getHomeAdvertisments] =', error);
+		const { data } = (error as any).response || {};
+		throw Error(data || 'Error occurred getHomeAdvertisments');
+	}
+}; // End of getHomeAdvertisments function

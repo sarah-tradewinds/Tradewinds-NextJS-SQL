@@ -6,6 +6,7 @@ type HeroCarouselType = {
 	title?: any;
 	description?: any;
 	action?: any;
+	btn_text?: string;
 };
 
 type EcoCarouselType = {

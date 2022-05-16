@@ -1,10 +1,15 @@
-import Image from 'next/image';
+interface AdsBannerProps {
+	iframe_code: string;
+}
 
-const AdsBanner: React.FC = () => {
+const AdsBanner: React.FC<AdsBannerProps> = ({ iframe_code }) => {
 	return (
-		<div className="relative hidden h-[275px] w-full md:block lg:h-[375px]">
-			<Image src="/Ads-Section.png" alt="" layout="fill" />
-		</div>
+		<div
+			className="relative hidden h-[275px] w-full overflow-hidden md:block  lg:h-[375px]"
+			dangerouslySetInnerHTML={{
+				__html: iframe_code
+			}}
+		></div>
 	);
 };
 

@@ -29,7 +29,7 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 						<a>
 							<div className="relative h-[75vh] w-full">
 								<Image
-									src={item.image || '/Ads-Section.png'}
+									src={item.image}
 									alt={String(item.order)}
 									layout="fill"
 								/>
@@ -47,7 +47,7 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 						</p>
 						<div className="flex">
 							<Button href={item.action?.slug} variant="buyer">
-								{item.action?.actionText}
+								{item.btn_text}
 							</Button>
 						</div>
 					</div>

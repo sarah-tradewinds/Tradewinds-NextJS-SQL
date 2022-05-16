@@ -11,32 +11,19 @@ const CardWrapper: React.FC<{
 				<CardA
 					key={cardAData.id}
 					title={cardAData.title.en}
-					imageUrl={'/' + cardAData.image}
+					imageUrl={cardAData.image}
 					subtitle={cardAData.description.en}
 					name="Name Here"
 					href="/why-sell-on-tradewinds"
 				/>
 			))}
-			{/* <CardA
-				title="Become a Vendor"
-				imageUrl="/become-a-vendor.png"
-				subtitle="Lorem ipsum dolor sit amet, consecamet Lorem ipsum dolor sit amet"
-				name="Name Here"
-				href="/why-sell-on-tradewinds"
-			/>
-			<CardA
-				title="Why Buy?"
-				imageUrl="/static/images/TWsell.png"
-				subtitle="Lorem ipsum dolor sit amet, consecamet Lorem ipsum dolor sit amet"
-				name="Name Here"
-				href="/why-buy"
-			/> */}
+
 			<CardB
 				title={cardBData.title?.en}
 				imageUrl={cardBData.image || '/static/images/rfq-orange.png'}
-				subtitle={cardBData.description1?.en}
-				description={cardBData.description2?.en}
-				buttonText={cardBData.action?.actionText}
+				subtitle={cardBData.description_1?.en}
+				description={cardBData.description_2?.en}
+				buttonText={cardBData.btn_text}
 				href={cardBData.action?.slug}
 				name=""
 				alt={cardBData.title?.en}

@@ -16,6 +16,7 @@ import {
 	getCardAList,
 	getCardB,
 	getHeroCarousels,
+	getHomeAdvertisments,
 	getHomeCategories,
 	getHomeCountries
 } from 'lib/home.lib';
@@ -37,7 +38,8 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 		cardAList = [],
 		cardBData = {},
 		homeCategories = [],
-		homeCountries = []
+		homeCountries = [],
+		homeAdvertisments = []
 	} = props;
 
 	// Loading mega-menu data here
@@ -103,8 +105,16 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 			<div className="space-y-8">
 				{/* Shop by country */}
 				<CountrySlider countries={homeCountries} />
+
 				{/* Bottom Banner */}
-				<AddBanner />
+				<div className="grid grid-cols-2">
+					{homeAdvertisments.map((advertisment: any) => (
+						<AddBanner
+							key={advertisment.id}
+							iframe_code={advertisment.i_frame_code}
+						/>
+					))}
+				</div>
 			</div>
 		</>
 	);
@@ -120,6 +130,7 @@ export const getStaticProps: GetStaticProps = async () => {
 		const cardBData = await getCardB();
 		const homeCategories = await getHomeCategories();
 		const homeCountries = await getHomeCountries();
+		const homeAdvertisments = await getHomeAdvertisments();
 
 		return {
 			props: {
@@ -127,7 +138,15 @@ export const getStaticProps: GetStaticProps = async () => {
 				cardAList,
 				cardBData,
 				homeCategories: homeCategories ?? [],
-				homeCountries
+				homeCountries,
+				homeAdvertisments
+
+				// TMP
+				// heroCarousels: []
+				// cardAList: [],
+				// cardBData: {},
+				// homeCategories: []
+				// homeCountries: []
 			}
 		};
 	} catch (error) {
@@ -139,8 +158,8 @@ export const getStaticProps: GetStaticProps = async () => {
 				cardBData: {},
 				homeCategories: [],
 				homeCountries: []
-			},
-			revalidate: 30
+			}
+			// revalidate: 30
 		};
 	}
 };

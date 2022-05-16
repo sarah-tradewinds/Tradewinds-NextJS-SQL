@@ -5,9 +5,10 @@ import { useKeenSlider } from 'keen-slider/react'; // import from 'keen-slider/r
 
 interface CountrySliderProps {
 	countries: {
+		id: string;
 		name: string;
 		slug: string;
-		imageUrl: string;
+		country_flag: string;
 	}[];
 }
 
@@ -46,11 +47,11 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 			<div ref={ref} className="keen-slider">
 				{countries.map((country) => (
 					<div
-						key={country.imageUrl}
+						key={country.id}
 						className="keen-slider__slide h-[80px] w-[180px] px-4"
 					>
 						<Image
-							src={country.imageUrl || '/flags/frame.png'}
+							src={country.country_flag || '/flags/frame.png'}
 							alt=""
 							width={180}
 							height={80}

@@ -15,29 +15,36 @@ interface MegaMenuProps {
 const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 	const { className } = props;
 
-	const { data } = useSWR('/categories?page=1&limit=100');
+	const { data } = useSWR('/categories');
 
 	const mainCategories = data?.data;
 
 	const [selectedMainCategory, setSelectedMainCategory] = useState({
+		mainCategoryId: '',
 		mainCategorySlug: '',
 		categories: []
 	});
 	const [selectedCategory, setSelectedCategory] = useState({
+		categoryId: '',
 		categorySlug: '',
 		subCategories: []
 	});
 	const [selectedSubCategory, setSelectedSubCategory] = useState({
+		subCategoryId: '',
 		subCategorySlug: '',
 		specificCategories: []
 	});
 	const [selectedSpecificCategory, setSelectedSpecificCategory] =
-		useState('');
+		useState({
+			specificCategoryId: '',
+			specificCategorySlug: ''
+		});
 
 	useEffect(() => {
 		if (mainCategories) {
 			setSelectedMainCategory(mainCategories[0]?.slug);
 			setSelectedMainCategory({
+				mainCategoryId: mainCategories[0]?.id,
 				mainCategorySlug: mainCategories[0]?.slug,
 				categories: mainCategories[0]?.category || []
 			});
@@ -45,8 +52,6 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 	}, [mainCategories]);
 
 	const megaMenuRef = useRef(null);
-
-	console.log('selectedMainCategory =', selectedMainCategory);
 
 	const megaMenuClassName = `relative grid grid-cols-12 border bg-white text-sm text-gray shadow-lg overflow-y-autos ${className}`;
 
@@ -57,26 +62,27 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 			{/* Main Categories */}
 			{mainCategories && (
 				<div
-					className={`col-span-3 my-1 ml-4 h-[487px] space-y-4 overflow-auto pl-2 ${styles.megaMenuScrollbar}`}
+					className={`col-span-3 my-1 ml-4 h-[487px] space-y-4 overflow-auto pl-2 shadow-mega-menu ${styles.megaMenuScrollbar}`}
 					style={{ direction: 'rtl' }}
 				>
-					<ul className="mr-1 h-full space-y-1 shadow-mega-menu">
+					<ul className="mr-1 h-full space-y-1 ">
 						{mainCategories.map((mainCategory: any) => {
-							const { slug, category } = mainCategory;
+							const { id, slug, category } = mainCategory;
 
 							const isSelected =
-								slug === selectedMainCategory.mainCategorySlug;
+								id === selectedMainCategory.mainCategoryId;
 
 							return (
 								<li
 									key={slug}
-									className={`flex cursor-pointer justify-between pl-4 text-[15px] dark:hover:text-primary-eco ${
+									className={`flex cursor-pointer justify-between pl-4 text-left text-[15px] dark:hover:text-primary-eco ${
 										isSelected
-											? ' bg-bg-eco/60 font-semibold dark:text-primary-eco'
+											? 'font-semibold dark:bg-bg-eco/60 dark:text-primary-eco'
 											: ''
 									}`}
 									onMouseEnter={() =>
 										setSelectedMainCategory({
+											mainCategoryId: id,
 											mainCategorySlug: slug,
 											categories: category || []
 										})
@@ -98,24 +104,25 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 			{/* Categories */}
 			{selectedMainCategory.categories &&
 				selectedMainCategory.categories.length > 0 && (
-					<ul className="col-span-3 space-y-1 border-r border-dashed pl-4 dark:bg-[#FCF5EB]">
+					<ul className="col-span-3 h-[487px] space-y-1 overflow-y-auto border-r border-dashed pt-1 pl-4 dark:bg-[#FCF5EB]">
 						{selectedMainCategory.categories.map((category: any) => {
-							const { slug, title, subCategory } = category;
+							const { id, slug, title, sub_category } = category;
 
-							const isSelected = slug === selectedCategory.categorySlug;
+							const isSelected = id === selectedCategory.categoryId;
 
 							return (
 								<li
 									key={slug}
 									className={`flex cursor-pointer items-center justify-between text-[15px] dark:hover:text-primary-eco ${
 										isSelected
-											? ' bg-bg-eco/60 font-semibold dark:text-primary-eco'
+											? ' font-semibold dark:bg-bg-eco/60 dark:text-primary-eco'
 											: ''
 									}`}
 									onMouseEnter={() =>
 										setSelectedCategory({
+											categoryId: id,
 											categorySlug: slug,
-											subCategories: subCategory || []
+											subCategories: sub_category || []
 										})
 									}
 								>
@@ -134,25 +141,26 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 			{/* Sub Categories */}
 			{selectedCategory.subCategories &&
 				selectedCategory.subCategories.length > 0 && (
-					<ul className="col-span-3 space-y-1 border-r border-dashed pl-4 dark:bg-[#FCF5EB]">
+					<ul className="col-span-3 h-[487px] space-y-1 overflow-y-auto border-r border-dashed pl-4 dark:bg-[#FCF5EB]">
 						{selectedCategory.subCategories.map((subCategory: any) => {
-							const { slug, title, subSubCategory } = subCategory;
+							const { id, slug, title, sub_sub_category } = subCategory;
 
 							const isSelected =
-								slug === selectedSubCategory.subCategorySlug;
+								id === selectedSubCategory.subCategoryId;
 
 							return (
 								<li
 									key={slug}
 									className={`flex cursor-pointer items-center justify-between text-[15px] dark:hover:text-primary-eco ${
 										isSelected
-											? ' bg-bg-eco/60 font-semibold dark:text-primary-eco'
+											? ' font-semibold dark:bg-bg-eco/60 dark:text-primary-eco'
 											: ''
 									}`}
 									onMouseEnter={() =>
 										setSelectedSubCategory({
+											subCategoryId: id,
 											subCategorySlug: slug,
-											specificCategories: subSubCategory || []
+											specificCategories: sub_sub_category || []
 										})
 									}
 								>
@@ -171,7 +179,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 			{/* Specific Categories */}
 			{selectedSubCategory.specificCategories &&
 				selectedSubCategory.specificCategories.length > 0 && (
-					<ul className="col-span-3 space-y-1 pl-4 dark:bg-[#FCF5EB]">
+					<ul className="col-span-3 h-[487px] space-y-1 overflow-y-auto pl-4 dark:bg-[#FCF5EB]">
 						{selectedSubCategory.specificCategories.map(
 							(specificCategory: any) => {
 								const { slug, title } = specificCategory;
@@ -183,7 +191,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 										key={slug}
 										className={`flex cursor-pointer items-center justify-between text-[15px] dark:hover:text-primary-eco ${
 											isSelected
-												? ' bg-bg-eco/60 font-semibold dark:text-primary-eco'
+												? ' font-semibold dark:bg-bg-eco/60 dark:text-primary-eco'
 												: ''
 										}`}
 										onMouseEnter={() =>

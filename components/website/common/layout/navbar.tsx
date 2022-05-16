@@ -57,12 +57,12 @@ const Header = () => {
 		action: 'onMouseEnter' | 'onMouseLeave',
 		location: 'button' | 'menu'
 	) => {
+		console.log('Mega-menu button clicked', isOpen, action, location);
 		if (!isOpen && action === 'onMouseEnter') {
-			// (buttonRef?.current as any)?.click();
+			(buttonRef?.current as any)?.click();
 		}
-
 		if (isOpen && action === 'onMouseLeave' && location === 'menu') {
-			// (buttonRef?.current as any)?.click();
+			(buttonRef?.current as any)?.click();
 		}
 	};
 
@@ -187,44 +187,47 @@ const Header = () => {
         "
 				>
 					<Popover className="relative hidden md:inline-block">
-						{({ open }) => (
-							<>
-								<Popover.Button
-									ref={buttonRef}
-									onMouseEnter={() =>
-										onHover(open, 'onMouseEnter', 'button')
-									}
-									onMouseLeave={() =>
-										onHover(open, 'onMouseLeave', 'button')
-									}
-									className="font-semibold text-primary-main outline-none dark:text-accent-secondary-eco"
-								>
-									Categories{' '}
-									<span className="hidden md:inline">&gt;</span>
-								</Popover.Button>
-
-								<Transition
-									enter="transition duration-100 ease-out"
-									enterFrom="transform scale-95 opacity-0"
-									enterTo="transform scale-100 opacity-100"
-									leave="transition duration-75 ease-out"
-									leaveFrom="transform scale-100 opacity-100"
-									leaveTo="transform scale-95 opacity-0"
-								>
-									<Popover.Panel
-										className="fixed left-0 right-0 z-10 mt-2"
+						{(options: any) => {
+							console.log('options', options);
+							return (
+								<>
+									<Popover.Button
+										ref={buttonRef}
 										onMouseEnter={() =>
-											onHover(open, 'onMouseEnter', 'menu')
+											onHover(options?.open, 'onMouseEnter', 'button')
 										}
 										onMouseLeave={() =>
-											onHover(open, 'onMouseLeave', 'menu')
+											onHover(options?.open, 'onMouseLeave', 'button')
 										}
+										className="font-semibold text-primary-main outline-none dark:text-accent-secondary-eco"
 									>
-										<MegaMenu />
-									</Popover.Panel>
-								</Transition>
-							</>
-						)}
+										Categories{' '}
+										<span className="hidden md:inline">&gt;</span>
+									</Popover.Button>
+
+									<Transition
+										enter="transition duration-100 ease-out"
+										enterFrom="transform scale-95 opacity-0"
+										enterTo="transform scale-100 opacity-100"
+										leave="transition duration-75 ease-out"
+										leaveFrom="transform scale-100 opacity-100"
+										leaveTo="transform scale-95 opacity-0"
+									>
+										<Popover.Panel
+											className="fixed left-0 right-0 z-10 mt-2 bg-secondary"
+											onMouseEnter={() =>
+												onHover(options?.open, 'onMouseEnter', 'menu')
+											}
+											onMouseLeave={() =>
+												onHover(options?.open, 'onMouseLeave', 'menu')
+											}
+										>
+											<MegaMenu />
+										</Popover.Panel>
+									</Transition>
+								</>
+							);
+						}}
 					</Popover>
 
 					<nav className="flex cursor-pointer flex-col items-start justify-start md:flex-row md:divide-x">

@@ -27,7 +27,8 @@ const CardB: React.FC<CardBProps> = (props) => {
 	} = props;
 
 	return (
-		<div className="flex flex-1 flex-col justify-between gap-3 rounded bg-secondary p-3 transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg sm:gap-0 lg:p-6  pc:h-[300px]">
+		// <div className="flex flex-1 flex-col justify-between gap-3 rounded bg-secondary p-3 transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg sm:gap-0 lg:p-6  pc:h-[300px]">
+		<div className="flex flex-1 flex-col justify-between gap-3  rounded bg-secondary p-3 transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg sm:gap-0 md:h-[240px] md:w-[300px] lg:h-[356px] lg:w-[380px] lg:p-6 xl:w-[416px] pc:h-[300px]">
 			<h2 className="font-mont text-[18px] font-bold text-primary-main dark:text-accent-secondary-eco lg:text-2xl">
 				{title}
 			</h2>
