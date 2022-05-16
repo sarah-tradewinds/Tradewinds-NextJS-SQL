@@ -4,13 +4,12 @@ import CategorySubCategoriesSection from 'components/website/home/category-sub-c
 import CountrySlider from 'components/website/home/country-slider';
 import Hero from 'components/website/home/hero';
 
-import { countries } from 'data/home';
-
 // lib
 import {
 	getCardAList,
 	getCardB,
 	getHeroCarousels,
+	getHomeAdvertisments,
 	getHomeCategories,
 	getHomeCountries
 } from 'lib/home.lib';
@@ -37,7 +36,8 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 		cardAList = [],
 		cardBData = {},
 		homeCategories = [],
-		homeCountries = []
+		homeCountries = [],
+		homeAdvertisments = []
 	} = props;
 
 	const setIsEco = useHomeStore(({ setIsEco }) => setIsEco);
@@ -100,9 +100,17 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 
 			<div className="space-y-8">
 				{/* Shop by country */}
-				<CountrySlider countries={countries} />
+				<CountrySlider countries={homeCountries} />
+
 				{/* Bottom Banner */}
-				<AddBanner />
+				<div className="grid grid-cols-2">
+					{homeAdvertisments.map((advertisment: any) => (
+						<AddBanner
+							key={advertisment.id}
+							iframe_code={advertisment.i_frame_code}
+						/>
+					))}
+				</div>
 			</div>
 		</>
 	);
@@ -120,6 +128,7 @@ export const getStaticProps: GetStaticProps = async () => {
 		const cardBData = await getCardB();
 		const homeCategories = await getHomeCategories();
 		const homeCountries = await getHomeCountries();
+		const homeAdvertisments = await getHomeAdvertisments();
 
 		return {
 			props: {
@@ -127,7 +136,8 @@ export const getStaticProps: GetStaticProps = async () => {
 				cardAList,
 				cardBData,
 				homeCategories: homeCategories ?? [],
-				homeCountries
+				homeCountries,
+				homeAdvertisments
 			}
 		};
 	} catch (error) {
