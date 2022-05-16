@@ -46,7 +46,6 @@ export const getHomeCategories = async () => {
 		const { data } = await axiosInstance.get(
 			'/categories?page=1&limit=7'
 		);
-
 		const homeCategories: any[] = [];
 
 		data.data.forEach((mainCategory: any) => {
