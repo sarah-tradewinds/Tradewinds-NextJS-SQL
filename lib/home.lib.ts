@@ -56,7 +56,7 @@ export const getHomeCategories = async () => {
 						desc: mainCategory.description.en,
 						btnTxt: mainCategory.btnTxt || '',
 						bgHexColor: mainCategory.color,
-						isEco: mainCategory.isEco
+						isEco: mainCategory.isEco || false
 					},
 					subCategories: category.map((subCategory: any) => ({
 						id: subCategory.id,

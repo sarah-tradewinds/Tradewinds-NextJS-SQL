@@ -17,13 +17,12 @@ import ProductList from 'components/website/product-search/product-list';
 import SubCategoryList from 'components/website/product-search/sub-category-list';
 
 // data
-import { subCategories } from 'data/product-search/sub-category';
 
 // stores
 import Seo from 'components/website/common/seo';
 import SubCategoryTile from 'components/website/product-search/sub-category-tile';
 import { getProducts } from 'lib/product-search.lib';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useCategoryStore } from 'store/category-store';
 import { useProductStore } from 'store/product-store';
 
@@ -31,6 +30,10 @@ const ProductSearchPage: NextPage<
 	InferGetStaticPropsType<GetStaticProps>
 > = (props) => {
 	const { products } = props;
+
+	const [selectedMainCategoryId, setSelectedMainCategoryId] =
+		useState('');
+	const [selectedMainCategory, setSelectedMainCategory] = useState({});
 
 	const { categories, fetchCategories } = useCategoryStore();
 
@@ -46,6 +49,21 @@ const ProductSearchPage: NextPage<
 		}
 	}, []);
 
+	useEffect(() => {
+		if (categories.length >= 0) {
+			const mainCategory = categories.find(
+				(category: any) => category.id === selectedMainCategoryId
+			);
+			if (mainCategory) {
+				setSelectedMainCategory(mainCategory);
+			}
+		}
+
+		if (!selectedMainCategoryId) {
+			setSelectedMainCategory({});
+		}
+	}, [selectedMainCategoryId]);
+
 	const [ref] = useKeenSlider<HTMLDivElement>({
 		loop: true,
 		slides: {
@@ -56,6 +74,11 @@ const ProductSearchPage: NextPage<
 
 	const compareProducts = products.filter(
 		(product: any) => product.isInCompareList
+	);
+
+	const subCategories = (selectedMainCategory as any)?.category?.slice(
+		0,
+		7
 	);
 
 	return (
@@ -71,7 +94,12 @@ const ProductSearchPage: NextPage<
 				{/* Side container */}
 				<section className="col-span-4 hidden space-y-8 md:block lg:col-span-3">
 					{/* filters */}
-					<ProductFilter categories={categories} />
+					<ProductFilter
+						categories={categories}
+						onCategoryChange={({ mainCategoryId }) =>
+							setSelectedMainCategoryId(mainCategoryId)
+						}
+					/>
 
 					{/* ads */}
 					<div>
@@ -91,23 +119,27 @@ const ProductSearchPage: NextPage<
 						{/* Main category Card */}
 						<div className="col-span-12  md:col-span-3">
 							<MainCategoryCard
-								title="Agriculture"
-								subtitle="Lorem ipsum dolor sit amet, consecamet Lorem ipsum dolor sit amet"
+								title={(selectedMainCategory as any)?.title?.en}
+								subtitle={
+									(selectedMainCategory as any)?.description?.en
+								}
 								imageUrl="/static/images/agriculture.png"
 								className="w-screen md:w-auto"
 							/>
 						</div>
 						{/* Categories */}
 						<div className="col-span-12 border-gray/20 md:col-span-9 md:ml-4 md:border-l-2 md:pl-4">
-							<SubCategoryList
-								subCategories={subCategories}
-								className="hidden md:grid"
-							/>
+							{selectedMainCategory && (
+								<SubCategoryList
+									subCategories={subCategories || []}
+									className="hidden md:grid"
+								/>
+							)}
 
 							{/* For small screen only */}
 							<div className="px-2 py-4 md:hidden">
 								<div ref={ref} className="keen-slider">
-									{subCategories.map((subCategory) => (
+									{subCategories?.map((subCategory: any) => (
 										<div
 											key={subCategory.name}
 											className="keen-slider__slide"

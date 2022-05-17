@@ -53,6 +53,7 @@ const CategoriesFilter: React.FC<{
 				return (
 					<CategoryCollapse
 						key={mainCategoryId}
+						id={mainCategoryId}
 						isOpen={isMainCategorySelected}
 						title={mainCategory?.title?.en}
 						onClick={() =>
@@ -70,6 +71,7 @@ const CategoriesFilter: React.FC<{
 							return (
 								<CategoryCollapse
 									key={categoryId}
+									id={categoryId}
 									isOpen={isCategorySelected}
 									title={categoryData?.title?.en}
 									onClick={() =>
@@ -88,6 +90,7 @@ const CategoriesFilter: React.FC<{
 										return (
 											<CategoryCollapse
 												key={subCategoryId}
+												id={subCategoryId}
 												isOpen={isSubCategorySelected}
 												title={subCategory?.title?.en}
 												onClick={() =>
@@ -137,22 +140,25 @@ const CategoriesFilter: React.FC<{
 };
 
 const CategoryCollapse: React.FC<{
+	id: string;
 	title: string;
 	isOpen: boolean;
 	onClick?: () => any;
 	className?: string;
-}> = ({ title, isOpen, onClick, children, className }) => {
+}> = ({ id, title, isOpen, onClick, children, className }) => {
 	return (
 		<div className={className}>
-			<button
+			<input id={id} type="checkbox" className="hidden" />
+			<label
+				htmlFor={id}
 				onClick={onClick}
-				className={`flex items-center space-x-2 text-left text-[18px] ${
+				className={`flex cursor-pointer items-center space-x-2 text-left text-[18px] ${
 					isOpen ? 'font-semibold' : ''
 				}`}
 			>
 				<AiOutlinePlus />
 				<span>{title}</span>
-			</button>
+			</label>
 			{isOpen && <div>{children}</div>}
 		</div>
 	);

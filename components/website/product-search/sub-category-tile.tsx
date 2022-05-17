@@ -16,7 +16,11 @@ const SubCategoryTile: React.FC<SubCategoryTileProps> = ({
 	return (
 		<div className="flex cursor-pointer items-center space-x-4">
 			<div className="relative h-[44px] w-[51px]  md:h-[67px] md:w-[77px] lg:h-[67px] lg:w-[77px]">
-				<Image src={imageUrl} alt={alt} layout="fill" />
+				<Image
+					src={imageUrl || '/sub-category/beans.png'}
+					alt={alt}
+					layout="fill"
+				/>
 			</div>
 			<div className="relative">
 				<p className="text-[15px] font-semibold text-gray md:text-[12px] lg:text-[18px]">

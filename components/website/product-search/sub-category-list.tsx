@@ -32,8 +32,8 @@ const SubCategoryList: React.FC<SubCategoryListProps> = ({
 				.map((subCategory, index) => (
 					<SubCategoryTile
 						key={subCategory.name}
-						title={subCategory.name}
-						imageUrl={subCategory.imageUrl}
+						title={subCategory?.title?.en}
+						imageUrl={'/sub-category/beans.png'}
 					/>
 				))}
 
