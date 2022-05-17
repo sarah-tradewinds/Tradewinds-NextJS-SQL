@@ -1,4 +1,8 @@
-import { NextPage } from 'next';
+import {
+	GetStaticProps,
+	InferGetStaticPropsType,
+	NextPage
+} from 'next';
 import Image from 'next/image';
 
 // Third party packages
@@ -18,15 +22,29 @@ import { subCategories } from 'data/product-search/sub-category';
 // stores
 import Seo from 'components/website/common/seo';
 import SubCategoryTile from 'components/website/product-search/sub-category-tile';
+import { getProducts } from 'lib/product-search.lib';
+import { useEffect } from 'react';
+import { useCategoryStore } from 'store/category-store';
 import { useProductStore } from 'store/product-store';
 
-const ProductSearchPage: NextPage = (props) => {
+const ProductSearchPage: NextPage<
+	InferGetStaticPropsType<GetStaticProps>
+> = (props) => {
+	const { products } = props;
+
+	const { categories, fetchCategories } = useCategoryStore();
+
 	const {
 		addProductToCompareList,
-		products,
 		removeProductFromCompareList,
 		removeAllProductFromCompareList
 	} = useProductStore();
+
+	useEffect(() => {
+		if (categories.length <= 0) {
+			fetchCategories();
+		}
+	}, []);
 
 	const [ref] = useKeenSlider<HTMLDivElement>({
 		loop: true,
@@ -37,7 +55,7 @@ const ProductSearchPage: NextPage = (props) => {
 	});
 
 	const compareProducts = products.filter(
-		(product) => product.isInCompareList
+		(product: any) => product.isInCompareList
 	);
 
 	return (
@@ -51,9 +69,9 @@ const ProductSearchPage: NextPage = (props) => {
 
 			<div className="relative grid grid-cols-12 gap-4 md:p-4 lg:gap-6 lg:p-6">
 				{/* Side container */}
-				<div className="col-span-4 hidden space-y-8 md:block lg:col-span-3">
+				<section className="col-span-4 hidden space-y-8 md:block lg:col-span-3">
 					{/* filters */}
-					<ProductFilter />
+					<ProductFilter categories={categories} />
 
 					{/* ads */}
 					<div>
@@ -64,7 +82,7 @@ const ProductSearchPage: NextPage = (props) => {
 							<Image src="/smoker.png" alt="" layout="fill" />
 						</div>
 					</div>
-				</div>
+				</section>
 
 				{/* product list and Category container*/}
 				<div className="col-span-12 md:col-span-8 md:space-y-8 lg:col-span-9">
@@ -101,34 +119,12 @@ const ProductSearchPage: NextPage = (props) => {
 										</div>
 									))}
 								</div>
-								{/* <Slider
-									{...{
-										infinite: true,
-										speed: 500,
-										slidesToShow: 2,
-										slidesToScroll: 1
-									}}
-								>
-									{subCategories.map((subCategory) => (
-										<div key={subCategory.name}>
-											<SubCategoryTile
-												imageUrl={subCategory.imageUrl}
-												title={subCategory.name}
-											/>
-										</div>
-									))}
-								</Slider> */}
 							</div>
 						</div>
 					</div>
 
 					{/* Product List */}
 					<div className="space-y-4 md:space-y-8">
-						<ProductList
-							products={products}
-							onCompareClick={addProductToCompareList}
-						/>
-						{/* TODO: TMP */}
 						<ProductList
 							products={products}
 							onCompareClick={addProductToCompareList}
@@ -158,6 +154,18 @@ const ProductSearchPage: NextPage = (props) => {
 			</div>
 		</>
 	);
-};
+}; // End of ProductSearchPage
+
+export const getStaticProps: GetStaticProps = async () => {
+	const products = await getProducts({
+		price_start: 0
+	});
+
+	console.log(products);
+
+	return {
+		props: { products }
+	};
+}; // End of getStaticProps function
 
 export default ProductSearchPage;

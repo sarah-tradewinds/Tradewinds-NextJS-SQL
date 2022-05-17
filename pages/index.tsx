@@ -22,7 +22,8 @@ import {
 } from 'lib/home.lib';
 
 import Seo from 'components/website/common/seo';
-import useSWR from 'swr';
+import { useEffect } from 'react';
+import { useCategoryStore } from 'store/category-store';
 import { CatSubCatSectionType, HeroCarouselType } from 'types/home';
 
 type Props = {
@@ -43,7 +44,12 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 	} = props;
 
 	// Loading mega-menu data here
-	useSWR('/categories?page=1&limit=100');
+	const fetchCategories = useCategoryStore(
+		(state) => state.fetchCategories
+	);
+	useEffect(() => {
+		fetchCategories();
+	}, []);
 
 	const searchCategoriesBanner = (
 		<div className="flex items-center justify-center bg-accent-primary-main p-4 text-white dark:bg-accent-primary-eco md:p-8 xl:p-14">

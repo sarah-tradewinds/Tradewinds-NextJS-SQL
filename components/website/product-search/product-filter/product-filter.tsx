@@ -5,7 +5,13 @@ import CategoriesFilter from 'components/website/product-search/product-filter/c
 import React from 'react';
 import CountrySearchFilter from './country-filter';
 
-const ProductFilter: React.FC = (props) => {
+interface ProductFilterProps {
+	categories: any[];
+}
+
+const ProductFilter: React.FC<ProductFilterProps> = (props) => {
+	const { categories } = props;
+
 	return (
 		<div className="space-y-6 rounded-xl bg-white p-4 pb-40 shadow-md">
 			{/* Categories filter */}
@@ -13,7 +19,9 @@ const ProductFilter: React.FC = (props) => {
 				<h4 className="font-semibold text-gray md:text-[14px] lg:text-[18px]">
 					Categories
 				</h4>
-				<CategoriesFilter />
+				<CategoriesFilter
+					onCategoryChange={({ mainCategoryId }) => {}}
+				/>
 			</div>
 
 			{/* min order filter */}

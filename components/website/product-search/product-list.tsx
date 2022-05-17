@@ -15,11 +15,14 @@ const ProductList: React.FC<ProductListProps> = ({
 				return (
 					<ProductTile
 						key={product.id}
-						name={product.name}
+						name={product.product_name}
 						slug={product.slug}
-						description={product.description}
-						imageUrl={product.imageUrl}
-						keywords={product.keywords}
+						description={product.product_description}
+						imageUrl={
+							product.imageUrl ||
+							'https://images.unsplash.com/photo-1505156868547-9b49f4df4e04?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8aXBob25lfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60'
+						}
+						keywords={product.keywords || []}
 						maxPrice={product.maxPrice}
 						alt={product.alt || product.name}
 						minOrderQuantity={product.minimumOrderQuantity}
