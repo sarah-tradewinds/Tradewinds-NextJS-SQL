@@ -1,8 +1,23 @@
 import Button from 'components/website/common/form/button';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { Modal } from '../../common/modal/modal';
+import Review from './review/review';
 import UserReviewAndRatingTile from './user-review-and-rating-tile';
 
 const ProductReviewsDetailsTab: React.FC = () => {
+	const [showReview, setShowReview] = useState(false);
+	const router = useRouter();
+
+	useEffect(() => {
+		console.log('router?.query?.review', router?.query?.review);
+		// if (
+		// 	(router?.query?.review || '').toString().toLowerCase() === 'true'
+		// )
+		// 	setShowReview(true);
+	}, [router?.query?.review]);
+
 	return (
 		<div className="space-y-4 bg-white p-8">
 			{/* Customer reviews and rating count */}
@@ -43,7 +58,10 @@ const ProductReviewsDetailsTab: React.FC = () => {
 						<h3 className="mb-4 border-b-2 border-gray/40 pb-1 text-[18px] font-semibold text-gray/40 md:text-[21px]">
 							Review this Product
 						</h3>
-						<Button className="border border-gray/40 !text-[15px] text-gray/40">
+						<Button
+							className="border border-gray/40 !text-[15px] text-gray/40"
+							onClick={() => setShowReview(true)}
+						>
 							Write a customer review
 						</Button>
 					</div>
@@ -56,6 +74,14 @@ const ProductReviewsDetailsTab: React.FC = () => {
 					<UserReviewAndRatingTile />
 				</div>
 			</div>
+
+			<Modal
+				open={showReview}
+				className="h-50 left-8 top-1/2 -translate-y-1/2 transform lg:left-1/2 lg:-top-20 lg:-translate-x-1/2 lg:-translate-y-0"
+				onClose={() => setShowReview(false)}
+			>
+				<Review onClose={(): any => setShowReview(false)} />
+			</Modal>
 		</div>
 	);
 }; // End of ProductReviewsDetailsTab component
