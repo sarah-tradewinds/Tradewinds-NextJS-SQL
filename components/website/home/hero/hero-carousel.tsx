@@ -29,7 +29,7 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 						<a>
 							<div className="relative h-[75vh] w-full">
 								<Image
-									src={item.image}
+									src={'https://' + item.image?.url}
 									alt={String(item.order)}
 									layout="fill"
 								/>

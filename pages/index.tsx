@@ -144,15 +144,16 @@ export const getStaticProps: GetStaticProps = async () => {
 				cardAList,
 				cardBData,
 				homeCategories: homeCategories ?? [],
-				homeCountries,
-				homeAdvertisments
+				// homeCountries,
+				// homeAdvertisments
 
 				// TMP
-				// heroCarousels: []
+				// heroCarousels: [],
 				// cardAList: [],
 				// cardBData: {},
-				// homeCategories: []
-				// homeCountries: []
+				// homeCategories: [],
+				homeCountries: [],
+				homeAdvertisments: []
 			}
 		};
 	} catch (error) {

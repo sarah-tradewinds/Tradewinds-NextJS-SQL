@@ -4,6 +4,7 @@ import {
 	NextPage
 } from 'next';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 // Third party packages
 import { useKeenSlider } from 'keen-slider/react';
@@ -32,16 +33,18 @@ import { useProductStore } from 'store/product-store';
 const ProductSearchPage: NextPage<
 	InferGetStaticPropsType<GetStaticProps>
 > = (props) => {
-	const { products } = props;
+	const [products, setProducts] = useState(props.products || []);
+	const [minOrder, setMinOrder] = useState('0');
+	const [minPrice, setMinPrice] = useState('0');
+	const { query } = useRouter();
 
 	const {
 		categories,
 		fetchCategories,
 		selectedMainCategoryId,
-		selectedAndUnselectAllCategoryId
+		selectedAndUnselectAllCategoryId,
+		setDefaultMainCategoryAndCategoryId
 	} = useCategoryStore();
-
-	const [selectedMainCategory, setSelectedMainCategory] = useState({});
 
 	const {
 		addProductToCompareList,
@@ -56,19 +59,30 @@ const ProductSearchPage: NextPage<
 	}, []);
 
 	useEffect(() => {
-		if (categories.length >= 0) {
-			const mainCategory = categories.find(
-				(category: any) => category.id === selectedMainCategoryId
-			);
-			if (mainCategory) {
-				setSelectedMainCategory(mainCategory);
-			}
-		}
+		const mainCategoryId = (query.main_category ||
+			selectedMainCategoryId ||
+			'') as string;
+		const categoryId = (query.category || '') as string;
 
-		if (!selectedMainCategoryId) {
-			setSelectedMainCategory({});
+		getProducts({
+			price_start: +minPrice,
+			main_category: mainCategoryId,
+			category: categoryId
+		}).then((data) => setProducts(data));
+
+		if (
+			(categories.length > 0 && query.main_category) ||
+			query.category
+		) {
+			setDefaultMainCategoryAndCategoryId(mainCategoryId, categoryId);
 		}
-	}, [selectedMainCategoryId]);
+	}, [
+		categories.length,
+		selectedMainCategoryId,
+		query.main_category,
+		query.category,
+		minPrice
+	]);
 
 	const [ref] = useKeenSlider<HTMLDivElement>({
 		loop: true,
@@ -102,7 +116,14 @@ const ProductSearchPage: NextPage<
 				{/* Side container */}
 				<section className="col-span-4 hidden space-y-8 md:block lg:col-span-3">
 					{/* filters */}
-					<ProductFilter categories={categories} />
+					<ProductFilter
+						onMinOrderChange={(minOrderQuantity) =>
+							setMinOrder(minOrderQuantity)
+						}
+						onMinPriceChange={(minPriceQuantity) =>
+							setMinPrice(minPriceQuantity)
+						}
+					/>
 
 					{/* ads */}
 					<div>

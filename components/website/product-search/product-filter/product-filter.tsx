@@ -2,15 +2,19 @@
 import Button from 'components/website/common/form/button';
 import Input from 'components/website/common/form/input';
 import CategoriesFilter from 'components/website/product-search/product-filter/categories-filter';
-import React from 'react';
+import React, { useState } from 'react';
 import CountrySearchFilter from './country-filter';
 
 interface ProductFilterProps {
-	categories: any[];
+	onMinPriceChange: (minPrice: string) => any;
+	onMinOrderChange: (minOrder: string) => any;
 }
 
 const ProductFilter: React.FC<ProductFilterProps> = (props) => {
-	const { categories } = props;
+	const { onMinPriceChange, onMinOrderChange } = props;
+
+	const [minOrder, setMinOrder] = useState('0');
+	const [minPrice, setMinPrice] = useState('0');
 
 	return (
 		<div className="space-y-6 rounded-xl bg-white p-4 pb-40 shadow-md">
@@ -28,10 +32,16 @@ const ProductFilter: React.FC<ProductFilterProps> = (props) => {
 					Min. Order
 				</h4>
 				<div className="flex">
-					<Input className="w-full rounded-none rounded-l-md !px-2 2xl:w-auto" />
+					<Input
+						type="number"
+						className="w-full rounded-none rounded-l-md !px-2 2xl:w-auto"
+						value={minOrder}
+						onChange={({ target }) => setMinOrder(target.value)}
+					/>
 					<Button
 						variant="buyer"
 						className="rounded-none rounded-r-md px-2"
+						onClick={() => onMinOrderChange(minOrder)}
 					>
 						Go
 					</Button>
@@ -44,10 +54,16 @@ const ProductFilter: React.FC<ProductFilterProps> = (props) => {
 					Min. Price
 				</h4>
 				<div className="flex">
-					<Input className="w-full rounded-none rounded-l-md !px-2 2xl:w-auto" />
+					<Input
+						type="number"
+						className="w-full rounded-none rounded-l-md !px-2 2xl:w-auto"
+						value={minPrice}
+						onChange={({ target }) => setMinPrice(target.value)}
+					/>
 					<Button
 						variant="buyer"
 						className="rounded-none rounded-r-md px-2"
+						onClick={() => onMinPriceChange(minPrice)}
 					>
 						Go
 					</Button>

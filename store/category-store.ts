@@ -25,6 +25,10 @@ interface CategoryState {
 		id: string
 	) => any;
 	selectedAndUnselectAllCategoryId: () => any;
+	setDefaultMainCategoryAndCategoryId: (
+		mainCategoryId: string,
+		categoryId: string
+	) => any;
 }
 
 const updateElementByIndex = (
@@ -52,13 +56,51 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 		const categories = await getCategories();
 		const defaultMainCategory = categories[0];
 
+		let ids = {};
+		if (defaultMainCategory?.category[0]) {
+			ids = {
+				[defaultMainCategory?.category[0]?.id]: {}
+			};
+			categories[0].category[0].isSelected = true;
+		}
+
 		set({
 			categories,
 			selectedMainCategoryId: defaultMainCategory
 				? defaultMainCategory.id
-				: ''
+				: '',
+			ids
 		});
 	},
+	setDefaultMainCategoryAndCategoryId: (
+		mainCategoryId: string,
+		categoryId: string
+	) =>
+		set((state) => {
+			let ids = {};
+			if (categoryId) {
+				ids = {
+					[categoryId]: {}
+				};
+			}
+
+			const categories = state.categories.map((mainCategory) => {
+				if (mainCategory.id === mainCategoryId) {
+					mainCategory.category?.map((categoryData: any) => {
+						if (categoryData.id === categoryId) {
+							categoryData.isSelected = true;
+						}
+					});
+				}
+				return mainCategory;
+			});
+
+			return {
+				categories,
+				selectedMainCategoryId: mainCategoryId,
+				ids
+			};
+		}),
 	setSelectedMainCategoryId: (mainCategoryId: string) =>
 		set(({ selectedMainCategoryId }) => ({
 			selectedMainCategoryId:

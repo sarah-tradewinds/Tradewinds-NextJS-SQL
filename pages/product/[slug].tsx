@@ -5,13 +5,11 @@ import ProductDetailsTile from 'components/website/product-details/product-detai
 
 // data
 import Button from 'components/website/common/form/button';
-import CategorySubCategoriesSection from 'components/website/home/category-sub-categories-section';
 import CompanyProfileTab from 'components/website/product-details/product-details-tab/company-profile-tab';
 import ProductDetailsTab from 'components/website/product-details/product-details-tab/product-details-tab';
 import ProductDetailsTabContainer from 'components/website/product-details/product-details-tab/product-details-tab-container';
 import ProductReviewsDetailsTab from 'components/website/product-details/product-details-tab/product-reviews-details-tab';
 import SimilarProductList from 'components/website/product-details/similar-product-list';
-import beauty from 'data/home/beauty';
 
 const ProductDetailsPage: NextPage = (props) => {
 	return (
@@ -39,15 +37,18 @@ const ProductDetailsPage: NextPage = (props) => {
 
 			{/* Categories */}
 			<div className="mx-4 rounded bg-white">
-				<CategorySubCategoriesSection
+				{/* <CategorySubCategoriesSection
 					catSubCat={{
 						...beauty,
 						category: {
 							...beauty.category,
-							title: 'Deals of the Month'
+							id: '1',
+							title: 'Deals of the Month',
+							slug: { en: '/' },
+							image: { url: '/logo.png' }
 						}
 					}}
-				/>
+				/> */}
 			</div>
 
 			{/* Fixed container for small screen only */}

@@ -60,7 +60,7 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 
 				{/* Action button */}
 				<div>
-					<Link href={`/product-search`}>
+					<Link href={slug || '/'}>
 						<a
 							className={`bg-[${bgHexColor}]/70 flex h-[40px] w-[156px] items-center justify-center rounded-md border border-black/20 text-[18px] uppercase text-white`}
 						>

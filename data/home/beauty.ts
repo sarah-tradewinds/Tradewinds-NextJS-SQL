@@ -1,7 +1,7 @@
 interface beautyType {
 	category: {
 		title: string;
-		image: string;
+		image: { url: string };
 		desc: string;
 		btnTxt: string;
 		bgHexColor?: string;
@@ -9,7 +9,7 @@ interface beautyType {
 	subCategories: {
 		id: number;
 		title: string;
-		img: string;
+		image: { url: string };
 		clr: string;
 	}[];
 }
@@ -17,7 +17,7 @@ interface beautyType {
 const beauty: beautyType = {
 	category: {
 		title: 'Beauty & Personal Care',
-		image: '/static/images/TWBeauty.png',
+		image: { url: '/static/images/TWBeauty.png' },
 		desc: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem',
 		btnTxt: 'source now',
 		bgHexColor: '#E1DDDD'
@@ -26,54 +26,54 @@ const beauty: beautyType = {
 		{
 			id: 1,
 			title: 'Bath Supplies',
-			img: '/static/images/TWBeautyMini1.png',
+			image: { url: '/static/images/TWBeautyMini1.png' },
 			clr: 'bg-homepage-bg'
 		},
 		{
 			id: 2,
 			title: 'Hair Care & Styling ',
-			img: '/static/images/TWBeautyMini2.png',
+			image: { url: '/static/images/TWBeautyMini2.png' },
 			clr: 'bg-homepage-bg'
 		},
 		{
 			id: 3,
 			title: 'Fragrance & Deodorant ',
-			img: '/static/images/TWBeautyMini3.png',
+			image: { url: '/static/images/TWBeautyMini3.png' },
 			clr: 'bg-homepage-bg'
 		},
 		{
 			id: 4,
 			title: 'Tattoo Ink ',
-			img: '/static/images/TWBeautyMini4.png',
+			image: { url: '/static/images/TWBeautyMini4.png' },
 			clr: 'bg-homepage-bg'
 		},
 		{
 			id: 5,
 			title: 'Beauty Equipment',
-			img: '/static/images/TWBeautyMini5.png',
+			image: { url: '/static/images/TWBeautyMini5.png' },
 			clr: 'bg-homepage-bg'
 		},
 		{
 			id: 6,
 			title: 'Eyes',
-			img: '/static/images/TWBeautyMini6.png',
+			image: { url: '/static/images/TWBeautyMini6.png' },
 			clr: 'bg-homepage-bg'
 		},
 		{
 			id: 7,
 			title: 'Lipstick',
-			img: '/static/images/TWBeautyMini7.png',
+			image: { url: '/static/images/TWBeautyMini7.png' },
 			clr: 'bg-homepage-bg'
 		}
 		// {
-		// 	id: 8,
-		// 	title: 'safty',
-		// 	img: '/static/images/TWAgricultureMini7.png'
+		//  id: 8,
+		//  title: 'safty',
+		//  image: {url: '/static/images/TWAgricultureMini7.png'
 		// },
 		// {
-		// 	id: 9,
-		// 	title: 'eco',
-		// 	img: '/static/images/TWAgricultureMini7.png'
+		//  id: 9,
+		//  title: 'eco',
+		//  image: {url: '/static/images/TWAgricultureMini7.png'
 		// }
 	]
 };

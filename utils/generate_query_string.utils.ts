@@ -2,7 +2,10 @@ export const generateQueryString = (paramsData: object): string => {
 	const params = new URLSearchParams();
 
 	for (let key in paramsData) {
-		params.append(key, (paramsData as any)[key]);
+		const value = (paramsData as any)[key];
+		if (value !== '') {
+			params.append(key, value);
+		}
 	}
 
 	return params.toString();

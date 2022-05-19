@@ -4,17 +4,19 @@ import { SubCategoryType } from 'types/home';
 
 type Props = {
 	subCat: SubCategoryType;
+	slug?: any;
 	style?: any;
 	containerClassName?: string;
 };
 
 const SubCategoryCard = ({
 	subCat,
+	slug,
 	style,
 	containerClassName
 }: Props) => {
 	return (
-		<Link href="/">
+		<Link href={`${slug || '/'}`}>
 			<a
 				style={style}
 				className={`relative flex rounded border-2 border-gray/40 ${containerClassName}`}
@@ -50,7 +52,11 @@ const SubCategoryCard = ({
 
 				<div className="absolute bottom-0 right-0">
 					<div className="relative h-[60px] w-[60px] md:h-[80px] md:w-[80px] lg:h-[120px] lg:w-[120px]">
-						<Image src={subCat.img} alt="sub-cat-image" layout="fill" />
+						<Image
+							src={subCat.image?.url || '/vehicles/green-tractor.png'}
+							alt="sub-cat-image"
+							layout="fill"
+						/>
 					</div>
 				</div>
 			</a>

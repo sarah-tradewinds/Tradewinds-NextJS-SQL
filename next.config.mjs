@@ -16,7 +16,7 @@ const nextConfig = (phase) => {
           'https://tradewinds-dev.eastus.cloudapp.azure.com/services/api/v1'
       },
       images: {
-        domains: ["images.unsplash.com"]
+        domains: ["images.unsplash.com", "wmarketplacestgact.blob.core.windows.net"]
       }
     }
   }
@@ -31,7 +31,7 @@ const nextConfig = (phase) => {
         'https://tradewinds-dev.eastus.cloudapp.azure.com/services/api/v1'
     },
     images: {
-      domains: ["images.unsplash.com"]
+      domains: ["images.unsplash.com", "wmarketplacestgact.blob.core.windows.net"]
     }
   }
 

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 
 import { HiMinusCircle, HiPlusCircle } from 'react-icons/hi';
 import { CatSubCatSectionType } from 'types/home';
+import { generateQueryString } from 'utils/generate_query_string.utils';
 import Collapse from '../common/collapse';
 import CatSubCatActionCard from './common/cat-sub-cat-action-card';
 import CategoryCard from './common/category-card';
@@ -44,6 +45,10 @@ const CategorySubCategoriesSection: React.FC<
 			>
 				<SubCategoryCard
 					subCat={subCat}
+					slug={`/product-search?${generateQueryString({
+						main_category: category.id,
+						category: subCat.id
+					})}`}
 					style={
 						applyBgColor
 							? { backgroundColor: category.bgHexColor }
@@ -95,7 +100,9 @@ const CategorySubCategoriesSection: React.FC<
 								} z-10`}
 							>
 								<Image
-									src={category.image}
+									src={
+										category.image.url || '/vehicles/green-tractor.png'
+									}
 									alt=""
 									width={96}
 									height={96}
@@ -122,10 +129,12 @@ const CategorySubCategoriesSection: React.FC<
 								? `${category.title.substring(0, 17)}...`
 								: category.title
 						}
-						slug={category.slug || ''}
+						slug={`/product-search?=main_category=${category.id}`}
 						description={category.desc}
 						buttonText={category.btnTxt}
-						imageUrl={category.image}
+						imageUrl={
+							category.image.url || '/vehicles/green-tractor.png'
+						}
 						alt={category.title}
 						bgHexColor={category.bgHexColor}
 						containerClassName="md:h-[340px] lg:h-[380px] xl:h-[340px]"

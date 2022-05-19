@@ -1,7 +1,9 @@
 type HeroCarouselType = {
 	id?: string;
 	order: number;
-	image: string;
+	image: {
+		url: string;
+	};
 	link?: string;
 	title?: any;
 	description?: any;
@@ -17,8 +19,8 @@ type EcoCarouselType = {
 type Category = {
 	id?: string;
 	title: string;
-	slug?: string;
-	image: string;
+	slug: { en: string };
+	image: { url: string };
 	desc: string;
 	btnTxt: string;
 	bgHexColor?: string;
@@ -27,8 +29,8 @@ type Category = {
 type subCategories = {
 	id: string | number;
 	title: string;
-	slug?: string;
-	img: string;
+	slug: { en: string };
+	image: { url: string };
 	clr: string;
 };
 

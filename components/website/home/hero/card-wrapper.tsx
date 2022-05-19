@@ -10,9 +10,9 @@ const CardWrapper: React.FC<{
 			{cardAList.map((cardAData) => (
 				<CardA
 					key={cardAData.id}
-					title={cardAData.title.en}
-					imageUrl={cardAData.image}
-					subtitle={cardAData.description.en}
+					title={cardAData?.title?.en}
+					imageUrl={'https://' + cardAData.image?.url}
+					subtitle={cardAData?.description?.en}
 					name="Name Here"
 					href="/why-sell-on-tradewinds"
 				/>
@@ -20,7 +20,7 @@ const CardWrapper: React.FC<{
 
 			<CardB
 				title={cardBData.title?.en}
-				imageUrl={cardBData.image || '/static/images/rfq-orange.png'}
+				imageUrl={'https://' + cardBData?.image?.url}
 				subtitle={cardBData.description_1?.en}
 				description={cardBData.description_2?.en}
 				buttonText={cardBData.btn_text}
