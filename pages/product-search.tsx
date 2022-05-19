@@ -54,8 +54,21 @@ const ProductSearchPage: NextPage<
 
 	useEffect(() => {
 		if (categories.length <= 0) {
-			fetchCategories();
+			const mainCategoryId = (localStorage.getItem('main_category') ||
+				'') as string;
+			const categoryId = (localStorage.getItem('category') ||
+				'') as string;
+
+			fetchCategories(mainCategoryId, categoryId);
 		}
+	}, []);
+
+	useEffect(() => {
+		const mainCategoryId = (localStorage.getItem('main_category') ||
+			'') as string;
+		const categoryId = (localStorage.getItem('category') ||
+			'') as string;
+		setDefaultMainCategoryAndCategoryId(mainCategoryId, categoryId);
 	}, []);
 
 	useEffect(() => {
@@ -69,13 +82,6 @@ const ProductSearchPage: NextPage<
 			main_category: mainCategoryId,
 			category: categoryId
 		}).then((data) => setProducts(data));
-
-		if (
-			(categories.length > 0 && query.main_category) ||
-			query.category
-		) {
-			setDefaultMainCategoryAndCategoryId(mainCategoryId, categoryId);
-		}
 	}, [
 		categories.length,
 		selectedMainCategoryId,

@@ -1,12 +1,12 @@
+import Button from 'components/website/common/form/button';
 import Image from 'next/image';
-import Link from 'next/link';
 
 // store
 import { useHomeStore } from 'store/home';
 
 interface CategoryCardProps {
 	title: string;
-	slug: string;
+	slug?: string;
 	description: string;
 	buttonText: string;
 	imageUrl: string;
@@ -60,13 +60,20 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 
 				{/* Action button */}
 				<div>
-					<Link href={slug || '/'}>
+					<Button
+						href={onClick ? '' : slug}
+						onClick={onClick}
+						className={`bg-[${bgHexColor}]/70 flex h-[40px] w-[180px] items-center justify-center rounded-md border border-black/20 text-[18px] uppercase text-white`}
+					>
+						{buttonText || 'SOURCE NOW'}
+					</Button>
+					{/* <Link href={slug || '/'}>
 						<a
 							className={`bg-[${bgHexColor}]/70 flex h-[40px] w-[156px] items-center justify-center rounded-md border border-black/20 text-[18px] uppercase text-white`}
 						>
 							{buttonText || 'SOURCE NOW'}
 						</a>
-					</Link>
+					</Link> */}
 				</div>
 			</div>
 		</div>

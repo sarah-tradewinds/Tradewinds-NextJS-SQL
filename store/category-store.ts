@@ -15,7 +15,10 @@ interface CategoryState {
 	selectedMainCategoryId: string;
 	ids: any;
 
-	fetchCategories: () => any;
+	fetchCategories: (
+		mainCategoryId?: string,
+		categoryId?: string
+	) => any;
 	setSelectedMainCategoryId: (id: string) => any;
 	setSelectedCategoryId: (categoryId: string) => any;
 	setSelectedSubCategoryId: (categoryId: string, id: string) => any;
@@ -52,7 +55,10 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 	categories: [],
 	selectedMainCategoryId: '',
 	ids: {},
-	fetchCategories: async () => {
+	fetchCategories: async (
+		mainCategoryId?: string,
+		categoryId?: string
+	) => {
 		const categories = await getCategories();
 		const defaultMainCategory = categories[0];
 
@@ -66,9 +72,7 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 
 		set({
 			categories,
-			selectedMainCategoryId: defaultMainCategory
-				? defaultMainCategory.id
-				: '',
+			selectedMainCategoryId: mainCategoryId || defaultMainCategory?.id,
 			ids
 		});
 	},
@@ -97,16 +101,21 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 
 			return {
 				categories,
-				selectedMainCategoryId: mainCategoryId,
+				selectedMainCategoryId:
+					mainCategoryId || state.selectedMainCategoryId,
 				ids
 			};
 		}),
 	setSelectedMainCategoryId: (mainCategoryId: string) =>
-		set(({ selectedMainCategoryId }) => ({
-			selectedMainCategoryId:
-				selectedMainCategoryId !== mainCategoryId ? mainCategoryId : '',
-			ids: {}
-		})),
+		set(({ selectedMainCategoryId }) => {
+			const newMainCategoryId =
+				selectedMainCategoryId !== mainCategoryId ? mainCategoryId : '';
+
+			return {
+				selectedMainCategoryId: newMainCategoryId,
+				ids: {}
+			};
+		}),
 	setSelectedCategoryId: (categoryId: string) =>
 		set((state) => {
 			const ids = { ...state.ids };
@@ -114,6 +123,7 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 			if (isKeyExist) {
 				delete ids[categoryId];
 			} else {
+				localStorage.setItem('category', categoryId);
 				ids[categoryId] = {};
 			}
 

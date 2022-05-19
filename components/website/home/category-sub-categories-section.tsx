@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 
 import { HiMinusCircle, HiPlusCircle } from 'react-icons/hi';
 import { CatSubCatSectionType } from 'types/home';
-import { generateQueryString } from 'utils/generate_query_string.utils';
 import Collapse from '../common/collapse';
 import CatSubCatActionCard from './common/cat-sub-cat-action-card';
 import CategoryCard from './common/category-card';
@@ -45,10 +44,18 @@ const CategorySubCategoriesSection: React.FC<
 			>
 				<SubCategoryCard
 					subCat={subCat}
-					slug={`/product-search?${generateQueryString({
-						main_category: category.id,
-						category: subCat.id
-					})}`}
+					// slug={`/product-search?${generateQueryString({
+					// 	main_category: category.id,
+					// 	category: subCat.id
+					// })}`}
+					onClick={() => {
+						router.push('/product-search');
+						localStorage.setItem('main_category', category.id!);
+						localStorage.setItem(
+							'category',
+							(subCat.id || '') as string
+						);
+					}}
 					style={
 						applyBgColor
 							? { backgroundColor: category.bgHexColor }
@@ -129,7 +136,10 @@ const CategorySubCategoriesSection: React.FC<
 								? `${category.title.substring(0, 17)}...`
 								: category.title
 						}
-						slug={`/product-search?=main_category=${category.id}`}
+						onClick={() => {
+							router.push('/product-search');
+							localStorage.setItem('main_category', category.id!);
+						}}
 						description={category.desc}
 						buttonText={category.btnTxt}
 						imageUrl={
