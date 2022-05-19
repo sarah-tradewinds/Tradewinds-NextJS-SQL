@@ -2,17 +2,22 @@
 import { AiOutlinePlus } from 'react-icons/ai';
 
 // data
+import { useState } from 'react';
 import { useCategoryStore } from 'store/category-store';
 
-const CategoriesFilter: React.FC = (props) => {
+const CategoriesFilter: React.FC<{
+	onCategoryChange: (ids: { mainCategoryId: string }) => any;
+}> = (props) => {
+	const { onCategoryChange } = props;
+
 	const {
 		categories,
-		ids,
 		selectedMainCategoryId,
+		selectedCategoryIds,
+		selectedSubCategoryIds,
 		setSelectedMainCategoryId,
 		setSelectedCategoryId,
-		setSelectedSubCategoryId,
-		setSelectedSubSubCategoryId
+		setSelectedSubCategoryId
 	} = useCategoryStore();
 
 	const isElementSelected = (
@@ -28,11 +33,47 @@ const CategoriesFilter: React.FC = (props) => {
 		return false;
 	}; // End of isElementSelected function
 
+	// const [selectedMainCategoryId, setSelectedMainCategoryId] =
+	// 	useState('');
+	// const [selectedCategoryId, setSelectedCategoryIds] = useState('');
+	// const [selectedSubCategoryId, setSelectedSubCategoryIds] =
+	// 	useState('');
+	useState('');
+	// const [selectedSubSubCategoryId, setSelectedSubSubCategoryId] =
+	// 	useState('');
+
+	// useEffect(
+	// 	() => {
+	// 		onCategoryChange({
+	// 			mainCategoryId: selectedMainCategoryId
+	// 			// selectedCategoryId,
+	// 			// selectedSubCategoryId,
+	// 			// selectedSubSubCategoryId
+	// 		});
+	// 	},
+	// 	[
+	// 		// selectedMainCategoryId,
+	// 		// selectedCategoryId,
+	// 		// selectedSubCategoryId,
+	// 		// selectedSubSubCategoryId
+	// 	]
+	// );
+
+	const setMainCategoryId = (mainCategoryId: string) => {
+		setSelectedMainCategoryId(mainCategoryId);
+		setSelectedCategoryId('');
+		setSelectedSubCategoryId('');
+		setSelectedSubSubCategoryId('');
+	}; // End of setMainCategoryId function
+
 	return (
 		<div className="mt-4 space-y-2">
 			{categories.map((mainCategory: any) => {
 				const { id: mainCategoryId, category = [] } =
 					mainCategory || {};
+
+				// const isMainCategorySelected =
+				// 	selectedMainCategoryId === mainCategoryId;
 
 				const isMainCategorySelected =
 					selectedMainCategoryId === mainCategoryId;
@@ -43,14 +84,23 @@ const CategoriesFilter: React.FC = (props) => {
 						id={mainCategoryId}
 						isOpen={isMainCategorySelected}
 						title={mainCategory?.title?.en}
+						// onClick={() =>
+						// 	setMainCategoryId(
+						// 		isMainCategorySelected ? '' : mainCategoryId
+						// 	)
+						// }
 						onClick={() => setSelectedMainCategoryId(mainCategoryId)}
 					>
 						{/* Categories */}
 						{category?.map((categoryData: any) => {
 							const { id: categoryId, sub_category = [] } =
 								categoryData || {};
-
-							const isCategorySelected = ids[categoryId];
+							// const isCategorySelected =
+							//   selectedCategoryId === categoryId;
+							const isCategorySelected = isElementSelected(
+								selectedCategoryIds,
+								categoryId
+							);
 
 							return (
 								<CategoryCollapse
@@ -58,16 +108,21 @@ const CategoriesFilter: React.FC = (props) => {
 									id={categoryId}
 									isOpen={isCategorySelected}
 									title={categoryData?.title?.en}
-									onClick={() => setSelectedCategoryId(categoryId)}
+									onClick={() =>
+										setSelectedCategoryId(
+											isCategorySelected ? '' : categoryId
+										)
+									}
 									className="ml-4"
 								>
 									{/* Sub Categories */}
 									{sub_category?.map((subCategory: any) => {
 										const { id: subCategoryId, sub_sub_category = [] } =
 											subCategory || {};
+										// const isSubCategorySelected =
+										// 	selectedSubCategoryId === subCategoryId;
 
-										const isSubCategorySelected =
-											ids[categoryId] && ids[categoryId][subCategoryId];
+										const isSubCategorySelected = false;
 
 										return (
 											<CategoryCollapse
@@ -77,8 +132,7 @@ const CategoriesFilter: React.FC = (props) => {
 												title={subCategory?.title?.en}
 												onClick={() =>
 													setSelectedSubCategoryId(
-														categoryId,
-														subCategoryId
+														isSubCategorySelected ? '' : subCategoryId
 													)
 												}
 												className="ml-4"
@@ -88,39 +142,25 @@ const CategoriesFilter: React.FC = (props) => {
 													(subSubCategory: any) => {
 														const { id: subSubCategoryId } =
 															subSubCategory || {};
-
-														let isSubSubCategorySelected = false;
-
-														if (
-															ids[categoryId] &&
-															ids[categoryId][subCategoryId] &&
-															ids[categoryId][subCategoryId]?.length > 0
-														) {
-															isSubSubCategorySelected =
-																isElementSelected(
-																	ids[categoryId][subCategoryId],
-																	subSubCategoryId
-																);
-														}
-
 														return (
 															<button
 																key={subSubCategoryId}
-																className={`ml-4 text-left ${
-																	isSubSubCategorySelected
-																		? 'font-semibold'
-																		: ''
-																}`}
-																onClick={() =>
-																	setSelectedSubSubCategoryId(
-																		categoryId,
-																		subCategoryId,
-																		subSubCategoryId
-																	)
-																}
-															>
-																{subSubCategory?.title?.en}
-															</button>
+																// className={`ml-4 ${
+																// 	selectedSubSubCategoryId ===
+																// 	subSubCategory
+																// 		? 'font-semibold'
+																// 		: ''
+																// }`}
+																className={`ml-4`}
+																title={subSubCategory?.title?.en}
+																// onClick={() =>
+																// 	setSelectedSubSubCategoryId(
+																// 		selectedSubSubCategoryId
+																// 			? ''
+																// 			: subSubCategoryId
+																// 	)
+																// }
+															></button>
 														);
 													}
 												)}

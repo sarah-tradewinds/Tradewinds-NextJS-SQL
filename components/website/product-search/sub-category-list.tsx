@@ -5,11 +5,13 @@ import SubCategoryTile from './sub-category-tile';
 interface SubCategoryListProps {
 	subCategories: any[];
 	className?: string;
+	onClick: () => any;
 }
 
 const SubCategoryList: React.FC<SubCategoryListProps> = ({
 	subCategories,
-	className
+	className,
+	onClick
 }) => {
 	const [screenSize, setScreenSize] = useState<null | number>(null);
 	const [isTablet, setIsTablet] = useState<boolean>(false);
@@ -34,10 +36,14 @@ const SubCategoryList: React.FC<SubCategoryListProps> = ({
 						key={subCategory.name}
 						title={subCategory?.title?.en}
 						imageUrl={'/sub-category/beans.png'}
+						showBorder={subCategory?.isSelected}
 					/>
 				))}
 
-			<button className="text-[18px] font-semibold text-gray">
+			<button
+				onClick={onClick}
+				className="text-[18px] font-semibold text-gray"
+			>
 				See all
 			</button>
 		</div>

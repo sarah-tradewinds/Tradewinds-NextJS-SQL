@@ -23,7 +23,10 @@ import Seo from 'components/website/common/seo';
 import SubCategoryTile from 'components/website/product-search/sub-category-tile';
 import { getProducts } from 'lib/product-search.lib';
 import { useEffect, useState } from 'react';
-import { useCategoryStore } from 'store/category-store';
+import {
+	getMainCategoryById,
+	useCategoryStore
+} from 'store/category-store';
 import { useProductStore } from 'store/product-store';
 
 const ProductSearchPage: NextPage<
@@ -31,11 +34,14 @@ const ProductSearchPage: NextPage<
 > = (props) => {
 	const { products } = props;
 
-	const [selectedMainCategoryId, setSelectedMainCategoryId] =
-		useState('');
-	const [selectedMainCategory, setSelectedMainCategory] = useState({});
+	const {
+		categories,
+		fetchCategories,
+		selectedMainCategoryId,
+		selectedAndUnselectAllCategoryId
+	} = useCategoryStore();
 
-	const { categories, fetchCategories } = useCategoryStore();
+	const [selectedMainCategory, setSelectedMainCategory] = useState({});
 
 	const {
 		addProductToCompareList,
@@ -76,10 +82,12 @@ const ProductSearchPage: NextPage<
 		(product: any) => product.isInCompareList
 	);
 
-	const subCategories = (selectedMainCategory as any)?.category?.slice(
-		0,
-		7
+	const mainCategory = getMainCategoryById(
+		categories,
+		selectedMainCategoryId
 	);
+
+	const subCategories = (mainCategory as any)?.category?.slice(0, 7);
 
 	return (
 		<>
@@ -96,9 +104,7 @@ const ProductSearchPage: NextPage<
 					{/* filters */}
 					<ProductFilter
 						categories={categories}
-						onCategoryChange={({ mainCategoryId }) =>
-							setSelectedMainCategoryId(mainCategoryId)
-						}
+						onCategoryChange={({ mainCategoryId }) => {}}
 					/>
 
 					{/* ads */}
@@ -119,20 +125,19 @@ const ProductSearchPage: NextPage<
 						{/* Main category Card */}
 						<div className="col-span-12  md:col-span-3">
 							<MainCategoryCard
-								title={(selectedMainCategory as any)?.title?.en}
-								subtitle={
-									(selectedMainCategory as any)?.description?.en
-								}
+								title={(mainCategory as any)?.title?.en}
+								subtitle={(mainCategory as any)?.description?.en}
 								imageUrl="/static/images/agriculture.png"
 								className="w-screen md:w-auto"
 							/>
 						</div>
 						{/* Categories */}
 						<div className="col-span-12 border-gray/20 md:col-span-9 md:ml-4 md:border-l-2 md:pl-4">
-							{selectedMainCategory && (
+							{mainCategory && (
 								<SubCategoryList
 									subCategories={subCategories || []}
 									className="hidden md:grid"
+									onClick={selectedAndUnselectAllCategoryId}
 								/>
 							)}
 

@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import useSWR from 'swr';
 
 // styles
+import { useCategoryStore } from 'store/category-store';
 import styles from './mega-menu.module.css';
 
 interface MegaMenuProps {
@@ -16,8 +17,10 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 	const { className } = props;
 
 	const { data } = useSWR('/categories');
+	const { categories } = useCategoryStore();
 
-	const mainCategories = data?.data;
+	// const mainCategories = data?.data;
+	const mainCategories = categories;
 
 	const [selectedMainCategory, setSelectedMainCategory] = useState({
 		mainCategoryId: '',
@@ -57,7 +60,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 
 	return (
 		<div className={megaMenuClassName} ref={megaMenuRef}>
-			{!data ? <p>Loading...</p> : ''}
+			{/* {!data ? <p>Loading...</p> : ''} */}
 
 			{/* Main Categories */}
 			{mainCategories && (

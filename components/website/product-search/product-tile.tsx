@@ -20,7 +20,8 @@ interface ProductTileProps {
 	minOrderQuantity: number;
 	totalReviewCount?: number;
 	onCompareClick?: () => any;
-	isInCompareList?: false;
+	isInCompareList?: boolean;
+	isVerified?: boolean;
 }
 
 const ProductTile: React.FC<ProductTileProps> = (props) => {
@@ -36,7 +37,8 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 		minOrderQuantity,
 		totalReviewCount,
 		onCompareClick,
-		isInCompareList
+		isInCompareList,
+		isVerified
 	} = props;
 
 	const metadataElements = (
@@ -139,9 +141,10 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 						<div className="grid grid-cols-12">
 							{/* Price and quantity */}
 							<div className="col-span-12 border-b-gray/40 text-[12px] font-semibold text-primary-main md:col-span-8 md:border-b md:py-2 md:text-[18px] lg:col-span-12 lg:text-[21px]">
-								<h3>
+								{/* <h3>
 									${minPrice} - ${maxPrice} /piece
-								</h3>
+								</h3> */}
+								<h3>${minPrice} /piece</h3>
 								<h4>{minOrderQuantity} Pieces /Min. Order</h4>
 							</div>
 
@@ -185,9 +188,15 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 					<div className="col-span-12 md:col-span-2 lg:col-span-12">
 						<div className="mt-2 flex h-full items-center md:mt-0 md:flex-col md:justify-end lg:flex lg:space-y-4">
 							{/* Verified Image */}
-							<div className="relative hidden h-[55px] w-[85px] lg:block">
-								<Image src="/twmp-verified.png" alt="" layout="fill" />
-							</div>
+							{isVerified && (
+								<div className="relative hidden h-[55px] w-[85px] lg:block">
+									<Image
+										src="/twmp-verified.png"
+										alt=""
+										layout="fill"
+									/>
+								</div>
+							)}
 							{/* Rating and reviews */}
 							<div className="flex flex-col items-center space-y-2 lg:pb-4">
 								<div className="relative h-[13px] w-[80px] lg:h-[32px] lg:w-[132px]">
