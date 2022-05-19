@@ -7,11 +7,10 @@ import CountrySearchFilter from './country-filter';
 
 interface ProductFilterProps {
 	categories: any[];
-	onCategoryChange: (ids: { mainCategoryId: string }) => any;
 }
 
 const ProductFilter: React.FC<ProductFilterProps> = (props) => {
-	const { categories, onCategoryChange } = props;
+	const { categories } = props;
 
 	return (
 		<div className="space-y-6 rounded-xl bg-white p-4 pb-40 shadow-md">
@@ -20,7 +19,7 @@ const ProductFilter: React.FC<ProductFilterProps> = (props) => {
 				<h4 className="font-semibold text-gray md:text-[14px] lg:text-[18px]">
 					Categories
 				</h4>
-				<CategoriesFilter onCategoryChange={onCategoryChange} />
+				<CategoriesFilter />
 			</div>
 
 			{/* min order filter */}

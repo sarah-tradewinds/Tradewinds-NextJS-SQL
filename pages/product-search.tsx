@@ -102,10 +102,7 @@ const ProductSearchPage: NextPage<
 				{/* Side container */}
 				<section className="col-span-4 hidden space-y-8 md:block lg:col-span-3">
 					{/* filters */}
-					<ProductFilter
-						categories={categories}
-						onCategoryChange={({ mainCategoryId }) => {}}
-					/>
+					<ProductFilter categories={categories} />
 
 					{/* ads */}
 					<div>
