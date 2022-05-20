@@ -4,7 +4,6 @@ import {
 	NextPage
 } from 'next';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 
 // Third party packages
 import { useKeenSlider } from 'keen-slider/react';
@@ -36,12 +35,13 @@ const ProductSearchPage: NextPage<
 	const [products, setProducts] = useState(props.products || []);
 	const [minOrder, setMinOrder] = useState('0');
 	const [minPrice, setMinPrice] = useState('0');
-	const { query } = useRouter();
+	const [selectedCountryCode, setSelectedCountryCode] = useState('');
 
 	const {
 		categories,
 		fetchCategories,
 		selectedMainCategoryId,
+		ids,
 		selectedAndUnselectAllCategoryId,
 		setDefaultMainCategoryAndCategoryId
 	} = useCategoryStore();
@@ -72,22 +72,20 @@ const ProductSearchPage: NextPage<
 	}, []);
 
 	useEffect(() => {
-		const mainCategoryId = (query.main_category ||
-			selectedMainCategoryId ||
-			'') as string;
-		const categoryId = (query.category || '') as string;
+		const categoryIds = Object.keys(ids)?.toString() || '';
 
 		getProducts({
 			price_start: +minPrice,
-			main_category: mainCategoryId,
-			category: categoryId
+			main_category: selectedMainCategoryId,
+			category: categoryIds,
+			country_or_region: selectedCountryCode
 		}).then((data) => setProducts(data));
 	}, [
 		categories.length,
 		selectedMainCategoryId,
-		query.main_category,
-		query.category,
-		minPrice
+		ids,
+		minPrice,
+		selectedCountryCode
 	]);
 
 	const [ref] = useKeenSlider<HTMLDivElement>({
@@ -128,6 +126,9 @@ const ProductSearchPage: NextPage<
 						}
 						onMinPriceChange={(minPriceQuantity) =>
 							setMinPrice(minPriceQuantity)
+						}
+						onCountryChange={(countryCodes) =>
+							setSelectedCountryCode(countryCodes)
 						}
 					/>
 

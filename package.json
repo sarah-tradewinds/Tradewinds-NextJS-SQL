@@ -28,6 +28,7 @@
     "axios": "^0.26.1",
     "keen-slider": "^6.6.12",
     "lint-staged": "^12.3.5",
+    "multiselect-react-dropdown": "^2.0.22",
     "next": "12.1.0",
     "next-i18next": "^10.5.0",
     "next-seo": "^5.4.0",

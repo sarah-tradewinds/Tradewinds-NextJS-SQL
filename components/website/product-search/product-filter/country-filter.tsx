@@ -1,70 +1,105 @@
 import Image from 'next/image';
 
+// Third party packages
 // data
-import { Combobox, Transition } from '@headlessui/react';
+import Button from 'components/website/common/form/button';
 import Input from 'components/website/common/form/input';
-import { countries } from 'data/home';
-import React, { useState } from 'react';
-import { HiOutlineSelector } from 'react-icons/hi';
+import React, { useEffect, useState } from 'react';
+import { useCountriesStore } from 'store/countries-store';
 
-const CountrySearchFilter: React.FC = (props) => {
-	const [selectedCountry, setSelectedCountry] = useState('');
-	const [query, setQuery] = useState('');
+const CountrySearchFilter: React.FC<{
+	onCountryChange: (countyCodes: string) => any;
+}> = (props) => {
+	const { onCountryChange } = props;
+
+	const [searchCounty, setSearchCounty] = useState('');
+	const [selectedCountryCode, setSelectedCountryCode] = useState<
+		string[]
+	>([]);
+
+	const { countries, fetchCountries } = useCountriesStore();
+
+	useEffect(() => {
+		fetchCountries();
+	}, []);
+
+	useEffect(() => {
+		onCountryChange(selectedCountryCode.toString());
+	}, [selectedCountryCode]);
+
+	const searchCountryByName = () => {
+		if (!searchCounty) {
+			return countries;
+		}
+
+		const filteredCountries = countries.filter(
+			(country) =>
+				country?.country_name?.toLowerCase() ===
+				searchCounty?.toLowerCase()
+		);
+
+		return filteredCountries || [];
+	}; // End of searchCountryByName function
+
+	const handlingCountryCode = (newCountryCode: string) => {
+		const countryCodeList = [...selectedCountryCode];
+		const countryCodeIndex = countryCodeList.findIndex(
+			(countryCode) => countryCode === newCountryCode
+		);
+
+		if (countryCodeIndex < 0) {
+			countryCodeList.push(newCountryCode);
+		} else {
+			countryCodeList.splice(countryCodeIndex, 1);
+		}
+
+		console.log('countryCodeList', countryCodeIndex, countryCodeList);
+
+		setSelectedCountryCode(countryCodeList);
+	}; // End of handlingCountryCode function
 
 	return (
-		<div>
-			<Combobox
-				value={selectedCountry}
-				onChange={(country) => setSelectedCountry(country)}
-			>
-				<div className="focus-visible:ring-offset-teal-300 relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 sm:text-sm">
-					<Combobox.Input
-						onChange={(event) =>
-							console.log('event.target.value =', event.target.value)
-						}
-						className="h-[40px] w-full rounded-md border-2 border-accent-primary-main py-2  pl-3 pr-8 outline-none"
-					/>
-
-					<Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
-						<HiOutlineSelector className="text-gray-400 h-5 w-5" />
-					</Combobox.Button>
-				</div>
-
-				<Transition
-					as={React.Fragment}
-					leave="transition ease-in duration-100"
-					leaveFrom="opacity-100"
-					leaveTo="opacity-0"
-					afterLeave={() => setQuery('')}
+		<>
+			<div className="flex">
+				<Input
+					className="w-full rounded-none rounded-l-md !px-2 2xl:w-auto"
+					value={searchCounty}
+					onChange={({ target }) => setSearchCounty(target.value)}
+				/>
+				<Button
+					variant="buyer"
+					className="rounded-none rounded-r-md px-2"
+					onClick={searchCountryByName}
 				>
-					<Combobox.Options className="mt-4 space-y-2 rounded-b-md border border-gray/10 p-2 shadow-lg">
-						{countries.map((country) => (
-							<Combobox.Option
-								key={country.name}
-								value={country.name}
-								className="cursor-pointer"
-							>
-								<div className="flex items-center">
-									<Input
-										type="checkbox"
-										checked={selectedCountry === country.name}
-									/>
-									<div className="ml-8 flex items-center space-x-4">
-										<Image
-											src={country.imageUrl}
-											alt=""
-											width={23}
-											height={16}
-										/>
-										<span>{country.name}</span>
-									</div>
-								</div>
-							</Combobox.Option>
-						))}
-					</Combobox.Options>
-				</Transition>
-			</Combobox>
-		</div>
+					Go
+				</Button>
+			</div>
+
+			<div>
+				{searchCountryByName().map((country) => (
+					<div key={country.id} className="flex items-center">
+						<Input
+							id={country.id}
+							type="checkbox"
+							value={country.country_code}
+							onChange={() => handlingCountryCode(country.country_code)}
+						/>
+						<label
+							htmlFor={country.id}
+							className="ml-8 flex cursor-pointer items-center space-x-4"
+						>
+							<Image
+								src={'https://' + country?.country_flag?.url}
+								alt=""
+								width={23}
+								height={16}
+							/>
+							<span className="capitalize">{country.country_name}</span>
+						</label>
+					</div>
+				))}
+			</div>
+		</>
 	);
 };
 

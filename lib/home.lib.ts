@@ -53,9 +53,9 @@ export const getHomeCategories = async () => {
 						title: mainCategory.title.en,
 						slug: mainCategory.slug,
 						image: mainCategory.image || '/static/images/TWveg.png',
-						desc: mainCategory.description.en,
+						desc: mainCategory.description.en || 'description',
 						btnTxt: mainCategory.btnTxt || '',
-						bgHexColor: mainCategory.color,
+						bgHexColor: mainCategory.color || '#C4C4C4',
 						isEco: mainCategory.isEco || false
 					},
 					subCategories: category.map((subCategory: any) => ({

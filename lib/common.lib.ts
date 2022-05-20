@@ -11,3 +11,15 @@ export const getCategories = async () => {
 		throw Error(data || 'Error occurred getCategories');
 	}
 }; // End of getHomeCategories function
+
+export const getCountries = async () => {
+	try {
+		const { data } = await axiosInstance.get('/country/getallcountry');
+
+		return data.data || [];
+	} catch (error) {
+		console.log('[getCountries] =', error);
+		const { data } = (error as any).response || {};
+		throw Error(data || 'Error occurred getCountries');
+	}
+}; // End of getCountries function

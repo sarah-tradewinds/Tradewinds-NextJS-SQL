@@ -44,10 +44,6 @@ const CategorySubCategoriesSection: React.FC<
 			>
 				<SubCategoryCard
 					subCat={subCat}
-					// slug={`/product-search?${generateQueryString({
-					// 	main_category: category.id,
-					// 	category: subCat.id
-					// })}`}
 					onClick={() => {
 						router.push('/product-search');
 						localStorage.setItem('main_category', category.id!);
@@ -66,12 +62,13 @@ const CategorySubCategoriesSection: React.FC<
 			</div>
 		));
 
+	console.log('category.bgHexColor', category.bgHexColor);
 	return (
 		<div className=" bg-primary-main">
 			{/* For Small Screen- Collapse */}
 			<div className="md:hidden">
 				<Collapse
-					collapseHeadBgHexColor={category.bgHexColor}
+					collapseHeadBgHexColor={category.bgHexColor || 'white'}
 					isReverse={isReverse}
 					onLeadingClick={() => setIsOpen((preState) => !preState)}
 					onContentClick={() => router.push('/product-search')}
@@ -83,7 +80,7 @@ const CategorySubCategoriesSection: React.FC<
 						)
 					}
 					title={
-						<span className="text-[15px] font-semibold text-primary-main">
+						<span className="text-left text-[15px] font-semibold text-primary-main">
 							{category.title}
 						</span>
 					}
@@ -92,7 +89,7 @@ const CategorySubCategoriesSection: React.FC<
 							<span className="text-[12px] font-semibold text-primary-main">
 								Name Here {` `}
 							</span>
-							<span>
+							<span className="text-gray">
 								{category.desc.length > 32
 									? `${category.desc.substring(0, 24)}...`
 									: category.desc}
@@ -118,7 +115,6 @@ const CategorySubCategoriesSection: React.FC<
 							</div>
 						</div>
 					}
-					// imageUrl={category.image}
 				>
 					<div className="bg-white">
 						<div className="mx-8 pt-8">{subCategories}</div>
