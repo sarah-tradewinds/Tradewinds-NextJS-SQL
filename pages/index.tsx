@@ -165,8 +165,8 @@ export const getStaticProps: GetStaticProps = async () => {
 				cardBData: {},
 				homeCategories: [],
 				homeCountries: []
-			}
-			// revalidate: 30
+			},
+			revalidate: 30
 		};
 	}
 };
