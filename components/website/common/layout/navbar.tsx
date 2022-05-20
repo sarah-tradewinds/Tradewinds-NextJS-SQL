@@ -52,17 +52,20 @@ const Header = () => {
 		setIsOpen((pevState) => !pevState);
 	};
 
+	const closeMegaMenuHandler = () => {
+		(buttonRef?.current as any)?.click();
+	};
+
 	const onHover = (
 		isOpen: boolean,
 		action: 'onMouseEnter' | 'onMouseLeave',
 		location: 'button' | 'menu'
 	) => {
-		console.log('Mega-menu button clicked', isOpen, action, location);
 		if (!isOpen && action === 'onMouseEnter') {
-			(buttonRef?.current as any)?.click();
+			closeMegaMenuHandler();
 		}
 		if (isOpen && action === 'onMouseLeave' && location === 'menu') {
-			(buttonRef?.current as any)?.click();
+			closeMegaMenuHandler();
 		}
 	};
 
@@ -188,7 +191,6 @@ const Header = () => {
 				>
 					<Popover className="relative hidden md:inline-block">
 						{(options: any) => {
-							console.log('options', options);
 							return (
 								<>
 									<Popover.Button
@@ -222,7 +224,7 @@ const Header = () => {
 												onHover(options?.open, 'onMouseLeave', 'menu')
 											}
 										>
-											<MegaMenu />
+											<MegaMenu onClose={closeMegaMenuHandler} />
 										</Popover.Panel>
 									</Transition>
 								</>

@@ -120,8 +120,10 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 		set((state) => {
 			const ids = { ...state.ids };
 			const isKeyExist = ids[categoryId];
+			console.log('isKeyExist =', isKeyExist);
 			if (isKeyExist) {
 				delete ids[categoryId];
+				localStorage.removeItem('category');
 			} else {
 				localStorage.setItem('category', categoryId);
 				ids[categoryId] = {};

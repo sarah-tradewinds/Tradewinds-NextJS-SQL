@@ -8,7 +8,7 @@ interface CountrySliderProps {
 		id: string;
 		name: string;
 		slug: string;
-		country_flag: string;
+		country_flag: { url: string };
 	}[];
 }
 
@@ -51,7 +51,10 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 						className="keen-slider__slide h-[80px] w-[180px] px-4"
 					>
 						<Image
-							src={country.country_flag || '/flags/frame.png'}
+							src={
+								'https://' + country.country_flag?.url ||
+								'/flags/frame.png'
+							}
 							alt=""
 							width={180}
 							height={80}

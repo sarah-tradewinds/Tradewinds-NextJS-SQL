@@ -1,9 +1,10 @@
+import { useRouter } from 'next/router';
+
 // Third party packages
 import { MdPlayArrow } from 'react-icons/md';
 
 // data
 import { useEffect, useRef, useState } from 'react';
-import useSWR from 'swr';
 
 // styles
 import { useCategoryStore } from 'store/category-store';
@@ -11,15 +12,20 @@ import styles from './mega-menu.module.css';
 
 interface MegaMenuProps {
 	className?: string;
+	onClose?: () => any;
 }
 
 const MegaMenu: React.FC<MegaMenuProps> = (props) => {
-	const { className } = props;
+	const { className, onClose } = props;
 
-	const { data } = useSWR('/categories');
-	const { categories } = useCategoryStore();
+	const router = useRouter();
 
-	// const mainCategories = data?.data;
+	const {
+		categories,
+		setSelectedMainCategoryId,
+		setSelectedCategoryId
+	} = useCategoryStore();
+
 	const mainCategories = categories;
 
 	const [selectedMainCategory, setSelectedMainCategory] = useState({
@@ -54,13 +60,22 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 		}
 	}, [mainCategories]);
 
+	const navigateHandler = () => {
+		if (onClose) {
+			onClose();
+		}
+		setSelectedMainCategoryId(selectedMainCategory.mainCategoryId);
+		setSelectedCategoryId(selectedCategory.categoryId);
+		router.push('/product-search');
+	}; // End of navigateHandler function
+
 	const megaMenuRef = useRef(null);
 
 	const megaMenuClassName = `relative grid grid-cols-12 border bg-white text-sm text-gray shadow-lg overflow-y-autos ${className}`;
 
 	return (
 		<div className={megaMenuClassName} ref={megaMenuRef}>
-			{/* {!data ? <p>Loading...</p> : ''} */}
+			{categories.length <= 0 ? <p>Loading...</p> : ''}
 
 			{/* Main Categories */}
 			{mainCategories && (
@@ -77,7 +92,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 
 							return (
 								<li
-									key={slug}
+									key={id || slug}
 									className={`flex cursor-pointer justify-between pl-4 text-left text-[15px] dark:hover:text-primary-eco ${
 										isSelected
 											? 'font-semibold dark:bg-bg-eco/60 dark:text-primary-eco'
@@ -90,6 +105,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 											categories: category || []
 										})
 									}
+									onClick={navigateHandler}
 								>
 									<span className="hover: text-2xl hover:text-primary-main">
 										{isSelected && (
@@ -115,7 +131,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 
 							return (
 								<li
-									key={slug}
+									key={id || slug}
 									className={`flex cursor-pointer items-center justify-between text-[15px] dark:hover:text-primary-eco ${
 										isSelected
 											? ' font-semibold dark:bg-bg-eco/60 dark:text-primary-eco'
@@ -128,6 +144,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 											subCategories: sub_category || []
 										})
 									}
+									onClick={navigateHandler}
 								>
 									<span>{title?.en}</span>
 									<span className="hover: text-2xl hover:text-primary-main">
@@ -153,7 +170,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 
 							return (
 								<li
-									key={slug}
+									key={id || slug}
 									className={`flex cursor-pointer items-center justify-between text-[15px] dark:hover:text-primary-eco ${
 										isSelected
 											? ' font-semibold dark:bg-bg-eco/60 dark:text-primary-eco'
@@ -166,6 +183,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 											specificCategories: sub_sub_category || []
 										})
 									}
+									onClick={navigateHandler}
 								>
 									<span>{title?.en}</span>
 									<span className="hover: text-2xl hover:text-primary-main">
@@ -185,13 +203,13 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 					<ul className="col-span-3 h-[487px] space-y-1 overflow-y-auto pl-4 dark:bg-[#FCF5EB]">
 						{selectedSubCategory.specificCategories.map(
 							(specificCategory: any) => {
-								const { slug, title } = specificCategory;
+								const { id, slug, title } = specificCategory;
 
 								const isSelected = slug === selectedSpecificCategory;
 
 								return (
 									<li
-										key={slug}
+										key={id || slug}
 										className={`flex cursor-pointer items-center justify-between text-[15px] dark:hover:text-primary-eco ${
 											isSelected
 												? ' font-semibold dark:bg-bg-eco/60 dark:text-primary-eco'
@@ -200,6 +218,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 										onMouseEnter={() =>
 											setSelectedSpecificCategory(slug)
 										}
+										onClick={navigateHandler}
 									>
 										<span>{title?.en}</span>
 										<span className="hover: text-2xl hover:text-primary-main">
