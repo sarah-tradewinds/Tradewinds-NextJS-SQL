@@ -1,6 +1,6 @@
 import {
-	GetStaticProps,
-	InferGetStaticPropsType,
+	GetServerSideProps,
+	InferGetServerSidePropsType,
 	NextPage
 } from 'next';
 import Image from 'next/image';
@@ -30,7 +30,7 @@ import {
 import { useProductStore } from 'store/product-store';
 
 const ProductSearchPage: NextPage<
-	InferGetStaticPropsType<GetStaticProps>
+	InferGetServerSidePropsType<GetServerSideProps>
 > = (props) => {
 	const [products, setProducts] = useState(props.products || []);
 	const [minOrder, setMinOrder] = useState('0');
@@ -218,7 +218,7 @@ const ProductSearchPage: NextPage<
 	);
 }; // End of ProductSearchPage
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
 	const products = await getProducts({
 		price_start: 0
 	});
@@ -228,6 +228,6 @@ export const getStaticProps: GetStaticProps = async () => {
 	return {
 		props: { products }
 	};
-}; // End of getStaticProps function
+}; // End of getServerSideProps function
 
 export default ProductSearchPage;
