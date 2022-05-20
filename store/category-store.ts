@@ -11,6 +11,7 @@ import create from 'zustand';
 // };
 
 interface CategoryState {
+	isLoading?: boolean;
 	categories: any[];
 	selectedMainCategoryId: string;
 	ids: any;
@@ -59,9 +60,9 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 		mainCategoryId?: string,
 		categoryId?: string
 	) => {
+		set({ isLoading: true });
 		const categories = await getCategories();
 		const defaultMainCategory = categories[0];
-
 		let ids = {};
 		if (defaultMainCategory?.category[0]) {
 			ids = {
@@ -70,10 +71,16 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 			categories[0].category[0].isSelected = true;
 		}
 
-		set({
-			categories,
-			selectedMainCategoryId: mainCategoryId || defaultMainCategory?.id,
-			ids
+		set((state) => {
+			return {
+				isLoading: false,
+				categories,
+				selectedMainCategoryId:
+					mainCategoryId ||
+					state.selectedMainCategoryId ||
+					defaultMainCategory?.id,
+				ids
+			};
 		});
 	},
 	setDefaultMainCategoryAndCategoryId: (

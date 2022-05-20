@@ -18,17 +18,25 @@ import {
 	MdOutlineMessage,
 	MdPerson
 } from 'react-icons/md';
+import { useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';
+import Loader from '../elements/loader/loader';
 import Seo from '../seo';
 
 const Layout: React.FC = (props) => {
 	const { children } = props;
 
 	const isEco = useHomeStore((state) => state.isEco);
+	const { isLoading, categoriesLength } = useCategoryStore((state) => ({
+		isLoading: state.isLoading,
+		categoriesLength: state.categories.length
+	}));
 
 	return (
 		<>
 			<Seo />
+
+			<Loader isOpen={isLoading || categoriesLength <= 0} />
 
 			<SWRConfig
 				value={{

@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 import { HiMinusCircle, HiPlusCircle } from 'react-icons/hi';
+import { useCategoryStore } from 'store/category-store';
 import { CatSubCatSectionType } from 'types/home';
 import Collapse from '../common/collapse';
 import CatSubCatActionCard from './common/cat-sub-cat-action-card';
@@ -21,6 +22,11 @@ const CategorySubCategoriesSection: React.FC<
 	const [screenSize, setScreenSize] = useState<null | number>(null);
 	const [isTablet, setIsTablet] = useState<boolean>(false);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const { setSelectedMainCategoryId, setSelectedCategoryId } =
+		useCategoryStore((state) => ({
+			setSelectedMainCategoryId: state.setSelectedMainCategoryId,
+			setSelectedCategoryId: state.setSelectedCategoryId
+		}));
 
 	const router = useRouter();
 
@@ -45,12 +51,9 @@ const CategorySubCategoriesSection: React.FC<
 				<SubCategoryCard
 					subCat={subCat}
 					onClick={() => {
+						setSelectedMainCategoryId(category.id!);
+						setSelectedCategoryId(subCat.id as string);
 						router.push('/product-search');
-						localStorage.setItem('main_category', category.id!);
-						localStorage.setItem(
-							'category',
-							(subCat.id || '') as string
-						);
 					}}
 					style={
 						applyBgColor
@@ -62,7 +65,6 @@ const CategorySubCategoriesSection: React.FC<
 			</div>
 		));
 
-	console.log('category.bgHexColor', category.bgHexColor);
 	return (
 		<div className=" bg-primary-main">
 			{/* For Small Screen- Collapse */}
@@ -71,7 +73,10 @@ const CategorySubCategoriesSection: React.FC<
 					collapseHeadBgHexColor={category.bgHexColor || 'white'}
 					isReverse={isReverse}
 					onLeadingClick={() => setIsOpen((preState) => !preState)}
-					onContentClick={() => router.push('/product-search')}
+					onContentClick={() => {
+						setSelectedMainCategoryId(category.id!);
+						router.push('/product-search');
+					}}
 					leading={
 						isOpen ? (
 							<HiMinusCircle className="m-1 text-3xl text-primary-main" />
