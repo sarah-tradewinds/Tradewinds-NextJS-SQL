@@ -166,7 +166,7 @@ export const getStaticProps: GetStaticProps = async () => {
 				homeCategories: [],
 				homeCountries: []
 			},
-			revalidate: 30
+			revalidate: 10
 		};
 	}
 };
