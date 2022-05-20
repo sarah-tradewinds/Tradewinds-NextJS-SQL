@@ -64,14 +64,23 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 		const categories = await getCategories();
 		const defaultMainCategory = categories[0];
 		let ids = {};
+		let defaultCategoryId = '';
 		if (defaultMainCategory?.category[0]) {
+			defaultCategoryId = defaultMainCategory?.category[0]?.id;
 			ids = {
-				[defaultMainCategory?.category[0]?.id]: {}
+				[defaultCategoryId]: {}
 			};
 			categories[0].category[0].isSelected = true;
 		}
 
 		set((state) => {
+			const selectedMainCategoryId =
+				mainCategoryId ||
+				state.selectedMainCategoryId ||
+				defaultMainCategory?.id;
+
+			localStorage.setItem('main_category', selectedMainCategoryId);
+			localStorage.setItem('category', defaultCategoryId);
 			return {
 				isLoading: false,
 				categories,
@@ -118,6 +127,8 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 			const newMainCategoryId =
 				selectedMainCategoryId !== mainCategoryId ? mainCategoryId : '';
 
+			localStorage.setItem('main_category', newMainCategoryId);
+
 			return {
 				selectedMainCategoryId: newMainCategoryId,
 				ids: {}
@@ -127,7 +138,6 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 		set((state) => {
 			const ids = { ...state.ids };
 			const isKeyExist = ids[categoryId];
-			console.log('isKeyExist =', isKeyExist);
 			if (isKeyExist) {
 				delete ids[categoryId];
 				localStorage.removeItem('category');

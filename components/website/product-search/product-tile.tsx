@@ -93,8 +93,6 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 		</div>
 	);
 
-	console.log('keywords =', keywords);
-
 	return (
 		<div className="grid w-full grid-cols-12 overflow-hidden bg-white md:rounded-xl md:shadow-md lg:p-4">
 			<div className="col-span-12 space-y-4 lg:col-span-9">

@@ -21,6 +21,8 @@ const Loader: React.FC<LoaderProps> = ({ isOpen }) => {
 	// 	() => removeEventListener('scroll', () => {});
 	// }, [isOpen]);
 
+	console.log('isOpen =', isOpen);
+
 	if (!isOpen) return null;
 
 	return (

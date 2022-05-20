@@ -36,7 +36,7 @@ const Layout: React.FC = (props) => {
 		<>
 			<Seo />
 
-			<Loader isOpen={isLoading || categoriesLength <= 0} />
+			<Loader isOpen={categoriesLength <= 0} />
 
 			<SWRConfig
 				value={{
