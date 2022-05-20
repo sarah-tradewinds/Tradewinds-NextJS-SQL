@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 // components
 import SpinnerIcon from './spinner-icon';
 
@@ -8,13 +6,20 @@ interface LoaderProps {
 }
 
 const Loader: React.FC<LoaderProps> = ({ isOpen }) => {
-	useEffect(() => {
-		if (window && isOpen) {
-			window.onscroll = function () {
-				window.scrollTo(0, 0);
-			};
-		}
-	}, [isOpen]);
+	// useEffect(() => {
+	// 	if (window && isOpen) {
+	// 		addEventListener('scroll', () => {});
+	// 		// window.onscroll = function () {
+	// 		// 	window.scrollTo(0, 0);
+	// 		// };
+	// 	}
+
+	// 	// if (!isOpen) {
+	// 	// 	removeEventListener('scroll', () => {});
+	// 	// }
+
+	// 	() => removeEventListener('scroll', () => {});
+	// }, [isOpen]);
 
 	if (!isOpen) return null;
 
