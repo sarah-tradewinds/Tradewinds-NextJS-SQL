@@ -3,7 +3,7 @@ import Image from 'next/image';
 interface MetadataTileProps {
 	imageUrl?: string;
 	alt?: string;
-	title: string;
+	title: any;
 	icon?: any;
 	className?: string;
 	imageContainerClassName?: string;

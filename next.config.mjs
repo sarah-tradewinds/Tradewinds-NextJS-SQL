@@ -16,7 +16,8 @@ const nextConfig = (phase) => {
           'https://tradewinds-dev.eastus.cloudapp.azure.com/services/api/v1'
       },
       images: {
-        domains: ["images.unsplash.com", "wmarketplacestgact.blob.core.windows.net"]
+        // domains: ["wmarketplacestgact.blob.core.windows.net"]
+        domains: ["images.unsplash.com", "wmarketplacestgact.blob.core.windows.net", "m.media-amazon.com"]
       }
     }
   }
@@ -31,7 +32,8 @@ const nextConfig = (phase) => {
         'https://tradewinds-dev.eastus.cloudapp.azure.com/services/api/v1'
     },
     images: {
-      domains: ["images.unsplash.com", "wmarketplacestgact.blob.core.windows.net"]
+      // domains: ["wmarketplacestgact.blob.core.windows.net"]
+      domains: ["images.unsplash.com", "wmarketplacestgact.blob.core.windows.net", "m.media-amazon.com"]
     }
   }
 

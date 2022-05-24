@@ -15,6 +15,7 @@ interface ProductTileProps {
 	description: string;
 	imageUrl: string;
 	alt?: string;
+	productPrice: number;
 	minPrice: number;
 	maxPrice: number;
 	minOrderQuantity: number;
@@ -22,6 +23,9 @@ interface ProductTileProps {
 	onCompareClick?: () => any;
 	isInCompareList?: boolean;
 	isVerified?: boolean;
+	isReadyToShip?: boolean;
+	isCustomizable?: boolean;
+	variantCount: number;
 }
 
 const ProductTile: React.FC<ProductTileProps> = (props) => {
@@ -32,29 +36,37 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 		description,
 		imageUrl,
 		alt,
+		productPrice,
 		minPrice,
 		maxPrice,
 		minOrderQuantity,
 		totalReviewCount,
 		onCompareClick,
 		isInCompareList,
-		isVerified
+		isVerified,
+		isReadyToShip,
+		isCustomizable,
+		variantCount
 	} = props;
 
 	const metadataElements = (
 		<div className={`grid grid-cols-3 gap-4 text-[12px] text-gray`}>
+			{/* country of origin */}
 			<MetadataTile
 				key={metadataList[0].title}
 				imageUrl={metadataList[0].imageUrl}
 				alt={metadataList[0].title}
 				title={metadataList[0].title}
 			/>
-			<MetadataTile
-				key={metadataList[1].title}
-				imageUrl={metadataList[1].imageUrl}
-				alt={metadataList[1].title}
-				title={metadataList[1].title}
-			/>
+			{/* isReadyToShip */}
+			{isReadyToShip && (
+				<MetadataTile
+					key={metadataList[1].title}
+					imageUrl={metadataList[1].imageUrl}
+					alt={metadataList[1].title}
+					title={metadataList[1].title}
+				/>
+			)}
 			{/* compare */}
 			<MetadataTile
 				key={metadataList[2].title}
@@ -72,17 +84,26 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 				onClick={onCompareClick}
 				className="cursor-pointer"
 			/>
+			{/* Customizable */}
 			<MetadataTile
 				key={metadataList[3].title}
 				imageUrl={metadataList[3].imageUrl}
 				alt={metadataList[3].title}
-				title={metadataList[3].title}
+				title={
+					<p>
+						Customizable{' '}
+						<span className="text-secondary">
+							{isCustomizable ? 'YES' : 'NO'}
+						</span>
+					</p>
+				}
 			/>
+			{/* variantCount */}
 			<MetadataTile
 				key={metadataList[4].title}
 				imageUrl={metadataList[4].imageUrl}
 				alt={metadataList[4].title}
-				title={metadataList[4].title}
+				title={`Variant ${variantCount}`}
 			/>
 			<MetadataTile
 				key={metadataList[5].title}
@@ -92,6 +113,11 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 			/>
 		</div>
 	);
+
+	let displayPrice = `$${productPrice}`;
+	if (minPrice && maxPrice) {
+		displayPrice = `$${minPrice}-$${maxPrice}`;
+	}
 
 	return (
 		<div className="grid w-full grid-cols-12 overflow-hidden bg-white md:rounded-xl md:shadow-md lg:p-4">
@@ -144,8 +170,10 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 								{/* <h3>
 									${minPrice} - ${maxPrice} /piece
 								</h3> */}
-								<h3>${minPrice} /piece</h3>
-								<h4>{minOrderQuantity} Pieces /Min. Order</h4>
+								<h3>{displayPrice}/piece</h3>
+								{minOrderQuantity > 0 && (
+									<h4>{minOrderQuantity} Pieces /Min. Order</h4>
+								)}
 							</div>
 
 							{/* For small screen only */}
