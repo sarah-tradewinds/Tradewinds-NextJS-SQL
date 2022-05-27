@@ -223,8 +223,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
 		price_start: 0
 	});
 
-	console.log(products);
-
 	return {
 		props: { products }
 	};

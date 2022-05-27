@@ -15,6 +15,7 @@ interface ProductTileProps {
 	description: string;
 	imageUrl: string;
 	alt?: string;
+	countryOfOrigin: string;
 	productPrice: number;
 	minPrice: number;
 	maxPrice: number;
@@ -36,6 +37,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 		description,
 		imageUrl,
 		alt,
+		countryOfOrigin,
 		productPrice,
 		minPrice,
 		maxPrice,
@@ -56,7 +58,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 				key={metadataList[0].title}
 				imageUrl={metadataList[0].imageUrl}
 				alt={metadataList[0].title}
-				title={metadataList[0].title}
+				title={countryOfOrigin}
 			/>
 			{/* isReadyToShip */}
 			{isReadyToShip && (

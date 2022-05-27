@@ -1,8 +1,8 @@
-import { axiosInstance } from 'utils/axios-instance.utils';
+import { serviceAxiosInstance } from 'utils/axios-instance.utils';
 
 export const getCategories = async () => {
 	try {
-		const { data } = await axiosInstance.get('/categories');
+		const { data } = await serviceAxiosInstance.get('/categories');
 
 		return data.data || [];
 	} catch (error) {
@@ -14,7 +14,9 @@ export const getCategories = async () => {
 
 export const getCountries = async () => {
 	try {
-		const { data } = await axiosInstance.get('/country/getallcountry');
+		const { data } = await serviceAxiosInstance.get(
+			'/country/getallcountry'
+		);
 
 		return data.data || [];
 	} catch (error) {

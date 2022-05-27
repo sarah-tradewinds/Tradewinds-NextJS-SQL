@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 interface ButtonProps {
+	type?: 'button' | 'submit' | 'reset';
 	variant?: 'buyer' | 'product' | 'special' | 'eco-2nd-product';
 	className?: string;
 	href?: string;
@@ -9,8 +10,15 @@ interface ButtonProps {
 }
 
 const Button: React.FC<ButtonProps> = (props) => {
-	const { variant, children, className, onClick, href, disabled } =
-		props;
+	const {
+		type,
+		variant,
+		children,
+		className,
+		onClick,
+		href,
+		disabled
+	} = props;
 
 	const buttonBaseClassName = `min-h-[40px] px-8 rounded-md text-sm font-semibold text-white tracking-wider disabled:opacity-60`;
 
@@ -47,6 +55,7 @@ const Button: React.FC<ButtonProps> = (props) => {
 
 	return (
 		<button
+			type={type || 'button'}
 			onClick={onClick}
 			className={`${buttonClassName} ${className}`}
 			disabled={disabled}

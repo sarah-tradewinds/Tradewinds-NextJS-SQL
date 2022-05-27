@@ -1,8 +1,8 @@
-import { axiosInstance } from 'utils/axios-instance.utils';
+import { serviceAxiosInstance } from 'utils/axios-instance.utils';
 
 export const getHeroCarousels = async () => {
 	try {
-		const { data } = await axiosInstance.get(
+		const { data } = await serviceAxiosInstance.get(
 			'/carousel/getallcarousel'
 		);
 		// console.log(data.data);
@@ -16,7 +16,9 @@ export const getHeroCarousels = async () => {
 
 export const getCardAList = async () => {
 	try {
-		const { data } = await axiosInstance.get('/cardA/getallcardA');
+		const { data } = await serviceAxiosInstance.get(
+			'/cardA/getallcardA'
+		);
 
 		return data.data || [];
 	} catch (error) {
@@ -28,7 +30,9 @@ export const getCardAList = async () => {
 
 export const getCardB = async () => {
 	try {
-		const { data } = await axiosInstance.get('/cardB/getallcardB');
+		const { data } = await serviceAxiosInstance.get(
+			'/cardB/getallcardB'
+		);
 
 		return data.data ? data.data[0] : {};
 	} catch (error) {
@@ -40,7 +44,7 @@ export const getCardB = async () => {
 
 export const getHomeCategories = async () => {
 	try {
-		const { data } = await axiosInstance.get('/categories');
+		const { data } = await serviceAxiosInstance.get('/categories');
 		const homeCategories: any[] = [];
 
 		data.data.forEach((mainCategory: any) => {
@@ -87,7 +91,9 @@ export const getHomeCategories = async () => {
 
 export const getHomeCountries = async () => {
 	try {
-		const { data } = await axiosInstance.get('/country/getallcountry');
+		const { data } = await serviceAxiosInstance.get(
+			'/country/getallcountry'
+		);
 
 		return data.data || [];
 	} catch (error) {
@@ -99,7 +105,7 @@ export const getHomeCountries = async () => {
 
 export const getHomeAdvertisments = async () => {
 	try {
-		const { data } = await axiosInstance.get(
+		const { data } = await serviceAxiosInstance.get(
 			'/advertisement/getalladvertisement'
 		);
 

@@ -13,7 +13,9 @@ import { useRouter } from 'next/router';
 import { useAuthStore } from 'store/auth';
 import { Modal } from '../modal/modal';
 import { buttonSpinner } from '../spinners/custom-spinners';
-import { getCurrentUser, userLogin } from './auth-services';
+
+// libs
+import { userLogin } from '../../../../lib/customer/auth.lib';
 
 interface ILoginData {
 	email: string;
@@ -22,8 +24,12 @@ interface ILoginData {
 
 const Login: React.FC = () => {
 	const BUTTON_SPINNER = buttonSpinner();
-	const authStore = useAuthStore();
-	const { isLoginOpen, setIsLoginOpen } = useAuthStore();
+	const {
+		isLoginOpen,
+		setIsLoginOpen,
+		setIsSignUpOpen,
+		setCustomerData
+	} = useAuthStore();
 	const [loading, setLoading] = useState(false);
 	const [loginData, setLoginData] = useState<ILoginData>({
 		email: '',
@@ -38,56 +44,75 @@ const Login: React.FC = () => {
 
 	const loginUser = async (e: React.MouseEvent<HTMLElement>) => {
 		e.preventDefault();
-
 		if (!loginData.email || !loginData.password) return false;
 
 		setLoading(true);
 
-		await userLogin(loginData)
-			.then(async (response) => {
-				if (response?.status === 200) {
-					localStorage.setItem('tw-email', loginData.email);
-					localStorage.setItem(
-						'tw-access_token',
-						response?.data?.access_token?.token
-					);
-					localStorage.setItem(
-						'tw-refresh_token',
-						response.data.refresh_token.token
-					);
-
-					await getCurrentUser(
-						response?.data?.access_token?.token
-					).then((userRes) => {
-						console.log('login response', userRes, userRes);
-						localStorage.setItem(
-							'tw-firstName',
-							userRes.data.first_name
-						);
-						localStorage.setItem('tw-lastName', userRes.data.last_name);
-						localStorage.setItem('tw-userId', userRes.data.id);
-
-						setLoading(false);
-						authStore.setIsLoginOpen();
-						router.reload();
-					});
-				} else {
-					setLoginResult({
-						isDone: true,
-						message: response.message,
-						result: false
-					});
-					setLoading(false);
+		try {
+			const data = await userLogin(loginData);
+			setCustomerData({
+				name: '',
+				token: {
+					access: data.access_token,
+					refresh: data.refresh_token
 				}
-			})
-			.catch((err) => {
-				setLoginResult({
-					isDone: true,
-					message: err.message,
-					result: false
-				});
-				setLoading(false);
 			});
+			setLoading(false);
+			setIsLoginOpen();
+		} catch (error) {
+			setLoginResult({
+				isDone: true,
+				message: (error as any)?.message,
+				result: false
+			});
+			setLoading(false);
+		}
+
+		// await userLogin(loginData)
+		// 	.then(async (response) => {
+		// 		if (response?.status === 200) {
+		// 			localStorage.setItem('tw-email', loginData.email);
+		// 			localStorage.setItem(
+		// 				'tw-access_token',
+		// 				response?.data?.access_token?.token
+		// 			);
+		// 			localStorage.setItem(
+		// 				'tw-refresh_token',
+		// 				response.data.refresh_token.token
+		// 			);
+
+		// 			await getCurrentUser(
+		// 				response?.data?.access_token?.token
+		// 			).then((userRes) => {
+		// 				console.log('login response', userRes, userRes);
+		// 				localStorage.setItem(
+		// 					'tw-firstName',
+		// 					userRes.data.first_name
+		// 				);
+		// 				localStorage.setItem('tw-lastName', userRes.data.last_name);
+		// 				localStorage.setItem('tw-userId', userRes.data.id);
+
+		// 				setLoading(false);
+		// 				authStore.setIsLoginOpen();
+		// 				router.reload();
+		// 			});
+		// 		} else {
+		// 			setLoginResult({
+		// 				isDone: true,
+		// 				message: response.message,
+		// 				result: false
+		// 			});
+		// 			setLoading(false);
+		// 		}
+		// 	})
+		// 	.catch((err) => {
+		// 		setLoginResult({
+		// 			isDone: true,
+		// 			message: err.message,
+		// 			result: false
+		// 		});
+		// 		setLoading(false);
+		// 	});
 
 		// fetch(
 		// 	'https://tradewinds-dev.eastus.cloudapp.azure.com/api/v1/login',
@@ -161,7 +186,7 @@ const Login: React.FC = () => {
 								<p
 									className="mt-8 cursor-pointer text-center text-sm text-accent-primary-main underline"
 									onClick={() => {
-										authStore.setIsLoginOpen();
+										// setIsLoginOpen();
 										router.push('/forgot-password');
 									}}
 								>
@@ -176,8 +201,8 @@ const Login: React.FC = () => {
 							<Button
 								className="mt-2 border border-accent-secondary-main text-accent-secondary-main hover:bg-accent-secondary-main hover:text-white"
 								onClick={() => {
-									authStore.setIsSignUpOpen();
-									authStore.setIsLoginOpen();
+									setIsSignUpOpen();
+									setIsLoginOpen();
 								}}
 							>
 								Become A Member Today

@@ -4,10 +4,14 @@ import CompanyProfileTab from './company-profile-tab';
 import ProductDetailsTab from './product-details-tab';
 import ReviewsDetailsTab from './product-reviews-details-tab';
 
-const ProductDetailsTabContainer: React.FC<{ className?: string }> = (
-	props
-) => {
-	const { className } = props;
+const ProductDetailsTabContainer: React.FC<{
+	className?: string;
+	product: any[];
+	reviews: any[];
+}> = (props) => {
+	const { className, reviews = [], product = {} } = props;
+
+	const { id, product_detail_item, shipping } = (product as any) || {};
 
 	const selectedClassName =
 		'font-semibold text-primary-main rounded-b-none rounded-t-md';
@@ -50,10 +54,17 @@ const ProductDetailsTabContainer: React.FC<{ className?: string }> = (
 				{/* Tab body */}
 				<Tab.Panels>
 					<Tab.Panel>
-						<ProductDetailsTab />
+						<ProductDetailsTab
+							productDetailItem={product_detail_item}
+							shipping={shipping}
+						/>
 					</Tab.Panel>
 					<Tab.Panel>
-						<ReviewsDetailsTab />
+						<ReviewsDetailsTab
+							reviews={reviews}
+							productId={id}
+							orderId={'6287507801163604d44c74b6'}
+						/>
 					</Tab.Panel>
 					<Tab.Panel>
 						<CompanyProfileTab />

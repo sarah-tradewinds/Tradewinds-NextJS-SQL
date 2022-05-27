@@ -1,4 +1,4 @@
-import { axiosInstance } from 'utils/axios-instance.utils';
+import { serviceAxiosInstance } from 'utils/axios-instance.utils';
 import { generateQueryString } from 'utils/generate_query_string.utils';
 
 export const getProducts = async (params: {
@@ -11,7 +11,7 @@ export const getProducts = async (params: {
 	const queryString = generateQueryString(params);
 
 	try {
-		const { data } = await axiosInstance.get(
+		const { data } = await serviceAxiosInstance.get(
 			// `/product/search?${queryString}`
 
 			// TODO: Tmp

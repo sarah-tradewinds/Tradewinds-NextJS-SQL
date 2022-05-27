@@ -3,7 +3,8 @@ import React from 'react';
 
 interface ThumbnailListProps {
 	thumbnails: {
-		imageUrl: string;
+		id?: string;
+		url: string;
 		alt: string;
 	}[];
 	className?: string;
@@ -15,12 +16,9 @@ const ThumbnailList: React.FC<ThumbnailListProps> = (props) => {
 	return (
 		<>
 			{thumbnails.map((thumbnail) => (
-				<div
-					key={thumbnail.imageUrl}
-					className="relative h-[136px] w-full"
-				>
+				<div key={thumbnail.url} className="relative h-[136px] w-full">
 					<Image
-						src={thumbnail.imageUrl}
+						src={'https://' + thumbnail.url}
 						alt={thumbnail.alt}
 						layout="fill"
 					/>

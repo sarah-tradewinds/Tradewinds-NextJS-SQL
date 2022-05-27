@@ -13,7 +13,7 @@ const nextConfig = (phase) => {
         SITE_URL: "https://tradewinds.vercel.app/",
         // API_BASE_URL: 'http://localhost:8070/api/v1'
         API_BASE_URL:
-          'https://tradewinds-dev.eastus.cloudapp.azure.com/services/api/v1'
+          'https://tradewinds-dev.eastus.cloudapp.azure.com'
       },
       images: {
         // domains: ["wmarketplacestgact.blob.core.windows.net"]
@@ -29,7 +29,7 @@ const nextConfig = (phase) => {
     env: {
       SITE_URL: "https://tradewinds.vercel.app/",
       API_BASE_URL:
-        'https://tradewinds-dev.eastus.cloudapp.azure.com/services/api/v1'
+        'https://tradewinds-dev.eastus.cloudapp.azure.com'
     },
     images: {
       // domains: ["wmarketplacestgact.blob.core.windows.net"]

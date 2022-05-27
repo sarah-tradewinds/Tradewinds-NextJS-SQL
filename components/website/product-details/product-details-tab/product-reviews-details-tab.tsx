@@ -1,22 +1,66 @@
 import Button from 'components/website/common/form/button';
+import { submitProductRatingAndReview } from 'lib/product-details';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useAuthStore } from 'store/auth';
 import { Modal } from '../../common/modal/modal';
-import Review from './review/review';
+import ProductReview from './product-review/product-review';
 import UserReviewAndRatingTile from './user-review-and-rating-tile';
 
-const ProductReviewsDetailsTab: React.FC = () => {
+const ProductReviewsDetailsTab: React.FC<{
+	reviews: any[];
+	productId: string;
+	orderId: string;
+}> = ({ productId, orderId, reviews = [] }) => {
 	const [showReview, setShowReview] = useState(false);
-	const router = useRouter();
+	const [isLoading, setIsLoading] = useState(false);
+	const { isAuth, customerData, setIsLoginOpen } = useAuthStore(
+		(state) => ({
+			isAuth: state.isAuth,
+			customerData: state.customerData,
+			setIsLoginOpen: state.setIsLoginOpen
+		})
+	);
 
-	useEffect(() => {
-		console.log('router?.query?.review', router?.query?.review);
-		// if (
-		// 	(router?.query?.review || '').toString().toLowerCase() === 'true'
-		// )
-		// 	setShowReview(true);
-	}, [router?.query?.review]);
+	const submitReviewHandler = async (
+		rating: number,
+		review: string
+	) => {
+		try {
+			setIsLoading(true);
+			await submitProductRatingAndReview({
+				rating,
+				comments: review,
+				product_id: productId,
+				order_id: orderId,
+				user_id: customerData.id
+			});
+			setIsLoading(false);
+			setShowReview(false);
+		} catch (error) {
+			setIsLoading(false);
+		}
+	}; // End of submitReviewHandler function
+
+	const writeReview = (
+		<div className="md:px-8">
+			<h3 className="mb-4 border-b-2 border-gray/40 pb-1 text-[18px] font-semibold text-gray/40 md:text-[21px]">
+				Review this Product
+			</h3>
+			<Button
+				className="border border-gray/40 !text-[15px] text-gray/40"
+				onClick={() => {
+					if (isAuth) {
+						setShowReview(true);
+					} else {
+						setIsLoginOpen();
+					}
+				}}
+			>
+				Write a customer review
+			</Button>
+		</div>
+	);
 
 	return (
 		<div className="space-y-4 bg-white p-8">
@@ -37,6 +81,7 @@ const ProductReviewsDetailsTab: React.FC = () => {
 			</div>
 
 			<div className="grid grid-cols-12">
+				{/* Reviews stats, Write reviews */}
 				<div className="col-span-12 space-y-6 md:col-span-6 lg:col-span-5 2xl:col-span-3">
 					<div className="flex items-center space-x-4">
 						<div className="relative h-[24px] w-[108px]">
@@ -54,33 +99,40 @@ const ProductReviewsDetailsTab: React.FC = () => {
 					</div>
 
 					{/* Write your reviews */}
-					<div className="md:px-8">
-						<h3 className="mb-4 border-b-2 border-gray/40 pb-1 text-[18px] font-semibold text-gray/40 md:text-[21px]">
-							Review this Product
-						</h3>
-						<Button
-							className="border border-gray/40 !text-[15px] text-gray/40"
-							onClick={() => setShowReview(true)}
-						>
-							Write a customer review
-						</Button>
-					</div>
+					{reviews.length > 0 && writeReview}
 				</div>
 
-				{/* Rating and reviews details */}
+				{/* Rating and reviews list */}
 				<div className="col-span-12 mt-8 space-y-8 md:col-span-6 md:mt-0 lg:col-span-7 2xl:col-span-9">
-					<UserReviewAndRatingTile />
-					<UserReviewAndRatingTile />
-					<UserReviewAndRatingTile />
+					{/* Write Reviews if reviews list not available */}
+					{reviews.length === 0 && (
+						<div className="flex h-full items-center justify-center ">
+							{writeReview}
+						</div>
+					)}
+
+					{reviews.map((review) => (
+						<UserReviewAndRatingTile
+							key={review.id}
+							customerName={review.name}
+							rating={review.rating}
+							review={review.comments}
+						/>
+					))}
 				</div>
 			</div>
 
+			{/* Review Input  */}
 			<Modal
 				open={showReview}
 				className="h-50 left-8 top-1/2 -translate-y-1/2 transform lg:left-1/2 lg:-top-20 lg:-translate-x-1/2 lg:-translate-y-0"
 				onClose={() => setShowReview(false)}
 			>
-				<Review onClose={(): any => setShowReview(false)} />
+				<ProductReview
+					isLoading={isLoading}
+					onSubmit={submitReviewHandler}
+					onCancel={(): any => setShowReview(false)}
+				/>
 			</Modal>
 		</div>
 	);

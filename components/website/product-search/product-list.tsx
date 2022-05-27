@@ -12,7 +12,11 @@ const ProductList: React.FC<ProductListProps> = ({
 	return (
 		<div className="grid grid-cols-1 gap-4 md:gap-8">
 			{products.map((product) => {
-				const { is_bulk_pricing, bulk_pricing = [] } = product || {};
+				const {
+					is_bulk_pricing,
+					bulk_pricing = [],
+					country_of_region = []
+				} = product || {};
 				let minPrice = 0;
 				let maxPrice = 0;
 				if (is_bulk_pricing) {
@@ -29,11 +33,15 @@ const ProductList: React.FC<ProductListProps> = ({
 					<ProductTile
 						key={product.id}
 						name={product.product_name}
-						slug={product.slug}
+						slug={product?.id}
 						description={product.product_description}
 						imageUrl={
-							product.images[0]?.url ||
-							'https://images.unsplash.com/photo-1505156868547-9b49f4df4e04?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8aXBob25lfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60'
+							product.images[0]?.url
+								? 'https://' + product.images[0]?.url
+								: 'https://images.unsplash.com/photo-1505156868547-9b49f4df4e04?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8aXBob25lfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60'
+						}
+						countryOfOrigin={
+							country_of_region ? country_of_region[0] : ''
 						}
 						keywords={product.tags || []}
 						productPrice={product.product_price}

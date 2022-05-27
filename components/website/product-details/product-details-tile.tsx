@@ -2,11 +2,16 @@ import Image from 'next/image';
 
 // components
 import Button from 'components/website/common/form/button';
-import MetadataList from 'components/website/product-search/metadata/metadata-list';
 import { metadataList } from 'data/product-search/metadata-list';
+import MetadataTile from '../product-search/metadata/metadata-tile';
 import ImageContainer from './product-details-images/image-contaier';
 
-const ProductDetailsTile: React.FC = (props) => {
+const ProductDetailsTile: React.FC<{
+	product: any;
+	selectedVariantId?: string;
+	onVariantClick: (variantId: string) => any;
+}> = (props) => {
+	const { product = {}, onVariantClick, selectedVariantId } = props;
 	const thumbnails = [
 		{
 			imageUrl: '/vehicles/yellow-tractor.png',
@@ -34,14 +39,40 @@ const ProductDetailsTile: React.FC = (props) => {
 		}
 	];
 
+	const {
+		inventory,
+		product_price,
+		is_bulk_pricing,
+		bulk_pricing = [],
+		tags = [],
+		variants = [],
+		images = [],
+		is_customizable,
+		country_of_region,
+		is_ready_to_ship,
+		is_verified
+	} = product || {};
+
+	let displayPrice = `$${product_price}`;
+	if (is_bulk_pricing) {
+		const minPrice = bulk_pricing[0]?.range?.split('-')[0];
+		const maxPrice =
+			bulk_pricing[bulk_pricing?.length - 1]?.range?.split('-')[0];
+		displayPrice = `$${minPrice}-$${maxPrice}`;
+	}
+
+	const minOrderQuantity = inventory?.minimum_order_quantity || 0;
+
+	const mainImageUrl = 'https://' + images[0]?.url;
+
 	return (
 		<div className="grid grid-cols-12 gap-8 bg-white">
 			{/* Images container */}
 			<ImageContainer
 				className="col-span-12 md:first-letter:p-8 lg:col-span-5"
-				imageUrl="/vehicles/yellow-tractor.png"
+				imageUrl={mainImageUrl}
 				alt=""
-				thumbnails={thumbnails}
+				thumbnails={images}
 			/>
 
 			{/* Product details */}
@@ -49,30 +80,96 @@ const ProductDetailsTile: React.FC = (props) => {
 				{/* Product name and sku info */}
 				<div className="flex items-center justify-between">
 					<h1 className="text-[18px] font-semibold text-primary-main lg:text-[30px]">
-						Big Yellow Badass Tractor
+						{product.product_name}
 					</h1>
 					<p className="hidden text-[25px] font-semibold text-gray/40 md:block">
-						SKU#TW1255
+						{inventory?.sku}
 					</p>
 				</div>
 				{/* Price and quantity info */}
 				<div className="flex justify-between text-[12px] font-semibold text-primary-main lg:text-[21px]">
-					<p>$2.29 - $5.00 /piece</p>
-					<p>100 Pieces /Min. Order</p>
+					<p>{displayPrice} /piece</p>
+					{minOrderQuantity > 0 && (
+						<p>{minOrderQuantity} Pieces /Min. Order</p>
+					)}
 				</div>
 				{/* Keywords */}
 				<div className="flex justify-between text-[12px] font-semibold text-primary-main lg:text-[13px]">
-					<span>Keyword 1</span>
-					<span>Keyword 2</span>
-					<span>Keyword 3</span>
-					<span>Keyword 4</span>
+					{tags.map((tag: any, index: number) => (
+						<span key={`${tag}_${index}`}>{tag}</span>
+					))}
 				</div>
 				{/* Metadata list */}
 				<div>
-					<MetadataList
+					{/* <MetadataList
 						metadataList={metadataList}
 						className="!grid-cols-2 md:grid-cols-3"
-					/>
+					/> */}
+
+					<div
+						className={`grid grid-cols-3 gap-4 text-[12px] text-gray`}
+					>
+						{/* country of origin */}
+						<MetadataTile
+							key={metadataList[0].title}
+							imageUrl={metadataList[0].imageUrl}
+							alt={metadataList[0].title}
+							title={country_of_region}
+						/>
+						{/* isReadyToShip */}
+						{!is_ready_to_ship && (
+							<MetadataTile
+								key={metadataList[1].title}
+								imageUrl={metadataList[1].imageUrl}
+								alt={metadataList[1].title}
+								title={metadataList[1].title}
+							/>
+						)}
+						{/* compare */}
+						{/* <MetadataTile
+							key={metadataList[2].title}
+							icon={
+								<div className="text-[32px]">
+									{isInCompareList ? (
+										<MdBookmark className="text-[#FC5267]" />
+									) : (
+										<MdOutlineBookmarkBorder className="text-accent-primary-main" />
+									)}
+								</div>
+							}
+							alt={metadataList[2].title}
+							title={metadataList[2].title}
+							onClick={onCompareClick}
+							className="cursor-pointer"
+						/> */}
+						{/* Customizable */}
+						<MetadataTile
+							key={metadataList[3].title}
+							imageUrl={metadataList[3].imageUrl}
+							alt={metadataList[3].title}
+							title={
+								<p>
+									Customizable{' '}
+									<span className="text-secondary">
+										{is_customizable ? 'YES' : 'NO'}
+									</span>
+								</p>
+							}
+						/>
+						{/* variantCount */}
+						<MetadataTile
+							key={metadataList[4].title}
+							imageUrl={metadataList[4].imageUrl}
+							alt={metadataList[4].title}
+							title={`Variant ${variants.length}`}
+						/>
+						<MetadataTile
+							key={metadataList[5].title}
+							imageUrl={metadataList[5].imageUrl}
+							alt={metadataList[5].title}
+							title={metadataList[5].title}
+						/>
+					</div>
 				</div>
 				{/* Rating, review count and verified Image */}
 				<div className="hidden items-center space-x-8 pb-4 md:flex">
@@ -82,20 +179,21 @@ const ProductDetailsTile: React.FC = (props) => {
 					<p className="text-center text-[13px] text-secondary">
 						{105} Reviews
 					</p>
-					<div className="relative h-[30px] w-[162px]">
-						<Image
-							src="/tradewinds-horizontal-logo.png"
-							alt=""
-							layout="fill"
-						/>
-					</div>
+					{is_verified && (
+						<div className="relative h-[30px] w-[162px]">
+							<Image
+								src="/tradewinds-horizontal-logo.png"
+								alt=""
+								layout="fill"
+							/>
+						</div>
+					)}
 				</div>
 				{/* Product name and bullet points */}
 				<div className="border-t border-b-0 border-gray/40 py-6 md:border-b">
 					<h2 className="text-[12px] text-gray md:text-[15px]">
-						<span className="font-semibold">Product name:</span> product
-						desciption adipiscing elit, sed diam nonummy nibh euismod
-						tincidunt ut laoreet dolore magna aliquam erat
+						<span className="font-semibold">Product name:</span>{' '}
+						{product.product_description}
 					</h2>
 					<ul className="ml-8 list-disc text-[12px] text-gray md:text-[15px]">
 						<li>Bullet point</li>
@@ -112,28 +210,40 @@ const ProductDetailsTile: React.FC = (props) => {
 				{/* Additional info */}
 				<div className="hidden space-y-4 rounded-md bg-gray/20 p-4 md:block">
 					<div className="flex items-center space-x-8 text-[21px] text-primary-main">
-						<p>
-							<span className="font-semibold">0 -100</span> piece =
-							$5.00
-						</p>
-						<p>
-							<span className="font-semibold">100- 500 Pieces</span>{' '}
-							piece = $3.00
-						</p>
+						{is_bulk_pricing &&
+							bulk_pricing?.map((bulkPrice: any) => (
+								<p key={bulkPrice.range}>
+									<span className="font-semibold">
+										{bulkPrice.range}
+									</span>{' '}
+									piece = ${bulkPrice.price}
+								</p>
+							))}
 					</div>
 					{/* Variants */}
-					<div className="flex space-x-8 text-[21px] font-semibold text-primary-main">
-						<span>Variant 1</span>
-						<span>Variant 2</span>
-						<span>Variant 3</span>
-						<span>Variant 4</span>
+					<div className="flex space-x-8 ">
+						{variants.map((variant: any) => {
+							const { variant_id } = variant;
+							const isSelected = selectedVariantId === variant_id;
+							return (
+								<Button
+									key={variant.variant_id}
+									onClick={() =>
+										onVariantClick(isSelected ? '' : variant.variant_id)
+									}
+									className="px-0 text-[21px] font-semibold !text-primary-main"
+								>
+									{variant.variants_option}
+								</Button>
+							);
+						})}
 					</div>
 					<p className="text-[21px] font-semibold text-primary-main">
 						Quantity:
 					</p>
 					<p className="text-[21px] text-primary-main">
 						<span className="font-semibold">Customization:</span>{' '}
-						<span>Yes</span>
+						<span>{is_customizable ? 'Yes' : 'No'}</span>
 					</p>
 				</div>
 			</div>

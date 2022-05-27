@@ -10,7 +10,8 @@ interface ImageContainerProps {
 	imageUrl: string;
 	alt: string;
 	thumbnails: {
-		imageUrl: string;
+		id?: string;
+		url: string;
 		alt: string;
 	}[];
 	className?: string;
@@ -40,33 +41,12 @@ const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 
 			{/* Thumbnails Slider only for small and medium screen */}
 			<div className="relative hidden md:block lg:hidden">
-				{/* <Slider
-					{...{
-						slidesToShow: 5
-					}}
-				>
-					{thumbnails.map((thumbnail) => (
-						<div
-							key={thumbnail.imageUrl}
-							className="relative h-[136px] w-full"
-						>
-							<Image
-								src={thumbnail.imageUrl}
-								alt={thumbnail.alt}
-								layout="fill"
-							/>
-						</div>
-					))}
-				</Slider> */}
 				<div ref={ref} className="keen-slider">
 					{thumbnails.map((thumbnail) => (
-						<div
-							key={thumbnail.imageUrl}
-							className="keen-slider__slide"
-						>
+						<div key={thumbnail.url} className="keen-slider__slide">
 							<div className="relative h-[136px] w-full">
 								<Image
-									src={thumbnail.imageUrl}
+									src={'https://' + thumbnail.url}
 									alt={thumbnail.alt}
 									layout="fill"
 								/>

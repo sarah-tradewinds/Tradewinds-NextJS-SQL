@@ -25,7 +25,8 @@ import { FiLogOut } from 'react-icons/fi';
 import { useAuthStore } from 'store/auth';
 
 const Header = () => {
-	const authStore = useAuthStore();
+	const { setIsLoginOpen, setIsSignUpOpen, isAuth, customerData } =
+		useAuthStore();
 	const [isOpen, setIsOpen] = useState(false);
 	const router = useRouter();
 	const [showLogout, setShowLogout] = useState(false);
@@ -117,7 +118,7 @@ const Header = () => {
 					<HiOutlineSearch className="h-6 w-[16%] cursor-pointer text-center text-white xl:w-[4%]" />
 				</label>
 
-				{userData?.userId ? (
+				{isAuth ? (
 					<div className="hidden items-center justify-center gap-1 sm:flex">
 						<div className="rounded-sm bg-transparent px-5 py-2 text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-[#033e6b]">
 							<div className="flex items-center justify-center text-center">
@@ -127,7 +128,7 @@ const Header = () => {
 								className="w-[100%]"
 								onMouseEnter={() => setShowLogout(true)}
 							>
-								{`Hi, ${userData?.firstName}`}
+								{`Hi, ${customerData.name}`}
 							</div>
 
 							{showLogout && (
@@ -163,14 +164,14 @@ const Header = () => {
 						<button
 							type="button"
 							className="rounded-sm border-[1px] bg-transparent px-5 py-2 text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary"
-							onClick={authStore.setIsSignUpOpen}
+							onClick={setIsSignUpOpen}
 						>
 							Sign Up
 						</button>
 						<button
 							type="button"
 							className="rounded-sm border-[1px] border-secondary bg-secondary px-5 py-2 text-white transition duration-300 ease-in-out hover:border-white hover:bg-transparent"
-							onClick={authStore.setIsLoginOpen}
+							onClick={setIsLoginOpen}
 						>
 							Log In
 						</button>

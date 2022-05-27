@@ -2,10 +2,28 @@ import Button from 'components/website/common/form/button';
 import { useState } from 'react';
 import StarRatings from 'react-star-ratings';
 
-const Review: React.FC<any> = (props) => {
-	const [loading, setLoading] = useState(false);
+interface ReviewProps {
+	onSubmit: (rating: number, review: string) => any;
+	onCancel: () => any;
+	isLoading?: boolean;
+}
+
+const ProductReview: React.FC<ReviewProps> = (props) => {
+	const { onSubmit, onCancel, isLoading } = props;
+
 	const [rating, setRating] = useState(0);
-	const handleRating = (rate: number) => setRating(rate);
+	const [review, setReview] = useState('');
+
+	const handleRating = (rate: number) => {
+		setRating(rate);
+	};
+
+	const submitReviewAndRating = () => {
+		if (!review || !rating) {
+			return;
+		}
+		onSubmit(rating, review);
+	}; // End of submitReviewAndRating function
 
 	return (
 		<div className=" flex items-center justify-center ">
@@ -32,27 +50,27 @@ const Review: React.FC<any> = (props) => {
 							<span className="w-24 flex-auto ">Comments</span>
 
 							<textarea
+								name="review"
+								value={review}
 								rows={4}
-								className="w-full space-y-4 border border-gray/40 p-2 "
+								className="w-full space-y-4 border border-gray/40 p-2"
+								onChange={({ target }) => setReview(target.value)}
 							></textarea>
 
 							<div className="flex flex-row">
 								<Button
 									variant="product"
 									className="mr-1 w-full"
-									onClick={(e: any) => e.preventDefault()}
-									disabled={loading}
+									onClick={submitReviewAndRating}
+									disabled={isLoading}
 								>
 									Submit response
 								</Button>
 								<Button
 									variant="special"
 									className="ml-1 w-full"
-									onClick={(e: any) => {
-										e.preventDefault();
-										props.onClose();
-									}}
-									disabled={loading}
+									onClick={onCancel}
+									disabled={isLoading}
 								>
 									Cancel
 								</Button>
@@ -63,6 +81,6 @@ const Review: React.FC<any> = (props) => {
 			</div>
 		</div>
 	);
-};
+}; // End of ProductReview component
 
-export default Review;
+export default ProductReview;
