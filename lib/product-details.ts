@@ -1,7 +1,4 @@
-import {
-	axiosInstance,
-	serviceAxiosInstance
-} from 'utils/axios-instance.utils';
+import { serviceAxiosInstance } from 'utils/axios-instance.utils';
 
 export const getProductById = async (productId: string) => {
 	try {
@@ -39,8 +36,10 @@ export const getProductReviewsByProductId = async (
 
 export const getSellerDetailsSellerId = async (sellerId: string) => {
 	try {
-		const { data } = await axiosInstance.get(`/seller/${sellerId}`);
-		return data.response || {};
+		const { data } = await serviceAxiosInstance.get(
+			`/seller/profile/${sellerId}`
+		);
+		return data.data || {};
 	} catch (error) {
 		console.log('[getSellerDetailsSellerId] =', error);
 		const { data, status } = (error as any).response || {};

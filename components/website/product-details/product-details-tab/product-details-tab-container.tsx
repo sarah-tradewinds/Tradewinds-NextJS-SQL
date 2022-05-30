@@ -8,8 +8,9 @@ const ProductDetailsTabContainer: React.FC<{
 	className?: string;
 	product: any[];
 	reviews: any[];
+	seller: any;
 }> = (props) => {
-	const { className, reviews = [], product = {} } = props;
+	const { className, reviews = [], product = {}, seller = {} } = props;
 
 	const { id, product_detail_item, shipping } = (product as any) || {};
 
@@ -67,7 +68,7 @@ const ProductDetailsTabContainer: React.FC<{
 						/>
 					</Tab.Panel>
 					<Tab.Panel>
-						<CompanyProfileTab />
+						<CompanyProfileTab seller={seller} />
 					</Tab.Panel>
 				</Tab.Panels>
 			</Tab.Group>

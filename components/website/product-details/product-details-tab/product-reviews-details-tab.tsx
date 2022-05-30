@@ -33,7 +33,7 @@ const ProductReviewsDetailsTab: React.FC<{
 				comments: review,
 				product_id: productId,
 				order_id: orderId,
-				user_id: customerData.id
+				user_id: customerData.id || '627c8a4ef3b1705344e40ad3'
 			});
 			setIsLoading(false);
 			setShowReview(false);

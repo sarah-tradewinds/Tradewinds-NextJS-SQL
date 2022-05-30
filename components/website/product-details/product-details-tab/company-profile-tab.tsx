@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-const CompanyProfileTab: React.FC = () => {
+const CompanyProfileTab: React.FC<{ seller: any }> = ({ seller }) => {
 	return (
 		<div className="space-y-16 bg-white p-8">
 			{/* 	Farmer Fran Tractor World */}
@@ -29,31 +29,35 @@ const CompanyProfileTab: React.FC = () => {
 							<span className="font-semibold md:min-w-[148px]">
 								Country:
 							</span>
-							<span>Applicable</span>
+							<span>{seller?.country}</span>
 						</p>
 						<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
 							<span className="font-semibold md:min-w-[148px]">
 								TW page:
 							</span>
-							<span>CE / EU</span>
+							<span>{seller?.tw_page}</span>
 						</p>
 						<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
 							<span className="font-semibold md:min-w-[148px]">
 								Established:
 							</span>
-							<span>Water Bottles</span>
+							<span>{seller?.established}</span>
 						</p>
 						<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
 							<span className="font-semibold md:min-w-[148px]">
 								Certification:
 							</span>
-							<span>Water Bottles</span>
+							<span>{seller?.certificates?.toString()}</span>
 						</p>
 						<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
 							<span className="font-semibold md:min-w-[148px]">
 								Member Since:
 							</span>
-							<span>2022</span>
+							<span>
+								{seller?.member_since
+									? new Date(seller?.member_since).toLocaleDateString()
+									: ''}
+							</span>
 						</p>
 					</div>
 
@@ -75,13 +79,7 @@ const CompanyProfileTab: React.FC = () => {
 					About
 				</h2>
 				<p className="mt-1 text-[13px] text-gray/40 md:text-[18px]">
-					Reviewed in the United States on December 8, 2021 Verified
-					Purchase Unfortunately, one of the skewers arrived without a
-					hole to mount the handle. Fortunately, my spouse has an
-					incredible workshop & was able to drill the holes needed to
-					mount the handle. Otherwise, the male & female skewers were
-					great quality and I know my friend will love them for her fire
-					pit.
+					{seller?.about_us}
 				</p>
 			</div>
 

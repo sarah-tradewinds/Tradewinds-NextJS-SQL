@@ -16,13 +16,14 @@ import ProductReviewsDetailsTab from 'components/website/product-details/product
 import SimilarProductList from 'components/website/product-details/similar-product-list';
 import {
 	getProductById,
+	getProductReviewsByProductId,
 	getSellerDetailsSellerId
 } from 'lib/product-details';
 import { useEffect, useState } from 'react';
 
 const ProductDetailsPage: NextPage<
 	InferGetServerSidePropsType<GetServerSideProps>
-> = ({ product, productReviews }) => {
+> = ({ product, productReviews, seller }) => {
 	const [productData, setProductData] = useState(product);
 	const [selectedVariantId, setSelectedVariantId] = useState('');
 
@@ -59,6 +60,7 @@ const ProductDetailsPage: NextPage<
 					className="hidden md:block"
 					product={productData}
 					reviews={productReviews}
+					seller={seller}
 				/>
 
 				<div className="bg-white md:hidden">
@@ -71,7 +73,7 @@ const ProductDetailsPage: NextPage<
 						productId={productData?.id}
 						orderId={'6287507801163604d44c74b6'}
 					/>
-					<CompanyProfileTab />
+					<CompanyProfileTab seller={seller} />
 				</div>
 			</div>
 			{/* Similar Product */}
@@ -133,21 +135,23 @@ export const getServerSideProps: GetServerSideProps = async ({
 		}
 
 		// Fetch product reviews
-		// const productReviews =
-		// 	(await getProductReviewsByProductId(productId)) || [];
+		const productReviews =
+			(await getProductReviewsByProductId(productId)) || [];
 
-		const productReviews: any[] = [];
+		// const productReviews: any[] = [];
 
 		// Fetch seller company Data
-		const seller = await getSellerDetailsSellerId(
-			product.seller_id
-			// '628b3a64a851e45491946a76' || product.seller_id
-		);
+		const seller =
+			(await getSellerDetailsSellerId(
+				// product.seller_id
+				'6290d6eb0eb8951e0540d641' || product.seller_id
+			)) || {};
 
 		return {
 			props: {
 				product,
-				productReviews
+				productReviews,
+				seller
 			}
 		};
 	} catch (error) {
