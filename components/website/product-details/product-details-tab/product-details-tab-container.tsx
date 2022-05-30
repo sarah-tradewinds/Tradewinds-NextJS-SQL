@@ -9,8 +9,17 @@ const ProductDetailsTabContainer: React.FC<{
 	product: any[];
 	reviews: any[];
 	seller: any;
+	onReviewSubmit: (rating: number, review: string) => any;
+	isReviewLoading?: boolean;
 }> = (props) => {
-	const { className, reviews = [], product = {}, seller = {} } = props;
+	const {
+		className,
+		reviews = [],
+		product = {},
+		seller = {},
+		onReviewSubmit,
+		isReviewLoading
+	} = props;
 
 	const { id, product_detail_item, shipping } = (product as any) || {};
 
@@ -63,8 +72,8 @@ const ProductDetailsTabContainer: React.FC<{
 					<Tab.Panel>
 						<ReviewsDetailsTab
 							reviews={reviews}
-							productId={id}
-							orderId={'6287507801163604d44c74b6'}
+							onReviewSubmit={onReviewSubmit}
+							isLoading={isReviewLoading}
 						/>
 					</Tab.Panel>
 					<Tab.Panel>

@@ -1,29 +1,26 @@
 import Button from 'components/website/common/form/button';
-import { useState } from 'react';
 import StarRatings from 'react-star-ratings';
 
 interface ReviewProps {
-	onSubmit: (rating: number, review: string) => any;
+	rating: number;
+	review: string;
+	onRatingChange: (rating: number) => any;
+	onReviewChange: (review: string) => any;
+	onSubmit: () => any;
 	onCancel: () => any;
 	isLoading?: boolean;
 }
 
 const ProductReview: React.FC<ReviewProps> = (props) => {
-	const { onSubmit, onCancel, isLoading } = props;
-
-	const [rating, setRating] = useState(0);
-	const [review, setReview] = useState('');
-
-	const handleRating = (rate: number) => {
-		setRating(rate);
-	};
-
-	const submitReviewAndRating = () => {
-		if (!review || !rating) {
-			return;
-		}
-		onSubmit(rating, review);
-	}; // End of submitReviewAndRating function
+	const {
+		rating,
+		review,
+		onRatingChange,
+		onReviewChange,
+		onSubmit,
+		onCancel,
+		isLoading
+	} = props;
 
 	return (
 		<div className=" flex items-center justify-center ">
@@ -39,7 +36,7 @@ const ProductReview: React.FC<ReviewProps> = (props) => {
 						<StarRatings
 							rating={rating}
 							starRatedColor="#00AEEF"
-							changeRating={handleRating}
+							changeRating={onRatingChange}
 							numberOfStars={5}
 							name="rating"
 						/>
@@ -54,14 +51,14 @@ const ProductReview: React.FC<ReviewProps> = (props) => {
 								value={review}
 								rows={4}
 								className="w-full space-y-4 border border-gray/40 p-2"
-								onChange={({ target }) => setReview(target.value)}
+								onChange={({ target }) => onReviewChange(target.value)}
 							></textarea>
 
 							<div className="flex flex-row">
 								<Button
 									variant="product"
 									className="mr-1 w-full"
-									onClick={submitReviewAndRating}
+									onClick={onSubmit}
 									disabled={isLoading}
 								>
 									Submit response

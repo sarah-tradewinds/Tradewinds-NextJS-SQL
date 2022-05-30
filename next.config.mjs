@@ -17,7 +17,7 @@ const nextConfig = (phase) => {
       },
       images: {
         // domains: ["wmarketplacestgact.blob.core.windows.net"]
-        domains: ["images.unsplash.com", "wmarketplacestgact.blob.core.windows.net", "m.media-amazon.com"]
+        domains: ["images.unsplash.com", "wmarketplacestgact.blob.core.windows.net", "m.media-amazon.com", "undefined"]
       }
     }
   }

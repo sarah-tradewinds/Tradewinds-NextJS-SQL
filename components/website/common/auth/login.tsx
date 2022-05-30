@@ -15,7 +15,10 @@ import { Modal } from '../modal/modal';
 import { buttonSpinner } from '../spinners/custom-spinners';
 
 // libs
-import { userLogin } from '../../../../lib/customer/auth.lib';
+import {
+	getCustomerDetails,
+	userLogin
+} from '../../../../lib/customer/auth.lib';
 
 interface ILoginData {
 	email: string;
@@ -50,14 +53,23 @@ const Login: React.FC = () => {
 
 		try {
 			const data = await userLogin(loginData);
+			const customerDetails = await getCustomerDetails(
+				data.access_token.token
+			);
 			setCustomerData({
-				id: '',
-				name: '',
-				token: {
-					access: data.access_token,
-					refresh: data.refresh_token
+				id: customerDetails.id,
+				name: customerDetails.name,
+				access: {
+					token: data.access_token.token,
+					expireIn: ''
+				},
+				refresh: {
+					token: data.refresh_token.token,
+					expireIn: ''
 				}
 			});
+			console.log(customerDetails);
+
 			setLoading(false);
 			setIsLoginOpen();
 		} catch (error) {

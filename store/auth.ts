@@ -3,9 +3,13 @@ import create from 'zustand';
 export interface CustomerDataProps {
 	id: string;
 	name: string;
-	token: {
-		access: string;
-		refresh: string;
+	access: {
+		token: string;
+		expireIn: string;
+	};
+	refresh: {
+		token: string;
+		expireIn: string;
 	};
 }
 
@@ -24,20 +28,23 @@ export const useAuthStore = create<AuthState>((set) => ({
 	customerData: {
 		id: '',
 		name: '',
-		token: {
-			access: '',
-			refresh: ''
+		access: {
+			token: '',
+			expireIn: ''
+		},
+		refresh: {
+			token: '',
+			expireIn: ''
 		}
 	},
 	isSignUpOpen: false,
 	isLoginOpen: false,
 	setCustomerData: (customerData) => {
-		// localStorage.setItem('tw-email', customerData.email);
-		localStorage.setItem('tw-access_token', customerData.token.access);
-		localStorage.setItem(
-			'tw-refresh_token',
-			customerData.token.refresh
-		);
+		// localStorage.setItem('tw-access_token', customerData.access.token);
+		// localStorage.setItem(
+		//  'tw-refresh_token',
+		//  customerData.refresh.token
+		// );
 		set({
 			isAuth: true,
 			customerData
@@ -45,6 +52,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 	},
 	setIsSignUpOpen: () =>
 		set((state) => ({ isSignUpOpen: !state.isSignUpOpen })),
-	setIsLoginOpen: () =>
-		set((state) => ({ isLoginOpen: !state.isLoginOpen }))
+	setIsLoginOpen: () => {
+		set((state) => ({ isLoginOpen: !state.isLoginOpen }));
+	}
 }));

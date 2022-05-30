@@ -1,4 +1,8 @@
-import { serviceAxiosInstance } from 'utils/axios-instance.utils';
+import axios from 'axios';
+import {
+	axiosInstance,
+	serviceAxiosInstance
+} from 'utils/axios-instance.utils';
 
 const URLS = {
 	FORGOT_PASSWORD: '/v1/auth/forgot_password',
@@ -12,7 +16,7 @@ const URLS = {
 export const userSignup = async (customerData: any) => {
 	try {
 		const { data } = await serviceAxiosInstance.post(
-			'/auth/signup',
+			'/auth/buyer_signup',
 			customerData
 		);
 		return {
@@ -28,11 +32,10 @@ export const userSignup = async (customerData: any) => {
 
 export const userLogin = async (params: any) => {
 	try {
-		const { data } = await serviceAxiosInstance.post(
-			'/auth/login',
+		const { data } = await axios.post(
+			'http://localhost:3000/api/v1/auth/login',
 			params
 		);
-
 		return {
 			message: data.message,
 			...(data.data || {})
@@ -44,71 +47,40 @@ export const userLogin = async (params: any) => {
 	}
 }; // End of userLogin function
 
-// const forgetPasswordChange = async (params: any, token: string) => {
-// 	return await fetch(`${URLS.RESET_PASSWORD}/${token}`, {
-// 		method: 'POST',
-// 		body: JSON.stringify(params)
-// 	})
-// 		.then((response) => {
-// 			return response;
-// 		})
-// 		.catch((err) => {
-// 			console.log('err', err);
-// 			throw new Error('Internal server error');
-// 		});
-// };
+export const getCustomerDetails = async (token?: string) => {
+	try {
+		const { data } = await serviceAxiosInstance.get('/auth/user/me', {
+			headers: {
+				Authorization: token ? `Bearer ${token}` : ''
+			}
+		});
 
-// const forgetPasswordGenerateLink = async (params: any) => {
-// 	return await fetch(URLS.FORGOT_PASSWORD, {
-// 		method: 'POST',
-// 		body: JSON.stringify(params)
-// 	})
-// 		.then((response) => {
-// 			return response;
-// 		})
-// 		.catch((err) => {
-// 			console.log('err', err);
-// 			throw new Error('Internal server error');
-// 		});
-// };
+		return {
+			name: `${data?.data?.first_name} ${data?.data?.last_name}`,
+			id: data?.data?.id
+		};
+	} catch (error) {
+		console.log('[getCustomerDetails] =', error);
+		const { data } = (error as any).response || {};
+		throw Error(data?.message || 'Error occurred getCustomerDetails');
+	}
+}; // End of getCustomerDetails
 
-// const getCurrentUser = async (token: string) => {
-// 	return await fetch(URLS.GET_CURRENT_USER, {
-// 		method: 'GET',
-// 		Authorization: 'Bearer ' + token
-// 	})
-// 		.then((response) => {
-// 			return response;
-// 		})
-// 		.catch((err) => {
-// 			console.log('err', err);
-// 			throw new Error('Internal server error');
-// 		});
-// };
+export const forgetPasswordGenerateLink = async (email: string) => {
+	try {
+		const { data } = await axiosInstance.post('/auth/forgot_password', {
+			email
+		});
 
-// const userSignup = async (params: any) => {
-// 	return await fetch(URLS.USER_SIGNUP, {
-// 		method: 'POST',
-// 		body: JSON.stringify(params)
-// 	})
-// 		.then((response) => {
-// 			return response;
-// 		})
-// 		.catch((err) => {
-// 			console.log('err', err);
-// 			throw new Error('Internal server error');
-// 		});
-// };
-
-// const verifyUser = async (userId: any) => {
-// 	return await fetch(`${URLS.VERIFY_USER}/${userId}`, {
-// 		method: 'POST'
-// 	})
-// 		.then((response) => {
-// 			return response;
-// 		})
-// 		.catch((err) => {
-// 			console.log('err', err);
-// 			throw new Error('Internal server error');
-// 		});
-// };
+		return {
+			message: data.message,
+			...(data.data || {})
+		};
+	} catch (error) {
+		console.log('[forgetPasswordChange] =', error);
+		const { data } = (error as any).response || {};
+		throw Error(
+			data?.message || 'Error occurred forgetPasswordGenerateLink'
+		);
+	}
+}; // End of forgetPasswordGenerateLink

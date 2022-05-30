@@ -1,7 +1,6 @@
 import Button from 'components/website/common/form/button';
-import { submitProductRatingAndReview } from 'lib/product-details';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuthStore } from 'store/auth';
 import { Modal } from '../../common/modal/modal';
 import ProductReview from './product-review/product-review';
@@ -9,11 +8,18 @@ import UserReviewAndRatingTile from './user-review-and-rating-tile';
 
 const ProductReviewsDetailsTab: React.FC<{
 	reviews: any[];
-	productId: string;
-	orderId: string;
-}> = ({ productId, orderId, reviews = [] }) => {
+	onReviewSubmit: (
+		rating: number,
+		review: string,
+		reviewId?: string
+	) => any;
+	isLoading?: boolean;
+}> = ({ reviews = [], onReviewSubmit, isLoading }) => {
 	const [showReview, setShowReview] = useState(false);
-	const [isLoading, setIsLoading] = useState(false);
+	const [rating, setRating] = useState(0);
+	const [review, setReview] = useState('');
+	const [reviewId, setReviewId] = useState('');
+
 	const { isAuth, customerData, setIsLoginOpen } = useAuthStore(
 		(state) => ({
 			isAuth: state.isAuth,
@@ -22,25 +28,32 @@ const ProductReviewsDetailsTab: React.FC<{
 		})
 	);
 
-	const submitReviewHandler = async (
-		rating: number,
-		review: string
-	) => {
-		try {
-			setIsLoading(true);
-			await submitProductRatingAndReview({
-				rating,
-				comments: review,
-				product_id: productId,
-				order_id: orderId,
-				user_id: customerData.id || '627c8a4ef3b1705344e40ad3'
-			});
-			setIsLoading(false);
+	useEffect(() => {
+		if (isLoading) {
 			setShowReview(false);
-		} catch (error) {
-			setIsLoading(false);
 		}
-	}; // End of submitReviewHandler function
+	}, [isLoading]);
+
+	useEffect(() => {
+		if (!showReview) {
+			setReviewId('');
+			return;
+		}
+
+		const reviewData = reviews.find(
+			(review: any) => review.user_id === customerData.id
+		);
+
+		if (reviewData) {
+			setRating(reviewData.rating);
+			setReview(reviewData.comments);
+			setReviewId(reviewData.id);
+		}
+	}, [showReview]);
+
+	const onReviewSubmitHandler = () => {
+		onReviewSubmit(rating, review, reviewId);
+	};
 
 	const writeReview = (
 		<div className="md:px-8">
@@ -129,8 +142,12 @@ const ProductReviewsDetailsTab: React.FC<{
 				onClose={() => setShowReview(false)}
 			>
 				<ProductReview
+					rating={rating}
+					review={review}
 					isLoading={isLoading}
-					onSubmit={submitReviewHandler}
+					onRatingChange={setRating}
+					onReviewChange={setReview}
+					onSubmit={onReviewSubmitHandler}
 					onCancel={(): any => setShowReview(false)}
 				/>
 			</Modal>

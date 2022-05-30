@@ -4,12 +4,11 @@ import { useEffect, useState } from 'react';
 import { useAuthStore } from 'store/auth';
 
 import Seo from 'components/website/common/seo';
+
+import { forgetPasswordGenerateLink } from 'lib/customer/auth.lib';
 import { AiOutlineMail } from 'react-icons/ai';
 import { RiLockPasswordLine } from 'react-icons/ri';
-import {
-	forgetPasswordChange,
-	forgetPasswordGenerateLink
-} from '../components/website/common/auth/auth-services';
+import { forgetPasswordChange } from '../components/website/common/auth/auth-services';
 
 const ForgotPassword = () => {
 	const authStore = useAuthStore();
@@ -75,24 +74,58 @@ const ForgotPassword = () => {
 	const submitPasswordResetRequest = async () => {
 		if (!email) return;
 		setLoading(true);
+		try {
+			const data = await forgetPasswordGenerateLink(email);
+			setStatus({
+				...status,
+				message: data.message,
+				isForgotEmailSent: true
+			});
+			setLoading(false);
+		} catch (error) {
+			setStatus({
+				...status,
+				isForgotEmailSent: false,
+				message: (error as any).message
+			});
+			setLoading(false);
+		}
 
-		await forgetPasswordGenerateLink({ email: email }).then(
-			(response) => {
-				console.log('response', response);
-				if (response.status === 200)
-					setStatus({
-						...status,
-						isForgotEmailSent: true
-					});
-				else
-					setStatus({
-						...status,
-						isForgotEmailSent: false,
-						message: response.message
-					});
-				setLoading(false);
-			}
-		);
+		// .then(
+		//  (response) => {
+		//    console.log('response', response);
+		//    if (response.status === 200)
+		//      setStatus({
+		//        ...status,
+		//        isForgotEmailSent: true
+		//      });
+		//    else
+		//      setStatus({
+		//        ...status,
+		//        isForgotEmailSent: false,
+		//        message: response.message
+		//      });
+		//    setLoading(false);
+		//  }
+		// );
+
+		// await forgetPasswordGenerateLink({ email: email }).then(
+		//  (response) => {
+		//    console.log('response', response);
+		//    if (response.status === 200)
+		//      setStatus({
+		//        ...status,
+		//        isForgotEmailSent: true
+		//      });
+		//    else
+		//      setStatus({
+		//        ...status,
+		//        isForgotEmailSent: false,
+		//        message: response.message
+		//      });
+		//    setLoading(false);
+		//  }
+		// );
 	};
 
 	const validatePassword = () => {

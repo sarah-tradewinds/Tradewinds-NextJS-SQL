@@ -50,18 +50,23 @@ export const getSellerDetailsSellerId = async (sellerId: string) => {
 	}
 }; // End of getSellerDetailsSellerId
 
-export const submitProductRatingAndReview = async (ratingData: {
-	comments: string;
-	rating: number;
-	user_id: string;
-	product_id: string;
-	order_id: string;
-}) => {
+export const submitProductRatingAndReview = async (
+	ratingData: {
+		comments: string;
+		rating: number;
+		user_id: string;
+		product_id: string;
+		order_id: string;
+	},
+	reviewId?: string
+) => {
 	try {
-		const { data } = await serviceAxiosInstance.post(
-			'/order_review',
-			ratingData
-		);
+		const url = reviewId
+			? `/order_review/update/${reviewId}`
+			: '/order_review';
+		const { data } = await serviceAxiosInstance[
+			reviewId ? 'put' : 'post'
+		](url, ratingData);
 		return {
 			message: data.message
 		};

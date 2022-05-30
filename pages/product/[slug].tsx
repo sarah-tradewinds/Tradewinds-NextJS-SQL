@@ -17,15 +17,24 @@ import SimilarProductList from 'components/website/product-details/similar-produ
 import {
 	getProductById,
 	getProductReviewsByProductId,
-	getSellerDetailsSellerId
+	getSellerDetailsSellerId,
+	submitProductRatingAndReview
 } from 'lib/product-details';
 import { useEffect, useState } from 'react';
+import { useAuthStore } from 'store/auth';
 
 const ProductDetailsPage: NextPage<
 	InferGetServerSidePropsType<GetServerSideProps>
 > = ({ product, productReviews, seller }) => {
 	const [productData, setProductData] = useState(product);
+	const [productReviewList, setProductReviewList] =
+		useState(productReviews);
+	const [isReviewLoading, setIsReviewLoading] = useState(false);
 	const [selectedVariantId, setSelectedVariantId] = useState('');
+
+	const { customerData } = useAuthStore((state) => ({
+		customerData: state.customerData
+	}));
 
 	useEffect(() => {
 		if (selectedVariantId) {
@@ -48,6 +57,56 @@ const ProductDetailsPage: NextPage<
 		}
 	}, [selectedVariantId]);
 
+	const submitReviewHandler = async (
+		rating: number,
+		review: string,
+		reviewId?: string
+	) => {
+		try {
+			setIsReviewLoading(true);
+			const ratingAndReviewData = {
+				rating,
+				comments: review,
+				product_id: productData.id,
+				order_id: '6287507801163604d44c74b6',
+				user_id: customerData.id
+			};
+
+			await submitProductRatingAndReview(ratingAndReviewData, reviewId);
+
+			const date = new Date().toString();
+			setProductReviewList((prevState: []) => {
+				let reviews = [];
+				if (reviewId) {
+					reviews =
+						prevState.map((reviewData: any) => {
+							if (reviewData.user_id === customerData.id) {
+								reviewData.rating = rating;
+								reviewData.comments = review;
+							}
+							return reviewData;
+						}) || [];
+				} else {
+					reviews = [
+						{
+							id: date,
+							...ratingAndReviewData,
+							created_at: date,
+							updated_at: date,
+							name: customerData.name
+						},
+						...prevState
+					];
+				}
+				return reviews || [];
+			});
+
+			setIsReviewLoading(false);
+		} catch (error) {
+			setIsReviewLoading(false);
+		}
+	}; // End of submitReviewHandler function
+
 	return (
 		<div className="pb-16 md:space-y-8">
 			<ProductDetailsTile
@@ -59,8 +118,10 @@ const ProductDetailsPage: NextPage<
 				<ProductDetailsTabContainer
 					className="hidden md:block"
 					product={productData}
-					reviews={productReviews}
+					reviews={productReviewList}
 					seller={seller}
+					onReviewSubmit={submitReviewHandler}
+					isReviewLoading={isReviewLoading}
 				/>
 
 				<div className="bg-white md:hidden">
@@ -69,9 +130,9 @@ const ProductDetailsPage: NextPage<
 						shipping={productData.shipping}
 					/>
 					<ProductReviewsDetailsTab
-						reviews={productReviews}
-						productId={productData?.id}
-						orderId={'6287507801163604d44c74b6'}
+						reviews={productReviewList}
+						onReviewSubmit={submitReviewHandler}
+						isLoading={isReviewLoading}
 					/>
 					<CompanyProfileTab seller={seller} />
 				</div>
@@ -127,10 +188,9 @@ export const getServerSideProps: GetServerSideProps = async ({
 	};
 	try {
 		const productId = (params as any).slug;
-		// '628f6b4885f3bc541ff3ab6d' || (params as any).slug;
 		const product = (await getProductById(productId)) || {};
 
-		if (!product) {
+		if (!product || !product?.id) {
 			return notFound;
 		}
 
