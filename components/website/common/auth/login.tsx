@@ -51,6 +51,7 @@ const Login: React.FC = () => {
 		try {
 			const data = await userLogin(loginData);
 			setCustomerData({
+				id: '',
 				name: '',
 				token: {
 					access: data.access_token,
