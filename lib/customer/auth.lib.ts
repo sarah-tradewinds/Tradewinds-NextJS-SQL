@@ -19,6 +19,7 @@ export const userSignup = async (customerData: any) => {
 			'/auth/buyer_signup',
 			customerData
 		);
+		console.log(data);
 		return {
 			customerId: data?.data?.InsertedID,
 			message: data.message

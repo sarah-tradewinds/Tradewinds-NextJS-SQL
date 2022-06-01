@@ -127,8 +127,8 @@ const ProductSearchPage: NextPage<
 						onMinPriceChange={(minPriceQuantity) =>
 							setMinPrice(minPriceQuantity)
 						}
-						onCountryChange={(countryCodes) =>
-							setSelectedCountryCode(countryCodes)
+						onCountryChange={(countryIdList) =>
+							setSelectedCountryCode(countryIdList)
 						}
 					/>
 

@@ -14,7 +14,8 @@ import { useAuthStore } from 'store/auth';
 import { useRouter } from 'next/router';
 import { Modal } from '../modal/modal';
 import { buttonSpinner } from '../spinners/custom-spinners';
-import { userSignup } from './auth-services';
+// import { userSignup } from './auth-services';
+import { userSignup } from 'lib/customer/auth.lib';
 
 const SignUp: React.FC = () => {
 	const BUTTON_SPINNER = buttonSpinner();
@@ -83,7 +84,7 @@ const SignUp: React.FC = () => {
 		setLoading(true);
 
 		try {
-			const {} = await userSignup(signupData);
+			const data = await userSignup(signupData);
 			setSignupResult({
 				message: 'User created',
 				result: true,
@@ -100,31 +101,31 @@ const SignUp: React.FC = () => {
 		}
 
 		// await userSignup(signupData)
-		// 	.then((res) => {
-		// 		// console.log('data response', res);
-		// 		if (res.status === 200)
-		// 			setSignupResult({
-		// 				message: 'User created',
-		// 				result: true,
-		// 				signupDone: true
-		// 			});
-		// 		else
-		// 			setSignupResult({
-		// 				message: res.message,
-		// 				result: false,
-		// 				signupDone: true
-		// 			});
-		// 		setLoading(false);
-		// 	})
-		// 	.catch((err) => {
-		// 		console.log('signup error', err);
-		// 		setSignupResult({
-		// 			message: `Error: ${err.message}`,
-		// 			result: false,
-		// 			signupDone: true
-		// 		});
-		// 		setLoading(false);
-		// 	});
+		//  .then((res) => {
+		//      // console.log('data response', res);
+		//      if (res.status === 200)
+		//          setSignupResult({
+		//              message: 'User created',
+		//              result: true,
+		//              signupDone: true
+		//          });
+		//      else
+		//          setSignupResult({
+		//              message: res.message,
+		//              result: false,
+		//              signupDone: true
+		//          });
+		//      setLoading(false);
+		//  })
+		//  .catch((err) => {
+		//      console.log('signup error', err);
+		//      setSignupResult({
+		//          message: `Error: ${err.message}`,
+		//          result: false,
+		//          signupDone: true
+		//      });
+		//      setLoading(false);
+		//  });
 	};
 
 	const validateData = () => {

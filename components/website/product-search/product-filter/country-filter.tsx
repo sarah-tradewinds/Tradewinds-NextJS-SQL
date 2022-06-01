@@ -8,12 +8,12 @@ import React, { useEffect, useState } from 'react';
 import { useCountriesStore } from 'store/countries-store';
 
 const CountrySearchFilter: React.FC<{
-	onCountryChange: (countyCodes: string) => any;
+	onCountryChange: (countryIds: string) => any;
 }> = (props) => {
 	const { onCountryChange } = props;
 
 	const [searchCounty, setSearchCounty] = useState('');
-	const [selectedCountryCode, setSelectedCountryCode] = useState<
+	const [selectedCountryIdList, setSelectedCountryIdList] = useState<
 		string[]
 	>([]);
 
@@ -24,8 +24,8 @@ const CountrySearchFilter: React.FC<{
 	}, []);
 
 	useEffect(() => {
-		onCountryChange(selectedCountryCode.toString());
-	}, [selectedCountryCode]);
+		onCountryChange(selectedCountryIdList.toString());
+	}, [selectedCountryIdList]);
 
 	const searchCountryByName = () => {
 		if (!searchCounty) {
@@ -42,7 +42,7 @@ const CountrySearchFilter: React.FC<{
 	}; // End of searchCountryByName function
 
 	const handlingCountryCode = (newCountryCode: string) => {
-		const countryCodeList = [...selectedCountryCode];
+		const countryCodeList = [...selectedCountryIdList];
 		const countryCodeIndex = countryCodeList.findIndex(
 			(countryCode) => countryCode === newCountryCode
 		);
@@ -53,9 +53,7 @@ const CountrySearchFilter: React.FC<{
 			countryCodeList.splice(countryCodeIndex, 1);
 		}
 
-		console.log('countryCodeList', countryCodeIndex, countryCodeList);
-
-		setSelectedCountryCode(countryCodeList);
+		setSelectedCountryIdList(countryCodeList);
 	}; // End of handlingCountryCode function
 
 	return (
@@ -82,7 +80,7 @@ const CountrySearchFilter: React.FC<{
 							id={country.id}
 							type="checkbox"
 							value={country.country_code}
-							onChange={() => handlingCountryCode(country.country_code)}
+							onChange={() => handlingCountryCode(country.id)}
 						/>
 						<label
 							htmlFor={country.id}

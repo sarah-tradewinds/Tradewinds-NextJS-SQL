@@ -18,9 +18,9 @@ import {
 	MdOutlineMessage,
 	MdPerson
 } from 'react-icons/md';
+import { useAuthStore } from 'store/auth';
 import { useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';
-import Loader from '../elements/loader/loader';
 import Seo from '../seo';
 
 const Layout: React.FC = (props) => {
@@ -30,6 +30,11 @@ const Layout: React.FC = (props) => {
 	const { isLoading, categoriesLength } = useCategoryStore((state) => ({
 		isLoading: state.isLoading,
 		categoriesLength: state.categories.length
+	}));
+
+	const { isAuth, setIsLoginOpen } = useAuthStore((state) => ({
+		isAuth: state.isAuth,
+		setIsLoginOpen: state.setIsLoginOpen
 	}));
 
 	return (
@@ -61,18 +66,23 @@ const Layout: React.FC = (props) => {
 								</a>
 							</Link>
 
-							<div className="flex">
-								<div className="mr-2 flex w-[84px] flex-col items-center justify-center bg-accent-primary-main">
-									<MdPerson className="h-[25px] w-[25px] text-white" />
-									<p className="text-[12px] text-white">Sign In</p>
+							{isAuth && (
+								<div className="flex">
+									<div
+										onClick={setIsLoginOpen}
+										className="mr-2 flex w-[84px] flex-col items-center justify-center bg-accent-primary-main"
+									>
+										<MdPerson className="h-[25px] w-[25px] text-white" />
+										<p className="text-[12px] text-white">Sign In</p>
+									</div>
+									<div className="flex w-[84px] flex-col items-center justify-center bg-secondary py-4">
+										<MdOutlineMessage className="h-[25px] w-[25px] text-primary-main" />
+										<p className="text-[12px] text-primary-main">
+											Submit RFQ
+										</p>
+									</div>
 								</div>
-								<div className="flex w-[84px] flex-col items-center justify-center bg-secondary py-4">
-									<MdOutlineMessage className="h-[25px] w-[25px] text-primary-main" />
-									<p className="text-[12px] text-primary-main">
-										Submit RFQ
-									</p>
-								</div>
-							</div>
+							)}
 						</div>
 					</div>
 					<Footer />

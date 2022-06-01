@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import { Popover, Transition } from '@headlessui/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import {
 	HiOutlineMenuAlt1,
 	HiOutlineSearch,
@@ -23,6 +23,7 @@ import {
 import { BiMessageDetail } from 'react-icons/bi';
 import { FiLogOut } from 'react-icons/fi';
 import { useAuthStore } from 'store/auth';
+import Button from '../form/button';
 
 const Header = () => {
 	const { setIsLoginOpen, setIsSignUpOpen, isAuth, customerData } =
@@ -30,24 +31,12 @@ const Header = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const router = useRouter();
 	const [showLogout, setShowLogout] = useState(false);
-	const [userData, setUserData] = useState({
-		userId: '',
-		firstName: '',
-		lastName: ''
-	});
+
 	const buttonRef = useRef(null); // useRef<HTMLButtonElement>(null)
 
 	let classes = `bg-white dark:bg-accent-primary-eco md:bg-bg-main sm:h-[40px] h-[100vh] w-[60%] sm:w-full sm:grid sm:place-items-center sm:relative absolute opacity-100 transition-all ease-in-out duration-300 ${
 		!isOpen ? 'pc:w-0 pc:opacity-0 pc: overflow-hidden' : ''
 	}`;
-
-	useEffect(() => {
-		setUserData({
-			firstName: localStorage.getItem('tw-firstName') || '',
-			lastName: localStorage.getItem('tw-lastName') || '',
-			userId: localStorage.getItem('tw-userId') || ''
-		});
-	}, []);
 
 	const drawerHandler = () => {
 		setIsOpen((pevState) => !pevState);
@@ -146,12 +135,15 @@ const Header = () => {
 								</div>
 							)}
 						</div>
-						<div className=" items-center justify-center rounded-sm bg-transparent bg-[#00AEEF] px-5 py-2 text-center text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary">
-							<div className="flex  items-center justify-center text-center">
-								<AiOutlineDashboard size={35} />
-							</div>
+
+						<Button
+							href={`https://tradewinds-dev-public.s3.us-east-2.amazonaws.com/index.html#/app/buyers?customer_id=${customerData.access.token}`}
+							variant="buyer"
+							className="flex flex-col items-center justify-center rounded-none py-2 transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary"
+						>
+							<AiOutlineDashboard size={35} />
 							<div className="w-[100%]">Dashboard</div>
-						</div>
+						</Button>
 						<div className=" items-center justify-center rounded-sm  bg-secondary px-5 py-2 text-center text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08]">
 							<div className="flex  items-center justify-center text-center">
 								<BiMessageDetail size={35} />
