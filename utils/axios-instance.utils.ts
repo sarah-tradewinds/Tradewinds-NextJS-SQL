@@ -10,11 +10,11 @@ import axios from 'axios';
 // });
 
 export const axiosInstance = axios.create({
-	baseURL: 'http://localhost:3000/api/v1'
+	baseURL: `${process.env.SITE_URL}/api/v1`
 });
 
 export const serviceAxiosInstance = axios.create({
-	baseURL: 'http://localhost:3000/api/v1/services/api/v1'
+	baseURL: `${process.env.SITE_URL}/api/v1/services/api/v1`
 });
 
 serviceAxiosInstance.interceptors.request.use(

@@ -10,7 +10,7 @@ const nextConfig = (phase) => {
       i18n: i18n.i18n,
       reactStrictMode: true,
       env: {
-        SITE_URL: "https://tradewinds.vercel.app/",
+        SITE_URL: "http://localhost:3000",
         BUYER_DASHBOARD_SITE_URL: "https://tradewinds-dev-public.s3.us-east-2.amazonaws.com",
         // API_BASE_URL: 'http://localhost:8070/api/v1'
         API_BASE_URL:
@@ -28,7 +28,7 @@ const nextConfig = (phase) => {
     i18n: i18n.i18n,
     reactStrictMode: true,
     env: {
-      SITE_URL: "https://tradewinds.vercel.app/",
+      SITE_URL: "https://tradewinds.vercel.app",
       // BUYER_DASHBOARD_SITE_URL: "https://tradewinds-dev-public.s3.us-east-2.amazonaws.com",
       BUYER_DASHBOARD_SITE_URL: "http://localhost:3000",
       API_BASE_URL:
