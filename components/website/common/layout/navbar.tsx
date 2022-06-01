@@ -1,9 +1,9 @@
 import dynamic from 'next/dynamic';
 
-import { Popover, Transition } from '@headlessui/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRef, useState } from 'react';
+import { BiMessageDetail } from 'react-icons/bi';
 import {
 	HiOutlineMenuAlt1,
 	HiOutlineSearch,
@@ -15,12 +15,16 @@ const MegaMenu = dynamic(
 );
 
 // stores
+import { Popover, Transition } from '@headlessui/react';
+import {
+	BUYER_DASHBOARD_HOME_PAGE,
+	BUYER_DASHBOARD_SUBMIT_RFQ
+} from 'data/buyer-urls.data';
 import { useRouter } from 'next/router';
 import {
 	AiOutlineDashboard,
 	AiOutlineShoppingCart
 } from 'react-icons/ai';
-import { BiMessageDetail } from 'react-icons/bi';
 import { FiLogOut } from 'react-icons/fi';
 import { useAuthStore } from 'store/auth';
 import Button from '../form/button';
@@ -62,7 +66,7 @@ const Header = () => {
 	return (
 		<header className="sticky top-0 z-[1000] w-full bg-primary-main dark:bg-primary-eco">
 			<div
-				className="mx-auto flex h-[50px] w-[96%] items-center justify-between sm:h-[80px]"
+				className="w-[96%]s mx-auto flex h-[50px] items-center justify-between sm:h-[80px]"
 				onClick={() => setShowLogout(false)}
 			>
 				<button
@@ -92,8 +96,9 @@ const Header = () => {
 					</Link>
 				</div>
 
+				{/* Search Input */}
 				<label
-					className="hidden h-[40px] w-[40vw] items-center overflow-hidden rounded-full bg-accent-primary-main transition duration-300 ease-in-out hover:ring-1 hover:ring-accent-primary-main hover:ring-opacity-90 sm:flex lg:w-[56vw]"
+					className="hidden h-[40px] w-[40vw] items-center overflow-hidden rounded-full bg-accent-primary-main transition duration-300 ease-in-out hover:ring-1 hover:ring-accent-primary-main hover:ring-opacity-90 sm:flex lg:w-[48vw]"
 					htmlFor="searchBar"
 				>
 					<input
@@ -102,7 +107,6 @@ const Header = () => {
 						placeholder="Product Search Placeholder"
 						aria-label="Search"
 						className="h-full w-[82%] border-none pl-2 pr-2 outline-none lg:w-[95%] lg:pl-4"
-						// className="h-8 w-[95%] border-none pl-4 outline-none"
 					/>
 					<HiOutlineSearch className="h-6 w-[16%] cursor-pointer text-center text-white xl:w-[4%]" />
 				</label>
@@ -113,12 +117,9 @@ const Header = () => {
 							<div className="flex items-center justify-center text-center">
 								<AiOutlineShoppingCart size={35} />
 							</div>
-							<div
-								className="w-[100%]"
-								onMouseEnter={() => setShowLogout(true)}
-							>
-								{`Hi, ${customerData.name}`}
-							</div>
+							<p onMouseEnter={() => setShowLogout(true)}>
+								{`Hi, ${customerData.name.substring(0, 10)}`}
+							</p>
 
 							{showLogout && (
 								<div className="text-gray-700 absolute z-50 mt-3 inline-block w-[200px] bg-[#00AEEF] p-2 pt-3 hover:bg-[#057fac]">
@@ -136,19 +137,26 @@ const Header = () => {
 							)}
 						</div>
 
-						<Button
-							href={`https://tradewinds-dev-public.s3.us-east-2.amazonaws.com/index.html#/app/buyers?customer_id=${customerData.access.token}`}
-							variant="buyer"
-							className="flex flex-col items-center justify-center rounded-none py-2 transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary"
-						>
-							<AiOutlineDashboard size={35} />
-							<div className="w-[100%]">Dashboard</div>
-						</Button>
-						<div className=" items-center justify-center rounded-sm  bg-secondary px-5 py-2 text-center text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08]">
-							<div className="flex  items-center justify-center text-center">
-								<BiMessageDetail size={35} />
-							</div>
-							<div className="w-[100%]">Submit RFQ</div>
+						<div className="flex justify-between space-x-4">
+							<Button
+								href={`${BUYER_DASHBOARD_HOME_PAGE}?customer_id=${customerData.access.token}`}
+								variant="buyer"
+								className="flex flex-col items-center justify-center rounded-none !px-4 py-3 transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary"
+							>
+								<AiOutlineDashboard size={35} />
+								<p>Dashboard</p>
+							</Button>
+
+							<Button
+								href={`${BUYER_DASHBOARD_SUBMIT_RFQ}?customer_data=${customerData.id}`}
+								variant="special"
+								className="flex-col rounded-none !px-4 py-4 transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08]"
+							>
+								<div className="flex items-center justify-center text-center">
+									<BiMessageDetail size={35} />
+								</div>
+								<p className="w-24">Submit RFQ</p>
+							</Button>
 						</div>
 					</div>
 				) : (
@@ -177,6 +185,7 @@ const Header = () => {
 				</div>
 			</div>
 
+			{/* Bottom nav */}
 			<div className={classes}>
 				<div
 					className="m-4 flex w-full flex-col pt-4 sm:mx-auto sm:w-[96%] sm:flex-row sm:pt-0 md:m-0 md:ml-3

@@ -1,42 +1,28 @@
-import axios from 'axios';
 import {
 	axiosInstance,
 	serviceAxiosInstance
 } from 'utils/axios-instance.utils';
 
-const URLS = {
-	FORGOT_PASSWORD: '/v1/auth/forgot_password',
-	GET_CURRENT_USER: '/v1/auth/user/me',
-	RESET_PASSWORD: '/v1/auth/forgot_password_reset',
-	USER_LOGIN: '/v1/auth/login',
-	USER_SIGNUP: '/v1/auth/signup',
-	VERIFY_USER: '/v1/auth/activate_account'
-};
-
 export const userSignup = async (customerData: any) => {
 	try {
-		const { data } = await serviceAxiosInstance.post(
+		const { data } = await axiosInstance.post(
 			'/auth/buyer_signup',
 			customerData
 		);
-		console.log(data);
 		return {
 			customerId: data?.data?.InsertedID,
 			message: data.message
 		};
 	} catch (error) {
-		console.log('[userLogin] =', error);
+		console.log('[userSignup] =', error);
 		const { data } = (error as any).response || {};
-		throw Error(data || 'Error occurred userLogin');
+		throw Error(data?.message || 'Error occurred userSignup');
 	}
 }; // End of userSignup function
 
 export const userLogin = async (params: any) => {
 	try {
-		const { data } = await axios.post(
-			'http://localhost:3000/api/v1/auth/login',
-			params
-		);
+		const { data } = await axiosInstance.post('/auth/login', params);
 		return {
 			message: data.message,
 			...(data.data || {})

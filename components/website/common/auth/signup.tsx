@@ -38,7 +38,7 @@ const SignUp: React.FC = () => {
 		'last_name',
 		'country',
 		'email',
-		'phoneNumber'
+		'phone_number'
 	];
 
 	const [signupData, setSignupData] = useState<any>({
@@ -49,8 +49,7 @@ const SignUp: React.FC = () => {
 		last_name: '',
 		password: '',
 		confirm_password: '',
-		phoneNumber: null,
-		roles: ['buyer']
+		phone_number: null
 	});
 
 	useEffect(() => {
@@ -60,7 +59,7 @@ const SignUp: React.FC = () => {
 	const onChange = (field: string, value: string) => {
 		setSignupData({
 			...signupData,
-			[field]: field === 'phoneNumber' ? Number(value || 0) : value
+			[field]: field === 'phone_number' ? Number(value || 0) : value
 		});
 	};
 
@@ -135,12 +134,12 @@ const SignUp: React.FC = () => {
 			const field = mandatoryFields[i];
 
 			if (
-				field === 'phoneNumber' &&
+				field === 'phone_number' &&
 				(signupData[field] === null ||
 					signupData[field] === 0 ||
 					signupData[field].toString().length < 10)
 			) {
-				error['phoneNumber'] = true;
+				error['phone_number'] = true;
 				errorFound = true;
 			} else {
 				if (
@@ -304,14 +303,14 @@ const SignUp: React.FC = () => {
 										</span>
 									)}
 									<Input
-										name="phoneNumber"
+										name="phone_number"
 										type="number"
 										placeholder="Phone number"
 										icon={<HiSparkles />}
 										isSmall={true}
 										required={true}
 										className="w-full"
-										invalid={error?.phoneNumber}
+										invalid={error?.phone_number}
 										onChange={(e: React.FormEvent<HTMLInputElement>) =>
 											onChange(
 												e.currentTarget.name,
@@ -319,7 +318,7 @@ const SignUp: React.FC = () => {
 											)
 										}
 									/>
-									{error?.phoneNumber && (
+									{error?.phone_number && (
 										<span className={`text-[12px] text-[red]`}>
 											Please enter phone number
 										</span>

@@ -18,18 +18,18 @@ const handler: NextApiHandler = async (req, res) => {
 			req.body
 		);
 
+		const { access_token, refresh_token } = data?.data || {};
+
+		if (!access_token || !refresh_token) {
+			return res.json(data);
+		}
+
 		const cookieOptions = {
 			httpOnly: true,
 			secure: process.env.NODE_ENV !== 'development',
 			sameSite: true,
 			path: '/'
 		};
-
-		const { access_token, refresh_token } = data?.data || {};
-
-		if (!access_token || !refresh_token) {
-			return res.json(data);
-		}
 
 		/**
 		 * Access token

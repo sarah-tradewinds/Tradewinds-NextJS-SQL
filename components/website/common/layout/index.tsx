@@ -13,6 +13,7 @@ import Footer from './footer';
 import NavBar from './navbar';
 
 // icons
+import { BUYER_DASHBOARD_SUBMIT_RFQ } from 'data/buyer-urls.data';
 import {
 	MdOutlineHome,
 	MdOutlineMessage,
@@ -21,6 +22,7 @@ import {
 import { useAuthStore } from 'store/auth';
 import { useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';
+import Button from '../form/button';
 import Seo from '../seo';
 
 const Layout: React.FC = (props) => {
@@ -32,10 +34,13 @@ const Layout: React.FC = (props) => {
 		categoriesLength: state.categories.length
 	}));
 
-	const { isAuth, setIsLoginOpen } = useAuthStore((state) => ({
-		isAuth: state.isAuth,
-		setIsLoginOpen: state.setIsLoginOpen
-	}));
+	const { isAuth, setIsLoginOpen, customerData } = useAuthStore(
+		(state) => ({
+			isAuth: state.isAuth,
+			setIsLoginOpen: state.setIsLoginOpen,
+			customerData: state.customerData
+		})
+	);
 
 	return (
 		<>
@@ -66,8 +71,8 @@ const Layout: React.FC = (props) => {
 								</a>
 							</Link>
 
-							{isAuth && (
-								<div className="flex">
+							<div className="flex">
+								{!isAuth && (
 									<div
 										onClick={setIsLoginOpen}
 										className="mr-2 flex w-[84px] flex-col items-center justify-center bg-accent-primary-main"
@@ -75,14 +80,25 @@ const Layout: React.FC = (props) => {
 										<MdPerson className="h-[25px] w-[25px] text-white" />
 										<p className="text-[12px] text-white">Sign In</p>
 									</div>
-									<div className="flex w-[84px] flex-col items-center justify-center bg-secondary py-4">
-										<MdOutlineMessage className="h-[25px] w-[25px] text-primary-main" />
-										<p className="text-[12px] text-primary-main">
+								)}
+								{isAuth && (
+									<Button
+										href={`${BUYER_DASHBOARD_SUBMIT_RFQ}?customer_data=${customerData.id}`}
+										variant="special"
+										className="flex-col rounded-none !px-4 py-4 transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08]"
+									>
+										<div className="flex items-center justify-center text-center">
+											<MdOutlineMessage
+												size={35}
+												className="h-[25px] w-[25px] text-primary-main"
+											/>
+										</div>
+										<p className="text-2s text-[12px] text-primary-main">
 											Submit RFQ
 										</p>
-									</div>
-								</div>
-							)}
+									</Button>
+								)}
+							</div>
 						</div>
 					</div>
 					<Footer />
