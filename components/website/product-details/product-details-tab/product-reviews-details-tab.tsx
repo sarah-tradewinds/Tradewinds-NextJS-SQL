@@ -7,6 +7,7 @@ import ProductReview from './product-review/product-review';
 import UserReviewAndRatingTile from './user-review-and-rating-tile';
 
 const ProductReviewsDetailsTab: React.FC<{
+	productName: string;
 	reviews: any[];
 	onReviewSubmit: (
 		rating: number,
@@ -14,7 +15,7 @@ const ProductReviewsDetailsTab: React.FC<{
 		reviewId?: string
 	) => any;
 	isLoading?: boolean;
-}> = ({ reviews = [], onReviewSubmit, isLoading }) => {
+}> = ({ productName, reviews = [], onReviewSubmit, isLoading }) => {
 	const [showReview, setShowReview] = useState(false);
 	const [rating, setRating] = useState(0);
 	const [review, setReview] = useState('');
@@ -142,6 +143,7 @@ const ProductReviewsDetailsTab: React.FC<{
 				onClose={() => setShowReview(false)}
 			>
 				<ProductReview
+					productName={productName}
 					rating={rating}
 					review={review}
 					isLoading={isLoading}

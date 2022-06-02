@@ -23,7 +23,7 @@ const ProductDetailsTab: React.FC<{
 				<div className="flex flex-col p-4 md:flex-row md:justify-between">
 					<div className="space-y-2">{productDetailsItems}</div>
 
-					<div className="space-y-2">
+					{/* <div className="space-y-2">
 						<p className="flex justify-between  space-x-8 text-[15px] text-gray md:text-[18px]">
 							<span className="font-semibold">CERTIFICATION:</span>
 							<span> CE / EU</span>
@@ -36,22 +36,7 @@ const ProductDetailsTab: React.FC<{
 								<span>Variants 3</span>
 							</div>
 						</p>
-					</div>
-				</div>
-			</div>
-
-			{/* SUPPLY ABILITY */}
-			<div>
-				<p className="border-b-2 border-gray/40 text-[18px] font-semibold text-gray md:text-[21px]">
-					SUPPLY ABILITY
-				</p>
-				<div className="flex justify-between p-4">
-					<div className="space-y-2">
-						<p className="flex justify-between space-x-8 text-[15px] text-gray md:text-[18px]">
-							<span className="font-semibold">DRINKWARE TYPE:</span>
-							<span>Water Bottles</span>
-						</p>
-					</div>
+					</div> */}
 				</div>
 			</div>
 

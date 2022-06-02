@@ -148,7 +148,7 @@ const Header = () => {
 							</Button>
 
 							<Button
-								href={`${BUYER_DASHBOARD_SUBMIT_RFQ}?customer_data=${customerData.id}`}
+								href={`${BUYER_DASHBOARD_SUBMIT_RFQ}?access_key=${customerData.access.token}`}
 								variant="special"
 								className="flex-col rounded-none !px-4 py-4 transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08]"
 							>

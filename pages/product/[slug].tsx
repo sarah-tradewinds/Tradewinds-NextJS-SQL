@@ -71,36 +71,13 @@ const ProductDetailsPage: NextPage<
 				order_id: '6287507801163604d44c74b6',
 				user_id: customerData.id
 			};
+			console.log(reviewId);
 
 			await submitProductRatingAndReview(ratingAndReviewData, reviewId);
-
-			const date = new Date().toString();
-			setProductReviewList((prevState: []) => {
-				let reviews = [];
-				if (reviewId) {
-					reviews =
-						prevState.map((reviewData: any) => {
-							if (reviewData.user_id === customerData.id) {
-								reviewData.rating = rating;
-								reviewData.comments = review;
-							}
-							return reviewData;
-						}) || [];
-				} else {
-					reviews = [
-						{
-							id: date,
-							...ratingAndReviewData,
-							created_at: date,
-							updated_at: date,
-							name: customerData.name
-						},
-						...prevState
-					];
-				}
-				return reviews || [];
-			});
-
+			const productReviews = await getProductReviewsByProductId(
+				productData.id
+			);
+			setProductReviewList(productReviews);
 			setIsReviewLoading(false);
 		} catch (error) {
 			setIsReviewLoading(false);
@@ -113,6 +90,7 @@ const ProductDetailsPage: NextPage<
 				product={productData}
 				onVariantClick={setSelectedVariantId}
 				selectedVariantId={selectedVariantId}
+				totalReviewCount={productReviewList.length}
 			/>
 			<div>
 				<ProductDetailsTabContainer
@@ -133,6 +111,7 @@ const ProductDetailsPage: NextPage<
 						reviews={productReviewList}
 						onReviewSubmit={submitReviewHandler}
 						isLoading={isReviewLoading}
+						productName={productData.product_name}
 					/>
 					<CompanyProfileTab seller={seller} />
 				</div>
@@ -207,11 +186,14 @@ export const getServerSideProps: GetServerSideProps = async ({
 				'6290d6eb0eb8951e0540d641' || product.seller_id
 			)) || {};
 
+		const seo = product.seo;
+
 		return {
 			props: {
 				product,
 				productReviews,
-				seller
+				seller,
+				seo: { title: seo.title.en, description: seo.description.en }
 			}
 		};
 	} catch (error) {

@@ -1,43 +1,36 @@
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 // components
 import Button from 'components/website/common/form/button';
+import { BUYER_DASHBOARD_SUBMIT_RFQ } from 'data/buyer-urls.data';
 import { metadataList } from 'data/product-search/metadata-list';
+import { BiMessageAltDetail } from 'react-icons/bi';
+import { useAuthStore } from 'store/auth';
 import MetadataTile from '../product-search/metadata/metadata-tile';
 import ImageContainer from './product-details-images/image-contaier';
+import RatingStars from './product-details-tab/product-review/rating-stars';
 
 const ProductDetailsTile: React.FC<{
+	totalReviewCount: number;
 	product: any;
 	selectedVariantId?: string;
 	onVariantClick: (variantId: string) => any;
 }> = (props) => {
-	const { product = {}, onVariantClick, selectedVariantId } = props;
-	const thumbnails = [
-		{
-			imageUrl: '/vehicles/yellow-tractor.png',
-			alt: ''
-		},
-		{
-			imageUrl: '/vehicles/yellow-tractor.png',
-			alt: ''
-		},
-		{
-			imageUrl: '/vehicles/yellow-tractor.png',
-			alt: ''
-		},
-		{
-			imageUrl: '/vehicles/yellow-tractor.png',
-			alt: ''
-		},
-		{
-			imageUrl: '/vehicles/yellow-tractor.png',
-			alt: ''
-		},
-		{
-			imageUrl: '/vehicles/yellow-tractor.png',
-			alt: ''
-		}
-	];
+	const {
+		totalReviewCount,
+		product = {},
+		onVariantClick,
+		selectedVariantId
+	} = props;
+	const { isAuth, customerData, setIsLoginOpen } = useAuthStore(
+		(state) => ({
+			isAuth: state.isAuth,
+			setIsLoginOpen: state.setIsLoginOpen,
+			customerData: state.customerData
+		})
+	);
+	const router = useRouter();
 
 	const {
 		inventory,
@@ -173,11 +166,15 @@ const ProductDetailsTile: React.FC<{
 				</div>
 				{/* Rating, review count and verified Image */}
 				<div className="hidden items-center space-x-8 pb-4 md:flex">
+					<RatingStars
+						startNum={product.rating}
+						className="text-secondary"
+					/>
 					<div className="relative h-[32px] w-[132px]">
 						<Image src="/rating.png" alt="" layout="fill" />
 					</div>
 					<p className="text-center text-[13px] text-secondary">
-						{105} Reviews
+						{totalReviewCount} Reviews
 					</p>
 					{is_verified && (
 						<div className="relative h-[30px] w-[162px]">
@@ -202,8 +199,37 @@ const ProductDetailsTile: React.FC<{
 						<li>Bullet point</li>
 						<li>Bullet point</li>
 					</ul>
-					<Button className="relative mt-4 hidden h-[22px] w-[139px] md:block">
+					{/* <Button
+						onClick={() => {
+							if (!isAuth) {
+								setIsLoginOpen();
+							} else {
+								router.push(
+									`${BUYER_DASHBOARD_SUBMIT_RFQ}/?access_key=${customerData.access.token}`
+								);
+							}
+						}}
+						className="relative mt-4 hidden h-[22px] w-[139px] md:block"
+					>
 						<Image src="/submit-rfq-button.png" alt="" layout="fill" />
+          </Button>
+           */}
+					<Button
+						onClick={() => {
+							if (!isAuth) {
+								setIsLoginOpen();
+							} else {
+								router.push(
+									`${BUYER_DASHBOARD_SUBMIT_RFQ}/?access_key=${customerData.access.token}`
+								);
+							}
+						}}
+						className="relative mt-4 !flex h-[22px] items-center !rounded-lg border-2 px-0 text-accent-primary-main md:block"
+					>
+						<span className="flex h-full items-center bg-accent-primary-main px-1">
+							<BiMessageAltDetail className="text-[24px] text-white" />
+						</span>
+						<span className="px-2">Submit RFQ</span>
 					</Button>
 				</div>
 

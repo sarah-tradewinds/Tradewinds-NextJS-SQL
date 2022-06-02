@@ -1,7 +1,11 @@
+// Third party packages
+import ReactStars from 'react-stars';
+
+// components
 import Button from 'components/website/common/form/button';
-import StarRatings from 'react-star-ratings';
 
 interface ReviewProps {
+	productName: string;
 	rating: number;
 	review: string;
 	onRatingChange: (rating: number) => any;
@@ -13,6 +17,7 @@ interface ReviewProps {
 
 const ProductReview: React.FC<ReviewProps> = (props) => {
 	const {
+		productName,
 		rating,
 		review,
 		onRatingChange,
@@ -23,57 +28,57 @@ const ProductReview: React.FC<ReviewProps> = (props) => {
 	} = props;
 
 	return (
-		<div className=" flex items-center justify-center ">
-			<div className="mt-16 flex w-screen flex-col justify-center rounded-md bg-white p-8 shadow-md lg:w-[800px] lg:p-16">
-				<div className="flex flex-col items-center border-gray/40 pr-24 ">
-					<h2 className="mb-8 flex flex-col border-b border-gray/40 pb-4 text-center text-3xl font-semibold text-black lg:w-[600px] ">
+		<div className="mt-16 rounded-md bg-white p-8 shadow-md lg:w-[740px] lg:p-16">
+			<div className="flex flex-col items-center  border-gray/40">
+				<div className="text-center">
+					<h2 className="mb-8 border-b border-gray/40 pb-4 text-center text-3xl font-semibold text-black lg:w-[600px] ">
 						Product Review
 					</h2>
-					<h4 className="text-2xl">Big Yellow Badass Tractor</h4>
-					<h4 className="text-2xl">Test buyer</h4>
+					<h4 className="text-2xl">{productName}</h4>
+					{/* <h4 className="text-2xl">Test buyer</h4> */}
+				</div>
 
-					<div className="py-5">
-						<StarRatings
-							rating={rating}
-							starRatedColor="#00AEEF"
-							changeRating={onRatingChange}
-							numberOfStars={5}
-							name="rating"
-						/>
-					</div>
+				<div className="py-5">
+					<ReactStars
+						value={rating}
+						count={5}
+						onChange={onRatingChange}
+						size={80}
+						color2="#F6AB33"
+					/>
+				</div>
 
-					<div className="flex w-full flex-col border-b border-gray/40 pb-8">
-						<form className="w-full space-y-4">
-							<span className="w-24 flex-auto ">Comments</span>
+				<div className="flex w-full flex-col border-b border-gray/40 pb-8">
+					<form className="w-full space-y-4">
+						<span className="w-24 flex-auto ">Comments</span>
 
-							<textarea
-								name="review"
-								value={review}
-								rows={4}
-								className="w-full space-y-4 border border-gray/40 p-2"
-								onChange={({ target }) => onReviewChange(target.value)}
-							></textarea>
+						<textarea
+							name="review"
+							value={review}
+							rows={4}
+							className="w-full space-y-4 border border-gray/40 p-2"
+							onChange={({ target }) => onReviewChange(target.value)}
+						></textarea>
 
-							<div className="flex flex-row">
-								<Button
-									variant="product"
-									className="mr-1 w-full"
-									onClick={onSubmit}
-									disabled={isLoading}
-								>
-									Submit response
-								</Button>
-								<Button
-									variant="special"
-									className="ml-1 w-full"
-									onClick={onCancel}
-									disabled={isLoading}
-								>
-									Cancel
-								</Button>
-							</div>
-						</form>
-					</div>
+						<div className="flex flex-row">
+							<Button
+								variant="product"
+								className="mr-1 w-full"
+								onClick={onSubmit}
+								disabled={isLoading}
+							>
+								Submit response
+							</Button>
+							<Button
+								variant="special"
+								className="ml-1 w-full"
+								onClick={onCancel}
+								disabled={isLoading}
+							>
+								Cancel
+							</Button>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>

@@ -6,7 +6,7 @@ import ReviewsDetailsTab from './product-reviews-details-tab';
 
 const ProductDetailsTabContainer: React.FC<{
 	className?: string;
-	product: any[];
+	product: any;
 	reviews: any[];
 	seller: any;
 	onReviewSubmit: (rating: number, review: string) => any;
@@ -74,6 +74,7 @@ const ProductDetailsTabContainer: React.FC<{
 							reviews={reviews}
 							onReviewSubmit={onReviewSubmit}
 							isLoading={isReviewLoading}
+							productName={product.product_name}
 						/>
 					</Tab.Panel>
 					<Tab.Panel>

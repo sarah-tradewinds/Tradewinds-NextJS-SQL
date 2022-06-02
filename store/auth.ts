@@ -45,6 +45,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 		//  'tw-refresh_token',
 		//  customerData.refresh.token
 		// );
+		console.log(customerData);
 		set({
 			isAuth: true,
 			customerData

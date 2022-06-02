@@ -25,8 +25,8 @@ import { useHomeStore } from 'store/home';
 import Button from '../form/button';
 import Seo from '../seo';
 
-const Layout: React.FC = (props) => {
-	const { children } = props;
+const Layout: React.FC<{ seo: any }> = (props) => {
+	const { children, seo } = props;
 
 	const isEco = useHomeStore((state) => state.isEco);
 	const { isLoading, categoriesLength } = useCategoryStore((state) => ({
@@ -44,7 +44,7 @@ const Layout: React.FC = (props) => {
 
 	return (
 		<>
-			<Seo />
+			<Seo title={seo?.title} description={seo?.description} />
 
 			{/* <Loader isOpen={categoriesLength <= 0} /> */}
 
@@ -83,7 +83,7 @@ const Layout: React.FC = (props) => {
 								)}
 								{isAuth && (
 									<Button
-										href={`${BUYER_DASHBOARD_SUBMIT_RFQ}?customer_data=${customerData.id}`}
+										href={`${BUYER_DASHBOARD_SUBMIT_RFQ}?access_key=${customerData.access.token}`}
 										variant="special"
 										className="flex-col rounded-none !px-4 py-4 transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08]"
 									>

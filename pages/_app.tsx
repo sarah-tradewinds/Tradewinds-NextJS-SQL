@@ -18,7 +18,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 			router.pathname === '/forgot-password' ? (
 				<Component {...pageProps} />
 			) : (
-				<Layout>
+				<Layout seo={pageProps.seo}>
 					<Component {...pageProps} />
 				</Layout>
 			)}
