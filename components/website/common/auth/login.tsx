@@ -155,18 +155,18 @@ const Login: React.FC = () => {
 	return (
 		<Modal
 			open={isLoginOpen}
-			className="left-8 top-1/2 -translate-y-1/2 transform  lg:left-1/2 lg:-top-10 lg:-translate-x-1/2 lg:-translate-y-0"
+			className="top-0 mx-4 transform md:top-1/2 md:left-1/2 md:mx-0 md:-translate-y-1/2 md:-translate-x-1/2 lg:-top-10 lg:-translate-y-0"
 			onClose={setIsLoginOpen}
 		>
-			<div className="flex items-center justify-center ">
-				<div className="mt-16 flex w-screen justify-center rounded-md bg-white p-8 shadow-md lg:w-[1000px] lg:justify-start lg:p-16">
-					<div className="flex flex-col items-center border-gray/40 pr-24 lg:border-r">
-						<h2 className="mb-8 border-b border-gray/40 pb-4 text-3xl font-semibold text-black">
+			<div className="flex items-center justify-center">
+				<div className="mt-16 flex w-full justify-center rounded-md bg-white p-8 shadow-md md:w-[740px] lg:w-[1000px] lg:justify-start lg:p-16">
+					<div className="flex flex-col items-center border-gray/40 lg:border-r lg:pr-24">
+						<h2 className="mb-8 border-b border-gray/40  pb-4 text-2xl font-semibold text-black md:text-3xl">
 							Login to your account
 						</h2>
 
-						<div className="flex w-full justify-center border-b border-gray/40  pb-8">
-							<form className="w-[360px] space-y-4">
+						<div className="flex w-full justify-center border-b border-gray/40 pb-8">
+							<form className="w-full space-y-4 md:w-[360px]">
 								<Input
 									name="email"
 									type="email"

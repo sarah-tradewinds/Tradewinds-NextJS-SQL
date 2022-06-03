@@ -208,7 +208,7 @@ const SignUp: React.FC = () => {
 	return (
 		<Modal
 			open={isSignUpOpen}
-			className="top-1/2 -translate-y-1/2 transform lg:left-1/2 lg:-top-10 lg:-translate-x-1/2 lg:-translate-y-0"
+			className="left-8 top-1/2 -translate-y-1/2 transform lg:left-1/2 lg:-top-10 lg:-translate-x-1/2 lg:-translate-y-0"
 			onClose={setIsSignUpOpen}
 		>
 			<div className="flex items-center justify-center ">

@@ -3,25 +3,28 @@ import {
 	InferGetServerSidePropsType,
 	NextPage
 } from 'next';
+import { useEffect, useState } from 'react';
 
 // components
 import ProductDetailsTile from 'components/website/product-details/product-details-tile';
 
-// data
 import Button from 'components/website/common/form/button';
+import CategorySubCategoriesSection from 'components/website/home/category-sub-categories-section';
 import CompanyProfileTab from 'components/website/product-details/product-details-tab/company-profile-tab';
 import ProductDetailsTab from 'components/website/product-details/product-details-tab/product-details-tab';
 import ProductDetailsTabContainer from 'components/website/product-details/product-details-tab/product-details-tab-container';
 import ProductReviewsDetailsTab from 'components/website/product-details/product-details-tab/product-reviews-details-tab';
 import SimilarProductList from 'components/website/product-details/similar-product-list';
+
+// lib
 import {
 	getProductById,
 	getProductReviewsByProductId,
 	getSellerDetailsSellerId,
 	submitProductRatingAndReview
 } from 'lib/product-details';
-import { useEffect, useState } from 'react';
 import { useAuthStore } from 'store/auth';
+import { useCategoryStore } from 'store/category-store';
 
 const ProductDetailsPage: NextPage<
 	InferGetServerSidePropsType<GetServerSideProps>
@@ -31,6 +34,7 @@ const ProductDetailsPage: NextPage<
 		useState(productReviews);
 	const [isReviewLoading, setIsReviewLoading] = useState(false);
 	const [selectedVariantId, setSelectedVariantId] = useState('');
+	const categories = useCategoryStore((state) => state.categories);
 
 	const { customerData } = useAuthStore((state) => ({
 		customerData: state.customerData
@@ -125,20 +129,22 @@ const ProductDetailsPage: NextPage<
 				/>
 			</div>
 			{/* Categories */}
-			<div className="mx-4 rounded bg-white">
-				{/* <CategorySubCategoriesSection
-					catSubCat={{
-						...beauty,
-						category: {
-							...beauty.category,
-							id: '1',
-							title: 'Deals of the Month',
-							slug: { en: '/' },
-							image: { url: '/logo.png' }
-						}
-					}}
-				/> */}
-			</div>
+			{categories && categories.length > 0 && (
+				<div className="mx-4 rounded bg-white">
+					<CategorySubCategoriesSection
+						catSubCat={{
+							...categories[0]?.category,
+							category: {
+								...categories[0]?.category[0]?.sub_category,
+								id: '1',
+								title: 'Deals of the Month',
+								slug: { en: '/' },
+								image: { url: '/logo.png' }
+							}
+						}}
+					/>
+				</div>
+			)}
 			{/* Fixed container for small screen only */}
 			<div className="fixed left-0 right-0 bottom-0 z-[2000] flex justify-around bg-primary-main py-6 md:hidden">
 				<Button

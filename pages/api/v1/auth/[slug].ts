@@ -7,20 +7,28 @@ import { serialize } from 'cookie';
 const handler: NextApiHandler = async (req, res) => {
 	const { slug } = req.query;
 
-	console.log(
-		req.body,
-		`${process.env.API_BASE_URL}/services/api/v1/auth/${slug}`
-	);
+	const { access_token } = req.cookies;
+	const authorization = req.headers.authorization;
 
 	try {
 		const { data } = await axios.post(
 			`${process.env.API_BASE_URL}/services/api/v1/auth/${slug}`,
-			req.body
+			req.body,
+			{
+				headers: {
+					Authorization: access_token
+						? `Bearer ${access_token}`
+						: authorization || ''
+				}
+			}
 		);
 
-		const { access_token, refresh_token } = data?.data || {};
+		const {
+			access_token: loginAccessToken,
+			refresh_token: loginRefreshToken
+		} = data?.data || {};
 
-		if (!access_token || !refresh_token) {
+		if (!loginAccessToken || !loginRefreshToken) {
 			return res.json(data);
 		}
 
@@ -34,10 +42,10 @@ const handler: NextApiHandler = async (req, res) => {
 		/**
 		 * Access token
 		 */
-		const accessTokenExpireMin = access_token?.expires_min - 2;
+		const accessTokenExpireMin = loginAccessToken?.expires_min - 2;
 		const accessTokenCookie = serialize(
 			'access_token',
-			access_token?.token,
+			loginAccessToken?.token,
 			{
 				...cookieOptions,
 				maxAge: 60 * accessTokenExpireMin
@@ -49,7 +57,7 @@ const handler: NextApiHandler = async (req, res) => {
 		);
 		const accessTokenExpireInCookie = serialize(
 			'access_token_expire_in',
-			accessTokenExpireDate.toString(),
+			accessTokenExpireDate.toJSON(),
 			{
 				...cookieOptions,
 				maxAge: 60 * accessTokenExpireMin
@@ -59,10 +67,10 @@ const handler: NextApiHandler = async (req, res) => {
 		/**
 		 * Refresh Token
 		 */
-		const refreshTokenExpireMin = refresh_token?.expires_min;
+		const refreshTokenExpireMin = loginRefreshToken?.expires_min;
 		const refreshTokenCookie = serialize(
 			'refresh_token',
-			refresh_token?.token,
+			loginRefreshToken?.token,
 			{
 				...cookieOptions,
 				maxAge: 60 * refreshTokenExpireMin
@@ -74,7 +82,7 @@ const handler: NextApiHandler = async (req, res) => {
 		);
 		const refreshTokenExpireInCookie = serialize(
 			'refresh_token_expire_in',
-			refreshTokenExpireDate.toString(),
+			refreshTokenExpireDate.toJSON(),
 			{
 				...cookieOptions,
 				maxAge: 60 * refreshTokenExpireMin

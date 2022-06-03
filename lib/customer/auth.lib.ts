@@ -34,6 +34,17 @@ export const userLogin = async (params: any) => {
 	}
 }; // End of userLogin function
 
+export const autoLoginCustomer = async () => {
+	try {
+		const { data } = await axiosInstance.get('/auth/auto-login');
+		return data;
+	} catch (error) {
+		console.log('[autoLoginCustomer] =', error);
+		const { data } = (error as any).response || {};
+		throw Error(data || 'Error occurred autoLoginCustomer');
+	}
+}; // End of autoLoginCustomer function
+
 export const getCustomerDetails = async (token?: string) => {
 	try {
 		const { data } = await serviceAxiosInstance.get('/auth/user/me', {
@@ -71,3 +82,17 @@ export const forgetPasswordGenerateLink = async (email: string) => {
 		);
 	}
 }; // End of forgetPasswordGenerateLink
+
+export const logoutCustomer = async () => {
+	try {
+		const { data } = await axiosInstance.get('/auth/logout');
+		return {
+			message: data.message,
+			...(data.data || {})
+		};
+	} catch (error) {
+		console.log('[logoutCustomer] =', error);
+		const { data } = (error as any).response || {};
+		throw Error(data || 'Error occurred logoutCustomer');
+	}
+}; // End of logoutCustomer function

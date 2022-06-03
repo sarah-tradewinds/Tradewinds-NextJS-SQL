@@ -7,6 +7,7 @@ import { BUYER_DASHBOARD_SUBMIT_RFQ } from 'data/buyer-urls.data';
 import { metadataList } from 'data/product-search/metadata-list';
 import { BiMessageAltDetail } from 'react-icons/bi';
 import { useAuthStore } from 'store/auth';
+import { generateQueryString } from 'utils/generate_query_string.utils';
 import MetadataTile from '../product-search/metadata/metadata-tile';
 import ImageContainer from './product-details-images/image-contaier';
 import RatingStars from './product-details-tab/product-review/rating-stars';
@@ -220,7 +221,13 @@ const ProductDetailsTile: React.FC<{
 								setIsLoginOpen();
 							} else {
 								router.push(
-									`${BUYER_DASHBOARD_SUBMIT_RFQ}/?access_key=${customerData.access.token}`
+									`${BUYER_DASHBOARD_SUBMIT_RFQ}/?${
+										customerData.access.token
+									}${generateQueryString({
+										access_key: customerData.access.token,
+										refresh_key: customerData.refresh.token,
+										redirect_to: 'buyer-rfq'
+									})}`
 								);
 							}
 						}}

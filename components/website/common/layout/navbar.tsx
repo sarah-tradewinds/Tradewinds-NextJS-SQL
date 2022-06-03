@@ -20,20 +20,24 @@ import {
 	BUYER_DASHBOARD_HOME_PAGE,
 	BUYER_DASHBOARD_SUBMIT_RFQ
 } from 'data/buyer-urls.data';
-import { useRouter } from 'next/router';
 import {
 	AiOutlineDashboard,
 	AiOutlineShoppingCart
 } from 'react-icons/ai';
 import { FiLogOut } from 'react-icons/fi';
 import { useAuthStore } from 'store/auth';
+import { generateQueryString } from 'utils/generate_query_string.utils';
 import Button from '../form/button';
 
 const Header = () => {
-	const { setIsLoginOpen, setIsSignUpOpen, isAuth, customerData } =
-		useAuthStore();
+	const {
+		setIsLoginOpen,
+		setIsSignUpOpen,
+		isAuth,
+		customerData,
+		logout
+	} = useAuthStore();
 	const [isOpen, setIsOpen] = useState(false);
-	const router = useRouter();
 	const [showLogout, setShowLogout] = useState(false);
 
 	const buttonRef = useRef(null); // useRef<HTMLButtonElement>(null)
@@ -126,9 +130,8 @@ const Header = () => {
 									<div
 										className="flex cursor-pointer"
 										onClick={() => {
-											localStorage.removeItem('tw-userId');
+											logout();
 											setShowLogout(false);
-											router.reload();
 										}}
 									>
 										<FiLogOut size={20} className="mr-2" /> Logout
@@ -139,7 +142,13 @@ const Header = () => {
 
 						<div className="flex justify-between space-x-4">
 							<Button
-								href={`${BUYER_DASHBOARD_HOME_PAGE}?customer_id=${customerData.access.token}`}
+								href={`${BUYER_DASHBOARD_HOME_PAGE}?${generateQueryString(
+									{
+										access_key: customerData.access.token,
+										refresh_key: customerData.refresh.token,
+										redirect_to: 'buyers'
+									}
+								)}`}
 								variant="buyer"
 								className="flex flex-col items-center justify-center rounded-none !px-4 py-3 transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary"
 							>
@@ -148,7 +157,13 @@ const Header = () => {
 							</Button>
 
 							<Button
-								href={`${BUYER_DASHBOARD_SUBMIT_RFQ}?access_key=${customerData.access.token}`}
+								href={`${BUYER_DASHBOARD_SUBMIT_RFQ}?${generateQueryString(
+									{
+										access_key: customerData.access.token,
+										refresh_key: customerData.refresh.token,
+										redirect_to: 'buyer-rfq'
+									}
+								)}`}
 								variant="special"
 								className="flex-col rounded-none !px-4 py-4 transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08]"
 							>

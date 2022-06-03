@@ -14,6 +14,7 @@ import NavBar from './navbar';
 
 // icons
 import { BUYER_DASHBOARD_SUBMIT_RFQ } from 'data/buyer-urls.data';
+import { useEffect } from 'react';
 import {
 	MdOutlineHome,
 	MdOutlineMessage,
@@ -22,6 +23,8 @@ import {
 import { useAuthStore } from 'store/auth';
 import { useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';
+import { generateQueryString } from 'utils/generate_query_string.utils';
+import Loader from '../elements/loader/loader';
 import Button from '../form/button';
 import Seo from '../seo';
 
@@ -34,19 +37,29 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 		categoriesLength: state.categories.length
 	}));
 
-	const { isAuth, setIsLoginOpen, customerData } = useAuthStore(
-		(state) => ({
-			isAuth: state.isAuth,
-			setIsLoginOpen: state.setIsLoginOpen,
-			customerData: state.customerData
-		})
-	);
+	const {
+		isAuthenticating,
+		isAuth,
+		setIsLoginOpen,
+		customerData,
+		autoLogin
+	} = useAuthStore((state) => ({
+		isAuth: state.isAuth,
+		setIsLoginOpen: state.setIsLoginOpen,
+		customerData: state.customerData,
+		autoLogin: state.autoLogin,
+		isAuthenticating: state.isAuthenticating
+	}));
+
+	useEffect(() => {
+		autoLogin();
+	}, []);
 
 	return (
 		<>
 			<Seo title={seo?.title} description={seo?.description} />
 
-			{/* <Loader isOpen={categoriesLength <= 0} /> */}
+			<Loader isOpen={isAuthenticating} text="Authenticating..." />
 
 			<SWRConfig
 				value={{
@@ -83,7 +96,13 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 								)}
 								{isAuth && (
 									<Button
-										href={`${BUYER_DASHBOARD_SUBMIT_RFQ}?access_key=${customerData.access.token}`}
+										href={`${BUYER_DASHBOARD_SUBMIT_RFQ}?${generateQueryString(
+											{
+												access_key: customerData.access.token,
+												refresh_key: customerData.refresh.token,
+												redirect_to: 'buyer-rfq'
+											}
+										)}`}
 										variant="special"
 										className="flex-col rounded-none !px-4 py-4 transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08]"
 									>

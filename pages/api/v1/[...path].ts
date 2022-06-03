@@ -14,21 +14,26 @@ const handler: NextApiHandler = async (req, res) => {
 
 	const endpoints = (path as [])?.join('/');
 	const url = `${process.env.API_BASE_URL}/${endpoints}`;
+	const authorization = req.headers.authorization;
 
 	try {
-		const { data } = await axios[httpMethod](url, {
+		const { data } = await axios.request({
+			url,
+			method: httpMethod,
 			data: req.body,
 			headers: {
-				Authorization: `Bearer ${access_token}`
+				Authorization: access_token
+					? `Bearer ${access_token}`
+					: authorization || ''
 			}
 		});
 
 		res.json(data);
 	} catch (error) {
+		console.log('Error in handler = ', error);
 		const { data } = (error as any).response || {};
-		const keys = Object.keys(data);
-		console.log(typeof data);
-		if (typeof keys === 'object' && keys?.length > 0) {
+		const keys = data ? Object.keys(data) : null;
+		if (keys && typeof keys === 'object' && keys?.length > 0) {
 			return res.status(data.status || 500).json(data);
 		}
 		throw error;
