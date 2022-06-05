@@ -31,10 +31,10 @@ const handler: NextApiHandler = async (req, res) => {
 		res.json(data);
 	} catch (error) {
 		console.log('Error in handler = ', error);
-		const { data } = (error as any).response || {};
+		const { data, status } = (error as any).response || {};
 		const keys = data ? Object.keys(data) : null;
 		if (keys && typeof keys === 'object' && keys?.length > 0) {
-			return res.status(data.status || 500).json(data);
+			return res.status(data.status || status || 500).json(data);
 		}
 		throw error;
 	}

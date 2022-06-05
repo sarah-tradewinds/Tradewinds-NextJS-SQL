@@ -1,4 +1,5 @@
 import Button from 'components/website/common/form/button';
+import { canCustomerGiveReviewOnThisProduct } from 'lib/product-details';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useAuthStore } from 'store/auth';
@@ -7,6 +8,7 @@ import ProductReview from './product-review/product-review';
 import UserReviewAndRatingTile from './user-review-and-rating-tile';
 
 const ProductReviewsDetailsTab: React.FC<{
+	productId: string;
 	productName: string;
 	reviews: any[];
 	onReviewSubmit: (
@@ -15,11 +17,21 @@ const ProductReviewsDetailsTab: React.FC<{
 		reviewId?: string
 	) => any;
 	isLoading?: boolean;
-}> = ({ productName, reviews = [], onReviewSubmit, isLoading }) => {
+}> = ({
+	productName,
+	reviews = [],
+	onReviewSubmit,
+	isLoading,
+	productId
+}) => {
 	const [showReview, setShowReview] = useState(false);
 	const [rating, setRating] = useState(0);
 	const [review, setReview] = useState('');
 	const [reviewId, setReviewId] = useState('');
+	const [
+		canCustomerWriteReviewForThisProduct,
+		setCanCustomerWriteReviewForThisProduct
+	] = useState(false);
 
 	const { isAuth, customerData, setIsLoginOpen } = useAuthStore(
 		(state) => ({
@@ -52,11 +64,21 @@ const ProductReviewsDetailsTab: React.FC<{
 		}
 	}, [showReview]);
 
+	useEffect(() => {
+		canCustomerGiveReviewOnThisProduct(customerData.id, productId).then(
+			(data: any) => {
+				setCanCustomerWriteReviewForThisProduct(
+					data.canCustomerWiteReviewForThisProduct
+				);
+			}
+		);
+	}, [customerData.id]);
+
 	const onReviewSubmitHandler = () => {
 		onReviewSubmit(rating, review, reviewId);
 	};
 
-	const writeReview = (
+	const writeReview = canCustomerWriteReviewForThisProduct && (
 		<div className="md:px-8">
 			<h3 className="mb-4 border-b-2 border-gray/40 pb-1 text-[18px] font-semibold text-gray/40 md:text-[21px]">
 				Review this Product
@@ -93,7 +115,6 @@ const ProductReviewsDetailsTab: React.FC<{
 					146 Reviews
 				</p>
 			</div>
-
 			<div className="grid grid-cols-12">
 				{/* Reviews stats, Write reviews */}
 				<div className="col-span-12 space-y-6 md:col-span-6 lg:col-span-5 2xl:col-span-3">
@@ -135,7 +156,6 @@ const ProductReviewsDetailsTab: React.FC<{
 					))}
 				</div>
 			</div>
-
 			{/* Review Input  */}
 			<Modal
 				open={showReview}

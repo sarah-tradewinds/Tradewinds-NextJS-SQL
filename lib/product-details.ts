@@ -50,6 +50,35 @@ export const getSellerDetailsSellerId = async (sellerId: string) => {
 	}
 }; // End of getSellerDetailsSellerId
 
+export const canCustomerGiveReviewOnThisProduct = async (
+	customerId: string,
+	productId: string
+) => {
+	try {
+		const { data } = await serviceAxiosInstance.post(
+			'/order_review/is-review-allowed',
+			{ buyer_id: customerId, product_id: productId }
+		);
+
+		return {
+			message: data.message,
+			canCustomerWiteReviewForThisProduct: data.data
+		};
+	} catch (error) {
+		console.log('[canCustomerGiveReviewOnThisProduct] =', error);
+		const { data, status } = (error as any).response || {};
+		if (status >= 500) {
+			throw Error(
+				'Error occurred in canCustomerGiveReviewOnThisProduct'
+			);
+		}
+		return {
+			message: data.message,
+			canCustomerWiteReviewForThisProduct: false
+		};
+	}
+}; // End of canCustomerGiveReviewOnThisProduct
+
 export const submitProductRatingAndReview = async (
 	ratingData: {
 		comments: string;
@@ -60,11 +89,11 @@ export const submitProductRatingAndReview = async (
 	},
 	reviewId?: string
 ) => {
-	console.log('reviewId =', reviewId);
 	try {
 		const url = reviewId
 			? `/order_review/update/${reviewId}`
 			: '/order_review';
+
 		const { data } = await serviceAxiosInstance[
 			reviewId ? 'put' : 'post'
 		](url, ratingData);

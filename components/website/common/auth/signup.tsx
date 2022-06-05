@@ -208,19 +208,19 @@ const SignUp: React.FC = () => {
 	return (
 		<Modal
 			open={isSignUpOpen}
-			className="top-1/2 -translate-y-1/2 transform lg:left-1/2 lg:-top-10 lg:-translate-x-1/2 lg:-translate-y-0"
+			className="top-4 transform md:top-1/2 md:left-1/2 md:-translate-y-1/2 md:-translate-x-1/2 lg:-top-10 lg:-translate-y-0"
 			onClose={setIsSignUpOpen}
 		>
-			<div className="flex items-center justify-center ">
+			<div className="ml-2 flex  items-center justify-center">
 				{!signupResult.result ? (
-					<div className="mt-12 flex w-screen justify-center rounded-md bg-white py-4 shadow-md lg:w-[1000px] lg:justify-start lg:px-16">
-						<div className="flex flex-col items-center border-gray/40 pr-24 lg:border-r">
-							<h2 className="mb-8 border-b border-gray/40 pb-4 text-4xl font-semibold text-black">
+					<div className="flex justify-center rounded-md bg-white shadow-md md:mt-12 md:w-[740px] md:py-4 lg:w-[1000px] lg:justify-start lg:px-16">
+						<div className="flex h-[640px] flex-col items-center overflow-auto border-gray/40 py-8 md:h-auto lg:w-full lg:border-r lg:py-0 lg:pr-24">
+							<h2 className="mb-8 border-b border-gray/40 pb-4 text-3xl font-semibold text-black md:text-4xl">
 								Create an Account
 							</h2>
 
 							<div className="flex w-full justify-center border-b border-gray/40 pb-4">
-								<form className="w-[360px] space-y-4">
+								<form className="space-y-4 px-8 lg:w-[360px] lg:px-0">
 									<Input
 										name="first_name"
 										placeholder="Give Name"
@@ -442,15 +442,6 @@ const SignUp: React.FC = () => {
 								>
 									Already have an account? Log in
 								</Button>
-								{/* <p
-									className="mt-8 cursor-pointer text-center text-sm text-accent-primary-main underline"
-									onClick={() => {
-										authStore.setIsSignUpOpen();
-										router.push('/forgot-password');
-									}}
-								>
-									Forgot Password?
-								</p> */}
 							</div>
 						</div>
 

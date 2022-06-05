@@ -75,6 +75,7 @@ const ProductDetailsTabContainer: React.FC<{
 							onReviewSubmit={onReviewSubmit}
 							isLoading={isReviewLoading}
 							productName={product.product_name}
+							productId={product.id}
 						/>
 					</Tab.Panel>
 					<Tab.Panel>

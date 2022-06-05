@@ -9,7 +9,6 @@ import { useEffect, useState } from 'react';
 import ProductDetailsTile from 'components/website/product-details/product-details-tile';
 
 import Button from 'components/website/common/form/button';
-import CategorySubCategoriesSection from 'components/website/home/category-sub-categories-section';
 import CompanyProfileTab from 'components/website/product-details/product-details-tab/company-profile-tab';
 import ProductDetailsTab from 'components/website/product-details/product-details-tab/product-details-tab';
 import ProductDetailsTabContainer from 'components/website/product-details/product-details-tab/product-details-tab-container';
@@ -96,6 +95,8 @@ const ProductDetailsPage: NextPage<
 				selectedVariantId={selectedVariantId}
 				totalReviewCount={productReviewList.length}
 			/>
+
+			{/* Tabs */}
 			<div>
 				<ProductDetailsTabContainer
 					className="hidden md:block"
@@ -116,6 +117,7 @@ const ProductDetailsPage: NextPage<
 						onReviewSubmit={submitReviewHandler}
 						isLoading={isReviewLoading}
 						productName={productData.product_name}
+						productId={productData.id}
 					/>
 					<CompanyProfileTab seller={seller} />
 				</div>
@@ -129,7 +131,7 @@ const ProductDetailsPage: NextPage<
 				/>
 			</div>
 			{/* Categories */}
-			{categories && categories.length > 0 && (
+			{/* {categories && categories.length > 0 && (
 				<div className="mx-4 rounded bg-white">
 					<CategorySubCategoriesSection
 						catSubCat={{
@@ -144,7 +146,7 @@ const ProductDetailsPage: NextPage<
 						}}
 					/>
 				</div>
-			)}
+			)} */}
 			{/* Fixed container for small screen only */}
 			<div className="fixed left-0 right-0 bottom-0 z-[2000] flex justify-around bg-primary-main py-6 md:hidden">
 				<Button
