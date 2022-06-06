@@ -20,6 +20,7 @@ import {
 	getProductById,
 	getProductReviewsByProductId,
 	getSellerDetailsSellerId,
+	getSimilarProducts,
 	submitProductRatingAndReview
 } from 'lib/product-details';
 import { useAuthStore } from 'store/auth';
@@ -27,7 +28,7 @@ import { useCategoryStore } from 'store/category-store';
 
 const ProductDetailsPage: NextPage<
 	InferGetServerSidePropsType<GetServerSideProps>
-> = ({ product, productReviews, seller }) => {
+> = ({ product, productReviews, seller, similarProducts }) => {
 	const [productData, setProductData] = useState(product);
 	const [productReviewList, setProductReviewList] =
 		useState(productReviews);
@@ -126,7 +127,7 @@ const ProductDetailsPage: NextPage<
 			<div className="hidden md:block">
 				<SimilarProductList
 					title="Similar Product"
-					similarProducts={[{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }]}
+					similarProducts={similarProducts}
 					className="px-8"
 				/>
 			</div>
@@ -194,6 +195,8 @@ export const getServerSideProps: GetServerSideProps = async ({
 				'6290d6eb0eb8951e0540d641' || product.seller_id
 			)) || {};
 
+		const similarProducts = await getSimilarProducts(productId);
+
 		const seo = product.seo;
 
 		return {
@@ -201,6 +204,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 				product,
 				productReviews,
 				seller,
+				similarProducts,
 				seo: { title: seo.title.en, description: seo.description.en }
 			}
 		};

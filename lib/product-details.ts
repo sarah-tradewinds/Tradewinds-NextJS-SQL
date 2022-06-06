@@ -109,3 +109,19 @@ export const submitProductRatingAndReview = async (
 		return {};
 	}
 }; // End of submitProductRatingAndReview
+
+export const getSimilarProducts = async (productId: string) => {
+	try {
+		const { data } = await serviceAxiosInstance.get(
+			`/product/similar/${productId}`
+		);
+		return data.data || [];
+	} catch (error) {
+		console.log('[getSimilarProducts] =', error);
+		const { data, status } = (error as any).response || {};
+		if (status >= 500) {
+			throw Error('Error occurred in getSimilarProducts');
+		}
+		return [];
+	}
+}; // End of getSimilarProducts

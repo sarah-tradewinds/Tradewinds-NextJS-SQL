@@ -3,11 +3,14 @@ import { useRouter } from 'next/router';
 
 // components
 import Button from 'components/website/common/form/button';
-import { BUYER_DASHBOARD_SUBMIT_RFQ } from 'data/buyer-urls.data';
+import {
+	BUYER_DASHBOARD_ACTIONS,
+	BUYER_DASHBOARD_PAGES,
+	generateBuyerDashboardUrl
+} from 'data/buyer/buyer-actions';
 import { metadataList } from 'data/product-search/metadata-list';
 import { BiMessageAltDetail } from 'react-icons/bi';
 import { useAuthStore } from 'store/auth';
-import { generateQueryString } from 'utils/generate_query_string.utils';
 import MetadataTile from '../product-search/metadata/metadata-tile';
 import ImageContainer from './product-details-images/image-contaier';
 import RatingStars from './product-details-tab/product-review/rating-stars';
@@ -221,12 +224,11 @@ const ProductDetailsTile: React.FC<{
 								setIsLoginOpen();
 							} else {
 								router.push(
-									`${BUYER_DASHBOARD_SUBMIT_RFQ}/?${
-										customerData.access.token
-									}${generateQueryString({
+									`${generateBuyerDashboardUrl({
+										redirect_to: BUYER_DASHBOARD_PAGES.buyer_rfq,
+										action: BUYER_DASHBOARD_ACTIONS.create_rfq,
 										access_key: customerData.access.token,
-										refresh_key: customerData.refresh.token,
-										redirect_to: 'buyer-rfq'
+										refresh_key: customerData.refresh.token
 									})}`
 								);
 							}

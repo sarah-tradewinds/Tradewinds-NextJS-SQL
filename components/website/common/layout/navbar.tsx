@@ -17,16 +17,16 @@ const MegaMenu = dynamic(
 // stores
 import { Popover, Transition } from '@headlessui/react';
 import {
-	BUYER_DASHBOARD_HOME_PAGE,
-	BUYER_DASHBOARD_SUBMIT_RFQ
-} from 'data/buyer-urls.data';
+	BUYER_DASHBOARD_ACTIONS,
+	BUYER_DASHBOARD_PAGES,
+	generateBuyerDashboardUrl
+} from 'data/buyer/buyer-actions';
 import {
 	AiOutlineDashboard,
 	AiOutlineShoppingCart
 } from 'react-icons/ai';
 import { FiLogOut } from 'react-icons/fi';
 import { useAuthStore } from 'store/auth';
-import { generateQueryString } from 'utils/generate_query_string.utils';
 import Button from '../form/button';
 
 const Header = () => {
@@ -142,13 +142,11 @@ const Header = () => {
 
 						<div className="flex justify-between space-x-4">
 							<Button
-								href={`${BUYER_DASHBOARD_HOME_PAGE}?${generateQueryString(
-									{
-										access_key: customerData.access.token,
-										refresh_key: customerData.refresh.token,
-										redirect_to: 'buyers'
-									}
-								)}`}
+								href={generateBuyerDashboardUrl({
+									redirect_to: BUYER_DASHBOARD_PAGES.buyers,
+									access_key: customerData.access.token,
+									refresh_key: customerData.refresh.token
+								})}
 								variant="buyer"
 								className="flex flex-col items-center justify-center rounded-none !px-4 py-3 transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary"
 							>
@@ -157,13 +155,12 @@ const Header = () => {
 							</Button>
 
 							<Button
-								href={`${BUYER_DASHBOARD_SUBMIT_RFQ}?${generateQueryString(
-									{
-										access_key: customerData.access.token,
-										refresh_key: customerData.refresh.token,
-										redirect_to: 'buyer-rfq'
-									}
-								)}`}
+								href={generateBuyerDashboardUrl({
+									redirect_to: BUYER_DASHBOARD_PAGES.buyer_rfq,
+									action: BUYER_DASHBOARD_ACTIONS.create_rfq,
+									access_key: customerData.access.token,
+									refresh_key: customerData.refresh.token
+								})}
 								variant="special"
 								className="flex-col rounded-none !px-4 py-4 transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08]"
 							>

@@ -26,16 +26,16 @@ const SimilarProductList: React.FC<SimilarProductListProps> = (
 					>
 						<div className="relative h-[205px] w-[240px]">
 							<Image
-								src="/vehicles/green-tractor.png"
+								src={'https://' + similarProduct.images[0].url}
 								alt=""
 								layout="fill"
 							/>
 						</div>
 						<p className="f ont-bold flex justify-between space-x-8 text-[18px] text-primary-main">
-							Green Tractor 1
+							{similarProduct.product_name}
 						</p>
 						<p className="text-[15px] text-gray/40">
-							Nicee green color
+							{similarProduct.product_description}
 						</p>
 					</div>
 				))}

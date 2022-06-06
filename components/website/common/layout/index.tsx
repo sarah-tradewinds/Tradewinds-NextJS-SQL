@@ -13,7 +13,11 @@ import Footer from './footer';
 import NavBar from './navbar';
 
 // icons
-import { BUYER_DASHBOARD_SUBMIT_RFQ } from 'data/buyer-urls.data';
+import {
+	BUYER_DASHBOARD_ACTIONS,
+	BUYER_DASHBOARD_PAGES,
+	generateBuyerDashboardUrl
+} from 'data/buyer/buyer-actions';
 import { useEffect } from 'react';
 import {
 	MdOutlineHome,
@@ -23,7 +27,6 @@ import {
 import { useAuthStore } from 'store/auth';
 import { useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';
-import { generateQueryString } from 'utils/generate_query_string.utils';
 import Loader from '../elements/loader/loader';
 import Button from '../form/button';
 import Seo from '../seo';
@@ -96,13 +99,12 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 								)}
 								{isAuth && (
 									<Button
-										href={`${BUYER_DASHBOARD_SUBMIT_RFQ}?${generateQueryString(
-											{
-												access_key: customerData.access.token,
-												refresh_key: customerData.refresh.token,
-												redirect_to: 'buyer-rfq'
-											}
-										)}`}
+										href={generateBuyerDashboardUrl({
+											redirect_to: BUYER_DASHBOARD_PAGES.buyer_rfq,
+											action: BUYER_DASHBOARD_ACTIONS.create_rfq,
+											access_key: customerData.access.token,
+											refresh_key: customerData.refresh.token
+										})}
 										variant="special"
 										className="flex-col rounded-none !px-4 py-4 transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08]"
 									>
