@@ -6,7 +6,7 @@ export const getProducts = async (params: {
 	price_end?: number;
 	main_category?: string;
 	category?: string;
-	country_or_region?: string;
+	country_of_region?: string;
 }) => {
 	const queryString = generateQueryString(params);
 

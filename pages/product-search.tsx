@@ -83,7 +83,7 @@ const ProductSearchPage: NextPage<
 			price_start: +minPrice,
 			main_category: selectedMainCategoryId,
 			category: categoryIds,
-			country_or_region: selectedCountryIds.toString()
+			country_of_region: selectedCountryIds.toString()
 		}).then((data) => setProducts(data));
 	}, [
 		categories.length,
