@@ -8,7 +8,7 @@ import CountrySearchFilter from './country-filter';
 interface ProductFilterProps {
 	onMinPriceChange: (minPrice: string) => any;
 	onMinOrderChange: (minOrder: string) => any;
-	onCountryChange: (countyCodes: string) => any;
+	onCountryChange?: (countyCodes: string) => any;
 }
 
 const ProductFilter: React.FC<ProductFilterProps> = (props) => {
@@ -77,7 +77,7 @@ const ProductFilter: React.FC<ProductFilterProps> = (props) => {
 					Supplier Country/ Region
 				</h4>
 
-				<CountrySearchFilter onCountryChange={onCountryChange} />
+				<CountrySearchFilter />
 			</div>
 		</div>
 	);

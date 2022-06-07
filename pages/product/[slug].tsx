@@ -131,6 +131,7 @@ const ProductDetailsPage: NextPage<
 					className="px-8"
 				/>
 			</div>
+
 			{/* Categories */}
 			{/* {categories && categories.length > 0 && (
 				<div className="mx-4 rounded bg-white">

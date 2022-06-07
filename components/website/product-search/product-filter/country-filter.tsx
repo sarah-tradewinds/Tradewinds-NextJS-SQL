@@ -8,24 +8,30 @@ import React, { useEffect, useState } from 'react';
 import { useCountriesStore } from 'store/countries-store';
 
 const CountrySearchFilter: React.FC<{
-	onCountryChange: (countryIds: string) => any;
+	onCountryChange?: (countryIds: string) => any;
 }> = (props) => {
 	const { onCountryChange } = props;
 
 	const [searchCounty, setSearchCounty] = useState('');
-	const [selectedCountryIdList, setSelectedCountryIdList] = useState<
-		string[]
-	>([]);
 
-	const { countries, fetchCountries } = useCountriesStore();
-
-	useEffect(() => {
-		fetchCountries();
-	}, []);
+	const {
+		countries,
+		fetchCountries,
+		selectedCountryIds,
+		setSelectedCountryId
+	} = useCountriesStore();
 
 	useEffect(() => {
-		onCountryChange(selectedCountryIdList.toString());
-	}, [selectedCountryIdList]);
+		if (countries.length <= 0) {
+			fetchCountries();
+		}
+	}, [countries]);
+
+	useEffect(() => {
+		if (onCountryChange) {
+			onCountryChange(selectedCountryIds.toString());
+		}
+	}, [selectedCountryIds]);
 
 	const searchCountryByName = () => {
 		if (!searchCounty) {
@@ -40,21 +46,6 @@ const CountrySearchFilter: React.FC<{
 
 		return filteredCountries || [];
 	}; // End of searchCountryByName function
-
-	const handlingCountryCode = (newCountryCode: string) => {
-		const countryCodeList = [...selectedCountryIdList];
-		const countryCodeIndex = countryCodeList.findIndex(
-			(countryCode) => countryCode === newCountryCode
-		);
-
-		if (countryCodeIndex < 0) {
-			countryCodeList.push(newCountryCode);
-		} else {
-			countryCodeList.splice(countryCodeIndex, 1);
-		}
-
-		setSelectedCountryIdList(countryCodeList);
-	}; // End of handlingCountryCode function
 
 	return (
 		<>
@@ -80,7 +71,8 @@ const CountrySearchFilter: React.FC<{
 							id={country.id}
 							type="checkbox"
 							value={country.country_code}
-							onChange={() => handlingCountryCode(country.id)}
+							checked={country.isSelected}
+							onChange={() => setSelectedCountryId(country.id)}
 						/>
 						<label
 							htmlFor={country.id}

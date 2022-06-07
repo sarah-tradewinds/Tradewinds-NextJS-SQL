@@ -12,12 +12,13 @@ export const getProducts = async (params: {
 
 	try {
 		const { data } = await serviceAxiosInstance.get(
-			// `/product/search?${queryString}`
+			`/product/search?${queryString}`
 
 			// TODO: Tmp
-			`/product/all?${queryString}`
+			// `/product/all?${queryString}`
 		);
-		return data.data || [];
+
+		return data.response || [];
 		// return data.response || [];
 	} catch (error) {
 		console.log('[getProducts] =', error);

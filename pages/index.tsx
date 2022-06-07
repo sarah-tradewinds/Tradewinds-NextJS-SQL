@@ -3,9 +3,12 @@ import {
 	InferGetServerSidePropsType,
 	NextPage
 } from 'next';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 // components
 import Button from 'components/website/common/form/button';
+import Seo from 'components/website/common/seo';
 import AddBanner from 'components/website/home/ads-banner';
 import CategorySubCategoriesSection from 'components/website/home/category-sub-categories-section';
 import CountrySlider from 'components/website/home/country-slider';
@@ -21,9 +24,9 @@ import {
 	getHomeCountries
 } from 'lib/home.lib';
 
-import Seo from 'components/website/common/seo';
-import { useEffect } from 'react';
+// stores
 import { useCategoryStore } from 'store/category-store';
+import { useCountriesStore } from 'store/countries-store';
 import { CatSubCatSectionType, HeroCarouselType } from 'types/home';
 
 type Props = {
@@ -47,8 +50,17 @@ const HomePage: NextPage<
 	const fetchCategories = useCategoryStore(
 		(state) => state.fetchCategories
 	);
+
+	const { setSelectedCountryId, fetchCountries } = useCountriesStore(
+		(state) => ({
+			setSelectedCountryId: state.setSelectedCountryId,
+			fetchCountries: state.fetchCountries
+		})
+	);
+
 	useEffect(() => {
 		fetchCategories();
+		fetchCountries(homeCountries);
 	}, []);
 
 	const searchCategoriesBanner = (
@@ -62,6 +74,8 @@ const HomePage: NextPage<
 			</Button>
 		</div>
 	);
+
+	const router = useRouter();
 
 	let isReverse = false;
 
@@ -108,9 +122,17 @@ const HomePage: NextPage<
 			{/*  Search Categories Banner */}
 			<div className="my-8 md:hidden">{searchCategoriesBanner}</div>
 
+			{/* Shop by country and ads */}
+
 			<div className="space-y-8">
 				{/* Shop by country */}
-				<CountrySlider countries={homeCountries} />
+				<CountrySlider
+					countries={homeCountries}
+					onCountryClick={(countryId) => {
+						setSelectedCountryId(countryId);
+						router.push('/product-search');
+					}}
+				/>
 
 				{/* Bottom Banner */}
 				<div className="grid grid-cols-2">

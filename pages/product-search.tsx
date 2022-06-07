@@ -27,6 +27,7 @@ import {
 	getMainCategoryById,
 	useCategoryStore
 } from 'store/category-store';
+import { useCountriesStore } from 'store/countries-store';
 import { useProductStore } from 'store/product-store';
 
 const ProductSearchPage: NextPage<
@@ -36,6 +37,10 @@ const ProductSearchPage: NextPage<
 	const [minOrder, setMinOrder] = useState('0');
 	const [minPrice, setMinPrice] = useState('0');
 	const [selectedCountryCode, setSelectedCountryCode] = useState('');
+
+	const { selectedCountryIds } = useCountriesStore((state) => ({
+		selectedCountryIds: state.selectedCountryIds
+	}));
 
 	const {
 		categories,
@@ -78,14 +83,14 @@ const ProductSearchPage: NextPage<
 			price_start: +minPrice,
 			main_category: selectedMainCategoryId,
 			category: categoryIds,
-			country_or_region: selectedCountryCode
+			country_or_region: selectedCountryIds.toString()
 		}).then((data) => setProducts(data));
 	}, [
 		categories.length,
 		selectedMainCategoryId,
 		ids,
 		minPrice,
-		selectedCountryCode
+		selectedCountryIds
 	]);
 
 	const [ref] = useKeenSlider<HTMLDivElement>({
@@ -127,9 +132,9 @@ const ProductSearchPage: NextPage<
 						onMinPriceChange={(minPriceQuantity) =>
 							setMinPrice(minPriceQuantity)
 						}
-						onCountryChange={(countryIdList) =>
-							setSelectedCountryCode(countryIdList)
-						}
+						// onCountryChange={(countryIdList) =>
+						//  setSelectedCountryCode(countryIdList)
+						// }
 					/>
 
 					{/* ads */}

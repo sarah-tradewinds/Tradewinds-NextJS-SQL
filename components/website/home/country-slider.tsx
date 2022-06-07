@@ -2,6 +2,7 @@ import Image from 'next/image';
 
 // Third party packages
 import { useKeenSlider } from 'keen-slider/react'; // import from 'keen-slider/react.es' for to get an ES module
+import Button from '../common/form/button';
 
 interface CountrySliderProps {
 	countries: {
@@ -10,10 +11,11 @@ interface CountrySliderProps {
 		slug: string;
 		country_flag: { url: string };
 	}[];
+	onCountryClick?: (countryId: string) => any;
 }
 
 const CountrySlider: React.FC<CountrySliderProps> = (props) => {
-	const { countries } = props;
+	const { countries, onCountryClick } = props;
 
 	const [ref] = useKeenSlider<HTMLDivElement>({
 		loop: true,
@@ -46,8 +48,11 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 
 			<div ref={ref} className="keen-slider">
 				{countries.map((country) => (
-					<div
+					<Button
 						key={country.id}
+						onClick={() => {
+							if (onCountryClick) onCountryClick(country.id);
+						}}
 						className="keen-slider__slide h-[80px] w-[180px] px-4"
 					>
 						<Image
@@ -59,7 +64,7 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 							width={180}
 							height={80}
 						/>
-					</div>
+					</Button>
 				))}
 			</div>
 		</div>

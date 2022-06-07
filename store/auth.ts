@@ -54,6 +54,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 			isAuthenticating: true
 		});
 		const data = await autoLoginCustomer();
+		console.log(data.customerData);
 		set({
 			isAuth: data.isLoggedIn,
 			customerData: data.customerData,
