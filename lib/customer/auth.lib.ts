@@ -30,7 +30,7 @@ export const userLogin = async (params: any) => {
 	} catch (error) {
 		console.log('[userLogin] =', error);
 		const { data } = (error as any).response || {};
-		throw Error(data || 'Error occurred userLogin');
+		throw Error(data?.message || 'Error occurred userLogin');
 	}
 }; // End of userLogin function
 
