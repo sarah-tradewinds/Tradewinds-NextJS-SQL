@@ -79,7 +79,9 @@ const CountrySearchFilter: React.FC<{
 							className="ml-8 flex cursor-pointer items-center space-x-4"
 						>
 							<Image
-								src={'https://' + country?.country_flag?.url}
+								src={
+									country?.country_flag?.url || 'loading-circle-50.png'
+								}
 								alt=""
 								width={23}
 								height={16}

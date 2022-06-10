@@ -51,16 +51,17 @@ const ProductDetailsTile: React.FC<{
 	} = product || {};
 
 	let displayPrice = `$${product_price}`;
-	if (is_bulk_pricing) {
+	if (is_bulk_pricing && is_bulk_pricing?.length > 0) {
 		const minPrice = bulk_pricing[0]?.range?.split('-')[0];
-		const maxPrice =
-			bulk_pricing[bulk_pricing?.length - 1]?.range?.split('-')[0];
+		const bulkPricingLast =
+			bulk_pricing[bulk_pricing?.length - 1]?.range?.split('-');
+		const maxPrice = bulkPricingLast[1] || bulkPricingLast[0];
 		displayPrice = `$${minPrice}-$${maxPrice}`;
 	}
 
 	const minOrderQuantity = inventory?.minimum_order_quantity || 0;
 
-	const mainImageUrl = 'https://' + images[0]?.url;
+	const mainImageUrl = images[0]?.url;
 
 	return (
 		<div className="grid grid-cols-12 gap-8 bg-white">

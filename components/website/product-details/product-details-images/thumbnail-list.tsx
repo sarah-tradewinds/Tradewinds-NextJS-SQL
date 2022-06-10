@@ -18,7 +18,7 @@ const ThumbnailList: React.FC<ThumbnailListProps> = (props) => {
 			{thumbnails.map((thumbnail) => (
 				<div key={thumbnail.url} className="relative h-[136px] w-full">
 					<Image
-						src={'https://' + thumbnail.url}
+						src={thumbnail.url || '/loading-circle-50.png'}
 						alt={thumbnail.alt}
 						layout="fill"
 					/>

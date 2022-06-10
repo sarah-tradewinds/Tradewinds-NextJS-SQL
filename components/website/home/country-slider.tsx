@@ -57,8 +57,7 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 					>
 						<Image
 							src={
-								'https://' + country.country_flag?.url ||
-								'/flags/frame.png'
+								country.country_flag?.url || '/loading-circle-50.png'
 							}
 							alt=""
 							width={180}

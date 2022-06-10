@@ -35,11 +35,7 @@ const ProductList: React.FC<ProductListProps> = ({
 						name={product.product_name}
 						slug={product?.id}
 						description={product.product_description}
-						imageUrl={
-							product.images[0]?.url
-								? 'https://' + product.images[0]?.url
-								: 'https://images.unsplash.com/photo-1505156868547-9b49f4df4e04?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8aXBob25lfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60'
-						}
+						imageUrl={product.images[0]?.url}
 						countryOfOrigin={
 							country_of_region ? country_of_region[0] : ''
 						}

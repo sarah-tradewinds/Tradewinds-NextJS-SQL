@@ -46,7 +46,7 @@ const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 						<div key={thumbnail.url} className="keen-slider__slide">
 							<div className="relative h-[136px] w-full">
 								<Image
-									src={'https://' + thumbnail.url}
+									src={thumbnail.url || '/loading-circle-50.png'}
 									alt={thumbnail.alt}
 									layout="fill"
 								/>
