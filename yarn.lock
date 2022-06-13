@@ -1791,15 +1791,15 @@
   "resolved" "https://registry.npmjs.org/husky/-/husky-7.0.4.tgz"
   "version" "7.0.4"
 
-"i18next-fs-backend@^1.0.7":
+"i18next-fs-backend@^1.1.4":
   "integrity" "sha512-/MfAGMP0jHonV966uFf9PkWWuDjPYLIcsipnSO3NxpNtAgRUKLTwvm85fEmsF6hGeu0zbZiCQ3W74jwO6K9uXA=="
   "resolved" "https://registry.npmjs.org/i18next-fs-backend/-/i18next-fs-backend-1.1.4.tgz"
   "version" "1.1.4"
 
-"i18next@^21.6.12", "i18next@>= 19.0.0":
-  "integrity" "sha512-XL6WyD+xlwQwbieXRlXhKWoLb/rkch50/rA+vl6untHnJ+aYnkQ0YDZciTWE78PPhOpbi2gR0LTJCJpiAhA+uQ=="
-  "resolved" "https://registry.npmjs.org/i18next/-/i18next-21.6.14.tgz"
-  "version" "21.6.14"
+"i18next@^21.6.14", "i18next@>= 19.0.0":
+  "integrity" "sha512-PY9a/8ADVmnju1tETeglbbVQi+nM5pcJQWm9kvKMTE3GPgHHtpDsHy5HQ/hccz2/xtW7j3vuso23JdQSH0EttA=="
+  "resolved" "https://registry.npmjs.org/i18next/-/i18next-21.8.9.tgz"
+  "version" "21.8.9"
   dependencies:
     "@babel/runtime" "^7.17.2"
 
@@ -2397,18 +2397,18 @@
   "resolved" "https://registry.npmjs.org/natural-compare/-/natural-compare-1.4.0.tgz"
   "version" "1.4.0"
 
-"next-i18next@^10.5.0":
-  "integrity" "sha512-+Xj/v5gqpEUBKKAaFCZ76+Ps6OGAaIgGowJTF67wTcmIQbHrcHMPjHwPTbnpXy7uHrH8os7i4eAfRENAv/6xwg=="
-  "resolved" "https://registry.npmjs.org/next-i18next/-/next-i18next-10.5.0.tgz"
-  "version" "10.5.0"
+"next-i18next@^11.0.0":
+  "integrity" "sha512-phxbQiZGSJTTBE2FI4+BnqFZl88AI2V+6MrEQnT9aPFAXq/fATQ/F0pOUM3J7kU4nEeCfn3hjISq+ygGHlEz0g=="
+  "resolved" "https://registry.npmjs.org/next-i18next/-/next-i18next-11.0.0.tgz"
+  "version" "11.0.0"
   dependencies:
     "@babel/runtime" "^7.13.17"
     "@types/hoist-non-react-statics" "^3.3.1"
     "core-js" "^3"
     "hoist-non-react-statics" "^3.2.0"
-    "i18next" "^21.6.12"
-    "i18next-fs-backend" "^1.0.7"
-    "react-i18next" "^11.15.5"
+    "i18next" "^21.6.14"
+    "i18next-fs-backend" "^1.1.4"
+    "react-i18next" "^11.16.2"
 
 "next-seo@^5.4.0":
   "integrity" "sha512-R9DhajPwJnR/lsF2hZ8cN8uqr5CVITsRrCG1AF5+ufcaybKYOvnH8sH9MaH4/hpkps3PQ9H71S7J7SPYixAYzQ=="
@@ -2988,10 +2988,10 @@
     "object-assign" "^4.1.1"
     "scheduler" "^0.20.2"
 
-"react-i18next@^11.15.5":
-  "integrity" "sha512-zSWZ+21LhaG4T155GcvLdepG1j/qJqD9hUGztVtD1MGBc4/l9ft/LMbUX7oKXdVVLyKWjUhUFoDNAwB2402BIQ=="
-  "resolved" "https://registry.npmjs.org/react-i18next/-/react-i18next-11.15.7.tgz"
-  "version" "11.15.7"
+"react-i18next@^11.16.2":
+  "integrity" "sha512-4H4fK9vWsQtPP0iAdqzGfdPKLaSXpCjuh1xaGsejX/CO8tx8zCnrOnlQhMgrJf+OlUfzth5YaDPXYGp3RHxV1g=="
+  "resolved" "https://registry.npmjs.org/react-i18next/-/react-i18next-11.17.1.tgz"
+  "version" "11.17.1"
   dependencies:
     "@babel/runtime" "^7.14.5"
     "html-escaper" "^2.0.2"
@@ -3745,7 +3745,7 @@
   "version" "2.3.0"
 
 "void-elements@3.1.0":
-  "integrity" "sha1-YU9/v42AHwu18GYfWy9XhXUOTwk="
+  "integrity" "sha512-Dhxzh5HZuiHQhbvTW9AMetFfBHDMYpo23Uo9btPXgdYP+3T5S+p+jgNy7spra+veYhBP2dCSgxR/i2Y02h5/6w=="
   "resolved" "https://registry.npmjs.org/void-elements/-/void-elements-3.1.0.tgz"
   "version" "3.1.0"
 

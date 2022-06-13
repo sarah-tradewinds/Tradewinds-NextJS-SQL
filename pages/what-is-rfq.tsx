@@ -1,19 +1,20 @@
 import { NextPage } from 'next';
 import Image from 'next/image';
 
+// Third party packages
+import { useTranslation } from 'next-i18next';
+
 // components
 import Button from 'components/website/common/form/button';
 import WhyUseRFQTile from 'components/website/common/rfq/why-use-rfq-tile';
 import Seo from 'components/website/common/seo';
-import { useRouter } from 'next/router';
 
 const WhatIsRFQPage: NextPage = () => {
-	const router = useRouter();
-	console.log(router);
+	const { t } = useTranslation();
 
 	return (
 		<>
-			<Seo title="What is RFQ page" description="" />
+			<Seo title={t('what-is-rfq:title')} description="" />
 
 			<div className="relative">
 				{/* Header */}
@@ -29,7 +30,7 @@ const WhatIsRFQPage: NextPage = () => {
 					<div className="absolute top-4 left-4 space-y-8 text-white md:top-8 md:left-8 md:w-4/6 lg:top-16 lg:left-16 lg:w-3/4">
 						<div>
 							<h1 className="text-[25px] font-semibold text-secondary md:text-[40px] lg:text-[96px] lg:leading-[117px]">
-								One Request Multiple Quotes
+								One Request Multiple Quotes {t('home:search_banner')}
 							</h1>
 							<p className="text-[15px] tracking-wider md:text-[20px] lg:text-[33px]">
 								Engage with suppliers more effectively

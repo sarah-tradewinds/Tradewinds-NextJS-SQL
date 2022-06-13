@@ -30,7 +30,10 @@ export const useCountriesStore = create<CountryState>((set) => ({
 
 			const countries = countryList.map((country: any) => {
 				country.isSelected = country.isSelected || false;
-				if (country.id === newCountryId) {
+				// if (country.id === newCountryId) {
+				//  country.isSelected = !country.isSelected;
+				// }
+				if (country.country_name === newCountryId) {
 					country.isSelected = !country.isSelected;
 				}
 				return country;
