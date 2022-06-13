@@ -4,6 +4,7 @@ import { NextApiHandler } from 'next';
 import axios from 'axios';
 
 // utils
+import { generateQueryString } from 'utils/generate_query_string.utils';
 import { getHttpMethod } from 'utils/get_method.utils';
 
 const handler: NextApiHandler = async (req, res) => {
@@ -12,8 +13,14 @@ const handler: NextApiHandler = async (req, res) => {
 	const { path } = req.query;
 	const { access_token } = req.cookies;
 
+	let queryString = '';
+	if (httpMethod === 'get') {
+		delete req.query.path;
+		queryString = generateQueryString(req.query);
+	}
+
 	const endpoints = (path as [])?.join('/');
-	const url = `${process.env.API_BASE_URL}/${endpoints}`;
+	const url = `${process.env.API_BASE_URL}/${endpoints}?${queryString}`;
 	const authorization = req.headers.authorization;
 
 	try {

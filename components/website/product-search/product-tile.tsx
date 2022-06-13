@@ -17,8 +17,7 @@ interface ProductTileProps {
 	alt?: string;
 	countryOfOrigin: string;
 	productPrice: number;
-	minPrice: number;
-	maxPrice: number;
+	displayPrice: string;
 	minOrderQuantity: number;
 	totalReviewCount?: number;
 	onCompareClick?: () => any;
@@ -39,8 +38,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 		alt,
 		countryOfOrigin,
 		productPrice,
-		minPrice,
-		maxPrice,
+		displayPrice,
 		minOrderQuantity,
 		totalReviewCount,
 		onCompareClick,
@@ -116,10 +114,10 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 		</div>
 	);
 
-	let displayPrice = `$${productPrice}`;
-	if (minPrice && maxPrice) {
-		displayPrice = `$${minPrice}-$${maxPrice}`;
-	}
+	// let displayPrice = `$${productPrice}`;
+	// if (minPrice && maxPrice) {
+	//  displayPrice = `$${minPrice}-$${maxPrice}`;
+	// }
 
 	return (
 		<div className="grid w-full grid-cols-12 overflow-hidden bg-white md:rounded-xl md:shadow-md lg:p-4">

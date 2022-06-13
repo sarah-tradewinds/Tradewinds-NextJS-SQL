@@ -11,6 +11,7 @@ import {
 import { metadataList } from 'data/product-search/metadata-list';
 import { BiMessageAltDetail } from 'react-icons/bi';
 import { useAuthStore } from 'store/auth';
+import { getDisplayBulkPrice } from 'utils/get-bulk-price';
 import MetadataTile from '../product-search/metadata/metadata-tile';
 import ImageContainer from './product-details-images/image-contaier';
 import RatingStars from './product-details-tab/product-review/rating-stars';
@@ -50,20 +51,11 @@ const ProductDetailsTile: React.FC<{
 		is_verified
 	} = product || {};
 
-	let displayPrice = `$${product_price}`;
-	if (is_bulk_pricing && bulk_pricing?.length > 0) {
-		const bulkPricingFirst = bulk_pricing[0]?.price;
-		const bulkPricingLast =
-			bulk_pricing[bulk_pricing?.length - 1]?.price;
-
-		let minPrice = bulkPricingFirst;
-		let maxPrice = bulkPricingLast;
-		if (bulkPricingFirst > bulkPricingLast) {
-			maxPrice = bulkPricingFirst;
-			minPrice = bulkPricingLast;
-		}
-		displayPrice = `$${minPrice}-$${maxPrice}`;
-	}
+	const displayPrice = getDisplayBulkPrice({
+		product_price,
+		is_bulk_pricing,
+		bulk_pricing
+	});
 
 	const minOrderQuantity = inventory?.minimum_order_quantity || 0;
 

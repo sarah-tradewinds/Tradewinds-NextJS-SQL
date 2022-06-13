@@ -1,3 +1,4 @@
+import { getDisplayBulkPrice } from 'utils/get-bulk-price';
 import ProductTile from './product-tile';
 
 interface ProductListProps {
@@ -13,21 +14,17 @@ const ProductList: React.FC<ProductListProps> = ({
 		<div className="grid grid-cols-1 gap-4 md:gap-8">
 			{products.map((product) => {
 				const {
+					product_price,
 					is_bulk_pricing,
 					bulk_pricing = [],
 					country_of_region = []
 				} = product || {};
-				let minPrice = 0;
-				let maxPrice = 0;
-				if (is_bulk_pricing) {
-					const startRange = bulk_pricing[0]?.range?.split('-')[0];
-					const endRange =
-						bulk_pricing[bulk_pricing?.length - 1]?.range?.split(
-							'-'
-						)[0];
-					minPrice = startRange;
-					maxPrice = endRange;
-				}
+
+				const displayPrice = getDisplayBulkPrice({
+					product_price,
+					is_bulk_pricing,
+					bulk_pricing
+				});
 
 				return (
 					<ProductTile
@@ -40,9 +37,10 @@ const ProductList: React.FC<ProductListProps> = ({
 							country_of_region ? country_of_region[0] : ''
 						}
 						keywords={product.tags || []}
-						productPrice={product.product_price}
-						minPrice={minPrice}
-						maxPrice={maxPrice}
+						productPrice={product_price}
+						displayPrice={displayPrice}
+						// minPrice={minPrice}
+						// maxPrice={maxPrice}
 						alt={product.alt || product.name}
 						minOrderQuantity={
 							product?.inventory?.minimum_order_quantity || 0
