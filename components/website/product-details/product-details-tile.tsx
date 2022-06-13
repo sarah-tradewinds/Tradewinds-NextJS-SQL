@@ -273,7 +273,7 @@ const ProductDetailsTile: React.FC<{
 						})}
 					</div>
 					<p className="text-[21px] font-semibold text-primary-main">
-						Quantity:
+						Quantity: {inventory?.quantity || 0}
 					</p>
 					<p className="text-[21px] text-primary-main">
 						<span className="font-semibold">Customization:</span>{' '}
