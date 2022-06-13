@@ -51,11 +51,17 @@ const ProductDetailsTile: React.FC<{
 	} = product || {};
 
 	let displayPrice = `$${product_price}`;
-	if (is_bulk_pricing && is_bulk_pricing?.length > 0) {
-		const minPrice = bulk_pricing[0]?.range?.split('-')[0];
+	if (is_bulk_pricing && bulk_pricing?.length > 0) {
+		const bulkPricingFirst = bulk_pricing[0]?.price;
 		const bulkPricingLast =
-			bulk_pricing[bulk_pricing?.length - 1]?.range?.split('-');
-		const maxPrice = bulkPricingLast[1] || bulkPricingLast[0];
+			bulk_pricing[bulk_pricing?.length - 1]?.price;
+
+		let minPrice = bulkPricingFirst;
+		let maxPrice = bulkPricingLast;
+		if (bulkPricingFirst > bulkPricingLast) {
+			maxPrice = bulkPricingFirst;
+			minPrice = bulkPricingLast;
+		}
 		displayPrice = `$${minPrice}-$${maxPrice}`;
 	}
 
