@@ -27,7 +27,7 @@ const SimilarProductList: React.FC<SimilarProductListProps> = (
 						<div className="relative h-[205px] w-[240px]">
 							<Image
 								src={
-									similarProduct.images[0].url ||
+									similarProduct?.images[0]?.url ||
 									'/loading-circle-50.png'
 								}
 								alt=""

@@ -5,8 +5,12 @@ import Image from 'next/image';
 import Button from 'components/website/common/form/button';
 import WhyUseRFQTile from 'components/website/common/rfq/why-use-rfq-tile';
 import Seo from 'components/website/common/seo';
+import { useRouter } from 'next/router';
 
 const WhatIsRFQPage: NextPage = () => {
+	const router = useRouter();
+	console.log(router);
+
 	return (
 		<>
 			<Seo title="What is RFQ page" description="" />
