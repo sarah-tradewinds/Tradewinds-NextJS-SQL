@@ -187,14 +187,9 @@ export const getServerSideProps: GetServerSideProps = async ({
 		const productReviews =
 			(await getProductReviewsByProductId(productId)) || [];
 
-		// const productReviews: any[] = [];
-
 		// Fetch seller company Data
 		const seller =
-			(await getSellerDetailsSellerId(
-				// product.seller_id
-				'6290d6eb0eb8951e0540d641' || product.seller_id
-			)) || {};
+			(await getSellerDetailsSellerId(product.seller_id)) || {};
 
 		const similarProducts = await getSimilarProducts(productId);
 

@@ -72,7 +72,9 @@ const CountrySearchFilter: React.FC<{
 							type="checkbox"
 							value={country.country_code}
 							checked={country.isSelected}
-							onChange={() => setSelectedCountryId(country.id)}
+							onChange={() =>
+								setSelectedCountryId(country.country_name)
+							}
 						/>
 						<label
 							htmlFor={country.id}

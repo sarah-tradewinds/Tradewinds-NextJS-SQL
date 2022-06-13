@@ -7,7 +7,7 @@ import Button from '../common/form/button';
 interface CountrySliderProps {
 	countries: {
 		id: string;
-		name: string;
+		country_name: string;
 		slug: string;
 		country_flag: { url: string };
 	}[];
@@ -51,7 +51,7 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 					<Button
 						key={country.id}
 						onClick={() => {
-							if (onCountryClick) onCountryClick(country.id);
+							if (onCountryClick) onCountryClick(country.country_name);
 						}}
 						className="keen-slider__slide h-[80px] w-[180px] px-4"
 					>
