@@ -1,8 +1,9 @@
-import { NextPage } from 'next';
+import { GetStaticProps, GetStaticPropsContext, NextPage } from 'next';
 import Image from 'next/image';
 
 // Third party packages
 import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // components
 import Button from 'components/website/common/form/button';
@@ -10,11 +11,13 @@ import WhyUseRFQTile from 'components/website/common/rfq/why-use-rfq-tile';
 import Seo from 'components/website/common/seo';
 
 const WhatIsRFQPage: NextPage = () => {
-	const { t } = useTranslation();
+	const { t } = useTranslation('what-is-rfq');
+
+	console.log('title', t('title'));
 
 	return (
 		<>
-			<Seo title={t('what-is-rfq:title')} description="" />
+			<Seo title={t('title')} description="" />
 
 			<div className="relative">
 				{/* Header */}
@@ -262,5 +265,15 @@ const WhatIsRFQPage: NextPage = () => {
 		</>
 	);
 };
+
+export const getStaticProps: GetStaticProps = async (
+	ctx: GetStaticPropsContext
+) => ({
+	props: {
+		...(await serverSideTranslations(ctx.locale as string, [
+			'what-is-rfq'
+		]))
+	}
+});
 
 export default WhatIsRFQPage;

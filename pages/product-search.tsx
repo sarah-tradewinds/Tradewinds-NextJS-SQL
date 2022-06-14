@@ -11,7 +11,6 @@ import { useKeenSlider } from 'keen-slider/react';
 // components
 
 import CompareProductList from 'components/website/compare/compare-bottom-overlay/compare-overlay-product-list';
-import MainCategoryCard from 'components/website/product-search/main-category-card';
 import ProductFilter from 'components/website/product-search/product-filter/product-filter';
 import ProductList from 'components/website/product-search/product-list';
 import SubCategoryList from 'components/website/product-search/sub-category-list';
@@ -132,9 +131,6 @@ const ProductSearchPage: NextPage<
 						onMinPriceChange={(minPriceQuantity) =>
 							setMinPrice(minPriceQuantity)
 						}
-						// onCountryChange={(countryIdList) =>
-						//  setSelectedCountryCode(countryIdList)
-						// }
 					/>
 
 					{/* ads */}
@@ -153,14 +149,14 @@ const ProductSearchPage: NextPage<
 					{/* Category and categories list */}
 					<div className="grid grid-cols-12 md:gap-0 md:rounded-md md:bg-white md:p-4 md:shadow-md lg:gap-2">
 						{/* Main category Card */}
-						<div className="col-span-12  md:col-span-3">
+						{/* <div className="col-span-12  md:col-span-3">
 							<MainCategoryCard
 								title={(mainCategory as any)?.title?.en}
 								subtitle={(mainCategory as any)?.description?.en}
 								imageUrl="/static/images/agriculture.png"
 								className="w-screen md:w-auto"
 							/>
-						</div>
+						</div> */}
 						{/* Categories */}
 						<div className="col-span-12 border-gray/20 md:col-span-9 md:ml-4 md:border-l-2 md:pl-4">
 							{mainCategory && (

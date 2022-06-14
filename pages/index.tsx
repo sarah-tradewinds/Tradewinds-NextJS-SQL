@@ -47,8 +47,11 @@ const HomePage: NextPage<
 	} = props;
 
 	// Loading mega-menu data here
-	const fetchCategories = useCategoryStore(
-		(state) => state.fetchCategories
+	const { fetchCategories, removeCategoryFilter } = useCategoryStore(
+		(state) => ({
+			fetchCategories: state.fetchCategories,
+			removeCategoryFilter: state.removeCategoryFilter
+		})
 	);
 
 	const { setSelectedCountryId, fetchCountries } = useCountriesStore(
@@ -129,6 +132,7 @@ const HomePage: NextPage<
 				<CountrySlider
 					countries={homeCountries}
 					onCountryClick={(countryId) => {
+						removeCategoryFilter();
 						setSelectedCountryId(countryId);
 						router.push('/product-search');
 					}}

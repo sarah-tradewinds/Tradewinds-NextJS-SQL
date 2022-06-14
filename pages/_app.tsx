@@ -1,7 +1,11 @@
-import Layout from 'components/website/common/layout';
-import { appWithTranslation } from 'next-i18next';
 import type { AppProps } from 'next/app';
+
+// Third party packages
+import { appWithTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
+
+// components
+import Layout from 'components/website/common/layout';
 
 // styles
 import 'keen-slider/keen-slider.min.css';

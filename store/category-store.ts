@@ -3,11 +3,11 @@ import { getCategories } from 'lib/common.lib';
 import create from 'zustand';
 
 // const c = {
-// 	['categoryId']: {
-// 		['subCategoryId1']: [],
-// 		['subCategoryId2']: [],
-// 		['subCategoryId3']: []
-// 	}
+//  ['categoryId']: {
+//    ['subCategoryId1']: [],
+//    ['subCategoryId2']: [],
+//    ['subCategoryId3']: []
+//  }
 // };
 
 interface CategoryState {
@@ -33,6 +33,7 @@ interface CategoryState {
 		mainCategoryId: string,
 		categoryId: string
 	) => any;
+	removeCategoryFilter: () => any;
 }
 
 const updateElementByIndex = (
@@ -61,11 +62,31 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 		categoryId?: string
 	) => {
 		set({ isLoading: true });
-		const categories = await getCategories();
+
+		let encodedCategories;
+		if (typeof window !== 'undefined') {
+			encodedCategories = localStorage.getItem('categories');
+		}
+
+		let categories: any[] = [];
+		if (encodedCategories) {
+			categories = JSON.parse(encodedCategories);
+		}
+
+		// Fetching from backend if locally not available
+		if (!encodedCategories) {
+			categories = await getCategories();
+			localStorage.setItem('categories', JSON.stringify(categories));
+		}
+
 		const defaultMainCategory = categories[0];
 		let ids = {};
 		let defaultCategoryId = '';
-		if (defaultMainCategory?.category[0]) {
+		if (
+			defaultMainCategory &&
+			defaultMainCategory.category &&
+			defaultMainCategory.category[0]
+		) {
 			defaultCategoryId = defaultMainCategory?.category[0]?.id;
 			ids = {
 				[defaultCategoryId]: {}
@@ -128,6 +149,7 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 				selectedMainCategoryId !== mainCategoryId ? mainCategoryId : '';
 
 			localStorage.setItem('main_category', newMainCategoryId);
+			localStorage.removeItem('category');
 
 			return {
 				selectedMainCategoryId: newMainCategoryId,
@@ -224,7 +246,26 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 			};
 
 			return { ids };
-		})
+		}),
+	removeCategoryFilter: () => {
+		localStorage.removeItem('main_category');
+		localStorage.removeItem('category');
+		set((state) => {
+			const categories = state.categories.map((mainCategory) => {
+				mainCategory.isSelected = false;
+				mainCategory.category?.map((categoryData: any) => {
+					categoryData.isSelected = false;
+				});
+				return mainCategory;
+			});
+
+			return {
+				categories,
+				selectedMainCategoryId: '',
+				ids: {}
+			};
+		});
+	}
 }));
 
 export const getMainCategoryById = (

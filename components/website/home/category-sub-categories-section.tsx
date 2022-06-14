@@ -138,8 +138,8 @@ const CategorySubCategoriesSection: React.FC<
 								: category.title
 						}
 						onClick={() => {
+							setSelectedMainCategoryId(category.id!);
 							router.push('/product-search');
-							localStorage.setItem('main_category', category.id!);
 						}}
 						description={category.desc}
 						buttonText={category.btnTxt}
