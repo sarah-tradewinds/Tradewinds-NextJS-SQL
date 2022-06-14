@@ -54,16 +54,20 @@ const HomePage: NextPage<
 		})
 	);
 
-	const { setSelectedCountryId, fetchCountries } = useCountriesStore(
-		(state) => ({
-			setSelectedCountryId: state.setSelectedCountryId,
-			fetchCountries: state.fetchCountries
-		})
-	);
+	const {
+		setSelectedCountryId,
+		fetchCountries,
+		removeSelectedCountries
+	} = useCountriesStore((state) => ({
+		setSelectedCountryId: state.setSelectedCountryId,
+		fetchCountries: state.fetchCountries,
+		removeSelectedCountries: state.removeSelectedCountries
+	}));
 
 	useEffect(() => {
 		fetchCategories();
 		fetchCountries(homeCountries);
+		removeSelectedCountries();
 	}, []);
 
 	const searchCategoriesBanner = (

@@ -7,6 +7,7 @@ interface CountryState {
 	selectedCountryIds: string[];
 	setSelectedCountryId: (newCountryCode: string) => any;
 	fetchCountries: (countryList?: []) => any;
+	removeSelectedCountries: () => any;
 }
 
 export const useCountriesStore = create<CountryState>((set) => ({
@@ -46,5 +47,14 @@ export const useCountriesStore = create<CountryState>((set) => ({
 			? await getCountries()
 			: countryList || [];
 		set({ countries });
-	}
+	},
+	removeSelectedCountries: () =>
+		set((state) => {
+			const countries = state.countries.map((country: any) => {
+				country.isSelected = country.isSelected || false;
+				return country;
+			});
+
+			return { countries, selectedCountryIds: [] };
+		})
 }));
