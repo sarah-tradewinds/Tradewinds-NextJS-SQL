@@ -1,4 +1,4 @@
-import { GetStaticProps, GetStaticPropsContext, NextPage } from 'next';
+import { GetStaticProps, NextPage } from 'next';
 import Image from 'next/image';
 
 // Third party packages
@@ -12,8 +12,6 @@ import Seo from 'components/website/common/seo';
 
 const WhatIsRFQPage: NextPage = () => {
 	const { t } = useTranslation('what-is-rfq');
-
-	console.log('title', t('title'));
 
 	return (
 		<>
@@ -266,12 +264,11 @@ const WhatIsRFQPage: NextPage = () => {
 	);
 };
 
-export const getStaticProps: GetStaticProps = async (
-	ctx: GetStaticPropsContext
-) => ({
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
 	props: {
-		...(await serverSideTranslations(ctx.locale as string, [
-			'what-is-rfq'
+		...(await serverSideTranslations(locale || 'en', [
+			'common',
+			'footer'
 		]))
 	}
 });
