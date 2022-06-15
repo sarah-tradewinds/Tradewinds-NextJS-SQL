@@ -16,15 +16,6 @@ import {
 const WhySellOnTradewindsPage: NextPage = () => {
 	const { t } = useTranslation('why_sell_on_tw');
 
-	// Tmp
-	const str = (payload: string) =>
-		payload.replaceAll(' ', '_').toLowerCase();
-	console.log(
-		str(
-			`Understand the state of your category and which products perform best through demand analysis, trend analysis price comparisons, and more.`
-		)
-	);
-
 	const leftSideClassName =
 		'md:pr-4 lg:pr-0 border-b lg:border-b-0 border-gray/40 pb-8 lg:pb-0';
 

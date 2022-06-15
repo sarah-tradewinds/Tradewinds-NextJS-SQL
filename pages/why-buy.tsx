@@ -1,3 +1,10 @@
+import { GetStaticProps, NextPage } from 'next';
+
+// Third party packages
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
+// components
 import Button from 'components/website/common/form/button';
 import Seo from 'components/website/common/seo';
 import {
@@ -5,9 +12,15 @@ import {
 	WhyBuyOperationTile
 } from 'components/website/common/why-buy/why-buy-operation-tile';
 import WhyBuyTile from 'components/website/common/why-buy/why-buy-tile';
-import { NextPage } from 'next';
 
 const WhyBuyPage: NextPage = () => {
+	const { t } = useTranslation('why_buy');
+
+	// Tmp
+	const str = (payload: string) =>
+		payload.replaceAll(' ', '_').toLowerCase();
+	console.log(str(`Start/grow your business with confidence.`));
+
 	return (
 		<>
 			<Seo title="Why buy page" description="" />
@@ -18,54 +31,52 @@ const WhyBuyPage: NextPage = () => {
 					<div className="flex justify-end p-16">
 						<div className="md:w-1/2">
 							<h1 className="text-[35px] font-semibold text-white md:text-[40px] lg:w-3/4 lg:text-[50px] lg:leading-[51px] lg:text-gray">
-								Why BUY on Tradewinds Marketplace?
+								{t('why_buy_on_tradewinds_marketplace')}
 							</h1>
 							{/* Content */}
 							<div className="hidden grid-cols-2 gap-4 lg:grid">
 								<div className="w-80">
 									<h2 className="text-accent-primary-main">
-										Verified Sellers
+										{t('verified_sellers')}
 									</h2>
 									<p className="text-sm">
-										Wide assortment of product from reliable sellers in
-										multiple industries.
+										{t(
+											'wide_assortment_of_product_from_reliable_sellers_in'
+										)}
 									</p>
 								</div>
 								<div className="w-80">
 									<h2 className="text-accent-primary-main">
-										Buy with confidence
+										{t('buy_with_confidence')}
 									</h2>
 									<p className="text-sm">
-										Buying from a new seller over the internet can feel
-										a bit risky at first. TWMP.com uses several tools
-										and protocols to make sure that you get what you
-										ordered.
+										{t(
+											'buying_from_a_new_seller_over_the_internet_can_feel_a_bit_risky_at_first'
+										)}
 									</p>
 								</div>
 								<div className="w-80">
 									<h2 className="text-accent-primary-main">
-										Net Terms
+										{t('net_terms')}
 									</h2>
 									<p className="text-sm">
-										TWMP offers Real-time financing assessment within
-										seconds for each buyer covering $30k+ through secure
-										lending institutions.
+										{t('twmp_offers_real_time_financing ')}
 									</p>
 								</div>
 								<div className="w-80">
 									<h2 className="text-accent-primary-main">
-										Cost-effective
+										{t('cost_effective')}
 									</h2>
 									<p className="text-sm">
-										Lower cost to maximize your profit
+										{t('lower_cost_to_maximize_your_profit')}
 									</p>
 								</div>
 								<div className="w-80">
 									<h2 className="text-accent-primary-main">
-										Bring your ideas to life
+										{t('bring_your_ideas_to_life')}
 									</h2>
 									<p className="text-sm">
-										Start/grow your business with confidence.
+										{t('start_grow_your_business_with_confidence')}
 									</p>
 								</div>
 								<div className="w-80">
@@ -401,5 +412,11 @@ const WhyBuyPage: NextPage = () => {
 		</>
 	);
 };
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+	props: {
+		...(await serverSideTranslations(locale || 'en'))
+	}
+});
 
 export default WhyBuyPage;
