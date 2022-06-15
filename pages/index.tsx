@@ -6,6 +6,10 @@ import {
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
+// Third party packages
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
 // components
 import Button from 'components/website/common/form/button';
 import Seo from 'components/website/common/seo';
@@ -54,6 +58,8 @@ const HomePage: NextPage<
 		})
 	);
 
+	const { t } = useTranslation();
+
 	const {
 		setSelectedCountryId,
 		fetchCountries,
@@ -73,10 +79,10 @@ const HomePage: NextPage<
 	const searchCategoriesBanner = (
 		<div className="flex items-center justify-center bg-accent-primary-main p-4 text-white dark:bg-accent-primary-eco md:p-8 xl:p-14">
 			<h3 className="text-[21px] leading-[26px] md:mr-8 md:text-[48px] md:leading-[44px] lg:whitespace-nowrap xl:text-[72px]">
-				Search from 6,500 categories
+				{t('home:search_from_6500_categories')}
 			</h3>
 			<Button variant="special" className="whitespace-nowrap !px-4">
-				Search More
+				{t('common:search_more')}
 				{' >'}
 			</Button>
 		</div>
@@ -88,7 +94,10 @@ const HomePage: NextPage<
 
 	return (
 		<>
-			<Seo title="Home page" description="" />
+			<Seo
+				title={t('home:meta_title')}
+				description={t('home:meta_description')}
+			/>
 			<Hero
 				hcd={heroCarousels}
 				cardAList={cardAList}
@@ -159,7 +168,9 @@ const HomePage: NextPage<
 export default HomePage;
 
 // Static Props
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({
+	locale
+}) => {
 	try {
 		const heroCarousels = await getHeroCarousels();
 		const cardAList = await getCardAList();
@@ -175,15 +186,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
 				cardBData,
 				homeCategories: homeCategories ?? [],
 				homeCountries,
-				homeAdvertisments
-
-				// TMP
-				// heroCarousels: [],
-				// cardAList: [],
-				// cardBData: {},
-				// homeCategories: [],
-				// homeCountries: [],
-				// homeAdvertisments: []
+				homeAdvertisments,
+				...(await serverSideTranslations(locale || 'en'))
 			}
 		};
 	} catch (error) {

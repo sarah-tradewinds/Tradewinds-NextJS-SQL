@@ -21,6 +21,7 @@ import {
 	BUYER_DASHBOARD_PAGES,
 	generateBuyerDashboardUrl
 } from 'data/buyer/buyer-actions';
+import { useTranslation } from 'next-i18next';
 import {
 	AiOutlineDashboard,
 	AiOutlineShoppingCart
@@ -39,6 +40,8 @@ const Header = () => {
 	} = useAuthStore();
 	const [isOpen, setIsOpen] = useState(false);
 	const [showLogout, setShowLogout] = useState(false);
+
+	const { t } = useTranslation('navigation');
 
 	const buttonRef = useRef(null); // useRef<HTMLButtonElement>(null)
 
@@ -108,7 +111,7 @@ const Header = () => {
 					<input
 						type="search"
 						id="searchBar"
-						placeholder="Product Search Placeholder"
+						placeholder={t('search_product')}
 						aria-label="Search"
 						className="h-full w-[82%] border-none pl-2 pr-2 outline-none lg:w-[95%] lg:pl-4"
 					/>
@@ -134,7 +137,8 @@ const Header = () => {
 											setShowLogout(false);
 										}}
 									>
-										<FiLogOut size={20} className="mr-2" /> Logout
+										<FiLogOut size={20} className="mr-2" />{' '}
+										{t('logout_text')}
 									</div>
 								</div>
 							)}
@@ -167,7 +171,7 @@ const Header = () => {
 								<div className="flex items-center justify-center text-center">
 									<BiMessageDetail size={35} />
 								</div>
-								<p className="w-24">Submit RFQ</p>
+								<p className="w-24">{t('submit_rfq_text')}</p>
 							</Button>
 						</div>
 					</div>
@@ -178,14 +182,14 @@ const Header = () => {
 							className="rounded-sm border-[1px] bg-transparent px-5 py-2 text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary"
 							onClick={setIsSignUpOpen}
 						>
-							Sign Up
+							{t('sign_up_text')}
 						</button>
 						<button
 							type="button"
 							className="rounded-sm border-[1px] border-secondary bg-secondary px-5 py-2 text-white transition duration-300 ease-in-out hover:border-white hover:bg-transparent"
 							onClick={setIsLoginOpen}
 						>
-							Log In
+							{t('log_in_text')}
 						</button>
 					</div>
 				)}
@@ -217,7 +221,7 @@ const Header = () => {
 										}
 										className="font-semibold text-primary-main outline-none dark:text-accent-secondary-eco"
 									>
-										Categories{' '}
+										{t('categories_text')}{' '}
 										<span className="hidden md:inline">&gt;</span>
 									</Popover.Button>
 
@@ -259,7 +263,7 @@ const Header = () => {
 									height={20}
 									className=""
 								/>
-								Eco
+								{t('eco_text')}
 							</a>
 						</Link>
 
@@ -269,30 +273,30 @@ const Header = () => {
 								id="bg-eco"
 								onClick={drawerHandler}
 							>
-								Eco
+								{t('eco_text')}
 							</a>
 						</Link>
 						<Link href="/why-sell-on-tradewinds">
 							<a onClick={drawerHandler} className="nav-link">
-								Why Sell on TW?
+								{t('why_sell_on_tw_text')}
 							</a>
 						</Link>
 
 						<Link href="/why-buy">
 							<a onClick={drawerHandler} className="nav-link">
-								Why Buy?
+								{t('why_buy_text')}
 							</a>
 						</Link>
 
 						<Link href="/search-by-country">
 							<a onClick={drawerHandler} className="nav-link">
-								Search by Country
+								{t('search_by_country_text')}
 							</a>
 						</Link>
 
 						<Link href="what-is-rfq">
 							<a onClick={drawerHandler} className="nav-link">
-								What is a RFQ?
+								{t('what_is_a_rfq_text')}
 							</a>
 						</Link>
 					</nav>

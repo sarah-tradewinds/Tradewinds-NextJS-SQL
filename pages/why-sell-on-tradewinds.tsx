@@ -1,3 +1,11 @@
+import { GetStaticProps, NextPage } from 'next';
+import Image from 'next/image';
+
+// Third party packages
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
+// components
 import Button from 'components/website/common/form/button';
 import Seo from 'components/website/common/seo';
 import {
@@ -5,10 +13,21 @@ import {
 	WhyBuyOperationTile
 } from 'components/website/common/why-buy/why-buy-operation-tile';
 
-import { NextPage } from 'next';
-import Image from 'next/image';
-
 const WhySellOnTradewindsPage: NextPage = () => {
+	const { t } = useTranslation('why_sell_on_tw');
+
+	// Tmp
+	const str = (payload: string) =>
+		payload.replaceAll(' ', '_').toLowerCase();
+	console.log(
+		str(
+			`Understand the state of your category and which products perform best through demand analysis, trend analysis price comparisons, and more.`
+		)
+	);
+
+	const leftSideClassName =
+		'md:pr-4 lg:pr-0 border-b lg:border-b-0 border-gray/40 pb-8 lg:pb-0';
+
 	return (
 		<>
 			<Seo title="Why sell on tradewinds page" description="" />
@@ -19,21 +38,23 @@ const WhySellOnTradewindsPage: NextPage = () => {
 
 					<div className="absolute left-20 top-8 z-[50] text-white lg:top-32 lg:w-1/2">
 						<h1 className="text-[35px] font-semibold md:text-[40px] lg:text-[50px] ">
-							Why Sell on Tradewinds Marketplace?
+							{t('why_sell_on_tradewinds_marketplace')}
 						</h1>
 						<div className="hidden space-y-2 font-semibold md:block md:text-[16px] lg:text-[25px]">
-							<p>Unified Trading Experience</p>
+							<p>{t('unified_trading_experience')}</p>
 							<p>
-								Platform that helps Small and medium-sized enterprises
-								go global
+								{t(
+									'platform_that_helps_small_and_medium_sized_enterprises_go_global'
+								)}
 							</p>
 							<p>
-								Connect with millions of business buyers from around the
-								world
+								{t(
+									'connect_with_millions_of_business_buyers_from_around_the_world'
+								)}
 							</p>
 						</div>
 						<Button variant="buyer" className="mt-8">
-							Join Now
+							{t('common:join_now')}
 						</Button>
 					</div>
 				</div>
@@ -42,33 +63,31 @@ const WhySellOnTradewindsPage: NextPage = () => {
 				<div className="space-y-4">
 					<div className="p-4 text-center md:p-8">
 						<h2 className="text-[24px] font-semibold text-primary-main md:text-[40px] lg:text-[50px]">
-							Power is in the Number
+							{t('power_is_in_the_number')}
 						</h2>
 						<p className="25px font-semibold text-primary-main">
-							Let the sellers come to you
+							{t('let_the_sellers_come_to_you')}
 						</p>
 						<p className="text-[12px] text-gray md:text-[15px]">
-							Detail what you`&apos;`re looking for and share it in the
-							Request for Quotation (RFQ) marketplace. You`&apos;`ll get
-							quotes from multiple sellers - often in 24 hours or less!
+							{t('detail_what_youre_looking_for_and_share')}
 						</p>
 					</div>
 					<div className="space-y-4 md:bg-white md:p-8">
 						<div className="flex flex-wrap justify-center text-primary-main">
 							<div>
 								<h3 className="text-[40px] lg:text-[50px]">
-									Stand Alone vs.
+									{t('stand_alone_vs')}
 								</h3>
 								<p className="hidden w-56 text-[14px] md:block">
-									Building a site with similar feature as TWMP
+									{t('building_a_site_with_similar_feature_as_twmp')}
 								</p>
 							</div>
 							<div>
 								<h3 className="text-[40px] lg:text-[50px]">
-									Tradewinds
+									{t('common:tradewinds')}
 								</h3>
 								<p className="hidden w-56 text-[14px] md:block">
-									Membership of TradeWinds MP
+									{t('membership_of_tradewinds_mp')}
 								</p>
 							</div>
 						</div>
@@ -210,19 +229,20 @@ const WhySellOnTradewindsPage: NextPage = () => {
 					<div className="z-2 absolute inset-0">
 						<div className="space-y-8 py-8 px-8 md:px-24">
 							<h2 className="text-center text-[27px] font-semibold text-white md:text-[40px] lg:text-[50px]">
-								Why Sell in the Western Hemisphere?
+								{t('why_sell_in_the_western_hemisphere')}
 							</h2>
 							<div className="grid grid-cols-1 gap-8 md:grid-cols-2">
 								<div className="flex flex-col items-center text-center">
 									<h3 className="text-[50px] font-semibold text-secondary md:text-[55px] lg:text-[99px]">
-										331 Million
+										{t('331_million')}
 									</h3>
 									<p className="-mt-4 text-[18px] font-semibold text-white md:text-[20px] lg:text-[25px]">
-										Largest Market
+										{t('largest_market')}
 									</p>
 									<p className="text-[12px] text-white md:text-[16px] lg:text-[18px]">
-										The US has an open consumer market of over 331
-										million Americans
+										{t(
+											'the_us_has_an_open_consumer_market_of_over_331_million_americans'
+										)}
 									</p>
 								</div>
 								<div className="flex flex-col items-center text-center">
@@ -234,12 +254,12 @@ const WhySellOnTradewindsPage: NextPage = () => {
 										/>
 									</div>
 									<p className="mt-4 text-[18px]  font-semibold text-white md:text-[20px] lg:text-[25px]">
-										Diversity
+										{t('diversity')}
 									</p>
 									<p className="text-[12px] text-white md:text-[16px] lg:text-[18px]">
-										The US market is diverse with a range of income
-										levels and consumer tastes, meaning demand for a
-										wide range of goods and services
+										{t(
+											'the_us_has_an_open_consumer_market_of_over_331_million_americans'
+										)}
 									</p>
 								</div>
 								<div className="flex flex-col items-center text-center">
@@ -251,30 +271,32 @@ const WhySellOnTradewindsPage: NextPage = () => {
 										/>
 									</div>
 									<p className="mt-4 font-semibold text-white md:text-[20px] lg:text-[25px]">
-										Free Trade
+										{t('free_trade')}
 									</p>
 									<p className=" text-white md:text-[16px] lg:text-[18px]">
-										There are more than 100 regional trade agreements in
-										the Western Hemisphere. The U.S. currently has 14
-										Free Trade Agreements with 20 countries
+										{t(
+											'there_are_more_than_100_regional_trade_agreements_in_the_western_hemisphere._the_u.s._currently_has_14_free_trade_agreements_with_20_countries'
+										)}
 									</p>
 								</div>
 								<div className="text-center">
 									<h3 className="text-[50px] font-semibold text-secondary md:text-[55px] lg:text-[99px]">
-										$1.9 Trillion
+										{t('1_point_9_trillion')}
 									</h3>
 									<p className="-mt-4 text-[18px]  font-semibold text-white md:text-[20px] lg:text-[25px]">
-										Active Buyers
+										{t('active_buyers')}
 									</p>
 									<p className="text-[12px] text-white md:text-[16px] lg:text-[18px]">
-										The US has an active internet user base of 284
-										million, 256 million active digital buyers and a B2B
-										e-Commerce market size of $1.9 trillion
+										{t(
+											'the_us_has_an_active_internet_user_base_of_284_million'
+										)}
 									</p>
 								</div>
 							</div>
 							<div className="flex justify-center">
-								<Button variant="special">Join Now</Button>
+								<Button variant="special">
+									{t('common:join_now')}
+								</Button>
 							</div>
 						</div>
 					</div>
@@ -285,208 +307,251 @@ const WhySellOnTradewindsPage: NextPage = () => {
 					<div className="space-y-8 p-4 text-center text-primary-main md:p-8">
 						<div>
 							<h2 className="text-[24px] font-semibold md:text-[40px] lg:text-[50px]">
-								B2B tools to simplify your operations
+								{t('b2b_tools_to_simplify_your_operations')}
 							</h2>
 							<p className="text-[18px] md:font-semibold lg:text-[25px]">
-								Innovative digital tools that transform the wholesale
-								experience
+								{t(
+									'innovative_digital_tools_that_transform_the_wholesale_experience'
+								)}
 							</p>
 						</div>
-						<Button variant="buyer">Buy Now</Button>
+						<Button variant="buyer">{t('common:buy_now')}</Button>
 					</div>
 
 					<div className="space-y-8">
 						<WhyBuyOperationTile
 							imageUrl="/static/images/why-sell-on-tradewinds-images/custom-store-front.png"
-							title="Custom Storefront Set up a store that showcases your products."
+							title={t(
+								'custom_storefront_set_up_a_store_that_showcases_your_products'
+							)}
 							className="pl-8"
-							containerClassName="md:pr-4 lg:pr-0 border-b lg:border-b-0 border-gray/40 pb-8 lg:pb-0"
+							containerClassName={leftSideClassName}
 						>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/why-sell-on-tradewinds-images/store-front.png"
-								title="Digital Storefront"
-								subtitle="Create a digital identity that helps you brand your business and showcase your capabilities - no design or coding required."
+								title={t('digital_storefront')}
+								subtitle={t(
+									'create_a_digital_identity_that_helps_you_brand_your_business_and_showcase_your_capabilities'
+								)}
 								className="-ml-4 pt-4 md:-ml-0"
 								imgClassName="hidden md:block"
 							/>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/why-sell-on-tradewinds-images/smart-product-posting.png"
-								title="Smart product posting"
-								subtitle="Optimize your product listings for SEO with posting suggestions based on  titles, keywords, and more."
+								title={t('smart_product_posting')}
+								subtitle={t(
+									'optimize_your_product_listings_for_seo_with_posting_suggestions_based_on__titles'
+								)}
 								imgClassName="hidden md:block"
 								className="-ml-4 pt-4 md:-ml-0"
 							/>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/why-sell-on-tradewinds-images/dynamic-pricing.png"
-								title="Dynamic Pricing"
-								subtitle="Negotiate pricing with seller, browse multiple ladder pricing options, and [MOQs] Minimum Order Quantities to optimize each individual sale."
+								title={t('dynamic_pricing')}
+								subtitle={t('negotiate_pricing_with_seller')}
 								imgClassName="hidden md:block"
 								className="-ml-4 pt-4 md:-ml-0"
 							/>
 						</WhyBuyOperationTile>
 						<WhyBuyOperationTile
 							imageUrl="/static/images/why-sell-on-tradewinds-images/communication-center.png"
-							title="Communication Center"
-							subtitle="Connect freely to build lasting relationships"
+							title={t('communication_center')}
+							subtitle={t(
+								'connect_freely_to_build_lasting_relationships'
+							)}
 							className="pl-8"
 							containerClassName="md:pr-4 lg:pr-0 lg:flex-row-reverse border-b lg:border-b-0 border-gray/40 pb-8 lg:pb-0"
 						>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/why-sell-on-tradewinds-images/messaging-center.png"
-								title="Messaging Center"
-								subtitle="Interact with customers on your terms and  to foster loyalty and repeat sales and track leads and orders all in one place"
+								title={t('common:messaging_center')}
+								subtitle={t(
+									'interact_with_customers_on_your_terms_and__to_foster_loyalty_and_repeat_sales_and_track_leads_and_orders_all_in_one_place'
+								)}
 								className="-ml-4 pt-4 md:-ml-0"
 								imgClassName="hidden md:block"
 							/>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/why-sell-on-tradewinds-images/translation-tool.png"
-								title="Translation tools"
-								subtitle="Communicate seamlessly with conversations translated into  choice languages, so you can sell to a global buyer base."
+								title={t('translation_tools')}
+								subtitle={t(
+									'communicate_seamlessly_with_conversations_translated_into__choice_languages'
+								)}
 								className="-ml-4 pt-4 md:-ml-0"
 								imgClassName="hidden md:block"
 							/>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/why-sell-on-tradewinds-images/rfq-icon.png"
-								title="Request for Quotation (RFQ)"
-								subtitle="Post a RFQ and proactively find and connect with sellers with products you are sourcing."
+								title={t('common:request_for_quotation_rfq')}
+								subtitle={t(
+									'post_a_rfq_and_proactively_find_and_connect_with_sellers_with_products_you_are_sourcing'
+								)}
 								className="-ml-4 pt-4 md:-ml-0"
 								imgClassName="hidden md:block"
 							/>
 						</WhyBuyOperationTile>
 						<WhyBuyOperationTile
 							imageUrl="/static/images/why-sell-on-tradewinds-images/rfq.png"
-							title="Request for Quotation (RFQ)"
-							subtitle="Create a digital storefront and get your brand seen globally - no coding skills required."
+							title={t('common:request_for_quotation_rfq')}
+							subtitle={t(
+								'create_a_digital_storefront_and_get_your_brand_seen_globally'
+							)}
 							className="pl-8"
-							containerClassName="md:pr-4 lg:pr-0 lg:flex-row-reverse border-b lg:border-b-0 border-gray/40 pb-8 lg:pb-0"
+							containerClassName={leftSideClassName}
 						>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/why-sell-on-tradewinds-images/store-front.png"
-								title="Digital Storefront"
-								subtitle="Create a digital identity that helps you brand your business and showcase your capabilities - no design or coding required."
+								title={t('digital_storefront')}
+								subtitle={t(
+									'create_a_digital_identity_that_helps_you_brand_your_business_and_showcase_your_capabilities'
+								)}
 								className="-ml-4 pt-4 md:-ml-0"
 								imgClassName="hidden md:block"
 							/>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/why-sell-on-tradewinds-images/smart-product-posting.png"
-								title="Smart product posting"
-								subtitle="Optimize your product listings for SEO with posting suggestions based on  titles, keywords, and more."
+								title={t('smart_product_posting')}
+								subtitle={t(
+									'optimize_your_product_listings_for_seo_with_posting_suggestions_based_on__titles'
+								)}
 								className="-ml-4 pt-4 md:-ml-0"
 								imgClassName="hidden md:block"
 							/>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/why-sell-on-tradewinds-images/dynamic-pricing.png"
-								title="Dynamic Pricing"
-								subtitle="Negotiate pricing with seller, browse multiple ladder pricing options, and [MOQs] Minimum Order Quantities to optimize each individual sale."
+								title={t('dynamic_pricing')}
+								subtitle={t('negotiate_pricing_with_seller')}
 								className="-ml-4 pt-4 md:-ml-0"
 								imgClassName="hidden md:block"
 							/>
 						</WhyBuyOperationTile>
 						<WhyBuyOperationTile
 							imageUrl="/static/images/why-sell-on-tradewinds-images/marketing.png"
-							title="Marketing"
-							subtitle="Find the right buyers for your products and market directly to them with tools to increase exposure and conversions."
+							title={t('marketing')}
+							subtitle={t(
+								'find_the_right_buyers_for_your_products_and_market_directly_to_them_with_tools_to_increase_exposure_and_conversions'
+							)}
 							className="pl-8"
 							containerClassName="md:pr-4 lg:pr-0 lg:border-b-0 border-gray/40 pb-8 lg:pb-0 lg:flex-row-reverse border-b"
 						>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/why-sell-on-tradewinds-images/sponsored-campaigns.png"
-								title="Sponsored campaigns"
-								subtitle="Increase traffic to your storefront and create interest for your products."
+								title={t('sponsored_campaigns')}
+								subtitle={t(
+									'increase_traffic_to_your_storefront_and_create_interest_for_your_products'
+								)}
 								className="-ml-4 pt-4 md:-ml-0"
 								imgClassName="hidden md:block"
 							/>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/why-sell-on-tradewinds-images/keyword-advertising.png"
-								title="Keyword Advertising"
-								subtitle="Keyword Advertising is a value added service available to TWMP Members. This is a Precision Marketing Service With Massive Exposure"
+								title={t('keyword_advertising')}
+								subtitle={t(
+									'keyword_advertising_is_a_value_added_service_available_to_twmp_members'
+								)}
 								className="-ml-4 pt-4 md:-ml-0"
 								imgClassName="hidden md:block"
 							/>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/why-sell-on-tradewinds-images/pay-by-click.png"
-								title="Pay by Click "
-								subtitle="Pay only when a buyer clicks on your product."
+								title={t('pay_by_click')}
+								subtitle={t(
+									'pay_only_when_a_buyer_clicks_on_your_product'
+								)}
 								className="-ml-4 pt-4 md:-ml-0"
 								imgClassName="hidden md:block"
 							/>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/why-sell-on-tradewinds-images/budget-control.png"
-								title="Budget Control"
-								subtitle="Meet your advertising expectations according to your desired budget. "
+								title={t('budget_control')}
+								subtitle={t(
+									'meet_your_advertising_expectations_according_to_your_desired_budget'
+								)}
 								className="-ml-4 pt-4 md:-ml-0"
 								imgClassName="hidden md:block"
 							/>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/why-sell-on-tradewinds-images/analytics.png"
-								title="Analytics"
-								subtitle="Meet your advertising expectations according to your desired budget."
+								title={t('common:analytics')}
+								subtitle={t(
+									'meet_your_advertising_expectations_according_to_your_desired_budget'
+								)}
 								className="-ml-4 pt-4 md:-ml-0"
 								imgClassName="hidden md:block"
 							/>
 						</WhyBuyOperationTile>
 						<WhyBuyOperationTile
 							imageUrl="/static/images/why-sell-on-tradewinds-images/order-management.png"
-							title="Order Management"
+							title={t('order_management')}
 							subtitle={
 								<>
-									<p>Manage every step in one place</p>
+									<p>{t('manage_every_step_in_one_place')}</p>
 									<p className="text-[18px]">
-										Take advantage of on-platform tools that ensure a
-										simple, seamless process for you and your buyers
+										{t('take_advantage_of_on')}
 									</p>
 								</>
 							}
 							className="pl-8"
-							containerClassName="md:pr-4 lg:pr-0 lg:border-b-0 border-gray/40 pb-8 lg:pb-0 lg:flex-row-reverse border-b"
+							containerClassName={leftSideClassName}
 						>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/why-sell-on-tradewinds-images/invoice.png"
-								title="Invoice Creation "
-								subtitle="Send beautifully branded invoices with minimum effort and maximum professionalism"
+								title={t('invoice_creation')}
+								subtitle={t(
+									'send_beautifully_branded_invoices_with_minimum_effort_and_maximum_professionalism'
+								)}
 								className="-ml-4 pt-4 md:-ml-0"
 								imgClassName="hidden md:block"
 							/>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/why-sell-on-tradewinds-images/processing-protection.png"
-								title="Processing Protection"
-								subtitle="Accept secure customer payments through TWMP.com enabling confidence through buyer and seller"
+								title={t('processing_protection')}
+								subtitle={t(
+									'accept_secure_customer_payments_through_twmp'
+								)}
 								className="-ml-4 pt-4 md:-ml-0"
 								imgClassName="hidden md:block"
 							/>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/why-sell-on-tradewinds-images/payments.png"
-								title="Payments"
-								subtitle="Facilitate secure payments through financing services, wire transfer, credit card, or ACH, and transfer funds into your personal account to get paid."
-								className="-ml-4 pt-4 md:-ml-0"
+								title={t('payments')}
+								subtitle={t(
+									'facilitate_secure_payments_through_financing_services'
+								)}
 								imgClassName="hidden md:block"
 							/>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/why-sell-on-tradewinds-images/logistics-and-fulfillment.png"
-								title="Logistics and Fulfillment"
-								subtitle="Leverage flexible shipping rates that enable you to use TWMP.com Shipping or your own logistics provider for quotes and fulfillment. "
+								title={t('common:logistics_and_fulfillment')}
+								subtitle={t(
+									'leverage_flexible_shipping_rates_that_enable_you_to_use_twmp'
+								)}
 								className="-ml-4 pt-4 md:-ml-0"
 								imgClassName="hidden md:block"
 							/>
 						</WhyBuyOperationTile>
 						<WhyBuyOperationTile
 							imageUrl="/static/images/why-sell-on-tradewinds-images/marketing.png"
-							title="Analytics"
-							subtitle="Continuously improve your store and sales"
+							title={t('common:analytics')}
+							subtitle={t('continuously_improve_your_store_and_sales')}
 							className="pl-8"
 							containerClassName="md:pr-4 lg:pr-0 lg:flex-row-reverse border-b lg:border-b-0 border-gray/40 pb-8 lg:pb-0"
 						>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/why-sell-on-tradewinds-images/dashboards.png"
-								title="Dashboards"
-								subtitle="IVisualize your store’s metrics and historical data, and get intelligent suggestions based on platform information."
+								title={t('dashboards')}
+								subtitle={t(
+									'i_visualize_your_store’s_metrics_and_historical_data'
+								)}
 								className="-ml-4 pt-4 md:-ml-0"
 								imgClassName="hidden md:block"
 							/>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/why-sell-on-tradewinds-images/industry-analytics.png"
-								title="Industry analytics"
-								subtitle="Understand the state of your category and which products perform best through demand analysis, trend analysis price comparisons, and more."
+								title={t('industry_analytics')}
+								subtitle={t(
+									'understand_the_state_of_your_category_and_which_products_perform_best_through_demand_analysis'
+								)}
 								className="-ml-4 pt-4 md:-ml-0"
 								imgClassName="hidden md:block"
 							/>
@@ -497,5 +562,11 @@ const WhySellOnTradewindsPage: NextPage = () => {
 		</>
 	);
 };
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+	props: {
+		...(await serverSideTranslations(locale || 'en'))
+	}
+});
 
 export default WhySellOnTradewindsPage;

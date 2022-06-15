@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "i18nexus pull -k KYl5RHeh0RyfeqoMFp1iPw && next dev",
-    "build": "i18nexus pull -k KYl5RHeh0RyfeqoMFp1iPw && next build",
-    "start": "i18nexus pull -k KYl5RHeh0RyfeqoMFp1iPw && next start",
+    "dev": "i18nexus pull -k kZDIOWzz3YbyqmscGGod6A && next dev",
+    "build": "i18nexus pull -k kZDIOWzz3YbyqmscGGod6A && next build",
+    "start": "i18nexus pull -k kZDIOWzz3YbyqmscGGod6A && next start",
     "prod": "next build && next start",
     "lint": "next lint",
     "lint:fix": "npx next lint --fix .",

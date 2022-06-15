@@ -2,6 +2,7 @@ import Image from 'next/image';
 
 // Third party packages
 import { useKeenSlider } from 'keen-slider/react'; // import from 'keen-slider/react.es' for to get an ES module
+import { useTranslation } from 'next-i18next';
 import Button from '../common/form/button';
 
 interface CountrySliderProps {
@@ -16,6 +17,8 @@ interface CountrySliderProps {
 
 const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 	const { countries, onCountryClick } = props;
+
+	const { t } = useTranslation('home');
 
 	const [ref] = useKeenSlider<HTMLDivElement>({
 		loop: true,
@@ -41,7 +44,7 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 			<div className="my-4 flex items-center justify-center space-x-4">
 				<div className="w-40 rounded-l-lg border border-white md:w-56 lg:w-80"></div>
 				<p className="whitespace-nowrap py-2 text-center text-white">
-					Shop By Country
+					{t('shop_by_country')}
 				</p>
 				<div className="w-40   border border-white md:w-56 lg:w-80"></div>
 			</div>
