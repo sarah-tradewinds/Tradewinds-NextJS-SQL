@@ -1,19 +1,27 @@
+import { GetStaticProps, NextPage } from 'next';
+import Image from 'next/image';
+
+// Third party packages
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
+// components
 import CountryFlagTile from 'components/website/common/search-by-country/country-flag-tile';
 import LocationHolder from 'components/website/common/search-by-country/location-holder';
 import Seo from 'components/website/common/seo';
-import { NextPage } from 'next';
-import Image from 'next/image';
 
 const SearchByCountryPage: NextPage = (props) => {
+	const { t } = useTranslation('search_by_country');
+
 	const flagBlock1 = (
 		<div className="space-y-8">
 			<CountryFlagTile
 				imageUrl="/static/images/search-by-country-images/flags/usa.png"
-				title="United States of America"
+				title={t('united_states_of_america')}
 			/>
 			<CountryFlagTile
 				imageUrl="/static/images/search-by-country-images/flags/canada.png"
-				title="Canada "
+				title={t('canada')}
 			/>
 		</div>
 	);
@@ -21,14 +29,14 @@ const SearchByCountryPage: NextPage = (props) => {
 		<div className="space-y-8">
 			<CountryFlagTile
 				imageUrl="/static/images/search-by-country-images/flags/dominica-republic.png"
-				title="Dominica Republic"
+				title={t('dominica_republic')}
 			/>
 			<CountryFlagTile
 				imageUrl="/static/images/search-by-country-images/flags/trinidad-and-tobago.png"
-				title="Trinidad and Tobago"
+				title={t('trinidad_and_tobago')}
 			/>
 			<p className="hidden text-center text-[20px] font-semibold text-accent-primary-main lg:block">
-				More Coming Soon!
+				{t('more_coming_soon')}
 			</p>
 		</div>
 	);
@@ -36,14 +44,14 @@ const SearchByCountryPage: NextPage = (props) => {
 		<div className="space-y-8">
 			<CountryFlagTile
 				imageUrl="/static/images/search-by-country-images/flags/costa-rica.png"
-				title="Costa Rica"
+				title={t('costa_rica')}
 			/>
 			<CountryFlagTile
 				imageUrl="/static/images/search-by-country-images/flags/mexico.png"
-				title="Mexico"
+				title={t('mexico')}
 			/>
 			<p className="hidden text-center text-[20px] font-semibold text-accent-primary-main lg:block">
-				More Coming Soon!
+				{t('more_coming_soon')}
 			</p>
 		</div>
 	);
@@ -52,39 +60,39 @@ const SearchByCountryPage: NextPage = (props) => {
 			<div className="grid gap-8 lg:grid-cols-2">
 				<CountryFlagTile
 					imageUrl="/static/images/search-by-country-images/flags/argentina.png"
-					title="Argentina"
+					title={t('argentina')}
 				/>
 				<CountryFlagTile
 					imageUrl="/static/images/search-by-country-images/flags/bolivia.png"
-					title="Bolivia"
+					title={t('bolivia')}
 				/>
 				<CountryFlagTile
 					imageUrl="/static/images/search-by-country-images/flags/brazil.png"
-					title="Brazil"
+					title={t('brazil')}
 				/>
 				<CountryFlagTile
 					imageUrl="/static/images/search-by-country-images/flags/chile.png"
-					title="Chile"
+					title={t('chile')}
 				/>
 				<CountryFlagTile
 					imageUrl="/static/images/search-by-country-images/flags/colombia.png"
-					title="Colombia"
+					title={t('colombia')}
 				/>
 				<CountryFlagTile
 					imageUrl="/static/images/search-by-country-images/flags/paraguay.png"
-					title="Paraguay"
+					title={t('paraguay')}
 				/>
 				<CountryFlagTile
 					imageUrl="/static/images/search-by-country-images/flags/peru.png"
-					title="Peru"
+					title={t('peru')}
 				/>
 				<CountryFlagTile
 					imageUrl="/static/images/search-by-country-images/flags/uruguay.png"
-					title="Uruguay"
+					title={t('uruguay')}
 				/>
 			</div>
 			<p className="hidden text-center text-[20px] font-semibold text-accent-primary-main lg:block">
-				More Coming Soon!
+				{t('more_coming_soon')}
 			</p>
 		</div>
 	);
@@ -104,7 +112,7 @@ const SearchByCountryPage: NextPage = (props) => {
 							className="object-cover"
 						/>
 						<h1 className="absolute inset-0 top-16 text-center text-[35px] font-semibold text-white md:top-24 md:text-[40px] lg:top-16 lg:text-[96px]">
-							Search By Country
+							{t('search_by_country')}
 						</h1>
 					</div>
 				</div>
@@ -114,28 +122,28 @@ const SearchByCountryPage: NextPage = (props) => {
 					<div className="flex flex-col space-y-24 md:flex-row md:space-y-0 md:space-x-4 lg:space-x-16">
 						<div className="flex flex-col items-center space-y-12">
 							<LocationHolder
-								title="North America"
+								title={t('north_america')}
 								imageUrl="/static/images/search-by-country-images/north-america.png"
 							/>
 							{flagBlock1}
 						</div>
 						<div className="flex flex-col items-center space-y-12">
 							<LocationHolder
-								title="The Caribbean"
+								title={t('the_caribbean')}
 								imageUrl="/static/images/search-by-country-images/the-caribbean.png"
 							/>
 							{flagBlock2}
 						</div>
 						<div className="flex flex-col items-center space-y-12">
 							<LocationHolder
-								title="Mexico and Central America"
+								title={t('mexico_and_central_america')}
 								imageUrl="/static/images/search-by-country-images/mexico-and-central-america.png"
 							/>
 							{flagBlock3}
 						</div>
 						<div className="flex flex-col items-center space-y-12">
 							<LocationHolder
-								title="South America"
+								title={t('south_america')}
 								imageUrl="/static/images/search-by-country-images/south-america.png"
 							/>
 							{flagBlock4}
@@ -146,5 +154,11 @@ const SearchByCountryPage: NextPage = (props) => {
 		</>
 	);
 };
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+	props: {
+		...(await serverSideTranslations(locale || 'en'))
+	}
+});
 
 export default SearchByCountryPage;

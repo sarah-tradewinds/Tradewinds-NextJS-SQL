@@ -59,7 +59,7 @@ const WhatIsRFQPage: NextPage = () => {
 							</p>
 						</div>
 
-						<Button variant="buyer">{t('submit_rfq')}</Button>
+						<Button variant="buyer">{t('common:submit_rfq')}</Button>
 					</div>
 				</div>
 
@@ -67,7 +67,7 @@ const WhatIsRFQPage: NextPage = () => {
 				<div>
 					<div className="space-y-4 bg-white py-8 md:hidden">
 						<h2 className="mb-4 text-center text-[24px] font-semibold text-primary-main md:text-[20px] lg:text-[50px]">
-							{t('why_use_rfq')}
+							{t('common:why_use_rfq')}
 						</h2>
 						<WhyUseRFQTile
 							imageUrl="/static/images/RfqPageImages/why-use-rfq/submit-request.png"
@@ -99,7 +99,7 @@ const WhatIsRFQPage: NextPage = () => {
 					<div className="hidden w-full bg-[url('/static/images/RfqPageImages/why-use-rfq/tablet-and-desktop-why-use-rfq.png')] bg-cover bg-center bg-no-repeat md:block md:h-[540px] md:py-8 lg:h-[800px] lg:py-0">
 						<div className="flex items-center justify-between">
 							<p className="pl-10 font-semibold text-primary-main md:text-[20px] lg:pl-24 lg:text-[50px]">
-								{t('why_use_rfq')}
+								{t('common:why_use_rfq')}
 							</p>
 
 							<div className="text-white md:w-[290px] md:space-y-16 md:pl-8 lg:mt-16 lg:w-[540px] lg:space-y-20">
