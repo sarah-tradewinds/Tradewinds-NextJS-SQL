@@ -262,7 +262,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 										/>
 									</div>
 									<p className="mt-4 font-semibold text-white md:text-[20px] lg:text-[25px]">
-										{t('free_trade')}
+										{t('common:free_trade')}
 									</p>
 									<p className=" text-white md:text-[16px] lg:text-[18px]">
 										{t(
@@ -338,7 +338,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 							/>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/why-sell-on-tradewinds-images/dynamic-pricing.png"
-								title={t('dynamic_pricing')}
+								title={t('common:dynamic_pricing')}
 								subtitle={t('negotiate_pricing_with_seller')}
 								imgClassName="hidden md:block"
 								className="-ml-4 pt-4 md:-ml-0"
@@ -346,7 +346,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 						</WhyBuyOperationTile>
 						<WhyBuyOperationTile
 							imageUrl="/static/images/why-sell-on-tradewinds-images/communication-center.png"
-							title={t('communication_center')}
+							title={t('common:communication_center')}
 							subtitle={t(
 								'connect_freely_to_build_lasting_relationships'
 							)}
@@ -410,7 +410,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 							/>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/why-sell-on-tradewinds-images/dynamic-pricing.png"
-								title={t('dynamic_pricing')}
+								title={t('common:dynamic_pricing')}
 								subtitle={t('negotiate_pricing_with_seller')}
 								className="-ml-4 pt-4 md:-ml-0"
 								imgClassName="hidden md:block"

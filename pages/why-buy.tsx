@@ -16,11 +16,6 @@ import WhyBuyTile from 'components/website/common/why-buy/why-buy-tile';
 const WhyBuyPage: NextPage = () => {
 	const { t } = useTranslation('why_buy');
 
-	// Tmp
-	const str = (payload: string) =>
-		payload.replaceAll(' ', '_').toLowerCase();
-	console.log(str(`Start/grow your business with confidence.`));
-
 	return (
 		<>
 			<Seo title="Why buy page" description="" />
@@ -81,18 +76,17 @@ const WhyBuyPage: NextPage = () => {
 								</div>
 								<div className="w-80">
 									<h2 className="text-accent-primary-main">
-										Let the sellers come to you
+										{t('let_the_sellers_come_to_you')}
 									</h2>
 									<p className="text-sm">
-										Detail what you`&apos;`re looking for and share it
-										in the Request for Quotation (RFQ) marketplace.
-										You`&apos;`ll get quotes from multiple sellers -
-										often in 24 hours or less!
+										{t(
+											"detail_what_you're_looking_for_and_share_it_in_the_request_for_quotation"
+										)}
 									</p>
 								</div>
 							</div>
 							<div className="mt-4 hidden text-center lg:block">
-								<Button variant="buyer">Join Now</Button>
+								<Button variant="buyer">{t('common:join_now')}</Button>
 							</div>
 						</div>
 					</div>
@@ -104,138 +98,150 @@ const WhyBuyPage: NextPage = () => {
 					<div className="space-y-4 bg-white p-6 md:space-y-8 md:p-8 lg:hidden">
 						<div className="md:text-center ">
 							<h2 className="text-[18px] font-semibold text-primary-main">
-								Buyer Platform Features
+								{t('buyer_platform_features')}
 							</h2>
-							<p> Browse and Choose from Millions of products</p>
+							<p>{t('browse_and_choose_from_millions_of_products')}</p>
 						</div>
 
 						<div className="grid gap-4 md:grid-cols-3 md:gap-8">
 							<p className="text-[12px]">
 								<span className="font-semibold text-primary-main">
-									Millions of products to choose from TWMP
+									{t('millions_of_products_to_choose_from_twmp')}
 								</span>
 								<span className="text-gray">
-									provides a wide variety of products to choose from
-									giving buyers the flexibility to choose the seller and
-									items best suited for them.
+									{t(
+										'provides_a_wide_variety_of_products_to_choose_from_giving_buyers_the_flexibility_to_choose_the_seller_and_items_best_suited_for_them'
+									)}
 								</span>
 							</p>
 							<p className="text-[12px]">
 								<span className="font-semibold text-primary-main">
-									Millions of products to choose from TWMP
+									{t('millions_of_products_to_choose_from_twmp')}{' '}
 								</span>
 								<span className="text-gray">
-									provides a wide variety of products to choose from
-									giving buyers the flexibility to choose the seller and
-									items best suited for them.
+									{t(
+										'provides_a_wide_variety_of_products_to_choose_from_giving_buyers_the_flexibility_to_choose_the_seller_and_items_best_suited_for_them'
+									)}
 								</span>
 							</p>
 							<p className="text-[12px]">
 								<span className="font-semibold text-primary-main">
-									Millions of products to choose from TWMP
+									{t('millions_of_products_to_choose_from_twmp')}
 								</span>
 								<span className="text-gray">
-									provides a wide variety of products to choose from
-									giving buyers the flexibility to choose the seller and
-									items best suited for them.
+									{t(
+										'provides_a_wide_variety_of_products_to_choose_from_giving_buyers_the_flexibility_to_choose_the_seller_and_items_best_suited_for_them'
+									)}
 								</span>
 							</p>
 						</div>
 						<div className="flex justify-center">
-							<Button variant="buyer">Join Now</Button>
+							<Button variant="buyer">{t('common:join_now')}</Button>
 						</div>
 					</div>
 
 					<div className="flex h-[426px] flex-col items-center justify-center bg-primary-main bg-[url('/static/images/WhyBuyImages/why-buy.png')] bg-cover bg-no-repeat px-4 md:space-y-8">
 						<h2 className="text-[18px] font-semibold text-white">
-							Connect freely to build lasting relationships
+							{t('connect_freely_to_build_lasting_relationships')}
 						</h2>
 						<div className="grid gap-4 md:grid-cols-3">
 							<WhyBuyTile
 								imageUrl="/static/images/WhyBuyImages/messaging-center-orange.png"
-								title="Messaging Center"
-								subtitle="Interact with suppliers on your terms to foster loyalty, repeat purchases and track leads and orders all in one place."
+								title={t('messaging_center')}
+								subtitle={t(
+									'interact_with_suppliers_on_your_terms_to_foster_loyalty'
+								)}
 								contentContainerClassName="!text-left"
 								imageClassName="hidden md:block"
 							/>
 							<WhyBuyTile
 								imageUrl="/static/images/WhyBuyImages/product-inquiries-orange.png"
-								title="Product inquiries"
-								subtitle="Each sale is a conversation that starts with an inquiry, so you can message sellers directly to negotiate prices or customize your products."
+								title={t('product_inquiries')}
+								subtitle={t(
+									'each_sale_is_a_conversation_that_starts_with_an_inquiry'
+								)}
 								contentContainerClassName="!text-left"
 								imageClassName="hidden md:block"
 							/>
 							<WhyBuyTile
 								imageUrl="/static/images/WhyBuyImages/rfq-orange.png"
-								title="Request for Quotation (RFQ)"
-								subtitle="Post a RFQ and proactively find and connect with sellers with products you are sourcing."
+								title={t('common:request_for_quotation_rfq')}
+								subtitle={t(
+									'post_a_rfq_and_proactively_find_and_connect_with_sellers_with_products_you_are_sourcing'
+								)}
 								contentContainerClassName="!text-left"
 								imageClassName="hidden md:block"
 							/>
 						</div>
 						<div className="hidden justify-center md:flex">
-							<Button variant="special">Join Now</Button>
+							<Button variant="special">{t('common:join_now')}</Button>
 						</div>
 					</div>
 
 					{/* Utilize Resourceful Tools Sections*/}
 					<div className="space-y-4 bg-white px-8 py-8 md:space-y-8 md:px-16">
 						<h2 className="text-[18px] font-semibold text-primary-main md:text-center">
-							Utilize Resourceful Tools
+							{t('utilize_resourceful_tools')}
 						</h2>
 						<WhyBuyOperationSubTile
 							imageUrl="/static/images/WhyBuyImages/translation-tool.png"
-							title="Translation Tool"
-							subtitle="The most valuable tool for global expansion is the automatic translation of storefronts and private messages. The platform currently supports multiple languages, which helps knock out the issue of language barrier. This means that you could send a message to a seller in English and your message will automatically be translated to Spanish. When they message you back, the text will automatically be translated to your preferred language, whether it be English, Mandarin, Italian, French, etc.."
+							title={t('translation_tool')}
+							subtitle={t(
+								'the_most_valuable_tool_for_global_expansion_is_the_automatic_translation_of_storefronts_and_private_messages'
+							)}
 							imgClassName="hidden md:block"
 							className="-ml-8 md:ml-0"
 						/>
 						<WhyBuyOperationSubTile
 							imageUrl="/static/images/WhyBuyImages/currency-conversions.png"
-							title="Currency conversions"
-							subtitle="You can see listings in your preferred currency, so you don’t have to manually calculate the conversions."
+							title={t('currency_conversions')}
+							subtitle={t(
+								'you_can_see_listings_in_your_preferred_currency'
+							)}
 							imgClassName="hidden md:block"
 							className="-ml-8 md:ml-0"
 						/>
 						<div className="hidden justify-center md:flex">
-							<Button variant="product">Join Now</Button>
+							<Button variant="product">{t('common:join_now')}</Button>
 						</div>
 					</div>
 
 					{/* Manage every step in one place */}
 					<div className="space-y-8 bg-accent-primary-main p-8">
 						<h2 className="text-[18px] font-semibold text-white md:text-center">
-							Manage every step in one place
+							{t('manage_every_step_in_one_place')}
 						</h2>
 						<div className="grid gap-4 md:grid-cols-2">
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/WhyBuyImages/dollar.png"
-								title="Processing Protection"
-								subtitle="Initiate secure payments through TWMP.com enabling confidence through buyer and seller."
+								title={t('processing_protection')}
+								subtitle={t('initiate_secure_payments_through_twmp')}
 								contentClassName="!text-white"
 								imgClassName="hidden md:block w-[33px] h-[39px]"
 								className="-ml-8 md:-ml-0"
 							/>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/WhyBuyImages/dollar.png"
-								title="Processing Protection"
-								subtitle="Initiate secure payments through TWMP.com enabling confidence through buyer and seller."
+								title={t('processing_protection')}
+								subtitle={t('initiate_secure_payments_through_twmp')}
 								contentClassName="!text-white"
 								imgClassName="hidden md:block w-[33px] h-[39px]"
 								className="-ml-8 md:-ml-0"
 							/>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/WhyBuyImages/invoice.png"
-								title="Receive Invoices"
-								subtitle="Receive, negotiate, and accept invoices with minimum effort and maximum professionalism."
+								title={t('receive_invoices')}
+								subtitle={t(
+									'receive_negotiate_and_accept_invoices_with_minimum_effort_and_maximum_professionalism'
+								)}
 								contentClassName="!text-white"
 								imgClassName="hidden md:block w-[33px] h-[39px]"
 								className="-ml-8 md:-ml-0"
 							/>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/WhyBuyImages/flight.png"
-								title="Logistics and Fulfillment"
-								subtitle="Enjoy flexible and cost-efficient shipping rates with TWMP.com"
+								title={t('common:logistics_and_fulfillment')}
+								subtitle={t('enjoy_flexible_and_cost')}
 								contentClassName="!text-white"
 								imgClassName="hidden md:block w-[33px] h-[39px]"
 								className="-ml-8 md:-ml-0"
@@ -243,7 +249,7 @@ const WhyBuyPage: NextPage = () => {
 						</div>
 						<div className="hidden justify-center md:flex">
 							<Button variant="buyer" className="bg-gray">
-								Join Now
+								{t('common:join_now')}
 							</Button>
 						</div>
 					</div>
@@ -253,36 +259,42 @@ const WhyBuyPage: NextPage = () => {
 				<div className="hidden justify-center bg-primary-main bg-[url('/static/images/WhyBuyImages/why-buy.png')] bg-cover bg-no-repeat lg:flex">
 					<div className="w-3/4  p-8">
 						<h2 className="my-8 text-center text-[50px] text-white">
-							Why Buy in the Western Hemisphere?
+							{t('why_buy_in_the_western_hemisphere')}
 						</h2>
 
 						<div className="mt-16 grid grid-cols-2 gap-16">
 							<WhyBuyTile
 								imageUrl="/static/images/WhyBuyImages/timezone.png"
-								title="Time Zone Compatibility"
-								subtitle="Minimum time zone differences significantly help simplify communication and coordination."
+								title={t('time_zone_compatibility')}
+								subtitle={t(
+									'minimum_time_zone_differences_significantly_help_simplify_communication_and_coordination'
+								)}
 							/>
 							<WhyBuyTile
 								imageUrl="/static/images/WhyBuyImages/cultural.png"
-								title="Cultural Closeness"
-								subtitle="Nearshoring allows you to access a bilingual community of professionals with a similar cultural background to ease communication."
+								title={t('cultural_closeness')}
+								subtitle={t(
+									'nearshoring_allows_you_to_access_a_bilingual_community_of_professionals_with_a_similar_cultural_background_to_ease_communication'
+								)}
 							/>
 							<WhyBuyTile
 								imageUrl="/static/images/WhyBuyImages/free-trade.png"
-								title="Free Trade"
-								subtitle="There are more than 100 regional trade agreements
-						in the Western Hemisphere. The U.S. currently has 14 Free
-						Trade Agreements with 20 countries."
+								title={t('common:free_trade')}
+								subtitle={t(
+									'there_are_more_than_100_regional_trade_agreements_in_the_western_hemisphere._the_u.s._currently_has_14_free_trade_agreements_with_20_countries'
+								)}
 							/>
 							<WhyBuyTile
 								imageUrl="/static/images/WhyBuyImages/swift-trun-around.png"
-								title="Swift Turn Around"
-								subtitle="Since Latin America and The Caribbean are proximally closer to the USA your products will be delivered faster."
+								title={t('swift_turn_around')}
+								subtitle={t(
+									'since_latin_america_and_the_caribbean_are_proximally_closer_to_the_usa_your_products_will_be_delivered_faster'
+								)}
 							/>
 						</div>
 
 						<div className="mt-8 text-center">
-							<Button variant="special">Join Now</Button>
+							<Button variant="special">{t('common:join_now')}</Button>
 						</div>
 					</div>
 				</div>
@@ -291,118 +303,143 @@ const WhyBuyPage: NextPage = () => {
 				<div className="hidden bg-white p-16 lg:block">
 					<div className="flex flex-col items-center text-primary-main">
 						<h2 className="text-[50px] ">
-							Streamline your percurment operations
+							{t('streamline_your_percurment_operations')}
 						</h2>
 						<p className="font-semibold">
-							Innovative digital tools that transform the wholesale
-							experience
+							{t(
+								'innovative_digital_tools_that_transform_the_wholesale_experience'
+							)}
 						</p>
 
 						<div className="mt-8 text-center">
-							<Button variant="buyer">Buy Now</Button>
+							<Button variant="buyer"> {t('common:join_now')}</Button>
 						</div>
 					</div>
 
 					<div className="space-y-16">
 						<WhyBuyOperationTile
 							imageUrl="/static/images/WhyBuyImages/cart.png"
-							title="Enhance buy power"
-							subtitle="Browse and Choose from Millions of products."
+							title={t('enhance_buy_power')}
+							subtitle={t(
+								'browse_and_choose_from_millions_of_products'
+							)}
 							className="pl-8"
 							displayBorder={true}
 						>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/WhyBuyImages/store.png"
-								title="Millions of products to choose from"
-								subtitle="TWMP provides a wide variety of products to choose from giving buyers the flexibility to choose the seller and items  best suited for them."
+								title={t('millions_of_products_to_choose_from_twmp')}
+								subtitle={t(
+									'provides_a_wide_variety_of_products_to_choose_from_giving_buyers_the_flexibility_to_choose_the_seller_and_items_best_suited_for_them'
+								)}
 								className="mt-2"
 							/>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/WhyBuyImages/buying-options.png"
-								title="Buying Options"
-								subtitle="Buyers can choose to order ready to ship products, which is as simple as adding items to a cart, entering your payment information and placing your order or message sellers directly to negotiate prices or customize your products."
+								title={t('buying_options')}
+								subtitle={t(
+									'buyers_can_choose_to_order_ready_to_ship_products'
+								)}
 								className="mt-2"
 							/>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/WhyBuyImages/dynamic-pricing.png"
-								title="Dynamic Pricing"
-								subtitle="Negotiate pricing with seller, browse multiple ladder pricing options, and [MOQs] Minimum Order Quantities to optimize each individual sale."
+								title={t('common:dynamic_pricing')}
+								subtitle={t('negotiate_pricing_with_seller')}
 								className="mt-2"
 							/>
 						</WhyBuyOperationTile>
 
 						<WhyBuyOperationTile
 							imageUrl="/static/images/WhyBuyImages/iot.png"
-							title="Communication Center"
-							subtitle="Browse and Choose from Millions of products."
+							title={t('common:communication_center')}
+							subtitle={t(
+								'browse_and_choose_from_millions_of_products'
+							)}
 							className="pl-8"
 							containerClassName="flex-row-reverse"
 							displayBorder={true}
 						>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/WhyBuyImages/messaging-center.png"
-								title="Messaging Center"
-								subtitle="Interact with suppliers on your terms to foster loyalty, repeat purchases and track leads and orders all in one place."
+								title={t('common:messaging_center')}
+								subtitle={t(
+									'interact_with_suppliers_on_your_terms_to_foster_loyalty'
+								)}
 								className="mt-2"
 							/>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/WhyBuyImages/product-inquiries.png"
-								title="Product inquiries"
-								subtitle="ach sale is a conversation that starts with an inquiry, so you can message sellers directly to negotiate prices or customize your products."
+								title={t('product_inquiries')}
+								subtitle={t(
+									'ach_sale_is_a_conversation_that_starts_with_an_inquiry'
+								)}
 								className="mt-2"
 							/>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/WhyBuyImages/rfq.png"
-								title="Request for Quotation (RFQ)"
-								subtitle="Post a RFQ and proactively find and connect with sellers with products you are sourcing."
+								title={t('common:request_for_quotation_rfq')}
+								subtitle={t(
+									'post_a_rfq_and_proactively_find_and_connect_with_sellers_with_products_you_are_sourcing'
+								)}
 								className="mt-2"
 							/>
 						</WhyBuyOperationTile>
 
 						<WhyBuyOperationTile
 							imageUrl="/static/images/WhyBuyImages/tools.png"
-							title="Tools"
-							subtitle="The very nature of TWMP.com is the usefulness for businesses who are looking to source global, and the platform has special tools for buyers who want to conduct business across borders."
+							title={t('tools')}
+							subtitle={t('the_very_nature_of_twmp')}
 							className="pl-8"
 							displayBorder={true}
 						>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/WhyBuyImages/translation-tool.png"
-								title="Translation Tool"
-								subtitle="You could send a message to a seller in English and your message will automatically be translated to Spanish. When they message you back, the text will automatically be translated to your preferred language, whether it be English, Mandarin, Italian, French, etc."
+								title={t('translation_tool')}
+								subtitle={t(
+									'you_could_send_a_message_to_a_seller_in_english_and_your_message_will_automatically_be_translated_to_spanish'
+								)}
 								className="mt-2"
 							/>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/WhyBuyImages/currency-conversions.png"
-								title="Currency conversions"
-								subtitle="You can see listings in your preferred currency, so you don’t have to manually calculate the conversions."
+								title={t('currency_conversions')}
+								subtitle={t(
+									'you_can_see_listings_in_your_preferred_currency'
+								)}
 								className="mt-2"
 							/>
 						</WhyBuyOperationTile>
 
 						<WhyBuyOperationTile
 							imageUrl="/static/images/WhyBuyImages/order.png"
-							title="Order Management"
-							subtitle="Manage every step in one place Take advantage of on-platform tools that ensure a simple, seamless process for you."
+							title={t('order_management')}
+							subtitle={t(
+								'manage_every_step_in_one_place_take_advantage_of_on'
+							)}
 							className="pl-8"
 							containerClassName="flex-row-reverse"
 						>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/WhyBuyImages/receive-invoices.png"
-								title="Receive Invoices"
-								subtitle="Receive, negotiate and accept invoices with minimum effort and maximum professionalism."
+								title={t('receive_invoices')}
+								subtitle={t(
+									'receive_negotiate_and_accept_invoices_with_minimum_effort_and_maximum_professionalism'
+								)}
 								className="mt-2"
 							/>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/WhyBuyImages/processing-protection.png"
-								title="Processing Protection"
-								subtitle="Initiate secure payments through TWMP.com enabling confidence through buyer and seller."
+								title={t('processing_protection')}
+								subtitle={t('initiate_secure_payments_through_twmp')}
 								className="mt-2"
 							/>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/WhyBuyImages/processing-protection.png"
-								title="Logistics and Fulfillment"
-								subtitle="Enjoy flexible and cost efficient shipping rates with TWMP.com"
+								title={t('common:logistics_and_fulfillment')}
+								subtitle={t(
+									'enjoy_flexible_and_cost_efficient_shipping_rates_with_twmp'
+								)}
 								className="mt-2"
 							/>
 						</WhyBuyOperationTile>
