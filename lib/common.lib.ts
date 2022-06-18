@@ -8,7 +8,8 @@ export const getCategories = async () => {
 	} catch (error) {
 		console.log('[getCategories] =', error);
 		const { data } = (error as any).response || {};
-		throw Error(data || 'Error occurred getCategories');
+		// throw Error(data || 'Error occurred getCategories');
+		return [];
 	}
 }; // End of getHomeCategories function
 
@@ -22,6 +23,7 @@ export const getCountries = async () => {
 	} catch (error) {
 		console.log('[getCountries] =', error);
 		const { data } = (error as any).response || {};
-		throw Error(data || 'Error occurred getCountries');
+		// throw Error(data || 'Error occurred getCountries');
+		return [];
 	}
 }; // End of getCountries function

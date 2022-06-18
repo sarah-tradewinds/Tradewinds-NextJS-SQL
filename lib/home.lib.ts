@@ -5,12 +5,12 @@ export const getHeroCarousels = async () => {
 		const { data } = await serviceAxiosInstance.get(
 			'/carousel/getallcarousel'
 		);
-		// console.log(data.data);
 		return data.data || [];
 	} catch (error) {
 		console.log('[getHeroCarousels] =', error);
 		const { data } = (error as any).response || {};
-		throw Error(data || 'Error occurred in getHeroCarousels');
+		// throw Error(data || 'Error occurred in getHeroCarousels');
+		return [];
 	}
 }; // End of getHeroCarousels function
 
@@ -24,7 +24,8 @@ export const getCardAList = async () => {
 	} catch (error) {
 		console.log('[getCardAList] =', error);
 		const { data } = (error as any).response || {};
-		throw Error(data || 'Error occurred getCardAList');
+		// throw Error(data || 'Error occurred getCardAList');
+		return [];
 	}
 }; // End of getCardAList function
 
@@ -38,7 +39,8 @@ export const getCardB = async () => {
 	} catch (error) {
 		console.log('[getCardB] =', error);
 		const { data } = (error as any).response || {};
-		throw Error(data || 'Error occurred getCardB');
+		// throw Error(data || 'Error occurred getCardB');
+		return {};
 	}
 }; // End of getCardB function
 
@@ -85,7 +87,8 @@ export const getHomeCategories = async () => {
 	} catch (error) {
 		console.log('[getHomeCategories] =', error);
 		const { data } = (error as any).response || {};
-		throw Error(data || 'Error occurred getHomeCategories');
+		// throw Error(data || 'Error occurred getHomeCategories');
+		return [];
 	}
 }; // End of getHomeCategories function
 
@@ -99,7 +102,8 @@ export const getHomeCountries = async () => {
 	} catch (error) {
 		console.log('[getHomeCountries] =', error);
 		const { data } = (error as any).response || {};
-		throw Error(data || 'Error occurred getHomeCountries');
+		// throw Error(data || 'Error occurred getHomeCountries');
+		return [];
 	}
 }; // End of getHomeCountries function
 
@@ -113,6 +117,7 @@ export const getHomeAdvertisments = async () => {
 	} catch (error) {
 		console.log('[getHomeAdvertisments] =', error);
 		const { data } = (error as any).response || {};
-		throw Error(data || 'Error occurred getHomeAdvertisments');
+		// throw Error(data || 'Error occurred getHomeAdvertisments');
+		return [];
 	}
 }; // End of getHomeAdvertisments function
