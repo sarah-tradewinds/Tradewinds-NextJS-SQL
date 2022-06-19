@@ -9,10 +9,10 @@ export const getProductById = async (productId: string) => {
 	} catch (error) {
 		console.log('[getProductById] =', error);
 		const { data, status } = (error as any).response || {};
+		// if (status >= 500) {
+		// 	throw Error('Error occurred in getProductById');
+		// }
 		return {};
-		if (status >= 500) {
-			throw Error('Error occurred in getProductById');
-		}
 	}
 }; // End of getProductById
 
@@ -43,10 +43,10 @@ export const getSellerDetailsSellerId = async (sellerId: string) => {
 	} catch (error) {
 		console.log('[getSellerDetailsSellerId] =', error);
 		const { data, status } = (error as any).response || {};
+		// if (status >= 500) {
+		// 	throw Error('Error occurred in getSellerDetailsSellerId');
+		// }
 		return {};
-		if (status >= 500) {
-			throw Error('Error occurred in getSellerDetailsSellerId');
-		}
 	}
 }; // End of getSellerDetailsSellerId
 

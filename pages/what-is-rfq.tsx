@@ -13,15 +13,6 @@ import Seo from 'components/website/common/seo';
 const WhatIsRFQPage: NextPage = () => {
 	const { t } = useTranslation('what_is_rfq');
 
-	// Tmp
-	const str = (payload: string) =>
-		payload.replaceAll(' ', '_').toLowerCase();
-	console.log(
-		str(
-			`Thus, it is an essential and powerful tool during the procurement process. With the tradewinds market place RFQ page, you can find, connect with, and request competitive prices from vendors in Latin America and the Caribbean. Visit our RFQ webpage today or contact us now to start buying from international sellers.`
-		)
-	);
-
 	return (
 		<>
 			<Seo title={t('title')} description="" />
