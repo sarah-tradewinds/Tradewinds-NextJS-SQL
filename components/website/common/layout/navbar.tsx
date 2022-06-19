@@ -29,6 +29,7 @@ import {
 import { FiLogOut } from 'react-icons/fi';
 import { useAuthStore } from 'store/auth';
 import Button from '../form/button';
+import Example from './lang-menu';
 
 const Header = () => {
 	const {
@@ -204,102 +205,108 @@ const Header = () => {
 			{/* Bottom nav */}
 			<div className={classes}>
 				<div
-					className="m-4 flex w-full flex-col pt-4 sm:mx-auto sm:w-[96%] sm:flex-row sm:pt-0 md:m-0 md:ml-3
+					className="m-4 flex w-full flex-col justify-between pt-4 sm:mx-auto sm:w-[96%] sm:flex-row sm:pt-0 md:m-0 md:ml-3
         "
 				>
-					<Popover className="relative hidden md:inline-block">
-						{(options: any) => {
-							return (
-								<>
-									<Popover.Button
-										ref={buttonRef}
-										onMouseEnter={() =>
-											onHover(options?.open, 'onMouseEnter', 'button')
-										}
-										onMouseLeave={() =>
-											onHover(options?.open, 'onMouseLeave', 'button')
-										}
-										className="font-semibold text-primary-main outline-none dark:text-accent-secondary-eco"
-									>
-										{t('categories_text')}{' '}
-										<span className="hidden md:inline">&gt;</span>
-									</Popover.Button>
-
-									<Transition
-										enter="transition duration-100 ease-out"
-										enterFrom="transform scale-95 opacity-0"
-										enterTo="transform scale-100 opacity-100"
-										leave="transition duration-75 ease-out"
-										leaveFrom="transform scale-100 opacity-100"
-										leaveTo="transform scale-95 opacity-0"
-									>
-										<Popover.Panel
-											className="fixed left-0 right-0 z-10 mt-2 bg-secondary"
+					<div className="flex">
+						<Popover className="relative hidden md:inline-block">
+							{(options: any) => {
+								return (
+									<>
+										<Popover.Button
+											ref={buttonRef}
 											onMouseEnter={() =>
-												onHover(options?.open, 'onMouseEnter', 'menu')
+												onHover(options?.open, 'onMouseEnter', 'button')
 											}
 											onMouseLeave={() =>
-												onHover(options?.open, 'onMouseLeave', 'menu')
+												onHover(options?.open, 'onMouseLeave', 'button')
 											}
+											className="font-semibold text-primary-main outline-none dark:text-accent-secondary-eco"
 										>
-											<MegaMenu onClose={closeMegaMenuHandler} />
-										</Popover.Panel>
-									</Transition>
-								</>
-							);
-						}}
-					</Popover>
+											{t('categories_text')}{' '}
+											<span className="hidden md:inline">&gt;</span>
+										</Popover.Button>
 
-					<nav className="flex cursor-pointer flex-col items-start justify-start md:flex-row md:divide-x">
-						<Link href="/eco">
-							<a
-								className="nav-link hidden items-center justify-center gap-2 md:flex"
-								id="bg-eco"
-							>
-								<Image
-									src="/static/images/eco_logo.png"
-									alt="EcoLogo"
-									width={20}
-									height={20}
-									className=""
-								/>
-								{t('eco_text')}
-							</a>
-						</Link>
+										<Transition
+											enter="transition duration-100 ease-out"
+											enterFrom="transform scale-95 opacity-0"
+											enterTo="transform scale-100 opacity-100"
+											leave="transition duration-75 ease-out"
+											leaveFrom="transform scale-100 opacity-100"
+											leaveTo="transform scale-95 opacity-0"
+										>
+											<Popover.Panel
+												className="fixed left-0 right-0 z-10 mt-2 bg-secondary"
+												onMouseEnter={() =>
+													onHover(options?.open, 'onMouseEnter', 'menu')
+												}
+												onMouseLeave={() =>
+													onHover(options?.open, 'onMouseLeave', 'menu')
+												}
+											>
+												<MegaMenu onClose={closeMegaMenuHandler} />
+											</Popover.Panel>
+										</Transition>
+									</>
+								);
+							}}
+						</Popover>
 
-						<Link href="/eco">
-							<a
-								className="nav-link md:hidden"
-								id="bg-eco"
-								onClick={drawerHandler}
-							>
-								{t('eco_text')}
-							</a>
-						</Link>
-						<Link href="/why-sell-on-tradewinds">
-							<a onClick={drawerHandler} className="nav-link">
-								{t('why_sell_on_tw_text')}
-							</a>
-						</Link>
+						<nav className="flex cursor-pointer flex-col items-start justify-start md:flex-row md:divide-x">
+							<Link href="/eco">
+								<a
+									className="nav-link hidden items-center justify-center gap-2 md:flex"
+									id="bg-eco"
+								>
+									<Image
+										src="/static/images/eco_logo.png"
+										alt="EcoLogo"
+										width={20}
+										height={20}
+										className=""
+									/>
+									{t('eco_text')}
+								</a>
+							</Link>
 
-						<Link href="/why-buy">
-							<a onClick={drawerHandler} className="nav-link">
-								{t('why_buy_text')}
-							</a>
-						</Link>
+							<Link href="/eco">
+								<a
+									className="nav-link md:hidden"
+									id="bg-eco"
+									onClick={drawerHandler}
+								>
+									{t('eco_text')}
+								</a>
+							</Link>
+							<Link href="/why-sell-on-tradewinds">
+								<a onClick={drawerHandler} className="nav-link">
+									{t('why_sell_on_tw_text')}
+								</a>
+							</Link>
 
-						<Link href="/search-by-country">
-							<a onClick={drawerHandler} className="nav-link">
-								{t('search_by_country_text')}
-							</a>
-						</Link>
+							<Link href="/why-buy">
+								<a onClick={drawerHandler} className="nav-link">
+									{t('why_buy_text')}
+								</a>
+							</Link>
 
-						<Link href="what-is-rfq">
-							<a onClick={drawerHandler} className="nav-link">
-								{t('what_is_a_rfq_text')}
-							</a>
-						</Link>
-					</nav>
+							<Link href="/search-by-country">
+								<a onClick={drawerHandler} className="nav-link">
+									{t('search_by_country_text')}
+								</a>
+							</Link>
+
+							<Link href="what-is-rfq">
+								<a onClick={drawerHandler} className="nav-link">
+									{t('what_is_a_rfq_text')}
+								</a>
+							</Link>
+						</nav>
+					</div>
+
+					<div className="relative w-[40px]">
+						<Example />
+					</div>
 				</div>
 			</div>
 		</header>
