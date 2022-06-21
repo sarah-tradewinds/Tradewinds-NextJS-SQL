@@ -30,7 +30,7 @@ const nextConfig = (phase) => {
 
 	/* config options for all phases except development here */
 	return {
-		i18n: i18n.i18n,
+		i18n,
 		reactStrictMode: true,
 		env: {
 			SITE_URL: 'https://tradewinds.vercel.app',

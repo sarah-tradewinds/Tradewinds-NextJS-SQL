@@ -2,7 +2,7 @@ import { GetStaticProps, NextPage } from 'next';
 import Image from 'next/image';
 
 // Third party packages
-import { useTranslation, withTranslation } from 'next-i18next';
+import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // components
@@ -254,5 +254,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => ({
 	}
 });
 
-// export default WhatIsRFQPage;
-export default withTranslation('what-is-rfq')(WhatIsRFQPage);
+export default WhatIsRFQPage;
