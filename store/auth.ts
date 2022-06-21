@@ -53,13 +53,19 @@ export const useAuthStore = create<AuthState>((set) => ({
 		set({
 			isAuthenticating: true
 		});
-		const data = await autoLoginCustomer();
-		console.log(data.customerData);
-		set({
-			isAuth: data.isLoggedIn,
-			customerData: data.customerData,
-			isAuthenticating: false
-		});
+		try {
+			const data = await autoLoginCustomer();
+			console.log(data.customerData);
+			set({
+				isAuth: data.isLoggedIn,
+				customerData: data.customerData,
+				isAuthenticating: false
+			});
+		} catch (error) {
+			set({
+				isAuthenticating: false
+			});
+		}
 	},
 	setCustomerData: (customerData) => {
 		set({

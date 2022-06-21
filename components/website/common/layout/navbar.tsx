@@ -28,8 +28,8 @@ import {
 } from 'react-icons/ai';
 import { FiLogOut } from 'react-icons/fi';
 import { useAuthStore } from 'store/auth';
+import Example from '../elements/lang-menu';
 import Button from '../form/button';
-import Example from './lang-menu';
 
 const Header = () => {
 	const {
@@ -74,7 +74,7 @@ const Header = () => {
 	return (
 		<header className="sticky top-0 z-[1000] w-full bg-primary-main dark:bg-primary-eco">
 			<div
-				className="w-[96%]s mx-auto flex h-[50px] items-center justify-between sm:h-[80px]"
+				className="mx-auto flex h-[50px] w-[96%] items-center justify-between sm:h-[80px]"
 				onClick={() => setShowLogout(false)}
 			>
 				<button

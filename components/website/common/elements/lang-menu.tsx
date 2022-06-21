@@ -32,12 +32,19 @@ export default function LanguageDropdown() {
 		});
 	}; // End of localeHandler
 
+	let selectedLocale = supportedLocales.find(
+		(supportLocale) => supportLocale.code === locale
+	);
+	if (!selectedLocale) {
+		selectedLocale = supportedLocales[0];
+	}
+
 	return (
-		<div className="fixed top-[86px]">
+		<div className="fixed top-[86px] right-8">
 			<Menu as="div" className="relative inline-block text-left">
 				<div>
 					<Menu.Button className="flex items-center space-x-1 font-semibold">
-						<span>{locale}</span>
+						<span>{selectedLocale.name}</span>
 						<span className="hidden md:inline">&gt;</span>
 					</Menu.Button>
 				</div>

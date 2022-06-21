@@ -41,7 +41,7 @@ export const autoLoginCustomer = async () => {
 	} catch (error) {
 		console.log('[autoLoginCustomer] =', error);
 		const { data } = (error as any).response || {};
-		throw Error(data || 'Error occurred autoLoginCustomer');
+		throw Error(data?.message || 'Error occurred autoLoginCustomer');
 	}
 }; // End of autoLoginCustomer function
 
