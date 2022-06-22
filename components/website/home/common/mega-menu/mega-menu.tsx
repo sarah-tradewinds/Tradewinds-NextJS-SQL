@@ -7,7 +7,12 @@ import { MdPlayArrow } from 'react-icons/md';
 import { useEffect, useRef, useState } from 'react';
 
 // styles
-import { useCategoryStore } from 'store/category-store';
+import {
+	getCategoriesByMainCategoryId,
+	getSpecificCategoriesBySubCategoryId,
+	getSubCategoriesByCategoryId
+} from 'lib/common.lib';
+import useSWR from 'swr';
 import styles from './mega-menu.module.css';
 
 interface MegaMenuProps {
@@ -21,51 +26,54 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 	const router = useRouter();
 
 	const {
-		categories,
-		setSelectedMainCategoryId,
-		setSelectedCategoryId
-	} = useCategoryStore();
+		data: { data: mainCategoryList }
+	} = useSWR('/services/api/v1/main_category');
 
-	const mainCategories = categories;
+	const [selectedMainCategoryId, setSelectedMainCategoryId] =
+		useState('');
+	const [selectedCategoryId, setSelectedCategoryId] = useState('');
+	const [selectedSubCategoryId, setSelectedSubCategoryId] =
+		useState('');
+	const [selectedSpecificCategoryId, setSelectedSpecificCategoryId] =
+		useState('');
 
-	const [selectedMainCategory, setSelectedMainCategory] = useState({
-		mainCategoryId: '',
-		mainCategorySlug: '',
-		categories: []
-	});
-	const [selectedCategory, setSelectedCategory] = useState({
-		categoryId: '',
-		categorySlug: '',
-		subCategories: []
-	});
-	const [selectedSubCategory, setSelectedSubCategory] = useState({
-		subCategoryId: '',
-		subCategorySlug: '',
-		specificCategories: []
-	});
-	const [selectedSpecificCategory, setSelectedSpecificCategory] =
-		useState({
-			specificCategoryId: '',
-			specificCategorySlug: ''
-		});
+	const [categoryList, setCategoryList] = useState([]);
+	const [subCategoryList, setSubCategoryList] = useState([]);
+	const [specificCategoryList, setSpecificCategoryList] = useState([]);
 
+	// Fetching categories based on selectedMainCategoryId
 	useEffect(() => {
-		if (mainCategories) {
-			setSelectedMainCategory(mainCategories[0]?.slug);
-			setSelectedMainCategory({
-				mainCategoryId: mainCategories[0]?.id,
-				mainCategorySlug: mainCategories[0]?.slug,
-				categories: mainCategories[0]?.category || []
-			});
+		if (selectedMainCategoryId) {
+			getCategoriesByMainCategoryId(selectedMainCategoryId).then(
+				(data) => setCategoryList(data)
+			);
 		}
-	}, [mainCategories]);
+	}, [selectedMainCategoryId]);
+
+	// Fetching sub-categories based on selectedCategoryId
+	useEffect(() => {
+		if (selectedCategoryId) {
+			getSubCategoriesByCategoryId(selectedCategoryId).then((data) =>
+				setSubCategoryList(data)
+			);
+		}
+	}, [selectedCategoryId]);
+
+	// Fetching specific-categories based on selectedSubCategoryId
+	useEffect(() => {
+		if (selectedSubCategoryId) {
+			getSpecificCategoriesBySubCategoryId(selectedSubCategoryId).then(
+				(data) => setSpecificCategoryList(data)
+			);
+		}
+	}, [selectedSubCategoryId]);
 
 	const navigateHandler = () => {
 		if (onClose) {
 			onClose();
 		}
-		setSelectedMainCategoryId(selectedMainCategory.mainCategoryId);
-		setSelectedCategoryId(selectedCategory.categoryId);
+		setSelectedMainCategoryId(selectedCategoryId);
+		setSelectedCategoryId(selectedCategoryId);
 		router.push('/product-search');
 	}; // End of navigateHandler function
 
@@ -75,20 +83,19 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 
 	return (
 		<div className={megaMenuClassName} ref={megaMenuRef}>
-			{categories.length <= 0 ? <p>Loading...</p> : ''}
+			{mainCategoryList.length <= 0 ? <p>Loading...</p> : ''}
 
 			{/* Main Categories */}
-			{mainCategories && (
+			{mainCategoryList && (
 				<div
 					className={`col-span-3 my-1 ml-4 h-[487px] space-y-4 overflow-auto pl-2 shadow-mega-menu ${styles.megaMenuScrollbar}`}
 					style={{ direction: 'rtl' }}
 				>
 					<ul className="mr-1 h-full space-y-1 ">
-						{mainCategories.map((mainCategory: any) => {
-							const { id, slug, category } = mainCategory;
+						{mainCategoryList.map((mainCategory: any) => {
+							const { id, slug } = mainCategory;
 
-							const isSelected =
-								id === selectedMainCategory.mainCategoryId;
+							const isSelected = id === selectedMainCategoryId;
 
 							return (
 								<li
@@ -98,13 +105,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 											? 'font-semibold dark:bg-bg-eco/60 dark:text-primary-eco'
 											: ''
 									}`}
-									onMouseEnter={() =>
-										setSelectedMainCategory({
-											mainCategoryId: id,
-											mainCategorySlug: slug,
-											categories: category || []
-										})
-									}
+									onMouseEnter={() => setSelectedMainCategoryId(id)}
 									onClick={navigateHandler}
 								>
 									<span className="hover: text-2xl hover:text-primary-main">
@@ -121,117 +122,97 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 			)}
 
 			{/* Categories */}
-			{selectedMainCategory.categories &&
-				selectedMainCategory.categories.length > 0 && (
-					<ul className="col-span-3 h-[487px] space-y-1 overflow-y-auto border-r border-dashed pt-1 pl-4 dark:bg-[#FCF5EB]">
-						{selectedMainCategory.categories.map((category: any) => {
-							const { id, slug, title, sub_category } = category;
+			{categoryList.length > 0 && (
+				<ul className="col-span-3 h-[487px] space-y-1 overflow-y-auto border-r border-dashed pt-1 pl-4 dark:bg-[#FCF5EB]">
+					{categoryList.map((category: any) => {
+						const { id, slug, title } = category;
 
-							const isSelected = id === selectedCategory.categoryId;
+						const isSelected = id === selectedCategoryId;
 
-							return (
-								<li
-									key={id || slug}
-									className={`flex cursor-pointer items-center justify-between text-[15px] dark:hover:text-primary-eco ${
-										isSelected
-											? ' font-semibold dark:bg-bg-eco/60 dark:text-primary-eco'
-											: ''
-									}`}
-									onMouseEnter={() =>
-										setSelectedCategory({
-											categoryId: id,
-											categorySlug: slug,
-											subCategories: sub_category || []
-										})
-									}
-									onClick={navigateHandler}
-								>
-									<span>{title?.en}</span>
-									<span className="hover: text-2xl hover:text-primary-main">
-										{isSelected && (
-											<MdPlayArrow className="font-semibold" />
-										)}
-									</span>
-								</li>
-							);
-						})}
-					</ul>
-				)}
+						return (
+							<li
+								key={id || slug}
+								className={`flex cursor-pointer items-center justify-between text-[15px] dark:hover:text-primary-eco ${
+									isSelected
+										? ' font-semibold dark:bg-bg-eco/60 dark:text-primary-eco'
+										: ''
+								}`}
+								onMouseEnter={() => setSelectedCategoryId(id)}
+								onClick={navigateHandler}
+							>
+								<span>{title?.en}</span>
+								<span className="hover: text-2xl hover:text-primary-main">
+									{isSelected && (
+										<MdPlayArrow className="font-semibold" />
+									)}
+								</span>
+							</li>
+						);
+					})}
+				</ul>
+			)}
 
 			{/* Sub Categories */}
-			{selectedCategory.subCategories &&
-				selectedCategory.subCategories.length > 0 && (
-					<ul className="col-span-3 h-[487px] space-y-1 overflow-y-auto border-r border-dashed pl-4 dark:bg-[#FCF5EB]">
-						{selectedCategory.subCategories.map((subCategory: any) => {
-							const { id, slug, title, sub_sub_category } = subCategory;
+			{subCategoryList.length > 0 && (
+				<ul className="col-span-3 h-[487px] space-y-1 overflow-y-auto border-r border-dashed pl-4 dark:bg-[#FCF5EB]">
+					{subCategoryList.map((subCategory: any) => {
+						const { id, slug, title } = subCategory;
 
-							const isSelected =
-								id === selectedSubCategory.subCategoryId;
+						const isSelected = id === selectedSubCategoryId;
 
-							return (
-								<li
-									key={id || slug}
-									className={`flex cursor-pointer items-center justify-between text-[15px] dark:hover:text-primary-eco ${
-										isSelected
-											? ' font-semibold dark:bg-bg-eco/60 dark:text-primary-eco'
-											: ''
-									}`}
-									onMouseEnter={() =>
-										setSelectedSubCategory({
-											subCategoryId: id,
-											subCategorySlug: slug,
-											specificCategories: sub_sub_category || []
-										})
-									}
-									onClick={navigateHandler}
-								>
-									<span>{title?.en}</span>
-									<span className="hover: text-2xl hover:text-primary-main">
-										{isSelected && (
-											<MdPlayArrow className="font-semibold" />
-										)}
-									</span>
-								</li>
-							);
-						})}
-					</ul>
-				)}
+						return (
+							<li
+								key={id || slug}
+								className={`flex cursor-pointer items-center justify-between text-[15px] dark:hover:text-primary-eco ${
+									isSelected
+										? ' font-semibold dark:bg-bg-eco/60 dark:text-primary-eco'
+										: ''
+								}`}
+								onMouseEnter={() => setSelectedSubCategoryId(id)}
+								onClick={navigateHandler}
+							>
+								<span>{title?.en}</span>
+								<span className="hover: text-2xl hover:text-primary-main">
+									{isSelected && (
+										<MdPlayArrow className="font-semibold" />
+									)}
+								</span>
+							</li>
+						);
+					})}
+				</ul>
+			)}
 
 			{/* Specific Categories */}
-			{selectedSubCategory.specificCategories &&
-				selectedSubCategory.specificCategories.length > 0 && (
-					<ul className="col-span-3 h-[487px] space-y-1 overflow-y-auto pl-4 dark:bg-[#FCF5EB]">
-						{selectedSubCategory.specificCategories.map(
-							(specificCategory: any) => {
-								const { id, slug, title } = specificCategory;
+			{specificCategoryList.length > 0 && (
+				<ul className="col-span-3 h-[487px] space-y-1 overflow-y-auto pl-4 dark:bg-[#FCF5EB]">
+					{specificCategoryList.map((specificCategory: any) => {
+						const { id, slug, title } = specificCategory;
 
-								const isSelected = slug === selectedSpecificCategory;
+						const isSelected = id === selectedSpecificCategoryId;
 
-								return (
-									<li
-										key={id || slug}
-										className={`flex cursor-pointer items-center justify-between text-[15px] dark:hover:text-primary-eco ${
-											isSelected
-												? ' font-semibold dark:bg-bg-eco/60 dark:text-primary-eco'
-												: ''
-										}`}
-										onMouseEnter={() =>
-											setSelectedSpecificCategory(slug)
-										}
-										onClick={navigateHandler}
-									>
-										<span>{title?.en}</span>
-										<span className="hover: text-2xl hover:text-primary-main">
-											{isSelected && (
-												<MdPlayArrow className="font-semibold" />
-											)}
-										</span>
-									</li>
-								);
-							}
-						)}
-					</ul>
-				)}
+						return (
+							<li
+								key={id || slug}
+								className={`flex cursor-pointer items-center justify-between text-[15px] dark:hover:text-primary-eco ${
+									isSelected
+										? ' font-semibold dark:bg-bg-eco/60 dark:text-primary-eco'
+										: ''
+								}`}
+								onMouseEnter={() => setSelectedSpecificCategoryId(id)}
+								onClick={navigateHandler}
+							>
+								<span>{title?.en}</span>
+								<span className="hover: text-2xl hover:text-primary-main">
+									{isSelected && (
+										<MdPlayArrow className="font-semibold" />
+									)}
+								</span>
+							</li>
+						);
+					})}
+				</ul>
+			)}
 		</div>
 	);
 };

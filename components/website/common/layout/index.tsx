@@ -67,7 +67,7 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 			<SWRConfig
 				value={{
 					fetcher: (url: string, init) =>
-						fetch(`${process.env.API_BASE_URL}${url}`, init).then(
+						fetch(`${process.env.SITE_URL}/api/v1${url}`, init).then(
 							(res) => res.json()
 						)
 				}}
