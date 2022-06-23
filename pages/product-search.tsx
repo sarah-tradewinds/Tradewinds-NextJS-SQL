@@ -7,9 +7,9 @@ import Image from 'next/image';
 
 // Third party packages
 import { useKeenSlider } from 'keen-slider/react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // components
-
 import CompareProductList from 'components/website/compare/compare-bottom-overlay/compare-overlay-product-list';
 import ProductFilter from 'components/website/product-search/product-filter/product-filter';
 import ProductList from 'components/website/product-search/product-list';
@@ -219,13 +219,18 @@ const ProductSearchPage: NextPage<
 	);
 }; // End of ProductSearchPage
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({
+	locale
+}) => {
 	const products = await getProducts({
 		price_start: 0
 	});
 
 	return {
-		props: { products }
+		props: {
+			...(await serverSideTranslations(locale || 'en')),
+			products
+		}
 	};
 }; // End of getServerSideProps function
 
