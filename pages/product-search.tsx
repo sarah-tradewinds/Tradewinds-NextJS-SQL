@@ -15,8 +15,6 @@ import ProductFilter from 'components/website/product-search/product-filter/prod
 import ProductList from 'components/website/product-search/product-list';
 import SubCategoryList from 'components/website/product-search/sub-category-list';
 
-// data
-
 // stores
 import Seo from 'components/website/common/seo';
 import SubCategoryTile from 'components/website/product-search/sub-category-tile';

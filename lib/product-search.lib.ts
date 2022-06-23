@@ -13,20 +13,15 @@ export const getProducts = async (params: {
 	try {
 		const { data } = await serviceAxiosInstance.get(
 			`/product/search?${queryString}`
-
-			// TODO: Tmp
-			// `/product/all?${queryString}`
 		);
 
 		return data.response || [];
-		// return data.response || [];
 	} catch (error) {
 		console.log('[getProducts] =', error);
 		const { data, status } = (error as any).response || {};
-		if (status >= 500) {
-			throw Error('Error occurred in getProducts');
-		}
-
+		// if (status >= 500) {
+		//   throw Error('Error occurred in getProducts');
+		// }
 		return [];
 	}
 }; // End of getProducts

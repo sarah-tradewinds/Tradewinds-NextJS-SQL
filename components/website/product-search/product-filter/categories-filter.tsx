@@ -1,19 +1,75 @@
 // Third party packages
+import {
+	getCategoriesByMainCategoryId,
+	getSpecificCategoriesBySubCategoryId,
+	getSubCategoriesByCategoryId
+} from 'lib/common.lib';
+import { useEffect, useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 
 // data
 import { useCategoryStore } from 'store/category-store';
+import useSWR from 'swr';
 
 const CategoriesFilter: React.FC = (props) => {
 	const {
 		categories,
 		ids,
-		selectedMainCategoryId,
-		setSelectedMainCategoryId,
-		setSelectedCategoryId,
-		setSelectedSubCategoryId,
+		// selectedMainCategoryId,
+		// setSelectedMainCategoryId,
+		// setSelectedCategoryId,
+		// setSelectedSubCategoryId,
 		setSelectedSubSubCategoryId
 	} = useCategoryStore();
+
+	const { data } = useSWR('/services/api/v1/main_category');
+
+	const [selectedMainCategoryId, setSelectedMainCategoryId] =
+		useState('');
+	const [selectedCategoryId, setSelectedCategoryId] = useState('');
+	const [selectedSubCategoryId, setSelectedSubCategoryId] =
+		useState('');
+	const [selectedSpecificCategoryId, setSelectedSpecificCategoryId] =
+		useState('');
+
+	const [mainCategoryList, setMainCategoryList] = useState([]);
+	const [categoryList, setCategoryList] = useState([]);
+	const [subCategoryList, setSubCategoryList] = useState([]);
+	const [specificCategoryList, setSpecificCategoryList] = useState([]);
+
+	// Set mainCategories
+	useEffect(() => {
+		if (data?.data) {
+			setMainCategoryList(data.data);
+		}
+	}, [data?.data]);
+
+	// Fetching categories based on selectedMainCategoryId
+	useEffect(() => {
+		if (selectedMainCategoryId) {
+			getCategoriesByMainCategoryId(selectedMainCategoryId).then(
+				(data) => setCategoryList(data)
+			);
+		}
+	}, [selectedMainCategoryId]);
+
+	// Fetching sub-categories based on selectedCategoryId
+	useEffect(() => {
+		if (selectedCategoryId) {
+			getSubCategoriesByCategoryId(selectedCategoryId).then((data) =>
+				setSubCategoryList(data)
+			);
+		}
+	}, [selectedCategoryId]);
+
+	// Fetching specific-categories based on selectedSubCategoryId
+	useEffect(() => {
+		if (selectedSubCategoryId) {
+			getSpecificCategoriesBySubCategoryId(selectedSubCategoryId).then(
+				(data) => setSpecificCategoryList(data)
+			);
+		}
+	}, [selectedSubCategoryId]);
 
 	const isElementSelected = (
 		list: string[],
@@ -30,7 +86,8 @@ const CategoriesFilter: React.FC = (props) => {
 
 	return (
 		<div className="mt-4 space-y-2">
-			{categories.map((mainCategory: any) => {
+			{/* Main categories */}
+			{mainCategoryList.map((mainCategory: any) => {
 				const { id: mainCategoryId, category = [] } =
 					mainCategory || {};
 
@@ -43,31 +100,61 @@ const CategoriesFilter: React.FC = (props) => {
 						id={mainCategoryId}
 						isOpen={isMainCategorySelected}
 						title={mainCategory?.title?.en}
-						onClick={() => setSelectedMainCategoryId(mainCategoryId)}
+						onClick={() => {
+							if (isMainCategorySelected) {
+								// emptying list
+								setCategoryList([]);
+								setSubCategoryList([]);
+								setSpecificCategoryList([]);
+
+								setSelectedMainCategoryId('');
+								setSelectedCategoryId('');
+								setSelectedSubCategoryId('');
+								setSelectedSpecificCategoryId('');
+							} else {
+								setSelectedMainCategoryId(mainCategoryId);
+							}
+						}}
 					>
 						{/* Categories */}
-						{category?.map((categoryData: any) => {
+						{categoryList?.map((category: any) => {
 							const { id: categoryId, sub_category = [] } =
-								categoryData || {};
+								category || {};
 
-							const isCategorySelected = ids[categoryId];
+							// const isCategorySelected = ids[categoryId];
+							const isCategorySelected =
+								categoryId === selectedCategoryId;
 
 							return (
 								<CategoryCollapse
 									key={categoryId}
 									id={categoryId}
 									isOpen={isCategorySelected}
-									title={categoryData?.title?.en}
-									onClick={() => setSelectedCategoryId(categoryId)}
+									title={category?.title?.en}
+									onClick={() => {
+										if (isCategorySelected) {
+											// emptying list
+											setSubCategoryList([]);
+											setSpecificCategoryList([]);
+
+											setSelectedCategoryId('');
+											setSelectedSubCategoryId('');
+											setSelectedSpecificCategoryId('');
+										} else {
+											setSelectedCategoryId(categoryId);
+										}
+									}}
 									className="ml-4"
 								>
 									{/* Sub Categories */}
-									{sub_category?.map((subCategory: any) => {
-										const { id: subCategoryId, sub_sub_category = [] } =
-											subCategory || {};
+									{subCategoryList?.map((subCategory: any) => {
+										const { id: subCategoryId } = subCategory || {};
+
+										// const isSubCategorySelected =
+										// 	ids[categoryId] && ids[categoryId][subCategoryId];
 
 										const isSubCategorySelected =
-											ids[categoryId] && ids[categoryId][subCategoryId];
+											subCategoryId === selectedSubCategoryId;
 
 										return (
 											<CategoryCollapse
@@ -75,51 +162,58 @@ const CategoriesFilter: React.FC = (props) => {
 												id={subCategoryId}
 												isOpen={isSubCategorySelected}
 												title={subCategory?.title?.en}
-												onClick={() =>
-													setSelectedSubCategoryId(
-														categoryId,
-														subCategoryId
-													)
-												}
+												onClick={() => {
+													if (isSubCategorySelected) {
+														// emptying list
+														setSpecificCategoryList([]);
+
+														setSelectedSubCategoryId('');
+														setSelectedSpecificCategoryId('');
+													} else {
+														setSelectedSubCategoryId(subCategoryId);
+													}
+												}}
 												className="ml-4"
 											>
-												{/* Sub Sub Categories */}
-												{sub_sub_category?.map(
-													(subSubCategory: any) => {
-														const { id: subSubCategoryId } =
-															subSubCategory || {};
+												{/* Specific Categories */}
+												{specificCategoryList?.map(
+													(specificCategory: any) => {
+														const { id: specificCategoryId } =
+															specificCategory || {};
 
-														let isSubSubCategorySelected = false;
+														let isSpecificCategorySelected = false;
 
-														if (
-															ids[categoryId] &&
-															ids[categoryId][subCategoryId] &&
-															ids[categoryId][subCategoryId]?.length > 0
-														) {
-															isSubSubCategorySelected =
-																isElementSelected(
-																	ids[categoryId][subCategoryId],
-																	subSubCategoryId
-																);
-														}
+														// if (
+														// 	ids[categoryId] &&
+														// 	ids[categoryId][subCategoryId] &&
+														// 	ids[categoryId][subCategoryId]?.length > 0
+														// ) {
+														// 	isSubSubCategorySelected =
+														// 		isElementSelected(
+														// 			ids[categoryId][subCategoryId],
+														// 			subSubCategoryId
+														// 		);
+														// }
+
+														isSpecificCategorySelected =
+															specificCategoryId ===
+															selectedSpecificCategoryId;
 
 														return (
 															<button
-																key={subSubCategoryId}
+																key={specificCategoryId}
 																className={`ml-4 text-left ${
-																	isSubSubCategorySelected
+																	isSpecificCategorySelected
 																		? 'font-semibold'
 																		: ''
 																}`}
 																onClick={() =>
-																	setSelectedSubSubCategoryId(
-																		categoryId,
-																		subCategoryId,
-																		subSubCategoryId
+																	setSelectedSpecificCategoryId(
+																		specificCategoryId
 																	)
 																}
 															>
-																{subSubCategory?.title?.en}
+																{specificCategory?.title?.en}
 															</button>
 														);
 													}

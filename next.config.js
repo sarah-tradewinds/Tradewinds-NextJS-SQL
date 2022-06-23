@@ -17,7 +17,6 @@ const nextConfig = (phase) => {
 				API_BASE_URL: 'https://tradewinds-dev.eastus.cloudapp.azure.com'
 			},
 			images: {
-				// domains: ["wmarketplacestgact.blob.core.windows.net"]
 				domains: [
 					'images.unsplash.com',
 					'wmarketplacestgact.blob.core.windows.net',
@@ -33,14 +32,14 @@ const nextConfig = (phase) => {
 		i18n,
 		reactStrictMode: true,
 		env: {
-			SITE_URL: 'https://tradewinds.vercel.app',
+			// SITE_URL: 'https://tradewinds.vercel.app',
+			SITE_URL: 'http://localhost:3000',
 			BUYER_DASHBOARD_SITE_URL:
 				'https://tradewinds-dev-public.s3.us-east-2.amazonaws.com',
 			// BUYER_DASHBOARD_SITE_URL: "http://localhost:3000",
 			API_BASE_URL: 'https://tradewinds-dev.eastus.cloudapp.azure.com'
 		},
 		images: {
-			// domains: ["wmarketplacestgact.blob.core.windows.net"]
 			domains: [
 				'images.unsplash.com',
 				'wmarketplacestgact.blob.core.windows.net',
