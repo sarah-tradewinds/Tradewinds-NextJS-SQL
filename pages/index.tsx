@@ -181,13 +181,13 @@ export const getServerSideProps: GetServerSideProps = async ({
 
 		return {
 			props: {
+				...(await serverSideTranslations(locale || 'en')),
 				heroCarousels,
 				cardAList,
 				cardBData,
 				homeCategories: homeCategories ?? [],
 				homeCountries,
-				homeAdvertisments,
-				...(await serverSideTranslations(locale || 'en'))
+				homeAdvertisments
 			}
 		};
 	} catch (error) {

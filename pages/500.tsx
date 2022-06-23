@@ -1,16 +1,16 @@
 import { GetStaticProps } from 'next';
-
 // Third party packages
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // components
 import Seo from '../components/website/common/seo';
 
-export default function Custom404() {
+// pages/500.js
+export default function Custom500() {
 	return (
 		<>
-			<Seo title="Home page" description="" />
-			<h1>404 - Page Not Found</h1>;
+			<Seo title="Error page" description="" />
+			<h1>500 - Server-side error occurred</h1>;
 		</>
 	);
 }

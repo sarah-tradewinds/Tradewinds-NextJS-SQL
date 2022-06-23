@@ -16,6 +16,7 @@ export const getCategories = async () => {
 export const getMainCategories = async () => {
 	try {
 		const { data } = await serviceAxiosInstance.get('/main_category');
+		console.log(data);
 		return data.data || [];
 	} catch (error) {
 		console.log('[getMainCategories] =', error);

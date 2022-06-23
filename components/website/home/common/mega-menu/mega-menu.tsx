@@ -26,7 +26,8 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 	const router = useRouter();
 
 	const {
-		data: { data: mainCategoryList }
+		// data: { data: mainCategoryList }
+		data
 	} = useSWR('/services/api/v1/main_category');
 
 	const [selectedMainCategoryId, setSelectedMainCategoryId] =
@@ -37,9 +38,17 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 	const [selectedSpecificCategoryId, setSelectedSpecificCategoryId] =
 		useState('');
 
+	const [mainCategoryList, setMainCategoryList] = useState([]);
 	const [categoryList, setCategoryList] = useState([]);
 	const [subCategoryList, setSubCategoryList] = useState([]);
 	const [specificCategoryList, setSpecificCategoryList] = useState([]);
+
+	// Set mainCategories
+	useEffect(() => {
+		if (data?.data) {
+			setMainCategoryList(data.data);
+		}
+	}, [data?.data]);
 
 	// Fetching categories based on selectedMainCategoryId
 	useEffect(() => {

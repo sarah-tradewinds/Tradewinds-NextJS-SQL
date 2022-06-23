@@ -1,3 +1,7 @@
+// Third party packages
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
+// components
 import Button from 'components/website/common/form/button';
 import AddBanner from 'components/website/home/ads-banner';
 import CategorySubCategoriesSection from 'components/website/home/category-sub-categories-section';
@@ -121,7 +125,7 @@ export default HomePage;
 // Static Props
 
 // Static Props
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
 	try {
 		const heroCarousels = await getHeroCarousels();
 		const cardAList = await getCardAList();
@@ -132,6 +136,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
 		return {
 			props: {
+				...(await serverSideTranslations(locale || 'en')),
 				heroCarousels,
 				cardAList,
 				cardBData,

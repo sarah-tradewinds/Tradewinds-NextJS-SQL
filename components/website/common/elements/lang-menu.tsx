@@ -60,7 +60,6 @@ export default function LanguageDropdown() {
 					<Menu.Items className="divide-gray-100 absolute right-0 z-[4] origin-top-right divide-y rounded-md bg-white px-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
 						<div className="px-1 py-1 ">
 							{supportedLocales.map(({ code, name }) => {
-								console.log('locale', locale, code);
 								return (
 									<Menu.Item key={code}>
 										<button
