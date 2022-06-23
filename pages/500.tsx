@@ -1,6 +1,4 @@
-import { GetStaticProps } from 'next';
 // Third party packages
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // components
 import Seo from '../components/website/common/seo';
@@ -14,9 +12,3 @@ export default function Custom500() {
 		</>
 	);
 }
-
-export const getStaticProps: GetStaticProps = async ({ locale }) => ({
-	props: {
-		...(await serverSideTranslations(locale || 'en'))
-	}
-});
