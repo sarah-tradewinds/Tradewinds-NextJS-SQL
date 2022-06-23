@@ -65,14 +65,16 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 				(mainCategory: any) => {
 					if (mainCategory.id === mainCategoryId) {
 						mainCategory.categories = categories;
+						mainCategory.isSelected = true;
 					} else {
 						mainCategory.categories = mainCategory.categories || [];
+						mainCategory.isSelected = false;
 					}
 					return mainCategory;
 				}
 			);
 
-			const newMainCategoryId =
+			const newMainCategoryId: string =
 				selectedMainCategoryId !== mainCategoryId ? mainCategoryId : '';
 
 			localStorage.setItem('main_category', newMainCategoryId);
@@ -108,9 +110,11 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 								(category: any) => {
 									if (category.id === categoryId) {
 										category.subCategories = subCategories;
+										category.isSelected = !category.isSelected;
 									} else {
 										category.subCategories =
 											category.subCategories || [];
+										category.isSelected = category.isSelected;
 									}
 									return category;
 								}

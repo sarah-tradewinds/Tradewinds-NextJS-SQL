@@ -5,16 +5,21 @@ interface SubCategoryTileProps {
 	imageUrl: string;
 	alt?: string;
 	showBorder?: boolean;
+	onTilePressed?: () => any;
 }
 
 const SubCategoryTile: React.FC<SubCategoryTileProps> = ({
 	title,
 	imageUrl,
 	alt,
-	showBorder
+	showBorder,
+	onTilePressed
 }) => {
 	return (
-		<div className="flex cursor-pointer items-center space-x-4">
+		<div
+			className="flex cursor-pointer items-center space-x-4"
+			onClick={onTilePressed}
+		>
 			<div className="relative h-[44px] w-[51px]  md:h-[67px] md:w-[77px] lg:h-[67px] lg:w-[77px]">
 				<Image
 					src={imageUrl || '/sub-category/beans.png'}

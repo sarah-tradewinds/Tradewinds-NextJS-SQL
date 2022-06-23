@@ -6,12 +6,14 @@ interface SubCategoryListProps {
 	subCategories: any[];
 	className?: string;
 	onClick: () => any;
+	onTilePressed: (subCategoryId: string) => any;
 }
 
 const SubCategoryList: React.FC<SubCategoryListProps> = ({
 	subCategories,
 	className,
-	onClick
+	onClick,
+	onTilePressed
 }) => {
 	const [screenSize, setScreenSize] = useState<null | number>(null);
 	const [isTablet, setIsTablet] = useState<boolean>(false);
@@ -37,6 +39,7 @@ const SubCategoryList: React.FC<SubCategoryListProps> = ({
 						title={subCategory?.title?.en}
 						imageUrl={'/sub-category/beans.png'}
 						showBorder={subCategory?.isSelected}
+						onTilePressed={() => onTilePressed(subCategory.id)}
 					/>
 				))}
 

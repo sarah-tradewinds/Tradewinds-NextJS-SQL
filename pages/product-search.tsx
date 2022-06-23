@@ -17,6 +17,7 @@ import SubCategoryList from 'components/website/product-search/sub-category-list
 
 // stores
 import Seo from 'components/website/common/seo';
+import MainCategoryCard from 'components/website/product-search/main-category-card';
 import SubCategoryTile from 'components/website/product-search/sub-category-tile';
 import { getProducts } from 'lib/product-search.lib';
 import { useEffect, useState } from 'react';
@@ -44,7 +45,8 @@ const ProductSearchPage: NextPage<
 		allCategories,
 		selectedMainCategoryId,
 		selectedCategoryIds,
-		fetchMainCategories
+		fetchMainCategories,
+		setSelectedCategoryId
 		// selectedAndUnselectAllCategoryId,
 		// setDefaultMainCategoryAndCategoryId
 	} = useCategoryStore();
@@ -89,11 +91,11 @@ const ProductSearchPage: NextPage<
 	);
 
 	const mainCategory = getMainCategoryById(
-		categories,
+		allCategories,
 		selectedMainCategoryId
 	);
 
-	const subCategories = (mainCategory as any)?.category?.slice(0, 7);
+	const subCategories = (mainCategory as any)?.categories?.slice(0, 7);
 
 	return (
 		<>
@@ -133,20 +135,21 @@ const ProductSearchPage: NextPage<
 					{/* Category and categories list */}
 					<div className="grid grid-cols-12 md:gap-0 md:rounded-md md:bg-white md:p-4 md:shadow-md lg:gap-2">
 						{/* Main category Card */}
-						{/* <div className="col-span-12  md:col-span-3">
+						<div className="col-span-12  md:col-span-3">
 							<MainCategoryCard
 								title={(mainCategory as any)?.title?.en}
 								subtitle={(mainCategory as any)?.description?.en}
 								imageUrl="/static/images/agriculture.png"
 								className="w-screen md:w-auto"
 							/>
-						</div> */}
+						</div>
 						{/* Categories */}
 						<div className="col-span-12 border-gray/20 md:col-span-9 md:ml-4 md:border-l-2 md:pl-4">
 							{mainCategory && (
 								<SubCategoryList
 									subCategories={subCategories || []}
 									className="hidden md:grid"
+									onTilePressed={setSelectedCategoryId}
 									onClick={() => {}}
 								/>
 							)}
