@@ -247,3 +247,7 @@
 // };
 
 // export default MegaMenu;
+
+export default function Temp() {
+	return <p></p>;
+}

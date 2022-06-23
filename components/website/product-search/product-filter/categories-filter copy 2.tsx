@@ -226,3 +226,7 @@
 // };
 
 // export default CategoriesFilter;
+
+export default function Temp() {
+	return <p></p>;
+}
