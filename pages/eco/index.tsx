@@ -149,6 +149,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 		console.log((error as any).message);
 		return {
 			props: {
+				...(await serverSideTranslations(locale || 'en')),
 				heroCarousels: [],
 				cardAList: [],
 				cardBData: {},

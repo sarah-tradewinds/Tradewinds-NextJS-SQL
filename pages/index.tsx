@@ -182,6 +182,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 		return {
 			props: {
 				...(await serverSideTranslations(locale || 'en')),
+
 				heroCarousels,
 				cardAList,
 				cardBData,
@@ -194,6 +195,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 		console.log((error as any).message);
 		return {
 			props: {
+				...(await serverSideTranslations(locale || 'en')),
 				heroCarousels: [],
 				cardAList: [],
 				cardBData: {},
