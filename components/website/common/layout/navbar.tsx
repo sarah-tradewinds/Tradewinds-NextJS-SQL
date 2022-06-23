@@ -172,7 +172,9 @@ const Header = () => {
 								<div className="flex items-center justify-center text-center">
 									<BiMessageDetail size={35} />
 								</div>
-								<p className="w-24">{t('common:submit_rfq_text')}</p>
+								<p className="w-24">
+									{t('navigation:submit_rfq_text')}
+								</p>
 							</Button>
 						</div>
 					</div>
