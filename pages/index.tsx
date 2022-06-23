@@ -51,12 +51,11 @@ const HomePage: NextPage<
 	} = props;
 
 	// Loading mega-menu data here
-	const { fetchCategories, removeCategoryFilter } = useCategoryStore(
-		(state) => ({
-			fetchCategories: state.fetchCategories,
+	const { fetchMainCategories, removeCategoryFilter } =
+		useCategoryStore((state) => ({
+			fetchMainCategories: state.fetchMainCategories,
 			removeCategoryFilter: state.removeCategoryFilter
-		})
-	);
+		}));
 
 	const { t } = useTranslation();
 
@@ -71,7 +70,7 @@ const HomePage: NextPage<
 	}));
 
 	useEffect(() => {
-		fetchCategories();
+		fetchMainCategories();
 		fetchCountries(homeCountries);
 		removeSelectedCountries();
 	}, []);

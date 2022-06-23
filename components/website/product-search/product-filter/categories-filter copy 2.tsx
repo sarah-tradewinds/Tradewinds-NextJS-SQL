@@ -99,8 +99,8 @@ const CategoriesFilter: React.FC = (props) => {
 	return (
 		<div className="mt-4 space-y-2">
 			{/* Main categories */}
-			{allCategories.map((mainCategory: any) => {
-				const { id: mainCategoryId, categories = [] } =
+			{mainCategoryList.map((mainCategory: any) => {
+				const { id: mainCategoryId, category = [] } =
 					mainCategory || {};
 
 				const isMainCategorySelected =
@@ -115,10 +115,10 @@ const CategoriesFilter: React.FC = (props) => {
 						onClick={() => setSelectedMainCategoryId(mainCategoryId)}
 					>
 						{/* Categories */}
-						{categories?.map((category: any) => {
-							const { id: categoryId, subCategories = [] } =
-								category || {};
+						{categoryList?.map((category: any) => {
+							const { id: categoryId } = category || {};
 
+							// const isCategorySelected = ids[categoryId];
 							const isCategorySelected =
 								selectedCategoryIds.findIndex(
 									(selectedCategoryId) =>
@@ -135,11 +135,8 @@ const CategoriesFilter: React.FC = (props) => {
 									className="ml-4"
 								>
 									{/* Sub Categories */}
-									{subCategories?.map((subCategory: any) => {
-										const {
-											id: subCategoryId,
-											specificCategories = []
-										} = subCategory || {};
+									{subCategoryList?.map((subCategory: any) => {
+										const { id: subCategoryId } = subCategory || {};
 
 										const isSubCategorySelected =
 											selectedSubCategoryIds.findIndex(
@@ -159,7 +156,7 @@ const CategoriesFilter: React.FC = (props) => {
 												className="ml-4"
 											>
 												{/* Specific Categories */}
-												{specificCategories?.map(
+												{specificCategoryList?.map(
 													(specificCategory: any) => {
 														const { id: specificCategoryId } =
 															specificCategory || {};

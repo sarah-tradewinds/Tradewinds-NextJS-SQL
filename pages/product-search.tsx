@@ -41,11 +41,12 @@ const ProductSearchPage: NextPage<
 
 	const {
 		categories,
-		fetchCategories,
+		allCategories,
 		selectedMainCategoryId,
-		ids,
-		selectedAndUnselectAllCategoryId,
-		setDefaultMainCategoryAndCategoryId
+		selectedCategoryIds,
+		fetchMainCategories
+		// selectedAndUnselectAllCategoryId,
+		// setDefaultMainCategoryAndCategoryId
 	} = useCategoryStore();
 
 	const {
@@ -55,37 +56,22 @@ const ProductSearchPage: NextPage<
 	} = useProductStore();
 
 	useEffect(() => {
-		if (categories.length <= 0) {
-			const mainCategoryId = (localStorage.getItem('main_category') ||
-				'') as string;
-			const categoryId = (localStorage.getItem('category') ||
-				'') as string;
-
-			fetchCategories(mainCategoryId, categoryId);
+		if (allCategories.length <= 0) {
+			fetchMainCategories();
 		}
-	}, []);
+	}, [allCategories.length]);
 
 	useEffect(() => {
-		const mainCategoryId = (localStorage.getItem('main_category') ||
-			'') as string;
-		const categoryId = (localStorage.getItem('category') ||
-			'') as string;
-		setDefaultMainCategoryAndCategoryId(mainCategoryId, categoryId);
-	}, []);
-
-	useEffect(() => {
-		const categoryIds = Object.keys(ids)?.toString() || '';
-
 		getProducts({
 			price_start: +minPrice,
 			main_category: selectedMainCategoryId,
-			category: categoryIds,
+			category: selectedCategoryIds.toString(),
 			country_of_region: selectedCountryIds.toString()
 		}).then((data) => setProducts(data));
 	}, [
 		categories.length,
 		selectedMainCategoryId,
-		ids,
+		selectedCategoryIds,
 		minPrice,
 		selectedCountryIds
 	]);
@@ -161,7 +147,7 @@ const ProductSearchPage: NextPage<
 								<SubCategoryList
 									subCategories={subCategories || []}
 									className="hidden md:grid"
-									onClick={selectedAndUnselectAllCategoryId}
+									onClick={() => {}}
 								/>
 							)}
 

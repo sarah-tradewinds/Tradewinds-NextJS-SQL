@@ -12,6 +12,7 @@ import {
 	getSpecificCategoriesBySubCategoryId,
 	getSubCategoriesByCategoryId
 } from 'lib/common.lib';
+import { useCategoryStore } from 'store/category-store';
 import useSWR from 'swr';
 import styles from './mega-menu.module.css';
 
@@ -26,17 +27,18 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 	const router = useRouter();
 
 	const {
-		// data: { data: mainCategoryList }
-		data
-	} = useSWR('/services/api/v1/main_category');
+		selectedMainCategoryId,
+		selectedCategoryIds,
+		selectedSubCategoryIds,
+		selectedSpecificCategoryIds,
 
-	const [selectedMainCategoryId, setSelectedMainCategoryId] =
-		useState('');
-	const [selectedCategoryId, setSelectedCategoryId] = useState('');
-	const [selectedSubCategoryId, setSelectedSubCategoryId] =
-		useState('');
-	const [selectedSpecificCategoryId, setSelectedSpecificCategoryId] =
-		useState('');
+		setSelectedMainCategoryId,
+		setSelectedCategoryId,
+		setSelectedSubCategoryId,
+		setSelectedSpecificCategoryId
+	} = useCategoryStore();
+
+	const { data } = useSWR('/services/api/v1/main_category');
 
 	const [mainCategoryList, setMainCategoryList] = useState([]);
 	const [categoryList, setCategoryList] = useState([]);
@@ -61,28 +63,33 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 
 	// Fetching sub-categories based on selectedCategoryId
 	useEffect(() => {
+		const selectedCategoryId = [...selectedCategoryIds]
+			.pop()
+			?.toString();
 		if (selectedCategoryId) {
 			getSubCategoriesByCategoryId(selectedCategoryId).then((data) =>
 				setSubCategoryList(data)
 			);
 		}
-	}, [selectedCategoryId]);
+	}, [selectedCategoryIds]);
 
 	// Fetching specific-categories based on selectedSubCategoryId
 	useEffect(() => {
+		const selectedSubCategoryId = [...selectedSubCategoryIds]
+			.pop()
+			?.toString();
+
 		if (selectedSubCategoryId) {
 			getSpecificCategoriesBySubCategoryId(selectedSubCategoryId).then(
 				(data) => setSpecificCategoryList(data)
 			);
 		}
-	}, [selectedSubCategoryId]);
+	}, [selectedSubCategoryIds]);
 
 	const navigateHandler = () => {
 		if (onClose) {
 			onClose();
 		}
-		setSelectedMainCategoryId(selectedCategoryId);
-		setSelectedCategoryId(selectedCategoryId);
 		router.push('/product-search');
 	}; // End of navigateHandler function
 
@@ -136,7 +143,10 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 					{categoryList.map((category: any) => {
 						const { id, slug, title } = category;
 
-						const isSelected = id === selectedCategoryId;
+						const isSelected =
+							selectedCategoryIds.findIndex(
+								(selectedCategoryId) => selectedCategoryId === id
+							) >= 0;
 
 						return (
 							<li
@@ -167,7 +177,10 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 					{subCategoryList.map((subCategory: any) => {
 						const { id, slug, title } = subCategory;
 
-						const isSelected = id === selectedSubCategoryId;
+						const isSelected =
+							selectedSubCategoryIds.findIndex(
+								(selectedSubCategoryId) => selectedSubCategoryId === id
+							) >= 0;
 
 						return (
 							<li
@@ -198,7 +211,11 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 					{specificCategoryList.map((specificCategory: any) => {
 						const { id, slug, title } = specificCategory;
 
-						const isSelected = id === selectedSpecificCategoryId;
+						const isSelected =
+							selectedSpecificCategoryIds.findIndex(
+								(selectedSpecificCategoryId) =>
+									selectedSpecificCategoryId === id
+							) >= 0;
 
 						return (
 							<li

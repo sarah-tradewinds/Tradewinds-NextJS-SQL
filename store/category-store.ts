@@ -1,38 +1,26 @@
 // Third party packages
-import { getCategories } from 'lib/common.lib';
+import {
+	getCategoriesByMainCategoryId,
+	getMainCategories,
+	getSpecificCategoriesBySubCategoryId,
+	getSubCategoriesByCategoryId
+} from 'lib/common.lib';
 import create from 'zustand';
-
-// const c = {
-//  ['categoryId']: {
-//    ['subCategoryId1']: [],
-//    ['subCategoryId2']: [],
-//    ['subCategoryId3']: []
-//  }
-// };
 
 interface CategoryState {
 	isLoading?: boolean;
 	categories: any[];
 	selectedMainCategoryId: string;
-	ids: any;
+	selectedCategoryIds: string[];
+	selectedSubCategoryIds: string[];
+	selectedSpecificCategoryIds: string[];
+	allCategories: {}[];
 
-	fetchCategories: (
-		mainCategoryId?: string,
-		categoryId?: string
-	) => any;
+	fetchMainCategories: () => any;
 	setSelectedMainCategoryId: (id: string) => any;
 	setSelectedCategoryId: (categoryId: string) => any;
-	setSelectedSubCategoryId: (categoryId: string, id: string) => any;
-	setSelectedSubSubCategoryId: (
-		categoryId: string,
-		subCategoryId: string,
-		id: string
-	) => any;
-	selectedAndUnselectAllCategoryId: () => any;
-	setDefaultMainCategoryAndCategoryId: (
-		mainCategoryId: string,
-		categoryId: string
-	) => any;
+	setSelectedSubCategoryId: (subCategoryId: string) => any;
+	setSelectedSpecificCategoryId: (specificCategoryId: string) => any;
 	removeCategoryFilter: () => any;
 }
 
@@ -56,95 +44,34 @@ const updateElementByIndex = (
 export const useCategoryStore = create<CategoryState>((set) => ({
 	categories: [],
 	selectedMainCategoryId: '',
-	ids: {},
-	fetchCategories: async (
-		mainCategoryId?: string,
-		categoryId?: string
-	) => {
-		set({ isLoading: true });
+	selectedCategoryIds: [],
+	selectedSubCategoryIds: [],
+	selectedSpecificCategoryIds: [],
+	allCategories: [],
 
-		let encodedCategories;
-		if (typeof window !== 'undefined') {
-			encodedCategories = localStorage.getItem('categories');
-		}
-
-		let categories: any[] = [];
-		if (encodedCategories) {
-			categories = JSON.parse(encodedCategories);
-		}
-
-		// Fetching from backend if locally not available
-		if (!encodedCategories) {
-			categories = await getCategories();
-			localStorage.setItem('categories', JSON.stringify(categories));
-		}
-
-		const defaultMainCategory = categories[0];
-		let ids = {};
-		let defaultCategoryId = '';
-		if (
-			defaultMainCategory &&
-			defaultMainCategory.category &&
-			defaultMainCategory.category[0]
-		) {
-			defaultCategoryId = defaultMainCategory?.category[0]?.id;
-			ids = {
-				[defaultCategoryId]: {}
-			};
-			categories[0].category[0].isSelected = true;
-		}
-
-		set((state) => {
-			const selectedMainCategoryId =
-				mainCategoryId ||
-				state.selectedMainCategoryId ||
-				defaultMainCategory?.id;
-
-			localStorage.setItem('main_category', selectedMainCategoryId);
-			localStorage.setItem('category', defaultCategoryId);
-			return {
-				isLoading: false,
-				categories,
-				selectedMainCategoryId:
-					mainCategoryId ||
-					state.selectedMainCategoryId ||
-					defaultMainCategory?.id,
-				ids
-			};
+	fetchMainCategories: async () => {
+		const mainCategories = await getMainCategories();
+		set({
+			allCategories: mainCategories
 		});
 	},
-	setDefaultMainCategoryAndCategoryId: (
-		mainCategoryId: string,
-		categoryId: string
-	) =>
-		set((state) => {
-			let ids = {};
-			if (categoryId) {
-				ids = {
-					[categoryId]: {}
-				};
-			}
+	setSelectedMainCategoryId: async (mainCategoryId: string) => {
+		const categories = await getCategoriesByMainCategoryId(
+			mainCategoryId
+		);
 
-			const categories = state.categories.map((mainCategory) => {
-				if (mainCategory.id === mainCategoryId) {
-					mainCategory.category?.map((categoryData: any) => {
-						if (categoryData.id === categoryId) {
-							categoryData.isSelected = true;
-						}
-					});
+		set(({ allCategories, selectedMainCategoryId }) => {
+			const updatedAllCategories = allCategories.map(
+				(mainCategory: any) => {
+					if (mainCategory.id === mainCategoryId) {
+						mainCategory.categories = categories;
+					} else {
+						mainCategory.categories = mainCategory.categories || [];
+					}
+					return mainCategory;
 				}
-				return mainCategory;
-			});
+			);
 
-			return {
-				categories,
-				selectedMainCategoryId:
-					mainCategoryId || state.selectedMainCategoryId,
-				ids
-			};
-		}),
-	setSelectedMainCategoryId: (mainCategoryId: string) =>
-		set(({ selectedMainCategoryId }) => {
 			const newMainCategoryId =
 				selectedMainCategoryId !== mainCategoryId ? mainCategoryId : '';
 
@@ -153,116 +80,146 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 
 			return {
 				selectedMainCategoryId: newMainCategoryId,
-				ids: {}
+				selectedCategoryIds: [],
+				selectedSubCategoryIds: [],
+				selectedSpecificCategoryIds: [],
+				allCategories: updatedAllCategories
 			};
-		}),
-	setSelectedCategoryId: (categoryId: string) =>
-		set((state) => {
-			const ids = { ...state.ids };
-			const isKeyExist = ids[categoryId];
-			if (isKeyExist) {
-				delete ids[categoryId];
-				localStorage.removeItem('category');
-			} else {
-				localStorage.setItem('category', categoryId);
-				ids[categoryId] = {};
-			}
+		});
+	},
+	setSelectedCategoryId: async (categoryId: string) => {
+		const subCategories = await getSubCategoriesByCategoryId(
+			categoryId
+		);
 
-			return {
-				categories: state.categories.map((mainCategory) => {
-					if (state.selectedMainCategoryId === mainCategory.id) {
-						mainCategory?.category.map((categoryData: any) => {
-							if (categoryData.id === categoryId) {
-								categoryData.isSelected = categoryData.isSelected
-									? false
-									: true;
-							}
-						});
+		set(
+			({
+				allCategories,
+				selectedMainCategoryId,
+				selectedCategoryIds
+			}) => {
+				const updatedAllCategories = allCategories.map(
+					(allCategory: any) => {
+						if (
+							allCategory.id === selectedMainCategoryId &&
+							allCategory.categories?.length > 0
+						) {
+							const updatedCategories = allCategory.categories.map(
+								(category: any) => {
+									if (category.id === categoryId) {
+										category.subCategories = subCategories;
+									} else {
+										category.subCategories =
+											category.subCategories || [];
+									}
+									return category;
+								}
+							);
+							allCategory.categories = updatedCategories;
+						}
+						return allCategory;
 					}
+				);
 
-					return mainCategory;
-				}),
-				ids
-			};
-		}),
-	setSelectedSubCategoryId: (
-		categoryId: string,
-		subCategoryId: string
-	) =>
-		set((state) => {
-			const ids = { ...state.ids };
-			const isCategoryExist = ids[categoryId];
-			if (isCategoryExist) {
-				const isSubCategoryExist = ids[categoryId][subCategoryId];
-				if (isSubCategoryExist) {
-					delete ids[categoryId][subCategoryId];
-				} else {
-					ids[categoryId][subCategoryId] = [];
-				}
-			}
-			return {
-				ids: ids
-			};
-		}),
-	setSelectedSubSubCategoryId: (
-		categoryId: string,
-		subCategoryId: string,
-		subSubCategoryId: string
-	) =>
-		set((state) => {
-			const ids = { ...state.ids };
-			const isCategoryExist = ids[categoryId];
-			if (isCategoryExist) {
-				const isSubCategoryExist = ids[categoryId][subCategoryId];
-				if (isSubCategoryExist) {
-					const updatedDatedData = updateElementByIndex(
-						state.ids[categoryId][subCategoryId],
-						subSubCategoryId
-					);
-					ids[categoryId][subCategoryId] = updatedDatedData;
-				}
-			}
+				const updatedSelectedCategoryIds = updateElementByIndex(
+					selectedCategoryIds,
+					categoryId
+				);
 
-			return {
-				ids
-			};
-		}),
-	selectedAndUnselectAllCategoryId: () =>
-		set((state) => {
-			let ids = {};
-			const mainCategory = state.categories.find(
-				(mainCategory) =>
-					mainCategory.id === state.selectedMainCategoryId
+				localStorage.setItem(
+					'category',
+					updatedSelectedCategoryIds.toString()
+				);
+
+				return {
+					selectedCategoryIds: updatedSelectedCategoryIds,
+					selectedSubCategoryIds: [],
+					selectedSpecificCategoryIds: [],
+					allCategories: updatedAllCategories
+				};
+			}
+		);
+	},
+	setSelectedSubCategoryId: async (subCategoryId: string) => {
+		const specificCategories =
+			await getSpecificCategoriesBySubCategoryId(subCategoryId);
+
+		set(
+			({
+				allCategories,
+				selectedMainCategoryId,
+				selectedCategoryIds,
+				selectedSubCategoryIds
+			}) => {
+				const updatedAllCategories = allCategories.map(
+					(allCategory: any) => {
+						if (
+							allCategory.id === selectedMainCategoryId &&
+							allCategory.categories?.length > 0
+						) {
+							const lastCategoryId =
+								selectedCategoryIds[selectedCategoryIds.length - 1];
+							const updatedCategories = allCategory.categories.map(
+								(category: any) => {
+									if (
+										category.id === lastCategoryId &&
+										category.subCategories?.length > 0
+									) {
+										const updatedSuCategories =
+											category.subCategories.map((subCategory: any) => {
+												if (subCategory.id === subCategoryId) {
+													subCategory.specificCategories =
+														specificCategories;
+												} else {
+													subCategory.specificCategories =
+														subCategory.specificCategories || [];
+												}
+												return subCategory;
+											});
+										category.subCategories = updatedSuCategories;
+									}
+									return category;
+								}
+							);
+							allCategory.categories = updatedCategories;
+						}
+						return allCategory;
+					}
+				);
+
+				const updatedSelectedSubCategoryIds = updateElementByIndex(
+					selectedSubCategoryIds,
+					subCategoryId
+				);
+
+				return {
+					selectedSubCategoryIds: updatedSelectedSubCategoryIds,
+					selectedSpecificCategoryIds: [],
+					allCategories: updatedAllCategories
+				};
+			}
+		);
+	},
+	setSelectedSpecificCategoryId: (specificCategoryId: string) =>
+		set(({ selectedSpecificCategoryIds }) => {
+			const updatedSelectedSpecificCategoryIds = updateElementByIndex(
+				selectedSpecificCategoryIds,
+				specificCategoryId
 			);
-			if (mainCategory) {
-				mainCategory?.category?.forEach((categoryData: any) => {
-					(ids as any)[categoryData.id] = {};
-					categoryData.isSelected = true;
-				});
-			}
-			ids = {
-				...ids,
-				...state.ids
-			};
 
-			return { ids };
+			return {
+				selectedSpecificCategoryIds: updatedSelectedSpecificCategoryIds
+			};
 		}),
 	removeCategoryFilter: () => {
 		localStorage.removeItem('main_category');
 		localStorage.removeItem('category');
 		set((state) => {
-			const categories = state.categories.map((mainCategory) => {
-				mainCategory.isSelected = false;
-				mainCategory.category?.map((categoryData: any) => {
-					categoryData.isSelected = false;
-				});
-				return mainCategory;
-			});
-
 			return {
-				categories,
 				selectedMainCategoryId: '',
-				ids: {}
+				selectedCategoryIds: [],
+				selectedSubCategoryIds: [],
+				selectedSpecificCategoryIds: []
 			};
 		});
 	}
