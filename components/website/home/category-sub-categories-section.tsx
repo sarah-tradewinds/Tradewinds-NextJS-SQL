@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { HiMinusCircle, HiPlusCircle } from 'react-icons/hi';
 import { useCategoryStore } from 'store/category-store';
 import { CatSubCatSectionType } from 'types/home';
+import { getLocaleText } from 'utils/get_locale_text';
 import Collapse from '../common/collapse';
 import CatSubCatActionCard from './common/cat-sub-cat-action-card';
 import CategoryCard from './common/category-card';
@@ -29,8 +30,15 @@ const CategorySubCategoriesSection: React.FC<
 		}));
 
 	const router = useRouter();
+	const { locale } = router;
 
-	const { category } = catSubCat;
+	const { main_category, categories } = catSubCat;
+
+	const mainCategoryTitle = getLocaleText(main_category.title, locale);
+	const mainCategoryDescription = getLocaleText(
+		main_category.description,
+		locale
+	);
 
 	useEffect(() => {
 		const handleResize = () => setScreenSize(window.innerWidth);
@@ -41,40 +49,44 @@ const CategorySubCategoriesSection: React.FC<
 		return () => window.removeEventListener('resize', handleResize);
 	}, [isTablet, screenSize]);
 
-	const subCategories = catSubCat.subCategories
+	const subCategories = [...categories]
 		.slice(0, isTablet ? 5 : 7)
-		.map((subCat, index) => (
-			<div
-				key={subCat.id}
-				className={`mb-2 md:mb-0 pc:border-b pc:border-gray/40 pc:last:border-b-0`}
-			>
-				<SubCategoryCard
-					subCat={subCat}
-					onClick={() => {
-						setSelectedMainCategoryId(category.id!);
-						setSelectedCategoryId(subCat.id as string);
-						router.push('/product-search');
-					}}
-					style={
-						applyBgColor
-							? { backgroundColor: category.bgHexColor }
-							: null
-					}
-					containerClassName="min-h-[80px] md:min-h-[124px] lg:min-h-[140px]"
-				/>
-			</div>
-		));
+		.map((subCat) => {
+			const { categories: category } = subCat as any;
+
+			return (
+				<div
+					key={subCat.id}
+					className={`mb-2 md:mb-0 pc:border-b pc:border-gray/40 pc:last:border-b-0`}
+				>
+					<SubCategoryCard
+						subCat={category}
+						onClick={() => {
+							setSelectedMainCategoryId(main_category.id!);
+							setSelectedCategoryId(category.id as string);
+							router.push('/product-search');
+						}}
+						style={
+							applyBgColor
+								? { backgroundColor: main_category.bgHexColor }
+								: null
+						}
+						containerClassName="min-h-[80px] md:min-h-[124px] lg:min-h-[140px]"
+					/>
+				</div>
+			);
+		});
 
 	return (
 		<div className=" bg-primary-main">
 			{/* For Small Screen- Collapse */}
 			<div className="md:hidden">
 				<Collapse
-					collapseHeadBgHexColor={category.bgHexColor || 'white'}
+					collapseHeadBgHexColor={main_category.bgHexColor || 'white'}
 					isReverse={isReverse}
 					onLeadingClick={() => setIsOpen((preState) => !preState)}
 					onContentClick={() => {
-						setSelectedMainCategoryId(category.id!);
+						setSelectedMainCategoryId(main_category.id!);
 						router.push('/product-search');
 					}}
 					leading={
@@ -86,7 +98,7 @@ const CategorySubCategoriesSection: React.FC<
 					}
 					title={
 						<span className="text-left text-[15px] font-semibold text-primary-main">
-							{category.title}
+							{mainCategoryTitle}
 						</span>
 					}
 					subtitle={
@@ -95,9 +107,9 @@ const CategorySubCategoriesSection: React.FC<
 								Name Here {` `}
 							</span>
 							<span className="text-gray">
-								{category.desc.length > 32
-									? `${category.desc.substring(0, 24)}...`
-									: category.desc}
+								{mainCategoryDescription.length > 32
+									? `${mainCategoryDescription.substring(0, 24)}...`
+									: mainCategoryDescription}
 							</span>
 						</div>
 					}
@@ -110,7 +122,8 @@ const CategorySubCategoriesSection: React.FC<
 							>
 								<Image
 									src={
-										category.image.url || '/vehicles/green-tractor.png'
+										main_category.image.url ||
+										'/vehicles/green-tractor.png'
 									}
 									alt=""
 									width={96}
@@ -133,21 +146,21 @@ const CategorySubCategoriesSection: React.FC<
 				<div className="md:col-span-4 xl:col-span-3">
 					<CategoryCard
 						title={
-							category.title.length > 20
-								? `${category.title.substring(0, 17)}...`
-								: category.title
+							mainCategoryTitle.length > 20
+								? `${mainCategoryTitle.substring(0, 17)}...`
+								: mainCategoryTitle
 						}
 						onClick={() => {
-							setSelectedMainCategoryId(category.id!);
+							setSelectedMainCategoryId(main_category.id!);
 							router.push('/product-search');
 						}}
-						description={category.desc}
-						buttonText={category.btnTxt}
+						description={mainCategoryDescription}
+						buttonText={main_category.btnTxt}
 						imageUrl={
-							category.image.url || '/vehicles/green-tractor.png'
+							main_category.image.url || '/vehicles/green-tractor.png'
 						}
-						alt={category.title}
-						bgHexColor={category.bgHexColor}
+						alt={main_category.title}
+						bgHexColor={main_category.bgHexColor}
 						containerClassName="md:h-[340px] lg:h-[380px] xl:h-[340px]"
 					/>
 				</div>

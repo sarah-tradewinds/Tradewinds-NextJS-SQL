@@ -1,3 +1,5 @@
+import { LocalesType } from './common.types';
+
 type HeroCarouselType = {
 	id?: string;
 	order: number;
@@ -21,7 +23,7 @@ type Category = {
 	title: string;
 	slug: { en: string };
 	image: { url: string };
-	desc: string;
+	description: LocalesType;
 	btnTxt: string;
 	bgHexColor?: string;
 };
@@ -35,8 +37,8 @@ type subCategories = {
 };
 
 type CatSubCatSectionType = {
-	category: Category;
-	subCategories: subCategories[];
+	main_category: Category;
+	categories: subCategories[];
 };
 
 // TODO: Need to remove this

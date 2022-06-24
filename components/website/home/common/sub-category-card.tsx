@@ -1,5 +1,7 @@
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { SubCategoryType } from 'types/home';
+import { getLocaleText } from 'utils/get_locale_text';
 
 type Props = {
 	subCat: SubCategoryType;
@@ -16,6 +18,11 @@ const SubCategoryCard = ({
 	onClick,
 	containerClassName
 }: Props) => {
+	const { locale } = useRouter();
+
+	const subCategorySlug = getLocaleText(subCat.slug, locale);
+	const subCategoryTitle = getLocaleText(subCat.title, locale);
+
 	return (
 		<div
 			style={style}
@@ -26,7 +33,7 @@ const SubCategoryCard = ({
 				{/* Content */}
 				<div className="pr-4 ">
 					<h2 className="font-semibold text-primary-main dark:text-accent-secondary-eco md:text-[14px] lg:text-[18px]">
-						{subCat.title}
+						{subCategoryTitle}
 					</h2>
 					<p className="text-primary-main md:text-[12px] lg:text-[15px]">
 						{subCat.clr}

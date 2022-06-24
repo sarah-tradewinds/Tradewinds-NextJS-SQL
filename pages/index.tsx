@@ -24,8 +24,8 @@ import {
 	getCardB,
 	getHeroCarousels,
 	getHomeAdvertisments,
-	getHomeCategories,
-	getHomeCountries
+	getHomeCountries,
+	getHomeMainCategoriesAndCategories
 } from 'lib/home.lib';
 
 // stores
@@ -45,7 +45,7 @@ const HomePage: NextPage<
 		heroCarousels = [],
 		cardAList = [],
 		cardBData = {},
-		homeCategories = [],
+		homeMainCategoriesAndCategories = [],
 		homeCountries = [],
 		homeAdvertisments = []
 	} = props;
@@ -105,11 +105,14 @@ const HomePage: NextPage<
 
 			{/* Category and sub categories */}
 			<div className="mt-12 space-y-12 md:mt-0 md:space-y-8 md:px-4 lg:px-8">
-				{homeCategories &&
-					homeCategories.map(
-						(homeCategory: CatSubCatSectionType, index: number) => {
+				{homeMainCategoriesAndCategories &&
+					homeMainCategoriesAndCategories.map(
+						(
+							homeMainCategoryAndCategories: CatSubCatSectionType,
+							index: number
+						) => {
 							const canIDisplayFlags = Math.floor(
-								homeCategories.length / 2
+								homeMainCategoriesAndCategories.length / 2
 							);
 							if (index !== 0) {
 								isReverse = !isReverse;
@@ -117,8 +120,8 @@ const HomePage: NextPage<
 							return (
 								<>
 									<CategorySubCategoriesSection
-										key={homeCategory.category.id}
-										catSubCat={homeCategory}
+										key={homeMainCategoryAndCategories.main_category.id}
+										catSubCat={homeMainCategoryAndCategories}
 										isReverse={isReverse}
 									/>
 
@@ -174,7 +177,8 @@ export const getServerSideProps: GetServerSideProps = async ({
 		const heroCarousels = await getHeroCarousels();
 		const cardAList = await getCardAList();
 		const cardBData = await getCardB();
-		const homeCategories = await getHomeCategories();
+		const homeMainCategoriesAndCategories =
+			await getHomeMainCategoriesAndCategories();
 		const homeCountries = await getHomeCountries();
 		const homeAdvertisments = await getHomeAdvertisments();
 
@@ -185,7 +189,8 @@ export const getServerSideProps: GetServerSideProps = async ({
 				heroCarousels,
 				cardAList,
 				cardBData,
-				homeCategories: homeCategories ?? [],
+				homeMainCategoriesAndCategories:
+					homeMainCategoriesAndCategories ?? [],
 				homeCountries,
 				homeAdvertisments
 			}
@@ -198,7 +203,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 				heroCarousels: [],
 				cardAList: [],
 				cardBData: {},
-				homeCategories: [],
+				homeMainCategoriesAndCategories: [],
 				homeCountries: []
 			}
 		};
