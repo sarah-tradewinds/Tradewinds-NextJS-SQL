@@ -14,10 +14,11 @@ import {
 	getCardB,
 	getHeroCarousels,
 	getHomeAdvertisments,
-	getHomeCategories,
-	getHomeCountries
+	getHomeCountries,
+	getHomeMainCategoriesAndCategories
 } from 'lib/home.lib';
 import {
+	GetServerSideProps,
 	GetStaticProps,
 	InferGetStaticPropsType,
 	NextPage
@@ -25,12 +26,7 @@ import {
 
 import { useEffect } from 'react';
 import { useHomeStore } from 'store/home';
-import { CatSubCatSectionType, HeroCarouselType } from 'types/home';
-
-type Props = {
-	heroCarouselData: HeroCarouselType[];
-	agriData: CatSubCatSectionType;
-};
+import { CatSubCatSectionType } from 'types/home';
 
 const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 	props
@@ -39,7 +35,7 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 		heroCarousels = [],
 		cardAList = [],
 		cardBData = {},
-		homeCategories = [],
+		homeMainCategoriesAndCategories = [],
 		homeCountries = [],
 		homeAdvertisments = []
 	} = props;
@@ -74,16 +70,16 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 
 			{/* Category and sub categories */}
 			<div className="mt-12 space-y-12 md:mt-0 md:space-y-8 md:px-4 lg:px-8">
-				{homeCategories &&
-					homeCategories.map(
+				{homeMainCategoriesAndCategories &&
+					homeMainCategoriesAndCategories.map(
 						(homeCategory: CatSubCatSectionType, index: number) => {
 							const canIDisplayFlags = Math.floor(
-								homeCategories.length / 2
+								homeMainCategoriesAndCategories.length / 2
 							);
 							return (
 								<>
 									<CategorySubCategoriesSection
-										key={homeCategory.category.id}
+										key={homeCategory.main_category.id}
 										catSubCat={homeCategory}
 									/>
 
@@ -125,12 +121,15 @@ export default HomePage;
 // Static Props
 
 // Static Props
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+	locale
+}) => {
 	try {
 		const heroCarousels = await getHeroCarousels();
 		const cardAList = await getCardAList();
 		const cardBData = await getCardB();
-		const homeCategories = await getHomeCategories();
+		const homeMainCategoriesAndCategories =
+			await getHomeMainCategoriesAndCategories();
 		const homeCountries = await getHomeCountries();
 		const homeAdvertisments = await getHomeAdvertisments();
 
@@ -140,7 +139,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 				heroCarousels,
 				cardAList,
 				cardBData,
-				homeCategories: homeCategories ?? [],
+				homeMainCategoriesAndCategories:
+					homeMainCategoriesAndCategories ?? [],
 				homeCountries,
 				homeAdvertisments
 			}
@@ -153,7 +153,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 				heroCarousels: [],
 				cardAList: [],
 				cardBData: {},
-				homeCategories: [],
+				homeMainCategoriesAndCategories: [],
 				homeCountries: []
 			}
 		};
