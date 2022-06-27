@@ -5,6 +5,9 @@ import {
 } from 'next';
 import { useEffect, useState } from 'react';
 
+// Third party packages
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
 // components
 import ProductDetailsTile from 'components/website/product-details/product-details-tile';
 
@@ -169,7 +172,8 @@ const ProductDetailsPage: NextPage<
 }; // End of ProductDetailsPage
 
 export const getServerSideProps: GetServerSideProps = async ({
-	params
+	params,
+	locale
 }) => {
 	const notFound = {
 		props: {},
@@ -201,7 +205,8 @@ export const getServerSideProps: GetServerSideProps = async ({
 				productReviews,
 				seller,
 				similarProducts,
-				seo: { title: seo.title.en, description: seo.description.en }
+				seo: { title: seo.title.en, description: seo.description.en },
+				...(await serverSideTranslations(locale || 'en'))
 			}
 		};
 	} catch (error) {
