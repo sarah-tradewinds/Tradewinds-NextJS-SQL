@@ -146,9 +146,10 @@ const CategorySubCategoriesSection: React.FC<
 				<div className="md:col-span-4 xl:col-span-3">
 					<CategoryCard
 						title={
-							mainCategoryTitle.length > 20
-								? `${mainCategoryTitle.substring(0, 17)}...`
-								: mainCategoryTitle
+							mainCategoryTitle
+							// mainCategoryTitle.length > 20
+							// 	? `${mainCategoryTitle.substring(0, 17)}...`
+							// 	: mainCategoryTitle
 						}
 						onClick={() => {
 							setSelectedMainCategoryId(main_category.id!);
