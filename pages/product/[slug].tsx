@@ -37,7 +37,7 @@ const ProductDetailsPage: NextPage<
 		useState(productReviews);
 	const [isReviewLoading, setIsReviewLoading] = useState(false);
 	const [selectedVariantId, setSelectedVariantId] = useState('');
-	const categories = useCategoryStore((state) => state.categories);
+	const categories = useCategoryStore((state) => state.allCategories);
 
 	const { customerData } = useAuthStore((state) => ({
 		customerData: state.customerData
