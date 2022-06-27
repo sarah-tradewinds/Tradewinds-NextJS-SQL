@@ -65,7 +65,7 @@ const ProductDetailsTabContainer: React.FC<{
 				<Tab.Panels>
 					<Tab.Panel>
 						<ProductDetailsTab
-							productDetailItem={product_detail_item}
+							productDetailItem={product_detail_item[0]}
 							shipping={shipping}
 						/>
 					</Tab.Panel>

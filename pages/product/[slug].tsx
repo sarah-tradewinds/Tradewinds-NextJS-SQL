@@ -110,7 +110,7 @@ const ProductDetailsPage: NextPage<
 
 				<div className="bg-white md:hidden">
 					<ProductDetailsTab
-						productDetailItem={productData.product_detail_item}
+						productDetailItem={productData.product_detail_item[0]}
 						shipping={productData.shipping}
 					/>
 					<ProductReviewsDetailsTab
