@@ -37,7 +37,7 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 	const isEco = useHomeStore((state) => state.isEco);
 	const { isLoading, categoriesLength } = useCategoryStore((state) => ({
 		isLoading: state.isLoading,
-		categoriesLength: state.categories.length
+		categoriesLength: state.allCategories.length
 	}));
 
 	const {
