@@ -47,47 +47,7 @@ export const getCardB = async () => {
 export const getHomeMainCategoriesAndCategories = async () => {
 	try {
 		const { data } = await serviceAxiosInstance.get('/cms_category');
-		const homeCategories: any[] = [];
-		// console.log(data.data[0].cat_section);
-
-		// data.data.forEach((mainCategory: any) => {
-		// 	const { category } = mainCategory;
-
-		// 	if (category) {
-		// 		const categoryAndSubCategories = {
-		// 			category: {
-		// 				id: mainCategory.id,
-		// 				title: mainCategory.title.en,
-		// 				slug: mainCategory.slug,
-		// 				image: mainCategory.image || '/static/images/TWveg.png',
-		// 				desc: mainCategory.description.en || 'description',
-		// 				btnTxt: mainCategory.btnTxt || '',
-		// 				bgHexColor: mainCategory.color || '#C4C4C4',
-		// 				isEco: mainCategory.isEco || false
-		// 			},
-		// 			subCategories: category.map((subCategory: any) => ({
-		// 				id: subCategory.id,
-		// 				title: subCategory.title.en,
-		// 				slug: subCategory.slug,
-		// 				img:
-		// 					subCategory.image ||
-		// 					'/static/images/TWAgricultureMini1.png',
-		// 				clr: subCategory.clr || ''
-		// 			}))
-		// 		};
-
-		// 		homeCategories.push(categoryAndSubCategories);
-		// 	}
-		// });
-
-		// if (homeCategories.length > 0) {
-		// 	return homeCategories.slice(0, 7);
-		// }
-
 		return data.data[0].cat_section;
-
-		return [];
-		return homeCategories || [];
 	} catch (error) {
 		console.log('[getHomeMainCategoriesAndCategories] =', error);
 		const { data } = (error as any).response || {};

@@ -13,10 +13,11 @@ export const getCategories = async () => {
 	}
 }; // End of getHomeCategories function
 
-export const getMainCategories = async () => {
+export const getMainCategories = async (isEco?: boolean) => {
 	try {
-		const { data } = await serviceAxiosInstance.get('/main_category');
-		console.log(data);
+		const { data } = await serviceAxiosInstance.get(
+			`/main_category?is_eco=${isEco}`
+		);
 		return data.data || [];
 	} catch (error) {
 		console.log('[getMainCategories] =', error);

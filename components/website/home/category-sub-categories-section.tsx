@@ -61,9 +61,9 @@ const CategorySubCategoriesSection: React.FC<
 				>
 					<SubCategoryCard
 						subCat={category}
-						onClick={() => {
-							setSelectedMainCategoryId(main_category.id!);
-							setSelectedCategoryId(category.id as string);
+						onClick={async () => {
+							await setSelectedMainCategoryId(main_category.id!);
+							await setSelectedCategoryId(category.id as string);
 							router.push('/product-search');
 						}}
 						style={
@@ -158,7 +158,7 @@ const CategorySubCategoriesSection: React.FC<
 						description={mainCategoryDescription}
 						buttonText={main_category.btnTxt}
 						imageUrl={
-							main_category.image.url || '/vehicles/green-tractor.png'
+							main_category?.image?.url || '/vehicles/green-tractor.png'
 						}
 						alt={main_category.title}
 						bgHexColor={main_category.bgHexColor}

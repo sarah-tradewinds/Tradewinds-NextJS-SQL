@@ -14,8 +14,7 @@ import {
 	getCardB,
 	getHeroCarousels,
 	getHomeAdvertisments,
-	getHomeCountries,
-	getHomeMainCategoriesAndCategories
+	getHomeCountries
 } from 'lib/home.lib';
 import {
 	GetServerSideProps,
@@ -24,6 +23,7 @@ import {
 	NextPage
 } from 'next';
 
+import { getEcoHomeMainCategoriesAndCategories } from 'lib/eco/eco-home.lib';
 import { useEffect } from 'react';
 import { useHomeStore } from 'store/home';
 import { CatSubCatSectionType } from 'types/home';
@@ -35,7 +35,7 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 		heroCarousels = [],
 		cardAList = [],
 		cardBData = {},
-		homeMainCategoriesAndCategories = [],
+		ecoHomeMainCategoriesAndCategories = [],
 		homeCountries = [],
 		homeAdvertisments = []
 	} = props;
@@ -60,6 +60,8 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 		</div>
 	);
 
+	let isReverse = false;
+
 	return (
 		<>
 			<Hero
@@ -70,17 +72,23 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 
 			{/* Category and sub categories */}
 			<div className="mt-12 space-y-12 md:mt-0 md:space-y-8 md:px-4 lg:px-8">
-				{homeMainCategoriesAndCategories &&
-					homeMainCategoriesAndCategories.map(
+				{ecoHomeMainCategoriesAndCategories &&
+					ecoHomeMainCategoriesAndCategories.map(
 						(homeCategory: CatSubCatSectionType, index: number) => {
 							const canIDisplayFlags = Math.floor(
-								homeMainCategoriesAndCategories.length / 2
+								ecoHomeMainCategoriesAndCategories.length / 2
 							);
+
+							if (index !== 0) {
+								isReverse = !isReverse;
+							}
+
 							return (
 								<>
 									<CategorySubCategoriesSection
 										key={homeCategory.main_category.id}
 										catSubCat={homeCategory}
+										isReverse={isReverse}
 									/>
 
 									{/*  Search Categories Banner */}
@@ -128,8 +136,8 @@ export const getServerSideProps: GetServerSideProps = async ({
 		const heroCarousels = await getHeroCarousels();
 		const cardAList = await getCardAList();
 		const cardBData = await getCardB();
-		const homeMainCategoriesAndCategories =
-			await getHomeMainCategoriesAndCategories();
+		const ecoHomeMainCategoriesAndCategories =
+			await getEcoHomeMainCategoriesAndCategories();
 		const homeCountries = await getHomeCountries();
 		const homeAdvertisments = await getHomeAdvertisments();
 
@@ -139,8 +147,8 @@ export const getServerSideProps: GetServerSideProps = async ({
 				heroCarousels,
 				cardAList,
 				cardBData,
-				homeMainCategoriesAndCategories:
-					homeMainCategoriesAndCategories ?? [],
+				ecoHomeMainCategoriesAndCategories:
+					ecoHomeMainCategoriesAndCategories ?? [],
 				homeCountries,
 				homeAdvertisments
 			}
@@ -153,7 +161,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 				heroCarousels: [],
 				cardAList: [],
 				cardBData: {},
-				homeMainCategoriesAndCategories: [],
+				ecoHomeMainCategoriesAndCategories: [],
 				homeCountries: []
 			}
 		};

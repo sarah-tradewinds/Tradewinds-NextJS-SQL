@@ -4,16 +4,10 @@ import { useRouter } from 'next/router';
 import { MdPlayArrow } from 'react-icons/md';
 
 // data
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 // styles
-import {
-	getCategoriesByMainCategoryId,
-	getSpecificCategoriesBySubCategoryId,
-	getSubCategoriesByCategoryId
-} from 'lib/common.lib';
 import { useCategoryStore } from 'store/category-store';
-import useSWR from 'swr';
 import styles from './mega-menu.module.css';
 
 interface MegaMenuProps {
@@ -38,7 +32,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 		setSelectedSpecificCategoryId
 	} = useCategoryStore();
 
-	const { data } = useSWR('/services/api/v1/main_category');
+	// const { data } = useSWR('/services/api/v1/main_category');
 
 	const [mainCategoryList, setMainCategoryList] = useState([]);
 	const [categoryList, setCategoryList] = useState([]);
@@ -46,45 +40,45 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 	const [specificCategoryList, setSpecificCategoryList] = useState([]);
 
 	// Set mainCategories
-	useEffect(() => {
-		if (data?.data) {
-			setMainCategoryList(data.data);
-		}
-	}, [data?.data]);
+	// useEffect(() => {
+	// 	if (data?.data) {
+	// 		setMainCategoryList(data.data);
+	// 	}
+	// }, [data?.data]);
 
-	// Fetching categories based on selectedMainCategoryId
-	useEffect(() => {
-		if (selectedMainCategoryId) {
-			getCategoriesByMainCategoryId(selectedMainCategoryId).then(
-				(data) => setCategoryList(data)
-			);
-		}
-	}, [selectedMainCategoryId]);
+	// // Fetching categories based on selectedMainCategoryId
+	// useEffect(() => {
+	// 	if (selectedMainCategoryId) {
+	// 		getCategoriesByMainCategoryId(selectedMainCategoryId).then(
+	// 			(data) => setCategoryList(data)
+	// 		);
+	// 	}
+	// }, [selectedMainCategoryId]);
 
-	// Fetching sub-categories based on selectedCategoryId
-	useEffect(() => {
-		const selectedCategoryId = [...selectedCategoryIds]
-			.pop()
-			?.toString();
-		if (selectedCategoryId) {
-			getSubCategoriesByCategoryId(selectedCategoryId).then((data) =>
-				setSubCategoryList(data)
-			);
-		}
-	}, [selectedCategoryIds]);
+	// // Fetching sub-categories based on selectedCategoryId
+	// useEffect(() => {
+	// 	const selectedCategoryId = [...selectedCategoryIds]
+	// 		.pop()
+	// 		?.toString();
+	// 	if (selectedCategoryId) {
+	// 		getSubCategoriesByCategoryId(selectedCategoryId).then((data) =>
+	// 			setSubCategoryList(data)
+	// 		);
+	// 	}
+	// }, [selectedCategoryIds]);
 
-	// Fetching specific-categories based on selectedSubCategoryId
-	useEffect(() => {
-		const selectedSubCategoryId = [...selectedSubCategoryIds]
-			.pop()
-			?.toString();
+	// // Fetching specific-categories based on selectedSubCategoryId
+	// useEffect(() => {
+	// 	const selectedSubCategoryId = [...selectedSubCategoryIds]
+	// 		.pop()
+	// 		?.toString();
 
-		if (selectedSubCategoryId) {
-			getSpecificCategoriesBySubCategoryId(selectedSubCategoryId).then(
-				(data) => setSpecificCategoryList(data)
-			);
-		}
-	}, [selectedSubCategoryIds]);
+	// 	if (selectedSubCategoryId) {
+	// 		getSpecificCategoriesBySubCategoryId(selectedSubCategoryId).then(
+	// 			(data) => setSpecificCategoryList(data)
+	// 		);
+	// 	}
+	// }, [selectedSubCategoryIds]);
 
 	const navigateHandler = () => {
 		if (onClose) {

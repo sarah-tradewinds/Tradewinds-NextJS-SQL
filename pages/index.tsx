@@ -51,8 +51,9 @@ const HomePage: NextPage<
 	} = props;
 
 	// Loading mega-menu data here
-	const { fetchMainCategories, removeCategoryFilter } =
+	const { allCategories, fetchMainCategories, removeCategoryFilter } =
 		useCategoryStore((state) => ({
+			allCategories: state.allCategories,
 			fetchMainCategories: state.fetchMainCategories,
 			removeCategoryFilter: state.removeCategoryFilter
 		}));
@@ -70,10 +71,12 @@ const HomePage: NextPage<
 	}));
 
 	useEffect(() => {
-		fetchMainCategories();
 		fetchCountries(homeCountries);
+		if (allCategories.length <= 0) {
+			fetchMainCategories();
+		}
 		removeSelectedCountries();
-	}, []);
+	}, [allCategories.length]);
 
 	const searchCategoriesBanner = (
 		<div className="flex items-center justify-center bg-accent-primary-main p-4 text-white dark:bg-accent-primary-eco md:p-8 xl:p-14">

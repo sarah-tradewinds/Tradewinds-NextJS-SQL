@@ -21,12 +21,11 @@ import MainCategoryCard from 'components/website/product-search/main-category-ca
 import SubCategoryTile from 'components/website/product-search/sub-category-tile';
 import { getProducts } from 'lib/product-search.lib';
 import { useEffect, useState } from 'react';
-import {
-	getMainCategoryById,
-	useCategoryStore
-} from 'store/category-store';
+import { useCategoryStore } from 'store/category-store';
 import { useCountriesStore } from 'store/countries-store';
+import { useHomeStore } from 'store/home';
 import { useProductStore } from 'store/product-store';
+import { getDataById } from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
 
 const ProductSearchPage: NextPage<
@@ -37,19 +36,23 @@ const ProductSearchPage: NextPage<
 	const [minPrice, setMinPrice] = useState('0');
 	const [selectedCountryCode, setSelectedCountryCode] = useState('');
 
+	const isEco = useHomeStore((state) => state.isEco);
+
 	const { selectedCountryIds } = useCountriesStore((state) => ({
 		selectedCountryIds: state.selectedCountryIds
 	}));
 
 	const {
-		categories,
 		allCategories,
 		selectedMainCategoryId,
 		selectedCategoryIds,
+		setSelectedCategoryId,
+		selectedSubCategoryIds,
+
 		fetchMainCategories,
-		setSelectedCategoryId
-		// selectedAndUnselectAllCategoryId,
-		// setDefaultMainCategoryAndCategoryId
+		fetchCategoriesByMainCategoryId,
+		fetchSubCategoriesByCategoryId,
+		fetchSpecificCategoriesBySubCategoryId
 	} = useCategoryStore();
 
 	const {
@@ -60,24 +63,47 @@ const ProductSearchPage: NextPage<
 
 	useEffect(() => {
 		if (allCategories.length <= 0) {
-			fetchMainCategories();
+			fetchMainCategories(isEco);
 		}
-	}, [allCategories.length]);
+	}, [allCategories.length, isEco]);
 
+	// Fetching categories based on main category id
 	useEffect(() => {
-		getProducts({
-			price_start: +minPrice,
-			main_category: selectedMainCategoryId,
-			category: selectedCategoryIds.toString(),
-			country_of_region: selectedCountryIds.toString()
-		}).then((data) => setProducts(data));
-	}, [
-		categories.length,
-		selectedMainCategoryId,
-		selectedCategoryIds,
-		minPrice,
-		selectedCountryIds
-	]);
+		fetchCategoriesByMainCategoryId(selectedMainCategoryId, isEco);
+	}, [selectedMainCategoryId]);
+
+	// Fetching sub-categories based on selectedCategoryIds
+	useEffect(() => {
+		fetchSubCategoriesByCategoryId(
+			selectedCategoryIds.toString(),
+			isEco
+		);
+	}, [selectedCategoryIds]);
+
+	// Fetching specific-categories based on selectedSubCategoryIds
+	useEffect(() => {
+		fetch;
+		fetchSpecificCategoriesBySubCategoryId(
+			selectedSubCategoryIds.toString(),
+			isEco
+		);
+	}, [selectedSubCategoryIds]);
+
+	// useEffect(() => {
+	// 	getProducts({
+	// 		price_start: +minPrice,
+	// 		main_category: selectedMainCategoryId,
+	// 		category: selectedCategoryIds.toString(),
+	// 		country_of_region: selectedCountryIds.toString(),
+	// 		is_eco: isEco
+	// 	}).then((data) => setProducts(data));
+	// }, [
+	// 	selectedMainCategoryId,
+	// 	selectedCategoryIds,
+	// 	minPrice,
+	// 	selectedCountryIds,
+	// 	isEco
+	// ]);
 
 	const [ref] = useKeenSlider<HTMLDivElement>({
 		loop: true,
@@ -91,12 +117,17 @@ const ProductSearchPage: NextPage<
 		(product: any) => product.isInCompareList
 	);
 
-	const mainCategory = getMainCategoryById(
+	const mainCategory = getDataById(
 		allCategories,
 		selectedMainCategoryId
 	);
 
-	const subCategories = (mainCategory as any)?.categories?.slice(0, 7);
+	const subCategories = (mainCategory as any)?.categories
+		?.slice(0, 7)
+		.map((category: any) => {
+			category.isSelected = selectedCategoryIds.includes(category.id);
+			return category;
+		});
 
 	return (
 		<>
@@ -164,7 +195,10 @@ const ProductSearchPage: NextPage<
 											className="keen-slider__slide"
 										>
 											<SubCategoryTile
-												imageUrl={subCategory.imageUrl}
+												imageUrl={
+													subCategory.image?.url ||
+													'/vehicles/green-tractor.png'
+												}
 												title={getLocaleText(subCategory.title)}
 												showBorder={subCategory?.isSelected}
 												onTilePressed={() =>

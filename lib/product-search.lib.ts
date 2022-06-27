@@ -7,6 +7,7 @@ export const getProducts = async (params: {
 	main_category?: string;
 	category?: string;
 	country_of_region?: string;
+	is_eco?: boolean;
 }) => {
 	const queryString = generateQueryString(params);
 
@@ -15,6 +16,7 @@ export const getProducts = async (params: {
 			`/product/search?${queryString}`
 		);
 
+		return [];
 		return data.response || [];
 	} catch (error) {
 		console.log('[getProducts] =', error);

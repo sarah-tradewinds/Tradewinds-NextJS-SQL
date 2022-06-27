@@ -9,19 +9,33 @@ import create from 'zustand';
 
 interface CategoryState {
 	isLoading?: boolean;
-	categories: any[];
+	isCategoryEco: boolean;
 	selectedMainCategoryId: string;
 	selectedCategoryIds: string[];
 	selectedSubCategoryIds: string[];
 	selectedSpecificCategoryIds: string[];
-	allCategories: {}[];
+	allCategories: any[];
 
-	fetchMainCategories: () => any;
+	setIsCategoryEco: (isEco: boolean) => any;
 	setSelectedMainCategoryId: (id: string) => any;
 	setSelectedCategoryId: (categoryId: string) => any;
 	setSelectedSubCategoryId: (subCategoryId: string) => any;
 	setSelectedSpecificCategoryId: (specificCategoryId: string) => any;
 	removeCategoryFilter: () => any;
+
+	fetchMainCategories: (isEco?: boolean) => any;
+	fetchCategoriesByMainCategoryId: (
+		mainCategoryId: string,
+		isEco?: boolean
+	) => any;
+	fetchSubCategoriesByCategoryId: (
+		categoryId: string,
+		isEco?: boolean
+	) => any;
+	fetchSpecificCategoriesBySubCategoryId: (
+		subCategoryId: string,
+		isEco?: boolean
+	) => any;
 }
 
 const updateElementByIndex = (
@@ -42,6 +56,7 @@ const updateElementByIndex = (
 }; // End of updateElementByIndex function
 
 export const useCategoryStore = create<CategoryState>((set) => ({
+	isCategoryEco: false,
 	categories: [],
 	selectedMainCategoryId: '',
 	selectedCategoryIds: [],
@@ -49,18 +64,115 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 	selectedSpecificCategoryIds: [],
 	allCategories: [],
 
-	fetchMainCategories: async () => {
-		const mainCategories = await getMainCategories();
-		set({
-			allCategories: mainCategories
+	setIsCategoryEco: (isEco: boolean) => {
+		set(({ isCategoryEco }) => ({ isCategoryEco: !isCategoryEco }));
+	},
+
+	setSelectedMainCategoryId: (mainCategoryId: string) => {
+		console.log('mainCategoryId mainCategoryId =', mainCategoryId);
+		set(({ allCategories, selectedMainCategoryId }) => {
+			const newMainCategoryId =
+				selectedMainCategoryId !== mainCategoryId ? mainCategoryId : '';
+
+			localStorage.setItem('main_category_id', newMainCategoryId);
+			localStorage.removeItem('category_ids');
+
+			const updatedAllCategories = allCategories.map((mainCategory) => {
+				delete mainCategory.categories;
+				return mainCategory;
+			});
+
+			return {
+				selectedMainCategoryId: newMainCategoryId,
+				selectedCategoryIds: [],
+				selectedSubCategoryIds: [],
+				selectedSpecificCategoryIds: [],
+				allCategories: updatedAllCategories
+			};
 		});
 	},
-	setSelectedMainCategoryId: async (mainCategoryId: string) => {
+	setSelectedCategoryId: (categoryId: string) => {
+		set(({ allCategories, selectedCategoryIds }) => {
+			const updatedSelectedCategoryIds = updateElementByIndex(
+				selectedCategoryIds,
+				categoryId
+			);
+
+			localStorage.setItem(
+				'category_ids',
+				updatedSelectedCategoryIds.toString()
+			);
+
+			return {
+				selectedCategoryIds: updatedSelectedCategoryIds,
+				selectedSubCategoryIds: [],
+				selectedSpecificCategoryIds: []
+			};
+		});
+	},
+	setSelectedSubCategoryId: (subCategoryId: string) => {
+		set(({ selectedSubCategoryIds }) => {
+			const updatedSelectedSubCategoryIds = updateElementByIndex(
+				selectedSubCategoryIds,
+				subCategoryId
+			);
+
+			return {
+				selectedSubCategoryIds: updatedSelectedSubCategoryIds,
+				selectedSpecificCategoryIds: []
+			};
+		});
+	},
+	setSelectedSpecificCategoryId: (specificCategoryId: string) =>
+		set(({ selectedSpecificCategoryIds }) => {
+			const updatedSelectedSpecificCategoryIds = updateElementByIndex(
+				selectedSpecificCategoryIds,
+				specificCategoryId
+			);
+
+			return {
+				selectedSpecificCategoryIds: updatedSelectedSpecificCategoryIds
+			};
+		}),
+	removeCategoryFilter: () => {
+		localStorage.removeItem('main_category');
+		localStorage.removeItem('category');
+		set((state) => {
+			return {
+				selectedMainCategoryId: '',
+				selectedCategoryIds: [],
+				selectedSubCategoryIds: [],
+				selectedSpecificCategoryIds: []
+			};
+		});
+	},
+
+	fetchMainCategories: async (isEco?: boolean) => {
+		const mainCategories = await getMainCategories(isEco);
+		set(() => {
+			const localMainCategoryId =
+				localStorage.getItem('main_category_id');
+
+			let defaultMainCategoryId: string = localMainCategoryId || '';
+			if (!localMainCategoryId) {
+				defaultMainCategoryId = mainCategories[0]?.id?.toString();
+				localStorage.setItem('main_category_id', defaultMainCategoryId);
+			}
+			return {
+				selectedMainCategoryId: defaultMainCategoryId,
+				allCategories: mainCategories
+			};
+		});
+	},
+	fetchCategoriesByMainCategoryId: async (
+		mainCategoryId: string,
+		isEco?: boolean
+	) => {
 		const categories = await getCategoriesByMainCategoryId(
 			mainCategoryId
 		);
 
-		set(({ allCategories, selectedMainCategoryId }) => {
+		set(({ allCategories }) => {
 			const updatedAllCategories = allCategories.map(
 				(mainCategory: any) => {
 					if (mainCategory.id === mainCategoryId) {
@@ -74,26 +186,19 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 				}
 			);
 
-			const newMainCategoryId: string =
-				selectedMainCategoryId !== mainCategoryId ? mainCategoryId : '';
-
-			localStorage.setItem('main_category', newMainCategoryId);
-			localStorage.removeItem('category');
+			console.log('updatedAllCategories =', updatedAllCategories);
 
 			return {
-				selectedMainCategoryId: newMainCategoryId,
-				selectedCategoryIds: [],
 				selectedSubCategoryIds: [],
 				selectedSpecificCategoryIds: [],
 				allCategories: updatedAllCategories
 			};
 		});
 	},
-	setSelectedCategoryId: async (categoryId: string) => {
+	fetchSubCategoriesByCategoryId: async (categoryId: string) => {
 		const subCategories = await getSubCategoriesByCategoryId(
 			categoryId
 		);
-
 		set(
 			({
 				allCategories,
@@ -125,18 +230,7 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 					}
 				);
 
-				const updatedSelectedCategoryIds = updateElementByIndex(
-					selectedCategoryIds,
-					categoryId
-				);
-
-				localStorage.setItem(
-					'category',
-					updatedSelectedCategoryIds.toString()
-				);
-
 				return {
-					selectedCategoryIds: updatedSelectedCategoryIds,
 					selectedSubCategoryIds: [],
 					selectedSpecificCategoryIds: [],
 					allCategories: updatedAllCategories
@@ -144,7 +238,9 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 			}
 		);
 	},
-	setSelectedSubCategoryId: async (subCategoryId: string) => {
+	fetchSpecificCategoriesBySubCategoryId: async (
+		subCategoryId: string
+	) => {
 		const specificCategories =
 			await getSpecificCategoriesBySubCategoryId(subCategoryId);
 
@@ -191,42 +287,196 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 					}
 				);
 
-				const updatedSelectedSubCategoryIds = updateElementByIndex(
-					selectedSubCategoryIds,
-					subCategoryId
-				);
-
 				return {
-					selectedSubCategoryIds: updatedSelectedSubCategoryIds,
 					selectedSpecificCategoryIds: [],
 					allCategories: updatedAllCategories
 				};
 			}
 		);
-	},
-	setSelectedSpecificCategoryId: (specificCategoryId: string) =>
-		set(({ selectedSpecificCategoryIds }) => {
-			const updatedSelectedSpecificCategoryIds = updateElementByIndex(
-				selectedSpecificCategoryIds,
-				specificCategoryId
-			);
-
-			return {
-				selectedSpecificCategoryIds: updatedSelectedSpecificCategoryIds
-			};
-		}),
-	removeCategoryFilter: () => {
-		localStorage.removeItem('main_category');
-		localStorage.removeItem('category');
-		set((state) => {
-			return {
-				selectedMainCategoryId: '',
-				selectedCategoryIds: [],
-				selectedSubCategoryIds: [],
-				selectedSpecificCategoryIds: []
-			};
-		});
 	}
+
+	// setSelectedMainCategoryId: async (mainCategoryId: string) => {
+	// 	let newMainCategoryId: string = '';
+	// 	set(({ selectedMainCategoryId }) => {
+	// 		newMainCategoryId =
+	// 			selectedMainCategoryId !== mainCategoryId ? mainCategoryId : '';
+
+	// 		localStorage.setItem('main_category', newMainCategoryId);
+	// 		localStorage.removeItem('category');
+	// 	});
+
+	// 	const categories = await getCategoriesByMainCategoryId(
+	// 		mainCategoryId
+	// 	);
+
+	// 	set(({ allCategories, selectedMainCategoryId }) => {
+	// 		const updatedAllCategories = allCategories.map(
+	// 			(mainCategory: any) => {
+	// 				if (mainCategory.id === mainCategoryId) {
+	// 					mainCategory.categories = categories;
+	// 					mainCategory.isSelected = true;
+	// 				} else {
+	// 					mainCategory.categories = mainCategory.categories || [];
+	// 					mainCategory.isSelected = false;
+	// 				}
+	// 				return mainCategory;
+	// 			}
+	// 		);
+
+	// 		const newMainCategoryId =
+	// 			selectedMainCategoryId !== mainCategoryId ? mainCategoryId : '';
+
+	// 		localStorage.setItem('main_category', newMainCategoryId);
+	// 		localStorage.removeItem('category');
+
+	// 		return {
+	// 			selectedMainCategoryId: newMainCategoryId,
+	// 			selectedCategoryIds: [],
+	// 			selectedSubCategoryIds: [],
+	// 			selectedSpecificCategoryIds: [],
+	// 			allCategories: updatedAllCategories
+	// 		};
+	// 	});
+	// },
+	// setSelectedCategoryId: async (categoryId: string) => {
+	// 	// let updatedSelectedCategoryIds: any[] = [];
+	// 	// set(({ selectedCategoryIds }) => {
+	// 	// 	updatedSelectedCategoryIds = updateElementByIndex(
+	// 	// 		selectedCategoryIds,
+	// 	// 		categoryId
+	// 	// 	);
+
+	// 	// 	localStorage.setItem(
+	// 	// 		'category',
+	// 	// 		updatedSelectedCategoryIds.toString()
+	// 	// 	);
+	// 	// });
+
+	// 	const subCategories = await getSubCategoriesByCategoryId(
+	// 		categoryId
+	// 	);
+
+	// 	set(
+	// 		({
+	// 			allCategories,
+	// 			selectedMainCategoryId,
+	// 			selectedCategoryIds
+	// 		}) => {
+	// 			const updatedAllCategories = allCategories.map(
+	// 				(allCategory: any) => {
+	// 					if (
+	// 						allCategory.id === selectedMainCategoryId &&
+	// 						allCategory.categories?.length > 0
+	// 					) {
+	// 						const updatedCategories = allCategory.categories.map(
+	// 							(category: any) => {
+	// 								if (category.id === categoryId) {
+	// 									category.subCategories = subCategories;
+	// 									category.isSelected = !category.isSelected;
+	// 								} else {
+	// 									category.subCategories =
+	// 										category.subCategories || [];
+	// 									category.isSelected = category.isSelected;
+	// 								}
+	// 								return category;
+	// 							}
+	// 						);
+	// 						allCategory.categories = updatedCategories;
+	// 					}
+	// 					return allCategory;
+	// 				}
+	// 			);
+
+	// 			const updatedSelectedCategoryIds = updateElementByIndex(
+	// 				selectedCategoryIds,
+	// 				categoryId
+	// 			);
+
+	// 			localStorage.setItem(
+	// 				'category',
+	// 				updatedSelectedCategoryIds.toString()
+	// 			);
+
+	// 			return {
+	// 				selectedCategoryIds: updatedSelectedCategoryIds,
+	// 				selectedSubCategoryIds: [],
+	// 				selectedSpecificCategoryIds: [],
+	// 				allCategories: updatedAllCategories
+	// 			};
+	// 		}
+	// 	);
+	// },
+	// setSelectedSubCategoryId: async (subCategoryId: string) => {
+	// 	const specificCategories =
+	// 		await getSpecificCategoriesBySubCategoryId(subCategoryId);
+
+	// 	set(
+	// 		({
+	// 			allCategories,
+	// 			selectedMainCategoryId,
+	// 			selectedCategoryIds,
+	// 			selectedSubCategoryIds
+	// 		}) => {
+	// 			const updatedAllCategories = allCategories.map(
+	// 				(allCategory: any) => {
+	// 					if (
+	// 						allCategory.id === selectedMainCategoryId &&
+	// 						allCategory.categories?.length > 0
+	// 					) {
+	// 						const lastCategoryId =
+	// 							selectedCategoryIds[selectedCategoryIds.length - 1];
+	// 						const updatedCategories = allCategory.categories.map(
+	// 							(category: any) => {
+	// 								if (
+	// 									category.id === lastCategoryId &&
+	// 									category.subCategories?.length > 0
+	// 								) {
+	// 									const updatedSuCategories =
+	// 										category.subCategories.map((subCategory: any) => {
+	// 											if (subCategory.id === subCategoryId) {
+	// 												subCategory.specificCategories =
+	// 													specificCategories;
+	// 											} else {
+	// 												subCategory.specificCategories =
+	// 													subCategory.specificCategories || [];
+	// 											}
+	// 											return subCategory;
+	// 										});
+	// 									category.subCategories = updatedSuCategories;
+	// 								}
+	// 								return category;
+	// 							}
+	// 						);
+	// 						allCategory.categories = updatedCategories;
+	// 					}
+	// 					return allCategory;
+	// 				}
+	// 			);
+
+	// 			const updatedSelectedSubCategoryIds = updateElementByIndex(
+	// 				selectedSubCategoryIds,
+	// 				subCategoryId
+	// 			);
+
+	// 			return {
+	// 				selectedSubCategoryIds: updatedSelectedSubCategoryIds,
+	// 				selectedSpecificCategoryIds: [],
+	// 				allCategories: updatedAllCategories
+	// 			};
+	// 		}
+	// 	);
+	// },
+	// setSelectedSpecificCategoryId: (specificCategoryId: string) =>
+	// 	set(({ selectedSpecificCategoryIds }) => {
+	// 		const updatedSelectedSpecificCategoryIds = updateElementByIndex(
+	// 			selectedSpecificCategoryIds,
+	// 			specificCategoryId
+	// 		);
+
+	// 		return {
+	// 			selectedSpecificCategoryIds: updatedSelectedSpecificCategoryIds
+	// 		};
+	// 	}),
 }));
 
 export const getMainCategoryById = (
