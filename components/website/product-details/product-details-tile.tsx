@@ -16,6 +16,9 @@ import MetadataTile from '../product-search/metadata/metadata-tile';
 import ImageContainer from './product-details-images/image-contaier';
 import RatingStars from './product-details-tab/product-review/rating-stars';
 
+// utils
+import { getLocaleText } from 'utils/get_locale_text';
+
 const ProductDetailsTile: React.FC<{
 	totalReviewCount: number;
 	product: any;
@@ -36,8 +39,11 @@ const ProductDetailsTile: React.FC<{
 		})
 	);
 	const router = useRouter();
+	const { locale } = router;
 
 	const {
+		product_name,
+		product_description,
 		inventory,
 		product_price,
 		is_bulk_pricing,
@@ -72,11 +78,11 @@ const ProductDetailsTile: React.FC<{
 			/>
 
 			{/* Product details */}
-			<div className="col-span-12 space-y-4 py-8 px-4 md:px-24 lg:col-span-7 lg:p-8">
+			<div className="col-span-12 space-y-4 px-4 md:py-8 md:px-24 lg:col-span-7 lg:p-8">
 				{/* Product name and sku info */}
 				<div className="flex items-center justify-between">
 					<h1 className="text-[18px] font-semibold text-primary-main lg:text-[30px]">
-						{product.product_name}
+						{getLocaleText({ en: product_name }, locale)}
 					</h1>
 					<p className="hidden text-[25px] font-semibold text-gray/40 md:block">
 						{inventory?.sku}
@@ -192,8 +198,13 @@ const ProductDetailsTile: React.FC<{
 				{/* Product name and bullet points */}
 				<div className="border-t border-b-0 border-gray/40 py-6 md:border-b">
 					<h2 className="text-[12px] text-gray md:text-[15px]">
-						<span className="font-semibold">Product name:</span>{' '}
-						{product.product_description}
+						<span className="font-semibold">
+							Product name:{' '}
+							{getLocaleText({ en: product_name }, locale)}
+						</span>{' '}
+						<span>
+							{getLocaleText({ en: product_description }, locale)}
+						</span>
 					</h2>
 					<ul className="ml-8 list-disc text-[12px] text-gray md:text-[15px]">
 						<li>Bullet point</li>

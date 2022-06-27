@@ -27,6 +27,7 @@ import {
 } from 'store/category-store';
 import { useCountriesStore } from 'store/countries-store';
 import { useProductStore } from 'store/product-store';
+import { getLocaleText } from 'utils/get_locale_text';
 
 const ProductSearchPage: NextPage<
 	InferGetServerSidePropsType<GetServerSideProps>
@@ -159,12 +160,16 @@ const ProductSearchPage: NextPage<
 								<div ref={ref} className="keen-slider">
 									{subCategories?.map((subCategory: any) => (
 										<div
-											key={subCategory.name}
+											key={subCategory.id}
 											className="keen-slider__slide"
 										>
 											<SubCategoryTile
 												imageUrl={subCategory.imageUrl}
-												title={subCategory.name}
+												title={getLocaleText(subCategory.title)}
+												showBorder={subCategory?.isSelected}
+												onTilePressed={() =>
+													setSelectedCategoryId(subCategory.id)
+												}
 											/>
 										</div>
 									))}
