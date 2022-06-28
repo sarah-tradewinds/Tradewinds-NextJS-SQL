@@ -48,6 +48,7 @@ const Header = () => {
 
 	const [isOpen, setIsOpen] = useState(false);
 	const [showLogout, setShowLogout] = useState(false);
+	const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
 
 	const { t } = useTranslation('navigation');
 
@@ -225,58 +226,21 @@ const Header = () => {
         "
 				>
 					<div className="flex">
-						{/* <Popover className="relative hidden md:inline-block">
-							{(options: any) => {
-								return (
-									<>
-										<Popover.Button
-											ref={buttonRef}
-											onMouseEnter={() =>
-												onHover(options?.open, 'onMouseEnter', 'button')
-											}
-											onMouseLeave={() =>
-												onHover(options?.open, 'onMouseLeave', 'button')
-											}
-											className="font-semibold text-primary-main outline-none dark:text-accent-secondary-eco"
-										>
-											{t('categories_text')}{' '}
-											<span className="hidden md:inline">&gt;</span>
-										</Popover.Button>
-
-										<Transition
-											enter="transition duration-100 ease-out"
-											enterFrom="transform scale-95 opacity-0"
-											enterTo="transform scale-100 opacity-100"
-											leave="transition duration-75 ease-out"
-											leaveFrom="transform scale-100 opacity-100"
-											leaveTo="transform scale-95 opacity-0"
-										>
-											<Popover.Panel
-												className="fixed left-0 right-0 z-10 mt-2 bg-secondary"
-												onMouseEnter={() =>
-													onHover(options?.open, 'onMouseEnter', 'menu')
-												}
-												onMouseLeave={() =>
-													onHover(options?.open, 'onMouseLeave', 'menu')
-												}
-											>
-												<MegaMenu onClose={closeMegaMenuHandler} />
-											</Popover.Panel>
-										</Transition>
-									</>
-								);
-							}}
-						</Popover> */}
-
-						<div className="group hidden md:inline-block">
+						<div
+							className="group hidden md:inline-block"
+							onMouseEnter={() => setIsMegaMenuOpen(true)}
+							onMouseLeave={() => setIsMegaMenuOpen(false)}
+						>
 							<div className="font-semibold text-primary-main outline-none dark:text-accent-secondary-eco">
 								{t('categories_text')}{' '}
 								<span className="hidden md:inline">&gt;</span>
 							</div>
 
-							<div className="fixed top-[112px] left-0 right-0 z-[9000000000000] hidden group-hover:block">
-								<MegaMenu onClose={closeMegaMenuHandler} />
-							</div>
+							{isMegaMenuOpen && (
+								<div className="fixed top-[112px] left-0 right-0 z-[9000000000000]">
+									<MegaMenu onClose={() => setIsMegaMenuOpen(false)} />
+								</div>
+							)}
 						</div>
 
 						<nav className="flex cursor-pointer flex-col items-start justify-start md:flex-row md:divide-x">
