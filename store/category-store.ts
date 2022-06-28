@@ -69,14 +69,14 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 	},
 
 	setSelectedMainCategoryId: (mainCategoryId: string) => {
-		set(({ allCategories }) => {
-			if (mainCategoryId) {
-				localStorage.setItem('main_category_id', mainCategoryId);
-			} else {
-				localStorage.removeItem('main_category_id');
-			}
-			localStorage.removeItem('category_ids');
+		console.log('mainCategoryId =', mainCategoryId);
+		if (!mainCategoryId) {
+			return;
+		}
 
+		set(({ allCategories }) => {
+			localStorage.setItem('main_category_id', mainCategoryId);
+			localStorage.removeItem('category_ids');
 			const updatedAllCategories = allCategories.map((mainCategory) => {
 				delete mainCategory.categories;
 				return mainCategory;
@@ -135,8 +135,8 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 			};
 		}),
 	removeCategoryFilter: () => {
-		localStorage.removeItem('main_category');
-		localStorage.removeItem('category');
+		localStorage.removeItem('main_category_id');
+		localStorage.removeItem('category_ids');
 		set((state) => {
 			return {
 				selectedMainCategoryId: '',
@@ -185,8 +185,6 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 					return mainCategory;
 				}
 			);
-
-			console.log('updatedAllCategories =', updatedAllCategories);
 
 			return {
 				selectedSubCategoryIds: [],

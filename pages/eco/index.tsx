@@ -25,6 +25,7 @@ import {
 
 import { getEcoHomeMainCategoriesAndCategories } from 'lib/eco/eco-home.lib';
 import { useEffect } from 'react';
+import { useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';
 import { CatSubCatSectionType } from 'types/home';
 
@@ -40,17 +41,33 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 		homeAdvertisments = []
 	} = props;
 
-	console.log(
-		'ecoHomeMainCategoriesAndCategories =',
-		ecoHomeMainCategoriesAndCategories
-	);
+	const { setIsEco, isEco } = useHomeStore(({ setIsEco, isEco }) => ({
+		setIsEco,
+		isEco
+	}));
 
-	const setIsEco = useHomeStore(({ setIsEco }) => setIsEco);
+	console.log('isEco =', isEco);
+
+	// enabling eco mode
+	useEffect(() => {
+		if (!isEco) {
+			setIsEco();
+		}
+		return () => {};
+	}, []);
+
+	const { fetchMainCategories, removeCategoryFilter } =
+		useCategoryStore((state) => ({
+			allCategories: state.allCategories,
+			fetchMainCategories: state.fetchMainCategories,
+			removeCategoryFilter: state.removeCategoryFilter
+		}));
 
 	useEffect(() => {
-		setIsEco();
-		return setIsEco;
-	}, []);
+		if (isEco) {
+			fetchMainCategories(isEco);
+		}
+	}, [isEco]);
 
 	const searchCategoriesBanner = (
 		<div className="flex items-center justify-center bg-accent-primary-main p-4 text-white dark:bg-accent-primary-eco md:p-8 lg:p-14">

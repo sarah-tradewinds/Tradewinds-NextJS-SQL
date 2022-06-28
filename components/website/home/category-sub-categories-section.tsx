@@ -147,9 +147,8 @@ const CategorySubCategoriesSection: React.FC<
 					<CategoryCard
 						title={mainCategoryTitle}
 						onClick={() => {
-							console.log(main_category);
-							// setSelectedMainCategoryId(main_category.id!);
-							// router.push('/product-search');
+							setSelectedMainCategoryId(main_category.id!);
+							router.push('/product-search');
 						}}
 						description={mainCategoryDescription}
 						buttonText={main_category.btnTxt}

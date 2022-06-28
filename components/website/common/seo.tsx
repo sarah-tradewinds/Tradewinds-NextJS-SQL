@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { NextSeo, NextSeoProps } from 'next-seo';
 
 const Seo: React.FC<NextSeoProps> = (props) => {
-	console.log('[Seo] component', props);
+	// console.log('[Seo] component', props);
 
 	return (
 		<>

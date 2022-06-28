@@ -18,9 +18,7 @@ export const getProducts = async (params: {
 		const { data } = await serviceAxiosInstance.get(
 			`/product/search?${queryString}`
 		);
-		console.group(
-			data.response.filter((res: any) => res.images.length >= 1)
-		);
+
 		return (
 			data.response.filter((res: any) => res.images.length >= 1) || []
 		);

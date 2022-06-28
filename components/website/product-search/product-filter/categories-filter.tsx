@@ -1,5 +1,4 @@
 // Third party packages
-import { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 
 // data
@@ -19,59 +18,6 @@ const CategoriesFilter: React.FC = (props) => {
 		setSelectedSpecificCategoryId
 	} = useCategoryStore();
 
-	// const { data } = useSWR('/services/api/v1/main_category');
-
-	const [mainCategoryList, setMainCategoryList] = useState([]);
-	const [categoryList, setCategoryList] = useState([]);
-	const [subCategoryList, setSubCategoryList] = useState([]);
-	const [specificCategoryList, setSpecificCategoryList] = useState([]);
-
-	// // Set mainCategories
-	// useEffect(() => {
-	// 	if (data?.data) {
-	// 		setMainCategoryList(data.data);
-	// 	}
-	// }, [data?.data]);
-
-	// // Fetching categories based on selectedMainCategoryId
-	// useEffect(() => {
-	// 	if (selectedMainCategoryId) {
-	// 		getCategoriesByMainCategoryId(selectedMainCategoryId).then(
-	// 			(data) => setCategoryList(data)
-	// 		);
-	// 	}
-	// }, [selectedMainCategoryId]);
-
-	// // Fetching sub-categories based on selectedCategoryId
-	// useEffect(() => {
-	// 	const selectedCategoryId = [...selectedCategoryIds]
-	// 		.pop()
-	// 		?.toString();
-	// 	if (selectedCategoryId) {
-	// 		getSubCategoriesByCategoryId(selectedCategoryId).then((data) =>
-	// 			setSubCategoryList(data)
-	// 		);
-	// 	}
-	// }, [selectedCategoryIds]);
-
-	// Fetching specific-categories based on selectedSubCategoryId
-	// useEffect(() => {
-	// 	const selectedSubCategoryId = [...selectedSubCategoryIds]
-	// 		.pop()
-	// 		?.toString();
-
-	// 	if (selectedSubCategoryId) {
-	// 		getSpecificCategoriesBySubCategoryId(selectedSubCategoryId).then(
-	// 			(data) => setSpecificCategoryList(data)
-	// 		);
-	// 	}
-	// }, [selectedSubCategoryIds]);
-
-	// console.log(
-	// 	'selectedMainCategoryId =',
-	// 	selectedMainCategoryId,
-	// 	allCategories
-	// );
 	return (
 		<div className="mt-4 space-y-2">
 			{/* Main categories */}

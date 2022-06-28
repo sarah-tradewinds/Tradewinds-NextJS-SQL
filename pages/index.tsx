@@ -31,6 +31,7 @@ import {
 // stores
 import { useCategoryStore } from 'store/category-store';
 import { useCountriesStore } from 'store/countries-store';
+import { useHomeStore } from 'store/home';
 import { CatSubCatSectionType, HeroCarouselType } from 'types/home';
 
 type Props = {
@@ -49,6 +50,10 @@ const HomePage: NextPage<
 		homeCountries = [],
 		homeAdvertisments = []
 	} = props;
+
+	const { isEco } = useHomeStore(({ isEco }) => ({
+		isEco
+	}));
 
 	// Loading mega-menu data here
 	const { allCategories, fetchMainCategories, removeCategoryFilter } =
@@ -70,13 +75,15 @@ const HomePage: NextPage<
 		removeSelectedCountries: state.removeSelectedCountries
 	}));
 
+	// Fetching countries
 	useEffect(() => {
 		fetchCountries(homeCountries);
-		if (allCategories.length <= 0) {
-			fetchMainCategories();
-		}
 		removeSelectedCountries();
-	}, [allCategories.length]);
+	}, []);
+
+	useEffect(() => {
+		fetchMainCategories();
+	}, []);
 
 	const searchCategoriesBanner = (
 		<div className="flex items-center justify-center bg-accent-primary-main p-4 text-white dark:bg-accent-primary-eco md:p-8 xl:p-14">

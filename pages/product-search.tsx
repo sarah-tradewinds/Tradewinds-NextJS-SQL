@@ -61,6 +61,7 @@ const ProductSearchPage: NextPage<
 		removeAllProductFromCompareList
 	} = useProductStore();
 
+	// Fetching mainCategories
 	useEffect(() => {
 		if (allCategories.length <= 0) {
 			fetchMainCategories(isEco);

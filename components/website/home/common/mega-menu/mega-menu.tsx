@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { MdPlayArrow } from 'react-icons/md';
 
 // data
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 // styles
 import SpinnerIcon from 'components/website/common/elements/loader/spinner-icon';
@@ -43,13 +43,6 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 		fetchSubCategoriesByCategoryId,
 		fetchSpecificCategoriesBySubCategoryId
 	} = useCategoryStore();
-
-	// const { data } = useSWR('/services/api/v1/main_category');
-
-	// const [mainCategoryList, setMainCategoryList] = useState([]);
-	// const [categoryList, setCategoryList] = useState([]);
-	// const [subCategoryList, setSubCategoryList] = useState([]);
-	// const [specificCategoryList, setSpecificCategoryList] = useState([]);
 
 	useEffect(() => {
 		if (allCategories.length <= 0) {
@@ -91,8 +84,6 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 		router.push('/product-search');
 	}; // End of navigateHandler function
 
-	const megaMenuRef = useRef(null);
-
 	const megaMenuClassName = `relative grid grid-cols-12 border bg-white text-sm text-gray shadow-lg overflow-y-autos ${className}`;
 
 	const categoryList =
@@ -113,7 +104,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 			?.specificCategories || [];
 
 	return (
-		<div className={megaMenuClassName} ref={megaMenuRef}>
+		<div className={megaMenuClassName}>
 			{allCategories.length <= 0 ? <MegaMenuLoader /> : ''}
 
 			{/* Main Categories */}
@@ -160,10 +151,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 					{categoryList.map((category: any) => {
 						const { id, slug, title } = category;
 
-						const isSelected =
-							selectedCategoryIds.findIndex(
-								(selectedCategoryId) => selectedCategoryId === id
-							) >= 0;
+						const isSelected = id === selectedCategoryId;
 
 						return (
 							<li
@@ -196,10 +184,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 					{subCategoryList.map((subCategory: any) => {
 						const { id, slug, title } = subCategory;
 
-						const isSelected =
-							selectedSubCategoryIds.findIndex(
-								(selectedSubCategoryId) => selectedSubCategoryId === id
-							) >= 0;
+						const isSelected = id === selectedSubCategoryId;
 
 						return (
 							<li

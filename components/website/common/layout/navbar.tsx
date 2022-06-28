@@ -15,7 +15,6 @@ const MegaMenu = dynamic(
 );
 
 // stores
-import { Popover, Transition } from '@headlessui/react';
 import {
 	BUYER_DASHBOARD_ACTIONS,
 	BUYER_DASHBOARD_PAGES,
@@ -28,6 +27,7 @@ import {
 } from 'react-icons/ai';
 import { FiLogOut } from 'react-icons/fi';
 import { useAuthStore } from 'store/auth';
+import { useHomeStore } from 'store/home';
 import Example from '../elements/lang-menu';
 import NavLink from '../elements/nav-link';
 import Button from '../form/button';
@@ -40,6 +40,12 @@ const Header = () => {
 		customerData,
 		logout
 	} = useAuthStore();
+
+	const { isEco, setIsEco } = useHomeStore(({ isEco, setIsEco }) => ({
+		isEco,
+		setIsEco
+	}));
+
 	const [isOpen, setIsOpen] = useState(false);
 	const [showLogout, setShowLogout] = useState(false);
 
@@ -89,6 +95,8 @@ const Header = () => {
 						<HiX className="h-6 w-6 text-white" />
 					)}
 				</button>
+
+				{/* Tradewinds logo */}
 				<div
 					className="relative h-[28px] w-[101px] sm:h-[56px] sm:w-[202px]"
 					id="Logo"
@@ -100,6 +108,11 @@ const Header = () => {
 								alt="Logo"
 								layout="fill"
 								className="cursor-pointer"
+								onClick={() => {
+									if (isEco) {
+										setIsEco();
+									}
+								}}
 							/>
 						</a>
 					</Link>
@@ -212,7 +225,7 @@ const Header = () => {
         "
 				>
 					<div className="flex">
-						<Popover className="relative hidden md:inline-block">
+						{/* <Popover className="relative hidden md:inline-block">
 							{(options: any) => {
 								return (
 									<>
@@ -253,7 +266,18 @@ const Header = () => {
 									</>
 								);
 							}}
-						</Popover>
+						</Popover> */}
+
+						<div className="group">
+							<div className="font-semibold text-primary-main outline-none dark:text-accent-secondary-eco">
+								{t('categories_text')}{' '}
+								<span className="hidden md:inline">&gt;</span>
+							</div>
+
+							<div className="fixed left-0 z-[9000000000000] mt-0 hidden group-hover:block">
+								<MegaMenu onClose={closeMegaMenuHandler} />
+							</div>
+						</div>
 
 						<nav className="flex cursor-pointer flex-col items-start justify-start md:flex-row md:divide-x">
 							<NavLink
