@@ -17,6 +17,7 @@ const categoryIds = {
 };
 
 interface CategoryState {
+	isLoading?: boolean;
 	// Property
 	selectedMainCategoryId: string;
 	selectedCategoryIds: string[];
