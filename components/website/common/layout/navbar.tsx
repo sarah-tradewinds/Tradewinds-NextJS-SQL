@@ -28,7 +28,7 @@ import {
 import { FiLogOut } from 'react-icons/fi';
 import { useAuthStore } from 'store/auth';
 import { useHomeStore } from 'store/home';
-import Example from '../elements/lang-menu';
+import LanguageDropdown from '../elements/lang-menu';
 import NavLink from '../elements/nav-link';
 import Button from '../form/button';
 
@@ -268,13 +268,13 @@ const Header = () => {
 							}}
 						</Popover> */}
 
-						<div className="group">
+						<div className="group hidden md:inline-block">
 							<div className="font-semibold text-primary-main outline-none dark:text-accent-secondary-eco">
 								{t('categories_text')}{' '}
 								<span className="hidden md:inline">&gt;</span>
 							</div>
 
-							<div className="fixed left-0 z-[9000000000000] mt-0 hidden group-hover:block">
+							<div className="fixed top-[112px] left-0 z-[9000000000000] hidden group-hover:block">
 								<MegaMenu onClose={closeMegaMenuHandler} />
 							</div>
 						</div>
@@ -342,7 +342,7 @@ const Header = () => {
 					</div>
 
 					<div className="relative w-[40px]">
-						<Example />
+						<LanguageDropdown />
 					</div>
 				</div>
 			</div>

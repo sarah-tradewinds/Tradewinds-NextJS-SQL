@@ -3,6 +3,7 @@ import { AiOutlinePlus } from 'react-icons/ai';
 
 // data
 import { useCategoryStore } from 'store/category-store';
+import { getObjectKeys } from 'utils/common.util';
 
 const CategoriesFilter: React.FC = (props) => {
 	const {
@@ -11,12 +12,21 @@ const CategoriesFilter: React.FC = (props) => {
 		selectedSubCategoryIds,
 		selectedSpecificCategoryIds,
 		allCategories,
+		selectedCategoryAndSubCategoryAndSpecificCategoryIds,
 
 		setSelectedMainCategoryId,
 		setSelectedCategoryId,
 		setSelectedSubCategoryId,
 		setSelectedSpecificCategoryId
 	} = useCategoryStore();
+
+	const categoryIds = getObjectKeys(
+		selectedCategoryAndSubCategoryAndSpecificCategoryIds
+	);
+
+	const subCategoryIds = getObjectKeys(
+		selectedCategoryAndSubCategoryAndSpecificCategoryIds[categoryIds[0]]
+	);
 
 	return (
 		<div className="mt-4 space-y-2">
@@ -46,7 +56,7 @@ const CategoriesFilter: React.FC = (props) => {
 								category || {};
 
 							const isCategorySelected =
-								selectedCategoryIds.findIndex(
+								categoryIds.findIndex(
 									(selectedCategoryId) =>
 										selectedCategoryId === categoryId
 								) >= 0;
@@ -68,7 +78,7 @@ const CategoriesFilter: React.FC = (props) => {
 										} = subCategory || {};
 
 										const isSubCategorySelected =
-											selectedSubCategoryIds.findIndex(
+											subCategoryIds.findIndex(
 												(selectedSubCategoryId) =>
 													selectedSubCategoryId === subCategoryId
 											) >= 0;
@@ -80,7 +90,10 @@ const CategoriesFilter: React.FC = (props) => {
 												isOpen={isSubCategorySelected}
 												title={subCategory?.title?.en}
 												onClick={() =>
-													setSelectedSubCategoryId(subCategoryId)
+													setSelectedSubCategoryId(
+														categoryIds[categoryIds.length - 1],
+														subCategoryId
+													)
 												}
 												className="ml-4"
 											>
@@ -107,6 +120,10 @@ const CategoriesFilter: React.FC = (props) => {
 																}`}
 																onClick={() =>
 																	setSelectedSpecificCategoryId(
+																		categoryIds[categoryIds.length - 1],
+																		subCategoryIds[
+																			subCategoryIds.length - 1
+																		],
 																		specificCategoryId
 																	)
 																}

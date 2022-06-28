@@ -25,7 +25,7 @@ import { useCategoryStore } from 'store/category-store';
 import { useCountriesStore } from 'store/countries-store';
 import { useHomeStore } from 'store/home';
 import { useProductStore } from 'store/product-store';
-import { getDataById } from 'utils/common.util';
+import { getDataById, getObjectKeys } from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
 
 const ProductSearchPage: NextPage<
@@ -48,6 +48,7 @@ const ProductSearchPage: NextPage<
 		selectedCategoryIds,
 		setSelectedCategoryId,
 		selectedSubCategoryIds,
+		selectedCategoryAndSubCategoryAndSpecificCategoryIds,
 
 		fetchMainCategories,
 		fetchCategoriesByMainCategoryId,
@@ -68,7 +69,7 @@ const ProductSearchPage: NextPage<
 		}
 	}, [allCategories.length, isEco]);
 
-	// Fetching categories based on main category id
+	// Fetching categories based on mainCategoryId
 	useEffect(() => {
 		if (selectedMainCategoryId) {
 			fetchCategoriesByMainCategoryId(selectedMainCategoryId, isEco);
@@ -77,11 +78,12 @@ const ProductSearchPage: NextPage<
 
 	// Fetching sub-categories based on selectedCategoryIds
 	useEffect(() => {
-		if (selectedCategoryIds.length > 0) {
-			fetchSubCategoriesByCategoryId(
-				selectedCategoryIds.toString(),
-				isEco
-			);
+		const categoriesIds = getObjectKeys(
+			selectedCategoryAndSubCategoryAndSpecificCategoryIds
+		);
+		console.log(categoriesIds);
+		if (categoriesIds.length > 0) {
+			fetchSubCategoriesByCategoryId(categoriesIds.toString(), isEco);
 		}
 	}, [selectedCategoryIds]);
 
