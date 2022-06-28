@@ -274,7 +274,7 @@ const Header = () => {
 								<span className="hidden md:inline">&gt;</span>
 							</div>
 
-							<div className="fixed top-[112px] left-0 z-[9000000000000] hidden group-hover:block">
+							<div className="fixed top-[112px] left-0 right-0 z-[9000000000000] hidden group-hover:block">
 								<MegaMenu onClose={closeMegaMenuHandler} />
 							</div>
 						</div>

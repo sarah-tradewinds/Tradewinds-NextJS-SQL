@@ -32,12 +32,6 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 	const [isSpecificCategoryLoading, setIsSpecificCategoryLoading] =
 		useState(false);
 
-	//
-	const [mainCategoryId, setMainCategoryId] = useState('');
-	const [categoryId, setCategoryId] = useState('');
-	const [subCategoryId, setSubCategoryId] = useState('');
-	const [specificCategoryId, seSpecificCategoryId] = useState('');
-
 	const {
 		allCategories,
 		selectedMainCategoryId,
@@ -203,7 +197,9 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 										? ' font-semibold dark:bg-bg-eco/60 dark:text-primary-eco'
 										: ''
 								}`}
-								onMouseEnter={() => setSelectedCategoryId(id, true)}
+								onMouseEnter={() =>
+									!isSelected ? setSelectedCategoryId(id, true) : null
+								}
 								onClick={navigateHandler}
 							>
 								<span>{title?.en}</span>
@@ -226,7 +222,6 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 					{subCategoryList.map((subCategory: any) => {
 						const { id, slug, title } = subCategory;
 
-						// const isSelected = id === selectedSubCategoryId;
 						const isSelected =
 							selectedCategoryAndSubCategoryAndSpecificCategoryIds[
 								selectedCategoryId
@@ -267,11 +262,23 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 					{specificCategoryList.map((specificCategory: any) => {
 						const { id, slug, title } = specificCategory;
 
+						// const isSelected = selectedSubCategoryId;
+						// id ===
+						// 	selectedSpecificCategoryIds[
+						// 		selectedSpecificCategoryIds.length - 1
+						// 	];
+
 						const isSelected =
-							id ===
-							selectedSpecificCategoryIds[
-								selectedSpecificCategoryIds.length - 1
-							];
+							(
+								selectedCategoryAndSubCategoryAndSpecificCategoryIds[
+									selectedCategoryId
+								][selectedSubCategoryId] || []
+							).findIndex(
+								(specificCategoryId: string) =>
+									specificCategoryId === id
+							) >= 0;
+
+						[].findIndex;
 
 						return (
 							<li
@@ -282,12 +289,14 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 										: ''
 								}`}
 								onMouseEnter={() =>
-									setSelectedSpecificCategoryId(
-										selectedCategoryId,
-										selectedSubCategoryId,
-										id,
-										true
-									)
+									!isSelected
+										? setSelectedSpecificCategoryId(
+												selectedCategoryId,
+												selectedSubCategoryId,
+												id,
+												true
+										  )
+										: null
 								}
 								onClick={navigateHandler}
 							>
