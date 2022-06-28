@@ -1,8 +1,10 @@
-const SpinnerIcon: React.FC = () => {
+const SpinnerIcon: React.FC<{ className?: string }> = ({
+	className
+}) => {
 	return (
 		<svg
 			role="status"
-			className="mr-3 inline h-24 w-24 animate-spin text-[blue] md:h-32 md:w-32"
+			className={`mr-3 inline h-24 w-24 animate-spin text-[blue] md:h-32 md:w-32 ${className}`}
 			viewBox="0 0 100 101"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"

@@ -4,10 +4,13 @@ import { useRouter } from 'next/router';
 import { MdPlayArrow } from 'react-icons/md';
 
 // data
-import { useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 // styles
+import SpinnerIcon from 'components/website/common/elements/loader/spinner-icon';
 import { useCategoryStore } from 'store/category-store';
+import { useHomeStore } from 'store/home';
+import { getDataById } from 'utils/common.util';
 import styles from './mega-menu.module.css';
 
 interface MegaMenuProps {
@@ -20,65 +23,66 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 
 	const router = useRouter();
 
+	const isEco = useHomeStore((state) => state.isEco);
+
 	const {
+		allCategories,
 		selectedMainCategoryId,
 		selectedCategoryIds,
 		selectedSubCategoryIds,
 		selectedSpecificCategoryIds,
-
+		// set methods
 		setSelectedMainCategoryId,
 		setSelectedCategoryId,
 		setSelectedSubCategoryId,
-		setSelectedSpecificCategoryId
+		setSelectedSpecificCategoryId,
+
+		// fetch methods
+		fetchMainCategories,
+		fetchCategoriesByMainCategoryId,
+		fetchSubCategoriesByCategoryId,
+		fetchSpecificCategoriesBySubCategoryId
 	} = useCategoryStore();
 
 	// const { data } = useSWR('/services/api/v1/main_category');
 
-	const [mainCategoryList, setMainCategoryList] = useState([]);
-	const [categoryList, setCategoryList] = useState([]);
-	const [subCategoryList, setSubCategoryList] = useState([]);
-	const [specificCategoryList, setSpecificCategoryList] = useState([]);
+	// const [mainCategoryList, setMainCategoryList] = useState([]);
+	// const [categoryList, setCategoryList] = useState([]);
+	// const [subCategoryList, setSubCategoryList] = useState([]);
+	// const [specificCategoryList, setSpecificCategoryList] = useState([]);
 
-	// Set mainCategories
-	// useEffect(() => {
-	// 	if (data?.data) {
-	// 		setMainCategoryList(data.data);
-	// 	}
-	// }, [data?.data]);
+	useEffect(() => {
+		if (allCategories.length <= 0) {
+			fetchMainCategories(isEco);
+		}
+	}, [allCategories.length, isEco]);
 
-	// // Fetching categories based on selectedMainCategoryId
-	// useEffect(() => {
-	// 	if (selectedMainCategoryId) {
-	// 		getCategoriesByMainCategoryId(selectedMainCategoryId).then(
-	// 			(data) => setCategoryList(data)
-	// 		);
-	// 	}
-	// }, [selectedMainCategoryId]);
+	// Fetching categories based on main category id
+	useEffect(() => {
+		if (selectedMainCategoryId) {
+			fetchCategoriesByMainCategoryId(selectedMainCategoryId, isEco);
+		}
+	}, [selectedMainCategoryId]);
 
-	// // Fetching sub-categories based on selectedCategoryId
-	// useEffect(() => {
-	// 	const selectedCategoryId = [...selectedCategoryIds]
-	// 		.pop()
-	// 		?.toString();
-	// 	if (selectedCategoryId) {
-	// 		getSubCategoriesByCategoryId(selectedCategoryId).then((data) =>
-	// 			setSubCategoryList(data)
-	// 		);
-	// 	}
-	// }, [selectedCategoryIds]);
+	// Fetching sub-categories based on selectedCategoryIds
+	useEffect(() => {
+		if (selectedCategoryIds.length > 0) {
+			fetchSubCategoriesByCategoryId(
+				selectedCategoryIds.toString(),
+				isEco
+			);
+		}
+	}, [selectedCategoryIds]);
 
-	// // Fetching specific-categories based on selectedSubCategoryId
-	// useEffect(() => {
-	// 	const selectedSubCategoryId = [...selectedSubCategoryIds]
-	// 		.pop()
-	// 		?.toString();
-
-	// 	if (selectedSubCategoryId) {
-	// 		getSpecificCategoriesBySubCategoryId(selectedSubCategoryId).then(
-	// 			(data) => setSpecificCategoryList(data)
-	// 		);
-	// 	}
-	// }, [selectedSubCategoryIds]);
+	// Fetching specific-categories based on selectedSubCategoryIds
+	useEffect(() => {
+		if (selectedSubCategoryIds.length > 0) {
+			fetchSpecificCategoriesBySubCategoryId(
+				selectedSubCategoryIds.toString(),
+				isEco
+			);
+		}
+	}, [selectedSubCategoryIds]);
 
 	const navigateHandler = () => {
 		if (onClose) {
@@ -91,18 +95,35 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 
 	const megaMenuClassName = `relative grid grid-cols-12 border bg-white text-sm text-gray shadow-lg overflow-y-autos ${className}`;
 
+	const categoryList =
+		getDataById(allCategories, selectedMainCategoryId)?.categories ||
+		[];
+
+	// Fetching subCategories
+	const selectedCategoryId =
+		selectedCategoryIds[selectedCategoryIds.length - 1];
+	const subCategoryList =
+		getDataById(categoryList, selectedCategoryId)?.subCategories || [];
+
+	// Fetching specificCategories
+	const selectedSubCategoryId =
+		selectedSubCategoryIds[selectedSubCategoryIds.length - 1];
+	const specificCategoryList =
+		getDataById(subCategoryList, selectedSubCategoryId)
+			?.specificCategories || [];
+
 	return (
 		<div className={megaMenuClassName} ref={megaMenuRef}>
-			{mainCategoryList.length <= 0 ? <p>Loading...</p> : ''}
+			{allCategories.length <= 0 ? <MegaMenuLoader /> : ''}
 
 			{/* Main Categories */}
-			{mainCategoryList && (
+			{allCategories && (
 				<div
 					className={`col-span-3 my-1 ml-4 h-[487px] space-y-4 overflow-auto pl-2 shadow-mega-menu ${styles.megaMenuScrollbar}`}
 					style={{ direction: 'rtl' }}
 				>
 					<ul className="mr-1 h-full space-y-1 ">
-						{mainCategoryList.map((mainCategory: any) => {
+						{allCategories.map((mainCategory: any) => {
 							const { id, slug } = mainCategory;
 
 							const isSelected = id === selectedMainCategoryId;
@@ -132,8 +153,10 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 			)}
 
 			{/* Categories */}
-			{categoryList.length > 0 && (
+			{allCategories.length > 0 && selectedMainCategoryId && (
 				<ul className="col-span-3 h-[487px] space-y-1 overflow-y-auto border-r border-dashed pt-1 pl-4 dark:bg-[#FCF5EB]">
+					{categoryList.length <= 0 ? <MegaMenuLoader /> : ''}
+
 					{categoryList.map((category: any) => {
 						const { id, slug, title } = category;
 
@@ -166,8 +189,10 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 			)}
 
 			{/* Sub Categories */}
-			{subCategoryList.length > 0 && (
+			{categoryList.length > 0 && selectedCategoryId && (
 				<ul className="col-span-3 h-[487px] space-y-1 overflow-y-auto border-r border-dashed pl-4 dark:bg-[#FCF5EB]">
+					{subCategoryList.length <= 0 ? <MegaMenuLoader /> : ''}
+
 					{subCategoryList.map((subCategory: any) => {
 						const { id, slug, title } = subCategory;
 
@@ -200,8 +225,10 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 			)}
 
 			{/* Specific Categories */}
-			{specificCategoryList.length > 0 && (
+			{subCategoryList.length > 0 && selectedSubCategoryId && (
 				<ul className="col-span-3 h-[487px] space-y-1 overflow-y-auto pl-4 dark:bg-[#FCF5EB]">
+					{specificCategoryList.length <= 0 ? <MegaMenuLoader /> : ''}
+
 					{specificCategoryList.map((specificCategory: any) => {
 						const { id, slug, title } = specificCategory;
 
@@ -238,3 +265,11 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 };
 
 export default MegaMenu;
+
+const MegaMenuLoader = () => {
+	return (
+		<div className="flex h-full items-center justify-center">
+			<SpinnerIcon className="!mr-0 md:h-16 md:w-16" />
+		</div>
+	);
+};

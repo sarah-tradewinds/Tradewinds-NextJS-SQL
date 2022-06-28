@@ -40,11 +40,15 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 		homeAdvertisments = []
 	} = props;
 
+	console.log(
+		'ecoHomeMainCategoriesAndCategories =',
+		ecoHomeMainCategoriesAndCategories
+	);
+
 	const setIsEco = useHomeStore(({ setIsEco }) => setIsEco);
 
 	useEffect(() => {
 		setIsEco();
-
 		return setIsEco;
 	}, []);
 

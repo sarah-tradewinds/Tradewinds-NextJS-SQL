@@ -18,7 +18,8 @@ export const getEcoHomeMainCategoriesAndCategories = async () => {
 
 		const ecoMainCategoriesAndCategories = [];
 		for (const mainCategory of sevenMainCategories) {
-			const categories = await getEcoCategoriesByManCategoryId(
+			// Fetching eco categories by mainCategoryId
+			const categories = await getEcoCategoriesByMainCategoryId(
 				mainCategory.id
 			);
 			const sevenCategories = categories.splice(0, 7) || [];
@@ -37,11 +38,6 @@ export const getEcoHomeMainCategoriesAndCategories = async () => {
 			});
 		}
 
-		console.log(
-			'ecoMainCategoriesAndCategories =',
-			ecoMainCategoriesAndCategories
-		);
-
 		return ecoMainCategoriesAndCategories || [];
 	} catch (error) {
 		console.log('[getHomeMainCategoriesAndCategories] =', error);
@@ -51,12 +47,12 @@ export const getEcoHomeMainCategoriesAndCategories = async () => {
 	}
 }; // End of getHomeMainCategoriesAndCategories function
 
-export const getEcoCategoriesByManCategoryId = async (
+export const getEcoCategoriesByMainCategoryId = async (
 	mainCategoryId: string
 ) => {
 	try {
 		const { data } = await serviceAxiosInstance.get(
-			`/category/categories/${mainCategoryId}`
+			`/category/categories/${mainCategoryId}?is_eco=${true}`
 		);
 		return data.data || [];
 	} catch (error) {
@@ -65,4 +61,4 @@ export const getEcoCategoriesByManCategoryId = async (
 		// throw Error(data || 'Error occurred getCategoriesByMainCategoryId');
 		return [];
 	}
-}; // End of getEcoCategoriesByManCategoryId function
+}; // End of getEcoCategoriesByMainCategoryId function

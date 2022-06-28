@@ -36,8 +36,6 @@ const ProductSearchPage: NextPage<
 	const [minPrice, setMinPrice] = useState('0');
 	const [selectedCountryCode, setSelectedCountryCode] = useState('');
 
-	console.log('props =', props.href);
-
 	const isEco = useHomeStore((state) => state.isEco);
 
 	const { selectedCountryIds } = useCountriesStore((state) => ({
