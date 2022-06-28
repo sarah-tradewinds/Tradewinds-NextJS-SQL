@@ -67,11 +67,11 @@ const CategoriesFilter: React.FC = (props) => {
 	// 	}
 	// }, [selectedSubCategoryIds]);
 
-	console.log(
-		'selectedMainCategoryId =',
-		selectedMainCategoryId,
-		allCategories
-	);
+	// console.log(
+	// 	'selectedMainCategoryId =',
+	// 	selectedMainCategoryId,
+	// 	allCategories
+	// );
 	return (
 		<div className="mt-4 space-y-2">
 			{/* Main categories */}
@@ -88,7 +88,11 @@ const CategoriesFilter: React.FC = (props) => {
 						id={mainCategoryId}
 						isOpen={isMainCategorySelected}
 						title={mainCategory?.title?.en}
-						onClick={() => setSelectedMainCategoryId(mainCategoryId)}
+						onClick={() =>
+							setSelectedMainCategoryId(
+								isMainCategorySelected ? '' : mainCategoryId
+							)
+						}
 					>
 						{/* Categories */}
 						{categories?.map((category: any) => {
@@ -196,7 +200,9 @@ const CategoryCollapse: React.FC<{
 					isOpen ? 'font-semibold' : ''
 				}`}
 			>
-				<AiOutlinePlus />
+				<span>
+					<AiOutlinePlus />
+				</span>
 				<span>{title}</span>
 			</label>
 			{isOpen && <div>{children}</div>}

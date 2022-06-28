@@ -36,6 +36,8 @@ const ProductSearchPage: NextPage<
 	const [minPrice, setMinPrice] = useState('0');
 	const [selectedCountryCode, setSelectedCountryCode] = useState('');
 
+	console.log('props =', props.href);
+
 	const isEco = useHomeStore((state) => state.isEco);
 
 	const { selectedCountryIds } = useCountriesStore((state) => ({
@@ -69,41 +71,47 @@ const ProductSearchPage: NextPage<
 
 	// Fetching categories based on main category id
 	useEffect(() => {
-		fetchCategoriesByMainCategoryId(selectedMainCategoryId, isEco);
+		if (selectedMainCategoryId) {
+			fetchCategoriesByMainCategoryId(selectedMainCategoryId, isEco);
+		}
 	}, [selectedMainCategoryId]);
 
 	// Fetching sub-categories based on selectedCategoryIds
 	useEffect(() => {
-		fetchSubCategoriesByCategoryId(
-			selectedCategoryIds.toString(),
-			isEco
-		);
+		if (selectedCategoryIds.length > 0) {
+			fetchSubCategoriesByCategoryId(
+				selectedCategoryIds.toString(),
+				isEco
+			);
+		}
 	}, [selectedCategoryIds]);
 
 	// Fetching specific-categories based on selectedSubCategoryIds
 	useEffect(() => {
-		fetch;
-		fetchSpecificCategoriesBySubCategoryId(
-			selectedSubCategoryIds.toString(),
-			isEco
-		);
+		if (selectedSubCategoryIds.length > 0) {
+			fetchSpecificCategoriesBySubCategoryId(
+				selectedSubCategoryIds.toString(),
+				isEco
+			);
+		}
 	}, [selectedSubCategoryIds]);
 
-	// useEffect(() => {
-	// 	getProducts({
-	// 		price_start: +minPrice,
-	// 		main_category: selectedMainCategoryId,
-	// 		category: selectedCategoryIds.toString(),
-	// 		country_of_region: selectedCountryIds.toString(),
-	// 		is_eco: isEco
-	// 	}).then((data) => setProducts(data));
-	// }, [
-	// 	selectedMainCategoryId,
-	// 	selectedCategoryIds,
-	// 	minPrice,
-	// 	selectedCountryIds,
-	// 	isEco
-	// ]);
+	// Fetching products
+	useEffect(() => {
+		getProducts({
+			price_start: +minPrice,
+			main_category: selectedMainCategoryId,
+			category: selectedCategoryIds.toString(),
+			country_of_region: selectedCountryIds.toString(),
+			is_eco: isEco
+		}).then((data) => setProducts(data));
+	}, [
+		selectedMainCategoryId,
+		selectedCategoryIds,
+		minPrice,
+		selectedCountryIds,
+		isEco
+	]);
 
 	const [ref] = useKeenSlider<HTMLDivElement>({
 		loop: true,

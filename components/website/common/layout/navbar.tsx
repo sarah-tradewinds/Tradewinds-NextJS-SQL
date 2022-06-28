@@ -29,6 +29,7 @@ import {
 import { FiLogOut } from 'react-icons/fi';
 import { useAuthStore } from 'store/auth';
 import Example from '../elements/lang-menu';
+import NavLink from '../elements/nav-link';
 import Button from '../form/button';
 
 const Header = () => {
@@ -255,54 +256,64 @@ const Header = () => {
 						</Popover>
 
 						<nav className="flex cursor-pointer flex-col items-start justify-start md:flex-row md:divide-x">
-							<Link href="/eco">
-								<a
-									className="nav-link hidden items-center justify-center gap-2 md:flex"
-									id="bg-eco"
-								>
-									<Image
-										src="/static/images/eco_logo.png"
-										alt="EcoLogo"
-										width={20}
-										height={20}
-										className=""
-									/>
-									{t('eco_text')}
-								</a>
-							</Link>
+							<NavLink
+								href="/eco"
+								className="nav-link hidden items-center justify-center gap-2 md:flex"
+								activeClassName="underline font-semibold"
+							>
+								<Image
+									src="/static/images/eco_logo.png"
+									alt="EcoLogo"
+									width={20}
+									height={20}
+									className=""
+								/>
+								{t('eco_text')}
+							</NavLink>
 
-							<Link href="/eco">
-								<a
-									className="nav-link md:hidden"
-									id="bg-eco"
-									onClick={drawerHandler}
-								>
-									{t('eco_text')}
-								</a>
-							</Link>
-							<Link href="/why-sell-on-tradewinds">
-								<a onClick={drawerHandler} className="nav-link">
-									{t('why_sell_on_tw_text')}
-								</a>
-							</Link>
+							<NavLink
+								href="/eco"
+								className="nav-link md:hidden"
+								activeClassName="underline font-semibold"
+								onClick={drawerHandler}
+							>
+								{t('eco_text')}
+							</NavLink>
+							<NavLink
+								href="/why-sell-on-tradewinds"
+								className="nav-link"
+								activeClassName="underline font-semibold"
+								onClick={drawerHandler}
+							>
+								{t('why_sell_on_tw_text')}
+							</NavLink>
 
-							<Link href="/why-buy">
-								<a onClick={drawerHandler} className="nav-link">
-									{t('why_buy_text')}
-								</a>
-							</Link>
+							<NavLink
+								href="/why-buy"
+								className="nav-link"
+								activeClassName="underline font-semibold"
+								onClick={drawerHandler}
+							>
+								{t('why_buy_text')}
+							</NavLink>
 
-							<Link href="/search-by-country">
-								<a onClick={drawerHandler} className="nav-link">
-									{t('search_by_country_text')}
-								</a>
-							</Link>
+							<NavLink
+								href="/search-by-country"
+								className="nav-link"
+								activeClassName="underline font-semibold"
+								onClick={drawerHandler}
+							>
+								{t('search_by_country_text')}
+							</NavLink>
 
-							<Link href="what-is-rfq">
-								<a onClick={drawerHandler} className="nav-link">
-									{t('what_is_a_rfq_text')}
-								</a>
-							</Link>
+							<NavLink
+								href="what-is-rfq"
+								className="nav-link"
+								activeClassName="underline font-semibold"
+								onClick={drawerHandler}
+							>
+								{t('what_is_a_rfq_text')}
+							</NavLink>
 						</nav>
 					</div>
 

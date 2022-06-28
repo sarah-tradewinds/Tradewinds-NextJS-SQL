@@ -7,5 +7,5 @@ export const useGetCategories = () => {
 		'/categories?page=1&limit=100'
 	);
 
-	console.log(data);
+	// console.log(data);
 }; // End of useGetCategories function

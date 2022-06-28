@@ -9,15 +9,21 @@ export const getProducts = async (params: {
 	country_of_region?: string;
 	is_eco?: boolean;
 }) => {
+	// TODO: Deleting is_eco from
+	delete params.is_eco;
+
 	const queryString = generateQueryString(params);
 
 	try {
 		const { data } = await serviceAxiosInstance.get(
 			`/product/search?${queryString}`
 		);
-
-		return [];
-		return data.response || [];
+		console.group(
+			data.response.filter((res: any) => res.images.length >= 1)
+		);
+		return (
+			data.response.filter((res: any) => res.images.length >= 1) || []
+		);
 	} catch (error) {
 		console.log('[getProducts] =', error);
 		const { data, status } = (error as any).response || {};
