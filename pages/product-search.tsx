@@ -68,6 +68,20 @@ const ProductSearchPage: NextPage<
 		selectedMainCategoryId
 	);
 
+	const categoryIdList: string[] = [];
+	const subCategoryIdList: string[] = [];
+	const specificCategoryIdList: string[] = [];
+	for (let categoryId in selectedCategoryAndSubCategoryAndSpecificCategoryIds) {
+		categoryIdList.push(categoryId);
+		const subCategoryObject =
+			selectedCategoryAndSubCategoryAndSpecificCategoryIds[categoryId];
+		for (let subCategoryId in subCategoryObject) {
+			subCategoryIdList.push(subCategoryId);
+			const specificCategoryIds = subCategoryObject[subCategoryId];
+			specificCategoryIdList.push(...specificCategoryIds);
+		}
+	}
+
 	const subCategoryList = (mainCategory as any)?.categories || [];
 
 	const subCategories = [...subCategoryList]
@@ -103,9 +117,9 @@ const ProductSearchPage: NextPage<
 
 	// Fetching specific-categories based on selectedSubCategoryIds
 	useEffect(() => {
-		if (selectedSubCategoryIds.length > 0) {
+		if (subCategoryIdList.length > 0) {
 			fetchSpecificCategoriesBySubCategoryId(
-				selectedSubCategoryIds.toString(),
+				subCategoryIdList.toString(),
 				isEco
 			);
 		}
@@ -114,17 +128,25 @@ const ProductSearchPage: NextPage<
 	// Fetching products
 	useEffect(() => {
 		console.log(' ');
+
 		console.log('selectedCategoryIds =', selectedCategoryIds);
 		console.log('selectedSubCategoryIds =', selectedSubCategoryIds);
 		console.log(
 			'selectedSpecificCategoryIds =',
 			selectedSpecificCategoryIds
 		);
+		console.log(
+			'selectedCategoryAndSubCategoryAndSpecificCategoryIds =',
+			selectedCategoryAndSubCategoryAndSpecificCategoryIds
+		);
 		console.log(' ');
+
+		console.log(subCategoryIdList);
+		console.log(specificCategoryIdList);
 
 		const selectedCategories = subCategoryList.filter(
 			(subCategory: any) => {
-				return selectedCategoryIds.includes(subCategory.id);
+				return categoryIdList.includes(subCategory.id);
 			}
 		);
 
@@ -139,14 +161,12 @@ const ProductSearchPage: NextPage<
 			for (let subCategory of subCategories) {
 				const { specificCategories = [] } = subCategory || {};
 
-				if (selectedSubCategoryIds.includes(subCategory.id)) {
+				if (subCategoryIdList.includes(subCategory.id)) {
 					subCategoryNames.push(subCategory?.title?.en);
 				}
 
 				for (let specificCategory of specificCategories) {
-					if (
-						selectedSpecificCategoryIds.includes(specificCategory.id)
-					) {
+					if (specificCategoryIdList.includes(specificCategory.id)) {
 						specificCategoryNames.push(specificCategory?.title?.en);
 					}
 				}

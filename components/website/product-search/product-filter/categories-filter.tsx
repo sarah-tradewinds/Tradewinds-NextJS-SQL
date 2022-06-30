@@ -3,7 +3,6 @@ import { AiOutlinePlus } from 'react-icons/ai';
 
 // data
 import { useCategoryStore } from 'store/category-store';
-import { getObjectKeys } from 'utils/common.util';
 
 const CategoriesFilter: React.FC = (props) => {
 	const {
@@ -20,13 +19,27 @@ const CategoriesFilter: React.FC = (props) => {
 		setSelectedSpecificCategoryId
 	} = useCategoryStore();
 
-	const categoryIds = getObjectKeys(
-		selectedCategoryAndSubCategoryAndSpecificCategoryIds
-	);
+	const categoryIdList: string[] = [];
+	const subCategoryIdList: string[] = [];
+	const specificCategoryIdList: string[] = [];
+	for (let categoryId in selectedCategoryAndSubCategoryAndSpecificCategoryIds) {
+		categoryIdList.push(categoryId);
+		const subCategoryObject =
+			selectedCategoryAndSubCategoryAndSpecificCategoryIds[categoryId];
+		for (let subCategoryId in subCategoryObject) {
+			subCategoryIdList.push(subCategoryId);
+			const specificCategoryIds = subCategoryObject[subCategoryId];
+			specificCategoryIdList.push(...specificCategoryIds);
+		}
+	}
 
-	const subCategoryIds = getObjectKeys(
-		selectedCategoryAndSubCategoryAndSpecificCategoryIds[categoryIds[0]]
-	);
+	// const categoryIds = getObjectKeys(
+	// 	selectedCategoryAndSubCategoryAndSpecificCategoryIds
+	// );
+
+	// const subCategoryIds = getObjectKeys(
+	// 	selectedCategoryAndSubCategoryAndSpecificCategoryIds[categoryIds[0]]
+	// );
 
 	return (
 		<div className="mt-4 space-y-2">
@@ -55,8 +68,14 @@ const CategoriesFilter: React.FC = (props) => {
 							const { id: categoryId, subCategories = [] } =
 								category || {};
 
+							// const isCategorySelected =
+							// 	categoryIds.findIndex(
+							// 		(selectedCategoryId) =>
+							// 			selectedCategoryId === categoryId
+							// 	) >= 0;
+
 							const isCategorySelected =
-								categoryIds.findIndex(
+								categoryIdList.findIndex(
 									(selectedCategoryId) =>
 										selectedCategoryId === categoryId
 								) >= 0;
@@ -77,8 +96,14 @@ const CategoriesFilter: React.FC = (props) => {
 											specificCategories = []
 										} = subCategory || {};
 
+										// const isSubCategorySelected =
+										// 	subCategoryIds.findIndex(
+										// 		(selectedSubCategoryId) =>
+										// 			selectedSubCategoryId === subCategoryId
+										// 	) >= 0;
+
 										const isSubCategorySelected =
-											subCategoryIds.findIndex(
+											subCategoryIdList.findIndex(
 												(selectedSubCategoryId) =>
 													selectedSubCategoryId === subCategoryId
 											) >= 0;
@@ -103,8 +128,13 @@ const CategoriesFilter: React.FC = (props) => {
 														const { id: specificCategoryId } =
 															specificCategory || {};
 
+														// const isSpecificCategorySelected =
+														// 	selectedSpecificCategoryIds.includes(
+														// 		specificCategoryId
+														// 	);
+
 														const isSpecificCategorySelected =
-															selectedSpecificCategoryIds.includes(
+															specificCategoryIdList.includes(
 																specificCategoryId
 															);
 

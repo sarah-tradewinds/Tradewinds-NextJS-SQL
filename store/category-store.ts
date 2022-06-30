@@ -142,6 +142,8 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 
 				localStorage.setItem('category_ids', categoryIdKeys.toString());
 
+				console.log('[setSelectedCategoryId] got called');
+
 				return {
 					selectedCategoryAndSubCategoryAndSpecificCategoryIds,
 					selectedCategoryIds: categoryIdKeys
@@ -187,6 +189,8 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 					selectedSubCategoryIds,
 					subCategoryId
 				);
+
+				console.log('[setSelectedSubCategoryId] got called');
 
 				return {
 					selectedCategoryAndSubCategoryAndSpecificCategoryIds,
@@ -247,6 +251,8 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 					specificCategoryId
 				);
 
+				console.log('[setSelectedSpecificCategoryId] got called');
+
 				return {
 					selectedCategoryAndSubCategoryAndSpecificCategoryIds,
 					selectedSpecificCategoryIds: specificCategoryIds
@@ -257,7 +263,7 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 	removeCategoryFilter: () => {
 		localStorage.removeItem('main_category_id');
 		localStorage.removeItem('category_ids');
-		set((state) => {
+		set(() => {
 			return {
 				selectedMainCategoryId: '',
 				selectedCategoryIds: [],
