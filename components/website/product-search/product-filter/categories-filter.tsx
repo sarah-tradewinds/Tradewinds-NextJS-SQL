@@ -104,11 +104,9 @@ const CategoriesFilter: React.FC = (props) => {
 															specificCategory || {};
 
 														const isSpecificCategorySelected =
-															selectedSpecificCategoryIds.findIndex(
-																(selectedSpecificCategoryId) =>
-																	selectedSpecificCategoryId ===
-																	specificCategoryId
-															) >= 0;
+															selectedSpecificCategoryIds.includes(
+																specificCategoryId
+															);
 
 														return (
 															<button

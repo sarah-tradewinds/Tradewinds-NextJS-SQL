@@ -48,6 +48,7 @@ const ProductSearchPage: NextPage<
 		selectedCategoryIds,
 		setSelectedCategoryId,
 		selectedSubCategoryIds,
+		selectedSpecificCategoryIds,
 		selectedCategoryAndSubCategoryAndSpecificCategoryIds,
 
 		fetchMainCategories,
@@ -112,6 +113,15 @@ const ProductSearchPage: NextPage<
 
 	// Fetching products
 	useEffect(() => {
+		console.log(' ');
+		console.log('selectedCategoryIds =', selectedCategoryIds);
+		console.log('selectedSubCategoryIds =', selectedSubCategoryIds);
+		console.log(
+			'selectedSpecificCategoryIds =',
+			selectedSpecificCategoryIds
+		);
+		console.log(' ');
+
 		const selectedCategories = subCategoryList.filter(
 			(subCategory: any) => {
 				return selectedCategoryIds.includes(subCategory.id);
@@ -123,12 +133,22 @@ const ProductSearchPage: NextPage<
 		});
 
 		const subCategoryNames = [];
-
+		const specificCategoryNames = [];
 		for (let category of selectedCategories) {
 			const { subCategories = [] } = category || {};
 			for (let subCategory of subCategories) {
+				const { specificCategories = [] } = subCategory || {};
+
 				if (selectedSubCategoryIds.includes(subCategory.id)) {
 					subCategoryNames.push(subCategory?.title?.en);
+				}
+
+				for (let specificCategory of specificCategories) {
+					if (
+						selectedSpecificCategoryIds.includes(specificCategory.id)
+					) {
+						specificCategoryNames.push(specificCategory?.title?.en);
+					}
 				}
 			}
 		}
@@ -136,8 +156,9 @@ const ProductSearchPage: NextPage<
 		getProducts({
 			price_start: +minPrice,
 			main_category: mainCategory?.title?.en,
-			sub_category: categoryNames.toString(),
-			sub_sub_category: subCategoryNames.toString(),
+			category: categoryNames.toString(),
+			sub_category: subCategoryNames.toString(),
+			sub_sub_category: specificCategoryNames.toString(),
 			country_of_region: selectedCountryIds.toString(),
 			is_eco: isEco
 		}).then((data) => setProducts(data));
@@ -145,6 +166,7 @@ const ProductSearchPage: NextPage<
 		selectedMainCategoryId,
 		selectedCategoryIds,
 		selectedSubCategoryIds,
+		selectedSpecificCategoryIds,
 		minPrice,
 		selectedCountryIds,
 		isEco

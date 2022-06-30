@@ -5,6 +5,7 @@ export const getProducts = async (params: {
 	price_start: number;
 	price_end?: number;
 	main_category?: string;
+	category?: string;
 	sub_category?: string;
 	sub_sub_category?: string;
 	country_of_region?: string;
@@ -24,7 +25,9 @@ export const getProducts = async (params: {
 		// return [];
 
 		return (
-			data.response.filter((res: any) => res.images.length >= 1) || []
+			data.response.filter(
+				(res: any) => res.images.length >= 1 && res.images[0].url
+			) || []
 		);
 	} catch (error) {
 		console.log('[getProducts] =', error);

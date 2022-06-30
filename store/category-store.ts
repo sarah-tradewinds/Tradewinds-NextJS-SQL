@@ -5,7 +5,6 @@ import {
 	getSpecificCategoriesBySubCategoryId,
 	getSubCategoriesByCategoryId
 } from 'lib/common.lib';
-import { getObjectKeys } from 'utils/common.util';
 import create from 'zustand';
 
 const categoryIds = {
@@ -108,80 +107,93 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 		});
 	},
 	setSelectedCategoryId: (categoryId, isMegaMenu) => {
-		set(({ selectedCategoryAndSubCategoryAndSpecificCategoryIds }) => {
-			const isCategoryIdExists =
-				selectedCategoryAndSubCategoryAndSpecificCategoryIds[
-					categoryId
-				];
-
-			if (isMegaMenu) {
-				selectedCategoryAndSubCategoryAndSpecificCategoryIds = {
-					[categoryId]: {}
-				};
-			}
-
-			if (!isMegaMenu) {
-				if (isCategoryIdExists) {
-					delete selectedCategoryAndSubCategoryAndSpecificCategoryIds[
+		set(
+			({
+				selectedCategoryIds,
+				selectedCategoryAndSubCategoryAndSpecificCategoryIds
+			}) => {
+				const isCategoryIdExists =
+					selectedCategoryAndSubCategoryAndSpecificCategoryIds[
 						categoryId
 					];
-				} else {
-					selectedCategoryAndSubCategoryAndSpecificCategoryIds[
-						categoryId
-					] = {};
+
+				if (isMegaMenu) {
+					selectedCategoryAndSubCategoryAndSpecificCategoryIds = {
+						[categoryId]: {}
+					};
 				}
-			}
-			const categoryIdKeys = getObjectKeys(
-				selectedCategoryAndSubCategoryAndSpecificCategoryIds
-			);
 
-			localStorage.setItem('category_ids', categoryIdKeys.toString());
+				if (!isMegaMenu) {
+					if (isCategoryIdExists) {
+						delete selectedCategoryAndSubCategoryAndSpecificCategoryIds[
+							categoryId
+						];
+					} else {
+						selectedCategoryAndSubCategoryAndSpecificCategoryIds[
+							categoryId
+						] = {};
+					}
+				}
 
-			return {
-				selectedCategoryAndSubCategoryAndSpecificCategoryIds,
-				selectedCategoryIds: categoryIdKeys
-			};
-		});
-	},
-	setSelectedSubCategoryId: (categoryId, subCategoryId, isMegaMenu) => {
-		set(({ selectedCategoryAndSubCategoryAndSpecificCategoryIds }) => {
-			let categoryIdObject =
-				selectedCategoryAndSubCategoryAndSpecificCategoryIds[
+				const categoryIdKeys = updateElementByIndex(
+					selectedCategoryIds,
 					categoryId
-				];
+				);
 
-			let subCategoryIdObject;
-			if (categoryIdObject) {
-				subCategoryIdObject = categoryIdObject[subCategoryId];
-			}
+				localStorage.setItem('category_ids', categoryIdKeys.toString());
 
-			if (isMegaMenu) {
-				selectedCategoryAndSubCategoryAndSpecificCategoryIds = {
-					[categoryId]: { subCategoryId }
+				return {
+					selectedCategoryAndSubCategoryAndSpecificCategoryIds,
+					selectedCategoryIds: categoryIdKeys
 				};
 			}
-
-			if (!isMegaMenu) {
-				if (subCategoryIdObject) {
-					delete selectedCategoryAndSubCategoryAndSpecificCategoryIds[
-						categoryId
-					][subCategoryId];
-				} else {
+		);
+	},
+	setSelectedSubCategoryId: (categoryId, subCategoryId, isMegaMenu) => {
+		set(
+			({
+				selectedSubCategoryIds,
+				selectedCategoryAndSubCategoryAndSpecificCategoryIds
+			}) => {
+				let categoryIdObject =
 					selectedCategoryAndSubCategoryAndSpecificCategoryIds[
 						categoryId
-					][subCategoryId] = [];
+					];
+
+				let subCategoryIdObject;
+				if (categoryIdObject) {
+					subCategoryIdObject = categoryIdObject[subCategoryId];
 				}
+
+				if (isMegaMenu) {
+					selectedCategoryAndSubCategoryAndSpecificCategoryIds = {
+						[categoryId]: { subCategoryId }
+					};
+				}
+
+				if (!isMegaMenu) {
+					if (subCategoryIdObject) {
+						delete selectedCategoryAndSubCategoryAndSpecificCategoryIds[
+							categoryId
+						][subCategoryId];
+					} else {
+						selectedCategoryAndSubCategoryAndSpecificCategoryIds[
+							categoryId
+						][subCategoryId] = [];
+					}
+				}
+
+				const subCategoryIds = updateElementByIndex(
+					selectedSubCategoryIds,
+					subCategoryId
+				);
+
+				return {
+					selectedCategoryAndSubCategoryAndSpecificCategoryIds,
+					selectedSubCategoryIds: subCategoryIds
+				};
 			}
-
-			const subCategoryIds = getObjectKeys(
-				selectedCategoryAndSubCategoryAndSpecificCategoryIds[categoryId]
-			);
-
-			return {
-				selectedCategoryAndSubCategoryAndSpecificCategoryIds,
-				selectedSubCategoryIds: subCategoryIds
-			};
-		});
+		);
 	},
 	setSelectedSpecificCategoryId: (
 		categoryId,
@@ -189,54 +201,58 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 		specificCategoryId,
 		isMegaMenu
 	) =>
-		set(({ selectedCategoryAndSubCategoryAndSpecificCategoryIds }) => {
-			let categoryIdsObject =
-				selectedCategoryAndSubCategoryAndSpecificCategoryIds[
-					categoryId
-				];
+		set(
+			({
+				selectedSpecificCategoryIds,
+				selectedCategoryAndSubCategoryAndSpecificCategoryIds
+			}) => {
+				let categoryIdsObject =
+					selectedCategoryAndSubCategoryAndSpecificCategoryIds[
+						categoryId
+					];
 
-			let subCategoryIdsObject;
-			if (categoryIdsObject) {
-				subCategoryIdsObject = categoryIdsObject[subCategoryId];
-			}
+				let specificCategoryIdList;
+				if (categoryIdsObject) {
+					specificCategoryIdList = categoryIdsObject[subCategoryId];
+				}
 
-			let specificCategoryIdList;
-			if (subCategoryIdsObject) {
-				specificCategoryIdList = subCategoryIdsObject =
-					subCategoryIdsObject[subCategoryId];
-			}
+				if (isMegaMenu) {
+					selectedCategoryAndSubCategoryAndSpecificCategoryIds = {
+						[categoryId]: {
+							[subCategoryId]: [specificCategoryId]
+						}
+					};
+				}
 
-			if (isMegaMenu) {
-				selectedCategoryAndSubCategoryAndSpecificCategoryIds = {
-					[categoryId]: {
-						[subCategoryId]: [specificCategoryId]
+				if (!isMegaMenu) {
+					if (
+						specificCategoryIdList &&
+						specificCategoryIdList.length > 0
+					) {
+						selectedCategoryAndSubCategoryAndSpecificCategoryIds[
+							categoryId
+						][subCategoryId] = specificCategoryIdList.filter(
+							(selectedSpecificCategoryId: string) =>
+								selectedSpecificCategoryId !== specificCategoryId
+						);
+					} else {
+						selectedCategoryAndSubCategoryAndSpecificCategoryIds[
+							categoryId
+						][subCategoryId] = [specificCategoryId];
 					}
+				}
+
+				const specificCategoryIds = updateElementByIndex(
+					selectedSpecificCategoryIds,
+					specificCategoryId
+				);
+
+				return {
+					selectedCategoryAndSubCategoryAndSpecificCategoryIds,
+					selectedSpecificCategoryIds: specificCategoryIds
 				};
 			}
-
-			if (!isMegaMenu) {
-				if (specificCategoryIdList) {
-					selectedCategoryAndSubCategoryAndSpecificCategoryIds[
-						categoryId
-					][subCategoryId] = specificCategoryIdList.filter(
-						(selectedSpecificCategoryId: string) =>
-							selectedSpecificCategoryId !== specificCategoryId
-					);
-				} else {
-					selectedCategoryAndSubCategoryAndSpecificCategoryIds[
-						categoryId
-					][subCategoryId] = [];
-				}
-			}
-
-			return {
-				selectedCategoryAndSubCategoryAndSpecificCategoryIds,
-				selectedSpecificCategoryIds: [
-					...specificCategoryIdList,
-					specificCategoryId
-				]
-			};
-		}),
+		),
 
 	removeCategoryFilter: () => {
 		localStorage.removeItem('main_category_id');
