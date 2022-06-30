@@ -11,11 +11,7 @@ export const getProducts = async (params: {
 	country_of_region?: string;
 	is_eco?: boolean;
 }) => {
-	// TODO: Deleting is_eco from
-	delete params.is_eco;
-
 	const queryString = generateQueryString(params);
-	// const queryString = '';
 
 	try {
 		const { data } = await serviceAxiosInstance.get(
