@@ -75,7 +75,7 @@ export const forgetPasswordGenerateLink = async (email: string) => {
 			...(data.data || {})
 		};
 	} catch (error) {
-		console.log('[forgetPasswordChange] =', error);
+		console.log('[forgetPasswordGenerateLink] =', error);
 		const { data } = (error as any).response || {};
 		throw Error(
 			data?.message || 'Error occurred forgetPasswordGenerateLink'
