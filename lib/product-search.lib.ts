@@ -5,7 +5,8 @@ export const getProducts = async (params: {
 	price_start: number;
 	price_end?: number;
 	main_category?: string;
-	category?: string;
+	sub_category?: string;
+	sub_sub_category?: string;
 	country_of_region?: string;
 	is_eco?: boolean;
 }) => {
@@ -13,11 +14,14 @@ export const getProducts = async (params: {
 	delete params.is_eco;
 
 	const queryString = generateQueryString(params);
+	// const queryString = '';
 
 	try {
 		const { data } = await serviceAxiosInstance.get(
 			`/product/search?${queryString}`
 		);
+
+		// return [];
 
 		return (
 			data.response.filter((res: any) => res.images.length >= 1) || []

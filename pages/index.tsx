@@ -23,7 +23,7 @@ import {
 	getCardAList,
 	getCardB,
 	getHeroCarousels,
-	getHomeAdvertisments,
+	getHomeAdvertisements,
 	getHomeCountries,
 	getHomeMainCategoriesAndCategories
 } from 'lib/home.lib';
@@ -56,9 +56,8 @@ const HomePage: NextPage<
 	}));
 
 	// Loading mega-menu data here
-	const { allCategories, fetchMainCategories, removeCategoryFilter } =
+	const { fetchMainCategories, removeCategoryFilter } =
 		useCategoryStore((state) => ({
-			allCategories: state.allCategories,
 			fetchMainCategories: state.fetchMainCategories,
 			removeCategoryFilter: state.removeCategoryFilter
 		}));
@@ -190,7 +189,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 		const homeMainCategoriesAndCategories =
 			await getHomeMainCategoriesAndCategories();
 		const homeCountries = await getHomeCountries();
-		const homeAdvertisments = await getHomeAdvertisments();
+		const homeAdvertisements = await getHomeAdvertisements();
 
 		return {
 			props: {
@@ -202,7 +201,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 				homeMainCategoriesAndCategories:
 					homeMainCategoriesAndCategories ?? [],
 				homeCountries,
-				homeAdvertisments
+				homeAdvertisements
 			}
 		};
 	} catch (error) {
@@ -214,7 +213,8 @@ export const getServerSideProps: GetServerSideProps = async ({
 				cardAList: [],
 				cardBData: {},
 				homeMainCategoriesAndCategories: [],
-				homeCountries: []
+				homeCountries: [],
+				homeAdvertisements: []
 			}
 		};
 	}

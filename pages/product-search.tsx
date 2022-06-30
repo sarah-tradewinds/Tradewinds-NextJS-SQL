@@ -62,6 +62,20 @@ const ProductSearchPage: NextPage<
 		removeAllProductFromCompareList
 	} = useProductStore();
 
+	const mainCategory = getDataById(
+		allCategories,
+		selectedMainCategoryId
+	);
+
+	const subCategoryList = (mainCategory as any)?.categories || [];
+
+	const subCategories = [...subCategoryList]
+		?.slice(0, 7)
+		.map((category: any) => {
+			category.isSelected = selectedCategoryIds.includes(category.id);
+			return category;
+		});
+
 	// Fetching mainCategories
 	useEffect(() => {
 		if (allCategories.length <= 0) {
@@ -81,7 +95,6 @@ const ProductSearchPage: NextPage<
 		const categoriesIds = getObjectKeys(
 			selectedCategoryAndSubCategoryAndSpecificCategoryIds
 		);
-		console.log(categoriesIds);
 		if (categoriesIds.length > 0) {
 			fetchSubCategoriesByCategoryId(categoriesIds.toString(), isEco);
 		}
@@ -99,16 +112,39 @@ const ProductSearchPage: NextPage<
 
 	// Fetching products
 	useEffect(() => {
+		const selectedCategories = subCategoryList.filter(
+			(subCategory: any) => {
+				return selectedCategoryIds.includes(subCategory.id);
+			}
+		);
+
+		const categoryNames = selectedCategories.map((subCategory: any) => {
+			return subCategory.title?.en;
+		});
+
+		const subCategoryNames = [];
+
+		for (let category of selectedCategories) {
+			const { subCategories = [] } = category || {};
+			for (let subCategory of subCategories) {
+				if (selectedSubCategoryIds.includes(subCategory.id)) {
+					subCategoryNames.push(subCategory?.title?.en);
+				}
+			}
+		}
+
 		getProducts({
 			price_start: +minPrice,
-			main_category: selectedMainCategoryId,
-			category: selectedCategoryIds.toString(),
+			main_category: mainCategory?.title?.en,
+			sub_category: categoryNames.toString(),
+			sub_sub_category: subCategoryNames.toString(),
 			country_of_region: selectedCountryIds.toString(),
 			is_eco: isEco
 		}).then((data) => setProducts(data));
 	}, [
 		selectedMainCategoryId,
 		selectedCategoryIds,
+		selectedSubCategoryIds,
 		minPrice,
 		selectedCountryIds,
 		isEco
@@ -125,18 +161,6 @@ const ProductSearchPage: NextPage<
 	const compareProducts = products.filter(
 		(product: any) => product.isInCompareList
 	);
-
-	const mainCategory = getDataById(
-		allCategories,
-		selectedMainCategoryId
-	);
-
-	const subCategories = (mainCategory as any)?.categories
-		?.slice(0, 7)
-		.map((category: any) => {
-			category.isSelected = selectedCategoryIds.includes(category.id);
-			return category;
-		});
 
 	return (
 		<>

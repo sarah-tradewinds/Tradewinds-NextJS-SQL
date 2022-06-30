@@ -91,7 +91,7 @@ const CategoriesFilter: React.FC = (props) => {
 												title={subCategory?.title?.en}
 												onClick={() =>
 													setSelectedSubCategoryId(
-														categoryIds[categoryIds.length - 1],
+														categoryId,
 														subCategoryId
 													)
 												}
@@ -118,15 +118,13 @@ const CategoriesFilter: React.FC = (props) => {
 																		? 'font-semibold'
 																		: ''
 																}`}
-																onClick={() =>
+																onClick={() => {
 																	setSelectedSpecificCategoryId(
-																		categoryIds[categoryIds.length - 1],
-																		subCategoryIds[
-																			subCategoryIds.length - 1
-																		],
+																		categoryId,
+																		subCategoryId,
 																		specificCategoryId
-																	)
-																}
+																	);
+																}}
 															>
 																{specificCategory?.title?.en}
 															</button>

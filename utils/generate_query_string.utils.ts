@@ -3,10 +3,9 @@ export const generateQueryString = (paramsData: object): string => {
 
 	for (let key in paramsData) {
 		const value = (paramsData as any)[key];
-		if (value !== '' && value !== 'undefined') {
+		if (value && value !== 'undefined') {
 			params.append(key, value);
 		}
 	}
-
 	return params.toString();
 }; // End of generateQueryString function

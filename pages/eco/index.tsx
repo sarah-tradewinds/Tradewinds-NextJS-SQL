@@ -13,7 +13,7 @@ import {
 	getCardAList,
 	getCardB,
 	getHeroCarousels,
-	getHomeAdvertisments,
+	getHomeAdvertisements,
 	getHomeCountries
 } from 'lib/home.lib';
 import {
@@ -160,7 +160,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 		const ecoHomeMainCategoriesAndCategories =
 			await getEcoHomeMainCategoriesAndCategories();
 		const homeCountries = await getHomeCountries();
-		const homeAdvertisments = await getHomeAdvertisments();
+		const homeAdvertisments = await getHomeAdvertisements();
 
 		return {
 			props: {

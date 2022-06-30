@@ -173,7 +173,9 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 				}
 			}
 
-			const subCategoryIds = getObjectKeys(subCategoryIdObject);
+			const subCategoryIds = getObjectKeys(
+				selectedCategoryAndSubCategoryAndSpecificCategoryIds[categoryId]
+			);
 
 			return {
 				selectedCategoryAndSubCategoryAndSpecificCategoryIds,

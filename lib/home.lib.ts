@@ -71,7 +71,7 @@ export const getHomeCountries = async () => {
 	}
 }; // End of getHomeCountries function
 
-export const getHomeAdvertisments = async () => {
+export const getHomeAdvertisements = async () => {
 	try {
 		const { data } = await serviceAxiosInstance.get(
 			'/advertisement/getalladvertisement'
@@ -79,9 +79,9 @@ export const getHomeAdvertisments = async () => {
 
 		return data.data || [];
 	} catch (error) {
-		console.log('[getHomeAdvertisments] =', error);
+		console.log('[getHomeAdvertisement] =', error);
 		const { data } = (error as any).response || {};
-		// throw Error(data || 'Error occurred getHomeAdvertisments');
+		// throw Error(data || 'Error occurred getHomeAdvertisement');
 		return [];
 	}
-}; // End of getHomeAdvertisments function
+}; // End of getHomeAdvertisements function

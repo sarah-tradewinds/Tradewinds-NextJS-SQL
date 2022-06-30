@@ -98,33 +98,6 @@ const SignUp: React.FC = () => {
 			});
 			setLoading(false);
 		}
-
-		// await userSignup(signupData)
-		//  .then((res) => {
-		//      // console.log('data response', res);
-		//      if (res.status === 200)
-		//          setSignupResult({
-		//              message: 'User created',
-		//              result: true,
-		//              signupDone: true
-		//          });
-		//      else
-		//          setSignupResult({
-		//              message: res.message,
-		//              result: false,
-		//              signupDone: true
-		//          });
-		//      setLoading(false);
-		//  })
-		//  .catch((err) => {
-		//      console.log('signup error', err);
-		//      setSignupResult({
-		//          message: `Error: ${err.message}`,
-		//          result: false,
-		//          signupDone: true
-		//      });
-		//      setLoading(false);
-		//  });
 	};
 
 	const validateData = () => {

@@ -5,8 +5,16 @@ import Link from 'next/link';
 import MetadataTile from './metadata/metadata-tile';
 
 // data
+import {
+	BUYER_DASHBOARD_ACTIONS,
+	BUYER_DASHBOARD_PAGES,
+	generateBuyerDashboardUrl
+} from 'data/buyer/buyer-actions';
 import { metadataList } from 'data/product-search/metadata-list';
+import { useRouter } from 'next/router';
 import { MdBookmark, MdOutlineBookmarkBorder } from 'react-icons/md';
+import { useAuthStore } from 'store/auth';
+import Button from '../common/form/button';
 
 interface ProductTileProps {
 	name: string;
@@ -48,6 +56,17 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 		isCustomizable,
 		variantCount
 	} = props;
+
+	const router = useRouter();
+
+	const { isAuth, setIsLoginOpen, customerData } = useAuthStore(
+		(state) => ({
+			isAuth: state.isAuth,
+			setIsLoginOpen: state.setIsLoginOpen,
+			customerData: state.customerData,
+			autoLogin: state.autoLogin
+		})
+	);
 
 	const metadataElements = (
 		<div className={`grid grid-cols-3 gap-4 text-[12px] text-gray`}>
@@ -258,19 +277,40 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 							</div>
 
 							{/* Display on medium and desktop - Message Vendor button image */}
+
 							<div className="relative hidden h-[15px] w-[90px] md:block lg:h-[22px] lg:w-[138px]">
-								<Image
-									src="/message-vendor-lg.png"
-									alt=""
-									layout="fill"
-									className="lg:hidden"
-								/>
-								<Image
-									src="/message-vendor.png"
-									alt=""
-									layout="fill"
-									className="hidden lg:block"
-								/>
+								<Button
+									onClick={() => {
+										if (!isAuth) {
+											setIsLoginOpen();
+											return;
+										}
+
+										const buyerDashboardUrl = generateBuyerDashboardUrl(
+											{
+												redirect_to:
+													BUYER_DASHBOARD_PAGES.message_vendor,
+												action: BUYER_DASHBOARD_ACTIONS.message_vendor,
+												access_key: customerData.access.token,
+												refresh_key: customerData.refresh.token
+											}
+										);
+										router.push(buyerDashboardUrl);
+									}}
+								>
+									<Image
+										src="/message-vendor-lg.png"
+										alt=""
+										layout="fill"
+										className="lg:hidden"
+									/>
+									<Image
+										src="/message-vendor.png"
+										alt=""
+										layout="fill"
+										className="hidden lg:block"
+									/>
+								</Button>
 							</div>
 						</div>
 					</div>
