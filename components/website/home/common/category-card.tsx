@@ -44,7 +44,7 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 				className={`relative mt-4 flex h-full flex-col justify-between space-y-4 rounded-lg bg-agri-main p-4`}
 				style={{ backgroundColor: bgHexColor }}
 			>
-				<p className="mt-2 w-3/4 lg:text-[18px]">
+				<p className="mt-2 w-[64%] lg:text-[18px]">
 					<span className="font-semibold text-primary-main dark:text-accent-secondary-eco">
 						Name Here {` `}
 					</span>
