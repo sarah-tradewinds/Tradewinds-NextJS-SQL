@@ -83,6 +83,8 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 
 	let isReverse = false;
 
+	console.log(ecoHomeMainCategoriesAndCategories);
+
 	return (
 		<>
 			<Hero

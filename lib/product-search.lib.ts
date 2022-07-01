@@ -34,3 +34,22 @@ export const getProducts = async (params: {
 		return [];
 	}
 }; // End of getProducts
+
+export const getSelectedMainCategoryAndCategories = async (
+	mainCategoryId: string
+) => {
+	try {
+		const { data } = await serviceAxiosInstance.get(
+			`/category/trending_category/${mainCategoryId}`
+		);
+
+		return data.data || {};
+	} catch (error) {
+		console.log('[getProducts] =', error);
+		const { data, status } = (error as any).response || {};
+		// if (status >= 500) {
+		//   throw Error('Error occurred in getProducts');
+		// }
+		return {};
+	}
+}; // End of getSelectedMainCategoryAndCategories

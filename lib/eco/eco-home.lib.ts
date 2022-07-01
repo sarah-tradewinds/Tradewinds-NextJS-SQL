@@ -2,39 +2,50 @@ import { serviceAxiosInstance } from 'utils/axios-instance.utils';
 
 export const getEcoHomeMainCategoriesAndCategories = async () => {
 	try {
+		// const { data } = await serviceAxiosInstance.get(
+		// 	'/main_category?is_eco=true'
+		// );
+		// const mainCategories: any[] = data.data || [];
+		// // Sorting main category
+		// const sortedMainCategories =
+		// 	mainCategories.sort(
+		// 		(a: any, b: any) => a.trending_rank - b.trending_rank
+		// 	) || [];
+		// // slicing main category
+		// const sevenMainCategories = sortedMainCategories.splice(0, 7);
+		// const ecoMainCategoriesAndCategories = [];
+		// for (const mainCategory of sevenMainCategories) {
+		// 	// Fetching eco categories by mainCategoryId
+		// 	const categories = await getEcoCategoriesByMainCategoryId(
+		// 		mainCategory.id
+		// 	);
+		// 	const sevenCategories = categories.splice(0, 7) || [];
+		// 	const formattedSevenCategories = sevenCategories.map(
+		// 		(category: any) => {
+		// 			return {
+		// 				categories: category
+		// 			};
+		// 		}
+		// 	);
+		// 	// mainCategory.categories = formattedSevenCategories;
+		// 	ecoMainCategoriesAndCategories.push({
+		// 		main_category: mainCategory,
+		// 		categories: formattedSevenCategories
+		// 	});
+		// }
+		// return ecoMainCategoriesAndCategories || [];
+
 		const { data } = await serviceAxiosInstance.get(
-			'/main_category?is_eco=true'
+			'/cms_category/home?is_eco=true'
 		);
-		const mainCategories: any[] = data.data || [];
-
-		// Sorting main category
-		const sortedMainCategories =
-			mainCategories.sort(
-				(a: any, b: any) => a.trending_rank - b.trending_rank
-			) || [];
-
-		// slicing main category
-		const sevenMainCategories = sortedMainCategories.splice(0, 7);
 
 		const ecoMainCategoriesAndCategories = [];
-		for (const mainCategory of sevenMainCategories) {
-			// Fetching eco categories by mainCategoryId
-			const categories = await getEcoCategoriesByMainCategoryId(
-				mainCategory.id
-			);
-			const sevenCategories = categories.splice(0, 7) || [];
-			const formattedSevenCategories = sevenCategories.map(
-				(category: any) => {
-					return {
-						categories: category
-					};
-				}
-			);
-
-			// mainCategory.categories = formattedSevenCategories;
+		for (let mainCategory of data.data) {
 			ecoMainCategoriesAndCategories.push({
 				main_category: mainCategory,
-				categories: formattedSevenCategories
+				categories: mainCategory.categories.map((category: any) => ({
+					categories: category
+				}))
 			});
 		}
 

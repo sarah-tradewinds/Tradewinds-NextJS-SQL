@@ -1,5 +1,6 @@
 // components
 import { useEffect, useState } from 'react';
+import { getLocaleText } from 'utils/get_locale_text';
 import SubCategoryTile from './sub-category-tile';
 
 interface SubCategoryListProps {
@@ -7,13 +8,15 @@ interface SubCategoryListProps {
 	className?: string;
 	onClick: () => any;
 	onTilePressed: (subCategoryId: string) => any;
+	selectedSubCategoryIds?: string[];
 }
 
 const SubCategoryList: React.FC<SubCategoryListProps> = ({
 	subCategories,
 	className,
 	onClick,
-	onTilePressed
+	onTilePressed,
+	selectedSubCategoryIds
 }) => {
 	const [screenSize, setScreenSize] = useState<null | number>(null);
 	const [isTablet, setIsTablet] = useState<boolean>(false);
@@ -36,9 +39,15 @@ const SubCategoryList: React.FC<SubCategoryListProps> = ({
 				.map((subCategory, index) => (
 					<SubCategoryTile
 						key={subCategory.name}
-						title={subCategory?.title?.en}
-						imageUrl={'/sub-category/beans.png'}
-						showBorder={subCategory?.isSelected}
+						title={getLocaleText(subCategory?.title)}
+						imageUrl={
+							subCategory?.image?.url || '/sub-category/beans.png'
+						}
+						showBorder={
+							selectedSubCategoryIds
+								? selectedSubCategoryIds?.includes(subCategory.id)
+								: false
+						}
 						onTilePressed={() => onTilePressed(subCategory.id)}
 					/>
 				))}

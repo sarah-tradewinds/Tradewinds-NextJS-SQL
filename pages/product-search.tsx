@@ -19,7 +19,10 @@ import SubCategoryList from 'components/website/product-search/sub-category-list
 import Seo from 'components/website/common/seo';
 import MainCategoryCard from 'components/website/product-search/main-category-card';
 import SubCategoryTile from 'components/website/product-search/sub-category-tile';
-import { getProducts } from 'lib/product-search.lib';
+import {
+	getProducts,
+	getSelectedMainCategoryAndCategories
+} from 'lib/product-search.lib';
 import { useEffect, useState } from 'react';
 import { useCategoryStore } from 'store/category-store';
 import { useCountriesStore } from 'store/countries-store';
@@ -35,6 +38,9 @@ const ProductSearchPage: NextPage<
 	const [minOrder, setMinOrder] = useState('0');
 	const [minPrice, setMinPrice] = useState('0');
 	const [selectedCountryCode, setSelectedCountryCode] = useState('');
+	const [selectedMainCategory, setSelectedMainCategory] =
+		useState<any>();
+	const [selectedCategories, setSelectedCategories] = useState([]);
 
 	const isEco = useHomeStore((state) => state.isEco);
 
@@ -125,6 +131,18 @@ const ProductSearchPage: NextPage<
 		}
 	}, [selectedSubCategoryIds]);
 
+	// Fetching selectedMainCategory and selectedCategories
+	useEffect(() => {
+		if (selectedMainCategoryId) {
+			getSelectedMainCategoryAndCategories(selectedMainCategoryId).then(
+				(data) => {
+					setSelectedMainCategory(data.main_category || {});
+					setSelectedCategories(data.categories || []);
+				}
+			);
+		}
+	}, [selectedMainCategoryId]);
+
 	// Fetching products
 	useEffect(() => {
 		console.log(' ');
@@ -208,9 +226,16 @@ const ProductSearchPage: NextPage<
 		<>
 			<Seo title="Product search page" description="" />
 
-			{/* Banner */}
+			{/* Main Category Banner */}
 			<div className="relative h-[103px] md:h-[234px]">
-				<Image src="/catagarie-seach-header.png" alt="" layout="fill" />
+				<Image
+					src={
+						selectedMainCategory?.banner_image ||
+						'/catagarie-seach-header.png'
+					}
+					alt=""
+					layout="fill"
+				/>
 			</div>
 
 			<div className="relative grid grid-cols-12 gap-4 md:p-4 lg:gap-6 lg:p-6">
@@ -244,9 +269,14 @@ const ProductSearchPage: NextPage<
 						{/* Main category Card */}
 						<div className="col-span-12  md:col-span-3">
 							<MainCategoryCard
-								title={(mainCategory as any)?.title?.en}
-								subtitle={(mainCategory as any)?.description?.en}
-								imageUrl="/static/images/agriculture.png"
+								title={getLocaleText(selectedMainCategory?.title || {})}
+								subtitle={getLocaleText(
+									selectedMainCategory?.description || {}
+								)}
+								imageUrl={
+									selectedMainCategory?.image?.url ||
+									'/static/images/agriculture.png'
+								}
 								className="w-screen md:w-auto"
 							/>
 						</div>
@@ -254,9 +284,10 @@ const ProductSearchPage: NextPage<
 						<div className="col-span-12 border-gray/20 md:col-span-9 md:ml-4 md:border-l-2 md:pl-4">
 							{mainCategory && (
 								<SubCategoryList
-									subCategories={subCategories || []}
+									subCategories={selectedCategories || []}
 									className="hidden md:grid"
 									onTilePressed={setSelectedCategoryId}
+									selectedSubCategoryIds={categoryIdList}
 									onClick={() => {}}
 								/>
 							)}
