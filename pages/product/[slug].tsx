@@ -28,6 +28,7 @@ import {
 } from 'lib/product-details';
 import { useAuthStore } from 'store/auth';
 import { useCategoryStore } from 'store/category-store';
+import { getLocaleText } from 'utils/get_locale_text';
 
 const ProductDetailsPage: NextPage<
 	InferGetServerSidePropsType<GetServerSideProps>
@@ -209,7 +210,10 @@ export const getServerSideProps: GetServerSideProps = async ({
 				productReviews,
 				seller,
 				similarProducts,
-				seo: { title: seo.title.en, description: seo.description.en },
+				seo: {
+					title: getLocaleText(seo.title || {}),
+					description: getLocaleText(seo.description || {})
+				},
 				...(await serverSideTranslations(locale || 'en'))
 			}
 		};

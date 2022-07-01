@@ -84,15 +84,31 @@ const HomePage: NextPage<
 		fetchMainCategories();
 	}, []);
 
-	const searchCategoriesBanner = (
-		<div className="flex items-center justify-center bg-accent-primary-main p-4 text-white dark:bg-accent-primary-eco md:p-8 xl:p-14">
-			<h3 className="text-[21px] leading-[26px] md:mr-8 md:text-[48px] md:leading-[44px] lg:whitespace-nowrap xl:text-[72px]">
-				{t('home:search_from_6500_categories')}
-			</h3>
-			<Button variant="special" className="whitespace-nowrap !px-4">
-				{t('common:search_more')}
-				{' >'}
-			</Button>
+	const searchCategoriesAndTrendingBanner = (
+		<div className="grid gap-4 md:grid-cols-2">
+			<div className="flex items-center bg-accent-primary-main p-3 text-white dark:bg-accent-primary-eco md:flex-col md:space-y-4">
+				<h3 className="text-[21px] font-semibold leading-[26px] md:mr-8 md:text-[35px]">
+					{t('home:search_from_6500_categories')}
+				</h3>
+				<Button
+					variant="special"
+					className="whitespace-nowrap !px-4 pc:!rounded-full"
+				>
+					{t('common:search_more')}
+					<span className="hidden md:inline-block">{' >'}</span>
+				</Button>
+			</div>
+
+			<div className="flex items-center justify-end bg-[url('/latest-trend-image.png')] bg-left p-3">
+				<div className="flex flex-col items-center space-y-2 ">
+					<h3 className="text-[18px] font-semibold leading-[26px] text-white md:mr-8 md:text-[35px]">
+						{t('Find the latest Trends')}
+					</h3>
+					<Button className="border-2 border-secondary text-[21px] font-bold text-secondary pc:!rounded-full">
+						See Trends
+					</Button>
+				</div>
+			</div>
 		</div>
 	);
 
@@ -137,7 +153,7 @@ const HomePage: NextPage<
 									{/*  Search Categories Banner */}
 									{canIDisplayFlags === index && (
 										<div className="my-8 hidden md:block">
-											{searchCategoriesBanner}
+											{searchCategoriesAndTrendingBanner}
 										</div>
 									)}
 								</>
@@ -147,7 +163,9 @@ const HomePage: NextPage<
 			</div>
 
 			{/*  Search Categories Banner */}
-			<div className="my-8 md:hidden">{searchCategoriesBanner}</div>
+			<div className="my-8 md:hidden">
+				{searchCategoriesAndTrendingBanner}
+			</div>
 
 			{/* Shop by country and ads */}
 
