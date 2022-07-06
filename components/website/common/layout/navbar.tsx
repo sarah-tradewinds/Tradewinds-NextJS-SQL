@@ -150,7 +150,7 @@ const Header = () => {
 						<CartIcon
 							count={totalCartCount}
 							onClick={() => setIsCartModalOpen(true)}
-							iconClassName="!text-[24px]"
+							iconClassName="pc:!text-[24px]"
 						/>
 						{isAuth && (
 							<p

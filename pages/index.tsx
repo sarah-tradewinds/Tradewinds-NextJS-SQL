@@ -85,8 +85,8 @@ const HomePage: NextPage<
 	}, []);
 
 	const searchCategoriesAndTrendingBanner = (
-		<div className="grid gap-4 md:grid-cols-2">
-			<div className="flex items-center bg-accent-primary-main p-3 text-white dark:bg-accent-primary-eco md:flex-col md:space-y-4">
+		<div className="grid gap-4 lg:grid-cols-2">
+			<div className="flex items-center bg-accent-primary-main p-3 text-white dark:bg-accent-primary-eco md:space-y-4 lg:flex-col">
 				<h3 className="text-[21px] font-semibold leading-[26px] md:mr-8 md:text-[35px]">
 					{t('home:search_from_6500_categories')}
 				</h3>
