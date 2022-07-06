@@ -67,11 +67,11 @@ export const canCustomerGiveReviewOnThisProduct = async (
 	} catch (error) {
 		console.log('[canCustomerGiveReviewOnThisProduct] =', error);
 		const { data, status } = (error as any).response || {};
-		if (status >= 500) {
-			throw Error(
-				'Error occurred in canCustomerGiveReviewOnThisProduct'
-			);
-		}
+		// if (status >= 500) {
+		// 	throw Error(
+		// 		'Error occurred in canCustomerGiveReviewOnThisProduct'
+		// 	);
+		// }
 		return {
 			message: data.message,
 			canCustomerWiteReviewForThisProduct: false

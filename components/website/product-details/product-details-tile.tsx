@@ -17,6 +17,7 @@ import ImageContainer from './product-details-images/image-contaier';
 import RatingStars from './product-details-tab/product-review/rating-stars';
 
 // utils
+import { useCartStore } from 'store/cart-store';
 import { getLocaleText } from 'utils/get_locale_text';
 
 const ProductDetailsTile: React.FC<{
@@ -38,6 +39,11 @@ const ProductDetailsTile: React.FC<{
 			customerData: state.customerData
 		})
 	);
+
+	const { addToCart } = useCartStore((state) => ({
+		addToCart: state.addToCart
+	}));
+
 	const router = useRouter();
 	const { locale } = router;
 
@@ -213,43 +219,41 @@ const ProductDetailsTile: React.FC<{
 						<li>Bullet point</li>
 						<li>Bullet point</li>
 					</ul>
-					{/* <Button
-						onClick={() => {
-							if (!isAuth) {
-								setIsLoginOpen();
-							} else {
-								router.push(
-									`${BUYER_DASHBOARD_SUBMIT_RFQ}/?access_key=${customerData.access.token}`
-								);
-							}
-						}}
-						className="relative mt-4 hidden h-[22px] w-[139px] md:block"
-					>
-						<Image src="/submit-rfq-button.png" alt="" layout="fill" />
-          </Button>
-           */}
-					<Button
-						onClick={() => {
-							if (!isAuth) {
-								setIsLoginOpen();
-							} else {
-								router.push(
-									`${generateBuyerDashboardUrl({
-										redirect_to: BUYER_DASHBOARD_PAGES.buyer_rfq,
-										action: BUYER_DASHBOARD_ACTIONS.create_rfq,
-										access_key: customerData.access.token,
-										refresh_key: customerData.refresh.token
-									})}`
-								);
-							}
-						}}
-						className="relative mt-4 !flex h-[22px] items-center !rounded-lg border-2 px-0 text-accent-primary-main md:block"
-					>
-						<span className="flex h-full items-center bg-accent-primary-main px-1">
-							<BiMessageAltDetail className="text-[24px] text-white" />
-						</span>
-						<span className="px-2">Submit RFQ</span>
-					</Button>
+
+					<div className="mt-4 flex items-center space-x-2">
+						<Button
+							onClick={() => {
+								if (!isAuth) {
+									setIsLoginOpen();
+								} else {
+									router.push(
+										`${generateBuyerDashboardUrl({
+											redirect_to: BUYER_DASHBOARD_PAGES.buyer_rfq,
+											action: BUYER_DASHBOARD_ACTIONS.create_rfq,
+											access_key: customerData.access.token,
+											refresh_key: customerData.refresh.token
+										})}`
+									);
+								}
+							}}
+							className="mt-4s relative !flex h-[22px] items-center !rounded-lg border-2 px-0 text-accent-primary-main md:block"
+						>
+							<span className="flex h-full items-center bg-accent-primary-main px-1">
+								<BiMessageAltDetail className="text-[24px] text-white" />
+							</span>
+							<span className="px-2">Submit RFQ</span>
+						</Button>
+
+						{/* cart */}
+						<div>
+							<Button
+								variant="special"
+								onClick={() => addToCart(product.id, product)}
+							>
+								Add to Cart
+							</Button>
+						</div>
+					</div>
 				</div>
 
 				{/* Additional info */}

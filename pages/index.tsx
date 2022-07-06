@@ -91,6 +91,7 @@ const HomePage: NextPage<
 					{t('home:search_from_6500_categories')}
 				</h3>
 				<Button
+					href="/6500-categories"
 					variant="special"
 					className="whitespace-nowrap !px-4 pc:!rounded-full"
 				>
@@ -99,12 +100,16 @@ const HomePage: NextPage<
 				</Button>
 			</div>
 
+			{/* Trending section */}
 			<div className="flex items-center justify-end bg-[url('/latest-trend-image.png')] bg-left p-3">
 				<div className="flex flex-col items-center space-y-2 ">
 					<h3 className="text-[18px] font-semibold leading-[26px] text-white md:mr-8 md:text-[35px]">
 						{t('Find the latest Trends')}
 					</h3>
-					<Button className="border-2 border-secondary text-[21px] font-bold text-secondary pc:!rounded-full">
+					<Button
+						href="/what-is-trending"
+						className="border-2 border-secondary text-[21px] font-bold text-secondary pc:!rounded-full"
+					>
 						See Trends
 					</Button>
 				</div>

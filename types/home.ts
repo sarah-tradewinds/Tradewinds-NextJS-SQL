@@ -30,7 +30,7 @@ type Category = {
 
 type subCategories = {
 	id: string | number;
-	title: string;
+	title: string | { en: string };
 	slug: { en: string };
 	image: { url: string };
 	clr: string;

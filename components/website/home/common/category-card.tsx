@@ -2,7 +2,6 @@ import Button from 'components/website/common/form/button';
 import Image from 'next/image';
 
 // store
-import { useHomeStore } from 'store/home';
 
 interface CategoryCardProps {
 	title: string;
@@ -17,8 +16,6 @@ interface CategoryCardProps {
 }
 
 const CategoryCard: React.FC<CategoryCardProps> = (props) => {
-	const isHidden = useHomeStore((state) => state.isHidden);
-
 	const {
 		title,
 		slug,

@@ -22,7 +22,8 @@ const nextConfig = (phase) => {
 					'images.unsplash.com',
 					'wmarketplacestgact.blob.core.windows.net',
 					'm.media-amazon.com',
-					'undefined'
+					'undefined',
+					'https'
 				]
 			}
 		};
@@ -45,7 +46,8 @@ const nextConfig = (phase) => {
 			domains: [
 				'images.unsplash.com',
 				'wmarketplacestgact.blob.core.windows.net',
-				'm.media-amazon.com'
+				'm.media-amazon.com',
+				'https'
 			]
 		}
 	};
