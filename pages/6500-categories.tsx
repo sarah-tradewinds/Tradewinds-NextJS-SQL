@@ -1,485 +1,29 @@
-import { GetStaticProps, NextPage } from 'next';
+import {
+	GetStaticProps,
+	InferGetStaticPropsType,
+	NextPage
+} from 'next';
 
 // Third party packages
 import { Tab } from '@headlessui/react';
+import Button from 'components/website/common/form/button';
+import { alphabets } from 'data/common.data';
+import { getAllCategoryByAlphabets } from 'lib/categories.lib';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useState } from 'react';
+import { HiMinusCircle, HiPlusCircle } from 'react-icons/hi';
 
-const CategoriesPage: NextPage = () => {
+// lib
+
+const CategoriesPage: NextPage<
+	InferGetStaticPropsType<GetStaticProps>
+> = ({ allCategoryByAlphabets }) => {
 	const { t } = useTranslation();
 
-	const alphabets = [
-		'A',
-		'B',
-		'C',
-		'D',
-		'E',
-		'F',
-		'G',
-		'H',
-		'I',
-		'J',
-		'K',
-		'L',
-		'M',
-		'N',
-		'O',
-		'P',
-		'Q',
-		'R',
-		'S',
-		'T',
-		'U',
-		'V',
-		'W',
-		'X',
-		'Y',
-		'Z'
-	];
+	const [showAll, setShowAll] = useState(false);
 
-	const trendings = {
-		A: [
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products'
-		],
-		B: [
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products'
-		],
-		C: [
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products'
-		],
-		D: [
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products'
-		],
-		E: [
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products'
-		],
-		F: [
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products'
-		],
-		G: [
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products'
-		],
-		H: [
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products'
-		],
-		I: [
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products'
-		],
-		K: [
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products'
-		],
-		L: [
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products'
-		],
-		M: [
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products'
-		],
-		N: [
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products'
-		],
-		O: [
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products'
-		],
-		P: [
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products'
-		],
-		Q: [
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products'
-		],
-		R: [
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products'
-		],
-		S: [
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products'
-		],
-		T: [
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products'
-		],
-		U: [
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products'
-		],
-		V: [
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products'
-		],
-		W: [
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products'
-		],
-		X: [
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products'
-		],
-		Y: [
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products'
-		],
-		Z: [
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Action Figure',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products',
-			'Abrasives',
-			'Access Control Systems & Products'
-		]
-	};
-
-	const trendingElements1: any[] = [];
-	const trendingElements2: any[] = [];
-	const trendingElements3: any[] = [];
-	const trendingElements4: any[] = [];
-	const trendingElements5: any[] = [];
-	for (const alphabet in trendings) {
-		const trendingList = (trendings as any)[alphabet] || [];
-		const elem = (
-			<div key={alphabet} className="mb-8">
-				<p className="inline-block border-b-2 text-[15px] font-semibold">
-					{alphabet}
-				</p>
-
-				<div>
-					{trendingList.map((trending: string) => {
-						return (
-							<p
-								key={trending}
-								className="cursor-pointer hover:font-semibold hover:text-cyan hover:underline"
-							>
-								{trending}
-							</p>
-						);
-					})}
-				</div>
-			</div>
-		);
-
-		if (trendingElements1.length <= 6) {
-			trendingElements1.push(elem);
-		} else if (trendingElements2.length <= 6) {
-			trendingElements2.push(elem);
-		} else if (trendingElements3.length <= 6) {
-			trendingElements3.push(elem);
-		} else if (trendingElements4.length <= 6) {
-			trendingElements4.push(elem);
-		} else if (trendingElements5.length <= 6) {
-			trendingElements5.push(elem);
-		}
-	} // End of for loop
+	const alphabetList = showAll ? alphabets : [...alphabets].slice(0, 3);
 
 	return (
 		<div className="relative bg-cyan">
@@ -503,9 +47,6 @@ const CategoriesPage: NextPage = () => {
 					<Tab.List className="mx-2 justify-center md:ml-16 pc:flex">
 						<Tab className="mr-4 rounded-t-lg bg-white px-4 text-[25px] font-semibold">
 							Catagories
-						</Tab>
-						<Tab className="rounded-t-lg bg-white px-4 text-[25px] font-semibold opacity-60">
-							Products
 						</Tab>
 					</Tab.List>
 
@@ -534,46 +75,60 @@ const CategoriesPage: NextPage = () => {
 									<div className="hidden h-[2px] w-[17px] rounded-full bg-primary-main md:block lg:w-full"></div>
 								</div>
 
-								{/* Trending */}
-								{/* <div className="grid grid-cols-4 px-8">
-									<div>{trendingElements1}</div>
-									<div>{trendingElements2}</div>
-									<div>{trendingElements3}</div>
-									<div>{trendingElements4}</div>
-									<div>{trendingElements5}</div>
-								</div> */}
-
+								{/* List of all categories by alphabets */}
 								<div className="columns-1 gap-8 p-8 md:columns-3 lg:columns-5">
-									{alphabets.map((alphabet, index) => {
-										const trendingList =
-											(trendings as any)[alphabet] || [];
+									{alphabetList.map((alphabet, index) => {
+										const categories =
+											(allCategoryByAlphabets as any)[alphabet] || [];
 
-										if (trendingList.length <= 0) return null;
+										if (categories.length <= 0) return null;
+
+										const slicedAnUnslicedCategories = showAll
+											? categories
+											: [...categories].slice(0, 24);
+
 										return (
 											<div key={alphabet} className="mb-8">
 												<p className="inline-block border-b-2 text-[15px] font-semibold">
 													{alphabet}
 												</p>
 
+												{/* Categories */}
 												<div>
-													{trendingList.map((trending: string) => {
-														return (
-															<p
-																key={trending}
-																className="cursor-pointer hover:font-semibold hover:text-cyan hover:underline"
-															>
-																{trending}
-															</p>
-														);
-													})}
+													{slicedAnUnslicedCategories.map(
+														(category: string) => {
+															return (
+																<p
+																	key={category}
+																	className="cursor-pointer hover:font-semibold hover:text-cyan hover:underline"
+																>
+																	{category}
+																</p>
+															);
+														}
+													)}
 												</div>
 											</div>
 										);
 									})}
 								</div>
+
+								{/* actions */}
+								<div className="flex justify-end">
+									<Button
+										onClick={() =>
+											setShowAll((prevState) => !prevState)
+										}
+									>
+										{showAll ? (
+											<HiMinusCircle className="text-[32px] text-cyan" />
+										) : (
+											<HiPlusCircle className="text-[32px] text-cyan" />
+										)}
+									</Button>
+								</div>
 							</div>
 						</Tab.Panel>
-						<Tab.Panel>Content 2</Tab.Panel>
 					</Tab.Panels>
 				</Tab.Group>
 			</div>
@@ -581,10 +136,15 @@ const CategoriesPage: NextPage = () => {
 	);
 }; // End of CategoriesPage
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => ({
-	props: {
-		...(await serverSideTranslations(locale || 'en'))
-	}
-});
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+	const allCategoryByAlphabets = await getAllCategoryByAlphabets();
+
+	return {
+		props: {
+			...(await serverSideTranslations(locale || 'en')),
+			allCategoryByAlphabets
+		}
+	};
+};
 
 export default CategoriesPage;
