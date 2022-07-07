@@ -48,7 +48,11 @@ const Collapse: React.FC<CollapseProps> = (props) => {
 				} items-center`}
 				style={{ backgroundColor: collapseHeadBgHexColor }}
 			>
-				<div className={`flex ${isReverse ? 'flex-row-reverse' : ''}`}>
+				<div
+					className={`flex items-center ${
+						isReverse ? 'flex-row-reverse' : ''
+					}`}
+				>
 					<div
 						onClick={() => {
 							setIsOpen((prevState) => !prevState);
