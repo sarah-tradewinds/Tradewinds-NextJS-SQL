@@ -3,15 +3,26 @@ import Button from 'components/website/common/form/button';
 import CategoryCard from 'components/website/home/common/category-card';
 import SubCategoryCard from 'components/website/home/common/sub-category-card';
 import CategoriesSlider from 'components/website/what-is-trending/categories-slider';
-import { GetStaticProps, NextPage } from 'next';
+import { getHomeMainCategoriesAndCategories } from 'lib/home.lib';
+import { getTrendingProducts } from 'lib/trending.lib';
+import {
+	GetServerSideProps,
+	InferGetServerSidePropsType,
+	NextPage
+} from 'next';
 
 // Third party packages
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { HiMinusCircle, HiPlusCircle } from 'react-icons/hi';
+import { getLocaleText } from 'utils/get_locale_text';
 
-const WhatIsTrendingPage: NextPage = () => {
+const WhatIsTrendingPage: NextPage<
+	InferGetServerSidePropsType<GetServerSideProps>
+> = ({ trendingMainCategoriesAndCategories, trendingProducts }) => {
+	const { locale } = useRouter();
 	const { t } = useTranslation();
 
 	const [isTrendingCategoriesOpen, setIsTrendingCategoriesOpen] =
@@ -19,6 +30,10 @@ const WhatIsTrendingPage: NextPage = () => {
 
 	const [isTrendingProductsOpen, setIsTrendingProductsOpen] =
 		useState(false);
+
+	const firstProduct =
+		trendingProducts?.length >= 1 ? trendingProducts[0] : {};
+	const remainingTrendingProducts = trendingProducts || [];
 
 	return (
 		<div className="pb-8">
@@ -200,16 +215,27 @@ const WhatIsTrendingPage: NextPage = () => {
 					<div className="col-span-3">
 						<CategoryCard
 							title="Trending Products"
-							description="Name Here Lorem ipsum dolor sit amet, consecamet Lorem ipsum dolor sit amet, "
-							imageUrl="/vehicles/green-tractor.png"
+							name={getLocaleText(
+								firstProduct?.product_name || {},
+								locale
+							)}
+							description={getLocaleText(
+								firstProduct?.product_description || {},
+								locale
+							)}
+							imageUrl={
+								firstProduct?.images
+									? firstProduct?.images[0]?.url
+									: '/vehicles/green-tractor.png'
+							}
 							alt="/"
 							buttonText="Source Now"
 						/>
 					</div>
 
-					{/* Categories */}
+					{/* Products */}
 					<div className="col-span-9 mt-4">
-						<CategoriesSlider />
+						<CategoriesSlider dataList={remainingTrendingProducts} />
 					</div>
 				</div>
 			</div>
@@ -217,10 +243,20 @@ const WhatIsTrendingPage: NextPage = () => {
 	);
 }; // End of WhatIsTrendingPage
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => ({
-	props: {
-		...(await serverSideTranslations(locale || 'en'))
-	}
-});
+export const getServerSideProps: GetServerSideProps = async ({
+	locale
+}) => {
+	const trendingMainCategoriesAndCategories =
+		await getHomeMainCategoriesAndCategories();
+	const trendingProducts = await getTrendingProducts();
+
+	return {
+		props: {
+			trendingMainCategoriesAndCategories,
+			trendingProducts,
+			...(await serverSideTranslations(locale || 'en'))
+		}
+	};
+};
 
 export default WhatIsTrendingPage;

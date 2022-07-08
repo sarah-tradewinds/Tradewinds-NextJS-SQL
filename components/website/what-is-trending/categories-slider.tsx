@@ -13,7 +13,9 @@ function SamplePrevArrow(props: any) {
 	);
 }
 
-export default function CategoriesSlider() {
+const CategoriesSlider: React.FC<{ dataList?: [] }> = ({
+	dataList = []
+}) => {
 	const [ref] = useKeenSlider<HTMLDivElement>({
 		// loop: true,
 		slides: {
@@ -66,24 +68,21 @@ export default function CategoriesSlider() {
 	// 	</Slider>
 	// );
 
-	const subCategoryList = [...subCategories].slice(
-		0,
-		deviceSize === 'md' ? 6 : 8
-	);
-
-	console.log(deviceSize);
+	const dataArray = [...dataList].slice(0, deviceSize === 'md' ? 6 : 8);
 
 	return (
 		<div className="grid grid-cols-3 lg:grid-cols-4">
-			{subCategoryList.map((id) => {
+			{dataArray.map((data: any) => {
 				return (
-					<div key={id} className="py-4 px-2">
+					<div key={data.id} className="py-4 px-2">
 						<SubCategoryCard
 							subCat={{
-								id: '1',
-								title: { en: 'Animal & Veterinary' },
+								id: data.id,
+								title: data.product_name,
 								slug: { en: 'animal-and-veterinary' },
-								image: { url: '/vehicles/green-tractor.png' },
+								image: data?.images
+									? data?.images[0]?.url
+									: '/vehicles/green-tractor.png',
 								clr: ''
 							}}
 							containerClassName="h-[140px]"
@@ -93,4 +92,6 @@ export default function CategoriesSlider() {
 			})}
 		</div>
 	);
-}
+};
+
+export default CategoriesSlider;

@@ -5,6 +5,7 @@ import Image from 'next/image';
 
 interface CategoryCardProps {
 	title: string;
+	name?: string;
 	slug?: string;
 	description: string;
 	buttonText: string;
@@ -18,6 +19,7 @@ interface CategoryCardProps {
 const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 	const {
 		title,
+		name,
 		slug,
 		description,
 		buttonText,
@@ -43,7 +45,7 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 			>
 				<p className="mt-2 w-[64%] lg:text-[18px]">
 					<span className="font-semibold text-primary-main dark:text-accent-secondary-eco">
-						Name Here {` `}
+						{name} {` `}
 					</span>
 					<span className="text-gray">{description}</span>
 				</p>

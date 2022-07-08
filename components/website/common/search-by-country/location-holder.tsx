@@ -4,10 +4,11 @@ interface LocationHolderProps {
 	containerClassName?: string;
 	imageUrl: string;
 	title: string;
+	count?: number;
 }
 
 const LocationHolder: React.FC<LocationHolderProps> = (props) => {
-	const { containerClassName, imageUrl, title } = props;
+	const { containerClassName, imageUrl, title, count } = props;
 
 	return (
 		<div>
@@ -39,7 +40,7 @@ const LocationHolder: React.FC<LocationHolderProps> = (props) => {
 				</div>
 			</div>
 			<p className="border-bs border-gray/40 text-center text-[18px] text-cyan">
-				(2)
+				({count})
 			</p>
 		</div>
 	);
