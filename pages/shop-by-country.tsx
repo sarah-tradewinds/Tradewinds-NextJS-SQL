@@ -13,15 +13,27 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import CountryFlagTile from 'components/website/common/search-by-country/country-flag-tile';
 import Seo from 'components/website/common/seo';
 import RegionsAndCountriesList from 'components/website/shop-by-country/regions-and-countries-list';
-import RegionAndCountriesTile from 'components/website/shop-by-country/regions-and-countries-tile';
 import { getRegionsAndCountries } from 'lib/shop-by-country.lib';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { HiMinusCircle, HiPlusCircle } from 'react-icons/hi';
+import { useCountriesStore } from 'store/countries-store';
+import { useCategoryStore } from 'store/eco/category-store';
 
 const ShopByCountryPage: NextPage<
 	InferGetServerSidePropsType<GetServerSideProps>
 > = ({ regionsAndCountries = [] }) => {
 	const { t } = useTranslation('search_by_country');
+
+	const removeCategoryFilter = useCategoryStore(
+		(state) => state.removeCategoryFilter
+	);
+
+	const setSelectedCountryId = useCountriesStore(
+		(state) => state.setSelectedCountryId
+	);
+
+	const router = useRouter();
 
 	return (
 		<>
@@ -70,29 +82,27 @@ const ShopByCountryPage: NextPage<
 				</div>
 
 				{/* Island and flags */}
-				<div className="mb-16 hidden md:block">
-					<div className="z-[1] hidden flex-col items-center p-8 pt-[208px] md:flex md:pt-[300px] lg:pt-[440px]">
-						<div className="flex flex-col space-y-24 md:flex-row md:space-y-0 md:space-x-4 lg:space-x-16">
-							{(regionsAndCountries?.slice(0, 4) || [])?.map(
-								(regionAndCountries: any) => {
-									const { countries = [] } = regionAndCountries || {};
-
-									return (
-										<RegionAndCountriesTile
-											key={regionAndCountries.id}
-											regionId={regionAndCountries.id}
-											regionName={regionAndCountries.name}
-											countries={countries || []}
-										/>
-									);
-								}
-							)}
+				<div className="mb-[2800px] hidden md:block">
+					<div className="absolute top-[440px] left-1/2 w-[95%] -translate-x-1/2 transform">
+						<div className="grid grid-cols-4 gap-y-24">
+							<RegionsAndCountriesList
+								regionsAndCountries={regionsAndCountries || []}
+								onCountryClick={(countryId) => {
+									console.log('countryId = ', countryId);
+									removeCategoryFilter();
+									setSelectedCountryId(countryId);
+									router.push('/product-search');
+								}}
+							/>
 						</div>
 					</div>
 
-					<RegionsAndCountriesList
-						regionsAndCountries={regionsAndCountries || []}
-					/>
+					<div className="grid grid-cols-4">
+						{/* <RegionsAndCountriesList
+							regionsAndCountries={regionsAndCountries?.slice(5) || []}
+							className="mt-32 flex flex-col items-center space-y-6"
+						/> */}
+					</div>
 				</div>
 			</div>
 		</>

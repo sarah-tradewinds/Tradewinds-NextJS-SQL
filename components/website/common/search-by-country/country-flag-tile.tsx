@@ -4,13 +4,14 @@ interface CountryFlagTileProps {
 	containerClassName?: string;
 	imageUrl: string;
 	title: string;
+	onClick?: () => any;
 }
 
 const CountryFlagTile: React.FC<CountryFlagTileProps> = (props) => {
-	const { containerClassName, imageUrl, title } = props;
+	const { containerClassName, imageUrl, title, onClick } = props;
 
 	return (
-		<div className={`relative ${containerClassName}`}>
+		<div className={`relative ${containerClassName}`} onClick={onClick}>
 			<div className="flex">
 				<div className="relative h-[27px] w-[43px]">
 					<Image src={imageUrl} alt={title} layout="fill" />

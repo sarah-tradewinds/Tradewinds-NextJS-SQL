@@ -5,9 +5,11 @@ import RegionAndCountriesTile from './regions-and-countries-tile';
 
 const RegionsAndCountriesList: React.FC<{
 	regionsAndCountries: [];
-}> = ({ regionsAndCountries = [] }) => {
+	className?: string;
+	onCountryClick: (countryId: string) => any;
+}> = ({ regionsAndCountries = [], className, onCountryClick }) => {
 	return (
-		<div className="grid grid-cols-4">
+		<>
 			{regionsAndCountries?.map((regionAndCountries: any) => {
 				const { countries = [] } = regionAndCountries || {};
 
@@ -17,11 +19,12 @@ const RegionsAndCountriesList: React.FC<{
 						regionId={regionAndCountries.id}
 						regionName={regionAndCountries.name}
 						countries={countries || []}
-						className="mt-32 flex flex-col items-center space-y-6"
+						className={className}
+						onCountryTileClick={onCountryClick}
 					/>
 				);
 			})}
-		</div>
+		</>
 	);
 };
 

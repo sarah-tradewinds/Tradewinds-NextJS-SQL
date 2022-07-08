@@ -43,10 +43,30 @@ export const useCountriesStore = create<CountryState>((set) => ({
 			return { countries, selectedCountryIds: countryCodeList };
 		}), // End of set method
 	fetchCountries: async (countryList?: []) => {
-		const countries = !countryList
+		let countries = !countryList
 			? await getCountries()
 			: countryList || [];
-		set({ countries });
+
+		set(({ selectedCountryIds }) => {
+			if (countries.length >= 0) {
+				countries = countries.map((country: any) => {
+					const isSelected =
+						selectedCountryIds.findIndex(
+							(selectedCountryId) =>
+								selectedCountryId?.toLowerCase() ===
+								country.country_name?.toLowerCase()
+						) >= 0;
+
+					country.isSelected = isSelected;
+
+					return country;
+				});
+			}
+
+			return {
+				countries
+			};
+		});
 	},
 	removeSelectedCountries: () =>
 		set((state) => {
