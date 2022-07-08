@@ -1,6 +1,6 @@
 import {
-	GetStaticProps,
-	InferGetStaticPropsType,
+	GetServerSideProps,
+	InferGetServerSidePropsType,
 	NextPage
 } from 'next';
 
@@ -11,15 +11,19 @@ import { alphabets } from 'data/common.data';
 import { getAllCategoryByAlphabets } from 'lib/categories.lib';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { HiMinusCircle, HiPlusCircle } from 'react-icons/hi';
 
 // lib
 
 const CategoriesPage: NextPage<
-	InferGetStaticPropsType<GetStaticProps>
+	InferGetServerSidePropsType<GetServerSideProps>
 > = ({ allCategoryByAlphabets }) => {
 	const { t } = useTranslation();
+
+	const router = useRouter();
 
 	const [showAll, setShowAll] = useState(false);
 
@@ -53,20 +57,27 @@ const CategoriesPage: NextPage<
 					<Tab.Panels>
 						<Tab.Panel>
 							<div className="rounded-md bg-white">
+								{/* List of alphabets */}
 								<div className="flex items-center justify-between p-4 lg:space-x-16 lg:p-8">
 									{/* Line */}
 									<div className="hidden h-[2px] w-[17px] rounded-full bg-green md:block lg:w-full"></div>
 
 									{/* List of alphabets */}
 									<div className="flex flex-wrap md:flex-nowrap lg:space-x-4">
-										{alphabets.map((alphabet) => {
+										{alphabets.map((alphabet, index) => {
 											return (
-												<p
-													key={alphabet}
-													className="mx-2 cursor-pointer border-b-2 border-green bg-gradient-to-r from-green to-primary-eco bg-clip-text text-[18px] text-transparent lg:text-[24px]"
-												>
-													{alphabet}
-												</p>
+												<Link href={`#${alphabet}`} key={alphabet}>
+													<a
+														onClick={() => {
+															if (!showAll && index >= 3) {
+																setShowAll(true);
+															}
+														}}
+														className="mx-2 cursor-pointer border-b-2 border-green bg-gradient-to-r from-green to-primary-eco bg-clip-text text-[18px] text-transparent lg:text-[24px]"
+													>
+														{alphabet}
+													</a>
+												</Link>
 											);
 										})}
 									</div>
@@ -89,7 +100,10 @@ const CategoriesPage: NextPage<
 
 										return (
 											<div key={alphabet} className="mb-8">
-												<p className="inline-block border-b-2 text-[15px] font-semibold">
+												<p
+													id={alphabet}
+													className="inline-block border-b-2 text-[15px] font-semibold"
+												>
 													{alphabet}
 												</p>
 
@@ -101,6 +115,9 @@ const CategoriesPage: NextPage<
 																<p
 																	key={category}
 																	className="cursor-pointer hover:font-semibold hover:text-cyan hover:underline"
+																	onClick={() => {
+																		router.push('/product-search');
+																	}}
 																>
 																	{category}
 																</p>
@@ -136,7 +153,9 @@ const CategoriesPage: NextPage<
 	);
 }; // End of CategoriesPage
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+	locale
+}) => {
 	const allCategoryByAlphabets = await getAllCategoryByAlphabets();
 
 	return {

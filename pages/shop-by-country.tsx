@@ -1,6 +1,6 @@
 import {
-	GetStaticProps,
-	InferGetStaticPropsType,
+	GetServerSideProps,
+	InferGetServerSidePropsType,
 	NextPage
 } from 'next';
 import Image from 'next/image';
@@ -19,7 +19,7 @@ import { useState } from 'react';
 import { HiMinusCircle, HiPlusCircle } from 'react-icons/hi';
 
 const ShopByCountryPage: NextPage<
-	InferGetStaticPropsType<GetStaticProps>
+	InferGetServerSidePropsType<GetServerSideProps>
 > = ({ regionsAndCountries = [] }) => {
 	const { t } = useTranslation('search_by_country');
 
@@ -99,7 +99,9 @@ const ShopByCountryPage: NextPage<
 	);
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+	locale
+}) => {
 	const regionsAndCountries = await getRegionsAndCountries();
 
 	return {
