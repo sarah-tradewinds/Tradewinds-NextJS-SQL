@@ -4,6 +4,7 @@ import { generateQueryString } from 'utils/generate_query_string.utils';
 export const getProducts = async (params: {
 	price_start: number;
 	price_end?: number;
+	categories?: string;
 	main_category?: string;
 	category?: string;
 	sub_category?: string;

@@ -23,6 +23,7 @@ import {
 	getProducts,
 	getSelectedMainCategoryAndCategories
 } from 'lib/product-search.lib';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useCategoryStore } from 'store/category-store';
 import { useCountriesStore } from 'store/countries-store';
@@ -68,6 +69,8 @@ const ProductSearchPage: NextPage<
 		removeProductFromCompareList,
 		removeAllProductFromCompareList
 	} = useProductStore();
+
+	const router = useRouter();
 
 	const mainCategory = getDataById(
 		allCategories,
@@ -145,23 +148,6 @@ const ProductSearchPage: NextPage<
 
 	// Fetching products
 	useEffect(() => {
-		console.log(' ');
-
-		console.log('selectedCategoryIds =', selectedCategoryIds);
-		console.log('selectedSubCategoryIds =', selectedSubCategoryIds);
-		console.log(
-			'selectedSpecificCategoryIds =',
-			selectedSpecificCategoryIds
-		);
-		console.log(
-			'selectedCategoryAndSubCategoryAndSpecificCategoryIds =',
-			selectedCategoryAndSubCategoryAndSpecificCategoryIds
-		);
-		console.log(' ');
-
-		console.log(subCategoryIdList);
-		console.log(specificCategoryIdList);
-
 		const selectedCategories = subCategoryList.filter(
 			(subCategory: any) => {
 				return categoryIdList.includes(subCategory.id);
@@ -193,6 +179,7 @@ const ProductSearchPage: NextPage<
 
 		getProducts({
 			price_start: +minPrice,
+			categories: (router.query?.categories || '') as string,
 			main_category: mainCategory?.title?.en,
 			category: categoryNames.toString(),
 			sub_category: subCategoryNames.toString(),
@@ -201,6 +188,7 @@ const ProductSearchPage: NextPage<
 			is_eco: isEco
 		}).then((data) => setProducts(data));
 	}, [
+		router.query?.categories,
 		selectedMainCategoryId,
 		selectedCategoryIds,
 		selectedSubCategoryIds,

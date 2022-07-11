@@ -1,10 +1,14 @@
 // Third party packages
+import { useRouter } from 'next/router';
 import { AiOutlinePlus } from 'react-icons/ai';
 
 // data
 import { useCategoryStore } from 'store/category-store';
+import { getLocaleText } from 'utils/get_locale_text';
 
 const CategoriesFilter: React.FC = (props) => {
+	const { locale } = useRouter();
+
 	const {
 		selectedMainCategoryId,
 		selectedCategoryIds,
@@ -33,14 +37,6 @@ const CategoriesFilter: React.FC = (props) => {
 		}
 	}
 
-	// const categoryIds = getObjectKeys(
-	// 	selectedCategoryAndSubCategoryAndSpecificCategoryIds
-	// );
-
-	// const subCategoryIds = getObjectKeys(
-	// 	selectedCategoryAndSubCategoryAndSpecificCategoryIds[categoryIds[0]]
-	// );
-
 	return (
 		<div className="mt-4 space-y-2">
 			{/* Main categories */}
@@ -56,7 +52,7 @@ const CategoriesFilter: React.FC = (props) => {
 						key={mainCategoryId}
 						id={mainCategoryId}
 						isOpen={isMainCategorySelected}
-						title={mainCategory?.title?.en}
+						title={getLocaleText(mainCategory?.title || {}, locale)}
 						onClick={() =>
 							setSelectedMainCategoryId(
 								isMainCategorySelected ? '' : mainCategoryId
@@ -67,12 +63,6 @@ const CategoriesFilter: React.FC = (props) => {
 						{categories?.map((category: any) => {
 							const { id: categoryId, subCategories = [] } =
 								category || {};
-
-							// const isCategorySelected =
-							// 	categoryIds.findIndex(
-							// 		(selectedCategoryId) =>
-							// 			selectedCategoryId === categoryId
-							// 	) >= 0;
 
 							const isCategorySelected =
 								categoryIdList.findIndex(
@@ -85,7 +75,7 @@ const CategoriesFilter: React.FC = (props) => {
 									key={categoryId}
 									id={categoryId}
 									isOpen={isCategorySelected}
-									title={category?.title?.en}
+									title={getLocaleText(category?.title || {}, locale)}
 									onClick={() => setSelectedCategoryId(categoryId)}
 									className="ml-4"
 								>
@@ -95,12 +85,6 @@ const CategoriesFilter: React.FC = (props) => {
 											id: subCategoryId,
 											specificCategories = []
 										} = subCategory || {};
-
-										// const isSubCategorySelected =
-										// 	subCategoryIds.findIndex(
-										// 		(selectedSubCategoryId) =>
-										// 			selectedSubCategoryId === subCategoryId
-										// 	) >= 0;
 
 										const isSubCategorySelected =
 											subCategoryIdList.findIndex(
@@ -113,7 +97,10 @@ const CategoriesFilter: React.FC = (props) => {
 												key={subCategoryId}
 												id={subCategoryId}
 												isOpen={isSubCategorySelected}
-												title={subCategory?.title?.en}
+												title={getLocaleText(
+													subCategory?.title || {},
+													locale
+												)}
 												onClick={() =>
 													setSelectedSubCategoryId(
 														categoryId,
@@ -127,11 +114,6 @@ const CategoriesFilter: React.FC = (props) => {
 													(specificCategory: any) => {
 														const { id: specificCategoryId } =
 															specificCategory || {};
-
-														// const isSpecificCategorySelected =
-														// 	selectedSpecificCategoryIds.includes(
-														// 		specificCategoryId
-														// 	);
 
 														const isSpecificCategorySelected =
 															specificCategoryIdList.includes(
@@ -154,7 +136,10 @@ const CategoriesFilter: React.FC = (props) => {
 																	);
 																}}
 															>
-																{specificCategory?.title?.en}
+																{getLocaleText(
+																	specificCategory?.title || {},
+																	locale
+																)}
 															</button>
 														);
 													}

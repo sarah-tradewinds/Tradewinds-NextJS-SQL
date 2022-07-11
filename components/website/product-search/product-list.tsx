@@ -1,4 +1,6 @@
+import { useRouter } from 'next/router';
 import { getDisplayBulkPrice } from 'utils/get-bulk-price';
+import { getLocaleText } from 'utils/get_locale_text';
 import ProductTile from './product-tile';
 
 interface ProductListProps {
@@ -10,6 +12,8 @@ const ProductList: React.FC<ProductListProps> = ({
 	products,
 	onCompareClick
 }) => {
+	const { locale } = useRouter();
+
 	return (
 		<div className="grid grid-cols-1 gap-4 md:gap-8">
 			{products.map((product) => {
@@ -29,9 +33,12 @@ const ProductList: React.FC<ProductListProps> = ({
 				return (
 					<ProductTile
 						key={product.id}
-						name={product.product_name}
+						name={getLocaleText(product.product_name, locale)}
 						slug={product?.id}
-						description={product.product_description}
+						description={getLocaleText(
+							product.product_description,
+							locale
+						)}
 						imageUrl={product.images[0]?.url}
 						countryOfOrigin={
 							country_of_region ? country_of_region[0] : ''

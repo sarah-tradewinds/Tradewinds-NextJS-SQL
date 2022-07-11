@@ -116,7 +116,9 @@ const CategoriesPage: NextPage<
 																	key={category}
 																	className="cursor-pointer hover:font-semibold hover:text-cyan hover:underline"
 																	onClick={() => {
-																		router.push('/product-search');
+																		router.push(
+																			`/product-search?categories${category}`
+																		);
 																	}}
 																>
 																	{category}

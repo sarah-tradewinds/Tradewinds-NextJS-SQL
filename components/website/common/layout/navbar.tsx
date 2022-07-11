@@ -308,7 +308,7 @@ const Header = () => {
 								</NavLink>
 
 								<NavLink
-									href="/search-by-country"
+									href="/shop-by-country"
 									className="nav-link"
 									activeClassName="underline font-semibold"
 									onClick={drawerHandler}
