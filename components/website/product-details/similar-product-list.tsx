@@ -1,4 +1,6 @@
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { getLocaleText } from 'utils/get_locale_text';
 
 interface SimilarProductListProps {
 	title: string;
@@ -10,6 +12,8 @@ const SimilarProductList: React.FC<SimilarProductListProps> = (
 	props
 ) => {
 	const { title, similarProducts, className } = props;
+
+	const { locale } = useRouter();
 
 	return (
 		<div className="mx-4 rounded bg-white p-4">
@@ -35,10 +39,13 @@ const SimilarProductList: React.FC<SimilarProductListProps> = (
 							/>
 						</div>
 						<p className="f ont-bold flex justify-between space-x-8 text-[18px] text-primary-main">
-							{similarProduct.product_name}
+							{getLocaleText(similarProduct.product_name || {}, locale)}
 						</p>
 						<p className="text-[15px] text-gray/40">
-							{similarProduct.product_description}
+							{getLocaleText(
+								similarProduct.product_description || {},
+								locale
+							)}
 						</p>
 					</div>
 				))}

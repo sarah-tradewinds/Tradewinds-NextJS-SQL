@@ -26,6 +26,7 @@ import {
 	getSimilarProducts,
 	submitProductRatingAndReview
 } from 'lib/product-details';
+import { useRouter } from 'next/router';
 import { useAuthStore } from 'store/auth';
 import { useCategoryStore } from 'store/category-store';
 import { getLocaleText } from 'utils/get_locale_text';
@@ -43,6 +44,8 @@ const ProductDetailsPage: NextPage<
 	const { customerData } = useAuthStore((state) => ({
 		customerData: state.customerData
 	}));
+
+	const { locale } = useRouter();
 
 	useEffect(() => {
 		if (selectedVariantId) {
@@ -125,7 +128,10 @@ const ProductDetailsPage: NextPage<
 						reviews={productReviewList}
 						onReviewSubmit={submitReviewHandler}
 						isLoading={isReviewLoading}
-						productName={productData.product_name}
+						productName={getLocaleText(
+							productData.product_name || {},
+							locale
+						)}
 						productId={productData.id}
 					/>
 					<CompanyProfileTab seller={seller} />

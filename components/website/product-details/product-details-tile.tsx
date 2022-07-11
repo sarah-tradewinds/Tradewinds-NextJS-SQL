@@ -63,6 +63,8 @@ const ProductDetailsTile: React.FC<{
 		is_verified
 	} = product || {};
 
+	const productName = getLocaleText(product_name || {}, locale);
+
 	const displayPrice = getDisplayBulkPrice({
 		product_price,
 		is_bulk_pricing,
@@ -71,7 +73,7 @@ const ProductDetailsTile: React.FC<{
 
 	const minOrderQuantity = inventory?.minimum_order_quantity || 0;
 
-	const mainImageUrl = images[0]?.url;
+	const mainImageUrl = images[0]?.url || '/vehicles/green-tractor.png';
 
 	return (
 		<div className="grid grid-cols-12 gap-8 bg-white">
@@ -88,7 +90,7 @@ const ProductDetailsTile: React.FC<{
 				{/* Product name and sku info */}
 				<div className="flex items-center justify-between">
 					<h1 className="text-[18px] font-semibold text-primary-main lg:text-[30px]">
-						{getLocaleText({ en: product_name }, locale)}
+						{productName}
 					</h1>
 					<p className="hidden text-[25px] font-semibold text-gray/40 md:block">
 						{inventory?.sku}
@@ -205,11 +207,10 @@ const ProductDetailsTile: React.FC<{
 				<div className="border-t border-b-0 border-gray/40 py-6 md:border-b">
 					<h2 className="text-[12px] text-gray md:text-[15px]">
 						<span className="font-semibold">
-							Product name:{' '}
-							{getLocaleText({ en: product_name }, locale)}
+							Product name: {productName}
 						</span>{' '}
 						<span>
-							{getLocaleText({ en: product_description }, locale)}
+							{getLocaleText(product_description || {}, locale)}
 						</span>
 					</h2>
 					<ul className="ml-8 list-disc text-[12px] text-gray md:text-[15px]">

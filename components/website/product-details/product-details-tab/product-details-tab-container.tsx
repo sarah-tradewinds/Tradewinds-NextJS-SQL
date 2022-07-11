@@ -1,5 +1,7 @@
 // Third party packages
 import { Tab } from '@headlessui/react';
+import { useRouter } from 'next/router';
+import { getLocaleText } from 'utils/get_locale_text';
 import CompanyProfileTab from './company-profile-tab';
 import ProductDetailsTab from './product-details-tab';
 import ReviewsDetailsTab from './product-reviews-details-tab';
@@ -20,6 +22,8 @@ const ProductDetailsTabContainer: React.FC<{
 		onReviewSubmit,
 		isReviewLoading
 	} = props;
+
+	const { locale } = useRouter();
 
 	const { id, product_detail_item, shipping } = (product as any) || {};
 
@@ -76,7 +80,10 @@ const ProductDetailsTabContainer: React.FC<{
 							reviews={reviews}
 							onReviewSubmit={onReviewSubmit}
 							isLoading={isReviewLoading}
-							productName={product.product_name}
+							productName={getLocaleText(
+								product.product_name || {},
+								locale
+							)}
 							productId={product.id}
 						/>
 					</Tab.Panel>

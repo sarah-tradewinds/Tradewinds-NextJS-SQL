@@ -33,7 +33,7 @@ const ProductList: React.FC<ProductListProps> = ({
 				return (
 					<ProductTile
 						key={product.id}
-						name={getLocaleText(product.product_name, locale)}
+						name={getLocaleText(product.product_name || {}, locale)}
 						slug={product?.id}
 						description={getLocaleText(
 							product.product_description,
