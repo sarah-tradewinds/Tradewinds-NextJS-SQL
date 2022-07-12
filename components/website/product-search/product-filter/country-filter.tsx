@@ -1,11 +1,13 @@
-import Image from 'next/image';
-
 // Third party packages
 // data
+import ImageWithErrorHandler from 'components/website/common/elements/image-with-error-handler';
 import Button from 'components/website/common/form/button';
 import Input from 'components/website/common/form/input';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useCountriesStore } from 'store/countries-store';
+import { getCountriesName } from 'utils/common.util';
+import { getLocaleText } from 'utils/get_locale_text';
 
 const CountrySearchFilter: React.FC<{
 	onCountryChange?: (countryIds: string) => any;
@@ -13,12 +15,13 @@ const CountrySearchFilter: React.FC<{
 	const { onCountryChange } = props;
 
 	const [searchCounty, setSearchCounty] = useState('');
+	const { locale } = useRouter();
 
 	const {
 		countries,
 		fetchCountries,
-		selectedCountryIds,
-		setSelectedCountryId
+		selectedCountries,
+		setSelectedCountry
 	} = useCountriesStore();
 
 	useEffect(() => {
@@ -29,20 +32,27 @@ const CountrySearchFilter: React.FC<{
 
 	useEffect(() => {
 		if (onCountryChange) {
-			onCountryChange(selectedCountryIds.toString());
+			onCountryChange(getCountriesName(selectedCountries).toString());
 		}
-	}, [selectedCountryIds]);
+	}, [selectedCountries]);
 
 	const searchCountryByName = () => {
 		if (!searchCounty) {
 			return countries;
 		}
 
-		const filteredCountries = countries.filter(
-			(country) =>
-				country?.country_name?.toLowerCase() ===
-				searchCounty?.toLowerCase()
-		);
+		const filteredCountries = countries.filter((country) => {
+			const countryNames = Object.values(country?.name || {});
+			const countryIndex = countryNames.findIndex(
+				(countryName: any) => {
+					return (
+						countryName.toLowerCase() === searchCounty?.toLowerCase()
+					);
+				}
+			);
+
+			return countryIndex >= 0;
+		});
 
 		return filteredCountries || [];
 	}; // End of searchCountryByName function
@@ -65,33 +75,35 @@ const CountrySearchFilter: React.FC<{
 			</div>
 
 			<div>
-				{searchCountryByName().map((country) => (
-					<div key={country.id} className="flex items-center">
-						<Input
-							id={country.id}
-							type="checkbox"
-							value={country.country_code}
-							checked={country.isSelected}
-							onChange={() =>
-								setSelectedCountryId(country.country_name)
-							}
-						/>
-						<label
-							htmlFor={country.id}
-							className="ml-8 flex cursor-pointer items-center space-x-4"
-						>
-							<Image
-								src={
-									country?.country_flag?.url || 'loading-circle-50.png'
+				{searchCountryByName().map((country) => {
+					const countryName = getLocaleText(country.name || {}, locale);
+
+					return (
+						<div key={country.id} className="flex items-center">
+							<Input
+								id={country.id}
+								type="checkbox"
+								value={country.country_code}
+								checked={country.isSelected}
+								onChange={() =>
+									setSelectedCountry(country.id, countryName)
 								}
-								alt=""
-								width={23}
-								height={16}
 							/>
-							<span className="capitalize">{country.country_name}</span>
-						</label>
-					</div>
-				))}
+							<label
+								htmlFor={country.id}
+								className="ml-8 flex cursor-pointer items-center space-x-4"
+							>
+								<ImageWithErrorHandler
+									src={country?.image?.url}
+									alt=""
+									width={23}
+									height={16}
+								/>
+								<span className="capitalize">{countryName}</span>
+							</label>
+						</div>
+					);
+				})}
 			</div>
 		</>
 	);

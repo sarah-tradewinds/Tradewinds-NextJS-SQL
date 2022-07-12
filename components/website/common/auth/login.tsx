@@ -68,7 +68,6 @@ const Login: React.FC = () => {
 					expireIn: ''
 				}
 			});
-			console.log(customerDetails);
 
 			setLoading(false);
 			setIsLoginOpen();

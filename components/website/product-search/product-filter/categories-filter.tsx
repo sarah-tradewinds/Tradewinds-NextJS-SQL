@@ -44,18 +44,26 @@ const CategoriesFilter: React.FC = (props) => {
 				const { id: mainCategoryId, categories = [] } =
 					mainCategory || {};
 
+				const mainCategoryTitle = getLocaleText(
+					mainCategory?.title || {},
+					locale
+				);
+
+				// TODO: Selecting by name is tmp
 				const isMainCategorySelected =
-					selectedMainCategoryId === mainCategoryId;
+					selectedMainCategoryId.id === mainCategoryId ||
+					selectedMainCategoryId.name === mainCategoryTitle;
 
 				return (
 					<CategoryCollapse
 						key={mainCategoryId}
 						id={mainCategoryId}
 						isOpen={isMainCategorySelected}
-						title={getLocaleText(mainCategory?.title || {}, locale)}
+						title={mainCategoryTitle}
 						onClick={() =>
 							setSelectedMainCategoryId(
-								isMainCategorySelected ? '' : mainCategoryId
+								isMainCategorySelected ? '' : mainCategoryId,
+								mainCategoryTitle
 							)
 						}
 					>

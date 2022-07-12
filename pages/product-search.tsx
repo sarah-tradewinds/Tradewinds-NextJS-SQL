@@ -29,7 +29,11 @@ import { useCategoryStore } from 'store/category-store';
 import { useCountriesStore } from 'store/countries-store';
 import { useHomeStore } from 'store/home';
 import { useProductStore } from 'store/product-store';
-import { getDataById, getObjectKeys } from 'utils/common.util';
+import {
+	getCountriesName,
+	getDataById,
+	getObjectKeys
+} from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
 
 const ProductSearchPage: NextPage<
@@ -45,15 +49,19 @@ const ProductSearchPage: NextPage<
 
 	const isEco = useHomeStore((state) => state.isEco);
 
-	const { selectedCountryIds } = useCountriesStore((state) => ({
-		selectedCountryIds: state.selectedCountryIds
-	}));
+	const selectedCountries = useCountriesStore(
+		(state) => state.selectedCountries
+	);
 
 	const {
 		allCategories,
 		selectedMainCategoryId,
 		selectedCategoryIds,
+		setSelectedMainCategoryId,
 		setSelectedCategoryId,
+		setSelectedSubCategoryId,
+		setSelectedSpecificCategoryId,
+		setSelectedAllCategoryId,
 		selectedSubCategoryIds,
 		selectedSpecificCategoryIds,
 		selectedCategoryAndSubCategoryAndSpecificCategoryIds,
@@ -74,7 +82,7 @@ const ProductSearchPage: NextPage<
 
 	const mainCategory = getDataById(
 		allCategories,
-		selectedMainCategoryId
+		selectedMainCategoryId.id
 	);
 
 	const categoryIdList: string[] = [];
@@ -109,10 +117,10 @@ const ProductSearchPage: NextPage<
 
 	// Fetching categories based on mainCategoryId
 	useEffect(() => {
-		if (selectedMainCategoryId) {
-			fetchCategoriesByMainCategoryId(selectedMainCategoryId, isEco);
+		if (selectedMainCategoryId.id) {
+			fetchCategoriesByMainCategoryId(selectedMainCategoryId.id, isEco);
 		}
-	}, [selectedMainCategoryId]);
+	}, [selectedMainCategoryId.id]);
 
 	// Fetching sub-categories based on selectedCategoryIds
 	useEffect(() => {
@@ -137,14 +145,14 @@ const ProductSearchPage: NextPage<
 	// Fetching selectedMainCategory and selectedCategories
 	useEffect(() => {
 		if (selectedMainCategoryId) {
-			getSelectedMainCategoryAndCategories(selectedMainCategoryId).then(
-				(data) => {
-					setSelectedMainCategory(data.main_category || {});
-					setSelectedCategories(data.categories || []);
-				}
-			);
+			getSelectedMainCategoryAndCategories(
+				selectedMainCategoryId.id
+			).then((data) => {
+				setSelectedMainCategory(data.main_category || {});
+				setSelectedCategories(data.categories || []);
+			});
 		}
-	}, [selectedMainCategoryId]);
+	}, [selectedMainCategoryId.id]);
 
 	// Fetching products
 	useEffect(() => {
@@ -184,9 +192,52 @@ const ProductSearchPage: NextPage<
 			category: categoryNames.toString(),
 			sub_category: subCategoryNames.toString(),
 			sub_sub_category: specificCategoryNames.toString(),
-			country_of_region: selectedCountryIds.toString(),
+			country_of_region: getCountriesName(selectedCountries).toString(),
 			is_eco: isEco
-		}).then((data) => setProducts(data));
+		}).then((data) => {
+			const [firstProduct] = data || [];
+
+			const productData =
+				data.find((product: any) => product.is_eco === isEco) ||
+				data[2];
+
+			// Setting default category Ids
+			if (productData) {
+				const {
+					main_category,
+					category,
+					sub_category,
+					specific_category
+				} = productData || {};
+
+				if (!selectedMainCategoryId.id) {
+					const categoryId = category?.id;
+					const suCategoryId = sub_category?.id;
+
+					setSelectedMainCategoryId(
+						main_category.id,
+						main_category?.name
+					);
+
+					// setSelectedCategoryId(categoryId);
+					// setSelectedSubCategoryId(categoryId, suCategoryId);
+					// setSelectedSpecificCategoryId(
+					// 	categoryId,
+					// 	suCategoryId,
+					// 	specific_category?.id
+					// );
+
+					// setSelectedAllCategoryId(
+					// 	main_category?.id,
+					// 	categoryId,
+					// 	suCategoryId,
+					// 	specific_category?.id
+					// );
+				}
+			}
+
+			setProducts(data);
+		});
 	}, [
 		router.query?.categories,
 		selectedMainCategoryId,
@@ -194,7 +245,7 @@ const ProductSearchPage: NextPage<
 		selectedSubCategoryIds,
 		selectedSpecificCategoryIds,
 		minPrice,
-		selectedCountryIds,
+		selectedCountries,
 		isEco
 	]);
 
@@ -270,7 +321,7 @@ const ProductSearchPage: NextPage<
 						</div>
 						{/* Categories */}
 						<div className="col-span-12 border-gray/20 md:col-span-9 md:ml-4 md:border-l-2 md:pl-4">
-							{mainCategory && (
+							{selectedCategories.length > 0 && (
 								<SubCategoryList
 									subCategories={selectedCategories || []}
 									className="hidden md:grid"

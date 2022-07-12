@@ -29,8 +29,8 @@ const ShopByCountryPage: NextPage<
 		(state) => state.removeCategoryFilter
 	);
 
-	const setSelectedCountryId = useCountriesStore(
-		(state) => state.setSelectedCountryId
+	const setSelectedCountry = useCountriesStore(
+		(state) => state.setSelectedCountry
 	);
 
 	const router = useRouter();
@@ -87,10 +87,9 @@ const ShopByCountryPage: NextPage<
 						<div className="grid grid-cols-4 gap-y-24">
 							<RegionsAndCountriesList
 								regionsAndCountries={regionsAndCountries || []}
-								onCountryClick={(countryId) => {
-									console.log('countryId = ', countryId);
+								onCountryClick={(country) => {
 									removeCategoryFilter();
-									setSelectedCountryId(countryId);
+									setSelectedCountry(country.id, country.name);
 									router.push('/product-search');
 								}}
 							/>

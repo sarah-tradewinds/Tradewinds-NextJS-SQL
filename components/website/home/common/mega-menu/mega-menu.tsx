@@ -11,6 +11,7 @@ import SpinnerIcon from 'components/website/common/elements/loader/spinner-icon'
 import { useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';
 import { getDataById, getObjectKeys } from 'utils/common.util';
+import { getLocaleText } from 'utils/get_locale_text';
 import styles from './mega-menu.module.css';
 
 interface MegaMenuProps {
@@ -22,6 +23,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 	const { className, onClose } = props;
 
 	const router = useRouter();
+	const { locale } = router;
 
 	const isEco = useHomeStore((state) => state.isEco);
 	const [isMainCategoryLoading, setIsMainCategoryLoading] =
@@ -73,11 +75,11 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 
 	// Fetching categories based on main category id
 	useEffect(() => {
-		if (selectedMainCategoryId) {
+		if (selectedMainCategoryId.id) {
 			setIsCategoryLoading(true);
 
 			fetchCategoriesByMainCategoryId(
-				selectedMainCategoryId,
+				selectedMainCategoryId.id,
 				isEco
 			).then(() => setIsCategoryLoading(false));
 		}
@@ -123,7 +125,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 	const megaMenuClassName = `relative grid grid-cols-12 border bg-white text-sm text-gray shadow-lg overflow-y-autos ${className}`;
 
 	const categoryList =
-		getDataById(allCategories, selectedMainCategoryId)?.categories ||
+		getDataById(allCategories, selectedMainCategoryId.id)?.categories ||
 		[];
 
 	// Fetching subCategories
@@ -151,7 +153,11 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 						{allCategories.map((mainCategory: any) => {
 							const { id, slug } = mainCategory;
 
-							const isSelected = id === selectedMainCategoryId;
+							const isSelected = id === selectedMainCategoryId.id;
+							const mainCategoryTitle = getLocaleText(
+								mainCategory.title || {},
+								locale
+							);
 
 							return (
 								<li
@@ -162,7 +168,9 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 											: ''
 									}`}
 									onMouseEnter={() =>
-										!isSelected ? setSelectedMainCategoryId(id) : null
+										!isSelected
+											? setSelectedMainCategoryId(id, mainCategoryTitle)
+											: null
 									}
 									onClick={navigateHandler}
 								>
@@ -171,7 +179,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 											<MdPlayArrow className="font-semibold" />
 										)}
 									</span>
-									<span>{mainCategory.title?.en}</span>
+									<span>{mainCategoryTitle}</span>
 								</li>
 							);
 						})}
@@ -180,7 +188,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 			)}
 
 			{/* Categories */}
-			{allCategories.length > 0 && selectedMainCategoryId && (
+			{allCategories.length > 0 && selectedMainCategoryId.id && (
 				<ul className="col-span-3 h-[487px] overflow-y-auto border-r border-dashed pt-1 pl-4 dark:bg-[#FCF5EB]">
 					{isCategoryLoading && <MegaMenuLoader />}
 

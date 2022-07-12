@@ -1,17 +1,25 @@
+import { useRouter } from 'next/router';
+import { getLocaleText } from 'utils/get_locale_text';
+
 const ProductDetailsTab: React.FC<{
-	productDetailItem: {};
+	productDetailItems: [];
 	shipping: any;
-}> = ({ productDetailItem, shipping }) => {
+}> = ({ productDetailItems, shipping }) => {
+	const { locale } = useRouter();
+
 	const productDetailsItems = [];
-	for (const key in productDetailItem) {
-		const productDetailsElement = (
-			<p className="flex justify-between  space-x-8 text-[15px] text-gray md:text-[18px]">
-				<span className="font-semibold">{key}:</span>
-				<span>{(productDetailItem as any)[key]}</span>
-			</p>
-		);
-		productDetailsItems.push(productDetailsElement);
-	}
+	// for (const key in productDetailItem) {
+	//   const value = (productDetailItem as any)[key];
+	// 	const productDetailsElement = (
+	// 		<p className="flex justify-between  space-x-8 text-[15px] text-gray md:text-[18px]">
+	// 			<span className="font-semibold">
+	// 				{getLocaleText(key || {}, locale)}:
+	// 			</span>
+	// 			<span>{(productDetailItem as any)[key]}</span>
+	// 		</p>
+	// 	);
+	// 	productDetailsItems.push(productDetailsElement);
+	// };
 
 	return (
 		<div className="space-y-8 bg-white p-4 md:space-y-16 md:p-8">
@@ -21,7 +29,27 @@ const ProductDetailsTab: React.FC<{
 				</p>
 				{/* Product details body */}
 				<div className="flex flex-col p-4 md:flex-row md:justify-between">
-					<div className="space-y-2">{productDetailsItems}</div>
+					<div className="space-y-2">
+						{productDetailItems.map((productDetailItem: any) => {
+							const key = getLocaleText(
+								productDetailItem.key || {},
+								locale
+							);
+							const value = getLocaleText(
+								productDetailItem.value || {},
+								locale
+							);
+							return (
+								<p
+									key={key}
+									className="flex justify-between  space-x-8 text-[15px] text-gray md:text-[18px]"
+								>
+									<span className="font-semibold">{key}: </span>
+									<span>{value}</span>{' '}
+								</p>
+							);
+						})}
+					</div>
 
 					{/* <div className="space-y-2">
 						<p className="flex justify-between  space-x-8 text-[15px] text-gray md:text-[18px]">

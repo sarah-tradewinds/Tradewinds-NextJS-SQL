@@ -6,7 +6,7 @@ import RegionAndCountriesTile from './regions-and-countries-tile';
 const RegionsAndCountriesList: React.FC<{
 	regionsAndCountries: [];
 	className?: string;
-	onCountryClick: (countryId: string) => any;
+	onCountryClick: (country: any) => any;
 }> = ({ regionsAndCountries = [], className, onCountryClick }) => {
 	return (
 		<>

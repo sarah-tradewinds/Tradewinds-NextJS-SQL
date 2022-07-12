@@ -49,33 +49,36 @@ const CategorySubCategoriesSection: React.FC<
 		return () => window.removeEventListener('resize', handleResize);
 	}, [isTablet, screenSize]);
 
-	const subCategories = [...categories]
-		.slice(0, isTablet ? 5 : 7)
-		.map((subCat) => {
-			const { categories: category } = subCat as any;
+	const subCategories = categories
+		? [...categories].slice(0, isTablet ? 5 : 7).map((subCat) => {
+				const { categories: category } = subCat as any;
 
-			return (
-				<div
-					key={subCat.id}
-					className={`mb-2 md:mb-0 pc:border-b pc:border-gray/40 pc:last:border-b-0`}
-				>
-					<SubCategoryCard
-						subCat={category}
-						onClick={async () => {
-							await setSelectedMainCategoryId(main_category.id!);
-							await setSelectedCategoryId(category.id as string);
-							router.push('/product-search');
-						}}
-						style={
-							applyBgColor
-								? { backgroundColor: main_category.bgHexColor }
-								: null
-						}
-						containerClassName="min-h-[80px] md:min-h-[124px] lg:min-h-[140px]"
-					/>
-				</div>
-			);
-		});
+				return (
+					<div
+						key={subCat.id}
+						className={`mb-2 md:mb-0 pc:border-b pc:border-gray/40 pc:last:border-b-0`}
+					>
+						<SubCategoryCard
+							subCat={category}
+							onClick={async () => {
+								await setSelectedMainCategoryId(
+									main_category.id!,
+									main_category.title
+								);
+								await setSelectedCategoryId(category.id as string);
+								router.push('/product-search');
+							}}
+							style={
+								applyBgColor
+									? { backgroundColor: main_category.bgHexColor }
+									: null
+							}
+							containerClassName="min-h-[80px] md:min-h-[124px] lg:min-h-[140px]"
+						/>
+					</div>
+				);
+		  })
+		: [];
 
 	return (
 		<div className=" bg-primary-main">
@@ -86,7 +89,10 @@ const CategorySubCategoriesSection: React.FC<
 					isReverse={isReverse}
 					onLeadingClick={() => setIsOpen((preState) => !preState)}
 					onContentClick={() => {
-						setSelectedMainCategoryId(main_category.id!);
+						setSelectedMainCategoryId(
+							main_category.id!,
+							main_category.title
+						);
 						router.push('/product-search');
 					}}
 					leading={
@@ -147,7 +153,10 @@ const CategorySubCategoriesSection: React.FC<
 					<CategoryCard
 						title={mainCategoryTitle}
 						onClick={() => {
-							setSelectedMainCategoryId(main_category.id!);
+							setSelectedMainCategoryId(
+								main_category.id!,
+								main_category.title
+							);
 							router.push('/product-search');
 						}}
 						description={mainCategoryDescription}

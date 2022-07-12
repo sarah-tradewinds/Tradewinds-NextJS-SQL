@@ -18,14 +18,24 @@ const categoryIds = {
 interface CategoryState {
 	isLoading?: boolean;
 	// Property
-	selectedMainCategoryId: string;
+	selectedMainCategoryId: {
+		id: string;
+		name: string;
+	};
 	selectedCategoryIds: string[];
 	selectedSubCategoryIds: string[];
 	selectedSpecificCategoryIds: string[];
 	selectedCategoryAndSubCategoryAndSpecificCategoryIds: any;
 	allCategories: any[];
 
-	setSelectedMainCategoryId: (id: string) => any;
+	setSelectedAllCategoryId: (
+		mainCategoryId: string,
+		categoryId: string,
+		subCategoryId: string,
+		specificCategoryId: string,
+		isMegaMenu?: boolean
+	) => any;
+	setSelectedMainCategoryId: (id: string, name: string) => any;
 	setSelectedCategoryId: (
 		categoryId: string,
 		isMegaMenu?: boolean
@@ -76,28 +86,60 @@ const updateElementByIndex = (
 }; // End of updateElementByIndex function
 
 export const useCategoryStore = create<CategoryState>((set) => ({
-	selectedMainCategoryId: '',
+	selectedMainCategoryId: {
+		id: '',
+		name: ''
+	},
 	selectedCategoryIds: [],
 	selectedSubCategoryIds: [],
 	selectedSpecificCategoryIds: [],
 	selectedCategoryAndSubCategoryAndSpecificCategoryIds: {},
 	allCategories: [],
 
-	setSelectedMainCategoryId: (mainCategoryId: string) => {
+	setSelectedAllCategoryId: (
+		mainCategoryId,
+		categoryId,
+		subCategoryId,
+		specificCategoryId,
+		isMegaMenu
+	) => {
+		set({
+			selectedMainCategoryId: {
+				id: mainCategoryId,
+				name: ''
+			},
+			selectedCategoryIds: [categoryId],
+			selectedSubCategoryIds: [subCategoryId],
+			selectedSpecificCategoryIds: [specificCategoryId],
+			allCategories: [
+				{
+					[categoryId]: {
+						[subCategoryId]: {
+							[specificCategoryId]: []
+						}
+					}
+				}
+			]
+		});
+	},
+	setSelectedMainCategoryId: (mainCategoryId: string, name: string) => {
 		if (!mainCategoryId) {
 			return;
 		}
 
 		set(({ allCategories }) => {
-			localStorage.setItem('main_category_id', mainCategoryId);
-			localStorage.removeItem('category_ids');
+			// localStorage.setItem('main_category_id', mainCategoryId);
+			// localStorage.removeItem('category_ids');
 			const updatedAllCategories = allCategories.map((mainCategory) => {
 				delete mainCategory.categories;
 				return mainCategory;
 			});
 
 			return {
-				selectedMainCategoryId: mainCategoryId,
+				selectedMainCategoryId: {
+					id: mainCategoryId,
+					name: name
+				},
 				selectedCategoryAndSubCategoryAndSpecificCategoryIds: {},
 				selectedCategoryIds: [],
 				selectedSubCategoryIds: [],
@@ -140,7 +182,7 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 					categoryId
 				);
 
-				localStorage.setItem('category_ids', categoryIdKeys.toString());
+				// localStorage.setItem('category_ids', categoryIdKeys.toString());
 
 				console.log('[setSelectedCategoryId] got called');
 
@@ -251,8 +293,6 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 					specificCategoryId
 				);
 
-				console.log('[setSelectedSpecificCategoryId] got called');
-
 				return {
 					selectedCategoryAndSubCategoryAndSpecificCategoryIds,
 					selectedSpecificCategoryIds: specificCategoryIds
@@ -261,11 +301,11 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 		),
 
 	removeCategoryFilter: () => {
-		localStorage.removeItem('main_category_id');
-		localStorage.removeItem('category_ids');
+		// localStorage.removeItem('main_category_id');
+		// localStorage.removeItem('category_ids');
 		set(() => {
 			return {
-				selectedMainCategoryId: '',
+				selectedMainCategoryId: { id: '', name: '' },
 				selectedCategoryIds: [],
 				selectedSubCategoryIds: [],
 				selectedSpecificCategoryIds: []
@@ -276,16 +316,17 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 	fetchMainCategories: async (isEco?: boolean) => {
 		const mainCategories = await getMainCategories(isEco);
 		set(() => {
-			const localMainCategoryId =
-				localStorage.getItem('main_category_id');
+			// const localMainCategoryId =
+			// 	localStorage.getItem('main_category_id');
 
-			let defaultMainCategoryId: string = localMainCategoryId || '';
-			if (!localMainCategoryId) {
-				defaultMainCategoryId = mainCategories[0]?.id?.toString();
-				localStorage.setItem('main_category_id', defaultMainCategoryId);
-			}
+			// let defaultMainCategoryId: string = localMainCategoryId || '';
+			// if (!localMainCategoryId) {
+			// 	defaultMainCategoryId = mainCategories[0]?.id?.toString();
+			// localStorage.setItem('main_category_id', defaultMainCategoryId);
+			// }
+
 			return {
-				selectedMainCategoryId: defaultMainCategoryId,
+				// selectedMainCategoryId: defaultMainCategoryId,
 				allCategories: mainCategories
 			};
 		});
@@ -378,7 +419,7 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 				const updatedAllCategories = allCategories.map(
 					(allCategory: any) => {
 						if (
-							allCategory.id === selectedMainCategoryId &&
+							allCategory.id === selectedMainCategoryId.id &&
 							allCategory.categories?.length > 0
 						) {
 							const lastCategoryId =

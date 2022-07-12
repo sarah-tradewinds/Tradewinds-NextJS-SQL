@@ -3,15 +3,17 @@
 // components
 import CountryFlagTile from 'components/website/common/search-by-country/country-flag-tile';
 import LocationHolder from 'components/website/common/search-by-country/location-holder';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { HiMinusCircle, HiPlusCircle } from 'react-icons/hi';
+import { getLocaleText } from 'utils/get_locale_text';
 
 interface RegionAndCountriesTileProps {
 	regionId: string;
 	regionName: string;
 	countries: [];
 	className?: string;
-	onCountryTileClick: (countryId: string) => any;
+	onCountryTileClick: (country: any) => any;
 }
 
 const RegionAndCountriesTile: React.FC<RegionAndCountriesTileProps> = (
@@ -21,6 +23,7 @@ const RegionAndCountriesTile: React.FC<RegionAndCountriesTileProps> = (
 		props;
 
 	const [isExpanded, setIsExpanded] = useState(false);
+	const { locale } = useRouter();
 
 	const countriesBasedOnIsExpanded = isExpanded
 		? countries
@@ -42,8 +45,8 @@ const RegionAndCountriesTile: React.FC<RegionAndCountriesTileProps> = (
 						<CountryFlagTile
 							key={country?.id}
 							imageUrl="/static/images/search-by-country-images/flags/usa.png"
-							title={country?.name}
-							onClick={() => onCountryTileClick(country.name)}
+							title={getLocaleText(country?.name || {}, locale)}
+							onClick={() => onCountryTileClick(country)}
 							containerClassName="cursor-pointer"
 						/>
 					);

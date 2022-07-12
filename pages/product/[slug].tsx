@@ -13,12 +13,11 @@ import ProductDetailsTile from 'components/website/product-details/product-detai
 
 import Button from 'components/website/common/form/button';
 import CompanyProfileTab from 'components/website/product-details/product-details-tab/company-profile-tab';
-import ProductDetailsTab from 'components/website/product-details/product-details-tab/product-details-tab';
-import ProductDetailsTabContainer from 'components/website/product-details/product-details-tab/product-details-tab-container';
 import ProductReviewsDetailsTab from 'components/website/product-details/product-details-tab/product-reviews-details-tab';
 import SimilarProductList from 'components/website/product-details/similar-product-list';
 
 // lib
+import ProductDetailsTabContainer from 'components/website/product-details/product-details-tab/product-details-tab-container';
 import {
 	getProductById,
 	getProductReviewsByProductId,
@@ -116,14 +115,14 @@ const ProductDetailsPage: NextPage<
 				/>
 
 				<div className="bg-white md:hidden">
-					<ProductDetailsTab
+					{/* <ProductDetailsTab
 						productDetailItem={
 							productData.product_detail_item
 								? productData.product_detail_item[0]
 								: []
 						}
 						shipping={productData.shipping}
-					/>
+					/> */}
 					<ProductReviewsDetailsTab
 						reviews={productReviewList}
 						onReviewSubmit={submitReviewHandler}
@@ -137,6 +136,7 @@ const ProductDetailsPage: NextPage<
 					<CompanyProfileTab seller={seller} />
 				</div>
 			</div>
+
 			{/* Similar Product */}
 			<div className="hidden md:block">
 				<SimilarProductList

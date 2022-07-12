@@ -1,24 +1,25 @@
-import Image from 'next/image';
-
 // Third party packages
 import { useKeenSlider } from 'keen-slider/react'; // import from 'keen-slider/react.es' for to get an ES module
 import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
+import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
 import Button from '../common/form/button';
 
 interface CountrySliderProps {
 	countries: {
 		id: string;
-		country_name: string;
-		slug: string;
-		country_flag: { url: string };
+		name: any;
+		slug: any;
+		image: { url: string };
 	}[];
-	onCountryClick?: (countryId: string) => any;
+	onCountryClick?: (country: any) => any;
 }
 
 const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 	const { countries, onCountryClick } = props;
 
 	const { t } = useTranslation('home');
+	const { locale } = useRouter();
 
 	const [ref] = useKeenSlider<HTMLDivElement>({
 		loop: true,
@@ -54,14 +55,14 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 					<Button
 						key={country.id}
 						onClick={() => {
-							if (onCountryClick) onCountryClick(country.country_name);
+							if (onCountryClick) {
+								onCountryClick(country);
+							}
 						}}
 						className="keen-slider__slide h-[80px] w-[180px] px-4"
 					>
-						<Image
-							src={
-								country.country_flag?.url || '/loading-circle-50.png'
-							}
+						<ImageWithErrorHandler
+							src={country.image?.url}
 							alt=""
 							width={180}
 							height={80}

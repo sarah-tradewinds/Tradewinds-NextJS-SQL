@@ -33,6 +33,7 @@ import { useCategoryStore } from 'store/category-store';
 import { useCountriesStore } from 'store/countries-store';
 import { useHomeStore } from 'store/home';
 import { CatSubCatSectionType, HeroCarouselType } from 'types/home';
+import { getLocaleText } from 'utils/get_locale_text';
 
 type Props = {
 	heroCarouselData: HeroCarouselType[];
@@ -65,11 +66,11 @@ const HomePage: NextPage<
 	const { t } = useTranslation();
 
 	const {
-		setSelectedCountryId,
+		setSelectedCountry,
 		fetchCountries,
 		removeSelectedCountries
 	} = useCountriesStore((state) => ({
-		setSelectedCountryId: state.setSelectedCountryId,
+		setSelectedCountry: state.setSelectedCountry,
 		fetchCountries: state.fetchCountries,
 		removeSelectedCountries: state.removeSelectedCountries
 	}));
@@ -178,9 +179,12 @@ const HomePage: NextPage<
 				{/* Shop by country */}
 				<CountrySlider
 					countries={homeCountries}
-					onCountryClick={(countryId) => {
+					onCountryClick={(country) => {
 						removeCategoryFilter();
-						setSelectedCountryId(countryId);
+						setSelectedCountry(
+							country.id,
+							getLocaleText(country.name || {}, router.locale)
+						);
 						router.push('/product-search');
 					}}
 				/>

@@ -78,7 +78,7 @@ export const getSpecificCategoriesBySubCategoryId = async (
 export const getCountries = async () => {
 	try {
 		const { data } = await serviceAxiosInstance.get(
-			'/country/getallcountry'
+			'/region_country/all'
 		);
 
 		return data.data || [];

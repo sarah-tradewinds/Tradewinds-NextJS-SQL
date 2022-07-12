@@ -69,9 +69,7 @@ const ProductDetailsTabContainer: React.FC<{
 				<Tab.Panels>
 					<Tab.Panel>
 						<ProductDetailsTab
-							productDetailItem={
-								product_detail_item ? product_detail_item[0] : []
-							}
+							productDetailItems={product_detail_item || []}
 							shipping={shipping}
 						/>
 					</Tab.Panel>

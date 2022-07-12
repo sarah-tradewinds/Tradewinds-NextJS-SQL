@@ -59,7 +59,7 @@ export const getHomeMainCategoriesAndCategories = async () => {
 export const getHomeCountries = async () => {
 	try {
 		const { data } = await serviceAxiosInstance.get(
-			'/country/getallcountry'
+			'/region_country/all'
 		);
 
 		return data.data || [];
