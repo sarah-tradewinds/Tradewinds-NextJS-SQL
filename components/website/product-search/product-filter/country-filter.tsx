@@ -3,6 +3,7 @@
 import CountryCollapse from 'components/website/common/country-collapse/country-collapse';
 import Button from 'components/website/common/form/button';
 import Input from 'components/website/common/form/input';
+import { searchCountryByNameUtil } from 'lib/product-search.lib';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useCountriesStore } from 'store/countries-store';
@@ -15,10 +16,12 @@ const CountrySearchFilter: React.FC<{
 	const { onCountryChange } = props;
 
 	const [searchCounty, setSearchCounty] = useState('');
+	const [filteredRegionsAndCountries, setFilteredRegionsAndCountries] =
+		useState<any[]>([]);
+
 	const { locale } = useRouter();
 
 	const {
-		countries,
 		regionsAndCountries,
 		fetchRegionsAndCountries,
 		fetchCountries,
@@ -39,26 +42,10 @@ const CountrySearchFilter: React.FC<{
 		}
 	}, [selectedCountries]);
 
-	const searchCountryByName = () => {
-		if (!searchCounty) {
-			return countries;
-		}
-
-		const filteredCountries = countries.filter((country) => {
-			const countryNames = Object.values(country?.name || {});
-			const countryIndex = countryNames.findIndex(
-				(countryName: any) => {
-					return (
-						countryName.toLowerCase() === searchCounty?.toLowerCase()
-					);
-				}
-			);
-
-			return countryIndex >= 0;
-		});
-
-		return filteredCountries || [];
-	}; // End of searchCountryByName function
+	// Setting filter
+	// useEffect(() => {
+	// 	setFilteredRegionsAndCountries(regionsAndCountries);
+	// }, [regionsAndCountries]);
 
 	return (
 		<>
@@ -72,15 +59,24 @@ const CountrySearchFilter: React.FC<{
 				<Button
 					variant="buyer"
 					className="rounded-none rounded-r-md px-2"
-					onClick={searchCountryByName}
+					onClick={() => {
+						const filterData = searchCountryByNameUtil(
+							regionsAndCountries,
+							searchCounty
+						);
+						console.log('filterData =', filterData);
+						setFilteredRegionsAndCountries(filterData);
+					}}
 				>
 					Go
 				</Button>
 			</div>
 
+			{/* Regions and country list */}
 			<div className="space-y-2">
-				{regionsAndCountries.map((regionAndCountries) => {
+				{filteredRegionsAndCountries.map((regionAndCountries) => {
 					const { countries = [] } = regionAndCountries || {};
+
 					return (
 						<CountryCollapse
 							key={regionAndCountries?.id}

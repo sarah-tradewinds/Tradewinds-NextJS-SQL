@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // Third party packages
 import { HiMinusCircle, HiPlusCircle } from 'react-icons/hi';
@@ -27,6 +27,10 @@ const CountryCollapse: React.FC<{
 
 	const [isCountryCollapseOpen, setIsCountryCollapseOpen] =
 		useState(isOpen);
+
+	useEffect(() => {
+		setIsCountryCollapseOpen(isOpen);
+	}, [isOpen]);
 
 	return (
 		<>

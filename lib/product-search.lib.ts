@@ -54,3 +54,52 @@ export const getSelectedMainCategoryAndCategories = async (
 		return {};
 	}
 }; // End of getSelectedMainCategoryAndCategories
+
+export const searchCountryByNameUtil = (
+	regionsAndCountries: any[],
+	searchedCountryName: string
+) => {
+	const copiedRegionsAndCountries = [...regionsAndCountries];
+
+	if (!searchedCountryName) {
+		return copiedRegionsAndCountries;
+	}
+
+	const searchedRegionOrCountryName =
+		searchedCountryName.toLocaleLowerCase();
+
+	const filteredCountries = copiedRegionsAndCountries.filter(
+		(regionAndCountries) => {
+			const { name, countries = [] } = regionAndCountries || {};
+
+			regionAndCountries.isSelected = false;
+			if (name.toLowerCase() === searchedRegionOrCountryName) {
+				regionAndCountries.isSelected = true;
+				return regionAndCountries;
+			} else {
+				const filterCountries = countries.filter((country: any) => {
+					const countryNames = Object.values(country?.name || {});
+					const countryIndex = countryNames.findIndex(
+						(countryName: any) => {
+							return (
+								countryName.toLowerCase() ===
+								searchedRegionOrCountryName
+							);
+						}
+					);
+
+					const isCountryNameMatched = countryIndex >= 0;
+					country.isSelected = isCountryNameMatched;
+
+					return isCountryNameMatched;
+				});
+
+				regionAndCountries.isSelected = filterCountries.length > 0;
+				regionAndCountries.countries = filterCountries || [];
+				return regionAndCountries;
+			}
+		}
+	);
+
+	return filteredCountries || [];
+}; // End of searchCountryByNameUtil function

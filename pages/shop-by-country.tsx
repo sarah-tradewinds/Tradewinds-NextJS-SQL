@@ -19,6 +19,7 @@ import { useState } from 'react';
 import { HiMinusCircle, HiPlusCircle } from 'react-icons/hi';
 import { useCountriesStore } from 'store/countries-store';
 import { useCategoryStore } from 'store/eco/category-store';
+import { getLocaleText } from 'utils/get_locale_text';
 
 const ShopByCountryPage: NextPage<
 	InferGetServerSidePropsType<GetServerSideProps>
@@ -70,7 +71,10 @@ const ShopByCountryPage: NextPage<
 										{countries.map((country: any) => (
 											<CountryFlagTile
 												key={country.id}
-												title={country.name}
+												title={getLocaleText(
+													country.name || {},
+													router.locale
+												)}
 												imageUrl={country.url || '/flags/frame.png'}
 											/>
 										))}
