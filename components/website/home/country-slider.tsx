@@ -1,7 +1,6 @@
 // Third party packages
 import { useKeenSlider } from 'keen-slider/react'; // import from 'keen-slider/react.es' for to get an ES module
 import { useTranslation } from 'next-i18next';
-import { useRouter } from 'next/router';
 import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
 import Button from '../common/form/button';
 
@@ -19,7 +18,6 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 	const { countries, onCountryClick } = props;
 
 	const { t } = useTranslation('home');
-	const { locale } = useRouter();
 
 	const [ref] = useKeenSlider<HTMLDivElement>({
 		loop: true,

@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 interface ImageWithErrorHandlerProps {
 	src: string;
-	alt: string;
+	alt: string | undefined;
 	width?: string | number;
 	height?: string | number;
 	layout?: 'fill' | 'fixed' | 'responsive' | 'intrinsic' | undefined;

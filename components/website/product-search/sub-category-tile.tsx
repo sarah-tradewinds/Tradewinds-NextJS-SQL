@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
 
 interface SubCategoryTileProps {
 	title: string;
@@ -21,7 +21,7 @@ const SubCategoryTile: React.FC<SubCategoryTileProps> = ({
 			onClick={onTilePressed}
 		>
 			<div className="relative h-[44px] w-[51px]  md:h-[67px] md:w-[77px] lg:h-[67px] lg:w-[77px]">
-				<Image
+				<ImageWithErrorHandler
 					src={imageUrl || '/sub-category/beans.png'}
 					alt={alt}
 					layout="fill"

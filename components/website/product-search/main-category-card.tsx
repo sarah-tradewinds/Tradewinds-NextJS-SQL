@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
 
 interface MainCategoryCardProps {
 	title: string;
@@ -24,7 +24,7 @@ const MainCategoryCard: React.FC<MainCategoryCardProps> = (props) => {
 					{subtitle}
 				</p>
 				<div className="relative h-[38px] w-[35px] md:h-[133px] md:w-[280px]">
-					<Image src={imageUrl} alt="" layout="fill" />
+					<ImageWithErrorHandler src={imageUrl} alt="" layout="fill" />
 				</div>
 			</div>
 		</div>

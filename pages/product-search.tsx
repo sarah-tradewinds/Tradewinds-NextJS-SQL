@@ -16,6 +16,7 @@ import ProductList from 'components/website/product-search/product-list';
 import SubCategoryList from 'components/website/product-search/sub-category-list';
 
 // stores
+import ImageWithErrorHandler from 'components/website/common/elements/image-with-error-handler';
 import Seo from 'components/website/common/seo';
 import MainCategoryCard from 'components/website/product-search/main-category-card';
 import SubCategoryTile from 'components/website/product-search/sub-category-tile';
@@ -144,7 +145,7 @@ const ProductSearchPage: NextPage<
 
 	// Fetching selectedMainCategory and selectedCategories
 	useEffect(() => {
-		if (selectedMainCategoryId) {
+		if (selectedMainCategoryId.id) {
 			getSelectedMainCategoryAndCategories(
 				selectedMainCategoryId.id
 			).then((data) => {
@@ -267,13 +268,11 @@ const ProductSearchPage: NextPage<
 
 			{/* Main Category Banner */}
 			<div className="relative h-[103px] md:h-[234px]">
-				<Image
-					src={
-						selectedMainCategory?.banner_image ||
-						'/catagarie-seach-header.png'
-					}
+				<ImageWithErrorHandler
+					src={selectedMainCategory?.banner_image}
 					alt=""
 					layout="fill"
+					defaultImageUrl="/catagarie-seach-header.png"
 				/>
 			</div>
 
@@ -312,10 +311,7 @@ const ProductSearchPage: NextPage<
 								subtitle={getLocaleText(
 									selectedMainCategory?.description || {}
 								)}
-								imageUrl={
-									selectedMainCategory?.image?.url ||
-									'/static/images/agriculture.png'
-								}
+								imageUrl={selectedMainCategory?.image?.url}
 								className="w-screen md:w-auto"
 							/>
 						</div>

@@ -1,6 +1,6 @@
 // Third party packages
 // data
-import ImageWithErrorHandler from 'components/website/common/elements/image-with-error-handler';
+import CountryCollapse from 'components/website/common/country-collapse/country-collapse';
 import Button from 'components/website/common/form/button';
 import Input from 'components/website/common/form/input';
 import { useRouter } from 'next/router';
@@ -19,16 +19,19 @@ const CountrySearchFilter: React.FC<{
 
 	const {
 		countries,
+		regionsAndCountries,
+		fetchRegionsAndCountries,
 		fetchCountries,
 		selectedCountries,
 		setSelectedCountry
 	} = useCountriesStore();
 
+	// Fetching countries with regions
 	useEffect(() => {
-		if (countries.length <= 0) {
-			fetchCountries();
+		if (regionsAndCountries.length <= 0) {
+			fetchRegionsAndCountries();
 		}
-	}, [countries]);
+	}, [regionsAndCountries]);
 
 	useEffect(() => {
 		if (onCountryChange) {
@@ -59,6 +62,7 @@ const CountrySearchFilter: React.FC<{
 
 	return (
 		<>
+			{/* Search box */}
 			<div className="flex">
 				<Input
 					className="w-full rounded-none rounded-l-md !px-2 2xl:w-auto"
@@ -74,34 +78,51 @@ const CountrySearchFilter: React.FC<{
 				</Button>
 			</div>
 
-			<div>
-				{searchCountryByName().map((country) => {
-					const countryName = getLocaleText(country.name || {}, locale);
-
+			<div className="space-y-2">
+				{regionsAndCountries.map((regionAndCountries) => {
+					const { countries = [] } = regionAndCountries || {};
 					return (
-						<div key={country.id} className="flex items-center">
-							<Input
-								id={country.id}
-								type="checkbox"
-								value={country.country_code}
-								checked={country.isSelected}
-								onChange={() =>
-									setSelectedCountry(country.id, countryName)
-								}
-							/>
-							<label
-								htmlFor={country.id}
-								className="ml-8 flex cursor-pointer items-center space-x-4"
-							>
-								<ImageWithErrorHandler
-									src={country?.image?.url}
-									alt=""
-									width={23}
-									height={16}
-								/>
-								<span className="capitalize">{countryName}</span>
-							</label>
-						</div>
+						<CountryCollapse
+							key={regionAndCountries?.id}
+							isOpen={regionAndCountries.isSelected}
+							leading={countries?.length}
+							title={regionAndCountries?.name}
+							plusIcon={
+								<span className="cursor-pointer text-[15px] font-semibold">
+									+
+								</span>
+							}
+							minusIcon={
+								<span className="cursor-pointer text-[15px] font-semibold">
+									-
+								</span>
+							}
+							containerClassName="flex-row-reverse !px-0"
+							contentContainerClassName="flex-row-reverse space-x-4 justify-end "
+						>
+							<div>
+								{countries.map((country: any) => {
+									const countryName = getLocaleText(
+										country.name || {},
+										locale
+									);
+
+									return (
+										<Button
+											key={country.id}
+											className={`!block !min-h-[24px] text-gray ${
+												country.isSelected ? '!text-black' : ''
+											}`}
+											onClick={() =>
+												setSelectedCountry(country.id, countryName)
+											}
+										>
+											{countryName}
+										</Button>
+									);
+								})}
+							</div>
+						</CountryCollapse>
 					);
 				})}
 			</div>
