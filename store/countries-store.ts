@@ -89,13 +89,23 @@ export const useCountriesStore = create<CountryState>((set) => ({
 		});
 	},
 	removeSelectedCountries: () =>
-		set(({ countries }) => {
-			const countryList = countries.map((country: any) => {
-				country.isSelected = country.isSelected || false;
-				return country;
-			});
+		set(({ countries, selectedCountries, regionsAndCountries }) => {
+			const countryList = updatedCountriesSelectedState(
+				countries,
+				selectedCountries
+			);
 
-			return { countries: countryList, selectedCountries: [] };
+			const updatedRegionsAndCountries =
+				updatedRegionsAndCountriesSelectedState(
+					regionsAndCountries,
+					selectedCountries
+				);
+
+			return {
+				countries: countryList,
+				regionsAndCountries: updatedRegionsAndCountries,
+				selectedCountries: []
+			};
 		})
 }));
 

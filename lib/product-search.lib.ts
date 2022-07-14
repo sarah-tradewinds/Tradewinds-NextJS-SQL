@@ -19,14 +19,20 @@ export const getProducts = async (params: {
 			`/product/search?${queryString}`
 		);
 
-		return data?.response || [];
+		return {
+			categories: data.categories || {},
+			data: data?.response || []
+		};
 	} catch (error) {
 		console.log('[getProducts] =', error);
 		const { data, status } = (error as any).response || {};
 		// if (status >= 500) {
 		//   throw Error('Error occurred in getProducts');
 		// }
-		return [];
+		return {
+			categories: {},
+			data: []
+		};
 	}
 }; // End of getProducts
 

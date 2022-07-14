@@ -35,7 +35,7 @@ const CategoriesFilter: React.FC = (props) => {
 		}
 	}
 
-	// console.log('allCategories =', allCategories);
+	// console.log('categoryIdList =', categoryIdList, allCategories);
 
 	return (
 		<div className="mt-4 space-y-2">
@@ -53,11 +53,6 @@ const CategoriesFilter: React.FC = (props) => {
 
 				const isMainCategorySelected =
 					selectedMainCategoryId.id === mainCategoryId;
-
-				// TODO: Selecting by name is tmp
-				// const isMainCategorySelected =
-				// 	selectedMainCategoryId.id === mainCategoryId ||
-				// 	selectedMainCategoryId.name === mainCategoryTitle;
 
 				return (
 					<CategoryCollapse

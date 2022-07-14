@@ -73,7 +73,7 @@ const CategoriesPage: NextPage<
 												<Link href={`#${alphabet}`} key={alphabet}>
 													<a
 														onClick={() => {
-															if (!showAll && index >= 3) {
+															if (!showAll && index >= 2) {
 																setShowAll(true);
 															}
 														}}

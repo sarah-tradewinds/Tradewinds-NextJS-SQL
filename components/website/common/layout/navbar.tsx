@@ -26,6 +26,8 @@ import { AiOutlineDashboard } from 'react-icons/ai';
 import { FiLogOut } from 'react-icons/fi';
 import { useAuthStore } from 'store/auth';
 import { useCartStore } from 'store/cart-store';
+import { useCountriesStore } from 'store/countries-store';
+import { useCategoryStore } from 'store/eco/category-store';
 import { useHomeStore } from 'store/home';
 import CartIcon from '../elements/cart-icon';
 import LanguageDropdown from '../elements/lang-menu';
@@ -47,6 +49,13 @@ const Header = () => {
 		isEco,
 		setIsEco
 	}));
+
+	const removeCategoryFilter = useCategoryStore(
+		(state) => state.removeCategoryFilter
+	);
+	const removeSelectedCountries = useCountriesStore(
+		(state) => state.removeSelectedCountries
+	);
 
 	const totalCartCount = useCartStore((state) => state.totalCartCount);
 
@@ -121,6 +130,8 @@ const Header = () => {
 										layout="fill"
 										className="cursor-pointer"
 										onClick={() => {
+											removeCategoryFilter();
+											removeSelectedCountries();
 											if (isEco) {
 												setIsEco();
 											}

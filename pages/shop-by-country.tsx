@@ -4,22 +4,25 @@ import {
 	NextPage
 } from 'next';
 import Image from 'next/image';
+import { useState } from 'react';
 
 // Third party packages
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
+import { useRouter } from 'next/router';
+import { HiMinusCircle, HiPlusCircle } from 'react-icons/hi';
+import { getLocaleText } from 'utils/get_locale_text';
+
 // components
 import CountryFlagTile from 'components/website/common/search-by-country/country-flag-tile';
 import Seo from 'components/website/common/seo';
 import RegionsAndCountriesList from 'components/website/shop-by-country/regions-and-countries-list';
+
+// lib
 import { getRegionsAndCountries } from 'lib/shop-by-country.lib';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-import { HiMinusCircle, HiPlusCircle } from 'react-icons/hi';
+import { useCategoryStore } from 'store/category-store';
 import { useCountriesStore } from 'store/countries-store';
-import { useCategoryStore } from 'store/eco/category-store';
-import { getLocaleText } from 'utils/get_locale_text';
 
 const ShopByCountryPage: NextPage<
 	InferGetServerSidePropsType<GetServerSideProps>

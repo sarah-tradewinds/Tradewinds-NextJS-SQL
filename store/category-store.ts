@@ -149,6 +149,7 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 		});
 	},
 	setSelectedCategoryId: (categoryId, isMegaMenu) => {
+		if (!categoryId) return;
 		set(
 			({
 				selectedCategoryIds,
@@ -414,8 +415,7 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 			({
 				allCategories,
 				selectedMainCategoryId,
-				selectedCategoryIds,
-				selectedSubCategoryIds
+				selectedCategoryIds
 			}) => {
 				const updatedAllCategories = allCategories.map(
 					(allCategory: any) => {

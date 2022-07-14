@@ -40,7 +40,7 @@ import { getLocaleText } from 'utils/get_locale_text';
 const ProductSearchPage: NextPage<
 	InferGetServerSidePropsType<GetServerSideProps>
 > = (props) => {
-	const [products, setProducts] = useState(props.products || []);
+	const [products, setProducts] = useState(props.products?.data || []);
 	const [minOrder, setMinOrder] = useState('0');
 	const [minPrice, setMinPrice] = useState('0');
 	const [selectedCountryCode, setSelectedCountryCode] = useState('');
@@ -128,6 +128,7 @@ const ProductSearchPage: NextPage<
 		const categoriesIds = getObjectKeys(
 			selectedCategoryAndSubCategoryAndSpecificCategoryIds
 		);
+		console.log('categoriesIds =', categoriesIds);
 		if (categoriesIds.length > 0) {
 			fetchSubCategoriesByCategoryId(categoriesIds.toString(), isEco);
 		}
@@ -197,57 +198,42 @@ const ProductSearchPage: NextPage<
 			sub_sub_category: specificCategoryNames.toString(),
 			country_of_region: getCountriesName(selectedCountries).toString(),
 			is_eco: isEco
-		}).then((data) => {
-			const [firstProduct] = data || [];
-
-			const productData =
-				data.find((product: any) => product.is_eco === isEco) ||
-				firstProduct ||
-				data[2];
+		}).then((data: any) => {
+			const categories = data.categories || {};
+			const productList = data.data || [];
 
 			// Setting default category Ids
-			if (productData) {
-				const {
+			const {
+				main_category,
+				category,
+				sub_category,
+				sub_sub_category
+			} = categories || {};
+
+			if (!selectedMainCategoryId.id) {
+				setSelectedMainCategoryId(
 					main_category,
-					category,
-					sub_category,
-					specific_category
-				} = productData || {};
+					''
+					// main_category?.name
+				);
 
-				if (!selectedMainCategoryId.id) {
-					const categoryId = category?.id;
-					const suCategoryId = sub_category?.id;
-
-					setSelectedMainCategoryId(
-						main_category.id,
-						main_category?.name
-					);
-
-					// setSelectedCategoryId(categoryId);
-					// setSelectedSubCategoryId(categoryId, suCategoryId);
-					// setSelectedSpecificCategoryId(
-					// 	categoryId,
-					// 	suCategoryId,
-					// 	specific_category?.id
-					// );
-
-					// setSelectedAllCategoryId(
-					// 	main_category?.id,
-					// 	categoryId,
-					// 	suCategoryId,
-					// 	specific_category?.id
-					// );
-				}
+				setSelectedCategoryId(category);
+				// setSelectedSubCategoryId(category, sub_category);
+				// setSelectedSpecificCategoryId(
+				// 	category,
+				// 	sub_category,
+				// 	sub_sub_category
+				// );
 			}
 
-			setProducts(data);
+			setProducts(productList);
 		});
 	}, [
 		router.query?.categories,
 		selectedMainCategoryId.id,
-		selectedCategoryIds,
-		selectedSubCategoryIds,
-		selectedSpecificCategoryIds,
+		selectedCategoryIds.length,
+		selectedSubCategoryIds.length,
+		selectedSpecificCategoryIds.length,
 		minPrice,
 		selectedCountries,
 		isEco
@@ -261,7 +247,7 @@ const ProductSearchPage: NextPage<
 		}
 	});
 
-	const compareProducts = products.filter(
+	const compareProducts = products?.filter(
 		(product: any) => product.isInCompareList
 	);
 
@@ -306,63 +292,73 @@ const ProductSearchPage: NextPage<
 				{/* product list and Category container*/}
 				<div className="col-span-12 md:col-span-8 md:space-y-8 lg:col-span-9">
 					{/* Category and categories list */}
-					<div className="grid grid-cols-12 md:gap-0 md:rounded-md md:bg-white md:p-4 md:shadow-md lg:gap-2">
-						{/* Main category Card */}
-						<div className="col-span-12  md:col-span-3">
-							<MainCategoryCard
-								title={getLocaleText(selectedMainCategory?.title || {})}
-								subtitle={getLocaleText(
-									selectedMainCategory?.description || {}
-								)}
-								imageUrl={selectedMainCategory?.image?.url}
-								className="w-screen md:w-auto"
-							/>
-						</div>
-						{/* Categories */}
-						<div className="col-span-12 border-gray/20 md:col-span-9 md:ml-4 md:border-l-2 md:pl-4">
-							{selectedCategories.length > 0 && (
-								<SubCategoryList
-									subCategories={selectedCategories || []}
-									className="hidden md:grid"
-									onTilePressed={setSelectedCategoryId}
-									selectedSubCategoryIds={categoryIdList}
-									onClick={() => {}}
+					{!selectedMainCategoryId.id &&
+					selectedCountries.length > 0 &&
+					products?.length <= 0 ? (
+						<p className="text-center text-[32px] font-semibold">
+							No product found
+						</p>
+					) : (
+						<div className="grid grid-cols-12 md:gap-0 md:rounded-md md:bg-white md:p-4 md:shadow-md lg:gap-2">
+							{/* Main category Card */}
+							<div className="col-span-12  md:col-span-3">
+								<MainCategoryCard
+									title={getLocaleText(
+										selectedMainCategory?.title || {}
+									)}
+									subtitle={getLocaleText(
+										selectedMainCategory?.description || {}
+									)}
+									imageUrl={selectedMainCategory?.image?.url}
+									className="w-screen md:w-auto"
 								/>
-							)}
+							</div>
+							{/* Categories */}
+							<div className="col-span-12 border-gray/20 md:col-span-9 md:ml-4 md:border-l-2 md:pl-4">
+								{selectedCategories.length > 0 && (
+									<SubCategoryList
+										subCategories={selectedCategories || []}
+										className="hidden md:grid"
+										onTilePressed={setSelectedCategoryId}
+										selectedSubCategoryIds={categoryIdList}
+										onClick={() => {}}
+									/>
+								)}
 
-							{/* For small screen only */}
-							<div className="px-2 py-4 md:hidden">
-								<div ref={ref} className="keen-slider">
-									{selectedCategories?.map((subCategory: any) => {
-										return (
-											<div
-												key={subCategory.id}
-												className="keen-slider__slide"
-											>
-												<SubCategoryTile
-													imageUrl={
-														subCategory.image?.url ||
-														'/vehicles/green-tractor.png'
-													}
-													title={getLocaleText(subCategory.title)}
-													showBorder={
-														selectedCategoryIds
-															? selectedCategoryIds?.includes(
-																	subCategory.id
-															  )
-															: false
-													}
-													onTilePressed={() =>
-														setSelectedCategoryId(subCategory.id)
-													}
-												/>
-											</div>
-										);
-									})}
+								{/* For small screen only */}
+								<div className="px-2 py-4 md:hidden">
+									<div ref={ref} className="keen-slider">
+										{selectedCategories?.map((subCategory: any) => {
+											return (
+												<div
+													key={subCategory.id}
+													className="keen-slider__slide"
+												>
+													<SubCategoryTile
+														imageUrl={
+															subCategory.image?.url ||
+															'/vehicles/green-tractor.png'
+														}
+														title={getLocaleText(subCategory.title)}
+														showBorder={
+															selectedCategoryIds
+																? selectedCategoryIds?.includes(
+																		subCategory.id
+																  )
+																: false
+														}
+														onTilePressed={() =>
+															setSelectedCategoryId(subCategory.id)
+														}
+													/>
+												</div>
+											);
+										})}
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+					)}
 
 					{/* Product List */}
 					<div className="space-y-4 md:space-y-8">
@@ -373,7 +369,7 @@ const ProductSearchPage: NextPage<
 					</div>
 
 					{/* Pagination */}
-					<div className="col-span-12 hidden justify-center md:flex ">
+					{/* <div className="col-span-12 hidden justify-center md:flex ">
 						<div className="flex space-x-3 font-semibold text-gray md:text-[20px] lg:text-[25px]">
 							<p>{`<`}</p>
 							<p>1</p>
@@ -381,7 +377,7 @@ const ProductSearchPage: NextPage<
 							<p>46</p>
 							<p>{`>`}</p>
 						</div>
-					</div>
+					</div> */}
 				</div>
 
 				{/* Compare */}
