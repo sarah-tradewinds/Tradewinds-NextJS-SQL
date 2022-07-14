@@ -241,7 +241,7 @@ const ProductSearchPage: NextPage<
 		});
 	}, [
 		router.query?.categories,
-		selectedMainCategoryId,
+		selectedMainCategoryId.id,
 		selectedCategoryIds,
 		selectedSubCategoryIds,
 		selectedSpecificCategoryIds,

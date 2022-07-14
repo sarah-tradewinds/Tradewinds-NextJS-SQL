@@ -3,7 +3,6 @@
 import CountryCollapse from 'components/website/common/country-collapse/country-collapse';
 import Button from 'components/website/common/form/button';
 import Input from 'components/website/common/form/input';
-import { searchCountryByNameUtil } from 'lib/product-search.lib';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useCountriesStore } from 'store/countries-store';
@@ -16,6 +15,9 @@ const CountrySearchFilter: React.FC<{
 	const { onCountryChange } = props;
 
 	const [searchCounty, setSearchCounty] = useState('');
+	const [regionsAndCountryList, setRegionsAndCountryList] = useState<
+		any[]
+	>([]);
 	const [filteredRegionsAndCountries, setFilteredRegionsAndCountries] =
 		useState<any[]>([]);
 
@@ -24,7 +26,6 @@ const CountrySearchFilter: React.FC<{
 	const {
 		regionsAndCountries,
 		fetchRegionsAndCountries,
-		fetchCountries,
 		selectedCountries,
 		setSelectedCountry
 	} = useCountriesStore();
@@ -43,9 +44,9 @@ const CountrySearchFilter: React.FC<{
 	}, [selectedCountries]);
 
 	// Setting filter
-	// useEffect(() => {
-	// 	setFilteredRegionsAndCountries(regionsAndCountries);
-	// }, [regionsAndCountries]);
+	useEffect(() => {
+		setFilteredRegionsAndCountries([...regionsAndCountries]);
+	}, [regionsAndCountries]);
 
 	return (
 		<>
@@ -61,11 +62,14 @@ const CountrySearchFilter: React.FC<{
 					className="rounded-none rounded-r-md px-2"
 					onClick={() => {
 						const filterData = searchCountryByNameUtil(
-							regionsAndCountries,
+							[...regionsAndCountryList],
 							searchCounty
 						);
-						console.log('filterData =', filterData);
-						setFilteredRegionsAndCountries(filterData);
+						if (!searchCounty) {
+							setFilteredRegionsAndCountries(regionsAndCountryList);
+						} else {
+							setFilteredRegionsAndCountries(filterData);
+						}
 					}}
 				>
 					Go
@@ -127,3 +131,52 @@ const CountrySearchFilter: React.FC<{
 };
 
 export default CountrySearchFilter;
+
+const searchCountryByNameUtil = (
+	regionsAndCountryList: any[],
+	searchedCountryName: string
+) => {
+	const copiedRegionsAndCountries = [...regionsAndCountryList];
+
+	if (!searchedCountryName) {
+		return copiedRegionsAndCountries;
+	}
+
+	const searchedRegionOrCountryName =
+		searchedCountryName.toLocaleLowerCase();
+
+	const filteredCountries = copiedRegionsAndCountries.filter(
+		(regionAndCountries) => {
+			const { name, countries = [] } = regionAndCountries || {};
+
+			regionAndCountries.isSelected = false;
+			if (name.toLowerCase() === searchedRegionOrCountryName) {
+				regionAndCountries.isSelected = true;
+				return regionAndCountries;
+			} else {
+				const filterCountries = countries.filter((country: any) => {
+					const countryNames = Object.values(country?.name || {});
+					const countryIndex = countryNames.findIndex(
+						(countryName: any) => {
+							return (
+								countryName.toLowerCase() ===
+								searchedRegionOrCountryName
+							);
+						}
+					);
+
+					const isCountryNameMatched = countryIndex >= 0;
+					country.isSelected = isCountryNameMatched;
+
+					return isCountryNameMatched;
+				});
+
+				regionAndCountries.isSelected = filterCountries.length > 0;
+				regionAndCountries.countries = filterCountries || [];
+				return regionAndCountries;
+			}
+		}
+	);
+
+	return filteredCountries || [];
+}; // End of searchCountryByNameUtil function

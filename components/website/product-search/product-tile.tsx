@@ -14,6 +14,7 @@ import { metadataList } from 'data/product-search/metadata-list';
 import { useRouter } from 'next/router';
 import { MdBookmark, MdOutlineBookmarkBorder } from 'react-icons/md';
 import { useAuthStore } from 'store/auth';
+import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
 import Button from '../common/form/button';
 
 interface ProductTileProps {
@@ -145,7 +146,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 							<Link href={`/product/${slug}`}>
 								<a>
 									<div className="relative h-full w-full">
-										<Image
+										<ImageWithErrorHandler
 											src={imageUrl}
 											alt={alt}
 											layout="fill"

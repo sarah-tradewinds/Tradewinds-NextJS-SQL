@@ -9,6 +9,7 @@ interface ImageWithErrorHandlerProps {
 	layout?: 'fill' | 'fixed' | 'responsive' | 'intrinsic' | undefined;
 	defaultImageUrl?: string;
 	errorImageUrl?: string;
+	className?: string;
 }
 
 const ImageWithErrorHandler: React.FC<ImageWithErrorHandlerProps> = (
@@ -21,7 +22,8 @@ const ImageWithErrorHandler: React.FC<ImageWithErrorHandlerProps> = (
 		width,
 		height,
 		defaultImageUrl = '/page_not_found.svg',
-		errorImageUrl = '/page_not_found.svg'
+		errorImageUrl = '/page_not_found.svg',
+		className
 	} = props;
 
 	const [imageUrl, setImageUrl] = useState(src || defaultImageUrl);
@@ -38,6 +40,7 @@ const ImageWithErrorHandler: React.FC<ImageWithErrorHandlerProps> = (
 			layout={layout}
 			width={width}
 			height={height}
+			className={className}
 		/>
 	);
 }; // End of ImageWithErrorHandler
