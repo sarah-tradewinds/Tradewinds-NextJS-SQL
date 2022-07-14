@@ -3,11 +3,11 @@
 import CountryCollapse from 'components/website/common/country-collapse/country-collapse';
 import Button from 'components/website/common/form/button';
 import Input from 'components/website/common/form/input';
+import { getRegionsAndCountries } from 'lib/shop-by-country.lib';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { useCountriesStore } from 'store/countries-store';
-import { getCountriesName } from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
 
 const CountrySearchFilter: React.FC<{
@@ -31,6 +31,13 @@ const CountrySearchFilter: React.FC<{
 		setSelectedCountry
 	} = useCountriesStore();
 
+	useEffect(() => {
+		getRegionsAndCountries().then((data) => {
+			setRegionsAndCountryList(data);
+			setFilteredRegionsAndCountries(data);
+		});
+	}, []);
+
 	// Fetching countries with regions
 	useEffect(() => {
 		if (regionsAndCountries.length <= 0) {
@@ -38,16 +45,22 @@ const CountrySearchFilter: React.FC<{
 		}
 	}, [regionsAndCountries]);
 
-	useEffect(() => {
-		if (onCountryChange) {
-			onCountryChange(getCountriesName(selectedCountries).toString());
-		}
-	}, [selectedCountries]);
+	// useEffect(() => {
+	// 	if (onCountryChange) {
+	// 		onCountryChange(getCountriesName(selectedCountries).toString());
+	// 	}
+	// }, [selectedCountries]);
 
 	// Setting filter
-	useEffect(() => {
-		setFilteredRegionsAndCountries([...regionsAndCountries]);
-	}, [regionsAndCountries]);
+	// useEffect(() => {
+	// 	setFilteredRegionsAndCountries([...regionsAndCountries]);
+	// }, [regionsAndCountries]);
+
+	// console.log('regionsAndCountryList =', regionsAndCountryList);
+	// console.log(
+	// 	'filteredRegionsAndCountries =',
+	// 	filteredRegionsAndCountries
+	// );
 
 	return (
 		<>
@@ -81,7 +94,7 @@ const CountrySearchFilter: React.FC<{
 			<div className="space-y-2">
 				{regionsAndCountries.length <= 0 && <Skeleton count={16} />}
 
-				{filteredRegionsAndCountries.map((regionAndCountries) => {
+				{regionsAndCountries.map((regionAndCountries) => {
 					const { countries = [] } = regionAndCountries || {};
 
 					return (

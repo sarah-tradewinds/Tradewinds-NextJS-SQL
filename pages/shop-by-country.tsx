@@ -36,6 +36,15 @@ const ShopByCountryPage: NextPage<
 
 	const router = useRouter();
 
+	const countryClickHandler = (
+		countryId: string,
+		countryName: string
+	) => {
+		removeCategoryFilter();
+		setSelectedCountry(countryId, countryName);
+		router.push('/product-search');
+	}; // End of countryClickHandler
+
 	return (
 		<>
 			<Seo title="Search by country page" description="" />
@@ -68,16 +77,22 @@ const ShopByCountryPage: NextPage<
 									title={regionAndCountries.name}
 								>
 									<div className="space-y-2 bg-white py-2 pl-16">
-										{countries.map((country: any) => (
-											<CountryFlagTile
-												key={country.id}
-												title={getLocaleText(
-													country.name || {},
-													router.locale
-												)}
-												imageUrl={country.url || '/flags/frame.png'}
-											/>
-										))}
+										{countries.map((country: any) => {
+											const countryName = getLocaleText(
+												country.name || {},
+												router.locale
+											);
+											return (
+												<CountryFlagTile
+													key={country.id}
+													title={countryName}
+													imageUrl={country.url || '/flags/frame.png'}
+													onClick={() =>
+														countryClickHandler(country.id, countryName)
+													}
+												/>
+											);
+										})}
 									</div>
 								</CountryCollapse>
 							);
@@ -91,11 +106,9 @@ const ShopByCountryPage: NextPage<
 						<div className="grid grid-cols-4 gap-y-24">
 							<RegionsAndCountriesList
 								regionsAndCountries={regionsAndCountries || []}
-								onCountryClick={(country) => {
-									removeCategoryFilter();
-									setSelectedCountry(country.id, country.name);
-									router.push('/product-search');
-								}}
+								onCountryClick={(country) =>
+									countryClickHandler(country.id, country.name)
+								}
 							/>
 						</div>
 					</div>

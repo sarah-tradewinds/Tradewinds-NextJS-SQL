@@ -131,7 +131,7 @@ const ProductSearchPage: NextPage<
 		if (categoriesIds.length > 0) {
 			fetchSubCategoriesByCategoryId(categoriesIds.toString(), isEco);
 		}
-	}, [selectedCategoryIds]);
+	}, [selectedCategoryIds.length]);
 
 	// Fetching specific-categories based on selectedSubCategoryIds
 	useEffect(() => {
@@ -188,7 +188,9 @@ const ProductSearchPage: NextPage<
 
 		getProducts({
 			price_start: +minPrice,
-			categories: (router.query?.categories || '') as string,
+			categories: !selectedMainCategoryId.id
+				? ((router.query?.categories || '') as string)
+				: '',
 			main_category: mainCategory?.title?.en,
 			category: categoryNames.toString(),
 			sub_category: subCategoryNames.toString(),
@@ -200,6 +202,7 @@ const ProductSearchPage: NextPage<
 
 			const productData =
 				data.find((product: any) => product.is_eco === isEco) ||
+				firstProduct ||
 				data[2];
 
 			// Setting default category Ids

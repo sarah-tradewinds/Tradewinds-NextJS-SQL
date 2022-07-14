@@ -17,15 +17,19 @@ import { useState } from 'react';
 import { HiMinusCircle, HiPlusCircle } from 'react-icons/hi';
 
 // lib
+import { useCategoryStore } from 'store/category-store';
 
 const CategoriesPage: NextPage<
 	InferGetServerSidePropsType<GetServerSideProps>
 > = ({ allCategoryByAlphabets }) => {
+	const [showAll, setShowAll] = useState(false);
+
 	const { t } = useTranslation();
 
 	const router = useRouter();
-
-	const [showAll, setShowAll] = useState(false);
+	const removeCategoryFilter = useCategoryStore(
+		(state) => state.removeCategoryFilter
+	);
 
 	const alphabetList = showAll ? alphabets : [...alphabets].slice(0, 3);
 
@@ -116,8 +120,9 @@ const CategoriesPage: NextPage<
 																	key={category}
 																	className="cursor-pointer hover:font-semibold hover:text-cyan hover:underline"
 																	onClick={() => {
+																		removeCategoryFilter();
 																		router.push(
-																			`/product-search?categories${category}`
+																			`/product-search?categories=${category}`
 																		);
 																	}}
 																>

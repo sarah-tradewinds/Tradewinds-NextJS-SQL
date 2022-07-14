@@ -301,8 +301,8 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 		),
 
 	removeCategoryFilter: () => {
-		// localStorage.removeItem('main_category_id');
-		// localStorage.removeItem('category_ids');
+		localStorage.removeItem('main_category_id');
+		localStorage.removeItem('category_ids');
 		set(() => {
 			return {
 				selectedMainCategoryId: { id: '', name: '' },
@@ -364,16 +364,17 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 		const subCategories = await getSubCategoriesByCategoryId(
 			categoryId
 		);
+
 		set(
 			({
 				allCategories,
 				selectedMainCategoryId,
 				selectedCategoryIds
 			}) => {
-				const updatedAllCategories = allCategories.map(
+				const updatedAllCategories: any[] = allCategories.map(
 					(allCategory: any) => {
 						if (
-							allCategory.id === selectedMainCategoryId &&
+							allCategory.id === selectedMainCategoryId.id &&
 							allCategory.categories?.length > 0
 						) {
 							const updatedCategories = allCategory.categories.map(

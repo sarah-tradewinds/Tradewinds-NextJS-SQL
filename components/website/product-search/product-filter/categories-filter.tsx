@@ -12,9 +12,6 @@ const CategoriesFilter: React.FC = (props) => {
 
 	const {
 		selectedMainCategoryId,
-		selectedCategoryIds,
-		selectedSubCategoryIds,
-		selectedSpecificCategoryIds,
 		allCategories,
 		selectedCategoryAndSubCategoryAndSpecificCategoryIds,
 
@@ -38,6 +35,8 @@ const CategoriesFilter: React.FC = (props) => {
 		}
 	}
 
+	// console.log('allCategories =', allCategories);
+
 	return (
 		<div className="mt-4 space-y-2">
 			{/* Main categories */}
@@ -52,10 +51,13 @@ const CategoriesFilter: React.FC = (props) => {
 					locale
 				);
 
-				// TODO: Selecting by name is tmp
 				const isMainCategorySelected =
-					selectedMainCategoryId.id === mainCategoryId ||
-					selectedMainCategoryId.name === mainCategoryTitle;
+					selectedMainCategoryId.id === mainCategoryId;
+
+				// TODO: Selecting by name is tmp
+				// const isMainCategorySelected =
+				// 	selectedMainCategoryId.id === mainCategoryId ||
+				// 	selectedMainCategoryId.name === mainCategoryTitle;
 
 				return (
 					<CategoryCollapse

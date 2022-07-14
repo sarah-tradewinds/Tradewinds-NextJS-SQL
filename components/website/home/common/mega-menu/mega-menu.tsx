@@ -37,9 +37,6 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 	const {
 		allCategories,
 		selectedMainCategoryId,
-		selectedCategoryIds,
-		selectedSubCategoryIds,
-		selectedSpecificCategoryIds,
 		selectedCategoryAndSubCategoryAndSpecificCategoryIds,
 
 		// set methods
