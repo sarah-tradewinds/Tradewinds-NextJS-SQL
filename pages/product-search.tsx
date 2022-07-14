@@ -330,24 +330,32 @@ const ProductSearchPage: NextPage<
 							{/* For small screen only */}
 							<div className="px-2 py-4 md:hidden">
 								<div ref={ref} className="keen-slider">
-									{subCategories?.map((subCategory: any) => (
-										<div
-											key={subCategory.id}
-											className="keen-slider__slide"
-										>
-											<SubCategoryTile
-												imageUrl={
-													subCategory.image?.url ||
-													'/vehicles/green-tractor.png'
-												}
-												title={getLocaleText(subCategory.title)}
-												showBorder={subCategory?.isSelected}
-												onTilePressed={() =>
-													setSelectedCategoryId(subCategory.id)
-												}
-											/>
-										</div>
-									))}
+									{selectedCategories?.map((subCategory: any) => {
+										return (
+											<div
+												key={subCategory.id}
+												className="keen-slider__slide"
+											>
+												<SubCategoryTile
+													imageUrl={
+														subCategory.image?.url ||
+														'/vehicles/green-tractor.png'
+													}
+													title={getLocaleText(subCategory.title)}
+													showBorder={
+														selectedCategoryIds
+															? selectedCategoryIds?.includes(
+																	subCategory.id
+															  )
+															: false
+													}
+													onTilePressed={() =>
+														setSelectedCategoryId(subCategory.id)
+													}
+												/>
+											</div>
+										);
+									})}
 								</div>
 							</div>
 						</div>

@@ -18,6 +18,7 @@ import {
 	BUYER_DASHBOARD_PAGES,
 	generateBuyerDashboardUrl
 } from 'data/buyer/buyer-actions';
+import useRouteEvent from 'hooks/use-route-event.hooks';
 import { useEffect } from 'react';
 import {
 	MdOutlineHome,
@@ -54,6 +55,8 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 		isAuthenticating: state.isAuthenticating
 	}));
 
+	const { routeChangeStart } = useRouteEvent();
+
 	useEffect(() => {
 		autoLogin();
 	}, []);
@@ -62,7 +65,10 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 		<>
 			<Seo title={seo?.title} description={seo?.description} />
 
-			<Loader isOpen={isAuthenticating} text="Authenticating..." />
+			<Loader
+				isOpen={routeChangeStart || isAuthenticating}
+				text="Authenticating..."
+			/>
 
 			<SWRConfig
 				value={{

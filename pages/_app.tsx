@@ -7,10 +7,13 @@ import { useRouter } from 'next/router';
 // components
 import Layout from 'components/website/common/layout';
 
-// styles
+// Third party styles
 import 'keen-slider/keen-slider.min.css';
+import 'react-loading-skeleton/dist/skeleton.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
+
+// local styles
 import '../styles/globals.css';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {

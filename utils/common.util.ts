@@ -21,3 +21,11 @@ export const getObjectKeys = (givenObject: any) => {
 
 	return Object.keys(myObject || {});
 };
+
+export const generateListByCount = (count: number) => {
+	const list = [];
+	for (let i = 0; i <= count; i++) {
+		list.push(i);
+	}
+	return list;
+}; // End of generateListByCount

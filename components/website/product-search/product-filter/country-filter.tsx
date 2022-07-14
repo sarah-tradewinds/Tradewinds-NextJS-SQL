@@ -5,6 +5,7 @@ import Button from 'components/website/common/form/button';
 import Input from 'components/website/common/form/input';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import Skeleton from 'react-loading-skeleton';
 import { useCountriesStore } from 'store/countries-store';
 import { getCountriesName } from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
@@ -78,6 +79,8 @@ const CountrySearchFilter: React.FC<{
 
 			{/* Regions and country list */}
 			<div className="space-y-2">
+				{regionsAndCountries.length <= 0 && <Skeleton count={16} />}
+
 				{filteredRegionsAndCountries.map((regionAndCountries) => {
 					const { countries = [] } = regionAndCountries || {};
 

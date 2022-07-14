@@ -1,6 +1,7 @@
 // Third party packages
 import { useRouter } from 'next/router';
 import { AiOutlinePlus } from 'react-icons/ai';
+import Skeleton from 'react-loading-skeleton';
 
 // data
 import { useCategoryStore } from 'store/category-store';
@@ -40,6 +41,8 @@ const CategoriesFilter: React.FC = (props) => {
 	return (
 		<div className="mt-4 space-y-2">
 			{/* Main categories */}
+			{allCategories.length <= 0 && <Skeleton count={24} />}
+
 			{allCategories.map((mainCategory: any) => {
 				const { id: mainCategoryId, categories = [] } =
 					mainCategory || {};

@@ -132,19 +132,36 @@ const Header = () => {
 					</div>
 
 					{/* Search Input */}
-					<label
-						className="hidden h-[40px] w-[40vw] items-center overflow-hidden rounded-full bg-accent-primary-main transition duration-300 ease-in-out hover:ring-1 hover:ring-accent-primary-main hover:ring-opacity-90 sm:flex lg:w-[48vw]"
-						htmlFor="searchBar"
+					<form
+						onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+							e.preventDefault();
+							const searchTerm = (
+								e.currentTarget.elements.namedItem('searchBar') as any
+							).value;
+							router.push(`/product-search?query=${searchTerm}`);
+						}}
 					>
-						<input
-							type="search"
-							id="searchBar"
-							placeholder={t('search_product')}
-							aria-label="Search"
-							className="h-full w-[82%] border-none pl-2 pr-2 outline-none lg:w-[95%] lg:pl-4"
-						/>
-						<HiOutlineSearch className="h-6 w-[16%] cursor-pointer text-center text-white xl:w-[4%]" />
-					</label>
+						<label
+							className="hidden h-[40px] w-[40vw] items-center overflow-hidden rounded-full bg-accent-primary-main transition duration-300 ease-in-out hover:ring-1 hover:ring-accent-primary-main hover:ring-opacity-90 sm:flex lg:w-[48vw]"
+							htmlFor="searchBar"
+						>
+							<input
+								type="search"
+								id="searchBar"
+								name="searchBar"
+								placeholder={t('search_product')}
+								aria-label="Search"
+								className="h-full w-[82%] border-none pl-2 pr-2 outline-none lg:w-[95%] lg:pl-4"
+							/>
+							<Button
+								type="submit"
+								className="flex h-6 w-[16%] cursor-pointer justify-center px-0 xl:w-[4%]"
+							>
+								{/* <HiOutlineSearch className="h-6 w-[16%] cursor-pointer text-center xl:w-[4%]" /> */}
+								<HiOutlineSearch className="h-full w-[24px]" />
+							</Button>
+						</label>
+					</form>
 
 					<div>
 						<CartIcon
