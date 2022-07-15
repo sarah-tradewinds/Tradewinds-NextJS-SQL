@@ -143,7 +143,6 @@ const ProductSearchPage: NextPage<
 		const categoriesIds = getObjectKeys(
 			selectedCategoryAndSubCategoryAndSpecificCategoryIds
 		);
-		console.log('categoriesIds =', categoriesIds);
 		if (categoriesIds.length > 0) {
 			fetchSubCategoriesByCategoryId(
 				categoriesIds.toString(),
@@ -183,48 +182,49 @@ const ProductSearchPage: NextPage<
 
 	// Fetching products
 	useEffect(() => {
-		getProducts({
-			price_start: +(minPrice || 0),
-			categories: !selectedMainCategoryId.id
-				? ((router.query?.categories || '') as string)
-				: '',
-			is_eco: isEco
-		}).then((data: any) => {
-			let categories = data.categories || {};
-			const productList = data.data || [];
-			const [firstProduct] = productList;
-			if (!categories.main_category) {
-				if (firstProduct) {
-					categories = {
-						main_category: firstProduct?.main_category?.id,
-						category: firstProduct?.category?.id,
-						sub_category: firstProduct?.sub_category?.id,
-						sub_sub_category: firstProduct?.specific_category?.id
-					};
+		if (!selectedMainCategoryId.id) {
+			getProducts({
+				price_start: +(minPrice || 0),
+				categories: (router.query?.categories || '') as string,
+				is_eco: isEco
+			}).then((data: any) => {
+				let categories = data.categories || {};
+				const productList = data.data || [];
+				const [firstProduct] = productList;
+
+				if (!categories.main_category) {
+					if (firstProduct) {
+						categories = {
+							main_category: firstProduct?.main_category?.id,
+							category: firstProduct?.category?.id,
+							sub_category: firstProduct?.sub_category?.id,
+							sub_sub_category: firstProduct?.specific_category?.id
+						};
+					}
 				}
-			}
 
-			// Setting default category Ids
-			const {
-				main_category,
-				category,
-				sub_category,
-				sub_sub_category
-			} = categories || {};
-
-			if (!selectedMainCategoryId.id) {
-				setSelectedMainCategoryId(main_category, '');
-				setSelectedCategoryId(category);
-				setSelectedSubCategoryId(category, sub_category);
-				setSelectedSpecificCategoryId(
+				// Setting default category Ids
+				const {
+					main_category,
 					category,
 					sub_category,
 					sub_sub_category
-				);
-			}
+				} = categories || {};
 
-			setProducts(productList);
-		});
+				if (!selectedMainCategoryId.id) {
+					setSelectedMainCategoryId(main_category, '');
+					setSelectedCategoryId(category);
+					setSelectedSubCategoryId(category, sub_category);
+					setSelectedSpecificCategoryId(
+						category,
+						sub_category,
+						sub_sub_category
+					);
+				}
+
+				setProducts(productList);
+			});
+		}
 	}, [router.query?.categories]);
 
 	// Fetching products

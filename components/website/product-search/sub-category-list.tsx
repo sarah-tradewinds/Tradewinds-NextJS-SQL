@@ -1,4 +1,5 @@
 // components
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { generateListByCount } from 'utils/common.util';
@@ -24,6 +25,8 @@ const SubCategoryList: React.FC<SubCategoryListProps> = ({
 }) => {
 	const [screenSize, setScreenSize] = useState<null | number>(null);
 	const [isTablet, setIsTablet] = useState<boolean>(false);
+
+	const { locale } = useRouter();
 
 	useEffect(() => {
 		const handleResize = () => setScreenSize(window.innerWidth);
@@ -59,7 +62,7 @@ const SubCategoryList: React.FC<SubCategoryListProps> = ({
 				.map((subCategory, index) => (
 					<SubCategoryTile
 						key={subCategory.name}
-						title={getLocaleText(subCategory?.title)}
+						title={getLocaleText(subCategory?.title || {}, locale)}
 						imageUrl={
 							subCategory?.image?.url || '/sub-category/beans.png'
 						}
