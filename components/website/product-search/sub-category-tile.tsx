@@ -20,7 +20,7 @@ const SubCategoryTile: React.FC<SubCategoryTileProps> = ({
 			className="flex cursor-pointer items-center space-x-4"
 			onClick={onTilePressed}
 		>
-			<div className="relative h-[44px] w-[51px]  md:h-[67px] md:w-[77px] lg:h-[67px] lg:w-[77px]">
+			<div className="relative h-[44px] w-[51px] md:h-[67px] md:w-[77px] lg:h-[67px] lg:w-[77px]">
 				<ImageWithErrorHandler
 					src={imageUrl || '/sub-category/beans.png'}
 					alt={alt}

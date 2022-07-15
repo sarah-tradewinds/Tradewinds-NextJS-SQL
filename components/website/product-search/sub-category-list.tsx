@@ -1,5 +1,7 @@
 // components
 import { useEffect, useState } from 'react';
+import Skeleton from 'react-loading-skeleton';
+import { generateListByCount } from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
 import SubCategoryTile from './sub-category-tile';
 
@@ -9,6 +11,7 @@ interface SubCategoryListProps {
 	onClick: () => any;
 	onTilePressed: (subCategoryId: string) => any;
 	selectedSubCategoryIds?: string[];
+	isLoading?: boolean;
 }
 
 const SubCategoryList: React.FC<SubCategoryListProps> = ({
@@ -16,7 +19,8 @@ const SubCategoryList: React.FC<SubCategoryListProps> = ({
 	className,
 	onClick,
 	onTilePressed,
-	selectedSubCategoryIds
+	selectedSubCategoryIds,
+	isLoading
 }) => {
 	const [screenSize, setScreenSize] = useState<null | number>(null);
 	const [isTablet, setIsTablet] = useState<boolean>(false);
@@ -29,6 +33,22 @@ const SubCategoryList: React.FC<SubCategoryListProps> = ({
 		window.addEventListener('resize', handleResize);
 		return () => window.removeEventListener('resize', handleResize);
 	}, [isTablet, screenSize]);
+
+	if (isLoading) {
+		return (
+			<div className="mt-8 grid items-center gap-8 md:grid-cols-2 lg:grid-cols-4">
+				{generateListByCount(6).map((id) => (
+					<div key={id} className="flex items-center space-x-2">
+						<Skeleton width="48px" height="48px" />
+						<div className="w-full">
+							<Skeleton />
+						</div>
+					</div>
+				))}
+				<Skeleton />
+			</div>
+		);
+	}
 
 	return (
 		<div

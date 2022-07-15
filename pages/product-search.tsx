@@ -26,6 +26,7 @@ import {
 } from 'lib/product-search.lib';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import Skeleton from 'react-loading-skeleton';
 import { useCategoryStore } from 'store/category-store';
 import { useCountriesStore } from 'store/countries-store';
 import { useHomeStore } from 'store/home';
@@ -47,6 +48,10 @@ const ProductSearchPage: NextPage<
 	const [selectedMainCategory, setSelectedMainCategory] =
 		useState<any>();
 	const [selectedCategories, setSelectedCategories] = useState([]);
+	const [
+		isSelectedMainCategoryAndCategoriesLoading,
+		setIsSelectedMainCategoryAndCategoriesLoading
+	] = useState(false);
 
 	const isEco = useHomeStore((state) => state.isEco);
 
@@ -147,11 +152,13 @@ const ProductSearchPage: NextPage<
 	// Fetching selectedMainCategory and selectedCategories
 	useEffect(() => {
 		if (selectedMainCategoryId.id) {
+			setIsSelectedMainCategoryAndCategoriesLoading(true);
 			getSelectedMainCategoryAndCategories(
 				selectedMainCategoryId.id
 			).then((data) => {
 				setSelectedMainCategory(data.main_category || {});
 				setSelectedCategories(data.categories || []);
+				setIsSelectedMainCategoryAndCategoriesLoading(false);
 			});
 		}
 	}, [selectedMainCategoryId.id]);
@@ -199,8 +206,19 @@ const ProductSearchPage: NextPage<
 			country_of_region: getCountriesName(selectedCountries).toString(),
 			is_eco: isEco
 		}).then((data: any) => {
-			const categories = data.categories || {};
+			let categories = data.categories || {};
 			const productList = data.data || [];
+			const [firstProduct] = productList;
+			if (!categories.main_category) {
+				if (firstProduct) {
+					categories = {
+						main_category: firstProduct?.main_category?.id,
+						category: firstProduct?.category?.id,
+						sub_category: firstProduct?.sub_category?.id,
+						sub_sub_category: firstProduct?.specific_category?.id
+					};
+				}
+			}
 
 			// Setting default category Ids
 			const {
@@ -292,38 +310,38 @@ const ProductSearchPage: NextPage<
 				{/* product list and Category container*/}
 				<div className="col-span-12 md:col-span-8 md:space-y-8 lg:col-span-9">
 					{/* Category and categories list */}
-					{!selectedMainCategoryId.id &&
-					selectedCountries.length > 0 &&
-					products?.length <= 0 ? (
-						<p className="text-center text-[32px] font-semibold">
-							No product found
-						</p>
-					) : (
+					{selectedMainCategoryId.id && (
 						<div className="grid grid-cols-12 md:gap-0 md:rounded-md md:bg-white md:p-4 md:shadow-md lg:gap-2">
 							{/* Main category Card */}
-							<div className="col-span-12  md:col-span-3">
-								<MainCategoryCard
-									title={getLocaleText(
-										selectedMainCategory?.title || {}
-									)}
-									subtitle={getLocaleText(
-										selectedMainCategory?.description || {}
-									)}
-									imageUrl={selectedMainCategory?.image?.url}
-									className="w-screen md:w-auto"
-								/>
+							<div className="col-span-12 md:col-span-3">
+								{isSelectedMainCategoryAndCategoriesLoading ? (
+									<div>
+										<Skeleton />
+										<Skeleton height="180px" />
+									</div>
+								) : (
+									<MainCategoryCard
+										title={getLocaleText(
+											selectedMainCategory?.title || {}
+										)}
+										subtitle={getLocaleText(
+											selectedMainCategory?.description || {}
+										)}
+										imageUrl={selectedMainCategory?.image?.url}
+										className="w-screen md:w-auto"
+									/>
+								)}
 							</div>
 							{/* Categories */}
 							<div className="col-span-12 border-gray/20 md:col-span-9 md:ml-4 md:border-l-2 md:pl-4">
-								{selectedCategories.length > 0 && (
-									<SubCategoryList
-										subCategories={selectedCategories || []}
-										className="hidden md:grid"
-										onTilePressed={setSelectedCategoryId}
-										selectedSubCategoryIds={categoryIdList}
-										onClick={() => {}}
-									/>
-								)}
+								<SubCategoryList
+									subCategories={selectedCategories || []}
+									className="hidden md:grid"
+									onTilePressed={setSelectedCategoryId}
+									selectedSubCategoryIds={categoryIdList}
+									onClick={() => {}}
+									isLoading={isSelectedMainCategoryAndCategoriesLoading}
+								/>
 
 								{/* For small screen only */}
 								<div className="px-2 py-4 md:hidden">
@@ -362,10 +380,16 @@ const ProductSearchPage: NextPage<
 
 					{/* Product List */}
 					<div className="space-y-4 md:space-y-8">
-						<ProductList
-							products={products}
-							onCompareClick={addProductToCompareList}
-						/>
+						{products?.length <= 0 ? (
+							<p className="text-center text-[32px] font-semibold">
+								No product found
+							</p>
+						) : (
+							<ProductList
+								products={products}
+								onCompareClick={addProductToCompareList}
+							/>
+						)}
 					</div>
 
 					{/* Pagination */}
