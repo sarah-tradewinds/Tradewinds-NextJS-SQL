@@ -195,6 +195,8 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 		);
 	},
 	setSelectedSubCategoryId: (categoryId, subCategoryId, isMegaMenu) => {
+		// if (!categoryId && !isMegaMenu) return;
+
 		set(
 			({
 				selectedSubCategoryIds,
@@ -208,6 +210,10 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 				let subCategoryIdObject;
 				if (categoryIdObject) {
 					subCategoryIdObject = categoryIdObject[subCategoryId];
+				} else {
+					selectedCategoryAndSubCategoryAndSpecificCategoryIds[
+						categoryId
+					] = {};
 				}
 
 				if (isMegaMenu) {
@@ -232,8 +238,6 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 					selectedSubCategoryIds,
 					subCategoryId
 				);
-
-				console.log('[setSelectedSubCategoryId] got called');
 
 				return {
 					selectedCategoryAndSubCategoryAndSpecificCategoryIds,

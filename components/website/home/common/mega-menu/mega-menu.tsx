@@ -207,7 +207,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 								}
 								onClick={navigateHandler}
 							>
-								<span>{title?.en}</span>
+								<span>{getLocaleText(title || {}, locale)}</span>
 								<span className="hover: text-2xl hover:text-primary-main">
 									{isSelected && (
 										<MdPlayArrow className="font-semibold" />
@@ -247,7 +247,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 								}
 								onClick={navigateHandler}
 							>
-								<span>{title?.en}</span>
+								<span>{getLocaleText(title || {}, locale)}</span>
 								<span className="hover: text-2xl hover:text-primary-main">
 									{isSelected && (
 										<MdPlayArrow className="font-semibold" />
@@ -305,7 +305,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 								}
 								onClick={navigateHandler}
 							>
-								<span>{title?.en}</span>
+								<span>{getLocaleText(title || {}, locale)}</span>
 								<span className="hover: text-2xl hover:text-primary-main">
 									{isSelected && (
 										<MdPlayArrow className="font-semibold" />
@@ -318,7 +318,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 			)}
 		</div>
 	);
-};
+}; // End of MegaMenu component
 
 export default MegaMenu;
 

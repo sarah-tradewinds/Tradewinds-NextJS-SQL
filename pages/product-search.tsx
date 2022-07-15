@@ -45,6 +45,16 @@ const ProductSearchPage: NextPage<
 	const [minOrder, setMinOrder] = useState('0');
 	const [minPrice, setMinPrice] = useState('0');
 	const [selectedCountryCode, setSelectedCountryCode] = useState('');
+
+	const [localSelectedCategoryId, setLocalSelectedCategoryId] =
+		useState('');
+	const [localSelectedSubCategoryId, setLocalSelectedSubCategoryId] =
+		useState('');
+	const [
+		localSelectedSpecificCategoryId,
+		setLocalSelectedSpecificCategoryId
+	] = useState('');
+
 	const [selectedMainCategory, setSelectedMainCategory] =
 		useState<any>();
 	const [selectedCategories, setSelectedCategories] = useState([]);
@@ -135,7 +145,15 @@ const ProductSearchPage: NextPage<
 		);
 		console.log('categoriesIds =', categoriesIds);
 		if (categoriesIds.length > 0) {
-			fetchSubCategoriesByCategoryId(categoriesIds.toString(), isEco);
+			fetchSubCategoriesByCategoryId(
+				categoriesIds.toString(),
+				isEco
+			).then(() => {
+				// setSelectedSubCategoryId(
+				// 	localSelectedCategoryId,
+				// 	localSelectedSubCategoryId
+				// );
+			});
 		}
 	}, [selectedCategoryIds.length]);
 
@@ -165,45 +183,11 @@ const ProductSearchPage: NextPage<
 
 	// Fetching products
 	useEffect(() => {
-		const selectedCategories = subCategoryList.filter(
-			(subCategory: any) => {
-				return categoryIdList.includes(subCategory.id);
-			}
-		);
-
-		const categoryNames = selectedCategories.map((subCategory: any) => {
-			return subCategory.title?.en;
-		});
-
-		const subCategoryNames = [];
-		const specificCategoryNames = [];
-		for (let category of selectedCategories) {
-			const { subCategories = [] } = category || {};
-			for (let subCategory of subCategories) {
-				const { specificCategories = [] } = subCategory || {};
-
-				if (subCategoryIdList.includes(subCategory.id)) {
-					subCategoryNames.push(subCategory?.title?.en);
-				}
-
-				for (let specificCategory of specificCategories) {
-					if (specificCategoryIdList.includes(specificCategory.id)) {
-						specificCategoryNames.push(specificCategory?.title?.en);
-					}
-				}
-			}
-		}
-
 		getProducts({
-			price_start: +minPrice,
+			price_start: +(minPrice || 0),
 			categories: !selectedMainCategoryId.id
 				? ((router.query?.categories || '') as string)
 				: '',
-			main_category: mainCategory?.title?.en,
-			category: categoryNames.toString(),
-			sub_category: subCategoryNames.toString(),
-			sub_sub_category: specificCategoryNames.toString(),
-			country_of_region: getCountriesName(selectedCountries).toString(),
 			is_eco: isEco
 		}).then((data: any) => {
 			let categories = data.categories || {};
@@ -229,25 +213,117 @@ const ProductSearchPage: NextPage<
 			} = categories || {};
 
 			if (!selectedMainCategoryId.id) {
-				setSelectedMainCategoryId(
-					main_category,
-					''
-					// main_category?.name
-				);
-
+				setSelectedMainCategoryId(main_category, '');
 				setSelectedCategoryId(category);
-				// setSelectedSubCategoryId(category, sub_category);
-				// setSelectedSpecificCategoryId(
-				// 	category,
-				// 	sub_category,
-				// 	sub_sub_category
-				// );
+				setSelectedSubCategoryId(category, sub_category);
+				setSelectedSpecificCategoryId(
+					category,
+					sub_category,
+					sub_sub_category
+				);
 			}
 
 			setProducts(productList);
 		});
+	}, [router.query?.categories]);
+
+	// Fetching products
+	useEffect(() => {
+		const selectedCategories = subCategoryList.filter(
+			(subCategory: any) => {
+				return categoryIdList.includes(subCategory.id);
+			}
+		);
+
+		const categoryNames = selectedCategories.map((subCategory: any) => {
+			return subCategory.title?.en;
+		});
+
+		const subCategoryNames = [];
+		const specificCategoryNames = [];
+		console.log('selectedCategories =', selectedCategories);
+		for (let category of selectedCategories) {
+			const { subCategories = [] } = category || {};
+			console.log('category =', category);
+			console.log('----- =', category.id);
+			console.log(
+				'-----subCategories =',
+				selectedSubCategoryIds,
+				category.subCategories
+			);
+
+			console.log('subCategories =', subCategories);
+
+			for (let subCategory of subCategories) {
+				const { specificCategories = [] } = subCategory || {};
+				console.log('subCategory =', subCategory);
+
+				// console.log(
+				// 	subCategory,
+				// 	subCategoryIdList.includes(subCategory.id)
+				// );
+
+				if (subCategoryIdList.includes(subCategory.id)) {
+					subCategoryNames.push(subCategory?.title?.en);
+				}
+
+				for (let specificCategory of specificCategories) {
+					if (specificCategoryIdList.includes(specificCategory.id)) {
+						specificCategoryNames.push(specificCategory?.title?.en);
+					}
+				}
+			}
+		}
+
+		getProducts({
+			price_start: +minPrice,
+			// categories: !selectedMainCategoryId.id
+			// 	? ((router.query?.categories || '') as string)
+			// 	: '',
+			main_category: mainCategory?.title?.en,
+			category: categoryNames.toString(),
+			sub_category: subCategoryNames.toString(),
+			sub_sub_category: specificCategoryNames.toString(),
+			country_of_region: getCountriesName(selectedCountries).toString(),
+			is_eco: isEco
+		}).then((data: any) => {
+			let categories = data.categories || {};
+			const productList = data.data || [];
+			// const [firstProduct] = productList;
+			// if (!categories.main_category) {
+			// 	if (firstProduct) {
+			// 		categories = {
+			// 			main_category: firstProduct?.main_category?.id,
+			// 			category: firstProduct?.category?.id,
+			// 			sub_category: firstProduct?.sub_category?.id,
+			// 			sub_sub_category: firstProduct?.specific_category?.id
+			// 		};
+			// 	}
+			// }
+
+			// // Setting default category Ids
+			// const {
+			// 	main_category,
+			// 	category,
+			// 	sub_category,
+			// 	sub_sub_category
+			// } = categories || {};
+
+			// if (!selectedMainCategoryId.id) {
+			// 	setSelectedMainCategoryId(main_category, '');
+			// 	setSelectedCategoryId(category);
+			// 	setSelectedSubCategoryId(category, sub_category);
+			// 	setSelectedSpecificCategoryId(
+			// 		category,
+			// 		sub_category,
+			// 		sub_sub_category
+			// 	);
+			// }
+
+			setProducts(productList);
+		});
 	}, [
-		router.query?.categories,
+		// router.query?.categories,
 		selectedMainCategoryId.id,
 		selectedCategoryIds.length,
 		selectedSubCategoryIds.length,

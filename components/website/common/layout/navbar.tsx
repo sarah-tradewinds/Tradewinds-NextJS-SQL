@@ -279,7 +279,7 @@ const Header = () => {
 								onMouseEnter={() => setIsMegaMenuOpen(true)}
 								onMouseLeave={() => setIsMegaMenuOpen(false)}
 							>
-								<div className="font-semibold text-primary-main outline-none dark:text-accent-secondary-eco">
+								<div className="cursor-pointer font-semibold text-primary-main outline-none dark:text-accent-secondary-eco">
 									{t('categories_text')}{' '}
 									<span className="hidden md:inline">&gt;</span>
 								</div>

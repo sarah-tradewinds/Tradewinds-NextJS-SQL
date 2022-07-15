@@ -21,6 +21,7 @@ import RegionsAndCountriesList from 'components/website/shop-by-country/regions-
 
 // lib
 import { getRegionsAndCountries } from 'lib/shop-by-country.lib';
+import { useEffect } from 'react';
 import { useCategoryStore } from 'store/category-store';
 import { useCountriesStore } from 'store/countries-store';
 
@@ -33,17 +34,24 @@ const ShopByCountryPage: NextPage<
 		(state) => state.removeCategoryFilter
 	);
 
-	const setSelectedCountry = useCountriesStore(
-		(state) => state.setSelectedCountry
-	);
+	const { setSelectedCountry, removeSelectedCountries } =
+		useCountriesStore((state) => ({
+			setSelectedCountry: state.setSelectedCountry,
+			removeSelectedCountries: state.removeSelectedCountries
+		}));
 
 	const router = useRouter();
+
+	useEffect(() => {
+		removeSelectedCountries();
+	}, []);
 
 	const countryClickHandler = (
 		countryId: string,
 		countryName: string
 	) => {
 		removeCategoryFilter();
+		// console.log(countryId, countryName);
 		setSelectedCountry(countryId, countryName);
 		router.push('/product-search');
 	}; // End of countryClickHandler
@@ -81,18 +89,20 @@ const ShopByCountryPage: NextPage<
 								>
 									<div className="space-y-2 bg-white py-2 pl-16">
 										{countries.map((country: any) => {
-											const countryName = getLocaleText(
-												country.name || {},
-												router.locale
-											);
 											return (
 												<CountryFlagTile
 													key={country.id}
-													title={countryName}
+													title={getLocaleText(
+														country.name || {},
+														router.locale
+													)}
 													imageUrl={country.url || '/flags/frame.png'}
-													onClick={() =>
-														countryClickHandler(country.id, countryName)
-													}
+													onClick={() => {
+														countryClickHandler(
+															country.id,
+															country.name?.en
+														);
+													}}
 												/>
 											);
 										})}
@@ -110,7 +120,7 @@ const ShopByCountryPage: NextPage<
 							<RegionsAndCountriesList
 								regionsAndCountries={regionsAndCountries || []}
 								onCountryClick={(country) =>
-									countryClickHandler(country.id, country.name)
+									countryClickHandler(country.id, country.name?.en)
 								}
 							/>
 						</div>
