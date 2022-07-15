@@ -37,6 +37,8 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 	const {
 		allCategories,
 		selectedMainCategoryId,
+		selectedCategoryIds,
+		selectedSubCategoryIds,
 		selectedCategoryAndSubCategoryAndSpecificCategoryIds,
 
 		// set methods
@@ -94,7 +96,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 				isEco
 			).then(() => setIsSubCategoryLoading(false));
 		}
-	}, [selectedCategoryAndSubCategoryAndSpecificCategoryIds]);
+	}, [selectedCategoryIds.length]);
 
 	// Fetching specific-categories based on selectedSubCategoryIds
 	useEffect(() => {
@@ -110,7 +112,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 				isEco
 			).then(() => setIsSpecificCategoryLoading(false));
 		}
-	}, [selectedCategoryAndSubCategoryAndSpecificCategoryIds]);
+	}, [selectedSubCategoryIds.length]);
 
 	const navigateHandler = () => {
 		if (onClose) {
@@ -242,7 +244,11 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 								}`}
 								onMouseEnter={() =>
 									!isSelected
-										? setSelectedSubCategoryId(selectedCategoryId, id)
+										? setSelectedSubCategoryId(
+												selectedCategoryId,
+												id,
+												true
+										  )
 										: null
 								}
 								onClick={navigateHandler}

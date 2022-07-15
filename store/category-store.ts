@@ -218,7 +218,7 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 
 				if (isMegaMenu) {
 					selectedCategoryAndSubCategoryAndSpecificCategoryIds = {
-						[categoryId]: { subCategoryId }
+						[categoryId]: { [subCategoryId]: [] }
 					};
 				}
 
