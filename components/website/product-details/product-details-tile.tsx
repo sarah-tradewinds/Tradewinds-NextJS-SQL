@@ -17,6 +17,7 @@ import ImageContainer from './product-details-images/image-contaier';
 import RatingStars from './product-details-tab/product-review/rating-stars';
 
 // utils
+import { useTranslation } from 'next-i18next';
 import { useCartStore } from 'store/cart-store';
 import { getLocaleText } from 'utils/get_locale_text';
 
@@ -32,6 +33,9 @@ const ProductDetailsTile: React.FC<{
 		onVariantClick,
 		selectedVariantId
 	} = props;
+
+	const { t } = useTranslation();
+
 	const { isAuth, customerData, setIsLoginOpen } = useAuthStore(
 		(state) => ({
 			isAuth: state.isAuth,
@@ -75,6 +79,51 @@ const ProductDetailsTile: React.FC<{
 
 	const mainImageUrl = images[0]?.url || '/vehicles/green-tractor.png';
 
+	const metadataTileList = [
+		// country of origin
+		<MetadataTile
+			key={metadataList[0].title}
+			imageUrl={metadataList[0].imageUrl}
+			alt={metadataList[0].title}
+			title={country_of_region}
+		/>,
+		// isReadyToShip
+		<MetadataTile
+			key={`${t('common:live_buy')}/${t('common:ready_to_ship')}`}
+			imageUrl={metadataList[1].imageUrl}
+			alt={`${t('common:live_buy')}/${t('common:ready_to_ship')}`}
+			title={`${t('common:live_buy')}/${t('common:ready_to_ship')}`}
+		/>,
+		// Customizable
+		<MetadataTile
+			key={t('common:customizable')}
+			imageUrl={metadataList[3].imageUrl}
+			alt={t('common:customizable')}
+			title={
+				<p>
+					{t('common:customizable')}{' '}
+					<span className="text-secondary">
+						{is_customizable ? t('common:yes') : t('common:no')}
+					</span>
+				</p>
+			}
+		/>,
+		// variantCount
+		<MetadataTile
+			key={metadataList[4].title}
+			imageUrl={metadataList[4].imageUrl}
+			alt={metadataList[4].title}
+			title={`${t('common:variant')} ${variants.length}`}
+		/>,
+		// save
+		<MetadataTile
+			key={t('common:save')}
+			imageUrl={metadataList[5].imageUrl}
+			alt={t('common:save')}
+			title={t('common:save')}
+		/>
+	];
+
 	return (
 		<div className="grid grid-cols-12 gap-8 bg-white">
 			{/* Images container */}
@@ -98,9 +147,14 @@ const ProductDetailsTile: React.FC<{
 				</div>
 				{/* Price and quantity info */}
 				<div className="flex justify-between text-[12px] font-semibold text-primary-main lg:text-[21px]">
-					<p>{displayPrice} /piece</p>
+					<p>
+						{displayPrice} /{t('common:piece')}
+					</p>
 					{minOrderQuantity > 0 && (
-						<p>{minOrderQuantity} Pieces /Min. Order</p>
+						<p>
+							{minOrderQuantity} {t('common:piece')} /
+							{t('common:min_order')}
+						</p>
 					)}
 				</div>
 				{/* Keywords */}
@@ -120,65 +174,16 @@ const ProductDetailsTile: React.FC<{
 						className={`grid grid-cols-3 gap-4 text-[12px] text-gray`}
 					>
 						{/* country of origin */}
-						<MetadataTile
-							key={metadataList[0].title}
-							imageUrl={metadataList[0].imageUrl}
-							alt={metadataList[0].title}
-							title={country_of_region}
-						/>
+						{metadataTileList[0]}
+						{/* {metadataTileList[1]} */}
 						{/* isReadyToShip */}
-						{!is_ready_to_ship && (
-							<MetadataTile
-								key={metadataList[1].title}
-								imageUrl={metadataList[1].imageUrl}
-								alt={metadataList[1].title}
-								title={metadataList[1].title}
-							/>
-						)}
-						{/* compare */}
-						{/* <MetadataTile
-							key={metadataList[2].title}
-							icon={
-								<div className="text-[32px]">
-									{isInCompareList ? (
-										<MdBookmark className="text-[#FC5267]" />
-									) : (
-										<MdOutlineBookmarkBorder className="text-accent-primary-main" />
-									)}
-								</div>
-							}
-							alt={metadataList[2].title}
-							title={metadataList[2].title}
-							onClick={onCompareClick}
-							className="cursor-pointer"
-						/> */}
+						{!is_ready_to_ship && metadataTileList[1]}
 						{/* Customizable */}
-						<MetadataTile
-							key={metadataList[3].title}
-							imageUrl={metadataList[3].imageUrl}
-							alt={metadataList[3].title}
-							title={
-								<p>
-									Customizable{' '}
-									<span className="text-secondary">
-										{is_customizable ? 'YES' : 'NO'}
-									</span>
-								</p>
-							}
-						/>
+						{metadataTileList[2]}
 						{/* variantCount */}
-						<MetadataTile
-							key={metadataList[4].title}
-							imageUrl={metadataList[4].imageUrl}
-							alt={metadataList[4].title}
-							title={`Variant ${variants.length}`}
-						/>
-						<MetadataTile
-							key={metadataList[5].title}
-							imageUrl={metadataList[5].imageUrl}
-							alt={metadataList[5].title}
-							title={metadataList[5].title}
-						/>
+						{metadataTileList[3]}
+						{/* save */}
+						{metadataTileList[4]}
 					</div>
 				</div>
 				{/* Rating, review count and verified Image */}
@@ -191,7 +196,7 @@ const ProductDetailsTile: React.FC<{
 						<Image src="/rating.png" alt="" layout="fill" />
 					</div>
 					<p className="text-center text-[13px] text-secondary">
-						{totalReviewCount} Reviews
+						{totalReviewCount} {t('common:reviews')}
 					</p>
 					{is_verified && (
 						<div className="relative h-[30px] w-[162px]">
@@ -242,7 +247,7 @@ const ProductDetailsTile: React.FC<{
 							<span className="flex h-full items-center bg-accent-primary-main px-1">
 								<BiMessageAltDetail className="text-[24px] text-white" />
 							</span>
-							<span className="px-2">Submit RFQ</span>
+							<span className="px-2">{t('common:submit_rfq')}</span>
 						</Button>
 
 						{/* cart */}
@@ -251,7 +256,7 @@ const ProductDetailsTile: React.FC<{
 								variant="special"
 								onClick={() => addToCart(product.id, product)}
 							>
-								Add to Cart
+								{t('common:add_to_cart')}
 							</Button>
 						</div>
 					</div>
@@ -266,7 +271,7 @@ const ProductDetailsTile: React.FC<{
 									<span className="font-semibold">
 										{bulkPrice.range}
 									</span>{' '}
-									piece = ${bulkPrice.price}
+									{t('common:piece')}= ${bulkPrice.price}
 								</p>
 							))}
 					</div>
@@ -289,11 +294,15 @@ const ProductDetailsTile: React.FC<{
 						})}
 					</div>
 					<p className="text-[21px] font-semibold text-primary-main">
-						Quantity: {inventory?.quantity || 0}
+						{t('common:quantity')}: {inventory?.quantity || 0}
 					</p>
 					<p className="text-[21px] text-primary-main">
-						<span className="font-semibold">Customization:</span>{' '}
-						<span>{is_customizable ? 'Yes' : 'No'}</span>
+						<span className="font-semibold">
+							{t('common:customization')}:
+						</span>{' '}
+						<span>
+							{is_customizable ? t('common:yes') : t('common:no')}
+						</span>
 					</p>
 				</div>
 			</div>

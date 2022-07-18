@@ -398,10 +398,12 @@ const ProductSearchPage: NextPage<
 								) : (
 									<MainCategoryCard
 										title={getLocaleText(
-											selectedMainCategory?.title || {}
+											selectedMainCategory?.title || {},
+											router.locale
 										)}
 										subtitle={getLocaleText(
-											selectedMainCategory?.description || {}
+											selectedMainCategory?.description || {},
+											router.locale
 										)}
 										imageUrl={selectedMainCategory?.image?.url}
 										className="w-screen md:w-auto"

@@ -1,6 +1,9 @@
+import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
 
 const CompanyProfileTab: React.FC<{ seller: any }> = ({ seller }) => {
+	const { t } = useTranslation();
+
 	return (
 		<div className="space-y-16 bg-white p-8">
 			{/* 	Farmer Fran Tractor World */}
@@ -27,31 +30,31 @@ const CompanyProfileTab: React.FC<{ seller: any }> = ({ seller }) => {
 					<div className="col-span-12 grid gap-4 md:col-span-8 md:grid-cols-3">
 						<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
 							<span className="font-semibold md:min-w-[148px]">
-								Country:
+								{t('common:country')}:
 							</span>
 							<span>{seller?.country}</span>
 						</p>
 						<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
 							<span className="font-semibold md:min-w-[148px]">
-								TW page:
+								{t('common:tw_page')}:
 							</span>
 							<span>{seller?.tw_page}</span>
 						</p>
 						<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
 							<span className="font-semibold md:min-w-[148px]">
-								Established:
+								{t('common:established')}:
 							</span>
 							<span>{seller?.established}</span>
 						</p>
 						<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
 							<span className="font-semibold md:min-w-[148px]">
-								Certification:
+								{t('common:certification')}:
 							</span>
 							<span>{seller?.certificates?.toString()}</span>
 						</p>
 						<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
 							<span className="font-semibold md:min-w-[148px]">
-								Member Since:
+								{t('common:member_since')}:
 							</span>
 							<span>
 								{seller?.member_since
@@ -76,7 +79,7 @@ const CompanyProfileTab: React.FC<{ seller: any }> = ({ seller }) => {
 			{/* About */}
 			<div>
 				<h2 className="border-b border-gray/40 text-[18px] font-semibold text-gray/40 md:text-[21px]">
-					About
+					{t('common:about')}
 				</h2>
 				<p className="mt-1 text-[13px] text-gray/40 md:text-[18px]">
 					{seller?.about_us}
@@ -86,7 +89,7 @@ const CompanyProfileTab: React.FC<{ seller: any }> = ({ seller }) => {
 			{/* Photos/Videos */}
 			<div>
 				<h2 className="border-b border-gray/40 text-[18px] font-semibold text-gray/40 md:text-[21px]">
-					Photos/Videos
+					{t('common:photos')}/{t('common:videos')}
 				</h2>
 				<div className="mt-8 grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-4 lg:px-8">
 					<div>
@@ -143,7 +146,7 @@ const CompanyProfileTab: React.FC<{ seller: any }> = ({ seller }) => {
 			{/* Featured Product */}
 			<div>
 				<h2 className="border-b border-gray/40 text-[18px] font-semibold text-gray/40 md:text-[21px]">
-					Featured Product
+					{t('common:featured_product')}
 				</h2>
 				<div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-3 lg:grid-cols-4 lg:px-8">
 					<div className="flex flex-col-reverse md:flex-col">

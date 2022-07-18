@@ -1,4 +1,5 @@
 // components
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
@@ -27,6 +28,7 @@ const SubCategoryList: React.FC<SubCategoryListProps> = ({
 	const [isTablet, setIsTablet] = useState<boolean>(false);
 
 	const { locale } = useRouter();
+	const { t } = useTranslation();
 
 	useEffect(() => {
 		const handleResize = () => setScreenSize(window.innerWidth);
@@ -80,6 +82,7 @@ const SubCategoryList: React.FC<SubCategoryListProps> = ({
 				className="text-[18px] font-semibold text-gray"
 			>
 				See all
+				{t('common:see_all')}
 			</button>
 		</div>
 	);

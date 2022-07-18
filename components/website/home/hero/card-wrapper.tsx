@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router';
+import { getLocaleText } from 'utils/get_locale_text';
 import CardA from './card-a';
 import CardB from './card-b';
 
@@ -5,24 +7,29 @@ const CardWrapper: React.FC<{
 	cardAList: any[];
 	cardBData: any;
 }> = ({ cardAList, cardBData = {} }) => {
+	const { locale } = useRouter();
+
 	return (
 		<div className="mx-auto flex w-[96%] flex-col gap-2 space-y-4 sm:flex-row md:space-y-0 lg:gap-5">
 			{cardAList.map((cardAData) => (
 				<CardA
 					key={cardAData.id}
-					title={cardAData?.title?.en}
+					title={getLocaleText(cardAData?.title || {}, locale)}
 					imageUrl={'https://' + cardAData.image?.url}
-					subtitle={cardAData?.description?.en}
-					name="Name Here"
+					subtitle={getLocaleText(cardAData?.description || {}, locale)}
+					name=""
 					href="/why-sell-on-tradewinds"
 				/>
 			))}
 
 			<CardB
-				title={cardBData.title?.en}
+				title={getLocaleText(cardBData.title || {}, locale)}
 				imageUrl={'https://' + cardBData?.image?.url}
-				subtitle={cardBData.description_1?.en}
-				description={cardBData.description_2?.en}
+				subtitle={getLocaleText(cardBData.description_1 || {}, locale)}
+				description={getLocaleText(
+					cardBData.description_2 || {},
+					locale
+				)}
 				buttonText={cardBData.btn_text}
 				href={cardBData.action?.slug}
 				name=""

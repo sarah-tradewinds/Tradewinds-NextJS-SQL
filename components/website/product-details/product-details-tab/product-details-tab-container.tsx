@@ -1,5 +1,6 @@
 // Third party packages
 import { Tab } from '@headlessui/react';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { getLocaleText } from 'utils/get_locale_text';
 import CompanyProfileTab from './company-profile-tab';
@@ -24,6 +25,7 @@ const ProductDetailsTabContainer: React.FC<{
 	} = props;
 
 	const { locale } = useRouter();
+	const { t } = useTranslation();
 
 	const { id, product_detail_item, shipping } = (product as any) || {};
 
@@ -43,7 +45,7 @@ const ProductDetailsTabContainer: React.FC<{
 							}`
 						}
 					>
-						Product Details
+						{t('common:product_details')}
 					</Tab>
 					<Tab
 						className={({ selected }) =>
@@ -52,7 +54,7 @@ const ProductDetailsTabContainer: React.FC<{
 							}`
 						}
 					>
-						Reviews / Videos
+						{t('common:reviews')}/{t('common:videos')}
 					</Tab>
 					<Tab
 						className={({ selected }) =>
@@ -61,7 +63,7 @@ const ProductDetailsTabContainer: React.FC<{
 							}`
 						}
 					>
-						Company Profile
+						{t('common:company_profile')}
 					</Tab>
 				</Tab.List>
 

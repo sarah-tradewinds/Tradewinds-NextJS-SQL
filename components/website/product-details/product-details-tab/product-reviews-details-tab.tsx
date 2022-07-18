@@ -1,5 +1,6 @@
 import Button from 'components/website/common/form/button';
 import { canCustomerGiveReviewOnThisProduct } from 'lib/product-details';
+import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useAuthStore } from 'store/auth';
@@ -32,6 +33,8 @@ const ProductReviewsDetailsTab: React.FC<{
 		canCustomerWriteReviewForThisProduct,
 		setCanCustomerWriteReviewForThisProduct
 	] = useState(false);
+
+	const { t } = useTranslation();
 
 	const { isAuth, customerData, setIsLoginOpen } = useAuthStore(
 		(state) => ({
@@ -103,16 +106,16 @@ const ProductReviewsDetailsTab: React.FC<{
 			{/* Customer reviews and rating count */}
 			<div className="flex items-center space-x-4 border-b-2 border-t-2 border-gray/40 pb-2 md:border-t-0">
 				<h2 className="hidden text-[21px] font-semibold text-gray/40 md:block">
-					Customer Reviews
+					{t('common:customer_reviews')}
 				</h2>
 				<h2 className="text-[22px] font-semibold text-gray/40 md:hidden">
-					Reviews
+					{t('common:reviews')}
 				</h2>
 				<div className="relative hidden h-[24px] w-[108px] md:block">
 					<Image src="/rating.png" alt="" layout="fill" />
 				</div>
 				<p className=" hidden text-[13px] text-secondary md:block">
-					146 Reviews
+					146 {t('common:reviews')}
 				</p>
 			</div>
 			<div className="grid grid-cols-12">
