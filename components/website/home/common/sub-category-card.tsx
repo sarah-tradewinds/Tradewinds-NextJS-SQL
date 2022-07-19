@@ -1,3 +1,4 @@
+import ImageWithErrorHandler from 'components/website/common/elements/image-with-error-handler';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { SubCategoryType } from 'types/home';
@@ -77,10 +78,10 @@ const SubCategoryCard = ({
 			</div>
 
 			{!showImageInFront && (
-				<div className="absolute bottom-0 right-0 bg-secondary">
+				<div className="absolute bottom-0 right-0">
 					<div className="relative h-[60px] w-[60px] md:h-[80px] md:w-[80px] lg:h-[104px] lg:w-[104px]">
-						<Image
-							src={subCat.image?.url || '/vehicles/green-tractor.png'}
+						<ImageWithErrorHandler
+							src={subCat?.image?.url}
 							alt="sub-cat-image"
 							layout="fill"
 						/>

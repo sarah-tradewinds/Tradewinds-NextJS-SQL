@@ -1,5 +1,5 @@
+import ImageWithErrorHandler from 'components/website/common/elements/image-with-error-handler';
 import Button from 'components/website/common/form/button';
-import Image from 'next/image';
 
 // store
 
@@ -53,7 +53,11 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 				{/* Image */}
 				<div className="absolute -top-12 right-0">
 					<div className="relative h-[60px] w-[60px] md:h-[100px] md:w-[100px] lg:h-[120px] lg:w-[120px]">
-						<Image src={imageUrl} alt={alt || slug} layout="fill" />
+						<ImageWithErrorHandler
+							src={imageUrl}
+							alt={alt || slug}
+							layout="fill"
+						/>
 					</div>
 				</div>
 
@@ -66,13 +70,6 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 					>
 						{buttonText || 'SOURCE NOW'}
 					</Button>
-					{/* <Link href={slug || '/'}>
-						<a
-							className={`bg-[${bgHexColor}]/70 flex h-[40px] w-[156px] items-center justify-center rounded-md border border-black/20 text-[18px] uppercase text-white`}
-						>
-							{buttonText || 'SOURCE NOW'}
-						</a>
-					</Link> */}
 				</div>
 			</div>
 		</div>

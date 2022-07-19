@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
@@ -7,6 +6,7 @@ import { useCategoryStore } from 'store/category-store';
 import { CatSubCatSectionType } from 'types/home';
 import { getLocaleText } from 'utils/get_locale_text';
 import Collapse from '../common/collapse';
+import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
 import CatSubCatActionCard from './common/cat-sub-cat-action-card';
 import CategoryCard from './common/category-card';
 import SubCategoryCard from './common/sub-category-card';
@@ -126,11 +126,8 @@ const CategorySubCategoriesSection: React.FC<
 									isReverse ? 'left-0' : 'right-0'
 								} z-10`}
 							>
-								<Image
-									src={
-										main_category.image.url ||
-										'/vehicles/green-tractor.png'
-									}
+								<ImageWithErrorHandler
+									src={main_category?.image?.url}
 									alt=""
 									width={96}
 									height={96}
@@ -161,9 +158,7 @@ const CategorySubCategoriesSection: React.FC<
 						}}
 						description={mainCategoryDescription}
 						buttonText={main_category.btnTxt}
-						imageUrl={
-							main_category?.image?.url || '/vehicles/green-tractor.png'
-						}
+						imageUrl={main_category?.image?.url}
 						alt={main_category.title}
 						bgHexColor={main_category.bgHexColor}
 						containerClassName="md:h-[340px] lg:h-[380px] xl:h-[340px]"
