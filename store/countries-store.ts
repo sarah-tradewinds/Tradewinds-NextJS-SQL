@@ -133,7 +133,7 @@ const updatedRegionsAndCountriesSelectedState = (
 			const { countries = [] } = regionAndCountries || {};
 
 			regionAndCountries.isSelected = false;
-			const updatedCountries = countries.map((country: any) => {
+			const updatedCountries = countries?.map((country: any) => {
 				const countryIndex = selectedCountries.findIndex(
 					(selectedCountry: any) => {
 						return selectedCountry.id === country.id;

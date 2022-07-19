@@ -33,11 +33,14 @@ const RegionAndCountriesTile: React.FC<RegionAndCountriesTileProps> = (
 
 	return (
 		<div className={className}>
-			<LocationHolder
-				title={regionName}
-				imageUrl="/static/images/search-by-country-images/north-america.png"
-				count={countryLength}
-			/>
+			<div>
+				<LocationHolder
+					title={regionName}
+					imageUrl="/static/images/search-by-country-images/north-america.png"
+					count={countryLength}
+				/>
+			</div>
+
 			{/* Countries List */}
 			<div className="space-y-8">
 				{countriesBasedOnIsExpanded?.map((country: any) => {

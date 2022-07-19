@@ -3,7 +3,6 @@ import {
 	InferGetServerSidePropsType,
 	NextPage
 } from 'next';
-import Image from 'next/image';
 import { useState } from 'react';
 
 // Third party packages
@@ -62,17 +61,10 @@ const ShopByCountryPage: NextPage<
 
 			<div className="relative mb-[2080px] bg-white md:m-auto ">
 				{/* Headers */}
-				<div className="h-[200px] md:absolute md:inset-0">
-					<div className="relative h-[480px] md:h-[800px] lg:h-[1200px]">
-						<Image
-							src="/static/images/search-by-country-images/search-by-country-header.png"
-							alt=""
-							layout="fill"
-							className="object-cover"
-						/>
-					</div>
+				<div className="relative bg-secondary">
+					<div className="relative h-[480px] bg-[url('/static/images/search-by-country-images/search-by-country-header.png')]"></div>
 					<h1 className="absolute inset-0 top-16 text-center text-[35px] font-semibold text-white md:top-24 md:text-[40px] lg:top-16 lg:text-[96px]">
-						{t('search_by_country')}
+						{t('shop_by_country')}
 					</h1>
 				</div>
 
@@ -88,7 +80,7 @@ const ShopByCountryPage: NextPage<
 									title={regionAndCountries.name}
 								>
 									<div className="space-y-2 bg-white py-2 pl-16">
-										{countries.map((country: any) => {
+										{countries?.map((country: any) => {
 											return (
 												<CountryFlagTile
 													key={country.id}
@@ -114,9 +106,9 @@ const ShopByCountryPage: NextPage<
 				</div>
 
 				{/* Island and flags */}
-				<div className="mb-[2800px] hidden md:block">
-					<div className="absolute top-[440px] left-1/2 w-[95%] -translate-x-1/2 transform">
-						<div className="grid grid-cols-4 gap-y-24">
+				<div className="-mt-[16px] mb-40 hidden justify-center md:flex">
+					<div className="w-[95%]s">
+						<div className="grid grid-cols-4 gap-x-16 gap-y-24">
 							<RegionsAndCountriesList
 								regionsAndCountries={regionsAndCountries || []}
 								onCountryClick={(country) =>
@@ -124,13 +116,6 @@ const ShopByCountryPage: NextPage<
 								}
 							/>
 						</div>
-					</div>
-
-					<div className="grid grid-cols-4">
-						{/* <RegionsAndCountriesList
-							regionsAndCountries={regionsAndCountries?.slice(5) || []}
-							className="mt-32 flex flex-col items-center space-y-6"
-						/> */}
 					</div>
 				</div>
 			</div>

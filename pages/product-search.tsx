@@ -180,9 +180,11 @@ const ProductSearchPage: NextPage<
 		}
 	}, [selectedMainCategoryId.id]);
 
-	// Fetching products
+	// Fetching products based on categoriess
 	useEffect(() => {
-		if (!selectedMainCategoryId.id) {
+		const searchQuery = router.query?.query;
+
+		if (!selectedMainCategoryId.id && !searchQuery) {
 			getProducts({
 				price_start: +(minPrice || 0),
 				categories: (router.query?.categories || '') as string,
@@ -226,6 +228,21 @@ const ProductSearchPage: NextPage<
 			});
 		}
 	}, [router.query?.categories]);
+
+	// Fetching products based on search
+	useEffect(() => {
+		const searchQuery = router.query?.query;
+		if (searchQuery) {
+			getProducts({
+				price_start: +(minPrice || 0),
+				all: (searchQuery || '') as string,
+				is_eco: isEco
+			}).then((data: any) => {
+				const productList = data.data || [];
+				setProducts(productList);
+			});
+		}
+	}, [router.query?.query]);
 
 	// Fetching products
 	useEffect(() => {
@@ -277,9 +294,6 @@ const ProductSearchPage: NextPage<
 
 		getProducts({
 			price_start: +minPrice,
-			// categories: !selectedMainCategoryId.id
-			// 	? ((router.query?.categories || '') as string)
-			// 	: '',
 			main_category: mainCategory?.title?.en,
 			category: categoryNames.toString(),
 			sub_category: subCategoryNames.toString(),
@@ -287,43 +301,10 @@ const ProductSearchPage: NextPage<
 			country_of_region: getCountriesName(selectedCountries).toString(),
 			is_eco: isEco
 		}).then((data: any) => {
-			let categories = data.categories || {};
 			const productList = data.data || [];
-			// const [firstProduct] = productList;
-			// if (!categories.main_category) {
-			// 	if (firstProduct) {
-			// 		categories = {
-			// 			main_category: firstProduct?.main_category?.id,
-			// 			category: firstProduct?.category?.id,
-			// 			sub_category: firstProduct?.sub_category?.id,
-			// 			sub_sub_category: firstProduct?.specific_category?.id
-			// 		};
-			// 	}
-			// }
-
-			// // Setting default category Ids
-			// const {
-			// 	main_category,
-			// 	category,
-			// 	sub_category,
-			// 	sub_sub_category
-			// } = categories || {};
-
-			// if (!selectedMainCategoryId.id) {
-			// 	setSelectedMainCategoryId(main_category, '');
-			// 	setSelectedCategoryId(category);
-			// 	setSelectedSubCategoryId(category, sub_category);
-			// 	setSelectedSpecificCategoryId(
-			// 		category,
-			// 		sub_category,
-			// 		sub_sub_category
-			// 	);
-			// }
-
 			setProducts(productList);
 		});
 	}, [
-		// router.query?.categories,
 		selectedMainCategoryId.id,
 		selectedCategoryIds.length,
 		selectedSubCategoryIds.length,
@@ -355,7 +336,6 @@ const ProductSearchPage: NextPage<
 					src={selectedMainCategory?.banner_image}
 					alt=""
 					layout="fill"
-					defaultImageUrl="/catagarie-seach-header.png"
 				/>
 			</div>
 

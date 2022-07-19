@@ -11,9 +11,11 @@ const LocationHolder: React.FC<LocationHolderProps> = (props) => {
 	const { containerClassName, imageUrl, title, count } = props;
 
 	return (
-		<div>
+		<div
+			className={`w-[192px]md:w-[172px] relative lg:w-[295px] ${containerClassName}`}
+		>
 			<div
-				className={`relative h-[168px] w-[192px] rounded-md bg-secondary shadow md:h-[156px] md:w-[172px] lg:h-[216px] lg:w-[295px] ${containerClassName}`}
+				className={`relative h-[168px] w-[192px] rounded-md bg-secondary shadow md:h-[156px] md:w-[172px] lg:h-[216px] lg:w-[295px]`}
 			>
 				<div className="absolute left-1/2 -top-12 -translate-x-1/2 transform lg:-top-24">
 					{/* Inner box */}
@@ -39,7 +41,7 @@ const LocationHolder: React.FC<LocationHolderProps> = (props) => {
 					</div>
 				</div>
 			</div>
-			<p className="border-bs border-gray/40 text-center text-[18px] text-cyan">
+			<p className="my-2 w-full border-gray/40 text-center text-[18px] text-cyan">
 				({count})
 			</p>
 		</div>

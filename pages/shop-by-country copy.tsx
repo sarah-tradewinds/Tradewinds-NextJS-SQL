@@ -1,111 +1,60 @@
 import {
-	GetStaticProps,
-	InferGetStaticPropsType,
+	GetServerSideProps,
+	InferGetServerSidePropsType,
 	NextPage
 } from 'next';
 import Image from 'next/image';
+import { useState } from 'react';
 
 // Third party packages
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
+import { useRouter } from 'next/router';
+import { HiMinusCircle, HiPlusCircle } from 'react-icons/hi';
+import { getLocaleText } from 'utils/get_locale_text';
+
 // components
 import CountryFlagTile from 'components/website/common/search-by-country/country-flag-tile';
-import LocationHolder from 'components/website/common/search-by-country/location-holder';
 import Seo from 'components/website/common/seo';
-import { countries } from 'data/home';
+import RegionsAndCountriesList from 'components/website/shop-by-country/regions-and-countries-list';
+
+// lib
 import { getRegionsAndCountries } from 'lib/shop-by-country.lib';
-import { useState } from 'react';
-import { HiMinusCircle, HiPlusCircle } from 'react-icons/hi';
+import { useEffect } from 'react';
+import { useCategoryStore } from 'store/category-store';
+import { useCountriesStore } from 'store/countries-store';
 
 const ShopByCountryPage: NextPage<
-	InferGetStaticPropsType<GetStaticProps>
+	InferGetServerSidePropsType<GetServerSideProps>
 > = ({ regionsAndCountries = [] }) => {
 	const { t } = useTranslation('search_by_country');
 
-	const flagBlock1 = (
-		<div className="space-y-8">
-			<CountryFlagTile
-				imageUrl="/static/images/search-by-country-images/flags/usa.png"
-				title={t('united_states_of_america')}
-			/>
-			<CountryFlagTile
-				imageUrl="/static/images/search-by-country-images/flags/canada.png"
-				title={t('canada')}
-			/>
-		</div>
+	const removeCategoryFilter = useCategoryStore(
+		(state) => state.removeCategoryFilter
 	);
-	const flagBlock2 = (
-		<div className="space-y-8">
-			<CountryFlagTile
-				imageUrl="/static/images/search-by-country-images/flags/dominica-republic.png"
-				title={t('dominica_republic')}
-			/>
-			<CountryFlagTile
-				imageUrl="/static/images/search-by-country-images/flags/trinidad-and-tobago.png"
-				title={t('trinidad_and_tobago')}
-			/>
-			<p className="hidden text-center text-[20px] font-semibold text-accent-primary-main lg:block">
-				{t('more_coming_soon')}
-			</p>
-		</div>
-	);
-	const flagBlock3 = (
-		<div className="space-y-8">
-			<CountryFlagTile
-				imageUrl="/static/images/search-by-country-images/flags/costa-rica.png"
-				title={t('costa_rica')}
-			/>
-			<CountryFlagTile
-				imageUrl="/static/images/search-by-country-images/flags/mexico.png"
-				title={t('mexico')}
-			/>
-			<p className="hidden text-center text-[20px] font-semibold text-accent-primary-main lg:block">
-				{t('more_coming_soon')}
-			</p>
-		</div>
-	);
-	const flagBlock4 = (
-		<div className="space-y-8">
-			<div className="grid gap-8 lg:grid-cols-2">
-				<CountryFlagTile
-					imageUrl="/static/images/search-by-country-images/flags/argentina.png"
-					title={t('argentina')}
-				/>
-				<CountryFlagTile
-					imageUrl="/static/images/search-by-country-images/flags/bolivia.png"
-					title={t('bolivia')}
-				/>
-				<CountryFlagTile
-					imageUrl="/static/images/search-by-country-images/flags/brazil.png"
-					title={t('brazil')}
-				/>
-				<CountryFlagTile
-					imageUrl="/static/images/search-by-country-images/flags/chile.png"
-					title={t('chile')}
-				/>
-				<CountryFlagTile
-					imageUrl="/static/images/search-by-country-images/flags/colombia.png"
-					title={t('colombia')}
-				/>
-				<CountryFlagTile
-					imageUrl="/static/images/search-by-country-images/flags/paraguay.png"
-					title={t('paraguay')}
-				/>
-				<CountryFlagTile
-					imageUrl="/static/images/search-by-country-images/flags/peru.png"
-					title={t('peru')}
-				/>
-				<CountryFlagTile
-					imageUrl="/static/images/search-by-country-images/flags/uruguay.png"
-					title={t('uruguay')}
-				/>
-			</div>
-			<p className="hidden text-center text-[20px] font-semibold text-accent-primary-main lg:block">
-				{t('more_coming_soon')}
-			</p>
-		</div>
-	);
+
+	const { setSelectedCountry, removeSelectedCountries } =
+		useCountriesStore((state) => ({
+			setSelectedCountry: state.setSelectedCountry,
+			removeSelectedCountries: state.removeSelectedCountries
+		}));
+
+	const router = useRouter();
+
+	useEffect(() => {
+		removeSelectedCountries();
+	}, []);
+
+	const countryClickHandler = (
+		countryId: string,
+		countryName: string
+	) => {
+		removeCategoryFilter();
+		// console.log(countryId, countryName);
+		setSelectedCountry(countryId, countryName);
+		router.push('/product-search');
+	}; // End of countryClickHandler
 
 	return (
 		<>
@@ -130,18 +79,33 @@ const ShopByCountryPage: NextPage<
 				{/* for small device */}
 				<div className="absolute top-[140px] left-1/2 w-5/6 -translate-x-1/2 transform rounded-t-[40px] bg-white  pt-8 md:hidden">
 					<div className="space-y-2 px-4">
-						{countries.map((country) => {
+						{regionsAndCountries.map((regionAndCountries: any) => {
+							const { countries = [] } = regionAndCountries || {};
 							return (
-								<CountryCollapse key={country.name}>
+								<CountryCollapse
+									key={regionAndCountries.id}
+									leading={countries?.length}
+									title={regionAndCountries.name}
+								>
 									<div className="space-y-2 bg-white py-2 pl-16">
-										<CountryFlagTile
-											title={country.name}
-											imageUrl={country.imageUrl}
-										/>
-										<CountryFlagTile
-											title="Canada"
-											imageUrl="/flags/frame.png"
-										/>
+										{countries.map((country: any) => {
+											return (
+												<CountryFlagTile
+													key={country.id}
+													title={getLocaleText(
+														country.name || {},
+														router.locale
+													)}
+													imageUrl={country.url || '/flags/frame.png'}
+													onClick={() => {
+														countryClickHandler(
+															country.id,
+															country.name?.en
+														);
+													}}
+												/>
+											);
+										})}
 									</div>
 								</CountryCollapse>
 							);
@@ -150,38 +114,23 @@ const ShopByCountryPage: NextPage<
 				</div>
 
 				{/* Island and flags */}
-				<div className="z-[1] hidden flex-col items-center p-8 pt-[208px] md:flex md:pt-[300px] lg:pt-[440px]">
-					<div className="flex flex-col space-y-24 md:flex-row md:space-y-0 md:space-x-4 lg:space-x-16">
-						<div className="flex flex-col items-center space-y-6">
-							<LocationHolder
-								title={t('north_america')}
-								imageUrl="/static/images/search-by-country-images/north-america.png"
+				<div className="mb-[2800px] hidden md:block">
+					<div className="absolute top-[440px] left-1/2 w-[95%] -translate-x-1/2 transform">
+						<div className="grid grid-cols-4 gap-y-24">
+							<RegionsAndCountriesList
+								regionsAndCountries={regionsAndCountries || []}
+								onCountryClick={(country) =>
+									countryClickHandler(country.id, country.name?.en)
+								}
 							/>
-							{flagBlock1}
+						</div>
+					</div>
 
-							<HiPlusCircle className="text-[32px] text-secondary" />
-						</div>
-						<div className="flex flex-col items-center space-y-6">
-							<LocationHolder
-								title={t('the_caribbean')}
-								imageUrl="/static/images/search-by-country-images/the-caribbean.png"
-							/>
-							{flagBlock2}
-						</div>
-						<div className="flex flex-col items-center space-y-6">
-							<LocationHolder
-								title={t('mexico_and_central_america')}
-								imageUrl="/static/images/search-by-country-images/mexico-and-central-america.png"
-							/>
-							{flagBlock3}
-						</div>
-						<div className="flex flex-col items-center space-y-6">
-							<LocationHolder
-								title={t('south_america')}
-								imageUrl="/static/images/search-by-country-images/south-america.png"
-							/>
-							{flagBlock4}
-						</div>
+					<div className="grid grid-cols-4">
+						{/* <RegionsAndCountriesList
+							regionsAndCountries={regionsAndCountries?.slice(5) || []}
+							className="mt-32 flex flex-col items-center space-y-6"
+						/> */}
 					</div>
 				</div>
 			</div>
@@ -189,7 +138,9 @@ const ShopByCountryPage: NextPage<
 	);
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+	locale
+}) => {
 	const regionsAndCountries = await getRegionsAndCountries();
 
 	return {
@@ -203,16 +154,25 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 export default ShopByCountryPage;
 
 const CountryCollapse: React.FC<{
+	leading?: any;
+	title?: any;
 	isOpen?: boolean;
 	onClose?: () => any;
-}> = ({ children, onClose }) => {
+}> = (props) => {
+	const { leading, title, children, onClose } = props;
+
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (
 		<div>
-			<div className="flex items-center justify-between bg-white px-2">
-				<p className="text-[16px] font-semibold text-cyan">(2)</p>
-				<p className=" text-[16px] font-semibold">North America</p>
+			<div className="flex items-center bg-white px-2">
+				<div className="flex w-full items-center bg-white">
+					<p className="w-[40px] text-[16px] font-semibold text-cyan">
+						({leading})
+					</p>
+
+					<p className="text-[16px] font-semibold">{title}</p>
+				</div>
 
 				<div onClick={() => setIsOpen((prevState) => !prevState)}>
 					{isOpen ? (
