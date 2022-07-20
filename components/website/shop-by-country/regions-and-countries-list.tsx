@@ -1,6 +1,8 @@
 // Third party packages
 
 // components
+import { useRouter } from 'next/router';
+import { getLocaleText } from 'utils/get_locale_text';
 import RegionAndCountriesTile from './regions-and-countries-tile';
 
 const RegionsAndCountriesList: React.FC<{
@@ -8,6 +10,8 @@ const RegionsAndCountriesList: React.FC<{
 	className?: string;
 	onCountryClick: (country: any) => any;
 }> = ({ regionsAndCountries = [], className, onCountryClick }) => {
+	const { locale } = useRouter();
+
 	return (
 		<>
 			{regionsAndCountries?.map((regionAndCountries: any) => {
@@ -17,7 +21,10 @@ const RegionsAndCountriesList: React.FC<{
 					<RegionAndCountriesTile
 						key={regionAndCountries.id}
 						regionId={regionAndCountries.id}
-						regionName={regionAndCountries.name}
+						regionName={getLocaleText(
+							regionAndCountries.name || {},
+							locale
+						)}
 						countries={countries || []}
 						className={className}
 						onCountryTileClick={onCountryClick}

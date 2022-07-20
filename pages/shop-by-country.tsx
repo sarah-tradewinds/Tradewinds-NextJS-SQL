@@ -29,6 +29,8 @@ const ShopByCountryPage: NextPage<
 > = ({ regionsAndCountries = [] }) => {
 	const { t } = useTranslation('search_by_country');
 
+	const router = useRouter();
+
 	const removeCategoryFilter = useCategoryStore(
 		(state) => state.removeCategoryFilter
 	);
@@ -38,8 +40,6 @@ const ShopByCountryPage: NextPage<
 			setSelectedCountry: state.setSelectedCountry,
 			removeSelectedCountries: state.removeSelectedCountries
 		}));
-
-	const router = useRouter();
 
 	useEffect(() => {
 		removeSelectedCountries();
@@ -77,7 +77,10 @@ const ShopByCountryPage: NextPage<
 								<CountryCollapse
 									key={regionAndCountries.id}
 									leading={countries?.length}
-									title={regionAndCountries.name}
+									title={getLocaleText(
+										regionAndCountries.name || {},
+										router.locale
+									)}
 								>
 									<div className="space-y-2 bg-white py-2 pl-16">
 										{countries?.map((country: any) => {

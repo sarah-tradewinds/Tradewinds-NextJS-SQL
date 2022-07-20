@@ -102,7 +102,10 @@ const CountrySearchFilter: React.FC<{
 							key={regionAndCountries?.id}
 							isOpen={regionAndCountries.isSelected}
 							leading={countries?.length}
-							title={regionAndCountries?.name}
+							title={getLocaleText(
+								regionAndCountries?.name || {},
+								locale
+							)}
 							plusIcon={
 								<span className="cursor-pointer text-[15px] font-semibold">
 									+
