@@ -30,6 +30,14 @@ const SearchBar: React.FC = () => {
 	}; // End of getSearchSuggestionsHandler function
 
 	useEffect(() => {
+		const { query } = router.query;
+		if (!query) {
+			// setSearchText('');
+			resetAllState();
+		}
+	}, [router.query?.query]);
+
+	useEffect(() => {
 		const setTimeoutHandler = setTimeout(
 			getSearchSuggestionsHandler,
 			400
@@ -52,20 +60,26 @@ const SearchBar: React.FC = () => {
 		setSearchText(searchTerm);
 	}; // End of onSearchTextChange function
 
-	const onSuggestionSelect = (suggestion: string) => {
+	const onSuggestionSelectHandler = (suggestion: string) => {
 		setSuggestions([]);
 		setShowSuggestion(false);
 		setSearchText(suggestion);
 		if (searchInputRef && searchInputRef.current) {
 			(searchInputRef.current as any).blur();
 		}
-		router.push(`product-search?all=${suggestion}`);
-	}; // End of onSuggestionSelect function
+		router.push(`product-search?query=${suggestion}`);
+	}; // End of onSuggestionSelectHandler function
 
 	const onFocusHandler = () => {
 		getSearchSuggestionsHandler(searchText);
 		setShowSuggestion(true);
 	}; // End of onFocusHandler function
+
+	const resetAllState = () => {
+		setSearchText('');
+		setSuggestions([]);
+		setShowSuggestion(false);
+	}; // End of resetAllState function
 
 	return (
 		<div>
@@ -83,7 +97,6 @@ const SearchBar: React.FC = () => {
 						// placeholder={t('search_product')}
 						onChange={onSearchTextChange}
 						onFocus={onFocusHandler}
-						autoComplete="on"
 						aria-label="Search"
 						className="h-full w-[82%] border-none pl-2 pr-2 outline-none lg:w-[95%] lg:pl-4"
 					/>
@@ -96,13 +109,13 @@ const SearchBar: React.FC = () => {
 				</label>
 
 				{/* suggestion list */}
-				{showSuggestion && (
+				{showSuggestion && suggestions.length > 0 && (
 					<div className="absolute left-4 z-[9000000000000000] w-[78%] rounded-b border-t border-gray/40 bg-white lg:w-[93%]">
 						<div className="px-4 pb-2">
 							{suggestions.map((suggestion) => (
 								<Button
 									key={suggestion}
-									onClick={() => onSuggestionSelect(suggestion)}
+									onClick={() => onSuggestionSelectHandler(suggestion)}
 									className="block min-h-[32px] !py-0 px-0 font-normal text-gray"
 								>
 									{suggestion}

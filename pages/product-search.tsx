@@ -182,12 +182,12 @@ const ProductSearchPage: NextPage<
 
 	// Fetching products based on categoriess
 	useEffect(() => {
-		const searchQuery = router.query?.query;
+		const { query: searchQuery, categories } = router.query;
 
-		if (!selectedMainCategoryId.id && !searchQuery) {
+		if (!selectedMainCategoryId.id && !searchQuery && categories) {
 			getProducts({
 				price_start: +(minPrice || 0),
-				categories: (router.query?.categories || '') as string,
+				categories: (categories || '') as string,
 				is_eco: isEco
 			}).then((data: any) => {
 				let categories = data.categories || {};
@@ -225,11 +225,17 @@ const ProductSearchPage: NextPage<
 				}
 
 				setProducts(productList);
+
+				console.log(' ');
+				console.log(
+					'Calling only when some one click on categories in category page'
+				);
+				console.log(' ');
 			});
 		}
 	}, [router.query?.categories]);
 
-	// Fetching products based on search
+	// Fetching products based on search query
 	useEffect(() => {
 		const searchQuery = router.query?.query;
 		if (searchQuery) {
@@ -240,12 +246,22 @@ const ProductSearchPage: NextPage<
 			}).then((data: any) => {
 				const productList = data.data || [];
 				setProducts(productList);
+				console.log(' ');
+				console.log(
+					'Calling only when query changes or search someone'
+				);
+				console.log(' ');
 			});
 		}
 	}, [router.query?.query]);
 
 	// Fetching products
 	useEffect(() => {
+		const { query: searchText } = router.query;
+		if (!selectedMainCategoryId.id && searchText) {
+			return;
+		}
+
 		const selectedCategories = subCategoryList.filter(
 			(subCategory: any) => {
 				return categoryIdList.includes(subCategory.id);
@@ -258,27 +274,11 @@ const ProductSearchPage: NextPage<
 
 		const subCategoryNames = [];
 		const specificCategoryNames = [];
-		console.log('selectedCategories =', selectedCategories);
 		for (let category of selectedCategories) {
 			const { subCategories = [] } = category || {};
-			console.log('category =', category);
-			console.log('----- =', category.id);
-			console.log(
-				'-----subCategories =',
-				selectedSubCategoryIds,
-				category.subCategories
-			);
-
-			console.log('subCategories =', subCategories);
 
 			for (let subCategory of subCategories) {
 				const { specificCategories = [] } = subCategory || {};
-				console.log('subCategory =', subCategory);
-
-				// console.log(
-				// 	subCategory,
-				// 	subCategoryIdList.includes(subCategory.id)
-				// );
 
 				if (subCategoryIdList.includes(subCategory.id)) {
 					subCategoryNames.push(subCategory?.title?.en);
@@ -303,6 +303,9 @@ const ProductSearchPage: NextPage<
 		}).then((data: any) => {
 			const productList = data.data || [];
 			setProducts(productList);
+			console.log(' ');
+			console.log('Calling only products');
+			console.log(' ');
 		});
 	}, [
 		selectedMainCategoryId.id,
