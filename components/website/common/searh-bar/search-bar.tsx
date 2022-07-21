@@ -26,7 +26,7 @@ const SearchBar: React.FC = () => {
 			setSuggestions([]);
 			return;
 		}
-		if (searchQuery.length <= 3) {
+		if (searchQuery.length <= 2) {
 			return;
 		}
 
@@ -80,8 +80,8 @@ const SearchBar: React.FC = () => {
 	}; // End of onFocusHandler function
 
 	const onBlurHandler = () => {
-		setSuggestions([]);
-		setShowSuggestion(false);
+		// setSuggestions([]);
+		// setShowSuggestion(false);
 	}; // End of onBlurHandler function
 
 	const resetAllState = () => {

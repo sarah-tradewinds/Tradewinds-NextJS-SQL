@@ -329,15 +329,25 @@ const ProductSearchPage: NextPage<
 		(product: any) => product.isInCompareList
 	);
 
+	// console.log(
+	// 	'selectedMainCategory?.banner_image =',
+	// 	selectedMainCategory?.banner_image?.url
+	// );
+
 	return (
 		<>
 			<Seo title="Product search page" description="" />
 
 			{/* Main Category Banner */}
 			<div className="relative h-[103px] md:h-[234px]">
+				{/* <Image */}
 				<ImageWithErrorHandler
-					src={selectedMainCategory?.banner_image}
-					alt=""
+					key={selectedMainCategory?.banner_image?.url}
+					src={selectedMainCategory?.banner_image?.url}
+					alt={getLocaleText(
+						selectedMainCategory?.title || {},
+						router.locale
+					)}
 					layout="fill"
 				/>
 			</div>
