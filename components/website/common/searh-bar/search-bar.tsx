@@ -23,8 +23,13 @@ const SearchBar: React.FC = () => {
 
 		// If text is not available then I am not going to call API
 		if (!searchQuery) {
+			setSuggestions([]);
 			return;
 		}
+		if (searchQuery.length <= 3) {
+			return;
+		}
+
 		const data = await getSearchSuggestions(searchQuery);
 		setSuggestions(data);
 	}; // End of getSearchSuggestionsHandler function
@@ -32,7 +37,6 @@ const SearchBar: React.FC = () => {
 	useEffect(() => {
 		const { query } = router.query;
 		if (!query) {
-			// setSearchText('');
 			resetAllState();
 		}
 	}, [router.query?.query]);
@@ -75,6 +79,11 @@ const SearchBar: React.FC = () => {
 		setShowSuggestion(true);
 	}; // End of onFocusHandler function
 
+	const onBlurHandler = () => {
+		setSuggestions([]);
+		setShowSuggestion(false);
+	}; // End of onBlurHandler function
+
 	const resetAllState = () => {
 		setSearchText('');
 		setSuggestions([]);
@@ -97,6 +106,7 @@ const SearchBar: React.FC = () => {
 						// placeholder={t('search_product')}
 						onChange={onSearchTextChange}
 						onFocus={onFocusHandler}
+						onBlur={onBlurHandler}
 						aria-label="Search"
 						className="h-full w-[82%] border-none pl-2 pr-2 outline-none lg:w-[95%] lg:pl-4"
 					/>

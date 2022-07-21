@@ -1,21 +1,24 @@
 import Image from 'next/image';
+import ImageWithErrorHandler from '../elements/image-with-error-handler';
 
 interface LocationHolderProps {
 	containerClassName?: string;
 	imageUrl: string;
+	color?: string;
 	title: string;
 	count?: number;
 }
 
 const LocationHolder: React.FC<LocationHolderProps> = (props) => {
-	const { containerClassName, imageUrl, title, count } = props;
+	const { containerClassName, imageUrl, color, title, count } = props;
 
 	return (
 		<div
 			className={`w-[192px]md:w-[172px] relative lg:w-[295px] ${containerClassName}`}
 		>
 			<div
-				className={`relative h-[168px] w-[192px] rounded-md bg-secondary shadow md:h-[156px] md:w-[172px] lg:h-[216px] lg:w-[295px]`}
+				style={{ backgroundColor: color }}
+				className={`relative h-[168px] w-[192px] rounded-md shadow md:h-[156px] md:w-[172px] lg:h-[216px] lg:w-[295px]`}
 			>
 				<div className="absolute left-1/2 -top-12 -translate-x-1/2 transform lg:-top-24">
 					{/* Inner box */}
@@ -30,7 +33,11 @@ const LocationHolder: React.FC<LocationHolderProps> = (props) => {
 							<div className="flex justify-center p-2 md:-mt-6 lg:-mt-0">
 								{/* Island Image */}
 								<div className="relative h-[60px] w-[50px] lg:h-[110px] lg:w-[135px]">
-									<Image src={imageUrl} alt={title} layout="fill" />
+									<ImageWithErrorHandler
+										src={imageUrl}
+										alt={title}
+										layout="fill"
+									/>
 								</div>
 							</div>
 

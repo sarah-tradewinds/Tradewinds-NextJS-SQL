@@ -11,6 +11,8 @@ import { getLocaleText } from 'utils/get_locale_text';
 interface RegionAndCountriesTileProps {
 	regionId: string;
 	regionName: string;
+	regionImageUrl: string;
+	regionColor?: string;
 	countries: [];
 	className?: string;
 	onCountryTileClick: (country: any) => any;
@@ -19,8 +21,14 @@ interface RegionAndCountriesTileProps {
 const RegionAndCountriesTile: React.FC<RegionAndCountriesTileProps> = (
 	props
 ) => {
-	const { regionName, countries, className, onCountryTileClick } =
-		props;
+	const {
+		regionName,
+		regionImageUrl,
+		regionColor,
+		countries,
+		className,
+		onCountryTileClick
+	} = props;
 
 	const [isExpanded, setIsExpanded] = useState(false);
 	const { locale } = useRouter();
@@ -36,7 +44,8 @@ const RegionAndCountriesTile: React.FC<RegionAndCountriesTileProps> = (
 			<div>
 				<LocationHolder
 					title={regionName}
-					imageUrl="/static/images/search-by-country-images/north-america.png"
+					imageUrl={regionImageUrl}
+					color={regionColor}
 					count={countryLength}
 				/>
 			</div>

@@ -25,6 +25,11 @@ const RegionsAndCountriesList: React.FC<{
 							regionAndCountries.name || {},
 							locale
 						)}
+						regionImageUrl={
+							regionAndCountries?.image?.url ||
+							'/static/images/search-by-country-images/shape.png'
+						}
+						regionColor={regionAndCountries?.color}
 						countries={countries || []}
 						className={className}
 						onCountryTileClick={onCountryClick}
