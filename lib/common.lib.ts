@@ -89,3 +89,18 @@ export const getCountries = async () => {
 		return [];
 	}
 }; // End of getCountries function
+
+export const getSearchSuggestions = async (searchText: string) => {
+	try {
+		const { data } = await serviceAxiosInstance.get(
+			`/product/global/search?query=${searchText}`
+		);
+
+		return data.data || [];
+	} catch (error) {
+		console.log('[getSearchSuggestions] =', error);
+		const { data } = (error as any).response || {};
+		// throw Error(data || 'Error occurred getSearchSuggestions');
+		return [];
+	}
+}; // End of getSearchSuggestions function

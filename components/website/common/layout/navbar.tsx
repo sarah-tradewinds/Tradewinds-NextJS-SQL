@@ -33,6 +33,7 @@ import CartIcon from '../elements/cart-icon';
 import LanguageDropdown from '../elements/lang-menu';
 import NavLink from '../elements/nav-link';
 import Button from '../form/button';
+import SearchBar from '../searh-bar/search-bar';
 
 const Header = () => {
 	const [isCartModalOpen, setIsCartModalOpen] = useState(false);
@@ -143,7 +144,9 @@ const Header = () => {
 					</div>
 
 					{/* Search Input */}
+					<SearchBar />
 					<form
+						className="hidden"
 						onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
 							e.preventDefault();
 							const searchTerm = (
