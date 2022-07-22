@@ -91,7 +91,7 @@ const ShopByCountryPage: NextPage<
 														country.name || {},
 														router.locale
 													)}
-													imageUrl={country.url || '/flags/frame.png'}
+													imageUrl={country?.image?.url}
 													onClick={() => {
 														countryClickHandler(
 															country.id,

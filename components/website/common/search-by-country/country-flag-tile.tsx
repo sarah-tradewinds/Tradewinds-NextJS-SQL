@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import ImageWithErrorHandler from '../elements/image-with-error-handler';
 
 interface CountryFlagTileProps {
 	containerClassName?: string;
@@ -14,7 +14,11 @@ const CountryFlagTile: React.FC<CountryFlagTileProps> = (props) => {
 		<div className={`relative ${containerClassName}`} onClick={onClick}>
 			<div className="flex">
 				<div className="relative h-[27px] w-[43px]">
-					<Image src={imageUrl} alt={title} layout="fill" />
+					<ImageWithErrorHandler
+						src={imageUrl}
+						alt={title}
+						layout="fill"
+					/>
 				</div>
 				<p className="pl-4 text-[20px] text-gray">{title}</p>
 			</div>

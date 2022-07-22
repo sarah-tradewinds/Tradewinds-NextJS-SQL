@@ -56,7 +56,7 @@ const RegionAndCountriesTile: React.FC<RegionAndCountriesTileProps> = (
 					return (
 						<CountryFlagTile
 							key={country?.id}
-							imageUrl="/static/images/search-by-country-images/flags/usa.png"
+							imageUrl={country?.image?.url}
 							title={getLocaleText(country?.name || {}, locale)}
 							onClick={() => onCountryTileClick(country)}
 							containerClassName="cursor-pointer"
