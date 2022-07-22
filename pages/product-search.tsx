@@ -339,18 +339,20 @@ const ProductSearchPage: NextPage<
 			<Seo title="Product search page" description="" />
 
 			{/* Main Category Banner */}
-			<div className="relative h-[103px] md:h-[234px]">
-				{/* <Image */}
-				<ImageWithErrorHandler
-					key={selectedMainCategory?.banner_image?.url}
-					src={selectedMainCategory?.banner_image?.url}
-					alt={getLocaleText(
-						selectedMainCategory?.title || {},
-						router.locale
-					)}
-					layout="fill"
-				/>
-			</div>
+			{selectedMainCategoryId.id && (
+				<div className="relative h-[103px] md:h-[234px]">
+					{/* <Image */}
+					<ImageWithErrorHandler
+						key={selectedMainCategory?.banner_image?.url}
+						src={selectedMainCategory?.banner_image?.url}
+						alt={getLocaleText(
+							selectedMainCategory?.title || {},
+							router.locale
+						)}
+						layout="fill"
+					/>
+				</div>
+			)}
 
 			<div className="relative grid grid-cols-12 gap-4 md:p-4 lg:gap-6 lg:p-6">
 				{/* Side container */}

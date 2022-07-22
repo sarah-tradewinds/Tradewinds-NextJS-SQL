@@ -3,6 +3,8 @@ import { getSearchSuggestions } from 'lib/common.lib';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { HiOutlineSearch } from 'react-icons/hi';
+import { useCountriesStore } from 'store/countries-store';
+import { useCategoryStore } from 'store/eco/category-store';
 
 // components
 import Button from '../form/button';
@@ -15,6 +17,13 @@ const SearchBar: React.FC = () => {
 	const searchInputRef = useRef(null);
 
 	const router = useRouter();
+
+	const removeCategoryFilter = useCategoryStore(
+		(state) => state.removeCategoryFilter
+	);
+	const removeSelectedCountries = useCountriesStore(
+		(state) => state.removeSelectedCountries
+	);
 
 	const getSearchSuggestionsHandler = async (
 		searchKeyword?: string
@@ -71,6 +80,8 @@ const SearchBar: React.FC = () => {
 		if (searchInputRef && searchInputRef.current) {
 			(searchInputRef.current as any).blur();
 		}
+		removeCategoryFilter();
+		removeSelectedCountries();
 		router.push(`product-search?query=${suggestion}`);
 	}; // End of onSuggestionSelectHandler function
 
@@ -122,15 +133,22 @@ const SearchBar: React.FC = () => {
 				{showSuggestion && suggestions.length > 0 && (
 					<div className="absolute left-4 z-[9000000000000000] w-[78%] rounded-b border-t border-gray/40 bg-white lg:w-[93%]">
 						<div className="px-4 pb-2">
-							{suggestions.map((suggestion) => (
-								<Button
-									key={suggestion}
-									onClick={() => onSuggestionSelectHandler(suggestion)}
-									className="block min-h-[32px] !py-0 px-0 font-normal text-gray"
-								>
-									{suggestion}
-								</Button>
-							))}
+							{suggestions.map((suggestion) => {
+								if (!suggestion) {
+									return null;
+								}
+								return (
+									<Button
+										key={suggestion}
+										onClick={() =>
+											onSuggestionSelectHandler(suggestion)
+										}
+										className="block min-h-[32px] !py-0 px-0 font-normal text-gray"
+									>
+										{suggestion}
+									</Button>
+								);
+							})}
 						</div>
 					</div>
 				)}
