@@ -1,8 +1,10 @@
+import { GetStaticProps, NextPage } from 'next';
+
 import CartList from 'components/website/cart/cart-list';
 import Button from 'components/website/common/form/button';
-import { NextPage } from 'next';
-import Image from 'next/image';
-import { MdClose } from 'react-icons/md';
+
+// Third party packages
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // store
 import { useCartStore } from 'store/cart-store';
@@ -11,88 +13,74 @@ const CartPage: NextPage = () => {
 	const { totalCartCount, carts } = useCartStore();
 
 	return (
-		<div className="">
-			<h1>Cart page</h1>
+		<div className="grid grid-cols-12 gap-4 py-4 px-8">
+			{/* Stat cards */}
+			<div className="col-span-12">
+				<div className="grid grid-cols-2 gap-4">
+					{/* Stat cards */}
+					<div className="space-y-4 rounded-md bg-white px-4 py-2 pb-8 shadow-md">
+						<p className="text-[38px] font-semibold text-primary-main">
+							Hi, Vishal
+						</p>
+						<p className="text-[26px] font-semibold text-gray">
+							Total number of items in cart
+						</p>
+						<p className="text-center text-[38px] font-semibold">
+							<span className="text-gray">Qty:</span>
+							<span className="text-primary-main">4</span>
+						</p>
+					</div>
 
-			<div className="fixed right-0 top-0 z-[8000000000000] h-screen w-[480px] bg-white">
-				<div className="flex justify-end pt-4">
-					<Button className="text-black">
-						<MdClose size={40} />
-					</Button>
+					<div className="flex flex-col items-center space-y-4 rounded-md bg-white p-2 pb-8 shadow-md">
+						<div className="text-[35px] font-semibold">
+							<p className="text-gray">Subtotal (4 items):</p>
+							<p className="text-center text-primary-main">
+								$100,000.00
+							</p>
+						</div>
+						<Button variant="special" className="h-[71px] !text-[30px]">
+							Review and purchase
+						</Button>
+					</div>
 				</div>
-
-				<h4 className="px-4 pt-8 text-[32px] font-semibold">
-					{totalCartCount === 0 ? (
-						<span className="block text-center">
-							{' '}
-							Your cart is Empty
-						</span>
-					) : (
-						<span> Shopping Cart</span>
-					)}
-				</h4>
-
-				{/* Cart product list */}
-				<CartList carts={carts} />
 			</div>
 
-			<div className="p-8">
-				{carts.map((cartProduct: any) => {
-					const { images = [] } = cartProduct;
+			{/* carts product list */}
+			<div className="col-span-12 bg-white px-4 py-2">
+				<h3 className="mb-4 border-b-2 border-gray/40 text-[38px] font-semibold text-primary-main">
+					Shopping Cart
+				</h3>
 
-					return (
-						<div
-							key={cartProduct.id}
-							className="flex items-center space-x-4 rounded-md bg-white p-4 shadow-md"
-						>
-							<div className="relative h-[80px] w-[80px]">
-								<Image
-									src={
-										images[0]
-											? images[0].url
-											: '/vehicles/green-tractor.png'
-									}
-									alt={cartProduct.product_name}
-									layout="fill"
-								/>
-							</div>
+				<div>
+					<CartList
+						carts={[
+							{ id: '1', quantity: 1 },
+							{ id: '1', quantity: 1 }
+						]}
+					/>
+				</div>
+			</div>
 
-							<div className="flex w-full justify-between">
-								{/* Product name and properties */}
-								<div>
-									<p className="font-semibold text-gray/80">
-										{cartProduct.product_name}
-									</p>
-									<p>Size: </p>
-								</div>
-
-								{/* Product quantity action */}
-								<div className="flex">
-									<button className="h-[40px] w-[40px] rounded-full bg-gray text-black">
-										+
-									</button>
-									<span>{cartProduct.quantity}</span>
-									<button className="h-[40px] w-[40px] rounded-full bg-gray text-black">
-										-
-									</button>
-								</div>
-
-								{/* Price and quantity */}
-								<div>
-									<p className="font-bold">
-										${cartProduct.product_price}
-									</p>
-									<p className="text-gray/80">
-										Quantity: {cartProduct.quantity}
-									</p>
-								</div>
-							</div>
-						</div>
-					);
-				})}
+			{/* Total */}
+			<div className="col-span-12">
+				<div className="flex flex-col items-center space-y-4 rounded-md bg-white p-2 pb-8 shadow-md">
+					<div className="text-[35px] font-semibold">
+						<p className="text-gray">Subtotal (4 items):</p>
+						<p className="text-center text-primary-main">$100,000.00</p>
+					</div>
+					<Button variant="special" className="h-[71px] !text-[30px]">
+						Review and purchase
+					</Button>
+				</div>
 			</div>
 		</div>
 	);
 };
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+	props: {
+		...(await serverSideTranslations(locale || 'en'))
+	}
+});
 
 export default CartPage;

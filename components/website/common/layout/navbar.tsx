@@ -149,7 +149,8 @@ const Header = () => {
 					<div>
 						<CartIcon
 							count={totalCartCount}
-							onClick={() => setIsCartModalOpen(true)}
+							// onClick={() => setIsCartModalOpen(true)}
+							onClick={() => router.push('/cart')}
 							iconClassName="pc:!text-[24px]"
 						/>
 						{isAuth && (
