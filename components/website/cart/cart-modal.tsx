@@ -2,7 +2,6 @@
 import { MdClose } from 'react-icons/md';
 
 // components
-import CartList from 'components/website/cart/cart-list';
 import Button from 'components/website/common/form/button';
 
 // stores
@@ -54,7 +53,7 @@ const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
 				</h4>
 
 				{/* Cart product list */}
-				<CartList carts={carts} />
+				{/* <CartList carts={carts} /> */}
 			</div>
 		</>
 	);
