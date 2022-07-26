@@ -6,10 +6,11 @@ import { CartProduct } from 'store/cart-store';
 
 interface CartListProps {
 	carts: CartProduct[];
+	removeProductByIdFromCart: (productId: string) => any;
 }
 
 const CartList: React.FC<CartListProps> = (props) => {
-	const { carts } = props;
+	const { carts, removeProductByIdFromCart } = props;
 
 	return (
 		<div className="grid grid-cols-1 gap-4">
@@ -21,7 +22,7 @@ const CartList: React.FC<CartListProps> = (props) => {
 						<CartItem
 							id={id}
 							productName={'Product name'}
-							productPrice={cartProduct.product_price}
+							productPrice={cartProduct.product_price || 100}
 							imageUrl={
 								images[0]
 									? images[0].url
@@ -32,6 +33,7 @@ const CartList: React.FC<CartListProps> = (props) => {
 							minOrderQuantity={10}
 							totalReviewCount={10}
 							description="product desciption  adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat"
+							onRemove={() => removeProductByIdFromCart(id)}
 						/>
 					</div>
 				);
