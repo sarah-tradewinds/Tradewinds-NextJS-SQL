@@ -143,7 +143,7 @@ const SearchBar: React.FC = () => {
 										onClick={() =>
 											onSuggestionSelectHandler(suggestion)
 										}
-										className="block min-h-[32px] !py-0 px-0 font-normal text-gray"
+										className="block min-h-[32px] !py-0 px-0 font-normal !text-gray"
 									>
 										{suggestion}
 									</Button>

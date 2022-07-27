@@ -84,7 +84,8 @@ const Header = () => {
 				isOpen={isCartModalOpen}
 				onClose={() => setIsCartModalOpen(false)}
 			/>
-			<header className="sticky top-0 z-[1000] w-full bg-primary-main dark:bg-primary-eco">
+			{/* <header className="sticky top-0 z-[1000] w-full bg-primary-main dark:bg-primary-eco"> */}
+			<header className="sticky top-0 z-[1000]  w-full bg-gradient-to-r from-success via-accent-primary-main to-primary-main dark:bg-primary-eco">
 				<div
 					className="mx-auto flex h-[80px] w-[96%] items-center justify-between"
 					onClick={() => setShowLogout(false)}

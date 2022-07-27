@@ -27,13 +27,13 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 		},
 		breakpoints: {
 			'(min-width: 640px)': {
-				slides: { perView: 3, spacing: 10 }
-			},
-			'(min-width: 768px)': {
 				slides: { perView: 4, spacing: 8 }
 			},
+			'(min-width: 768px)': {
+				slides: { perView: 6, spacing: 8 }
+			},
 			'(min-width: 1024px)': {
-				slides: { perView: 5, spacing: 8 }
+				slides: { perView: 8, spacing: 8 }
 			}
 		}
 	});
@@ -57,13 +57,13 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 								onCountryClick(country);
 							}
 						}}
-						className="keen-slider__slide h-[80px] w-[180px] px-4"
+						className="keen-slider__slide"
 					>
 						<ImageWithErrorHandler
 							src={country.image?.url}
 							alt=""
-							width={180}
-							height={80}
+							width="107px"
+							height="64.2px"
 						/>
 					</Button>
 				))}

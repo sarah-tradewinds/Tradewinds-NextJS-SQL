@@ -1,6 +1,6 @@
 // Third party packages
 import { useRouter } from 'next/router';
-import { AiOutlinePlus } from 'react-icons/ai';
+import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import Skeleton from 'react-loading-skeleton';
 
 // data
@@ -35,8 +35,6 @@ const CategoriesFilter: React.FC = (props) => {
 		}
 	}
 
-	// console.log('categoryIdList =', categoryIdList, allCategories);
-
 	return (
 		<div className="mt-4 space-y-2">
 			{/* Main categories */}
@@ -60,12 +58,12 @@ const CategoriesFilter: React.FC = (props) => {
 						id={mainCategoryId}
 						isOpen={isMainCategorySelected}
 						title={mainCategoryTitle}
-						onClick={() =>
+						onClick={() => {
 							setSelectedMainCategoryId(
 								isMainCategorySelected ? '' : mainCategoryId,
 								mainCategoryTitle
-							)
-						}
+							);
+						}}
 					>
 						{/* Categories */}
 						{categories?.map((category: any) => {
@@ -182,9 +180,7 @@ const CategoryCollapse: React.FC<{
 					isOpen ? 'font-semibold' : ''
 				}`}
 			>
-				<span>
-					<AiOutlinePlus />
-				</span>
+				<span>{isOpen ? <AiOutlineMinus /> : <AiOutlinePlus />}</span>
 				<span>{title}</span>
 			</label>
 			{isOpen && <div>{children}</div>}

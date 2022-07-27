@@ -143,8 +143,6 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 
 	return (
 		<>
-			{/* <VendorMessageInput onClose={() => {}} /> */}
-
 			<div className="grid w-full grid-cols-12 overflow-hidden bg-white md:rounded-xl md:shadow-md lg:p-4">
 				<div className="col-span-12 space-y-4 lg:col-span-9">
 					<div className="grid grid-cols-12 gap-4 md:gap-0">
@@ -181,6 +179,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 										</h2>
 									</a>
 								</Link>
+								{/* keywords */}
 								<div className="flex justify-between font-semibold text-primary-main md:text-[12px] lg:text-[16px]">
 									{keywords.map((keyword) => (
 										<span key={keyword}>{keyword}</span>
@@ -189,9 +188,9 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 							</div>
 
 							{/* Product price and verified image */}
-							<div className="grid grid-cols-12">
+							<div className="mb-2 grid grid-cols-12 border-b-gray/20 md:border-b-2">
 								{/* Price and quantity */}
-								<div className="col-span-12 border-b-gray/40 text-[12px] font-semibold text-primary-main md:col-span-8 md:border-b md:py-2 md:text-[18px] lg:col-span-12 lg:text-[21px]">
+								<div className="col-span-12 text-[12px] font-semibold text-primary-main md:col-span-8 md:py-2 md:text-[18px] lg:col-span-12 lg:text-[21px]">
 									{/* <h3>
 									${minPrice} - ${maxPrice} /piece
 								</h3> */}

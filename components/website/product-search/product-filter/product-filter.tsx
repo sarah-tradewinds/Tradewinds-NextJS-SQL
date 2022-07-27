@@ -18,7 +18,7 @@ const ProductFilter: React.FC<ProductFilterProps> = (props) => {
 	const [minPrice, setMinPrice] = useState('0');
 
 	return (
-		<div className="space-y-6 rounded-xl bg-white p-4 pb-40 shadow-md">
+		<div className="bg-whites h-screen space-y-6 overflow-y-auto rounded-xl bg-white p-4 pb-40 shadow-md">
 			{/* Categories filter */}
 			<div>
 				<h4 className="font-semibold text-gray md:text-[14px] lg:text-[18px]">
