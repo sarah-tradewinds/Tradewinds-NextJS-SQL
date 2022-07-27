@@ -14,7 +14,6 @@ const MegaMenu = dynamic(
 );
 
 // stores
-import CartModal from 'components/website/cart/cart-modal';
 import {
 	BUYER_DASHBOARD_ACTIONS,
 	BUYER_DASHBOARD_PAGES,
@@ -80,10 +79,6 @@ const Header = () => {
 
 	return (
 		<>
-			<CartModal
-				isOpen={isCartModalOpen}
-				onClose={() => setIsCartModalOpen(false)}
-			/>
 			{/* <header className="sticky top-0 z-[1000] w-full bg-primary-main dark:bg-primary-eco"> */}
 			<header className="sticky top-0 z-[1000]  w-full bg-gradient-to-r from-success via-accent-primary-main to-primary-main dark:bg-primary-eco">
 				<div
