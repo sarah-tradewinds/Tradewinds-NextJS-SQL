@@ -6,11 +6,19 @@ import { CartProduct } from 'store/cart-store';
 
 interface CartListProps {
 	carts: CartProduct[];
+	updateQuantityByProductId: (
+		quantity: number,
+		productId: string
+	) => any;
 	removeProductByIdFromCart: (productId: string) => any;
 }
 
 const CartList: React.FC<CartListProps> = (props) => {
-	const { carts, removeProductByIdFromCart } = props;
+	const {
+		carts,
+		updateQuantityByProductId,
+		removeProductByIdFromCart
+	} = props;
 
 	return (
 		<div className="grid grid-cols-1 gap-4">
@@ -33,6 +41,7 @@ const CartList: React.FC<CartListProps> = (props) => {
 							minOrderQuantity={10}
 							totalReviewCount={10}
 							description="product desciption  adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat"
+							onUpdate={updateQuantityByProductId}
 							onRemove={() => removeProductByIdFromCart(id)}
 						/>
 					</div>

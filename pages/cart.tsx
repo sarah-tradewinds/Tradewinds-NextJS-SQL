@@ -20,8 +20,13 @@ const CartPage: NextPage = () => {
 		})
 	);
 
-	const { totalCartCount, subtotal, carts, removeProductByIdFromCart } =
-		useCartStore();
+	const {
+		totalCartCount,
+		subtotal,
+		carts,
+		updateQuantityByProductId,
+		removeProductByIdFromCart
+	} = useCartStore();
 
 	const router = useRouter();
 
@@ -108,6 +113,7 @@ const CartPage: NextPage = () => {
 				<div>
 					<CartList
 						carts={carts}
+						updateQuantityByProductId={updateQuantityByProductId}
 						removeProductByIdFromCart={removeProductByIdFromCart}
 					/>
 				</div>

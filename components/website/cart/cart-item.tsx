@@ -21,6 +21,7 @@ interface CartItemProps {
 	minOrderQuantity: number;
 	imageUrl: string;
 	totalReviewCount: number;
+	onUpdate: (quantity: number, productId: string) => any;
 	onRemove?: () => any;
 }
 
@@ -35,6 +36,7 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 		minOrderQuantity,
 		imageUrl,
 		totalReviewCount,
+		onUpdate,
 		onRemove
 	} = props;
 
@@ -186,17 +188,18 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 							{/* Quantity input and total amount */}
 							<div className="col-span-12 mt-2 md:col-span-5 md:flex md:justify-between">
 								<div className="">
-									<span className="text-[15px] font-semibold text-primary-main md:text-[21px]">
-										Qty:
-									</span>
-									<input
-										value={productQuantity}
-										onChange={quantityChangeHandler}
-										className="h-[38px] w-[53px] border p-2 outline-none"
-									/>
-									<Button
-										onClick={() => alert('update quantity. Call API')}
-									>
+									<div>
+										<span className="text-[15px] font-semibold text-primary-main md:text-[21px]">
+											Qty:
+										</span>
+										<input
+											value={productQuantity}
+											onChange={quantityChangeHandler}
+											className="h-[38px] w-[53px] border p-2 outline-none"
+										/>
+									</div>
+
+									<Button onClick={() => onUpdate(productQuantity, id)}>
 										<p className="text-right text-[12px] font-semibold text-accent-primary-main md:text-[18px]">
 											Update
 										</p>

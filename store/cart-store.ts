@@ -10,6 +10,10 @@ interface CartState {
 	totalCartCount: number;
 	subtotal: number;
 	addToCart: (productId: string, product?: any) => any;
+	updateQuantityByProductId: (
+		quantity: number,
+		productId: string
+	) => any;
 	removeProductByIdFromCart: (productId: string) => any;
 }
 
@@ -42,16 +46,29 @@ export const useCartStore = create<CartState>((set) => ({
 				cartList[productIndex] = updatedCartProduct;
 			}
 
-			// const newTotalCartCount = cartList.reduce(
-			// 	(total, currentProduct) => total + currentProduct.quantity,
-			// 	0
-			// );
-
 			const { totalQuantity, subtotal } =
 				getTotalAmountAndQuantity(cartList);
 
 			return {
 				carts: cartList,
+				totalCartCount: totalQuantity,
+				subtotal
+			};
+		});
+	},
+	updateQuantityByProductId: (quantity, productId) => {
+		set(({ carts }) => {
+			const updatedCart = carts.map((product) => {
+				if (product.id === productId) {
+					product.quantity = quantity;
+				}
+				return product;
+			});
+			const { totalQuantity, subtotal } =
+				getTotalAmountAndQuantity(updatedCart);
+
+			return {
+				carts: updatedCart,
 				totalCartCount: totalQuantity,
 				subtotal
 			};

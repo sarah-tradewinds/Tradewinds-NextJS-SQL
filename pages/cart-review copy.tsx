@@ -3,7 +3,6 @@ import { GetStaticProps, NextPage } from 'next';
 import Button from 'components/website/common/form/button';
 
 // Third party packages
-import { loadStripe } from '@stripe/stripe-js';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // store
@@ -11,12 +10,6 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useAuthStore } from 'store/auth';
 import { useCartStore } from 'store/cart-store';
-
-// Make sure to call `loadStripe` outside of a component's render to avoid
-// recreating the `Stripe` object on every render.
-const stripePromise = loadStripe(
-	'pk_test_51BTUDGJAJfZb9HEBwDg86TN1KNprHjkfipXmEDMb0gSCassK5T3ZfxsAbcgKVmAIXF7oZ6ItlZZbXO6idTHE67IM007EwQ4uN3'
-);
 
 const CartReviewPage: NextPage = () => {
 	const { customerData, isAuth, setIsLoginOpen } = useAuthStore(
@@ -190,21 +183,14 @@ const CartReviewPage: NextPage = () => {
 							<th className="w-1/4 md:w-1/2">Subtotal</th>
 						</tr>
 						<tbody>
-							{carts.map((cart) => {
-								return (
-									<tr key={cart.id} className="text-[18px] text-gray">
-										<td className="md:text-center">
-											SKU# Big green Tractor
-										</td>
-										<td className="md:text-center">{cart.quantity}</td>
-										<td className="md:text-center">$100</td>
-										<td className="md:text-center">
-											${cart.quantity * 100}
-										</td>
-									</tr>
-								);
-							})}
-
+							<tr className="text-[18px] text-gray">
+								<td className="md:text-center">
+									SKU# Big green Tractor
+								</td>
+								<td className="md:text-center">3</td>
+								<td className="md:text-center">$25,000</td>
+								<td className="md:text-center">$75,000</td>
+							</tr>
 							<tr>
 								<td></td>
 								<td></td>
