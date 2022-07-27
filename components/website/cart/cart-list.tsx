@@ -2,7 +2,9 @@
 import CartItem from './cart-item';
 
 // store
+import { useRouter } from 'next/router';
 import { CartProduct } from 'store/cart-store';
+import { getLocaleText } from 'utils/get_locale_text';
 
 interface CartListProps {
 	carts: CartProduct[];
@@ -20,29 +22,36 @@ const CartList: React.FC<CartListProps> = (props) => {
 		removeProductByIdFromCart
 	} = props;
 
+	const { locale } = useRouter();
+
 	return (
 		<div className="grid grid-cols-1 gap-4">
-			{carts.map((cartProduct: any) => {
-				const { id, images = [] } = cartProduct;
+			{carts?.map((cartProduct: any) => {
+				const { id, product } = cartProduct;
 
 				return (
 					<div key={id} className="border-b-gray/40 pb-4 odd:border-b">
 						<CartItem
-							id={id}
-							productName={'Product name'}
-							productPrice={cartProduct.product_price || 100}
-							imageUrl={
-								images[0]
-									? images[0].url
-									: '/vehicles/green-tractor.png'
-							}
+							id={product.id}
+							productName={getLocaleText(
+								product.product_name || {},
+								locale
+							)}
+							description={getLocaleText(
+								product.product_description || {},
+								locale
+							)}
+							productPrice={product.product_price}
+							imageUrl={product?.images[0] ? product.images[0].url : ''}
 							quantity={cartProduct.quantity}
+							total={cartProduct.total}
 							displayPrice=""
-							minOrderQuantity={10}
+							minOrderQuantity={
+								product?.inventory?.minimum_order_quantity
+							}
 							totalReviewCount={10}
-							description="product desciption  adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat"
 							onUpdate={updateQuantityByProductId}
-							onRemove={() => removeProductByIdFromCart(id)}
+							onRemove={() => removeProductByIdFromCart(product.id)}
 						/>
 					</div>
 				);

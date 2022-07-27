@@ -1,18 +1,5 @@
 import { serviceAxiosInstance } from 'utils/axios-instance.utils';
 
-// export const getCategories = async () => {
-// 	try {
-// 		const { data } = await serviceAxiosInstance.get('/categories');
-
-// 		return data.data || [];
-// 	} catch (error) {
-// 		console.log('[getCategories] =', error);
-// 		const { data } = (error as any).response || {};
-// 		// throw Error(data || 'Error occurred getCategories');
-// 		return [];
-// 	}
-// }; // End of getHomeCategories function
-
 export const getMainCategories = async (isEco?: boolean) => {
 	try {
 		const { data } = await serviceAxiosInstance.get(

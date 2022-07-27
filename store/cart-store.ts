@@ -1,14 +1,18 @@
+import { addProductToCart, getCart, updateCart } from 'lib/cart.lib';
 import create from 'zustand';
 
 export interface CartProduct {
-	id: string;
+	product: any;
+	total: number;
 	quantity: number;
 }
 
 interface CartState {
-	carts: CartProduct[];
+	id: string;
+	cartProducts: CartProduct[];
 	totalCartCount: number;
 	subtotal: number;
+	fetchCart: () => any;
 	addToCart: (productId: string, product?: any) => any;
 	updateQuantityByProductId: (
 		quantity: number,
@@ -18,30 +22,50 @@ interface CartState {
 }
 
 export const useCartStore = create<CartState>((set) => ({
-	carts: [],
+	id: '',
+	cartProducts: [],
 	totalCartCount: 0,
 	subtotal: 0,
-	addToCart: (productId: string, product?: any) => {
-		set(({ carts }) => {
-			const cartList = [...carts];
+	fetchCart: async () => {
+		const cart = await getCart('62b453142f60be1e439617ac');
+		const cartProducts = cart.item;
+
+		const { totalQuantity } = getTotalAmountAndQuantity(cartProducts);
+
+		set({
+			id: cart.id,
+			cartProducts,
+			totalCartCount: totalQuantity,
+			subtotal: cart.subtotal || 0
+		});
+	},
+	addToCart: async (productId: string, product?: any) => {
+		set(({ id, totalCartCount, cartProducts }) => {
+			const cartList: CartProduct[] = [...(cartProducts || [])];
 			const productIndex = cartList.findIndex(
-				(product) => product.id === productId
+				(cartProduct) => cartProduct.product?.id === productId
 			);
 
 			// Adding new product in cart if product is not available in the cart list
 			if (productIndex < 0) {
 				cartList.push({
-					id: productId,
 					quantity: 1,
-					...product
+					product: product || {},
+					total: product.product_price
 				});
 			} else {
 				// Updating product quantity by 1 in cart because product is available in the cart list
 				const cartProduct = cartList[productIndex];
+
+				const updatedQuantity = cartProduct.quantity + 1;
+				const total =
+					cartProduct.product.product_price * updatedQuantity;
+
 				const updatedCartProduct = {
 					...cartProduct,
-					quantity: cartProduct.quantity + 1,
-					...product
+					...product,
+					quantity: updatedQuantity,
+					total
 				};
 				cartList[productIndex] = updatedCartProduct;
 			}
@@ -49,42 +73,81 @@ export const useCartStore = create<CartState>((set) => ({
 			const { totalQuantity, subtotal } =
 				getTotalAmountAndQuantity(cartList);
 
+			if (!totalCartCount) {
+				addProductToCart('62b453142f60be1e439617ac', {
+					product_id: productId,
+					quantity: 1
+				});
+			} else {
+				updateCart(
+					id,
+					'62b453142f60be1e439617ac',
+					cartList.map((cartProduct) => ({
+						product_id: cartProduct.product?.id,
+						quantity: cartProduct.quantity
+					}))
+				);
+			}
+
 			return {
-				carts: cartList,
+				cartProducts: cartList,
 				totalCartCount: totalQuantity,
 				subtotal
 			};
 		});
 	},
 	updateQuantityByProductId: (quantity, productId) => {
-		set(({ carts }) => {
-			const updatedCart = carts.map((product) => {
-				if (product.id === productId) {
-					product.quantity = quantity;
+		set(({ id, cartProducts }) => {
+			const updatedCart: CartProduct[] = cartProducts.map(
+				(cartProduct) => {
+					if (cartProduct.product.id === productId) {
+						cartProduct.quantity = quantity;
+						cartProduct.total =
+							cartProduct.product.product_price * quantity;
+					}
+					return cartProduct;
 				}
-				return product;
-			});
+			);
+
 			const { totalQuantity, subtotal } =
 				getTotalAmountAndQuantity(updatedCart);
 
+			updateCart(
+				id,
+				'62b453142f60be1e439617ac',
+				updatedCart.map((cartProduct) => ({
+					product_id: cartProduct.product?.id,
+					quantity: cartProduct.quantity
+				}))
+			);
+
 			return {
-				carts: updatedCart,
+				cartProducts: updatedCart,
 				totalCartCount: totalQuantity,
 				subtotal
 			};
 		});
 	},
 	removeProductByIdFromCart: (productId) => {
-		set(({ carts }) => {
-			const updatedCarts = carts.filter(
-				(product) => product.id !== productId
+		set(({ id, cartProducts }) => {
+			const updatedCarts = cartProducts.filter(
+				(cartProduct) => cartProduct.product.id !== productId
 			);
 
 			const { totalQuantity, subtotal } =
 				getTotalAmountAndQuantity(updatedCarts);
 
+			updateCart(
+				id,
+				'62b453142f60be1e439617ac',
+				updatedCarts.map((cartProduct) => ({
+					product_id: cartProduct.product?.id,
+					quantity: cartProduct.quantity
+				}))
+			);
+
 			return {
-				carts: updatedCarts,
+				cartProducts: updatedCarts,
 				totalCartCount: totalQuantity,
 				subtotal
 			};
@@ -92,22 +155,13 @@ export const useCartStore = create<CartState>((set) => ({
 	}
 }));
 
-const getTotalQuantity = (cartList: any[]) => {
-	const newTotalCartCount = cartList.reduce(
-		(total, currentProduct) => total + currentProduct.quantity,
-		0
-	);
-
-	return newTotalCartCount || 0;
-}; // End of getTotalQuantity function
-
-const getTotalAmountAndQuantity = (cartList: any[]) => {
+const getTotalAmountAndQuantity = (cartList: CartProduct[]) => {
 	let totalQuantity = 0;
 	let subtotal = 0;
 	for (const cart of cartList) {
-		const { quantity, price } = cart;
-		totalQuantity += quantity;
-		subtotal += quantity * price;
+		const { quantity, product } = cart;
+		totalQuantity += +quantity;
+		subtotal += +quantity * product.product_price;
 	}
 
 	return { totalQuantity, subtotal };

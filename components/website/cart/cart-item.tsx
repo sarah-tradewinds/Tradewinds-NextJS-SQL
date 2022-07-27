@@ -16,6 +16,7 @@ interface CartItemProps {
 	productName: string;
 	description: string;
 	quantity: number;
+	total: number;
 	productPrice: number;
 	displayPrice: string;
 	minOrderQuantity: number;
@@ -31,6 +32,7 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 		productName,
 		description,
 		quantity,
+		total,
 		productPrice,
 		displayPrice,
 		minOrderQuantity,
@@ -123,6 +125,7 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 
 		setProductQuantity(value);
 	}; // End of quantityChangeHandler
+	console.log(imageUrl);
 
 	return (
 		<div className="grid grid-cols-12">
@@ -135,7 +138,8 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 								<a>
 									<div className="relative h-[81px] w-[114px] md:h-[101px] md:w-[143px] lg:h-[205px] lg:w-[290px]">
 										<ImageWithErrorHandler
-											src={imageUrl || '/vehicles/eegnr - tractor.png'}
+											key={imageUrl}
+											src={imageUrl}
 											alt={'alt'}
 											layout="fill"
 											className="object-contain"
@@ -206,7 +210,7 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 									</Button>
 								</div>
 								<p className="text-[15px] font-semibold text-primary-main md:text-[21px]">
-									Total: ${productPrice * productQuantity}
+									Total: ${total}
 								</p>
 							</div>
 

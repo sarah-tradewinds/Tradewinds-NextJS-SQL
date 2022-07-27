@@ -23,12 +23,20 @@ const CartPage: NextPage = () => {
 	const {
 		totalCartCount,
 		subtotal,
-		carts,
+		cartProducts,
 		updateQuantityByProductId,
 		removeProductByIdFromCart
 	} = useCartStore();
 
 	const router = useRouter();
+
+	const cartReviewHandler = () => {
+		if (!isAuth) {
+			setIsLoginOpen();
+		} else {
+			router.push('/cart-review');
+		}
+	}; // End of cartReviewHandler function
 
 	return (
 		<div className="grid grid-cols-12 gap-4 md:py-4 md:px-8">
@@ -60,7 +68,9 @@ const CartPage: NextPage = () => {
 										$100,000.00
 									</p>
 								</div>
-								<Button variant="special"> Proceed to checkout</Button>
+								<Button onClick={cartReviewHandler} variant="special">
+									Proceed to checkout
+								</Button>
 							</div>
 						</div>
 
@@ -88,13 +98,7 @@ const CartPage: NextPage = () => {
 							</p>
 						</div>
 						<Button
-							onClick={() => {
-								if (!isAuth) {
-									setIsLoginOpen();
-								} else {
-									router.push('/cart-review');
-								}
-							}}
+							onClick={cartReviewHandler}
 							variant="special"
 							className="h-[71px] !text-[30px]"
 						>
@@ -112,7 +116,7 @@ const CartPage: NextPage = () => {
 
 				<div>
 					<CartList
-						carts={carts}
+						carts={cartProducts}
 						updateQuantityByProductId={updateQuantityByProductId}
 						removeProductByIdFromCart={removeProductByIdFromCart}
 					/>
@@ -128,7 +132,11 @@ const CartPage: NextPage = () => {
 						</p>
 						<p className="text-center text-primary-main">${subtotal}</p>
 					</div>
-					<Button variant="special" className="h-[71px] !text-[30px]">
+					<Button
+						onClick={cartReviewHandler}
+						variant="special"
+						className="h-[71px] !text-[30px]"
+					>
 						Review and purchase
 					</Button>
 				</div>

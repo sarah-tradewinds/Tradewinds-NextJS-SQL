@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useAuthStore } from 'store/auth';
 import { useCartStore } from 'store/cart-store';
+import { getLocaleText } from 'utils/get_locale_text';
 
 // Make sure to call `loadStripe` outside of a component's render to avoid
 // recreating the `Stripe` object on every render.
@@ -27,8 +28,12 @@ const CartReviewPage: NextPage = () => {
 		})
 	);
 
-	const { totalCartCount, subtotal, carts, removeProductByIdFromCart } =
-		useCartStore();
+	const {
+		totalCartCount,
+		subtotal,
+		cartProducts,
+		removeProductByIdFromCart
+	} = useCartStore();
 
 	const router = useRouter();
 
@@ -190,16 +195,27 @@ const CartReviewPage: NextPage = () => {
 							<th className="w-1/4 md:w-1/2">Subtotal</th>
 						</tr>
 						<tbody>
-							{carts.map((cart) => {
+							{cartProducts.map((cartProduct: any) => {
+								const { product } = cartProduct || {};
 								return (
-									<tr key={cart.id} className="text-[18px] text-gray">
+									<tr
+										key={cartProduct.id}
+										className="text-[18px] text-gray"
+									>
 										<td className="md:text-center">
-											SKU# Big green Tractor
+											{getLocaleText(
+												product.product_name || {},
+												router.locale
+											)}
 										</td>
-										<td className="md:text-center">{cart.quantity}</td>
-										<td className="md:text-center">$100</td>
 										<td className="md:text-center">
-											${cart.quantity * 100}
+											{cartProduct.quantity}
+										</td>
+										<td className="md:text-center">
+											${product.product_price}
+										</td>
+										<td className="md:text-center">
+											${cartProduct.total}
 										</td>
 									</tr>
 								);
@@ -209,7 +225,7 @@ const CartReviewPage: NextPage = () => {
 								<td></td>
 								<td></td>
 								<td></td>
-								<td className="pt-8">$75,000</td>
+								<td className="pt-8 text-center">${subtotal}</td>
 							</tr>
 						</tbody>
 					</table>
@@ -227,7 +243,7 @@ const CartReviewPage: NextPage = () => {
 							<p>Taxes</p>
 						</div>
 						<div className="text-[18px] text-gray">
-							<p>$100,000</p>
+							<p>${subtotal}</p>
 							<p>$100,000</p>
 						</div>
 					</div>
@@ -235,7 +251,7 @@ const CartReviewPage: NextPage = () => {
 					<div className="mt-4 flex justify-between bg-gray/20 px-4 py-2 text-[18px] font-semibold md:justify-end md:space-x-16 md:text-[25px]">
 						<p>Total</p>
 						<div>
-							<p>$100,000</p>
+							<p>${subtotal}</p>
 							<p className="mt-0 text-right text-[8px] font-semibold text-primary-main">
 								Transation fee apply
 							</p>
@@ -246,7 +262,7 @@ const CartReviewPage: NextPage = () => {
 				{/* actions */}
 				<div className="mt-4 flex flex-col items-center">
 					<Button variant="product">Buy now</Button>
-					<Button className="mt-4">
+					<Button onClick={() => router.back()} className="mt-4">
 						<span className="text-[18px] font-semibold text-accent-primary-main">
 							Back to cart
 						</span>

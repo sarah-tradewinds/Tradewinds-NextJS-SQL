@@ -26,6 +26,7 @@ import {
 	MdPerson
 } from 'react-icons/md';
 import { useAuthStore } from 'store/auth';
+import { useCartStore } from 'store/cart-store';
 import { useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';
 import Loader from '../elements/loader/loader';
@@ -55,10 +56,13 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 		isAuthenticating: state.isAuthenticating
 	}));
 
+	const fetchCart = useCartStore((state) => state.fetchCart);
+
 	const { routeChangeStart } = useRouteEvent();
 
 	useEffect(() => {
 		autoLogin();
+		fetchCart();
 	}, []);
 
 	return (
