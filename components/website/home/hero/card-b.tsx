@@ -1,6 +1,5 @@
-import Image from 'next/image';
-
 // components
+import ImageWithErrorHandler from 'components/website/common/elements/image-with-error-handler';
 import Button from 'components/website/common/form/button';
 
 interface CardBProps {
@@ -35,7 +34,7 @@ const CardB: React.FC<CardBProps> = (props) => {
 			<div className="flex flex-row">
 				<div>
 					<div className="relative h-[40px] w-[60px] md:h-[56px] md:w-[64px] lg:h-[130px] lg:w-[150px] pc:hidden">
-						<Image
+						<ImageWithErrorHandler
 							src={imageUrl}
 							alt={alt}
 							layout="fill"

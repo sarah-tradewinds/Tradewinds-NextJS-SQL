@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import ImageWithErrorHandler from 'components/website/common/elements/image-with-error-handler';
 import Link from 'next/link';
 
 interface CardAProps {
@@ -21,12 +21,11 @@ const CardA: React.FC<CardAProps> = (props) => {
 					{title}
 				</h2>
 				<div className="relative hidden h-[70%] w-full md:block">
-					<Image
+					<ImageWithErrorHandler
 						src={imageUrl}
 						alt={alt}
 						layout="fill"
 						className="object-cover"
-						unoptimized={true}
 					/>
 				</div>
 
