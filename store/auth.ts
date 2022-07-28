@@ -32,7 +32,7 @@ interface AuthState {
 
 const initialCustomerData = {
 	id: '',
-	name: '',
+	name: 'Guest',
 	access: {
 		token: '',
 		expireIn: ''
@@ -55,7 +55,6 @@ export const useAuthStore = create<AuthState>((set) => ({
 		});
 		try {
 			const data = await autoLoginCustomer();
-			console.log(data.customerData);
 			set({
 				isAuth: data.isLoggedIn,
 				customerData: data.customerData,

@@ -7,6 +7,7 @@ import Button from 'components/website/common/form/button';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // store
+import { createOrder } from 'lib/order';
 import { useRouter } from 'next/router';
 import { useAuthStore } from 'store/auth';
 import { useCartStore } from 'store/cart-store';
@@ -30,11 +31,56 @@ const CartPage: NextPage = () => {
 
 	const router = useRouter();
 
-	const cartReviewHandler = () => {
+	const cartReviewHandler = async () => {
 		if (!isAuth) {
 			setIsLoginOpen();
 		} else {
-			router.push('/cart-review');
+			const orderItemsBySellerId = {};
+			const orderItems = cartProducts.map((cartProduct) => {
+				const { product } = cartProduct;
+				const sellerId = product.seller_id;
+
+				const orderItem = {
+					product_id: product.id,
+					item: product.product_name?.en,
+					unit_Cost: product.product_price,
+					quantity: cartProduct.quantity,
+					discount: 0,
+					total: cartProduct.total
+				};
+
+				const orderItemBySellerId = (orderItemsBySellerId as any)[
+					sellerId
+				];
+				if (!orderItemBySellerId) {
+					(orderItemsBySellerId as any)[sellerId] = {
+						seller_id: sellerId,
+						order_items: [orderItem]
+					};
+				} else {
+					(orderItemsBySellerId as any)[sellerId] = {
+						seller_id: sellerId,
+						order_items: [...orderItemBySellerId.order_items, orderItem]
+					};
+				}
+
+				return orderItem;
+			});
+
+			// console.log('orderItemsBySellerId =', orderItemsBySellerId);
+			// console.log('orderItems =', orderItems);
+
+			const orderId = await createOrder({
+				buyer_id: customerData.id,
+				order_by_sellers: Object.values(orderItemsBySellerId || {}),
+				order_items: orderItems
+			});
+
+			if (!orderId) {
+				return;
+			}
+
+			router.push(`/cart-review?order_id=${orderId}`);
 		}
 	}; // End of cartReviewHandler function
 

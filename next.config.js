@@ -17,9 +17,7 @@ const nextConfig = (phase) => {
 				API_BASE_URL:
 					'https://tradewinds-dev.eastus.cloudapp.azure.com',
 				STRIPE_PUBLISHABLE_KEY:
-					'pk_test_51LQS83SG6gzCLsPFMb3sIfOyx51dr4YKXsFIHLgq7loMUzAWBKAXRBJFpsdjbIDcFy5xC8Mausn27RPb8F4UUITy00GK4W5tvS',
-				STRIPE_SECRET_KEY:
-					'sk_test_51LQS83SG6gzCLsPFsFv7ks3l9rbmeOhh3hDg7EQJ3ipATyFF5tDpvsTjX6RIleyBv62K94p8iuNAp0mUCtTEkFQM00ETUL64SY'
+					'pk_test_51JAhKFCQTcpcYTusSG85R25JWHRXIbw9mg6bn2mJAIncKhAhXpxvAemulgavKUw0iv4J1ygM6zSWGbthNAMWGftk00Jzzmiqcs'
 			},
 			images: {
 				domains: [
@@ -43,9 +41,7 @@ const nextConfig = (phase) => {
 				'https://tradewinds-dev-public.s3.us-east-2.amazonaws.com',
 			API_BASE_URL: 'https://tradewinds-dev.eastus.cloudapp.azure.com',
 			STRIPE_PUBLISHABLE_KEY:
-				'pk_test_51LQS83SG6gzCLsPFMb3sIfOyx51dr4YKXsFIHLgq7loMUzAWBKAXRBJFpsdjbIDcFy5xC8Mausn27RPb8F4UUITy00GK4W5tvS',
-			STRIPE_SECRET_KEY:
-				'sk_test_51LQS83SG6gzCLsPFsFv7ks3l9rbmeOhh3hDg7EQJ3ipATyFF5tDpvsTjX6RIleyBv62K94p8iuNAp0mUCtTEkFQM00ETUL64SY'
+				'pk_test_51JAhKFCQTcpcYTusSG85R25JWHRXIbw9mg6bn2mJAIncKhAhXpxvAemulgavKUw0iv4J1ygM6zSWGbthNAMWGftk00Jzzmiqcs'
 		},
 		images: {
 			domains: [

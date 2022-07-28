@@ -7,8 +7,9 @@ import { loadStripe } from '@stripe/stripe-js';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // store
+import { getOrderById, getPaymentIntentByOrderId } from 'lib/order';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuthStore } from 'store/auth';
 import { useCartStore } from 'store/cart-store';
 import { getLocaleText } from 'utils/get_locale_text';
@@ -28,12 +29,10 @@ const CartReviewPage: NextPage = () => {
 		})
 	);
 
-	const {
-		totalCartCount,
-		subtotal,
-		cartProducts,
-		removeProductByIdFromCart
-	} = useCartStore();
+	const { totalCartCount, cartProducts, removeProductByIdFromCart } =
+		useCartStore();
+
+	const [orderReview, setOrderReview] = useState({});
 
 	const router = useRouter();
 
@@ -42,6 +41,30 @@ const CartReviewPage: NextPage = () => {
 			router.back();
 		}
 	}, [isAuth]);
+
+	useEffect(() => {
+		const orderId = (router.query.order_id || '') as string;
+		getOrderById(orderId).then((orderData) =>
+			setOrderReview(orderData)
+		);
+	}, [router.query.order_id]);
+
+	const gotoCheckout = async () => {
+		const orderId = (router.query.order_id || '') as string;
+
+		const client_secret = await getPaymentIntentByOrderId(orderId);
+		router.push(`/checkout?client_secret=${client_secret}`);
+	}; //End of gotoCheckout function
+
+	const {
+		order_number = '',
+		billing_address = {},
+		shipping_address = {},
+		order_items = [],
+		shipping_charge = 0,
+		sub_total = 0,
+		amount_to_pay = 0
+	} = orderReview as any;
 
 	return (
 		<div className="grid grid-cols-12 gap-4 md:py-4 md:px-8">
@@ -59,7 +82,7 @@ const CartReviewPage: NextPage = () => {
 							<div className="flex flex-col items-end">
 								<p className="text-[14px] font-semibold text-gray">
 									Total number of items
-									<span>Qty: 4</span>
+									<span>Qty: {totalCartCount}</span>
 								</p>
 								<p className="text-[14px] font-semibold text-gray">
 									Total number of SKUs
@@ -68,15 +91,14 @@ const CartReviewPage: NextPage = () => {
 							</div>
 							<div className="flex flex-col items-end space-y-2">
 								<div className="text-[14px] font-semibold">
-									<p className="text-gray">Subtotal (4 items)</p>
+									<p className="text-gray">
+										Subtotal ({totalCartCount} items)
+									</p>
 									<p className="text-right text-primary-main">
 										$100,000.00
 									</p>
 								</div>
-								<Button
-									onClick={() => router.push('/checkout')}
-									variant="product"
-								>
+								<Button onClick={gotoCheckout} variant="product">
 									{' '}
 									Buy now
 								</Button>
@@ -103,11 +125,11 @@ const CartReviewPage: NextPage = () => {
 								Subtotal ({totalCartCount} items):
 							</p>
 							<p className="text-center text-primary-main">
-								${subtotal}
+								${sub_total}
 							</p>
 						</div>
 						<Button
-							onClick={() => router.push('/checkout')}
+							onClick={gotoCheckout}
 							variant="product"
 							className="h-[71px] !text-[30px]"
 						>
@@ -120,7 +142,7 @@ const CartReviewPage: NextPage = () => {
 			{/* review section */}
 			<div className="col-span-12 bg-white px-6 py-4">
 				<h2 className="text-[18px] font-semibold text-primary-main md:text-right md:text-[25px]">
-					Order: TW62539
+					Order: {order_number}
 				</h2>
 
 				{/* Addresses */}
@@ -133,7 +155,10 @@ const CartReviewPage: NextPage = () => {
 								Billed to:
 							</p>
 							<p className="text-[15px] text-gray md:ml-16 md:text-[18px]">
-								Big Tractor Co. 142 Tractor Road Toledo, Ohio 43614 USA{' '}
+								{getLocaleText(
+									billing_address?.address_line_1 || {},
+									router.locale
+								)}
 							</p>
 						</div>
 						{/* Email */}
@@ -142,7 +167,7 @@ const CartReviewPage: NextPage = () => {
 								Email:
 							</span>
 							<span className="text-[18px] text-gray">
-								Tractorbob@tractorlove.com
+								{billing_address?.email}
 							</span>
 						</p>
 						{/* Phone */}
@@ -151,7 +176,7 @@ const CartReviewPage: NextPage = () => {
 								Phone:
 							</span>
 							<span className="text-[18px] text-gray">
-								435-547-6674
+								{billing_address?.phone}
 							</span>
 						</p>
 					</div>
@@ -164,7 +189,10 @@ const CartReviewPage: NextPage = () => {
 								Ship to:
 							</p>
 							<p className="text-[15px] text-gray md:ml-16 md:text-[18px]">
-								Big Tractor Co. 142 Tractor Road Toledo, Ohio 43614 USA{' '}
+								{getLocaleText(
+									shipping_address?.address_line_1 || {},
+									router.locale
+								)}
 							</p>
 						</div>
 						{/* Email */}
@@ -173,7 +201,7 @@ const CartReviewPage: NextPage = () => {
 								Email:
 							</span>
 							<span className="text-[18px] text-gray">
-								Tractorbob@tractorlove.com
+								{shipping_address?.email}
 							</span>
 						</p>
 						{/* Phone */}
@@ -182,7 +210,7 @@ const CartReviewPage: NextPage = () => {
 								Phone:
 							</span>
 							<span className="text-[18px] text-gray">
-								435-547-6674
+								{shipping_address?.phone}
 							</span>
 						</p>
 					</div>
@@ -231,7 +259,7 @@ const CartReviewPage: NextPage = () => {
 								<td></td>
 								<td></td>
 								<td></td>
-								<td className="pt-8 text-center">${subtotal}</td>
+								<td className="pt-8 text-center">${sub_total}</td>
 							</tr>
 						</tbody>
 					</table>
@@ -240,7 +268,7 @@ const CartReviewPage: NextPage = () => {
 				{/* shipping and handling */}
 				<div>
 					<p className="border-b border-gray text-[18px] font-semibold text-primary-main md:text-[25px]">
-						Shipping & Handiling
+						Shipping & Handling
 					</p>
 					<div className="mt-4 flex justify-end space-x-16">
 						<div className="text-[18px] text-gray">
@@ -249,15 +277,15 @@ const CartReviewPage: NextPage = () => {
 							<p>Taxes</p>
 						</div>
 						<div className="text-[18px] text-gray">
-							<p>${subtotal}</p>
-							<p>$100,000</p>
+							<p>${sub_total}</p>
+							<p>${shipping_charge}</p>
 						</div>
 					</div>
 					{/* Total container */}
 					<div className="mt-4 flex justify-between bg-gray/20 px-4 py-2 text-[18px] font-semibold md:justify-end md:space-x-16 md:text-[25px]">
 						<p>Total</p>
 						<div>
-							<p>${subtotal}</p>
+							<p>${sub_total}</p>
 							<p className="mt-0 text-right text-[8px] font-semibold text-primary-main">
 								Transation fee apply
 							</p>
@@ -267,10 +295,7 @@ const CartReviewPage: NextPage = () => {
 
 				{/* actions */}
 				<div className="mt-4 flex flex-col items-center">
-					<Button
-						onClick={() => router.push('/checkout')}
-						variant="product"
-					>
+					<Button onClick={gotoCheckout} variant="product">
 						Buy now
 					</Button>
 					<Button onClick={() => router.back()} className="mt-4">

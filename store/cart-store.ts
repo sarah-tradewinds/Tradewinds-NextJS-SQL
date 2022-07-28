@@ -19,13 +19,22 @@ interface CartState {
 		productId: string
 	) => any;
 	removeProductByIdFromCart: (productId: string) => any;
+	resetCartState: () => any;
 }
 
-export const useCartStore = create<CartState>((set) => ({
+const initialState = {
 	id: '',
 	cartProducts: [],
 	totalCartCount: 0,
-	subtotal: 0,
+	subtotal: 0
+};
+
+export const useCartStore = create<CartState>((set) => ({
+	...initialState,
+	resetCartState: () => {
+		set(initialState);
+	},
+
 	fetchCart: async () => {
 		const cart = await getCart('62b453142f60be1e439617ac');
 		const cartProducts = cart.item;
@@ -158,10 +167,12 @@ export const useCartStore = create<CartState>((set) => ({
 const getTotalAmountAndQuantity = (cartList: CartProduct[]) => {
 	let totalQuantity = 0;
 	let subtotal = 0;
-	for (const cart of cartList) {
-		const { quantity, product } = cart;
-		totalQuantity += +quantity;
-		subtotal += +quantity * product.product_price;
+	if (cartList) {
+		for (const cart of cartList) {
+			const { quantity, product } = cart;
+			totalQuantity += +quantity;
+			subtotal += +quantity * product.product_price;
+		}
 	}
 
 	return { totalQuantity, subtotal };
