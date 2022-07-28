@@ -73,7 +73,13 @@ const CartReviewPage: NextPage = () => {
 										$100,000.00
 									</p>
 								</div>
-								<Button variant="product"> Buy now</Button>
+								<Button
+									onClick={() => router.push('/checkout')}
+									variant="product"
+								>
+									{' '}
+									Buy now
+								</Button>
 							</div>
 						</div>
 
@@ -101,7 +107,7 @@ const CartReviewPage: NextPage = () => {
 							</p>
 						</div>
 						<Button
-							onClick={() => {}}
+							onClick={() => router.push('/checkout')}
 							variant="product"
 							className="h-[71px] !text-[30px]"
 						>
@@ -261,7 +267,12 @@ const CartReviewPage: NextPage = () => {
 
 				{/* actions */}
 				<div className="mt-4 flex flex-col items-center">
-					<Button variant="product">Buy now</Button>
+					<Button
+						onClick={() => router.push('/checkout')}
+						variant="product"
+					>
+						Buy now
+					</Button>
 					<Button onClick={() => router.back()} className="mt-4">
 						<span className="text-[18px] font-semibold text-accent-primary-main">
 							Back to cart

@@ -24,13 +24,16 @@
     ]
   },
   "dependencies": {
+    "-": "^0.0.1",
     "@headlessui/react": "^1.5.0",
+    "@next/bundle-analyzer": "^12.2.3",
     "@stripe/react-stripe-js": "^1.9.0",
     "@stripe/stripe-js": "^1.32.0",
     "@types/react-stars": "^2.2.1",
     "axios": "^0.26.1",
     "body-scroll-lock": "^4.0.0-beta.0",
     "cookie": "^0.5.0",
+    "D": "^1.0.0",
     "keen-slider": "^6.6.12",
     "lint-staged": "^12.3.5",
     "multiselect-react-dropdown": "^2.0.22",
