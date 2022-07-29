@@ -2,7 +2,7 @@ import { serviceAxiosInstance } from 'utils/axios-instance.utils';
 
 interface CreateOrder {
 	buyer_id: string;
-	order_by_sellers: any[];
+	// order_by_sellers: any[];
 	order_items: any[];
 	type?: 'live_buy';
 	shipping_address?: string;

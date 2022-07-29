@@ -22,7 +22,6 @@ const CartPage: NextPage = () => {
 	);
 
 	const {
-		totalCartCount,
 		subtotal,
 		cartProducts,
 		updateQuantityByProductId,
@@ -35,44 +34,54 @@ const CartPage: NextPage = () => {
 		if (!isAuth) {
 			setIsLoginOpen();
 		} else {
-			const orderItemsBySellerId = {};
+			// const orderItemsBySellerId = {};
+			// const orderItems = cartProducts.map((cartProduct) => {
+			// 	const { product } = cartProduct;
+			// 	const sellerId = product.seller_id;
+
+			// 	const orderItem = {
+			// 		product_id: product.id,
+			// 		item: product.product_name?.en,
+			// 		unit_Cost: product.product_price,
+			// 		quantity: cartProduct.quantity,
+			// 		discount: 0,
+			// 		total: cartProduct.total
+			// 	};
+
+			// 	const orderItemBySellerId = (orderItemsBySellerId as any)[
+			// 		sellerId
+			// 	];
+			// 	if (!orderItemBySellerId) {
+			// 		(orderItemsBySellerId as any)[sellerId] = {
+			// 			seller_id: sellerId,
+			// 			order_items: [orderItem]
+			// 		};
+			// 	} else {
+			// 		(orderItemsBySellerId as any)[sellerId] = {
+			// 			seller_id: sellerId,
+			// 			order_items: [...orderItemBySellerId.order_items, orderItem]
+			// 		};
+			// 	}
+
+			// 	return orderItem;
+			// });
+
 			const orderItems = cartProducts.map((cartProduct) => {
 				const { product } = cartProduct;
-				const sellerId = product.seller_id;
 
 				const orderItem = {
 					product_id: product.id,
-					item: product.product_name?.en,
-					unit_Cost: product.product_price,
 					quantity: cartProduct.quantity,
-					discount: 0,
-					total: cartProduct.total
+					discount: 0
+					// item: product.product_name?.en,
+					// unit_Cost: product.product_price,
+					// total: cartProduct.total
 				};
-
-				const orderItemBySellerId = (orderItemsBySellerId as any)[
-					sellerId
-				];
-				if (!orderItemBySellerId) {
-					(orderItemsBySellerId as any)[sellerId] = {
-						seller_id: sellerId,
-						order_items: [orderItem]
-					};
-				} else {
-					(orderItemsBySellerId as any)[sellerId] = {
-						seller_id: sellerId,
-						order_items: [...orderItemBySellerId.order_items, orderItem]
-					};
-				}
-
 				return orderItem;
 			});
 
-			// console.log('orderItemsBySellerId =', orderItemsBySellerId);
-			// console.log('orderItems =', orderItems);
-
 			const orderId = await createOrder({
 				buyer_id: customerData.id,
-				order_by_sellers: Object.values(orderItemsBySellerId || {}),
 				order_items: orderItems
 			});
 
@@ -83,6 +92,8 @@ const CartPage: NextPage = () => {
 			router.push(`/cart-review?order_id=${orderId}`);
 		}
 	}; // End of cartReviewHandler function
+
+	const totalCartItemCount = cartProducts?.length || 0;
 
 	return (
 		<div className="grid grid-cols-12 gap-4 md:py-4 md:px-8">
@@ -100,18 +111,20 @@ const CartPage: NextPage = () => {
 							<div className="flex flex-col items-end">
 								<p className="text-[14px] font-semibold text-gray">
 									Total number of items
-									<span>Qty: 4</span>
+									<span>Qty: {totalCartItemCount}</span>
 								</p>
 								<p className="text-[14px] font-semibold text-gray">
 									Total number of SKUs
-									<span>Qty: 2</span>
+									<span>Qty: {totalCartItemCount}</span>
 								</p>
 							</div>
 							<div className="flex flex-col items-end space-y-2">
 								<div className="text-[14px] font-semibold">
-									<p className="text-gray">Subtotal (4 items)</p>
+									<p className="text-gray">
+										Subtotal ({totalCartItemCount} items)
+									</p>
 									<p className="text-right text-primary-main">
-										$100,000.00
+										${subtotal}
 									</p>
 								</div>
 								<Button onClick={cartReviewHandler} variant="special">
@@ -128,7 +141,7 @@ const CartPage: NextPage = () => {
 							<p className="text-center text-[38px] font-semibold">
 								<span className="text-gray">Qty:</span>
 								<span className="text-primary-main">
-									{totalCartCount}
+									{totalCartItemCount}
 								</span>
 							</p>
 						</div>
@@ -137,7 +150,7 @@ const CartPage: NextPage = () => {
 					<div className="hidden flex-col items-center space-y-4 rounded-md bg-white p-2 pb-8 shadow-md md:flex">
 						<div className="text-[35px] font-semibold">
 							<p className="text-gray">
-								Subtotal ({totalCartCount} items):
+								Subtotal ({totalCartItemCount} items):
 							</p>
 							<p className="text-center text-primary-main">
 								${subtotal}
@@ -163,8 +176,16 @@ const CartPage: NextPage = () => {
 				<div>
 					<CartList
 						carts={cartProducts}
-						updateQuantityByProductId={updateQuantityByProductId}
-						removeProductByIdFromCart={removeProductByIdFromCart}
+						updateQuantityByProductId={(quantity, productId) =>
+							updateQuantityByProductId(
+								quantity,
+								productId,
+								customerData.id
+							)
+						}
+						removeProductByIdFromCart={(productId) =>
+							removeProductByIdFromCart(productId, customerData.id)
+						}
 					/>
 				</div>
 			</div>
@@ -174,7 +195,7 @@ const CartPage: NextPage = () => {
 				<div className="flex flex-col items-center space-y-4 rounded-md bg-white p-2 pb-8 shadow-md">
 					<div className="text-[35px] font-semibold">
 						<p className="text-gray">
-							Subtotal ({totalCartCount} items):
+							Subtotal ({totalCartItemCount} items):
 						</p>
 						<p className="text-center text-primary-main">${subtotal}</p>
 					</div>

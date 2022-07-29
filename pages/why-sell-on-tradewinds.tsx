@@ -56,7 +56,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 						<h2 className="text-[24px] font-semibold text-primary-main md:text-[40px] lg:text-[50px]">
 							{t('power_is_in_the_number')}
 						</h2>
-						<p className="25px font-semibold text-primary-main">
+						<p className="-mt-4 text-[18px] font-semibold text-accent-primary-main md:text-[20px] lg:text-[25px]">
 							{t('let_the_sellers_come_to_you')}
 						</p>
 						<p className="text-[12px] text-gray md:text-[15px]">
@@ -66,7 +66,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 					<div className="space-y-4 md:bg-white md:p-8">
 						<div className="flex flex-wrap justify-center text-primary-main">
 							<div>
-								<h3 className="text-[40px] lg:text-[50px]">
+								<h3 className="text-[24px] font-semibold md:text-[40px] lg:text-[50px]">
 									{t('stand_alone_vs')}
 								</h3>
 								<p className="hidden w-56 text-[14px] md:block">
@@ -74,7 +74,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 								</p>
 							</div>
 							<div>
-								<h3 className="text-[40px] lg:text-[50px]">
+								<h3 className="text-[24px] font-semibold md:text-[40px] lg:text-[50px]">
 									{t('common:tradewinds')}
 								</h3>
 								<p className="hidden w-56 text-[14px] md:block">

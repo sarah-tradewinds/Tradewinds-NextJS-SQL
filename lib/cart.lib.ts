@@ -9,8 +9,6 @@ export const addProductToCart = async (
 	buyerId: string,
 	product: CartProduct
 ) => {
-	console.log('[addProductToCart] is called');
-
 	try {
 		const { data } = await serviceAxiosInstance.post('/addtocart', {
 			buyer_id: buyerId,

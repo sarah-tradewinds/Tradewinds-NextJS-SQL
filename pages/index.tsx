@@ -49,7 +49,7 @@ const HomePage: NextPage<
 		cardBData = {},
 		homeMainCategoriesAndCategories = [],
 		homeCountries = [],
-		homeAdvertisments = []
+		homeAdvertisements = []
 	} = props;
 
 	const { isEco } = useHomeStore(({ isEco }) => ({
@@ -191,10 +191,10 @@ const HomePage: NextPage<
 
 				{/* Bottom Banner */}
 				<div className="grid grid-cols-2">
-					{homeAdvertisments.map((advertisment: any) => (
+					{homeAdvertisements.map((advertisement: any) => (
 						<AddBanner
-							key={advertisment.id}
-							iframe_code={advertisment.i_frame_code}
+							key={advertisement.id}
+							iframe_code={advertisement.i_frame_code}
 						/>
 					))}
 				</div>

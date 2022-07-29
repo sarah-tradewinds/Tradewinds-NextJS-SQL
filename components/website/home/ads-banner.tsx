@@ -5,7 +5,7 @@ interface AdsBannerProps {
 const AdsBanner: React.FC<AdsBannerProps> = ({ iframe_code }) => {
 	return (
 		<div
-			className="relative hidden h-[275px] w-full overflow-hidden md:block  lg:h-[375px]"
+			className="relative hidden h-[275px] w-full overflow-hidden md:block lg:h-[375px]"
 			dangerouslySetInnerHTML={{
 				__html: iframe_code
 			}}

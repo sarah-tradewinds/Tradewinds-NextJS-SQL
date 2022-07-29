@@ -62,8 +62,13 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 
 	useEffect(() => {
 		autoLogin();
-		fetchCart();
 	}, []);
+
+	useEffect(() => {
+		if (customerData.id) {
+			fetchCart(customerData.id);
+		}
+	}, [customerData.id]);
 
 	return (
 		<>

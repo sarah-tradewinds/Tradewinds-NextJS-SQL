@@ -14,9 +14,9 @@ import { useCartStore } from 'store/cart-store';
 
 const CheckoutPage: NextPage = () => {
 	const customerData = useAuthStore((state) => state.customerData);
-	const { resetCartState, totalCartCount } = useCartStore((state) => ({
+	const { resetCartState, cartProducts } = useCartStore((state) => ({
 		resetCartState: state.resetCartState,
-		totalCartCount: state.totalCartCount
+		cartProducts: state.cartProducts
 	}));
 
 	const { query } = useRouter();
@@ -32,11 +32,11 @@ const CheckoutPage: NextPage = () => {
 			payment_intent &&
 			payment_intent_client_secret &&
 			redirect_status &&
-			totalCartCount > 0
+			cartProducts?.length > 0
 		) {
 			resetCartState();
 		}
-	}, [query, totalCartCount]);
+	}, [query, cartProducts?.length]);
 
 	return (
 		<div className="flex flex-col items-center p-4 md:p-8">

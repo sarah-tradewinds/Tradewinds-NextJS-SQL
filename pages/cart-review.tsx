@@ -29,8 +29,7 @@ const CartReviewPage: NextPage = () => {
 		})
 	);
 
-	const { totalCartCount, cartProducts, removeProductByIdFromCart } =
-		useCartStore();
+	const cartProducts = useCartStore((state) => state.cartProducts);
 
 	const [orderReview, setOrderReview] = useState({});
 
@@ -66,6 +65,8 @@ const CartReviewPage: NextPage = () => {
 		amount_to_pay = 0
 	} = orderReview as any;
 
+	const totalCartItemCount = cartProducts?.length || 0;
+
 	return (
 		<div className="grid grid-cols-12 gap-4 md:py-4 md:px-8">
 			{/* Stat cards */}
@@ -82,7 +83,7 @@ const CartReviewPage: NextPage = () => {
 							<div className="flex flex-col items-end">
 								<p className="text-[14px] font-semibold text-gray">
 									Total number of items
-									<span>Qty: {totalCartCount}</span>
+									<span>Qty: {totalCartItemCount}</span>
 								</p>
 								<p className="text-[14px] font-semibold text-gray">
 									Total number of SKUs
@@ -92,7 +93,7 @@ const CartReviewPage: NextPage = () => {
 							<div className="flex flex-col items-end space-y-2">
 								<div className="text-[14px] font-semibold">
 									<p className="text-gray">
-										Subtotal ({totalCartCount} items)
+										Subtotal ({totalCartItemCount} items)
 									</p>
 									<p className="text-right text-primary-main">
 										$100,000.00
@@ -113,7 +114,7 @@ const CartReviewPage: NextPage = () => {
 							<p className="text-center text-[38px] font-semibold">
 								<span className="text-gray">Qty:</span>
 								<span className="text-primary-main">
-									{totalCartCount}
+									{totalCartItemCount}
 								</span>
 							</p>
 						</div>
@@ -122,7 +123,7 @@ const CartReviewPage: NextPage = () => {
 					<div className="hidden flex-col items-center space-y-4 rounded-md bg-white p-2 pb-8 shadow-md md:flex">
 						<div className="text-[35px] font-semibold">
 							<p className="text-gray">
-								Subtotal ({totalCartCount} items):
+								Subtotal ({totalCartItemCount} items):
 							</p>
 							<p className="text-center text-primary-main">
 								${sub_total}
@@ -229,7 +230,7 @@ const CartReviewPage: NextPage = () => {
 							<th className="w-1/4 md:w-1/2">Subtotal</th>
 						</tr>
 						<tbody>
-							{cartProducts.map((cartProduct: any) => {
+							{cartProducts?.map((cartProduct: any) => {
 								const { product } = cartProduct || {};
 								return (
 									<tr

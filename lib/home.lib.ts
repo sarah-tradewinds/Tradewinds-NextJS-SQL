@@ -77,7 +77,7 @@ export const getHomeAdvertisements = async () => {
 			'/advertisement/getalladvertisement'
 		);
 
-		return data.data || [];
+		return (data.data || [])?.slice(0, 2) || [];
 	} catch (error) {
 		console.log('[getHomeAdvertisement] =', error);
 		const { data } = (error as any).response || {};

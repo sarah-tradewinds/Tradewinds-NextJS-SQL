@@ -10,22 +10,26 @@ export interface CartProduct {
 interface CartState {
 	id: string;
 	cartProducts: CartProduct[];
-	totalCartCount: number;
+	totalCartProductQuantity: number;
 	subtotal: number;
-	fetchCart: () => any;
+	fetchCart: (buyerId: string) => any;
 	addToCart: (productId: string, product?: any) => any;
 	updateQuantityByProductId: (
 		quantity: number,
-		productId: string
+		productId: string,
+		buyerId: string
 	) => any;
-	removeProductByIdFromCart: (productId: string) => any;
+	removeProductByIdFromCart: (
+		productId: string,
+		buyerId: string
+	) => any;
 	resetCartState: () => any;
 }
 
 const initialState = {
 	id: '',
 	cartProducts: [],
-	totalCartCount: 0,
+	totalCartProductQuantity: 0,
 	subtotal: 0
 };
 
@@ -35,8 +39,8 @@ export const useCartStore = create<CartState>((set) => ({
 		set(initialState);
 	},
 
-	fetchCart: async () => {
-		const cart = await getCart('62b453142f60be1e439617ac');
+	fetchCart: async (buyerId) => {
+		const cart = await getCart(buyerId);
 		const cartProducts = cart.item;
 
 		const { totalQuantity } = getTotalAmountAndQuantity(cartProducts);
@@ -44,12 +48,15 @@ export const useCartStore = create<CartState>((set) => ({
 		set({
 			id: cart.id,
 			cartProducts,
-			totalCartCount: totalQuantity,
+			totalCartProductQuantity: totalQuantity,
 			subtotal: cart.subtotal || 0
 		});
 	},
 	addToCart: async (productId: string, product?: any) => {
-		set(({ id, totalCartCount, cartProducts }) => {
+		// This should be taken from token by backend team
+		const buyerId = product.buyer_id;
+
+		set(({ id, totalCartProductQuantity, cartProducts }) => {
 			const cartList: CartProduct[] = [...(cartProducts || [])];
 			const productIndex = cartList.findIndex(
 				(cartProduct) => cartProduct.product?.id === productId
@@ -82,7 +89,7 @@ export const useCartStore = create<CartState>((set) => ({
 			const { totalQuantity, subtotal } =
 				getTotalAmountAndQuantity(cartList);
 
-			if (!totalCartCount) {
+			if (!totalCartProductQuantity) {
 				addProductToCart('62b453142f60be1e439617ac', {
 					product_id: productId,
 					quantity: 1
@@ -90,7 +97,7 @@ export const useCartStore = create<CartState>((set) => ({
 			} else {
 				updateCart(
 					id,
-					'62b453142f60be1e439617ac',
+					buyerId,
 					cartList.map((cartProduct) => ({
 						product_id: cartProduct.product?.id,
 						quantity: cartProduct.quantity
@@ -100,12 +107,12 @@ export const useCartStore = create<CartState>((set) => ({
 
 			return {
 				cartProducts: cartList,
-				totalCartCount: totalQuantity,
+				totalCartProductQuantity: totalQuantity,
 				subtotal
 			};
 		});
 	},
-	updateQuantityByProductId: (quantity, productId) => {
+	updateQuantityByProductId: (quantity, productId, buyerId) => {
 		set(({ id, cartProducts }) => {
 			const updatedCart: CartProduct[] = cartProducts.map(
 				(cartProduct) => {
@@ -123,7 +130,7 @@ export const useCartStore = create<CartState>((set) => ({
 
 			updateCart(
 				id,
-				'62b453142f60be1e439617ac',
+				buyerId,
 				updatedCart.map((cartProduct) => ({
 					product_id: cartProduct.product?.id,
 					quantity: cartProduct.quantity
@@ -132,12 +139,12 @@ export const useCartStore = create<CartState>((set) => ({
 
 			return {
 				cartProducts: updatedCart,
-				totalCartCount: totalQuantity,
+				totalCartProductQuantity: totalQuantity,
 				subtotal
 			};
 		});
 	},
-	removeProductByIdFromCart: (productId) => {
+	removeProductByIdFromCart: (productId, buyerId) => {
 		set(({ id, cartProducts }) => {
 			const updatedCarts = cartProducts.filter(
 				(cartProduct) => cartProduct.product.id !== productId
@@ -148,7 +155,7 @@ export const useCartStore = create<CartState>((set) => ({
 
 			updateCart(
 				id,
-				'62b453142f60be1e439617ac',
+				buyerId,
 				updatedCarts.map((cartProduct) => ({
 					product_id: cartProduct.product?.id,
 					quantity: cartProduct.quantity
@@ -157,7 +164,7 @@ export const useCartStore = create<CartState>((set) => ({
 
 			return {
 				cartProducts: updatedCarts,
-				totalCartCount: totalQuantity,
+				totalCartProductQuantity: totalQuantity,
 				subtotal
 			};
 		});

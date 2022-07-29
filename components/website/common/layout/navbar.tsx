@@ -57,7 +57,7 @@ const Header = () => {
 		(state) => state.removeSelectedCountries
 	);
 
-	const totalCartCount = useCartStore((state) => state.totalCartCount);
+	const cartProducts = useCartStore((state) => state.cartProducts);
 
 	const [isOpen, setIsOpen] = useState(false);
 	const [showLogout, setShowLogout] = useState(false);
@@ -144,7 +144,7 @@ const Header = () => {
 
 					<div>
 						<CartIcon
-							count={totalCartCount}
+							count={cartProducts?.length || 0}
 							// onClick={() => setIsCartModalOpen(true)}
 							onClick={() => router.push('/cart')}
 							iconClassName="pc:!text-[24px]"

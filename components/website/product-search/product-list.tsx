@@ -1,4 +1,6 @@
 import { useRouter } from 'next/router';
+import { useAuthStore } from 'store/auth';
+import { useCartStore } from 'store/cart-store';
 import { getDisplayBulkPrice } from 'utils/get-bulk-price';
 import { getLocaleText } from 'utils/get_locale_text';
 import ProductTile from './product-tile';
@@ -14,8 +16,11 @@ const ProductList: React.FC<ProductListProps> = ({
 }) => {
 	const { locale } = useRouter();
 
+	const customerData = useAuthStore((state) => state.customerData);
+	const addToCart = useCartStore((state) => state.addToCart);
+
 	return (
-		<div className="grid grid-cols-1 gap-4 md:gap-8">
+		<div className="grid grid-cols-1 gap-4 md:gap-5">
 			{products.map((product) => {
 				const {
 					product_price,
@@ -46,14 +51,16 @@ const ProductList: React.FC<ProductListProps> = ({
 						keywords={product.tags || []}
 						productPrice={product_price}
 						displayPrice={displayPrice}
-						// minPrice={minPrice}
-						// maxPrice={maxPrice}
 						alt={product.alt || product.name}
 						minOrderQuantity={
 							product?.inventory?.minimum_order_quantity || 0
 						}
 						totalReviewCount={product.totalReviewCount}
 						onCompareClick={() => onCompareClick(product)}
+						onCartClick={() => {
+							product.buyer_id = customerData.id;
+							addToCart(product.id, product);
+						}}
 						isInCompareList={product.isInCompareList}
 						isVerified={product.is_verified}
 						isReadyToShip={product.is_ready_to_ship}
