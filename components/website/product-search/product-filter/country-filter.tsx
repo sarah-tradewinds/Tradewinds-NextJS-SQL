@@ -129,7 +129,7 @@ const CountrySearchFilter: React.FC<{
 									return (
 										<Button
 											key={country.id}
-											className={`!block !min-h-[24px] text-gray ${
+											className={`!block !min-h-[24px] !text-gray ${
 												country.isSelected ? '!text-black' : ''
 											}`}
 											onClick={() =>
