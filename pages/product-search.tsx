@@ -329,13 +329,8 @@ const ProductSearchPage: NextPage<
 		(product: any) => product.isInCompareList
 	);
 
-	// console.log(
-	// 	'selectedMainCategory?.banner_image =',
-	// 	selectedMainCategory?.banner_image?.url
-	// );
-
 	return (
-		<>
+		<div className="container mx-auto">
 			<Seo title="Product search page" description="" />
 
 			{/* Main Category Banner */}
@@ -486,7 +481,7 @@ const ProductSearchPage: NextPage<
 					/>
 				)}
 			</div>
-		</>
+		</div>
 	);
 }; // End of ProductSearchPage
 

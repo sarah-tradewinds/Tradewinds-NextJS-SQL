@@ -32,7 +32,7 @@ const CheckoutPage: NextPage = () => {
 	};
 
 	return (
-		<div className="flex justify-center">
+		<div className="container mx-auto flex justify-center">
 			<div className="m-4 w-[480px] rounded bg-white px-8 py-4">
 				<h1 className="mb-6 text-[32px] font-semibold text-gray">
 					Checkout

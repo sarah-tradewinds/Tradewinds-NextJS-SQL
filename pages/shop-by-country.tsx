@@ -68,56 +68,58 @@ const ShopByCountryPage: NextPage<
 					</h1>
 				</div>
 
-				{/* for small device */}
-				<div className="absolute top-[140px] left-1/2 w-5/6 -translate-x-1/2 transform rounded-t-[40px] bg-white  pt-8 md:hidden">
-					<div className="space-y-2 px-4">
-						{regionsAndCountries.map((regionAndCountries: any) => {
-							const { countries = [] } = regionAndCountries || {};
-							return (
-								<CountryCollapse
-									key={regionAndCountries.id}
-									leading={countries?.length}
-									title={getLocaleText(
-										regionAndCountries.name || {},
-										router.locale
-									)}
-								>
-									<div className="space-y-2 bg-white py-2 pl-16">
-										{countries?.map((country: any) => {
-											return (
-												<CountryFlagTile
-													key={country.id}
-													title={getLocaleText(
-														country.name || {},
-														router.locale
-													)}
-													imageUrl={country?.image?.url}
-													onClick={() => {
-														countryClickHandler(
-															country.id,
-															country.name?.en
-														);
-													}}
-												/>
-											);
-										})}
-									</div>
-								</CountryCollapse>
-							);
-						})}
+				<div className="container mx-auto">
+					{/* for small device */}
+					<div className="absolute top-[140px] left-1/2 w-5/6 -translate-x-1/2 transform rounded-t-[40px] bg-white  pt-8 md:hidden">
+						<div className="space-y-2 px-4">
+							{regionsAndCountries.map((regionAndCountries: any) => {
+								const { countries = [] } = regionAndCountries || {};
+								return (
+									<CountryCollapse
+										key={regionAndCountries.id}
+										leading={countries?.length}
+										title={getLocaleText(
+											regionAndCountries.name || {},
+											router.locale
+										)}
+									>
+										<div className="space-y-2 bg-white py-2 pl-16">
+											{countries?.map((country: any) => {
+												return (
+													<CountryFlagTile
+														key={country.id}
+														title={getLocaleText(
+															country.name || {},
+															router.locale
+														)}
+														imageUrl={country?.image?.url}
+														onClick={() => {
+															countryClickHandler(
+																country.id,
+																country.name?.en
+															);
+														}}
+													/>
+												);
+											})}
+										</div>
+									</CountryCollapse>
+								);
+							})}
+						</div>
 					</div>
-				</div>
 
-				{/* Island and flags */}
-				<div className="-mt-[16px] mb-40 hidden justify-center md:flex">
-					<div className="w-[95%]s">
-						<div className="grid grid-cols-4 gap-x-16 gap-y-24">
-							<RegionsAndCountriesList
-								regionsAndCountries={regionsAndCountries || []}
-								onCountryClick={(country) =>
-									countryClickHandler(country.id, country.name?.en)
-								}
-							/>
+					{/* Island and flags */}
+					<div className="-mt-[16px] mb-40 hidden justify-center md:flex">
+						<div className="w-[95%]s">
+							<div className="grid grid-cols-4 gap-x-16 gap-y-24">
+								<RegionsAndCountriesList
+									regionsAndCountries={regionsAndCountries || []}
+									onCountryClick={(country) =>
+										countryClickHandler(country.id, country.name?.en)
+									}
+								/>
+							</div>
 						</div>
 					</div>
 				</div>

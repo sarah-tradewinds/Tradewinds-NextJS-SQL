@@ -105,7 +105,7 @@ const SearchBar: React.FC = () => {
 		<div>
 			<form className="relative" onSubmit={searchHandler}>
 				<label
-					className="hidden h-[40px] w-[40vw] items-center overflow-hidden rounded-full bg-accent-primary-main transition duration-300 ease-in-out hover:ring-1 hover:ring-accent-primary-main hover:ring-opacity-90 sm:flex lg:w-[48vw]"
+					className="hidden h-[40px] w-[40vw] items-center overflow-hidden rounded-full bg-accent-primary-main transition duration-300 ease-in-out hover:ring-1 hover:ring-accent-primary-main hover:ring-opacity-90 sm:flex xl:w-[48vw] 2xl:w-[32vw]"
 					htmlFor="searchBar"
 				>
 					<input
@@ -123,7 +123,7 @@ const SearchBar: React.FC = () => {
 					/>
 					<Button
 						type="submit"
-						className="flex h-6 w-[16%] cursor-pointer justify-center px-0 xl:w-[4%]"
+						className="flex h-6 w-[16%] cursor-pointer justify-center px-0 lg:w-[4vw] xl:w-[3vw]"
 					>
 						<HiOutlineSearch className="h-full w-[24px]" />
 					</Button>

@@ -134,7 +134,7 @@ const HomePage: NextPage<
 				cardBData={cardBData}
 			/>
 
-			<div className="md:px-4 lg:-mt-[30px] lg:px-8">
+			<div className="container mx-auto md:px-4 lg:-mt-[30px] lg:px-8">
 				{/* Category and sub categories */}
 				<div className="mt-12 space-y-12 md:mt-0 md:space-y-8">
 					{homeMainCategoriesAndCategories &&

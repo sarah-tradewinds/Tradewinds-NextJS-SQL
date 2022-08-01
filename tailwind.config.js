@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 module.exports = {
 	darkMode: 'class',
 	content: [
@@ -37,6 +39,20 @@ module.exports = {
 			// Onetime Colors
 			'agri-main': '#C4CE7F'
 		},
+		screens: {
+			sm: '576px',
+			md: '960px',
+			lg: '1440px',
+			xl: '1280px',
+			'2xl': '1512px',
+			'4k': '2560px'
+		},
+		container: {
+			screens: {
+				'2xl': '1512px',
+				'4k': '1512px'
+			}
+		},
 		extend: {
 			screens: {
 				pc: { raw: '(max-width: 640px)' }
@@ -46,5 +62,4 @@ module.exports = {
 			}
 		}
 	}
-	// plugins: [require('tw-elements/dist/plugin')]
 };

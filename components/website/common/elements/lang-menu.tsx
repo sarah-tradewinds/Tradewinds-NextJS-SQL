@@ -40,7 +40,7 @@ const LanguageDropdown: React.FC = () => {
 	}
 
 	return (
-		<div className="fixed top-[86px] right-8">
+		<div className="2xl:right-[660px]s fixed top-[86px] md:right-2 lg:right-8 4k:right-[540px]">
 			<Menu as="div" className="relative inline-block text-left">
 				<div>
 					<Menu.Button className="flex items-center space-x-1 font-semibold">
@@ -57,7 +57,7 @@ const LanguageDropdown: React.FC = () => {
 					leaveFrom="transform opacity-100 scale-100"
 					leaveTo="transform opacity-0 scale-95"
 				>
-					<Menu.Items className="divide-gray-100 absolute right-0 z-[4] origin-top-right divide-y rounded-md bg-white px-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+					<Menu.Items className="divide-gray-100 absolute z-[4] origin-top-right divide-y rounded-md bg-white px-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none md:right-0">
 						<div className="px-1 py-1 ">
 							{supportedLocales.map(({ code, name }) => {
 								return (

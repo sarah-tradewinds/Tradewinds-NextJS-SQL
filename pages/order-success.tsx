@@ -39,7 +39,7 @@ const CheckoutPage: NextPage = () => {
 	}, [query, cartProducts?.length]);
 
 	return (
-		<div className="flex flex-col items-center p-4 md:p-8">
+		<div className="container mx-auto flex flex-col items-center p-4 md:p-8">
 			<h1 className="text-center font-semibold text-primary-main md:text-[40px]">
 				Your order has been placed successfully{' '}
 			</h1>

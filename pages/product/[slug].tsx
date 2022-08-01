@@ -95,7 +95,7 @@ const ProductDetailsPage: NextPage<
 	}; // End of submitReviewHandler function
 
 	return (
-		<div className="pb-16 md:space-y-8">
+		<div className="container mx-auto pb-16 md:space-y-8">
 			<ProductDetailsTile
 				product={productData}
 				onVariantClick={setSelectedVariantId}

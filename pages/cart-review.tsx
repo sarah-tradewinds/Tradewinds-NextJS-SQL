@@ -68,7 +68,7 @@ const CartReviewPage: NextPage = () => {
 	const totalCartItemCount = cartProducts?.length || 0;
 
 	return (
-		<div className="grid grid-cols-12 gap-4 md:py-4 md:px-8">
+		<div className="container mx-auto grid grid-cols-12 gap-4 md:py-4 md:px-8">
 			{/* Stat cards */}
 			<div className="col-span-12">
 				<div className="grid grid-cols-1 gap-4 md:grid-cols-2">

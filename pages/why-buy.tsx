@@ -20,78 +20,78 @@ const WhyBuyPage: NextPage = () => {
 		<>
 			<Seo title="Why buy page" description="" />
 
-			<div className="">
-				{/* Header section */}
-				<div className="h-[263px] bg-[url('/static/images/WhyBuyImages/why-buy-header.png')] bg-cover bg-no-repeat md:h-[318px] lg:h-[680px]">
-					<div className="flex justify-end p-16">
-						<div className="md:w-1/2">
-							<h1 className="text-[35px] font-semibold text-white md:text-[40px] lg:w-3/4 lg:text-[50px] lg:leading-[51px] lg:text-gray">
-								{t('why_buy_on_tradewinds_marketplace')}
-							</h1>
-							{/* Content */}
-							<div className="hidden grid-cols-2 gap-4 lg:grid">
-								<div className="w-80">
-									<h2 className="text-accent-primary-main">
-										{t('verified_sellers')}
-									</h2>
-									<p className="text-sm">
-										{t(
-											'wide_assortment_of_product_from_reliable_sellers_in'
-										)}
-									</p>
-								</div>
-								<div className="w-80">
-									<h2 className="text-accent-primary-main">
-										{t('buy_with_confidence')}
-									</h2>
-									<p className="text-sm">
-										{t(
-											'buying_from_a_new_seller_over_the_internet_can_feel_a_bit_risky_at_first'
-										)}
-									</p>
-								</div>
-								<div className="w-80">
-									<h2 className="text-accent-primary-main">
-										{t('net_terms')}
-									</h2>
-									<p className="text-sm">
-										{t('twmp_offers_real_time_financing ')}
-									</p>
-								</div>
-								<div className="w-80">
-									<h2 className="text-accent-primary-main">
-										{t('cost_effective')}
-									</h2>
-									<p className="text-sm">
-										{t('lower_cost_to_maximize_your_profit')}
-									</p>
-								</div>
-								<div className="w-80">
-									<h2 className="text-accent-primary-main">
-										{t('bring_your_ideas_to_life')}
-									</h2>
-									<p className="text-sm">
-										{t('start_grow_your_business_with_confidence')}
-									</p>
-								</div>
-								<div className="w-80">
-									<h2 className="text-accent-primary-main">
-										{t('let_the_sellers_come_to_you')}
-									</h2>
-									<p className="text-sm">
-										{t(
-											"detail_what_you're_looking_for_and_share_it_in_the_request_for_quotation"
-										)}
-									</p>
-								</div>
+			{/* Header section */}
+			<div className="h-[263px] bg-[url('/static/images/WhyBuyImages/why-buy-header.png')] bg-cover bg-no-repeat md:h-[318px] lg:h-[680px]">
+				<div className="container mx-auto flex justify-end p-16 4k:py-16">
+					<div className="md:w-1/2 4k:w-auto">
+						<h1 className="text-[35px] font-semibold text-white md:text-[40px] lg:w-3/4 lg:text-[50px] lg:leading-[51px] lg:text-gray">
+							{t('why_buy_on_tradewinds_marketplace')}
+						</h1>
+						{/* Content */}
+						<div className="hidden grid-cols-2 gap-4 lg:grid">
+							<div className="w-80">
+								<h2 className="text-accent-primary-main">
+									{t('verified_sellers')}
+								</h2>
+								<p className="text-sm">
+									{t(
+										'wide_assortment_of_product_from_reliable_sellers_in'
+									)}
+								</p>
 							</div>
-							<div className="mt-4 hidden text-center lg:block">
-								<Button variant="buyer">{t('common:join_now')}</Button>
+							<div className="w-80">
+								<h2 className="text-accent-primary-main">
+									{t('buy_with_confidence')}
+								</h2>
+								<p className="text-sm">
+									{t(
+										'buying_from_a_new_seller_over_the_internet_can_feel_a_bit_risky_at_first'
+									)}
+								</p>
 							</div>
+							<div className="w-80">
+								<h2 className="text-accent-primary-main">
+									{t('net_terms')}
+								</h2>
+								<p className="text-sm">
+									{t('twmp_offers_real_time_financing ')}
+								</p>
+							</div>
+							<div className="w-80">
+								<h2 className="text-accent-primary-main">
+									{t('cost_effective')}
+								</h2>
+								<p className="text-sm">
+									{t('lower_cost_to_maximize_your_profit')}
+								</p>
+							</div>
+							<div className="w-80">
+								<h2 className="text-accent-primary-main">
+									{t('bring_your_ideas_to_life')}
+								</h2>
+								<p className="text-sm">
+									{t('start_grow_your_business_with_confidence')}
+								</p>
+							</div>
+							<div className="w-80">
+								<h2 className="text-accent-primary-main">
+									{t('let_the_sellers_come_to_you')}
+								</h2>
+								<p className="text-sm">
+									{t(
+										"detail_what_you're_looking_for_and_share_it_in_the_request_for_quotation"
+									)}
+								</p>
+							</div>
+						</div>
+						<div className="mt-4 hidden text-center lg:block">
+							<Button variant="buyer">{t('common:join_now')}</Button>
 						</div>
 					</div>
 				</div>
+			</div>
 
+			<div className="container mx-auto">
 				{/* Display only on small and medium */}
 				<div className="lg:hidden">
 					{/* Buyer platform features */}
