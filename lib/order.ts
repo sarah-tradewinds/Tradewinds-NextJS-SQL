@@ -14,8 +14,8 @@ export const createOrder = async (orderPayload: CreateOrder) => {
 		serviceAxiosInstance.defaults.baseURL = `${process.env.SITE_URL}/api/v1/services/api/v3`;
 
 		orderPayload.type = 'live_buy';
-		orderPayload.shipping_address = '62b04e543b19fa152769de0b';
-		orderPayload.billing_address = '62b04e543b19fa152769de0b';
+		orderPayload.shipping_address = '62e3e776e6212b367d9c5d2e';
+		orderPayload.billing_address = '62e3e776e6212b367d9c5d2e';
 		const { data } = await serviceAxiosInstance.post(
 			'/order',
 			orderPayload
