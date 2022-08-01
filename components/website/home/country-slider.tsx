@@ -12,10 +12,11 @@ interface CountrySliderProps {
 		image: { url: string };
 	}[];
 	onCountryClick?: (country: any) => any;
+	className?: string;
 }
 
 const CountrySlider: React.FC<CountrySliderProps> = (props) => {
-	const { countries, onCountryClick } = props;
+	const { countries, onCountryClick, className } = props;
 
 	const { t } = useTranslation('home');
 
@@ -39,7 +40,9 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 	});
 
 	return (
-		<div className="relative bg-gradient-to-r from-primary-main to-primary-main/80 pb-6 dark:from-primary-eco dark:to-primary-eco/80">
+		<div
+			className={`relative bg-gradient-to-r from-primary-main to-primary-main/80 pb-6 dark:from-primary-eco dark:to-primary-eco/80 ${className}`}
+		>
 			<div className="my-4 flex items-center justify-center space-x-4">
 				<div className="w-40 rounded-l-lg border border-white md:w-56 lg:w-80"></div>
 				<p className="whitespace-nowrap py-2 text-center text-white">

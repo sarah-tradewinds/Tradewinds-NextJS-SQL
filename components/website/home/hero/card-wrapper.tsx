@@ -10,31 +10,40 @@ const CardWrapper: React.FC<{
 	const { locale } = useRouter();
 
 	return (
-		<div className="mx-auto flex w-[96%] flex-col gap-2 space-y-4 sm:flex-row md:space-y-0 lg:gap-5">
+		<div className="mx-auto flex w-[96%] flex-col gap-2 space-y-4 sm:flex-row md:space-y-0 lg:gap-[25px]">
 			{cardAList.map((cardAData) => (
-				<CardA
-					key={cardAData.id}
-					title={getLocaleText(cardAData?.title || {}, locale)}
-					imageUrl={cardAData.image?.url}
-					subtitle={getLocaleText(cardAData?.description || {}, locale)}
-					name=""
-					href="/why-sell-on-tradewinds"
-				/>
+				<div key={cardAData.id} className="xl:max-w-[466px]s">
+					<CardA
+						title={getLocaleText(cardAData?.title || {}, locale)}
+						imageUrl={cardAData.image?.url}
+						subtitle={getLocaleText(
+							cardAData?.description || {},
+							locale
+						)}
+						name=""
+						href="/why-sell-on-tradewinds"
+					/>
+				</div>
 			))}
 
-			<CardB
-				title={getLocaleText(cardBData.title || {}, locale)}
-				imageUrl={cardBData?.image?.url}
-				subtitle={getLocaleText(cardBData.description_1 || {}, locale)}
-				description={getLocaleText(
-					cardBData.description_2 || {},
-					locale
-				)}
-				buttonText={cardBData.btn_text}
-				href={cardBData.action?.slug}
-				name=""
-				alt={cardBData.title?.en}
-			/>
+			<div className="xl:max-w-[466px]s">
+				<CardB
+					title={getLocaleText(cardBData.title || {}, locale)}
+					imageUrl={cardBData?.image?.url}
+					subtitle={getLocaleText(
+						cardBData.description_1 || {},
+						locale
+					)}
+					description={getLocaleText(
+						cardBData.description_2 || {},
+						locale
+					)}
+					buttonText={cardBData.btn_text}
+					href={cardBData.action?.slug}
+					name=""
+					alt={cardBData.title?.en}
+				/>
+			</div>
 		</div>
 	);
 };

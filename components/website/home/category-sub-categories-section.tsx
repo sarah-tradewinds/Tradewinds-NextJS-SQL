@@ -56,7 +56,7 @@ const CategorySubCategoriesSection: React.FC<
 				return (
 					<div
 						key={subCat.id}
-						className={`mb-2 md:mb-0 pc:border-b pc:border-gray/40 pc:last:border-b-0`}
+						className={`mb-2 transform transition duration-300 ease-in-out hover:-translate-y-2 md:mb-0 pc:border-b pc:border-gray/40 pc:last:border-b-0`}
 					>
 						<SubCategoryCard
 							subCat={category}
@@ -81,7 +81,7 @@ const CategorySubCategoriesSection: React.FC<
 		: [];
 
 	return (
-		<div className=" bg-primary-main">
+		<div className="bg-white md:rounded-md">
 			{/* For Small Screen- Collapse */}
 			<div className="md:hidden">
 				<Collapse
@@ -144,7 +144,7 @@ const CategorySubCategoriesSection: React.FC<
 			</div>
 
 			{/* For Medium and Large screen */}
-			<div className="hidden grid-cols-12 items-end gap-4 bg-white p-4 md:grid lg:gap-8 2xl:p-8">
+			<div className="hidden grid-cols-12 items-end gap-4 p-4 md:grid lg:gap-[30px] 2xl:p-8">
 				{/* Category */}
 				<div className="md:col-span-4 xl:col-span-3">
 					<CategoryCard

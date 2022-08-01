@@ -15,8 +15,7 @@ const CardA: React.FC<CardAProps> = (props) => {
 
 	return (
 		<Link href={href}>
-			{/* <a className="flex w-[100%] flex-1 cursor-pointer flex-col gap-2 rounded bg-white p-3 transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg sm:h-[280px] lg:h-[400px] lg:p-6 pc:h-[300px]"> */}
-			<a className="flex w-full flex-1 cursor-pointer flex-col gap-2 rounded bg-white p-3 transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg sm:h-[280px] md:h-[240px] md:w-[226px] lg:h-[352px] lg:w-[300px] lg:p-6 xl:w-[416px] pc:h-[300px]">
+			<a className="flex w-full flex-1 cursor-pointer flex-col gap-2 rounded-md bg-white p-3 transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg sm:h-[280px] md:h-[240px] md:w-[226px] lg:h-[352px] lg:w-[300px] lg:p-6 xl:w-[416px] pc:h-[300px]">
 				<h2 className="font-mont font-bold capitalize text-primary-main dark:text-accent-secondary-eco sm:text-[18px] lg:text-2xl">
 					{title}
 				</h2>
