@@ -3,7 +3,6 @@ import { GetStaticProps, NextPage } from 'next';
 import Button from 'components/website/common/form/button';
 
 // Third party packages
-import { loadStripe } from '@stripe/stripe-js';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // store
@@ -13,12 +12,6 @@ import { useEffect, useState } from 'react';
 import { useAuthStore } from 'store/auth';
 import { useCartStore } from 'store/cart-store';
 import { getLocaleText } from 'utils/get_locale_text';
-
-// Make sure to call `loadStripe` outside of a component's render to avoid
-// recreating the `Stripe` object on every render.
-const stripePromise = loadStripe(
-	'pk_test_51BTUDGJAJfZb9HEBwDg86TN1KNprHjkfipXmEDMb0gSCassK5T3ZfxsAbcgKVmAIXF7oZ6ItlZZbXO6idTHE67IM007EwQ4uN3'
-);
 
 const CartReviewPage: NextPage = () => {
 	const { customerData, isAuth, setIsLoginOpen } = useAuthStore(
@@ -60,8 +53,15 @@ const CartReviewPage: NextPage = () => {
 		billing_address = {},
 		shipping_address = {},
 		order_items = [],
+
+		// charges
 		shipping_charge = 0,
+		stripe_charge = 0,
+		tax = 0,
+
+		// totals
 		sub_total = 0,
+		grand_total = 0,
 		amount_to_pay = 0
 	} = orderReview as any;
 
@@ -227,7 +227,7 @@ const CartReviewPage: NextPage = () => {
 							<th className="w-1/4 md:w-1/4">Item</th>
 							<th className="w-1/4 md:w-1/4">QTY</th>
 							<th className="w-1/2 md:w-1/2">Unit Price</th>
-							<th className="w-1/4 md:w-1/2">Subtotal</th>
+							<th className="w-1/4 md:w-1/2">Total</th>
 						</tr>
 						<tbody>
 							{cartProducts?.map((cartProduct: any) => {
@@ -255,19 +255,19 @@ const CartReviewPage: NextPage = () => {
 									</tr>
 								);
 							})}
-
+							{/*
 							<tr>
 								<td></td>
 								<td></td>
 								<td></td>
 								<td className="pt-8 text-center">${sub_total}</td>
-							</tr>
+							</tr> */}
 						</tbody>
 					</table>
 				</div>
 
 				{/* shipping and handling */}
-				<div>
+				<div className="mt-4">
 					<p className="border-b border-gray text-[18px] font-semibold text-primary-main md:text-[25px]">
 						Shipping & Handling
 					</p>
@@ -275,21 +275,28 @@ const CartReviewPage: NextPage = () => {
 						<div className="text-[18px] text-gray">
 							<p>Item Subtotal</p>
 							<p>Shipping & Handling</p>
+							<p>Transaction Fees</p>
 							<p>Taxes</p>
 						</div>
 						<div className="text-[18px] text-gray">
 							<p>${sub_total}</p>
 							<p>${shipping_charge}</p>
+							<p>${stripe_charge}</p>
+							<p>${tax}</p>
 						</div>
 					</div>
 					{/* Total container */}
-					<div className="mt-4 flex justify-between bg-gray/20 px-4 py-2 text-[18px] font-semibold md:justify-end md:space-x-16 md:text-[25px]">
-						<p>Total</p>
+					<p className="text-[8px] font-semibold text-primary-main">
+						Please note, buyer will be responsible for any applicable
+						VAT, import, Customs, Nationalization fees if applicable
+					</p>
+					<div className="mt-1 flex justify-between bg-gray/20 px-4 py-2 text-[18px] font-semibold md:justify-end md:space-x-16 md:text-[25px]">
+						<p>Grand Total</p>
 						<div>
-							<p>${sub_total}</p>
-							<p className="mt-0 text-right text-[8px] font-semibold text-primary-main">
+							<p>${grand_total}</p>
+							{/* <p className="mt-0 text-right text-[8px] font-semibold text-primary-main">
 								Transation fee apply
-							</p>
+							</p> */}
 						</div>
 					</div>
 				</div>

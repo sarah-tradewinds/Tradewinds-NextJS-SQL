@@ -45,10 +45,16 @@ export const getOrderById = async (orderId: string) => {
 			shipping_address: orderData?.shipping_address,
 			billing_address: orderData?.billing_address,
 			order_items: orderData?.order_items || [],
+
+			// charges
 			shipping_charge: orderData?.shipping_charge,
+			stripe_charge: orderData?.stripe_charge || 0,
+			tax: orderData?.tax || 0,
+
+			// total
 			sub_total: orderData?.sub_total,
-			amount_to_pay: orderData?.amount_to_pay,
-			tax: orderData?.tax
+			grand_total: orderData?.grand_total || 0,
+			amount_to_pay: orderData?.amount_to_pay || 0
 		};
 
 		return orderData;
