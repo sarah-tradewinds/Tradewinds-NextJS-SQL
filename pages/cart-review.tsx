@@ -87,7 +87,7 @@ const CartReviewPage: NextPage = () => {
 								</p>
 								<p className="text-[14px] font-semibold text-gray">
 									Total number of SKUs
-									<span>Qty: 2</span>
+									<span>Qty: {totalCartItemCount}</span>
 								</p>
 							</div>
 							<div className="flex flex-col items-end space-y-2">
@@ -96,7 +96,7 @@ const CartReviewPage: NextPage = () => {
 										Subtotal ({totalCartItemCount} items)
 									</p>
 									<p className="text-right text-primary-main">
-										$100,000.00
+										${sub_total}
 									</p>
 								</div>
 								<Button onClick={gotoCheckout} variant="product">
@@ -237,19 +237,19 @@ const CartReviewPage: NextPage = () => {
 										key={cartProduct.id}
 										className="text-[18px] text-gray"
 									>
-										<td className="md:text-center">
+										<td className="text-center">
 											{getLocaleText(
 												product.product_name || {},
 												router.locale
 											)}
 										</td>
-										<td className="md:text-center">
+										<td className="text-center">
 											{cartProduct.quantity}
 										</td>
-										<td className="md:text-center">
+										<td className="text-center">
 											${product.product_price}
 										</td>
-										<td className="md:text-center">
+										<td className="text-center">
 											${cartProduct.total}
 										</td>
 									</tr>

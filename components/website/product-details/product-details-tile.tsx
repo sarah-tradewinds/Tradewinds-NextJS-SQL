@@ -242,7 +242,7 @@ const ProductDetailsTile: React.FC<{
 									);
 								}
 							}}
-							className="mt-4s relative !flex h-[22px] items-center !rounded-lg border-2 px-0 text-accent-primary-main md:block"
+							className="mt-4s relative !flex h-[22px] items-center !overflow-hidden !rounded-lg border-2 px-0 !text-accent-primary-main md:block"
 						>
 							<span className="flex h-full items-center bg-accent-primary-main px-1">
 								<BiMessageAltDetail className="text-[24px] text-white" />

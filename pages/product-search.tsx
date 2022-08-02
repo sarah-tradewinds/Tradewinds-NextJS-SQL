@@ -180,7 +180,7 @@ const ProductSearchPage: NextPage<
 		}
 	}, [selectedMainCategoryId.id]);
 
-	// Fetching products based on categoriess
+	// Fetching products based on categories
 	useEffect(() => {
 		const { query: searchQuery, categories } = router.query;
 
@@ -317,13 +317,20 @@ const ProductSearchPage: NextPage<
 		isEco
 	]);
 
-	const [ref] = useKeenSlider<HTMLDivElement>({
-		loop: true,
-		slides: {
-			perView: 2,
-			spacing: 8
+	const [options, setOptions] = useState({});
+	const [ref] = useKeenSlider<HTMLDivElement>(options);
+
+	useEffect(() => {
+		if (selectedCategories && selectedCategories?.length > 0) {
+			setOptions({
+				loop: true,
+				slides: {
+					perView: 2,
+					spacing: 8
+				}
+			});
 		}
-	});
+	}, [selectedCategories]);
 
 	const compareProducts = products?.filter(
 		(product: any) => product.isInCompareList
@@ -421,11 +428,15 @@ const ProductSearchPage: NextPage<
 													className="keen-slider__slide"
 												>
 													<SubCategoryTile
+														className="pb-4"
 														imageUrl={
 															subCategory.image?.url ||
 															'/vehicles/green-tractor.png'
 														}
-														title={getLocaleText(subCategory.title)}
+														title={getLocaleText(
+															subCategory.title || {},
+															router.locale
+														)}
 														showBorder={
 															selectedCategoryIds
 																? selectedCategoryIds?.includes(

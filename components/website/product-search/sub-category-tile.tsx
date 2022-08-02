@@ -6,6 +6,7 @@ interface SubCategoryTileProps {
 	alt?: string;
 	showBorder?: boolean;
 	onTilePressed?: () => any;
+	className?: string;
 }
 
 const SubCategoryTile: React.FC<SubCategoryTileProps> = ({
@@ -13,11 +14,12 @@ const SubCategoryTile: React.FC<SubCategoryTileProps> = ({
 	imageUrl,
 	alt,
 	showBorder,
-	onTilePressed
+	onTilePressed,
+	className
 }) => {
 	return (
 		<div
-			className="flex cursor-pointer items-center space-x-4"
+			className={`flex cursor-pointer items-center space-x-4 ${className}`}
 			onClick={onTilePressed}
 		>
 			<div className="relative h-[44px] w-[51px] md:h-[67px] md:w-[77px] lg:h-[67px] lg:w-[77px]">

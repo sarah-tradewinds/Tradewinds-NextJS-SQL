@@ -103,7 +103,7 @@ const CartPage: NextPage = () => {
 					{/* Stat cards */}
 					<div className="space-y-4 bg-white px-4 py-2 pb-8 shadow-md md:rounded-md">
 						<p className="text-[18px]  font-semibold text-primary-main md:text-[38px]">
-							Hi, {customerData.name}
+							Hi, {customerData.name || 'Guest'}
 						</p>
 
 						{/* For small device */}
