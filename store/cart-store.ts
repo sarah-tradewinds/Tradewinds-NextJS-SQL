@@ -90,7 +90,7 @@ export const useCartStore = create<CartState>((set) => ({
 				getTotalAmountAndQuantity(cartList);
 
 			if (!totalCartProductQuantity) {
-				addProductToCart('62b453142f60be1e439617ac', {
+				addProductToCart(buyerId, {
 					product_id: productId,
 					quantity: 1
 				});

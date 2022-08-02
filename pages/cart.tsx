@@ -111,11 +111,11 @@ const CartPage: NextPage = () => {
 							<div className="flex flex-col items-end">
 								<p className="text-[14px] font-semibold text-gray">
 									Total number of items
-									<span>Qty: {totalCartItemCount}</span>
+									<span>: {totalCartItemCount}</span>
 								</p>
 								<p className="text-[14px] font-semibold text-gray">
 									Total number of SKUs
-									<span>Qty: {totalCartItemCount}</span>
+									<span>: {totalCartItemCount}</span>
 								</p>
 							</div>
 							<div className="flex flex-col items-end space-y-2">
@@ -139,7 +139,7 @@ const CartPage: NextPage = () => {
 								Total number of items in cart
 							</p>
 							<p className="text-center text-[38px] font-semibold">
-								<span className="text-gray">Qty:</span>
+								{/* <span className="text-gray">Qty:</span> */}
 								<span className="text-primary-main">
 									{totalCartItemCount}
 								</span>
