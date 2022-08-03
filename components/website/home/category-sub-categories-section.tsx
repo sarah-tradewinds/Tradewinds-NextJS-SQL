@@ -10,16 +10,18 @@ import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
 import CatSubCatActionCard from './common/cat-sub-cat-action-card';
 import CategoryCard from './common/category-card';
 import SubCategoryCard from './common/sub-category-card';
+import SubCategorySlider from './sub-category-slider';
 
 type CategorySubCategoriesSectionProps = {
 	catSubCat: CatSubCatSectionType;
 	isReverse?: boolean;
+	isCustom?: boolean;
 	applyBgColor?: boolean;
 };
 
 const CategorySubCategoriesSection: React.FC<
 	CategorySubCategoriesSectionProps
-> = ({ catSubCat, isReverse, applyBgColor }) => {
+> = ({ catSubCat, isReverse, applyBgColor, isCustom }) => {
 	const [screenSize, setScreenSize] = useState<null | number>(null);
 	const [isTablet, setIsTablet] = useState<boolean>(false);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -167,12 +169,17 @@ const CategorySubCategoriesSection: React.FC<
 
 				{/* Sub categories */}
 				<div className="md:col-span-8 xl:col-span-9">
-					<div className="grid items-end gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-						{/* TODO: Data Slicing to be done based on the screen width with a stat*/}
-						{subCategories}
-
-						<CatSubCatActionCard />
-					</div>
+					{isCustom ? (
+						<SubCategorySlider
+							categories={[...categories, ...categories]}
+						/>
+					) : (
+						<div className="grid items-end gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+							{/* TODO: Data Slicing to be done based on the screen width with a stat*/}
+							{subCategories}
+							<CatSubCatActionCard />
+						</div>
+					)}
 				</div>
 			</div>
 		</div>

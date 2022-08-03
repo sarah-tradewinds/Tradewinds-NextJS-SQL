@@ -44,15 +44,24 @@ export const getCardB = async () => {
 	}
 }; // End of getCardB function
 
-export const getHomeMainCategoriesAndCategories = async () => {
+export const getHomeMainCategoriesAndCategories = async (): Promise<{
+	cat_section: any[];
+	is_custom: boolean;
+}> => {
 	try {
 		const { data } = await serviceAxiosInstance.get('/cms_category');
-		return data.data[0].cat_section;
+		return {
+			cat_section: data.data[0].cat_section,
+			is_custom: data.data[0].is_custom
+		};
 	} catch (error) {
 		console.log('[getHomeMainCategoriesAndCategories] =', error);
 		const { data } = (error as any).response || {};
 		// throw Error(data || 'Error occurred getHomeMainCategoriesAndCategories');
-		return [];
+		return {
+			cat_section: [],
+			is_custom: false
+		};
 	}
 }; // End of getHomeMainCategoriesAndCategories function
 

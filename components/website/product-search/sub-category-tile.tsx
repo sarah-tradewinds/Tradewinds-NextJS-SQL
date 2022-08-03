@@ -3,6 +3,7 @@ import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
 interface SubCategoryTileProps {
 	title: string;
 	imageUrl: string;
+	icon?: any;
 	alt?: string;
 	showBorder?: boolean;
 	onTilePressed?: () => any;
@@ -13,6 +14,7 @@ const SubCategoryTile: React.FC<SubCategoryTileProps> = ({
 	title,
 	imageUrl,
 	alt,
+	icon,
 	showBorder,
 	onTilePressed,
 	className
@@ -22,13 +24,16 @@ const SubCategoryTile: React.FC<SubCategoryTileProps> = ({
 			className={`flex cursor-pointer items-center space-x-4 ${className}`}
 			onClick={onTilePressed}
 		>
-			<div className="relative h-[44px] w-[51px] md:h-[67px] md:w-[77px] lg:h-[67px] lg:w-[77px]">
-				<ImageWithErrorHandler
-					src={imageUrl || '/sub-category/beans.png'}
-					alt={alt}
-					layout="fill"
-				/>
-			</div>
+			{!icon && (
+				<div className="relative h-[44px] w-[51px] md:h-[67px] md:w-[77px] lg:h-[67px] lg:w-[77px]">
+					<ImageWithErrorHandler
+						src={imageUrl || '/sub-category/beans.png'}
+						alt={alt}
+						layout="fill"
+					/>
+				</div>
+			)}
+			{icon}
 			<div className="relative">
 				<p className="text-[15px] font-semibold text-gray md:text-[12px] lg:text-[18px]">
 					{title}

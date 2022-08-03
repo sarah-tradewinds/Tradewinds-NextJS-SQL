@@ -20,6 +20,7 @@ import ImageWithErrorHandler from 'components/website/common/elements/image-with
 import Seo from 'components/website/common/seo';
 import MainCategoryCard from 'components/website/product-search/main-category-card';
 import SubCategoryTile from 'components/website/product-search/sub-category-tile';
+import TrendingSectionTile from 'components/website/product-search/trending-section-tile';
 import {
 	getProducts,
 	getSelectedMainCategoryAndCategories
@@ -382,8 +383,11 @@ const ProductSearchPage: NextPage<
 
 				{/* product list and Category container*/}
 				<div className="col-span-12 md:col-span-8 md:space-y-8 lg:col-span-9">
+					{/* TMP Trending */}
+					{router.query.is_trending && <TrendingSectionTile />}
+
 					{/* Category and categories list */}
-					{selectedMainCategoryId.id && (
+					{!router.query.is_trending && selectedMainCategoryId.id && (
 						<div className="grid grid-cols-12 md:gap-0 md:rounded-md md:bg-white md:p-4 md:shadow-md lg:gap-2">
 							{/* Main category Card */}
 							<div className="col-span-12 md:col-span-3">

@@ -55,6 +55,10 @@ const SubCategoryList: React.FC<SubCategoryListProps> = ({
 		);
 	}
 
+	if (subCategories.length <= 0) {
+		return null;
+	}
+
 	return (
 		<div
 			className={`mt-8 grid gap-8 md:grid-cols-2 lg:grid-cols-4 ${className}`}
@@ -81,7 +85,6 @@ const SubCategoryList: React.FC<SubCategoryListProps> = ({
 				onClick={onClick}
 				className="text-[18px] font-semibold text-gray"
 			>
-				See all
 				{t('common:see_all')}
 			</button>
 		</div>

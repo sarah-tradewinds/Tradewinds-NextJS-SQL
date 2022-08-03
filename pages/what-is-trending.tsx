@@ -1,262 +1,464 @@
-import ImageWithErrorHandler from 'components/website/common/elements/image-with-error-handler';
-import Button from 'components/website/common/form/button';
-import CategoryCard from 'components/website/home/common/category-card';
-import SubCategoryCard from 'components/website/home/common/sub-category-card';
-import CategoriesSlider from 'components/website/what-is-trending/categories-slider';
-import { getHomeMainCategoriesAndCategories } from 'lib/home.lib';
-import { getTrendingProducts } from 'lib/trending.lib';
 import {
 	GetServerSideProps,
 	InferGetServerSidePropsType,
 	NextPage
 } from 'next';
+import Image from 'next/image';
 
 // Third party packages
-import { useTranslation } from 'next-i18next';
+import { useKeenSlider } from 'keen-slider/react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
+// components
+import CompareProductList from 'components/website/compare/compare-bottom-overlay/compare-overlay-product-list';
+import ProductFilter from 'components/website/product-search/product-filter/product-filter';
+import ProductList from 'components/website/product-search/product-list';
+
+// stores
+import ImageWithErrorHandler from 'components/website/common/elements/image-with-error-handler';
+import Button from 'components/website/common/form/button';
+import Seo from 'components/website/common/seo';
+import MainCategoryCard from 'components/website/product-search/main-category-card';
+import {
+	getProducts,
+	getSelectedMainCategoryAndCategories
+} from 'lib/product-search.lib';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
-import { HiMinusCircle, HiPlusCircle } from 'react-icons/hi';
+import { useEffect, useState } from 'react';
+import { useCategoryStore } from 'store/category-store';
+import { useCountriesStore } from 'store/countries-store';
+import { useHomeStore } from 'store/home';
+import { useProductStore } from 'store/product-store';
+import {
+	getCountriesName,
+	getDataById,
+	getObjectKeys
+} from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
 
-const WhatIsTrendingPage: NextPage<
+const TrendingPage: NextPage<
 	InferGetServerSidePropsType<GetServerSideProps>
-> = ({ trendingMainCategoriesAndCategories, trendingProducts }) => {
-	const { locale } = useRouter();
-	const { t } = useTranslation();
+> = (props) => {
+	const [products, setProducts] = useState(props.products?.data || []);
+	const [minOrder, setMinOrder] = useState('0');
+	const [minPrice, setMinPrice] = useState('0');
+	const [selectedCountryCode, setSelectedCountryCode] = useState('');
 
-	const [isTrendingCategoriesOpen, setIsTrendingCategoriesOpen] =
-		useState(false);
+	const [localSelectedCategoryId, setLocalSelectedCategoryId] =
+		useState('');
+	const [localSelectedSubCategoryId, setLocalSelectedSubCategoryId] =
+		useState('');
+	const [
+		localSelectedSpecificCategoryId,
+		setLocalSelectedSpecificCategoryId
+	] = useState('');
 
-	const [isTrendingProductsOpen, setIsTrendingProductsOpen] =
-		useState(false);
+	const [selectedMainCategory, setSelectedMainCategory] =
+		useState<any>();
+	const [selectedCategories, setSelectedCategories] = useState([]);
+	const [
+		isSelectedMainCategoryAndCategoriesLoading,
+		setIsSelectedMainCategoryAndCategoriesLoading
+	] = useState(false);
 
-	const firstProduct =
-		trendingProducts?.length >= 1 ? trendingProducts[0] : {};
-	const remainingTrendingProducts = trendingProducts || [];
+	const isEco = useHomeStore((state) => state.isEco);
+
+	const selectedCountries = useCountriesStore(
+		(state) => state.selectedCountries
+	);
+
+	const {
+		allCategories,
+		selectedMainCategoryId,
+		selectedCategoryIds,
+		setSelectedMainCategoryId,
+		setSelectedCategoryId,
+		setSelectedSubCategoryId,
+		setSelectedSpecificCategoryId,
+		setSelectedAllCategoryId,
+		selectedSubCategoryIds,
+		selectedSpecificCategoryIds,
+		selectedCategoryAndSubCategoryAndSpecificCategoryIds,
+
+		fetchMainCategories,
+		fetchCategoriesByMainCategoryId,
+		fetchSubCategoriesByCategoryId,
+		fetchSpecificCategoriesBySubCategoryId
+	} = useCategoryStore();
+
+	const {
+		addProductToCompareList,
+		removeProductFromCompareList,
+		removeAllProductFromCompareList
+	} = useProductStore();
+
+	const router = useRouter();
+
+	const mainCategory = getDataById(
+		allCategories,
+		selectedMainCategoryId.id
+	);
+
+	const categoryIdList: string[] = [];
+	const subCategoryIdList: string[] = [];
+	const specificCategoryIdList: string[] = [];
+	for (let categoryId in selectedCategoryAndSubCategoryAndSpecificCategoryIds) {
+		categoryIdList.push(categoryId);
+		const subCategoryObject =
+			selectedCategoryAndSubCategoryAndSpecificCategoryIds[categoryId];
+		for (let subCategoryId in subCategoryObject) {
+			subCategoryIdList.push(subCategoryId);
+			const specificCategoryIds = subCategoryObject[subCategoryId];
+			specificCategoryIdList.push(...specificCategoryIds);
+		}
+	}
+
+	const subCategoryList = (mainCategory as any)?.categories || [];
+
+	const subCategories = [...subCategoryList]
+		?.slice(0, 7)
+		.map((category: any) => {
+			category.isSelected = selectedCategoryIds.includes(category.id);
+			return category;
+		});
+
+	// Fetching mainCategories
+	useEffect(() => {
+		if (allCategories.length <= 0) {
+			fetchMainCategories(isEco);
+		}
+	}, [allCategories.length, isEco]);
+
+	// Fetching categories based on mainCategoryId
+	useEffect(() => {
+		if (selectedMainCategoryId.id) {
+			fetchCategoriesByMainCategoryId(selectedMainCategoryId.id, isEco);
+		}
+	}, [selectedMainCategoryId.id]);
+
+	// Fetching sub-categories based on selectedCategoryIds
+	useEffect(() => {
+		const categoriesIds = getObjectKeys(
+			selectedCategoryAndSubCategoryAndSpecificCategoryIds
+		);
+		if (categoriesIds.length > 0) {
+			fetchSubCategoriesByCategoryId(
+				categoriesIds.toString(),
+				isEco
+			).then(() => {
+				// setSelectedSubCategoryId(
+				// 	localSelectedCategoryId,
+				// 	localSelectedSubCategoryId
+				// );
+			});
+		}
+	}, [selectedCategoryIds.length]);
+
+	// Fetching specific-categories based on selectedSubCategoryIds
+	useEffect(() => {
+		if (subCategoryIdList.length > 0) {
+			fetchSpecificCategoriesBySubCategoryId(
+				subCategoryIdList.toString(),
+				isEco
+			);
+		}
+	}, [selectedSubCategoryIds]);
+
+	// Fetching selectedMainCategory and selectedCategories
+	useEffect(() => {
+		if (selectedMainCategoryId.id) {
+			setIsSelectedMainCategoryAndCategoriesLoading(true);
+			getSelectedMainCategoryAndCategories(
+				selectedMainCategoryId.id
+			).then((data) => {
+				setSelectedMainCategory(data.main_category || {});
+				setSelectedCategories(data.categories || []);
+				setIsSelectedMainCategoryAndCategoriesLoading(false);
+			});
+		}
+	}, [selectedMainCategoryId.id]);
+
+	// Fetching products based on categories
+	useEffect(() => {
+		const { query: searchQuery, categories } = router.query;
+
+		if (!selectedMainCategoryId.id && !searchQuery && categories) {
+			getProducts({
+				price_start: +(minPrice || 0),
+				categories: (categories || '') as string,
+				is_eco: isEco
+			}).then((data: any) => {
+				let categories = data.categories || {};
+				const productList = data.data || [];
+				const [firstProduct] = productList;
+
+				if (!categories.main_category) {
+					if (firstProduct) {
+						categories = {
+							main_category: firstProduct?.main_category?.id,
+							category: firstProduct?.category?.id,
+							sub_category: firstProduct?.sub_category?.id,
+							sub_sub_category: firstProduct?.specific_category?.id
+						};
+					}
+				}
+
+				// Setting default category Ids
+				const {
+					main_category,
+					category,
+					sub_category,
+					sub_sub_category
+				} = categories || {};
+
+				if (!selectedMainCategoryId.id) {
+					setSelectedMainCategoryId(main_category, '');
+					setSelectedCategoryId(category);
+					setSelectedSubCategoryId(category, sub_category);
+					setSelectedSpecificCategoryId(
+						category,
+						sub_category,
+						sub_sub_category
+					);
+				}
+
+				setProducts(productList);
+
+				console.log(' ');
+				console.log(
+					'Calling only when some one click on categories in category page'
+				);
+				console.log(' ');
+			});
+		}
+	}, [router.query?.categories]);
+
+	// Fetching products based on search query
+	useEffect(() => {
+		const searchQuery = router.query?.query;
+		if (searchQuery) {
+			getProducts({
+				price_start: +(minPrice || 0),
+				all: (searchQuery || '') as string,
+				is_eco: isEco
+			}).then((data: any) => {
+				const productList = data.data || [];
+				setProducts(productList);
+				console.log(' ');
+				console.log(
+					'Calling only when query changes or search someone'
+				);
+				console.log(' ');
+			});
+		}
+	}, [router.query?.query]);
+
+	// Fetching products
+	useEffect(() => {
+		const { query: searchText } = router.query;
+		if (!selectedMainCategoryId.id && searchText) {
+			return;
+		}
+
+		const selectedCategories = subCategoryList.filter(
+			(subCategory: any) => {
+				return categoryIdList.includes(subCategory.id);
+			}
+		);
+
+		const categoryNames = selectedCategories.map((subCategory: any) => {
+			return subCategory.title?.en;
+		});
+
+		const subCategoryNames = [];
+		const specificCategoryNames = [];
+		for (let category of selectedCategories) {
+			const { subCategories = [] } = category || {};
+
+			for (let subCategory of subCategories) {
+				const { specificCategories = [] } = subCategory || {};
+
+				if (subCategoryIdList.includes(subCategory.id)) {
+					subCategoryNames.push(subCategory?.title?.en);
+				}
+
+				for (let specificCategory of specificCategories) {
+					if (specificCategoryIdList.includes(specificCategory.id)) {
+						specificCategoryNames.push(specificCategory?.title?.en);
+					}
+				}
+			}
+		}
+
+		getProducts({
+			price_start: +minPrice,
+			main_category: mainCategory?.title?.en,
+			category: categoryNames.toString(),
+			sub_category: subCategoryNames.toString(),
+			sub_sub_category: specificCategoryNames.toString(),
+			country_of_region: getCountriesName(selectedCountries).toString(),
+			is_eco: isEco
+		}).then((data: any) => {
+			const productList = data.data || [];
+			setProducts(productList);
+			console.log(' ');
+			console.log('Calling only products');
+			console.log(' ');
+		});
+	}, [
+		selectedMainCategoryId.id,
+		selectedCategoryIds.length,
+		selectedSubCategoryIds.length,
+		selectedSpecificCategoryIds.length,
+		minPrice,
+		selectedCountries,
+		isEco
+	]);
+
+	const [options, setOptions] = useState({});
+	const [ref] = useKeenSlider<HTMLDivElement>(options);
+
+	useEffect(() => {
+		if (selectedCategories && selectedCategories?.length > 0) {
+			setOptions({
+				loop: true,
+				slides: {
+					perView: 2,
+					spacing: 8
+				}
+			});
+		}
+	}, [selectedCategories]);
+
+	const compareProducts = products?.filter(
+		(product: any) => product.isInCompareList
+	);
 
 	return (
-		<div className="pb-8">
-			{/* Header */}
-			<div className="relative hidden md:block">
-				<div className="relative h-[234px] w-full">
+		<div className="container mx-auto">
+			<Seo title="Product search page" description="" />
+
+			{/* Main Category Banner */}
+			{selectedMainCategoryId.id && (
+				<div className="relative h-[103px] md:h-[234px]">
+					{/* <Image */}
 					<ImageWithErrorHandler
-						src="/latest-trend-image.png"
-						alt="Trending"
+						key={selectedMainCategory?.banner_image?.url}
+						src={selectedMainCategory?.banner_image?.url}
+						alt={getLocaleText(
+							selectedMainCategory?.title || {},
+							router.locale
+						)}
 						layout="fill"
 					/>
 				</div>
+			)}
 
-				<p className="absolute top-1/2 right-24 hidden -translate-y-1/2 transform text-[48px] font-semibold text-white lg:block">
-					Find the latest Trends
-				</p>
-			</div>
+			<div className="relative grid grid-cols-12 gap-4 md:p-4 lg:gap-6 lg:p-6">
+				{/* Side container */}
+				<section className="col-span-4 hidden space-y-8 md:block lg:col-span-3">
+					{/* filters */}
+					<ProductFilter
+						onMinOrderChange={(minOrderQuantity) =>
+							setMinOrder(minOrderQuantity)
+						}
+						onMinPriceChange={(minPriceQuantity) =>
+							setMinPrice(minPriceQuantity)
+						}
+					/>
 
-			<div className="md:hidden">
-				<div>
-					{/* Trending categories for mobile */}
-					<div className="mt-8 bg-primary-main px-4 pt-4 text-white">
-						<p className="text-[20px] font-semibold">
-							Trending Catagories
-						</p>
-						<p className="text-[14px] font-semibold">
-							Name Here Lorem ipsum dolor sit amet, consecamet Lorem
-							ipsum dolor sit amet,{' '}
-						</p>
-						<div className="flex justify-end ">
-							<Button
-								className="!p-0"
-								onClick={() =>
-									setIsTrendingCategoriesOpen((prevState) => !prevState)
-								}
-							>
-								{isTrendingCategoriesOpen ? (
-									<HiMinusCircle className="text-3xl text-secondary" />
-								) : (
-									<HiPlusCircle className="text-3xl text-secondary" />
-								)}
-							</Button>
+					{/* ads */}
+					<div>
+						<h4 className="bg-accent-primary-main p-4 text-center text-[25px] font-semibold text-white">
+							Buy My Smokes
+						</h4>
+						<div className="relative h-[471px] w-full">
+							<Image src="/smoker.png" alt="" layout="fill" />
 						</div>
 					</div>
-					{isTrendingCategoriesOpen && (
-						<div className="mb-2 space-y-4 bg-white px-4 md:mb-0 pc:border-b pc:border-gray/40 pc:last:border-b-0">
-							<SubCategoryCard
-								subCat={{
-									id: '1',
-									title: { en: 'Animal & Veterinary' },
-									slug: { en: 'animal-and-veterinary' },
-									image: { url: '/vehicles/green-tractor.png' },
-									clr: ''
-								}}
-								showImageInFront={true}
-								onClick={() => {}}
-								containerClassName="items-end min-h-[80px] md:min-h-[124px] lg:min-h-[140px] border-x-0 border-t-0 !border-b-2"
-							/>
-							<SubCategoryCard
-								subCat={{
-									id: '1',
-									title: { en: 'Animal & Veterinary' },
-									slug: { en: 'animal-and-veterinary' },
-									image: { url: '/vehicles/green-tractor.png' },
-									clr: ''
-								}}
-								showImageInFront={true}
-								onClick={() => {}}
-								containerClassName="items-end min-h-[80px] md:min-h-[124px] lg:min-h-[140px] border-x-0 border-t-0 !border-b-2"
-							/>
-							<SubCategoryCard
-								subCat={{
-									id: '1',
-									title: { en: 'Animal & Veterinary' },
-									slug: { en: 'animal-and-veterinary' },
-									image: { url: '/vehicles/green-tractor.png' },
-									clr: ''
-								}}
-								showImageInFront={true}
-								onClick={() => {}}
-								containerClassName="min-h-[80px] md:min-h-[124px] lg:min-h-[140px] border-none"
+				</section>
+
+				{/* product list and Category container*/}
+				<div className="col-span-12 md:col-span-8 md:space-y-8 lg:col-span-9">
+					{/* Trending card and filter */}
+					<div className="grid grid-cols-12 md:gap-0 md:rounded-md md:bg-white md:p-4 md:shadow-md lg:gap-2">
+						{/* Trending Card */}
+						<div className="col-span-12 md:col-span-3">
+							<MainCategoryCard
+								title="Trending"
+								subtitle={'This is trending products'}
+								imageUrl="/trending.png"
+								className="w-screen md:w-auto"
 							/>
 						</div>
-					)}
-				</div>
-
-				{/* Trending products for mobile */}
-				<div>
-					<div className="mt-8 bg-green px-4 pt-4 text-white">
-						<p className="text-[20px] font-semibold">
-							Trending Products
-						</p>
-						<p className="text-[14px] font-semibold">
-							Name Here Lorem ipsum dolor sit amet, consecamet Lorem
-							ipsum dolor sit amet,{' '}
-						</p>
-						<div className="flex justify-end ">
-							<Button
-								className="!p-0"
-								onClick={() =>
-									setIsTrendingProductsOpen((prevState) => !prevState)
-								}
-							>
-								{isTrendingProductsOpen ? (
-									<HiMinusCircle className="text-3xl text-secondary" />
-								) : (
-									<HiPlusCircle className="text-3xl text-secondary" />
-								)}
-							</Button>
+						{/* Trending filter */}
+						<div className="col-span-12 border-gray/20 md:col-span-9 md:ml-4 md:border-l-2 md:pl-4">
+							<div className="flex space-x-5">
+								<Button className="!text-primary-main">
+									Under $100
+								</Button>
+								<Button className="!text-primary-main">
+									Under $100
+								</Button>
+								<Button className="!text-primary-main">
+									Under $100
+								</Button>
+							</div>
 						</div>
 					</div>
-					{isTrendingProductsOpen && (
-						<div className="mb-2 space-y-4 bg-white px-4 md:mb-0 pc:border-b pc:border-gray/40 pc:last:border-b-0">
-							<SubCategoryCard
-								subCat={{
-									id: '1',
-									title: { en: 'Animal & Veterinary' },
-									slug: { en: 'animal-and-veterinary' },
-									image: { url: '/vehicles/green-tractor.png' },
-									clr: ''
-								}}
-								showImageInFront={true}
-								onClick={() => {}}
-								containerClassName="items-end min-h-[80px] md:min-h-[124px] lg:min-h-[140px] border-x-0 border-t-0 !border-b-2"
-								titleClassName="text-green"
+
+					{/* Product List */}
+					<div className="space-y-4 md:space-y-8">
+						{products?.length <= 0 ? (
+							<p className="text-center text-[32px] font-semibold">
+								No product found
+							</p>
+						) : (
+							<ProductList
+								products={products}
+								onCompareClick={addProductToCompareList}
 							/>
-							<SubCategoryCard
-								subCat={{
-									id: '1',
-									title: { en: 'Animal & Veterinary' },
-									slug: { en: 'animal-and-veterinary' },
-									image: { url: '/vehicles/green-tractor.png' },
-									clr: ''
-								}}
-								showImageInFront={true}
-								onClick={() => {}}
-								containerClassName="items-end min-h-[80px] md:min-h-[124px] lg:min-h-[140px] border-x-0 border-t-0 !border-b-2"
-								titleClassName="text-green"
-							/>
-							<SubCategoryCard
-								subCat={{
-									id: '1',
-									title: { en: 'Animal & Veterinary' },
-									slug: { en: 'animal-and-veterinary' },
-									image: { url: '/vehicles/green-tractor.png' },
-									clr: ''
-								}}
-								showImageInFront={true}
-								onClick={() => {}}
-								containerClassName="items-end min-h-[80px] md:min-h-[124px] lg:min-h-[140px] border-0"
-								titleClassName="text-green"
-							/>
+						)}
+					</div>
+
+					{/* Pagination */}
+					{/* <div className="col-span-12 hidden justify-center md:flex ">
+						<div className="flex space-x-3 font-semibold text-gray md:text-[20px] lg:text-[25px]">
+							<p>{`<`}</p>
+							<p>1</p>
+							<p>of</p>
+							<p>46</p>
+							<p>{`>`}</p>
 						</div>
-					)}
-				</div>
-			</div>
-
-			<div className="hidden md:block">
-				{/* Trending Categories */}
-				<div className="m-4 grid grid-cols-12 gap-4 rounded-md bg-white p-4 lg:gap-8">
-					<div className="col-span-12 md:col-span-4 lg:col-span-3">
-						<CategoryCard
-							title="Trending Categories"
-							description="Name Here Lorem ipsum dolor sit amet, consecamet Lorem ipsum dolor sit amet, "
-							imageUrl="/vehicles/green-tractor.png"
-							alt="/"
-							buttonText="Source Now"
-						/>
-					</div>
-
-					{/* Categories */}
-					<div className="col-span-8 mt-4 lg:col-span-9">
-						<CategoriesSlider />
-					</div>
+					</div> */}
 				</div>
 
-				{/* Trending Products */}
-				<div className="m-4 grid grid-cols-12 gap-4 rounded-md bg-white p-4 lg:gap-8">
-					<div className="col-span-3">
-						<CategoryCard
-							title="Trending Products"
-							name={getLocaleText(
-								firstProduct?.product_name || {},
-								locale
-							)}
-							description={getLocaleText(
-								firstProduct?.product_description || {},
-								locale
-							)}
-							imageUrl={
-								firstProduct?.images
-									? firstProduct?.images[0]?.url
-									: '/vehicles/green-tractor.png'
-							}
-							alt="/"
-							buttonText="Source Now"
-						/>
-					</div>
-
-					{/* Products */}
-					<div className="col-span-9 mt-4">
-						<CategoriesSlider dataList={remainingTrendingProducts} />
-					</div>
-				</div>
+				{/* Compare */}
+				{compareProducts.length > 0 && (
+					<CompareProductList
+						products={compareProducts}
+						onClearAllClick={removeAllProductFromCompareList}
+						onRemoveCompareProduct={removeProductFromCompareList}
+					/>
+				)}
 			</div>
 		</div>
 	);
-}; // End of WhatIsTrendingPage
+}; // End of TrendingPage
 
 export const getServerSideProps: GetServerSideProps = async ({
 	locale
 }) => {
-	const trendingMainCategoriesAndCategories =
-		await getHomeMainCategoriesAndCategories();
-	const trendingProducts = await getTrendingProducts();
+	const products = await getProducts({
+		price_start: 0
+	});
 
 	return {
 		props: {
-			trendingMainCategoriesAndCategories,
-			trendingProducts,
-			...(await serverSideTranslations(locale || 'en'))
+			...(await serverSideTranslations(locale || 'en')),
+			products
 		}
 	};
-};
+}; // End of getServerSideProps function
 
-export default WhatIsTrendingPage;
+export default TrendingPage;

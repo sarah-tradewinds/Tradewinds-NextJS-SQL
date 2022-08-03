@@ -203,7 +203,11 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 										/>
 									</div>
 
-									<Button onClick={() => onUpdate(productQuantity, id)}>
+									<Button
+										onClick={() =>
+											onUpdate(+(productQuantity || 0), id)
+										}
+									>
 										<p className="text-right text-[12px] font-semibold text-accent-primary-main md:text-[18px]">
 											Update
 										</p>

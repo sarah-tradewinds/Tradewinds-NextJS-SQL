@@ -25,6 +25,7 @@ import Button from '../common/form/button';
 import RatingStars from '../product-details/product-details-tab/product-review/rating-stars';
 
 interface ProductTileProps {
+	isEco?: boolean;
 	name: string;
 	slug: string;
 	keywords: string[];
@@ -47,6 +48,7 @@ interface ProductTileProps {
 
 const ProductTile: React.FC<ProductTileProps> = (props) => {
 	const {
+		isEco,
 		name,
 		slug,
 		keywords,
@@ -181,11 +183,15 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 	);
 
 	return (
-		<div className="bg-se grid w-full grid-cols-12 overflow-hidden bg-white md:rounded-xl md:shadow-md lg:p-4">
+		<div
+			className={`bg-se grid w-full grid-cols-12 overflow-hidden bg-white md:rounded-xl md:shadow-md lg:p-4 ${
+				isEco ? 'border-2 border-accent-success' : ''
+			}`}
+		>
 			<div className="col-span-12 space-y-4 lg:col-span-9">
 				<div className="grid grid-cols-12 gap-4 md:gap-0">
 					{/* Product Image Container */}
-					<div className="col-span-5 pr-2 md:col-span-3 lg:col-span-4">
+					<div className="relative col-span-5 pr-2 md:col-span-3 lg:col-span-4">
 						<Link href={`/product/${slug}`}>
 							<a>
 								<div className="relative h-full w-full">
@@ -198,6 +204,17 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 								</div>
 							</a>
 						</Link>
+
+						{isEco && (
+							<div className="absolute top-0">
+								<ImageWithErrorHandler
+									src="/static/icons/eco-icon.png"
+									alt="eco-icon"
+									width={32}
+									height={32}
+								/>
+							</div>
+						)}
 					</div>
 
 					{/* Content */}

@@ -1,5 +1,6 @@
 import useDeviceSize from 'hooks/use-device-size.hooks';
 import { useKeenSlider } from 'keen-slider/react';
+import Slider from 'react-slick';
 import SubCategoryCard from '../home/common/sub-category-card';
 
 function SamplePrevArrow(props: any) {
@@ -47,26 +48,26 @@ const CategoriesSlider: React.FC<{ dataList?: [] }> = ({
 		subCategories.push(i);
 	}
 
-	// return (
-	// 	<Slider {...settings}>
-	// 		{subCategories.map((id) => {
-	// 			return (
-	// 				<div key={id} className="py-4 px-2">
-	// 					<SubCategoryCard
-	// 						subCat={{
-	// 							id: '1',
-	// 							title: { en: id + ' - Animal & Veterinary' },
-	// 							slug: { en: 'animal-and-veterinary' },
-	// 							image: { url: '/vehicles/green-tractor.png' },
-	// 							clr: ''
-	// 						}}
-	// 						containerClassName="h-[140px]"
-	// 					/>
-	// 				</div>
-	// 			);
-	// 		})}
-	// 	</Slider>
-	// );
+	return (
+		<Slider {...settings}>
+			{subCategories.map((id) => {
+				return (
+					<div key={id} className="py-4 px-2">
+						<SubCategoryCard
+							subCat={{
+								id: '1',
+								title: { en: id + ' - Animal & Veterinary' },
+								slug: { en: 'animal-and-veterinary' },
+								image: { url: '/vehicles/green-tractor.png' },
+								clr: ''
+							}}
+							containerClassName="h-[140px]"
+						/>
+					</div>
+				);
+			})}
+		</Slider>
+	);
 
 	const dataArray = [...dataList].slice(0, deviceSize === 'md' ? 6 : 8);
 

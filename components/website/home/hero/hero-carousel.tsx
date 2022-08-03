@@ -37,6 +37,7 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 									src={item.image?.url}
 									alt={String(item.order)}
 									layout="fill"
+									objectFit="cover"
 								/>
 							</div>
 						</a>

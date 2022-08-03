@@ -9,11 +9,7 @@ import { useTranslation } from 'next-i18next';
 import { AiOutlineDashboard } from 'react-icons/ai';
 import { BiMessageDetail } from 'react-icons/bi';
 import { FiLogOut } from 'react-icons/fi';
-import {
-	HiOutlineMenuAlt1,
-	HiOutlineSearch,
-	HiX
-} from 'react-icons/hi';
+import { HiOutlineSearch } from 'react-icons/hi';
 
 // components
 import CartIcon from '../elements/cart-icon';
@@ -33,6 +29,7 @@ import {
 } from 'data/buyer/buyer-actions';
 
 // stores
+import { MdClose, MdMenu } from 'react-icons/md';
 import { useAuthStore } from 'store/auth';
 import { useCartStore } from 'store/cart-store';
 import { useCountriesStore } from 'store/countries-store';
@@ -82,6 +79,7 @@ const Header = () => {
 		<>
 			<header className="sticky top-0 z-[1000] w-full bg-gradient-to-r from-success via-accent-primary-main to-primary-main dark:bg-primary-eco">
 				<div className="2xl:container 2xl:mx-auto">
+					{/* Menu icon */}
 					<div
 						className="mx-auto flex h-[80px] w-[96%] items-center justify-between"
 						onClick={() => setShowLogout(false)}
@@ -92,16 +90,16 @@ const Header = () => {
 							onClick={drawerHandler}
 						>
 							{!isOpen ? (
-								<HiOutlineMenuAlt1 className="h-6 w-6 text-white" />
+								<MdMenu className="h-6 w-6 text-white" />
 							) : (
-								<HiX className="h-6 w-6 text-white" />
+								<MdClose className="h-6 w-6 text-white" />
 							)}
 						</button>
 
 						{/* Tradewinds logo */}
 						<div
-							className="relative h-[56px] w-[202px] md:h-[80px] md:w-[100px] lg:h-[56px] lg:w-[202px]"
-							id="Logo"
+							className="relative h-[28px] w-[101px] md:h-[80px] md:w-[100px] lg:h-[56px] lg:w-[202px]"
+							id="logo"
 						>
 							<Link href="/">
 								<a>
@@ -142,6 +140,11 @@ const Header = () => {
 
 						{/* Search Input */}
 						<SearchBar />
+
+						{/* Mobile Right Search Icons */}
+						<div className="flex gap-3 sm:hidden">
+							<HiOutlineSearch className="h-6 w-6 text-white" />
+						</div>
 
 						<div>
 							<CartIcon
@@ -229,11 +232,6 @@ const Header = () => {
 								</button>
 							</div>
 						)}
-
-						{/* Mobile Right Side Icons */}
-						<div className="flex gap-3 sm:hidden">
-							<HiOutlineSearch className="h-6 w-6 text-white" />
-						</div>
 					</div>
 
 					{/* Bottom nav */}
@@ -318,6 +316,35 @@ const Header = () => {
 									>
 										{t('what_is_a_rfq_text')}
 									</NavLink>
+
+									{/* For mobile only */}
+									<div className="flex w-full flex-col space-y-4 sm:hidden">
+										<NavLink
+											href={generateBuyerDashboardUrl({
+												redirect_to: BUYER_DASHBOARD_PAGES.buyer_rfq,
+												action: BUYER_DASHBOARD_ACTIONS.create_rfq,
+												access_key: customerData.access.token,
+												refresh_key: customerData.refresh.token
+											})}
+											className="nav-link"
+											activeClassName="underline font-semibold"
+											onClick={drawerHandler}
+										>
+											{t('dashboard')}
+										</NavLink>
+
+										<NavLink
+											href="/"
+											className="nav-link border-0"
+											activeClassName="underline font-semibold"
+											onClick={() => {
+												logout();
+												drawerHandler();
+											}}
+										>
+											{t('logout')}
+										</NavLink>
+									</div>
 								</nav>
 							</div>
 

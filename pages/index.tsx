@@ -108,7 +108,7 @@ const HomePage: NextPage<
 						{t('Find the latest Trends')}
 					</h3>
 					<Button
-						href="/what-is-trending"
+						href={`/product-search?is_trending=${true}`}
 						className="border-2 border-secondary text-[21px] font-bold text-secondary pc:!rounded-full"
 					>
 						See Trends
@@ -137,18 +137,21 @@ const HomePage: NextPage<
 			<div className="container mx-auto md:px-4 lg:-mt-[30px] lg:px-8">
 				{/* Category and sub categories */}
 				<div className="mt-12 space-y-12 md:mt-0 md:space-y-8">
-					{homeMainCategoriesAndCategories &&
-						homeMainCategoriesAndCategories.map(
+					{homeMainCategoriesAndCategories.cat_section &&
+						homeMainCategoriesAndCategories?.cat_section.map(
 							(
 								homeMainCategoryAndCategories: CatSubCatSectionType,
 								index: number
 							) => {
 								const canIDisplayFlags = Math.floor(
-									homeMainCategoriesAndCategories.length / 2
+									homeMainCategoriesAndCategories?.cat_section?.length /
+										2
 								);
+
 								if (index !== 0) {
 									isReverse = !isReverse;
 								}
+
 								return (
 									<>
 										<CategorySubCategoriesSection
@@ -156,9 +159,11 @@ const HomePage: NextPage<
 												homeMainCategoryAndCategories.main_category.id
 											}
 											catSubCat={homeMainCategoryAndCategories}
+											isCustom={
+												homeMainCategoriesAndCategories.is_custom
+											}
 											isReverse={isReverse}
 										/>
-
 										{/*  Search Categories Banner */}
 										{canIDisplayFlags === index && (
 											<div className="my-[30px] hidden md:block">
@@ -232,7 +237,10 @@ export const getServerSideProps: GetServerSideProps = async ({
 				cardAList,
 				cardBData,
 				homeMainCategoriesAndCategories:
-					homeMainCategoriesAndCategories ?? [],
+					homeMainCategoriesAndCategories ?? {
+						cat_section: [],
+						is_custom: false
+					},
 				homeCountries,
 				homeAdvertisements
 			}
@@ -245,7 +253,10 @@ export const getServerSideProps: GetServerSideProps = async ({
 				heroCarousels: [],
 				cardAList: [],
 				cardBData: {},
-				homeMainCategoriesAndCategories: [],
+				homeMainCategoriesAndCategories: {
+					cat_section: [],
+					is_custom: false
+				},
 				homeCountries: [],
 				homeAdvertisements: []
 			}
