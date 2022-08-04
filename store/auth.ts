@@ -6,6 +6,7 @@ import create from 'zustand';
 
 export interface CustomerDataProps {
 	id: string;
+	buyerId: string;
 	name: string;
 	access: {
 		token: string;
@@ -32,6 +33,7 @@ interface AuthState {
 
 const initialCustomerData = {
 	id: '',
+	buyerId: '',
 	name: 'Guest',
 	access: {
 		token: '',

@@ -58,7 +58,7 @@ const ProductList: React.FC<ProductListProps> = ({
 						totalReviewCount={product.totalReviewCount}
 						onCompareClick={() => onCompareClick(product)}
 						onCartClick={() => {
-							product.buyer_id = customerData.id;
+							product.buyer_id = customerData.buyerId;
 							addToCart(product.id, product);
 						}}
 						isInCompareList={product.isInCompareList}

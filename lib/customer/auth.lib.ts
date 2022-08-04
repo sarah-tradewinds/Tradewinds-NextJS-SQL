@@ -37,7 +37,12 @@ export const userLogin = async (params: any) => {
 export const autoLoginCustomer = async () => {
 	try {
 		const { data } = await axiosInstance.get('/auth/auto-login');
-		return data;
+		const userId = data?.data?.id;
+		let buyerId = '';
+		if (userId) {
+			buyerId = await getCustomerBuyerId(data?.data?.id);
+		}
+		return { ...data, buyerId };
 	} catch (error) {
 		console.log('[autoLoginCustomer] =', error);
 		const { data } = (error as any).response || {};
@@ -63,6 +68,20 @@ export const getCustomerDetails = async (token?: string) => {
 		throw Error(data?.message || 'Error occurred getCustomerDetails');
 	}
 }; // End of getCustomerDetails
+
+export const getCustomerBuyerId = async (userId: string) => {
+	try {
+		const { data } = await serviceAxiosInstance.get(
+			`/buyer/user/${userId}`
+		);
+
+		return data?.data?.id;
+	} catch (error) {
+		console.log('[getCustomerBuyerId] =', error);
+		const { data } = (error as any).response || {};
+		throw Error(data?.message || 'Error occurred getCustomerBuyerId');
+	}
+}; // End of getCustomerBuyerId
 
 export const forgetPasswordGenerateLink = async (email: string) => {
 	try {

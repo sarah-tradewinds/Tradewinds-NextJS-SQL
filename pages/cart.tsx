@@ -180,11 +180,11 @@ const CartPage: NextPage = () => {
 							updateQuantityByProductId(
 								quantity,
 								productId,
-								customerData.id
+								customerData.buyerId
 							)
 						}
 						removeProductByIdFromCart={(productId) =>
-							removeProductByIdFromCart(productId, customerData.id)
+							removeProductByIdFromCart(productId, customerData.buyerId)
 						}
 					/>
 				</div>

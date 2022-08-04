@@ -16,6 +16,7 @@ import { buttonSpinner } from '../spinners/custom-spinners';
 
 // libs
 import {
+	getCustomerBuyerId,
 	getCustomerDetails,
 	userLogin
 } from '../../../../lib/customer/auth.lib';
@@ -56,8 +57,12 @@ const Login: React.FC = () => {
 			const customerDetails = await getCustomerDetails(
 				data.access_token.token
 			);
+
+			const buyerId = await getCustomerBuyerId(customerDetails.id);
+
 			setCustomerData({
 				id: customerDetails.id,
+				buyerId,
 				name: customerDetails.name,
 				access: {
 					token: data.access_token.token,
