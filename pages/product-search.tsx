@@ -400,6 +400,8 @@ const ProductSearchPage: NextPage<
 									setMinPrice('0');
 								} else {
 									setMinPrice('100');
+									setMaxPrice('0');
+									setFilterBuyEco(false);
 								}
 							}}
 							onMaxPriceClick={() => {
@@ -407,9 +409,13 @@ const ProductSearchPage: NextPage<
 									setMaxPrice('0');
 								} else {
 									setMaxPrice('100');
+									setMinPrice('0');
+									setFilterBuyEco(false);
 								}
 							}}
 							onEcoClick={() => {
+								setMaxPrice('0');
+								setMinPrice('0');
 								setFilterBuyEco((prevState) => !prevState);
 							}}
 						/>
