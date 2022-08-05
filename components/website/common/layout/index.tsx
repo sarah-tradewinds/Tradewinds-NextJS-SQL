@@ -69,9 +69,9 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 	}, []);
 
 	useEffect(() => {
-		if (customerData.id) {
-			fetchCart(customerData.id);
-			getAddresses(customerData.id).then((addresses) => {
+		if (customerData.buyerId) {
+			fetchCart(customerData.buyerId);
+			getAddresses(customerData.buyerId).then((addresses) => {
 				for (const address of addresses) {
 					if (address.is_billing_address) {
 						localStorage.setItem('billing_address_id', address.id);
@@ -81,7 +81,7 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 				}
 			});
 		}
-	}, [customerData.id]);
+	}, [customerData.buyerId]);
 
 	return (
 		<>
