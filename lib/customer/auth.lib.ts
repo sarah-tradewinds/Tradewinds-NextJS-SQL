@@ -37,12 +37,6 @@ export const userLogin = async (params: any) => {
 export const autoLoginCustomer = async () => {
 	try {
 		const { data } = await axiosInstance.get('/auth/auto-login');
-		const userId = data?.customerData?.id;
-		data.customerData.buyerId = '';
-		// if (userId) {
-		// 	const buyerId = await getCustomerBuyerId(userId);
-		// 	data.customerData.buyerId = buyerId;
-		// }
 		return data;
 	} catch (error) {
 		console.log('[autoLoginCustomer] =', error);
