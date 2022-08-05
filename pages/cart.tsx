@@ -81,7 +81,7 @@ const CartPage: NextPage = () => {
 			});
 
 			const orderId = await createOrder({
-				buyer_id: customerData.id,
+				buyer_id: customerData.buyerId,
 				order_items: orderItems
 			});
 
@@ -97,6 +97,9 @@ const CartPage: NextPage = () => {
 
 	return (
 		<div className="container mx-auto grid grid-cols-12 gap-4 md:py-4 md:px-8">
+			{/* Addresses */}
+			{/* <div><AddressModal /></div> */}
+
 			{/* Stat cards */}
 			<div className="col-span-12">
 				<div className="grid grid-cols-1 gap-4 md:grid-cols-2">

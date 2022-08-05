@@ -1,11 +1,13 @@
 interface ModalProps {
 	open: boolean;
 	className?: string;
+	overlayClassName?: string;
 	onClose: () => any;
 }
 
 export const Modal: React.FC<ModalProps> = (props) => {
-	const { children, open, onClose, className } = props;
+	const { children, open, onClose, className, overlayClassName } =
+		props;
 
 	const modalClassName = `fixed z-[3001] ${className}`;
 
@@ -18,7 +20,7 @@ export const Modal: React.FC<ModalProps> = (props) => {
 			<Overlay
 				open={open}
 				onClick={onClose}
-				className="z-[2000] bg-white/80"
+				className={`z-[2000] bg-white/80 ${overlayClassName}`}
 			/>
 			<div className={modalClassName}>{children}</div>
 		</>
