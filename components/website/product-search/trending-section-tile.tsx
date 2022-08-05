@@ -2,7 +2,27 @@ import { BsCurrencyDollar } from 'react-icons/bs';
 import MainCategoryCard from './main-category-card';
 import SubCategoryTile from './sub-category-tile';
 
-const TrendingSectionTile: React.FC = () => {
+interface TrendingSectionTileProps {
+	minPrice: number;
+	maxPrice: number;
+	filterByEco?: boolean;
+	onMinPriceClick: (price: number) => any;
+	onMaxPriceClick: (price: number) => any;
+	onEcoClick: () => any;
+}
+
+const TrendingSectionTile: React.FC<TrendingSectionTileProps> = (
+	props
+) => {
+	const {
+		minPrice,
+		maxPrice,
+		filterByEco,
+		onMinPriceClick,
+		onMaxPriceClick,
+		onEcoClick
+	} = props;
+
 	const filterOptions = [
 		{
 			id: '1',
@@ -14,7 +34,9 @@ const TrendingSectionTile: React.FC = () => {
 					<BsCurrencyDollar className="-mr-3" />
 				</div>
 			),
-			title: 'Over $100 USD'
+			title: 'Over $100 USD',
+			isSelected: minPrice === 100,
+			onClick: onMinPriceClick
 		},
 		{
 			id: '2',
@@ -22,12 +44,16 @@ const TrendingSectionTile: React.FC = () => {
 			icon: (
 				<BsCurrencyDollar className="text-[32px] text-primary-eco" />
 			),
-			title: 'Under $100 USD'
+			title: 'Under $100 USD',
+			isSelected: maxPrice === 100,
+			onClick: onMaxPriceClick
 		},
 		{
 			id: '3',
 			imageUrl: '/static/icons/eco-icon.png',
-			title: 'ECO'
+			title: 'ECO',
+			isSelected: filterByEco,
+			onClick: onEcoClick
 		}
 	];
 
@@ -54,6 +80,10 @@ const TrendingSectionTile: React.FC = () => {
 								filterOption.imageUrl || '/vehicles/green-tractor.png'
 							}
 							icon={filterOption.icon}
+							onTilePressed={() => {
+								filterOption.onClick(0);
+							}}
+							showBorder={filterOption.isSelected}
 						/>
 					))}
 				</div>

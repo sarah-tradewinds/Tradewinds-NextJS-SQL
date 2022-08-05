@@ -12,6 +12,7 @@ export const getProducts = async (params: {
 	sub_sub_category?: string;
 	country_of_region?: string;
 	is_eco?: boolean;
+	is_all_trending?: boolean;
 }) => {
 	const queryString = generateQueryString(params);
 

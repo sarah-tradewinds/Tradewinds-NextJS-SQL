@@ -45,6 +45,8 @@ const ProductSearchPage: NextPage<
 	const [products, setProducts] = useState(props.products?.data || []);
 	const [minOrder, setMinOrder] = useState('0');
 	const [minPrice, setMinPrice] = useState('0');
+	const [maxPrice, setMaxPrice] = useState('0');
+	const [filterBuyEco, setFilterBuyEco] = useState(false);
 	const [selectedCountryCode, setSelectedCountryCode] = useState('');
 
 	const [localSelectedCategoryId, setLocalSelectedCategoryId] =
@@ -258,7 +260,7 @@ const ProductSearchPage: NextPage<
 
 	// Fetching products
 	useEffect(() => {
-		const { query: searchText } = router.query;
+		const { query: searchText, is_trending } = router.query;
 		if (!selectedMainCategoryId.id && searchText) {
 			return;
 		}
@@ -295,12 +297,14 @@ const ProductSearchPage: NextPage<
 
 		getProducts({
 			price_start: +minPrice,
+			price_end: +maxPrice,
 			main_category: mainCategory?.title?.en,
 			category: categoryNames.toString(),
 			sub_category: subCategoryNames.toString(),
 			sub_sub_category: specificCategoryNames.toString(),
 			country_of_region: getCountriesName(selectedCountries).toString(),
-			is_eco: isEco
+			is_eco: isEco || filterBuyEco,
+			is_all_trending: is_trending ? true : false
 		}).then((data: any) => {
 			const productList = data.data || [];
 			setProducts(productList);
@@ -314,8 +318,10 @@ const ProductSearchPage: NextPage<
 		selectedSubCategoryIds.length,
 		selectedSpecificCategoryIds.length,
 		minPrice,
+		maxPrice,
 		selectedCountries,
-		isEco
+		isEco,
+		filterBuyEco
 	]);
 
 	const [options, setOptions] = useState({});
@@ -384,7 +390,30 @@ const ProductSearchPage: NextPage<
 				{/* product list and Category container*/}
 				<div className="col-span-12 md:col-span-8 md:space-y-8 lg:col-span-9">
 					{/* TMP Trending */}
-					{router.query.is_trending && <TrendingSectionTile />}
+					{router.query.is_trending && (
+						<TrendingSectionTile
+							minPrice={+minPrice}
+							maxPrice={+maxPrice}
+							filterByEco={filterBuyEco}
+							onMinPriceClick={() => {
+								if (+minPrice === 100) {
+									setMinPrice('0');
+								} else {
+									setMinPrice('100');
+								}
+							}}
+							onMaxPriceClick={() => {
+								if (+maxPrice === 100) {
+									setMaxPrice('0');
+								} else {
+									setMaxPrice('100');
+								}
+							}}
+							onEcoClick={() => {
+								setFilterBuyEco((prevState) => !prevState);
+							}}
+						/>
+					)}
 
 					{/* Category and categories list */}
 					{!router.query.is_trending && selectedMainCategoryId.id && (
