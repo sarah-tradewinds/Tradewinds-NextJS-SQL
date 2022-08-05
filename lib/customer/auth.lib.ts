@@ -39,10 +39,10 @@ export const autoLoginCustomer = async () => {
 		const { data } = await axiosInstance.get('/auth/auto-login');
 		const userId = data?.customerData?.id;
 		data.customerData.buyerId = '';
-		if (userId) {
-			const buyerId = await getCustomerBuyerId(userId);
-			data.customerData.buyerId = buyerId;
-		}
+		// if (userId) {
+		// 	const buyerId = await getCustomerBuyerId(userId);
+		// 	data.customerData.buyerId = buyerId;
+		// }
 		return data;
 	} catch (error) {
 		console.log('[autoLoginCustomer] =', error);
@@ -60,8 +60,10 @@ export const getCustomerDetails = async (token?: string) => {
 		});
 
 		return {
+			id: data?.data?.id,
 			name: `${data?.data?.first_name} ${data?.data?.last_name}`,
-			id: data?.data?.id
+			phone: data?.data?.phone || '',
+			email: data?.data?.email || ''
 		};
 	} catch (error) {
 		console.log('[getCustomerDetails] =', error);

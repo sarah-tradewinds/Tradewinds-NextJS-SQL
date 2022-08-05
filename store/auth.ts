@@ -8,6 +8,8 @@ export interface CustomerDataProps {
 	id: string;
 	buyerId: string;
 	name: string;
+	phone?: string;
+	email?: string;
 	access: {
 		token: string;
 		expireIn: string;
@@ -35,6 +37,8 @@ const initialCustomerData = {
 	id: '',
 	buyerId: '',
 	name: 'Guest',
+	phone: '',
+	email: '',
 	access: {
 		token: '',
 		expireIn: ''

@@ -168,7 +168,7 @@ const CartReviewPage: NextPage = () => {
 								Email:
 							</span>
 							<span className="text-[18px] text-gray">
-								{billing_address?.email}
+								{billing_address?.email || customerData.email}
 							</span>
 						</p>
 						{/* Phone */}
@@ -202,7 +202,7 @@ const CartReviewPage: NextPage = () => {
 								Email:
 							</span>
 							<span className="text-[18px] text-gray">
-								{shipping_address?.email}
+								{shipping_address?.email || customerData.email}
 							</span>
 						</p>
 						{/* Phone */}

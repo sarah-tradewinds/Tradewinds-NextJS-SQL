@@ -64,6 +64,8 @@ const Login: React.FC = () => {
 				id: customerDetails.id,
 				buyerId,
 				name: customerDetails.name,
+				phone: customerDetails.phone,
+				email: customerDetails.email,
 				access: {
 					token: data.access_token.token,
 					expireIn: ''

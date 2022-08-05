@@ -2,11 +2,10 @@ import { serviceAxiosInstance } from 'utils/axios-instance.utils';
 
 interface CreateOrder {
 	buyer_id: string;
-	// order_by_sellers: any[];
 	order_items: any[];
 	type?: 'live_buy';
-	shipping_address?: string;
-	billing_address?: string;
+	shipping_address?: string | null;
+	billing_address?: string | null;
 }
 
 export const createOrder = async (orderPayload: CreateOrder) => {
@@ -14,12 +13,21 @@ export const createOrder = async (orderPayload: CreateOrder) => {
 		serviceAxiosInstance.defaults.baseURL = `${process.env.SITE_URL}/api/v1/services/api/v3`;
 
 		orderPayload.type = 'live_buy';
-		orderPayload.shipping_address = '62e3e776e6212b367d9c5d2e';
-		orderPayload.billing_address = '62e3e776e6212b367d9c5d2e';
+
+		// TODO: Temporary
+		if (!orderPayload.billing_address) {
+			orderPayload.billing_address = orderPayload.shipping_address;
+		}
+		if (!orderPayload.shipping_address) {
+			orderPayload.shipping_address = orderPayload.billing_address;
+		}
+
 		const { data } = await serviceAxiosInstance.post(
 			'/order',
 			orderPayload
 		);
+		serviceAxiosInstance.defaults.baseURL = `${process.env.SITE_URL}/api/v1/services/api/v1`;
+
 		return data.data?.InsertedID || '';
 	} catch (error) {
 		console.log('[createOrder] =', error);
@@ -38,6 +46,7 @@ export const getOrderById = async (orderId: string) => {
 		const { data } = await serviceAxiosInstance.get(
 			`/order/${orderId}`
 		);
+		serviceAxiosInstance.defaults.baseURL = `${process.env.SITE_URL}/api/v1/services/api/v1`;
 
 		let orderData = data.data || {};
 		orderData = {
@@ -75,6 +84,7 @@ export const getPaymentIntentByOrderId = async (orderId: string) => {
 		const { data } = await serviceAxiosInstance.get(
 			`/order/checkout/${orderId}`
 		);
+		serviceAxiosInstance.defaults.baseURL = `${process.env.SITE_URL}/api/v1/services/api/v1`;
 
 		const clientSecret = data.response?.client_secret || '';
 		return clientSecret;

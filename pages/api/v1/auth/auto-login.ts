@@ -14,6 +14,8 @@ const autoLoginHandler: NextApiHandler = async (req, res) => {
 	const initialCustomerData = {
 		id: '',
 		name: '',
+		email: '',
+		phone: '',
 		access: {
 			token: '',
 			expireIn: ''

@@ -28,6 +28,7 @@ import {
 	MdPerson
 } from 'react-icons/md';
 
+import { getAddresses } from 'lib/customer/addres.lib';
 import { useAuthStore } from 'store/auth';
 import { useCartStore } from 'store/cart-store';
 import { useCategoryStore } from 'store/category-store';
@@ -70,6 +71,15 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 	useEffect(() => {
 		if (customerData.id) {
 			fetchCart(customerData.id);
+			getAddresses(customerData.id).then((addresses) => {
+				for (const address of addresses) {
+					if (address.is_billing_address) {
+						localStorage.setItem('billing_address_id', address.id);
+					} else {
+						localStorage.setItem('shipping_address_id', address.id);
+					}
+				}
+			});
 		}
 	}, [customerData.id]);
 
