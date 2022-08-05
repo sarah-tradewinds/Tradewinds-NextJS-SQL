@@ -34,38 +34,6 @@ const CartPage: NextPage = () => {
 		if (!isAuth) {
 			setIsLoginOpen();
 		} else {
-			// const orderItemsBySellerId = {};
-			// const orderItems = cartProducts.map((cartProduct) => {
-			// 	const { product } = cartProduct;
-			// 	const sellerId = product.seller_id;
-
-			// 	const orderItem = {
-			// 		product_id: product.id,
-			// 		item: product.product_name?.en,
-			// 		unit_Cost: product.product_price,
-			// 		quantity: cartProduct.quantity,
-			// 		discount: 0,
-			// 		total: cartProduct.total
-			// 	};
-
-			// 	const orderItemBySellerId = (orderItemsBySellerId as any)[
-			// 		sellerId
-			// 	];
-			// 	if (!orderItemBySellerId) {
-			// 		(orderItemsBySellerId as any)[sellerId] = {
-			// 			seller_id: sellerId,
-			// 			order_items: [orderItem]
-			// 		};
-			// 	} else {
-			// 		(orderItemsBySellerId as any)[sellerId] = {
-			// 			seller_id: sellerId,
-			// 			order_items: [...orderItemBySellerId.order_items, orderItem]
-			// 		};
-			// 	}
-
-			// 	return orderItem;
-			// });
-
 			const orderItems = cartProducts.map((cartProduct) => {
 				const { product } = cartProduct;
 
@@ -73,11 +41,13 @@ const CartPage: NextPage = () => {
 					product_id: product.id,
 					quantity: cartProduct.quantity,
 					discount: 0
-					// item: product.product_name?.en,
-					// unit_Cost: product.product_price,
-					// total: cartProduct.total
 				};
 				return orderItem;
+			});
+
+			console.log({
+				buyer_id: customerData.buyerId,
+				order_items: orderItems
 			});
 
 			const orderId = await createOrder({
@@ -98,7 +68,9 @@ const CartPage: NextPage = () => {
 	return (
 		<div className="container mx-auto grid grid-cols-12 gap-4 md:py-4 md:px-8">
 			{/* Addresses */}
-			{/* <div><AddressModal /></div> */}
+			{/* <div>
+				<AddressModal />
+			</div> */}
 
 			{/* Stat cards */}
 			<div className="col-span-12">
