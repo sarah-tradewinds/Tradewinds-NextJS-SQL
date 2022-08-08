@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 // components
 import Button from 'components/website/common/form/button';
 import MetadataList from 'components/website/product-search/metadata/metadata-list';
@@ -7,6 +5,7 @@ import VerifiedAndRating from '../product-search/verified-and-rating';
 
 // data
 import { metadataList } from 'data/product-search/metadata-list';
+import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
 import Input from '../common/form/input';
 
 interface CompareProductTileProps {
@@ -46,7 +45,7 @@ const CompareProductTile: React.FC<CompareProductTileProps> = (
 				x
 			</Button>
 			<div className="relative h-[202px] w-[240px]">
-				<Image src={imageUrl} alt={alt} layout="fill" />
+				<ImageWithErrorHandler src={imageUrl} alt={alt} layout="fill" />
 			</div>
 
 			{/* Content */}

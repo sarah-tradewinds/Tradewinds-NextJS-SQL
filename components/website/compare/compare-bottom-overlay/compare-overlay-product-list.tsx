@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { generateListByCount } from 'utils/common.util';
 import Button from '../../common/form/button';
 import CompareProductTile from './compare-overlay-product-tile';
 import CompareProductBottomOverlay from './compare-product-bootom-overlay';
@@ -22,14 +23,6 @@ const CompareProductList: React.FC<CompareProductListProps> = (
 		}
 	}, [products.length]);
 
-	const getPlaceholder = () => {
-		const productHolderList = [];
-		for (let i = 1; i <= 4 - products.length; i++) {
-			productHolderList.push(i);
-		}
-		return productHolderList;
-	};
-
 	return (
 		<div className="relative">
 			<CompareProductBottomOverlay
@@ -40,9 +33,9 @@ const CompareProductList: React.FC<CompareProductListProps> = (
 					{products.map((product) => (
 						<CompareProductTile
 							key={product.id}
-							imageUrl={product.imageUrl}
-							minPrice={10}
-							maxPrice={50}
+							imageUrl={product?.images ? product?.images[0].url : ''}
+							minPrice={0}
+							maxPrice={0}
 							title={product.name}
 							onRemoveCompareProduct={() => {
 								if (onRemoveCompareProduct) {
@@ -53,12 +46,14 @@ const CompareProductList: React.FC<CompareProductListProps> = (
 					))}
 
 					{/* Show when we have less than 4 products */}
-					{getPlaceholder().map((placeHolder) => (
-						<div
-							key={placeHolder}
-							className="h-[65px] w-[65px]  overflow-hidden bg-black lg:h-[108px] lg:w-[180px] xl:h-[80px] xl:w-[240px] 2xl:h-[76px] 2xl:w-[240px]"
-						></div>
-					))}
+					{generateListByCount(3 - products.length).map(
+						(placeHolder) => (
+							<div
+								key={placeHolder}
+								className="h-[65px] w-[65px]  overflow-hidden bg-black lg:h-[108px] lg:w-[180px] xl:h-[80px] xl:w-[240px] 2xl:h-[76px] 2xl:w-[240px]"
+							></div>
+						)
+					)}
 
 					{/* Action button */}
 					<div className="mt-4 flex w-full space-x-6 md:w-auto md:flex-col md:space-x-0 md:space-y-4">

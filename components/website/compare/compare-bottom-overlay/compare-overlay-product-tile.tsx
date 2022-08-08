@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import ImageWithErrorHandler from 'components/website/common/elements/image-with-error-handler';
 import { MdOutlineClose } from 'react-icons/md';
 import Button from '../../common/form/button';
 
@@ -30,7 +30,7 @@ const CompareProductTile: React.FC<CompareProductTileProps> = (
 			className={`relative flex items-center space-x-2  bg-white md:p-2 lg:w-[180px] xl:w-[240px] 2xl:w-[250px] ${className}`}
 		>
 			<div className="relative h-[65px] w-[65px] lg:h-[44px] lg:w-[65px]">
-				<Image src={imageUrl} alt={alt} layout="fill" />
+				<ImageWithErrorHandler src={imageUrl} alt={alt} layout="fill" />
 			</div>
 
 			{/* Content */}

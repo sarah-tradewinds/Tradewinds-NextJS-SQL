@@ -61,7 +61,7 @@ const SubCategoryList: React.FC<SubCategoryListProps> = ({
 
 	return (
 		<div
-			className={`mt-8 grid gap-8 md:grid-cols-2 lg:grid-cols-4 ${className}`}
+			className={`mt-8 grid gap-y-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ${className}`}
 		>
 			{subCategories
 				.slice(0, isTablet ? 5 : 7)
@@ -69,9 +69,7 @@ const SubCategoryList: React.FC<SubCategoryListProps> = ({
 					<SubCategoryTile
 						key={subCategory.name}
 						title={getLocaleText(subCategory?.title || {}, locale)}
-						imageUrl={
-							subCategory?.image?.url || '/sub-category/beans.png'
-						}
+						imageUrl={subCategory?.image?.url}
 						showBorder={
 							selectedSubCategoryIds
 								? selectedSubCategoryIds?.includes(subCategory.id)

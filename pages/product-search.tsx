@@ -31,7 +31,7 @@ import Skeleton from 'react-loading-skeleton';
 import { useCategoryStore } from 'store/category-store';
 import { useCountriesStore } from 'store/countries-store';
 import { useHomeStore } from 'store/home';
-import { useProductStore } from 'store/product-store';
+import { useProductCompareStore } from 'store/product-compare-store';
 import {
 	getCountriesName,
 	getDataById,
@@ -92,12 +92,14 @@ const ProductSearchPage: NextPage<
 	} = useCategoryStore();
 
 	const {
+		compareProducts,
 		addProductToCompareList,
 		removeProductFromCompareList,
 		removeAllProductFromCompareList
-	} = useProductStore();
+	} = useProductCompareStore();
 
 	const router = useRouter();
+	console.log('compareProducts =', compareProducts);
 
 	const mainCategory = getDataById(
 		allCategories,
@@ -339,10 +341,6 @@ const ProductSearchPage: NextPage<
 		}
 	}, [selectedCategories]);
 
-	const compareProducts = products?.filter(
-		(product: any) => product.isInCompareList
-	);
-
 	return (
 		<div className="container mx-auto">
 			<Seo title="Product search page" description="" />
@@ -389,7 +387,6 @@ const ProductSearchPage: NextPage<
 
 				{/* product list and Category container*/}
 				<div className="col-span-12 md:col-span-8 md:space-y-8 lg:col-span-9">
-					{/* TMP Trending */}
 					{router.query.is_trending && (
 						<TrendingSectionTile
 							minPrice={+minPrice}

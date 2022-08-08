@@ -25,11 +25,14 @@ const SubCategoryTile: React.FC<SubCategoryTileProps> = ({
 			onClick={onTilePressed}
 		>
 			{!icon && (
-				<div className="relative h-[44px] w-[51px] md:h-[67px] md:w-[77px] lg:h-[67px] lg:w-[77px]">
+				// <div className="relative h-[44px] w-[51px] md:h-[60px] md:w-[60px]">
+				<div className="relative">
 					<ImageWithErrorHandler
-						src={imageUrl || '/sub-category/beans.png'}
+						src={imageUrl}
 						alt={alt}
-						layout="fill"
+						// layout="fill"
+						width="60px"
+						height="60px"
 					/>
 				</div>
 			)}

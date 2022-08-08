@@ -1,5 +1,14 @@
-import { NextPage } from 'next';
+import { GetStaticProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
+
+// Third party packages
+import { useKeenSlider } from 'keen-slider/react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useState } from 'react';
+import {
+	MdOutlineBookmarkBorder,
+	MdOutlineKeyboardArrowDown
+} from 'react-icons/md';
 
 // components
 import Collapse from 'components/website/common/collapse';
@@ -8,26 +17,19 @@ import Seo from 'components/website/common/seo';
 import CompareProductTile from 'components/website/compare/compare-product.tile';
 import Specs from 'components/website/compare/specs/specs';
 import { specs1, specs2 } from 'data/specs';
-import { useKeenSlider } from 'keen-slider/react';
-import { useState } from 'react';
-import {
-	MdOutlineBookmarkBorder,
-	MdOutlineKeyboardArrowDown
-} from 'react-icons/md';
-import { useProductStore } from 'store/product-store';
 
-// data
+// store
+import { useProductCompareStore } from 'store/product-compare-store';
+
+// utils
+import { getLocaleText } from 'utils/get_locale_text';
 
 const ComparePage: NextPage = (props) => {
-	const router = useRouter();
-
 	const [isSpecCollapseOpen, setIsSpecCollapseOpen] = useState(true);
 
-	const { products, removeProductFromCompareList } = useProductStore();
-
-	const compareProducts = products.filter(
-		(product) => product.isInCompareList
-	);
+	const router = useRouter();
+	const { compareProducts, removeProductFromCompareList } =
+		useProductCompareStore();
 
 	const [ref] = useKeenSlider<HTMLDivElement>({
 		slides: {
@@ -72,7 +74,30 @@ const ComparePage: NextPage = (props) => {
 								return (
 									<div key={id} className="keen-slider__slide">
 										<CompareProductTile
-											{...compareProduct}
+											key={compareProduct.id}
+											id={id}
+											name={getLocaleText(
+												compareProduct.product_name || {},
+												router.locale
+											)}
+											description={getLocaleText(
+												compareProduct.product_description || {},
+												router.locale
+											)}
+											minimumOrderQuantity={0}
+											imageUrl={
+												compareProduct?.images
+													? compareProduct?.images[0].url
+													: ''
+											}
+											minPrice={10}
+											maxPrice={50}
+											// onRemoveCompareProduct={() => {
+											// 	if (onRemoveCompareProduct) {
+											// 		onRemoveCompareProduct(product.id);
+											// 	}
+											// }}
+
 											onProductRemove={() =>
 												removeProductFromCompareList(id)
 											}
@@ -88,8 +113,30 @@ const ComparePage: NextPage = (props) => {
 							const { id } = compareProduct;
 							return (
 								<CompareProductTile
-									key={id}
-									{...compareProduct}
+									key={compareProduct.id}
+									id={id}
+									name={getLocaleText(
+										compareProduct.product_name || {},
+										router.locale
+									)}
+									description={getLocaleText(
+										compareProduct.product_description || {},
+										router.locale
+									)}
+									minimumOrderQuantity={0}
+									imageUrl={
+										compareProduct?.images
+											? compareProduct?.images[0].url
+											: ''
+									}
+									minPrice={10}
+									maxPrice={50}
+									// onRemoveCompareProduct={() => {
+									// 	if (onRemoveCompareProduct) {
+									// 		onRemoveCompareProduct(product.id);
+									// 	}
+									// }}
+
 									onProductRemove={() =>
 										removeProductFromCompareList(id)
 									}
@@ -125,5 +172,11 @@ const ComparePage: NextPage = (props) => {
 		</>
 	);
 };
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+	props: {
+		...(await serverSideTranslations(locale || 'en'))
+	}
+});
 
 export default ComparePage;
