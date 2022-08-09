@@ -1,9 +1,12 @@
 import { serviceAxiosInstance } from 'utils/axios-instance.utils';
 
-export const getAddresses = async (userId: string) => {
+export const getAddresses = async (
+	buyerId: string,
+	addressType?: 'shipping' | 'billing'
+) => {
 	try {
 		const { data } = await serviceAxiosInstance.get(
-			`address?user_id=${userId}`
+			`address?user_id=${buyerId}&type=""`
 		);
 
 		return data.data || [];
