@@ -5,14 +5,14 @@ import Button from '../common/form/button';
 import SubCategoryCard from './common/sub-category-card';
 
 const SubCategorySlider: React.FC<{ categories: any[] }> = (props) => {
+	const slider = React.useRef(null);
+
 	const settings = {
 		slidesToShow: 4,
 		speed: 500,
 		rows: 2,
-		// arrows: true,
-		infinite: true,
-		nextArrow: <MdChevronLeft className="h-[32px] w-[32px]" />,
-		prevArrow: <MdChevronRight className="h-[32px] w-[32px]" />
+		arrows: false,
+		infinite: false
 	};
 
 	const { categories = [] } = props;
@@ -21,14 +21,14 @@ const SubCategorySlider: React.FC<{ categories: any[] }> = (props) => {
 		<div className="relative w-full">
 			<Button
 				variant="buyer"
-				className="absolute left-0 top-1/2 !h-[32px] !w-[36px]  -translate-y-1/2 transform !rounded-full !p-0"
-				// onClick={this.previous}
+				className="absolute -left-2 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full !p-0"
+				onClick={() => (slider?.current as any)?.slickPrev()}
 			>
 				<MdChevronLeft className="h-[32px] w-[32px]" />
 			</Button>
-			<div className="mx-[40px]">
+			<div className="mx-[48px]">
 				<div>
-					<Slider {...settings}>
+					<Slider ref={slider} {...settings}>
 						{categories.map((subCat: any) => {
 							const { categories: category } = subCat as any;
 
@@ -60,8 +60,8 @@ const SubCategorySlider: React.FC<{ categories: any[] }> = (props) => {
 			</div>
 			<Button
 				variant="buyer"
-				className="absolute right-0 top-1/2 !h-[32px] !w-[36px]  -translate-y-1/2 transform !rounded-full !p-0"
-				// onClick={this.next}
+				className="absolute right-0 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full !p-0"
+				onClick={() => (slider?.current as any)?.slickNext()}
 			>
 				<MdChevronRight className="h-[32px] w-[32px]" />
 			</Button>
