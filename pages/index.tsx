@@ -85,6 +85,13 @@ const HomePage: NextPage<
 		fetchMainCategories();
 	}, []);
 
+	// console.log(' ');
+	// console.log(
+	// 	'homeMainCategoriesAndCategories =',
+	// 	homeMainCategoriesAndCategories
+	// );
+	// console.log(' ');
+
 	const searchCategoriesAndTrendingBanner = (
 		<div className="grid gap-4 lg:grid-cols-2">
 			<div className="flex items-center bg-accent-primary-main p-3 text-white dark:bg-accent-primary-eco md:space-y-4 md:rounded-md lg:flex-col">

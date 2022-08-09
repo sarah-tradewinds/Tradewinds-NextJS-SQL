@@ -169,8 +169,10 @@ const CategorySubCategoriesSection: React.FC<
 
 				{/* Sub categories */}
 				<div className="md:col-span-8 xl:col-span-9">
-					{isCustom ? (
-						<SubCategorySlider categories={[...categories]} />
+					{!isCustom ? (
+						<SubCategorySlider
+							categories={[...categories].slice(0, 32)}
+						/>
 					) : (
 						<div className="grid items-end gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 							{/* TODO: Data Slicing to be done based on the screen width with a stat*/}
