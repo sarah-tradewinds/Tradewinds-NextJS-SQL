@@ -157,7 +157,7 @@ const SearchBar: React.FC = () => {
 			<Overlay
 				open={showSuggestion}
 				onClick={() => setShowSuggestion(false)}
-				className="top-[80px] bg-black/80"
+				className="!top-[80px] z-[1001] bg-black/80"
 			/>
 		</div>
 	);

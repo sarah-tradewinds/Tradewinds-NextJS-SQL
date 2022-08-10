@@ -9,6 +9,7 @@ const SubCategorySlider: React.FC<{ categories: any[] }> = (props) => {
 
 	const settings = {
 		slidesToShow: 4,
+		slidesToScroll: 4,
 		speed: 500,
 		rows: 2,
 		arrows: false,
@@ -20,8 +21,7 @@ const SubCategorySlider: React.FC<{ categories: any[] }> = (props) => {
 	return (
 		<div className="relative w-full">
 			<Button
-				variant="buyer"
-				className="absolute -left-2 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full !p-0"
+				className="absolute -left-2 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full border-2 border-primary-main !p-0 !text-primary-main"
 				onClick={() => (slider?.current as any)?.slickPrev()}
 			>
 				<MdChevronLeft className="h-[32px] w-[32px]" />
@@ -59,8 +59,7 @@ const SubCategorySlider: React.FC<{ categories: any[] }> = (props) => {
 				</div>
 			</div>
 			<Button
-				variant="buyer"
-				className="absolute right-0 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full !p-0"
+				className="absolute right-0 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full border-2 border-primary-main !p-0 !text-primary-main"
 				onClick={() => (slider?.current as any)?.slickNext()}
 			>
 				<MdChevronRight className="h-[32px] w-[32px]" />
