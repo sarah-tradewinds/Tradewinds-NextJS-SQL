@@ -370,7 +370,8 @@ const CompanyProfileTab: React.FC<{ seller: any }> = ({ seller }) => {
 											/>
 										</div>
 
-										<div className="grid grid-cols-2 gap-4">
+										{/* For mobile only */}
+										<div className="grid grid-cols-2 gap-4 md:hidden">
 											{categories.map((cat) => (
 												<SubCategoryCard
 													key={cat.id}
@@ -412,7 +413,8 @@ const CompanyProfileTab: React.FC<{ seller: any }> = ({ seller }) => {
 											/>
 										</div>
 
-										<div className="grid grid-cols-2 gap-4">
+										{/* For mobile only */}
+										<div className="grid grid-cols-2 gap-4 md:hidden">
 											{categories.map((cat) => (
 												<SubCategoryCard
 													key={cat.id}
