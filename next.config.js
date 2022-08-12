@@ -36,7 +36,7 @@ const nextConfig = (phase) => {
 		i18n,
 		reactStrictMode: true,
 		env: {
-			SITE_URL: 'https://tradewindsmp-shopping-dev.azurewebsites.net/',
+			SITE_URL: 'https://tradewindsmp-shopping-dev.azurewebsites.net',
 			BUYER_DASHBOARD_SITE_URL:
 				'https://tradewinds-dev-public.s3.us-east-2.amazonaws.com',
 			API_BASE_URL: 'https://tradewinds-dev.eastus.cloudapp.azure.com',
