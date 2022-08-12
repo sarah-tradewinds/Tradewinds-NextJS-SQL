@@ -10,7 +10,7 @@ interface CreateOrder {
 
 export const createOrder = async (orderPayload: CreateOrder) => {
 	try {
-		serviceAxiosInstance.defaults.baseURL = `${process.env.SITE_URL}/api/v1/services/api/v3`;
+		// serviceAxiosInstance.defaults.baseURL = `${process.env.SITE_URL}/api/v1/services/api/v3`;
 
 		orderPayload.type = 'live_buy';
 
@@ -26,7 +26,7 @@ export const createOrder = async (orderPayload: CreateOrder) => {
 			'/order',
 			orderPayload
 		);
-		serviceAxiosInstance.defaults.baseURL = `${process.env.SITE_URL}/api/v1/services/api/v1`;
+		// serviceAxiosInstance.defaults.baseURL = `${process.env.SITE_URL}/api/v1/services/api/v1`;
 
 		return data.data?.InsertedID || '';
 	} catch (error) {
@@ -41,12 +41,12 @@ export const createOrder = async (orderPayload: CreateOrder) => {
 
 export const getOrderById = async (orderId: string) => {
 	try {
-		serviceAxiosInstance.defaults.baseURL = `${process.env.SITE_URL}/api/v1/services/api/v3`;
+		// serviceAxiosInstance.defaults.baseURL = `${process.env.SITE_URL}/api/v1/services/api/v3`;
 
 		const { data } = await serviceAxiosInstance.get(
 			`/order/${orderId}`
 		);
-		serviceAxiosInstance.defaults.baseURL = `${process.env.SITE_URL}/api/v1/services/api/v1`;
+		// serviceAxiosInstance.defaults.baseURL = `${process.env.SITE_URL}/api/v1/services/api/v1`;
 
 		let orderData = data.data || {};
 		orderData = {
@@ -79,12 +79,12 @@ export const getOrderById = async (orderId: string) => {
 
 export const getPaymentIntentByOrderId = async (orderId: string) => {
 	try {
-		serviceAxiosInstance.defaults.baseURL = `${process.env.SITE_URL}/api/v1/services/api/v3`;
+		// serviceAxiosInstance.defaults.baseURL = `${process.env.SITE_URL}/api/v1/services/api/v3`;
 
 		const { data } = await serviceAxiosInstance.get(
 			`/order/checkout/${orderId}`
 		);
-		serviceAxiosInstance.defaults.baseURL = `${process.env.SITE_URL}/api/v1/services/api/v1`;
+		// serviceAxiosInstance.defaults.baseURL = `${process.env.SITE_URL}/api/v1/services/api/v1`;
 
 		const clientSecret = data.response?.client_secret || '';
 		return clientSecret;

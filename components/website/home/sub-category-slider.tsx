@@ -4,7 +4,12 @@ import Slider from 'react-slick';
 import Button from '../common/form/button';
 import SubCategoryCard from './common/sub-category-card';
 
-const SubCategorySlider: React.FC<{ categories: any[] }> = (props) => {
+const SubCategorySlider: React.FC<{
+	categories: any[];
+	className?: string;
+	leftButtonClassName?: string;
+	rightButtonClassName?: string;
+}> = (props) => {
 	const slider = React.useRef(null);
 
 	const settings = {
@@ -16,17 +21,23 @@ const SubCategorySlider: React.FC<{ categories: any[] }> = (props) => {
 		infinite: false
 	};
 
-	const { categories = [] } = props;
+	const {
+		categories = [],
+		className,
+		leftButtonClassName,
+		rightButtonClassName
+	} = props;
 
 	return (
 		<div className="relative w-full">
 			<Button
-				className="absolute -left-2 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full border-2 border-primary-main !p-0 !text-primary-main"
+				className={`absolute -left-2 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full border-2 border-primary-main !p-0 !text-primary-main ${leftButtonClassName}`}
 				onClick={() => (slider?.current as any)?.slickPrev()}
 			>
 				<MdChevronLeft className="h-[32px] w-[32px]" />
 			</Button>
-			<div className="mx-[48px]">
+
+			<div className={`mx-[48px] ${className}`}>
 				<div>
 					<Slider ref={slider} {...settings}>
 						{categories.map((subCat: any) => {
@@ -58,8 +69,9 @@ const SubCategorySlider: React.FC<{ categories: any[] }> = (props) => {
 					</Slider>
 				</div>
 			</div>
+
 			<Button
-				className="absolute right-0 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full border-2 border-primary-main !p-0 !text-primary-main"
+				className={`absolute right-0 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full border-2 border-primary-main !p-0 !text-primary-main ${rightButtonClassName}`}
 				onClick={() => (slider?.current as any)?.slickNext()}
 			>
 				<MdChevronRight className="h-[32px] w-[32px]" />

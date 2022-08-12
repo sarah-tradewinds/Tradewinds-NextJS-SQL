@@ -17,11 +17,22 @@ type CategorySubCategoriesSectionProps = {
 	isReverse?: boolean;
 	isCustom?: boolean;
 	applyBgColor?: boolean;
+	subCategorySliderClassName?: string;
+	subCategorySliderLeftButtonClassName?: string;
+	subCategorySliderRightButtonClassName?: string;
 };
 
 const CategorySubCategoriesSection: React.FC<
 	CategorySubCategoriesSectionProps
-> = ({ catSubCat, isReverse, applyBgColor, isCustom }) => {
+> = ({
+	catSubCat,
+	isReverse,
+	applyBgColor,
+	isCustom,
+	subCategorySliderClassName,
+	subCategorySliderLeftButtonClassName,
+	subCategorySliderRightButtonClassName
+}) => {
 	const [screenSize, setScreenSize] = useState<null | number>(null);
 	const [isTablet, setIsTablet] = useState<boolean>(false);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -53,7 +64,7 @@ const CategorySubCategoriesSection: React.FC<
 
 	const subCategories = categories
 		? [...categories].slice(0, isTablet ? 5 : 7).map((subCat) => {
-				const { categories: category } = subCat as any;
+				let { categories: category } = subCat as any;
 
 				return (
 					<div
@@ -61,11 +72,11 @@ const CategorySubCategoriesSection: React.FC<
 						className={`mb-2 transform transition duration-300 ease-in-out hover:-translate-y-2 md:mb-0 pc:border-b pc:border-gray/40 pc:last:border-b-0`}
 					>
 						<SubCategoryCard
-							subCat={category}
+							subCat={category || subCat}
 							onClick={async () => {
 								await setSelectedMainCategoryId(
 									main_category.id!,
-									main_category.title
+									main_category.title?.en || ''
 								);
 								await setSelectedCategoryId(category.id as string);
 								router.push('/product-search');
@@ -93,7 +104,7 @@ const CategorySubCategoriesSection: React.FC<
 					onContentClick={() => {
 						setSelectedMainCategoryId(
 							main_category.id!,
-							main_category.title
+							main_category.title?.en || ''
 						);
 						router.push('/product-search');
 					}}
@@ -154,14 +165,14 @@ const CategorySubCategoriesSection: React.FC<
 						onClick={() => {
 							setSelectedMainCategoryId(
 								main_category.id!,
-								main_category.title
+								main_category.title.en || ''
 							);
 							router.push('/product-search');
 						}}
 						description={mainCategoryDescription}
 						buttonText={main_category.btnTxt}
 						imageUrl={main_category?.image?.url}
-						alt={main_category.title}
+						alt={main_category.title?.en || ''}
 						bgHexColor={main_category.bgHexColor}
 						containerClassName="md:h-[340px] lg:h-[380px] xl:h-[340px]"
 					/>
@@ -170,7 +181,18 @@ const CategorySubCategoriesSection: React.FC<
 				{/* Sub categories */}
 				<div className="md:col-span-8 xl:col-span-9">
 					{!isCustom ? (
-						<SubCategorySlider categories={[...categories]} />
+						<div>
+							<SubCategorySlider
+								categories={[...categories]}
+								className={subCategorySliderClassName}
+								leftButtonClassName={
+									subCategorySliderLeftButtonClassName
+								}
+								rightButtonClassName={
+									subCategorySliderRightButtonClassName
+								}
+							/>
+						</div>
 					) : (
 						<div className="grid items-end gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 							{/* TODO: Data Slicing to be done based on the screen width with a stat*/}

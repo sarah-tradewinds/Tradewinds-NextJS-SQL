@@ -20,7 +20,7 @@ type EcoCarouselType = {
 
 type Category = {
 	id?: string;
-	title: string;
+	title: LocalesType;
 	slug: { en: string };
 	image: { url: string };
 	description: LocalesType;

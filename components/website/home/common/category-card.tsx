@@ -11,6 +11,8 @@ interface CategoryCardProps {
 	buttonText: string;
 	imageUrl: string;
 	alt: string;
+	hideImage?: boolean;
+	hideButton?: boolean;
 	bgHexColor?: string;
 	containerClassName?: string;
 	onClick?: () => any;
@@ -22,9 +24,11 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 		name,
 		slug,
 		description,
-		buttonText,
 		imageUrl,
 		alt,
+		hideImage,
+		buttonText,
+		hideButton,
 		bgHexColor,
 		containerClassName,
 		onClick
@@ -51,26 +55,30 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 				</p>
 
 				{/* Image */}
-				<div className="absolute -top-12 right-0">
-					<div className="relative h-[60px] w-[60px] md:h-[100px] md:w-[100px] lg:h-[120px] lg:w-[120px]">
-						<ImageWithErrorHandler
-							src={imageUrl}
-							alt={alt || slug}
-							layout="fill"
-						/>
+				{!hideImage && (
+					<div className="absolute -top-12 right-0">
+						<div className="relative h-[60px] w-[60px] md:h-[100px] md:w-[100px] lg:h-[120px] lg:w-[120px]">
+							<ImageWithErrorHandler
+								src={imageUrl}
+								alt={alt || slug}
+								layout="fill"
+							/>
+						</div>
 					</div>
-				</div>
+				)}
 
 				{/* Action button */}
-				<div>
-					<Button
-						href={onClick ? '' : slug}
-						onClick={onClick}
-						className={`bg-[${bgHexColor}]/70 flex h-[40px] w-[180px] items-center justify-center rounded-md border border-black/20 text-[18px] uppercase text-white`}
-					>
-						{buttonText || 'SOURCE NOW'}
-					</Button>
-				</div>
+				{!hideButton && (
+					<div>
+						<Button
+							href={onClick ? '' : slug}
+							onClick={onClick}
+							className={`bg-[${bgHexColor}]/70 flex h-[40px] w-[180px] items-center justify-center rounded-md border border-black/20 text-[18px] uppercase text-white`}
+						>
+							{buttonText || 'SOURCE NOW'}
+						</Button>
+					</div>
+				)}
 			</div>
 		</div>
 	);

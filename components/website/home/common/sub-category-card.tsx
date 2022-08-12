@@ -27,8 +27,7 @@ const SubCategoryCard = ({
 }: Props) => {
 	const { locale } = useRouter();
 
-	const subCategorySlug = getLocaleText(subCat.slug, locale);
-	const subCategoryTitle = getLocaleText(subCat.title, locale);
+	const subCategoryTitle = getLocaleText(subCat?.title || {}, locale);
 
 	return (
 		<div
@@ -55,7 +54,7 @@ const SubCategoryCard = ({
 						{subCategoryTitle}
 					</h2>
 					<p className="text-primary-main md:text-[12px] lg:text-[15px]">
-						{subCat.clr}
+						{subCat?.clr}
 					</p>
 				</div>
 				{/* Icon or Image */}
