@@ -1,12 +1,18 @@
 // Third party packages
 import axios from 'axios';
 
+let baseURL = '';
+// For code that run on server
+if (typeof window === 'undefined') {
+	baseURL = process.env.SITE_URL || '';
+}
+
 export const axiosInstance = axios.create({
-	baseURL: `${process.env.SITE_URL}/api/v1`
+	baseURL: `${baseURL}/api/v1`
 });
 
 export const serviceAxiosInstance = axios.create({
-	baseURL: `${process.env.SITE_URL}/api/v1/services/api/v1`
+	baseURL: `${baseURL}/api/v1/services/api/v1`
 });
 
 serviceAxiosInstance.interceptors.request.use(
