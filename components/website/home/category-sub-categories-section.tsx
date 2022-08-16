@@ -62,6 +62,15 @@ const CategorySubCategoriesSection: React.FC<
 		return () => window.removeEventListener('resize', handleResize);
 	}, [isTablet, screenSize]);
 
+	const onSubCategoryTileClickHandler = async (categoryId: string) => {
+		await setSelectedMainCategoryId(
+			main_category.id!,
+			main_category.title?.en || ''
+		);
+		await setSelectedCategoryId(categoryId);
+		router.push('/product-search');
+	};
+
 	const subCategories = categories
 		? [...categories].slice(0, isTablet ? 5 : 7).map((subCat) => {
 				let { categories: category } = subCat as any;
@@ -73,14 +82,7 @@ const CategorySubCategoriesSection: React.FC<
 					>
 						<SubCategoryCard
 							subCat={category || subCat}
-							onClick={async () => {
-								await setSelectedMainCategoryId(
-									main_category.id!,
-									main_category.title?.en || ''
-								);
-								await setSelectedCategoryId(category.id as string);
-								router.push('/product-search');
-							}}
+							onClick={() => onSubCategoryTileClickHandler(category.id)}
 							style={
 								applyBgColor
 									? { backgroundColor: main_category.bgHexColor }
@@ -190,6 +192,9 @@ const CategorySubCategoriesSection: React.FC<
 								}
 								rightButtonClassName={
 									subCategorySliderRightButtonClassName
+								}
+								onTileClick={(categoryId) =>
+									onSubCategoryTileClickHandler(categoryId)
 								}
 							/>
 						</div>

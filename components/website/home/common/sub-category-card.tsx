@@ -36,9 +36,9 @@ const SubCategoryCard = ({
 			onClick={onClick}
 		>
 			{showImageInFront && (
-				<div className="relative h-[60px] w-[60px] md:h-[80px] md:w-[80px] lg:h-[104px] lg:w-[104px]">
-					<Image
-						src={subCat.image?.url || '/vehicles/green-tractor.png'}
+				<div className="relative h-[60px] w-[60px] overflow-hidden md:h-[80px] md:w-[80px] lg:h-[104px] lg:w-[104px]">
+					<ImageWithErrorHandler
+						src={subCat.image?.url}
 						alt="sub-cat-image"
 						layout="fill"
 					/>
@@ -78,12 +78,12 @@ const SubCategoryCard = ({
 
 			{!showImageInFront && (
 				<div className="absolute bottom-0 right-0">
-					{/* <div className="relative h-[60px] w-[60px] md:h-[80px] md:w-[80px] lg:h-[100px] lg:w-[100px]"> */}
 					<div className="relative h-[60px] w-[60px] md:h-[100px] md:w-[100px]">
 						<ImageWithErrorHandler
 							src={subCat?.image?.url}
 							alt="sub-cat-image"
 							layout="fill"
+							className="h-full w-full"
 						/>
 					</div>
 				</div>

@@ -6,6 +6,7 @@ import SubCategoryCard from './common/sub-category-card';
 
 const SubCategorySlider: React.FC<{
 	categories: any[];
+	onTileClick?: (categoryId: string) => any;
 	className?: string;
 	leftButtonClassName?: string;
 	rightButtonClassName?: string;
@@ -23,6 +24,7 @@ const SubCategorySlider: React.FC<{
 
 	const {
 		categories = [],
+		onTileClick,
 		className,
 		leftButtonClassName,
 		rightButtonClassName
@@ -44,18 +46,16 @@ const SubCategorySlider: React.FC<{
 							const { categories: category } = subCat as any;
 
 							return (
-								<div key={subCat.id} className="!mb-[24px] !w-[95%]">
+								<div
+									key={subCat.id}
+									className="!mt-[24px] !w-[95%] transform transition duration-300 ease-in-out hover:-translate-y-2"
+								>
 									<SubCategoryCard
 										key={subCat.id}
 										subCat={category}
-										// onClick={async () => {
-										// 	await setSelectedMainCategoryId(
-										// 		main_category.id!,
-										// 		main_category.title
-										// 	);
-										// 	await setSelectedCategoryId(category.id as string);
-										// 	router.push('/product-search');
-										// }}
+										onClick={() => {
+											if (onTileClick) onTileClick(category.id);
+										}}
 										// style={
 										// 	applyBgColor
 										// 		? { backgroundColor: main_category.bgHexColor }
