@@ -15,9 +15,9 @@ const CardWrapper: React.FC<{
 				<CardA
 					key={cardAData.id}
 					title={getLocaleText(cardAData?.title || {}, locale)}
-					imageUrl={cardAData.image?.url}
+					name={getLocaleText(cardAData?.name || {}, locale)}
 					subtitle={getLocaleText(cardAData?.description || {}, locale)}
-					name=""
+					imageUrl={cardAData.image?.url}
 					href="/why-sell-on-tradewinds"
 				/>
 			))}

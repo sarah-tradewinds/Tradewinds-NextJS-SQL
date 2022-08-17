@@ -32,6 +32,7 @@ import {
 import { useCategoryStore } from 'store/category-store';
 import { useCountriesStore } from 'store/countries-store';
 import { useHomeStore } from 'store/home';
+import useSWR from 'swr';
 import { CatSubCatSectionType, HeroCarouselType } from 'types/home';
 import { getLocaleText } from 'utils/get_locale_text';
 
@@ -44,13 +45,29 @@ const HomePage: NextPage<
 	InferGetServerSidePropsType<GetServerSideProps>
 > = (props) => {
 	const {
-		heroCarousels = [],
+		// heroCarousels = [],
 		cardAList = [],
 		cardBData = {},
-		homeMainCategoriesAndCategories = [],
-		homeCountries = [],
-		homeAdvertisements = []
+		homeMainCategoriesAndCategories = []
+		// homeCountries = []
+		// homeAdvertisements = []
 	} = props;
+
+	// Fetching Hero carousel
+	const { data: heroCarousels = [], error: heroCarouselsError } =
+		useSWR('/carousel/getallcarousel', getHeroCarousels);
+
+	// Fetching Advertisement
+	const { data: homeAdvertisements = [], error } = useSWR(
+		'/advertisement/getalladvertisement',
+		getHomeAdvertisements
+	);
+
+	// Fetching Countries
+	const { data: homeCountries = [] } = useSWR(
+		'/region_country/all',
+		getHomeCountries
+	);
 
 	const { isEco } = useHomeStore(({ isEco }) => ({
 		isEco
@@ -144,8 +161,8 @@ const HomePage: NextPage<
 			<div className="container mx-auto md:px-4 lg:-mt-[30px] lg:px-8">
 				{/* Category and sub categories */}
 				<div className="mt-12 space-y-12 md:mt-0 md:space-y-8">
-					{homeMainCategoriesAndCategories.cat_section &&
-						homeMainCategoriesAndCategories?.cat_section.map(
+					{homeMainCategoriesAndCategories?.cat_section &&
+						homeMainCategoriesAndCategories?.cat_section?.map(
 							(
 								homeMainCategoryAndCategories: CatSubCatSectionType,
 								index: number
@@ -228,28 +245,31 @@ export const getServerSideProps: GetServerSideProps = async ({
 	locale
 }) => {
 	try {
-		const heroCarousels = await getHeroCarousels();
+		// const heroCarousels = await getHeroCarousels();
+		// const homeAdvertisements = await getHomeAdvertisements();
+		// const homeCountries = await getHomeCountries();
+
 		const cardAList = await getCardAList();
 		const cardBData = await getCardB();
+
 		const homeMainCategoriesAndCategories =
 			await getHomeMainCategoriesAndCategories();
-		const homeCountries = await getHomeCountries();
-		const homeAdvertisements = await getHomeAdvertisements();
 
 		return {
 			props: {
 				...(await serverSideTranslations(locale || 'en')),
 
-				heroCarousels,
+				// heroCarousels,
+				// homeAdvertisements
+				// homeCountries
+
 				cardAList,
 				cardBData,
 				homeMainCategoriesAndCategories:
 					homeMainCategoriesAndCategories ?? {
 						cat_section: [],
 						is_custom: false
-					},
-				homeCountries,
-				homeAdvertisements
+					}
 			}
 		};
 	} catch (error) {
@@ -257,15 +277,17 @@ export const getServerSideProps: GetServerSideProps = async ({
 		return {
 			props: {
 				...(await serverSideTranslations(locale || 'en')),
-				heroCarousels: [],
+
+				// heroCarousels: [],
+				// homeAdvertisements: []
+
 				cardAList: [],
 				cardBData: {},
 				homeMainCategoriesAndCategories: {
 					cat_section: [],
 					is_custom: false
 				},
-				homeCountries: [],
-				homeAdvertisements: []
+				homeCountries: []
 			}
 		};
 	}

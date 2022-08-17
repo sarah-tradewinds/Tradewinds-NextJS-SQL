@@ -38,7 +38,7 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 		cardBData = {},
 		ecoHomeMainCategoriesAndCategories = [],
 		homeCountries = [],
-		homeAdvertisments = []
+		homeAdvertisements = []
 	} = props;
 
 	const { setIsEco, isEco } = useHomeStore(({ setIsEco, isEco }) => ({
@@ -83,8 +83,6 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 
 	let isReverse = false;
 
-	console.log(ecoHomeMainCategoriesAndCategories);
-
 	return (
 		<>
 			<Hero
@@ -95,11 +93,12 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 
 			{/* Category and sub categories */}
 			<div className="mt-12 space-y-12 md:mt-0 md:space-y-8 md:px-4 lg:px-8">
-				{ecoHomeMainCategoriesAndCategories &&
-					ecoHomeMainCategoriesAndCategories.map(
+				{ecoHomeMainCategoriesAndCategories?.cat_section &&
+					ecoHomeMainCategoriesAndCategories?.cat_section?.map(
 						(homeCategory: CatSubCatSectionType, index: number) => {
 							const canIDisplayFlags = Math.floor(
-								ecoHomeMainCategoriesAndCategories.length / 2
+								ecoHomeMainCategoriesAndCategories?.cat_section
+									?.length / 2
 							);
 
 							if (index !== 0) {
@@ -112,6 +111,9 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 										key={homeCategory.main_category.id}
 										catSubCat={homeCategory}
 										isReverse={isReverse}
+										isCustom={
+											ecoHomeMainCategoriesAndCategories.is_custom
+										}
 									/>
 
 									{/*  Search Categories Banner */}
@@ -135,10 +137,10 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 
 				{/* Bottom Banner */}
 				<div className="grid grid-cols-2">
-					{homeAdvertisments.map((advertisment: any) => (
+					{homeAdvertisements.map((advertisement: any) => (
 						<AddBanner
-							key={advertisment.id}
-							iframe_code={advertisment.i_frame_code}
+							key={advertisement.id}
+							iframe_code={advertisement.i_frame_code}
 						/>
 					))}
 				</div>
@@ -149,9 +151,6 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 
 export default HomePage;
 
-// Static Props
-
-// Static Props
 export const getServerSideProps: GetServerSideProps = async ({
 	locale
 }) => {
@@ -162,7 +161,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 		const ecoHomeMainCategoriesAndCategories =
 			await getEcoHomeMainCategoriesAndCategories();
 		const homeCountries = await getHomeCountries();
-		const homeAdvertisments = await getHomeAdvertisements();
+		const homeAdvertisements = await getHomeAdvertisements();
 
 		return {
 			props: {
@@ -171,21 +170,27 @@ export const getServerSideProps: GetServerSideProps = async ({
 				cardAList,
 				cardBData,
 				ecoHomeMainCategoriesAndCategories:
-					ecoHomeMainCategoriesAndCategories ?? [],
+					ecoHomeMainCategoriesAndCategories ?? {
+						cat_section: [],
+						is_custom: false
+					},
 				homeCountries,
-				homeAdvertisments
+				homeAdvertisements
 			}
 		};
 	} catch (error) {
-		console.log((error as any).message);
 		return {
 			props: {
 				...(await serverSideTranslations(locale || 'en')),
 				heroCarousels: [],
 				cardAList: [],
 				cardBData: {},
-				ecoHomeMainCategoriesAndCategories: [],
-				homeCountries: []
+				ecoHomeMainCategoriesAndCategories: {
+					cat_section: [],
+					is_custom: false
+				},
+				homeCountries: [],
+				homeAdvertisements: []
 			}
 		};
 	}

@@ -2,7 +2,6 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
 // Third party packages
-import { SWRConfig } from 'swr';
 
 // components
 const Login = dynamic(() => import('../auth/login'));
@@ -92,95 +91,100 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 				text="Authenticating..."
 			/>
 
-			<SWRConfig
+			{/* <SWRConfig
 				value={{
-					fetcher: (url: string, init) =>
-						fetch(`${process.env.SITE_URL}/api/v1${url}`, init).then(
-							(res) => res.json()
-						)
+					fetcher: (handler?: () => any, url?: string, init?: any) => {
+						if (!handler) {
+							return fetch(
+								`${process.env.SITE_URL}/api/v1${url}`,
+								init
+							).then((res) => res.json());
+						}
+						return handler();
+					}
 				}}
-			>
-				<div className={isEco ? 'dark' : 'light'}>
-					<NavBar />
-					<SignUpPage />
-					<Login />
-					<main className="bg-bg-main dark:bg-bg-eco">{children}</main>
+			> */}
+			<div className={isEco ? 'dark' : 'light'}>
+				<NavBar />
+				<SignUpPage />
+				<Login />
+				<main className="bg-bg-main dark:bg-bg-eco">{children}</main>
 
-					{/* Bottom navbar for small screen */}
-					<div className="fixed bottom-0 left-0 right-0 z-[1000] h-[51px] bg-primary-main dark:bg-primary-eco md:hidden">
-						<div className="flex items-center justify-between">
-							{/* Home Icon */}
-							<Link href="/">
-								<a className="ml-4">
-									<MdOutlineHome className="text-[32px] font-semibold text-white" />
-								</a>
-							</Link>
+				{/* Bottom navbar for small screen */}
+				<div className="fixed bottom-0 left-0 right-0 z-[1000] h-[51px] bg-primary-main dark:bg-primary-eco md:hidden">
+					<div className="flex items-center justify-between">
+						{/* Home Icon */}
+						<Link href="/">
+							<a className="ml-4">
+								<MdOutlineHome className="text-[32px] font-semibold text-white" />
+							</a>
+						</Link>
 
-							{/* Sign-in button */}
-							{!isAuth && (
-								<div
-									onClick={setIsLoginOpen}
-									className="mr-2 flex h-[51px] w-[58px] flex-col items-center justify-center bg-accent-primary-main"
+						{/* Sign-in button */}
+						{!isAuth && (
+							<div
+								onClick={setIsLoginOpen}
+								className="mr-2 flex h-[51px] w-[58px] flex-col items-center justify-center bg-accent-primary-main"
+							>
+								<MdPerson className="h-[25px] w-[25px] text-white" />
+								<p className="text-[12px] text-white">Sign In</p>
+							</div>
+						)}
+
+						{/* Sign-in and dashboard button */}
+						{isAuth && (
+							<div className="flex">
+								{/* Dashboard button */}
+								<Button
+									href={generateBuyerDashboardUrl({
+										redirect_to: BUYER_DASHBOARD_PAGES.buyer_rfq,
+										action: BUYER_DASHBOARD_ACTIONS.create_rfq,
+										access_key: customerData.access.token,
+										refresh_key: customerData.refresh.token
+									})}
+									variant="buyer"
+									className="mr-2 h-[51px] w-[58px] flex-col rounded-none !p-0 !text-white"
 								>
-									<MdPerson className="h-[25px] w-[25px] text-white" />
-									<p className="text-[12px] text-white">Sign In</p>
-								</div>
-							)}
+									<div className="relative hidden h-[48px] w-[35px]">
+										<Image
+											src="/static/icons/dashboard-icon.png"
+											alt=""
+											width={32}
+											height={24}
+										/>
+									</div>
 
-							{/* Sign-in and dashboard button */}
-							{isAuth && (
-								<div className="flex">
-									{/* Dashboard button */}
-									<Button
-										href={generateBuyerDashboardUrl({
-											redirect_to: BUYER_DASHBOARD_PAGES.buyer_rfq,
-											action: BUYER_DASHBOARD_ACTIONS.create_rfq,
-											access_key: customerData.access.token,
-											refresh_key: customerData.refresh.token
-										})}
-										variant="buyer"
-										className="mr-2 h-[51px] w-[58px] flex-col rounded-none !p-0 !text-white"
-									>
-										<div className="relative hidden h-[48px] w-[35px]">
-											<Image
-												src="/static/icons/dashboard-icon.png"
-												alt=""
-												width={32}
-												height={24}
-											/>
-										</div>
+									<div>
+										<IoSpeedometerOutline className="h-[24px] w-[35px]" />
+									</div>
+									<p className="text-[8px] text-white">Dashboard</p>
+								</Button>
 
-										<div>
-											<IoSpeedometerOutline className="h-[24px] w-[35px]" />
-										</div>
-										<p className="text-[8px] text-white">Dashboard</p>
-									</Button>
-
-									{/* what is rfq button */}
-									<Button
-										href={generateBuyerDashboardUrl({
-											redirect_to: BUYER_DASHBOARD_PAGES.buyer_rfq,
-											action: BUYER_DASHBOARD_ACTIONS.create_rfq,
-											access_key: customerData.access.token,
-											refresh_key: customerData.refresh.token
-										})}
-										variant="special"
-										className="h-[51px] !w-[72px] flex-col rounded-none !p-0"
-									>
-										<div className="flex items-center justify-center text-center">
-											<MdOutlineMessage className="h-[25px] w-[25px] text-primary-main" />
-										</div>
-										<p className="text-[8px] text-primary-main">
-											Submit RFQ
-										</p>
-									</Button>
-								</div>
-							)}
-						</div>
+								{/* what is rfq button */}
+								<Button
+									href={generateBuyerDashboardUrl({
+										redirect_to: BUYER_DASHBOARD_PAGES.buyer_rfq,
+										action: BUYER_DASHBOARD_ACTIONS.create_rfq,
+										access_key: customerData.access.token,
+										refresh_key: customerData.refresh.token
+									})}
+									variant="special"
+									className="h-[51px] !w-[72px] flex-col rounded-none !p-0"
+								>
+									<div className="flex items-center justify-center text-center">
+										<MdOutlineMessage className="h-[25px] w-[25px] text-primary-main" />
+									</div>
+									<p className="text-[8px] text-primary-main">
+										Submit RFQ
+									</p>
+								</Button>
+							</div>
+						)}
 					</div>
-					<Footer />
 				</div>
-			</SWRConfig>
+				<Footer />
+			</div>
+			{/* </SWRConfig> */}
 		</>
 	);
 };
