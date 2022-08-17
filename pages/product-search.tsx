@@ -438,7 +438,7 @@ const ProductSearchPage: NextPage<
 											selectedMainCategory?.description || {},
 											router.locale
 										)}
-										imageUrl={selectedMainCategory?.image?.url}
+										imageUrl={selectedMainCategory?.icon?.url}
 										className="w-screen md:w-auto"
 									/>
 								)}
