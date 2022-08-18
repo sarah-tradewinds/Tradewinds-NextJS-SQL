@@ -60,9 +60,9 @@ const AddressModal: React.FC<ModalProps> = (props) => {
 
 		const updatedShippingAddress = shippingAddresses.map(
 			(shippingAddress: any) => {
-				shippingAddress.is_default = false;
+				shippingAddress.isSelected = false;
 				if (upcomingState && shippingAddress.id === id) {
-					shippingAddress.is_default = upcomingState;
+					shippingAddress.isSelected = upcomingState;
 				}
 				return shippingAddress;
 			}
@@ -82,9 +82,9 @@ const AddressModal: React.FC<ModalProps> = (props) => {
 
 		const updatedBillingAddress = billingAddresses.map(
 			(shippingAddress: any) => {
-				shippingAddress.is_default = false;
+				shippingAddress.isSelected = false;
 				if (upcomingState && shippingAddress.id === id) {
-					shippingAddress.is_default = upcomingState;
+					shippingAddress.isSelected = upcomingState;
 				}
 				return shippingAddress;
 			}
@@ -128,10 +128,26 @@ const AddressModal: React.FC<ModalProps> = (props) => {
 
 				<Tab.Group>
 					<Tab.List>
-						<Tab className="mr-4 rounded-md bg-primary-main p-2 text-white shadow-md">
+						<Tab
+							className={({ selected }) =>
+								`mr-4 rounded-md  p-2 shadow-md ${
+									selected
+										? 'bg-primary-main text-white'
+										: 'border border-primary-main text-primary-main'
+								}`
+							}
+						>
 							Shipping Address
 						</Tab>
-						<Tab className="rounded-md border border-primary-main p-2 text-primary-main">
+						<Tab
+							className={({ selected }) =>
+								`mr-4 rounded-md p-2 shadow-md ${
+									selected
+										? 'bg-primary-main text-white'
+										: 'border border-primary-main text-primary-main'
+								}`
+							}
+						>
 							Billing Address
 						</Tab>
 					</Tab.List>

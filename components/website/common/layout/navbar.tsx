@@ -149,74 +149,72 @@ const Header = () => {
 							<HiOutlineSearch className="h-6 w-6 text-white" />
 						</div>
 
-						<div>
+						<div className="mt-2">
 							<CartIcon
 								count={cartProducts?.length || 0}
 								onClick={() => router.push('/cart')}
 								iconClassName="pc:!text-[24px]"
 							/>
+
+							{/* Name and logout button */}
 							{isAuth && (
-								<p
-									className="text-white"
-									onMouseEnter={() => setShowLogout(true)}
-								>
-									{`Hi, ${customerData.name.substring(0, 10)}`}
-								</p>
+								<div className="group relative cursor-pointer">
+									<p
+										className="text-white"
+										onMouseEnter={() => setShowLogout(true)}
+									>
+										{`Hi, ${customerData.name.substring(0, 10)}`}
+									</p>
+
+									<div className="absolute right-0 z-50 hidden w-[200px] bg-accent-primary-main p-2 text-white hover:bg-primary-main group-hover:block md:right-auto">
+										<div
+											className="flex cursor-pointer"
+											onClick={() => {
+												resetCartState();
+												logout();
+												setShowLogout(false);
+											}}
+										>
+											<FiLogOut size={20} className="mr-2" />{' '}
+											{t('logout_text')}
+										</div>
+									</div>
+								</div>
 							)}
 						</div>
 
 						{isAuth ? (
-							<div className="hidden items-center justify-center gap-1 sm:flex">
-								<div className="rounded-sm bg-transparent px-5 py-2 text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-[#033e6b]">
-									{showLogout && (
-										<div className="text-gray-700 absolute z-50 mt-3 inline-block w-[200px] bg-[#00AEEF] p-2 pt-3 hover:bg-[#057fac]">
-											<div
-												className="flex cursor-pointer"
-												onClick={() => {
-													resetCartState();
-													logout();
-													setShowLogout(false);
-												}}
-											>
-												<FiLogOut size={20} className="mr-2" />{' '}
-												{t('logout_text')}
-											</div>
-										</div>
-									)}
-								</div>
+							<div className="hidden justify-between space-x-4 sm:flex">
+								<Button
+									href={generateBuyerDashboardUrl({
+										redirect_to: BUYER_DASHBOARD_PAGES.buyers,
+										access_key: customerData.access.token,
+										refresh_key: customerData.refresh.token
+									})}
+									variant="buyer"
+									className="flex flex-col items-center justify-center rounded-none !px-4 py-3 transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary"
+								>
+									<AiOutlineDashboard size={35} />
+									<p>Dashboard</p>
+								</Button>
 
-								<div className="flex justify-between space-x-4">
-									<Button
-										href={generateBuyerDashboardUrl({
-											redirect_to: BUYER_DASHBOARD_PAGES.buyers,
-											access_key: customerData.access.token,
-											refresh_key: customerData.refresh.token
-										})}
-										variant="buyer"
-										className="flex flex-col items-center justify-center rounded-none !px-4 py-3 transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary"
-									>
-										<AiOutlineDashboard size={35} />
-										<p>Dashboard</p>
-									</Button>
-
-									<Button
-										href={generateBuyerDashboardUrl({
-											redirect_to: BUYER_DASHBOARD_PAGES.buyer_rfq,
-											action: BUYER_DASHBOARD_ACTIONS.create_rfq,
-											access_key: customerData.access.token,
-											refresh_key: customerData.refresh.token
-										})}
-										variant="special"
-										className="flex-col rounded-none !px-4 py-4 transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08]"
-									>
-										<div className="flex items-center justify-center text-center">
-											<BiMessageDetail size={35} />
-										</div>
-										<p className="w-24 text-primary-main">
-											{t('navigation:submit_rfq_text')}
-										</p>
-									</Button>
-								</div>
+								<Button
+									href={generateBuyerDashboardUrl({
+										redirect_to: BUYER_DASHBOARD_PAGES.buyer_rfq,
+										action: BUYER_DASHBOARD_ACTIONS.create_rfq,
+										access_key: customerData.access.token,
+										refresh_key: customerData.refresh.token
+									})}
+									variant="special"
+									className="flex-col rounded-none !px-4 py-4 transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08]"
+								>
+									<div className="flex items-center justify-center text-center">
+										<BiMessageDetail size={35} />
+									</div>
+									<p className="w-24 text-primary-main">
+										{t('navigation:submit_rfq_text')}
+									</p>
+								</Button>
 							</div>
 						) : (
 							<div className="hidden items-center justify-center gap-4 sm:flex">

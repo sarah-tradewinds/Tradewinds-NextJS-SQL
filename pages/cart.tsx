@@ -42,6 +42,12 @@ const CartPage: NextPage = () => {
 	}
 
 	useEffect(() => {
+		let isAddressSelected = false;
+		if (typeof window !== 'undefined') {
+			isAddressSelected =
+				!localStorage.getItem('shipping_address_id') ||
+				!localStorage.getItem('billing_address_id');
+		}
 		if (isAuth && !isAddressSelected) {
 			return setIsAddressModalOpen(true);
 		}
@@ -97,6 +103,7 @@ const CartPage: NextPage = () => {
 				open={isAddressModalOpen}
 				onClose={() => {
 					setIsAddressModalOpen(false);
+					router.push('/cart-review');
 				}}
 			/>
 			<div className="container mx-auto grid grid-cols-12 gap-4 md:py-4 md:px-8">

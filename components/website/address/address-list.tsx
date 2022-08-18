@@ -15,8 +15,7 @@ const AddressList: React.FC<AddressListProps> = (props) => {
 	return (
 		<div className="grid grid-cols-4 gap-8">
 			{addresses?.map((address) => {
-				const { is_default } = address;
-
+				const { isSelected } = address;
 				return (
 					<AddressTile
 						key={address.id}
@@ -26,7 +25,7 @@ const AddressList: React.FC<AddressListProps> = (props) => {
 							address?.address_line_1 || {},
 							router.locale
 						)}
-						isSelected={is_default}
+						isSelected={isSelected}
 						onChange={(currentState) =>
 							onChange(currentState, address.id)
 						}
