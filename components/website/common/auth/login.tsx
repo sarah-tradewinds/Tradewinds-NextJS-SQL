@@ -15,6 +15,8 @@ import { Modal } from '../modal/modal';
 import { buttonSpinner } from '../spinners/custom-spinners';
 
 // libs
+import { addProductToCart } from 'lib/cart.lib';
+import { useCartStore } from 'store/cart-store';
 import {
 	getCustomerBuyerId,
 	getCustomerDetails,
@@ -46,6 +48,8 @@ const Login: React.FC = () => {
 	});
 	const router = useRouter();
 
+	const cartProducts = useCartStore((state) => state.cartProducts);
+
 	const loginUser = async (e: React.MouseEvent<HTMLElement>) => {
 		e.preventDefault();
 		if (!loginData.email || !loginData.password) return false;
@@ -59,6 +63,17 @@ const Login: React.FC = () => {
 			);
 
 			const buyerId = await getCustomerBuyerId(customerDetails.id);
+
+			if (cartProducts.length) {
+				await addProductToCart(
+					buyerId,
+					null,
+					cartProducts.map((cartProduct) => ({
+						product_id: cartProduct.product?.id,
+						quantity: cartProduct.quantity
+					}))
+				);
+			}
 
 			setCustomerData({
 				id: customerDetails.id,

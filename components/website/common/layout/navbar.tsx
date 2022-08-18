@@ -57,7 +57,10 @@ const Header = () => {
 		(state) => state.removeSelectedCountries
 	);
 
-	const cartProducts = useCartStore((state) => state.cartProducts);
+	const { cartProducts, resetCartState } = useCartStore((state) => ({
+		cartProducts: state.cartProducts,
+		resetCartState: state.resetCartState
+	}));
 
 	const [isOpen, setIsOpen] = useState(false);
 	const [showLogout, setShowLogout] = useState(false);
@@ -170,6 +173,7 @@ const Header = () => {
 											<div
 												className="flex cursor-pointer"
 												onClick={() => {
+													resetCartState();
 													logout();
 													setShowLogout(false);
 												}}
@@ -339,6 +343,7 @@ const Header = () => {
 											activeClassName="underline font-semibold"
 											onClick={() => {
 												logout();
+												resetCartState();
 												drawerHandler();
 											}}
 										>

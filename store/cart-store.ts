@@ -89,20 +89,23 @@ export const useCartStore = create<CartState>((set) => ({
 			const { totalQuantity, subtotal } =
 				getTotalAmountAndQuantity(cartList);
 
-			if (!totalCartProductQuantity) {
-				addProductToCart(buyerId, {
-					product_id: productId,
-					quantity: 1
-				});
-			} else {
-				updateCart(
-					id,
-					buyerId,
-					cartList.map((cartProduct) => ({
-						product_id: cartProduct.product?.id,
-						quantity: cartProduct.quantity
-					}))
-				);
+			// Sending request when buyer Id is available
+			if (buyerId) {
+				if (!totalCartProductQuantity) {
+					addProductToCart(buyerId, {
+						product_id: productId,
+						quantity: 1
+					});
+				} else {
+					updateCart(
+						id,
+						buyerId,
+						cartList.map((cartProduct) => ({
+							product_id: cartProduct.product?.id,
+							quantity: cartProduct.quantity
+						}))
+					);
+				}
 			}
 
 			return {

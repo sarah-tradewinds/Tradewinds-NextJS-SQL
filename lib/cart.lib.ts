@@ -7,12 +7,13 @@ interface CartProduct {
 
 export const addProductToCart = async (
 	buyerId: string,
-	product: CartProduct
+	product?: CartProduct | null,
+	products?: CartProduct[] | null
 ) => {
 	try {
 		const { data } = await serviceAxiosInstance.post('/addtocart', {
 			buyer_id: buyerId,
-			item: [product],
+			item: product ? [product] : products,
 			discount: 0
 		});
 	} catch (error) {
