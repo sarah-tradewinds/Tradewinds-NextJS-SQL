@@ -22,7 +22,7 @@ const SimilarProductList: React.FC<SimilarProductListProps> = (
 			</h3>
 
 			{/* Similar Products */}
-			<div className={`flex justify-between 2xl:px-8 ${className}`}>
+			<div className={`grid grid-cols-5 gap-8 2xl:px-8 ${className}`}>
 				{similarProducts.map((similarProduct, index) => (
 					<div
 						key={similarProduct.id}

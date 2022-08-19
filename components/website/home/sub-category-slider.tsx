@@ -56,11 +56,6 @@ const SubCategorySlider: React.FC<{
 										onClick={() => {
 											if (onTileClick) onTileClick(category.id);
 										}}
-										// style={
-										// 	applyBgColor
-										// 		? { backgroundColor: main_category.bgHexColor }
-										// 		: null
-										// }
 										containerClassName="min-h-[80px] md:min-h-[124px] lg:min-h-[140px]"
 									/>
 								</div>

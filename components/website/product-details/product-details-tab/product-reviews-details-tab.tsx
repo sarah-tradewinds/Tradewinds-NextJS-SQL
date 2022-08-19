@@ -1,5 +1,5 @@
 import Button from 'components/website/common/form/button';
-import { canCustomerGiveReviewOnThisProduct } from 'lib/product-details';
+import { canCustomerGiveReviewOnThisProduct } from 'lib/product-details.lib';
 import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';

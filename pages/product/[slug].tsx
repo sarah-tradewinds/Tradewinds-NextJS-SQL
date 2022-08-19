@@ -24,7 +24,7 @@ import {
 	getSellerDetailsSellerId,
 	getSimilarProducts,
 	submitProductRatingAndReview
-} from 'lib/product-details';
+} from 'lib/product-details.lib';
 import { useRouter } from 'next/router';
 import { useAuthStore } from 'store/auth';
 import { useCategoryStore } from 'store/category-store';
@@ -203,8 +203,9 @@ export const getServerSideProps: GetServerSideProps = async ({
 			(await getProductReviewsByProductId(productId)) || [];
 
 		// Fetch seller company Data
-		const seller =
-			(await getSellerDetailsSellerId(product.seller_id)) || {};
+		const sellerId = product.seller_id.id;
+		const seller = (await getSellerDetailsSellerId(sellerId)) || {};
+		seller.id = sellerId;
 
 		const similarProducts = await getSimilarProducts(productId);
 

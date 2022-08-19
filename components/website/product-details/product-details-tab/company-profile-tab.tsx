@@ -3,11 +3,40 @@ import ImageWithErrorHandler from 'components/website/common/elements/image-with
 import CategoryCard from 'components/website/home/common/category-card';
 import SubCategoryCard from 'components/website/home/common/sub-category-card';
 import SubCategorySlider from 'components/website/home/sub-category-slider';
+import {
+	getFeaturedProductsBySellerId,
+	getProductsWithCollectionBySellerId
+} from 'lib/product-details.lib';
 import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { getLocaleText } from 'utils/get_locale_text';
 
-const CompanyProfileTab: React.FC<{ seller: any }> = ({ seller }) => {
+const CompanyProfileTab: React.FC<{
+	seller: any;
+}> = ({ seller }) => {
 	const { t } = useTranslation();
+
+	const [featuredProducts, setFeaturedProducts] = useState<any[]>([]);
+
+	const [collectionProducts, setCollectionProducts] = useState<any[]>(
+		[]
+	);
+
+	const { locale } = useRouter();
+
+	useEffect(() => {
+		if (!seller.id) return;
+
+		getFeaturedProductsBySellerId(
+			'62cfcfbada1e2599faefee24' || seller.id
+		).then((data) => setFeaturedProducts(data || []));
+
+		getProductsWithCollectionBySellerId(
+			'62cfcfbada1e2599faefee24' || seller.id
+		).then((data) => setCollectionProducts(data || []));
+	}, [seller.id]);
 
 	const categories = [
 		{
@@ -102,6 +131,7 @@ const CompanyProfileTab: React.FC<{ seller: any }> = ({ seller }) => {
 						</Tab.List>
 
 						<Tab.Panels>
+							{/* Seller info */}
 							<Tab.Panel>
 								<div>
 									<div className="mt-8 grid grid-cols-12 gap-8">
@@ -193,165 +223,115 @@ const CompanyProfileTab: React.FC<{ seller: any }> = ({ seller }) => {
 										{t('common:featured_product')}
 									</h2>
 									<div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-3 lg:grid-cols-4 lg:px-8">
-										<div className="flex flex-col-reverse md:flex-col">
-											<div className="relative h-[170px] w-[196px] xl:h-[186px] xl:w-[215px]">
-												<Image
-													src="/vehicles/yellow-tractor.png"
-													alt=""
-													layout="fill"
-												/>
-											</div>
-											<div>
-												<p className="flex justify-between space-x-8 text-[15px] font-bold text-primary-main md:text-[18px]">
-													Green Tractor 1
-												</p>
-												<p className="text-[15px] text-gray/40">
-													Nicee green color
-												</p>
-											</div>
-										</div>
-										<div className="flex flex-col-reverse md:flex-col">
-											<div className="relative h-[170px] w-[196px] xl:h-[186px] xl:w-[215px]">
-												<Image
-													src="/vehicles/yellow-tractor.png"
-													alt=""
-													layout="fill"
-												/>
-											</div>
-											<div>
-												<p className="flex justify-between space-x-8 text-[15px] font-bold text-primary-main md:text-[18px]">
-													Green Tractor 1
-												</p>
-												<p className="text-[15px] text-gray/40">
-													Nicee green color
-												</p>
-											</div>
-										</div>
-										<div className="flex flex-col-reverse md:flex-col">
-											<div className="relative h-[170px] w-[196px] xl:h-[186px] xl:w-[215px]">
-												<Image
-													src="/vehicles/yellow-tractor.png"
-													alt=""
-													layout="fill"
-												/>
-											</div>
-											<div>
-												<p className="flex justify-between space-x-8 text-[15px] font-bold text-primary-main md:text-[18px]">
-													Green Tractor 1
-												</p>
-												<p className="text-[15px] text-gray/40">
-													Nicee green color
-												</p>
-											</div>
-										</div>
-										<div className="flex flex-col-reverse md:flex-col">
-											<div className="relative h-[170px] w-[196px] xl:h-[186px] xl:w-[215px]">
-												<Image
-													src="/vehicles/yellow-tractor.png"
-													alt=""
-													layout="fill"
-												/>
-											</div>
-											<div>
-												<p className="flex justify-between space-x-8 text-[15px] font-bold text-primary-main md:text-[18px]">
-													Green Tractor 1
-												</p>
-												<p className="text-[15px] text-gray/40">
-													Nice green color
-												</p>
-											</div>
-										</div>
+										{featuredProducts.map((featuredProduct) => {
+											return (
+												<div
+													key={featuredProduct.id}
+													className="flex flex-col-reverse md:flex-col"
+												>
+													<div className="relative h-[170px] w-[196px] xl:h-[186px] xl:w-[215px]">
+														<ImageWithErrorHandler
+															src={
+																featuredProduct?.images[0]
+																	? featuredProduct?.images[0]?.url
+																	: ''
+															}
+															alt=""
+															layout="fill"
+														/>
+													</div>
+													<div>
+														{/* Product name */}
+														<p className="flex justify-between space-x-8 text-[15px] font-bold text-primary-main md:text-[18px]">
+															{getLocaleText(
+																featuredProduct.product_name || {},
+																locale
+															)}
+														</p>
+
+														{/* Product description */}
+														<p className="text-[15px] text-gray/40">
+															{getLocaleText(
+																featuredProduct.product_description ||
+																	{},
+																locale
+															)}
+														</p>
+													</div>
+												</div>
+											);
+										})}
 									</div>
 								</div>
 							</Tab.Panel>
 
-							{/* Products Panel */}
+							{/* Collection Products Panel */}
 							<Tab.Panel>
 								{/* Product set 1 */}
-								<div className="mt-4 grid grid-cols-12">
-									<div className="col-span-4 hidden lg:block">
-										<CategoryCard
-											title="Product set 1"
-											name="Name here"
-											description="Lorem ipsum dolor sit amet, consecamet Lorem ipsum dolor sit amet, "
-											alt=""
-											imageUrl=""
-											bgHexColor=""
-											buttonText=""
-											containerClassName="h-full"
-											hideImage={true}
-											hideButton={true}
-										/>
-									</div>
+								{collectionProducts.map((collectionProduct) => {
+									const { name, product } = collectionProduct || {};
 
-									<p className="col-span-12 text-[13px] font-semibold text-primary-main md:hidden">
-										Product set 1
-									</p>
-									<div className="col-span-12 lg:col-span-8">
-										<div className="hidden md:block">
-											<SubCategorySlider
-												className="!mx-0"
-												leftButtonClassName="lg:!left-8"
-												rightButtonClassName="lg:!right-10"
-												categories={categories}
-											/>
-										</div>
+									const products = product.map((productData: any) => ({
+										id: productData.id,
+										title: productData?.product_name,
+										slug: {
+											en: `/product/${productData.id}`
+										},
+										clr: '',
+										image: {
+											url: productData?.images[0]
+												? productData?.images[0]?.url
+												: ''
+										}
+									}));
 
-										{/* For mobile only */}
-										<div className="grid grid-cols-2 gap-4 md:hidden">
-											{categories.map((cat) => (
-												<SubCategoryCard
-													key={cat.id}
-													subCat={cat}
-													className="!h-[88px]"
+									return (
+										<div key={name} className="mt-4 grid grid-cols-12">
+											{/* Collection card */}
+											<div className="col-span-4 hidden lg:block">
+												<CategoryCard
+													title={name}
+													name="Name here"
+													description="Lorem ipsum dolor sit amet, consecamet Lorem ipsum dolor sit amet, "
+													alt=""
+													imageUrl=""
+													bgHexColor=""
+													buttonText=""
+													containerClassName="h-full"
+													hideImage={true}
+													hideButton={true}
 												/>
-											))}
-										</div>
-									</div>
-								</div>
+											</div>
 
-								{/* Product set 2 */}
-								<div className="grid grid-cols-12 border-gray/40 pt-8 md:mt-8 md:border-t">
-									<div className="col-span-4 hidden lg:block">
-										<CategoryCard
-											title="Product set 2"
-											name="Name here"
-											description="Lorem ipsum dolor sit amet, consecamet Lorem ipsum dolor sit amet, "
-											alt=""
-											imageUrl=""
-											bgHexColor=""
-											buttonText=""
-											containerClassName="h-full"
-											hideImage={true}
-											hideButton={true}
-										/>
-									</div>
+											<p className="col-span-12 text-[13px] font-semibold text-primary-main md:hidden">
+												{name}
+											</p>
+											<div className="col-span-12 lg:col-span-8">
+												<div className="hidden md:block">
+													<SubCategorySlider
+														className="!mx-0"
+														leftButtonClassName="lg:!left-8"
+														rightButtonClassName="lg:!right-10"
+														categories={products}
+													/>
+												</div>
 
-									<p className="col-span-12 text-[13px] font-semibold text-green md:hidden">
-										Product set 2
-									</p>
-									<div className="col-span-12 lg:col-span-8">
-										<div className="hidden md:block">
-											<SubCategorySlider
-												className="!mx-0"
-												leftButtonClassName="lg:!left-8"
-												rightButtonClassName="lg:!right-10"
-												categories={categories}
-											/>
+												{/* For mobile only */}
+												<div className="grid grid-cols-2 gap-4 md:hidden">
+													{products.map((product: any) => {
+														return (
+															<SubCategoryCard
+																key={product.id}
+																subCat={product}
+																className="!h-[88px]"
+															/>
+														);
+													})}
+												</div>
+											</div>
 										</div>
-
-										{/* For mobile only */}
-										<div className="grid grid-cols-2 gap-4 md:hidden">
-											{categories.map((cat) => (
-												<SubCategoryCard
-													key={cat.id}
-													subCat={cat}
-													className="!h-[88px]"
-												/>
-											))}
-										</div>
-									</div>
-								</div>
+									);
+								})}
 							</Tab.Panel>
 						</Tab.Panels>
 					</Tab.Group>

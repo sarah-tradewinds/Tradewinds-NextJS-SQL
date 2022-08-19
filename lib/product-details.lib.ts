@@ -9,9 +9,6 @@ export const getProductById = async (productId: string) => {
 	} catch (error) {
 		console.log('[getProductById] =', error);
 		const { data, status } = (error as any).response || {};
-		// if (status >= 500) {
-		// 	throw Error('Error occurred in getProductById');
-		// }
 		return {};
 	}
 }; // End of getProductById
@@ -27,9 +24,6 @@ export const getProductReviewsByProductId = async (
 	} catch (error) {
 		console.log('[getProductReviewsByProductId] =', error);
 		const { data, status } = (error as any).response || {};
-		if (status >= 500) {
-			throw Error('Error occurred in getProductReviewsByProductId');
-		}
 		return [];
 	}
 }; // End of getProductReviewsByProductId
@@ -43,9 +37,6 @@ export const getSellerDetailsSellerId = async (sellerId: string) => {
 	} catch (error) {
 		console.log('[getSellerDetailsSellerId] =', error);
 		const { data, status } = (error as any).response || {};
-		// if (status >= 500) {
-		// 	throw Error('Error occurred in getSellerDetailsSellerId');
-		// }
 		return {};
 	}
 }; // End of getSellerDetailsSellerId
@@ -54,6 +45,15 @@ export const canCustomerGiveReviewOnThisProduct = async (
 	customerId: string,
 	productId: string
 ) => {
+	const defaultResponse = {
+		message: '',
+		canCustomerWiteReviewForThisProduct: false
+	};
+
+	if (!customerId) {
+		return defaultResponse;
+	}
+
 	try {
 		const { data } = await serviceAxiosInstance.post(
 			'/order_review/is-review-allowed',
@@ -67,15 +67,9 @@ export const canCustomerGiveReviewOnThisProduct = async (
 	} catch (error) {
 		console.log('[canCustomerGiveReviewOnThisProduct] =', error);
 		const { data, status } = (error as any).response || {};
-		// if (status >= 500) {
-		// 	throw Error(
-		// 		'Error occurred in canCustomerGiveReviewOnThisProduct'
-		// 	);
-		// }
-		return {
-			message: data.message,
-			canCustomerWiteReviewForThisProduct: false
-		};
+
+		defaultResponse.message = data.message;
+		return defaultResponse;
 	}
 }; // End of canCustomerGiveReviewOnThisProduct
 
@@ -103,9 +97,7 @@ export const submitProductRatingAndReview = async (
 	} catch (error) {
 		console.log('[submitProductRatingAndReview] =', error);
 		const { data, status } = (error as any).response || {};
-		if (status >= 500) {
-			throw Error('Error occurred in submitProductRatingAndReview');
-		}
+
 		return {};
 	}
 }; // End of submitProductRatingAndReview
@@ -119,9 +111,36 @@ export const getSimilarProducts = async (productId: string) => {
 	} catch (error) {
 		console.log('[getSimilarProducts] =', error);
 		const { data, status } = (error as any).response || {};
-		if (status >= 500) {
-			throw Error('Error occurred in getSimilarProducts');
-		}
 		return [];
 	}
 }; // End of getSimilarProducts
+
+export const getFeaturedProductsBySellerId = async (
+	sellerId: string
+) => {
+	try {
+		const { data } = await serviceAxiosInstance.get(
+			`/product/is_featured_product?seller_id=${sellerId}`
+		);
+		return data.data || [];
+	} catch (error) {
+		console.log('[getFeaturedProductsBySellerId] =', error);
+		const { data, status } = (error as any).response || {};
+		return [];
+	}
+}; // End of getFeaturedProductsBySellerId
+
+export const getProductsWithCollectionBySellerId = async (
+	sellerId: string
+) => {
+	try {
+		const { data } = await serviceAxiosInstance.get(
+			`/seller_collection/collection_and_products?seller_id=${sellerId}`
+		);
+		return data.data || [];
+	} catch (error) {
+		console.log('[getProductsWithCollectionBySellerId] =', error);
+		const { data, status } = (error as any).response || {};
+		return [];
+	}
+}; // End of getProductsWithCollectionBySellerId
