@@ -43,7 +43,7 @@ const WhatIsRFQPage: NextPage = () => {
 								{t('rfq')}
 							</h2>
 							<p className="text-[12px] tracking-wider md:text-[16px] lg:text-[25px]">
-								{t('request_for_quote')}
+								“{t('request_for_quote')}” {t('common:or')}
 							</p>
 							<p className="text-[12px] tracking-wider md:text-[16px] lg:text-[25px]">
 								{t('request_for_quotation')}

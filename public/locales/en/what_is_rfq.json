@@ -2,6 +2,7 @@
     "close_deal": "Close deal",
     "receive_response": "Receive response",
     "close_out_the_process": "Close out the process:",
+    "request_for_quote": "Request for quote",
     "request_for_quotation": "“Request for quotation",
     "after_sending_the_rfqs": "After sending the RFQs, you can begin to receive responses. As a rule, it makes sense to make your vendor pool small enough, so it’s manageable for you.",
     "review_vendor_responses": "Review vendor responses.",
