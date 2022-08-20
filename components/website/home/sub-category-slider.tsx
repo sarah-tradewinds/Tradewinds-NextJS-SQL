@@ -10,25 +10,29 @@ const SubCategorySlider: React.FC<{
 	className?: string;
 	leftButtonClassName?: string;
 	rightButtonClassName?: string;
+	slidesToShow?: number;
+	rows?: number;
 }> = (props) => {
 	const slider = React.useRef(null);
-
-	const settings = {
-		slidesToShow: 4,
-		slidesToScroll: 4,
-		speed: 500,
-		rows: 2,
-		arrows: false,
-		infinite: false
-	};
 
 	const {
 		categories = [],
 		onTileClick,
 		className,
 		leftButtonClassName,
-		rightButtonClassName
+		rightButtonClassName,
+		slidesToShow = 4,
+		rows = 2
 	} = props;
+
+	const settings = {
+		slidesToShow: slidesToShow || 4,
+		slidesToScroll: 4,
+		speed: 500,
+		rows: rows || 2,
+		arrows: false,
+		infinite: false
+	};
 
 	return (
 		<div className="relative w-full">
@@ -52,7 +56,7 @@ const SubCategorySlider: React.FC<{
 								>
 									<SubCategoryCard
 										key={subCat.id}
-										subCat={category}
+										subCat={category || subCat}
 										onClick={() => {
 											if (onTileClick) onTileClick(category.id);
 										}}

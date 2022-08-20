@@ -41,6 +41,21 @@ export const getSellerDetailsSellerId = async (sellerId: string) => {
 	}
 }; // End of getSellerDetailsSellerId
 
+export const getSellerStorefrontDetailsSellerId = async (
+	sellerId: string
+) => {
+	try {
+		const { data } = await serviceAxiosInstance.get(
+			`/seller/${sellerId}`
+		);
+		return data.data || {};
+	} catch (error) {
+		console.log('[getSellerStorefrontDetailsSellerId] =', error);
+		const { data, status } = (error as any).response || {};
+		return {};
+	}
+}; // End of getSellerStorefrontDetailsSellerId
+
 export const canCustomerGiveReviewOnThisProduct = async (
 	customerId: string,
 	productId: string

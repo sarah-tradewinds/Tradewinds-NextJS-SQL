@@ -1,16 +1,29 @@
 import { Tab } from '@headlessui/react';
 import ImageWithErrorHandler from 'components/website/common/elements/image-with-error-handler';
-import CategoryCard from 'components/website/home/common/category-card';
+import Button from 'components/website/common/form/button';
 import SubCategoryCard from 'components/website/home/common/sub-category-card';
 import SubCategorySlider from 'components/website/home/sub-category-slider';
 import {
+	BUYER_DASHBOARD_ACTIONS,
+	BUYER_DASHBOARD_PAGES,
+	generateBuyerDashboardUrl
+} from 'data/buyer/buyer-actions';
+import { useKeenSlider } from 'keen-slider/react';
+import {
 	getFeaturedProductsBySellerId,
-	getProductsWithCollectionBySellerId
+	getProductsWithCollectionBySellerId,
+	getSellerStorefrontDetailsSellerId
 } from 'lib/product-details.lib';
 import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import {
+	MdChevronLeft,
+	MdChevronRight,
+	MdOutlineMessage
+} from 'react-icons/md';
+import { useAuthStore } from 'store/auth';
 import { getLocaleText } from 'utils/get_locale_text';
 
 const CompanyProfileTab: React.FC<{
@@ -18,79 +31,94 @@ const CompanyProfileTab: React.FC<{
 }> = ({ seller }) => {
 	const { t } = useTranslation();
 
+	const [storeFrontDetails, setStoreFrontDetails] = useState<any>({});
 	const [featuredProducts, setFeaturedProducts] = useState<any[]>([]);
-
 	const [collectionProducts, setCollectionProducts] = useState<any[]>(
 		[]
 	);
 
-	const { locale } = useRouter();
+	const [currentSlide, setCurrentSlide] = useState(0);
+	const [loaded, setLoaded] = useState(false);
+
+	const { isAuth, setIsLoginOpen, customerData } = useAuthStore(
+		(state) => ({
+			isAuth: state.isAuth,
+			setIsLoginOpen: state.setIsLoginOpen,
+			customerData: state.customerData,
+			autoLogin: state.autoLogin
+		})
+	);
+
+	const { locale, push } = useRouter();
+
+	const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
+		initial: 0,
+		slideChanged(slider) {
+			setCurrentSlide(slider.track.details.rel);
+		},
+		created() {
+			setLoaded(true);
+		},
+		breakpoints: {
+			'(min-width: 768px)': {
+				slides: { perView: 4, spacing: 12 }
+			},
+			'(min-width: 1000px)': {
+				slides: { perView: 5, spacing: 10 }
+			}
+		},
+		slides: { perView: 2, spacing: 12 }
+	});
 
 	useEffect(() => {
 		if (!seller.id) return;
 
-		getFeaturedProductsBySellerId(
-			'62cfcfbada1e2599faefee24' || seller.id
-		).then((data) => setFeaturedProducts(data || []));
+		getSellerStorefrontDetailsSellerId(seller.id).then((data) =>
+			setStoreFrontDetails(data || {})
+		);
 
-		getProductsWithCollectionBySellerId(
-			'62cfcfbada1e2599faefee24' || seller.id
-		).then((data) => setCollectionProducts(data || []));
+		getFeaturedProductsBySellerId(seller.id).then((data) =>
+			setFeaturedProducts(data || [])
+		);
+
+		getProductsWithCollectionBySellerId(seller.id).then((data) =>
+			setCollectionProducts(data || [])
+		);
 	}, [seller.id]);
 
-	const categories = [
-		{
-			id: '1',
-			slug: { en: '/' },
-			title: { en: 'Product 1' },
-			image: { url: '/public/' },
-			clr: ''
-		},
-		{
-			id: '1',
-			slug: { en: '/' },
-			title: { en: 'Product 1' },
-			image: { url: '/public/' },
-			clr: ''
-		},
-		{
-			id: '1',
-			slug: { en: '/' },
-			title: { en: 'Product 1' },
-			image: { url: '/public/' },
-			clr: ''
-		},
-		{
-			id: '1',
-			slug: { en: '/' },
-			title: { en: 'Product 1' },
-			image: { url: '/public/' },
-			clr: ''
-		},
-		{
-			id: '1',
-			slug: { en: '/' },
-			title: { en: 'Product 1' },
-			image: { url: '/public/' },
-			clr: ''
-		},
-		{
-			id: '1',
-			slug: { en: '/' },
-			title: { en: 'Product 1' },
-			image: { url: '/public/' },
-			clr: ''
-		}
-	];
+	const { store_front } = storeFrontDetails;
+
+	const messageVendorButton = (
+		<Button
+			onClick={() => {
+				if (!isAuth) {
+					setIsLoginOpen();
+					return;
+				}
+				const buyerDashboardUrl = generateBuyerDashboardUrl({
+					redirect_to: BUYER_DASHBOARD_PAGES.message_vendor,
+					action: BUYER_DASHBOARD_ACTIONS.message_vendor,
+					access_key: customerData.access.token,
+					refresh_key: customerData.refresh.token
+				});
+				push(buyerDashboardUrl);
+			}}
+			className="flex items-center border border-accent-primary-main !p-0 !pr-2 !text-accent-primary-main lg:px-2"
+		>
+			<MdOutlineMessage className="mr-1 block h-[40px] bg-accent-primary-main text-[24px] text-white lg:mr-2" />
+			Message Vendor
+		</Button>
+	);
 
 	return (
 		<>
 			<div className="bg-bg-main">
-				{/* Banner Image */}
+				{/* Store front Banner Image and Logo */}
 				<div className="relative">
 					<div className="relative h-[426px] w-full">
 						<ImageWithErrorHandler
-							src="/goat.png"
+							key={store_front?.store_banner?.url}
+							src={store_front?.store_banner?.url}
 							alt=""
 							layout="fill"
 						/>
@@ -102,7 +130,8 @@ const CompanyProfileTab: React.FC<{
 
 					<div className="absolute bottom-4 left-16 h-[94px] w-[121px] overflow-hidden rounded-t-lg p-4 shadow-md">
 						<ImageWithErrorHandler
-							src="/tmp-company-logo.png"
+							key={store_front?.store_logo?.url}
+							src={store_front?.store_logo?.url}
 							alt=""
 							layout="fill"
 							className="h-[94px] w-[121px]"
@@ -113,24 +142,24 @@ const CompanyProfileTab: React.FC<{
 
 				<div className="bg-white p-8 md:mx-8">
 					<Tab.Group>
-						<Tab.List className="space-x-4 border-b border-gray/40 text-[18px] text-gray/40 md:border-t-0 md:text-[21px]">
+						<Tab.List className="space-x-16 border-b border-gray/40 text-[18px] text-gray/40 md:border-t-0 md:text-[25px]">
 							<Tab
 								className={({ selected }: { selected: boolean }) =>
-									selected ? 'font-semibold text-primary-main' : ''
+									`font-semibold ${selected ? 'text-primary-main' : ''}`
 								}
 							>
 								Profile
 							</Tab>
 							<Tab
 								className={({ selected }: { selected: boolean }) =>
-									selected ? 'font-semibold text-primary-main' : ''
+									`font-semibold ${selected ? 'text-primary-main' : ''}`
 								}
 							>
 								Products
 							</Tab>
 						</Tab.List>
 
-						<Tab.Panels>
+						<Tab.Panels className="outline-none">
 							{/* Seller info */}
 							<Tab.Panel>
 								<div>
@@ -187,33 +216,23 @@ const CompanyProfileTab: React.FC<{
 												</div>
 											</div>
 											<div className="relative mt-16 h-[22px] w-[138px] lg:hidden">
-												<Image
-													src="/message-vendor.png"
-													alt=""
-													layout="fill"
-												/>
+												{messageVendorButton}
 											</div>
 										</div>
 									</div>
 
-									<div className="my-8 flex justify-center md:hidden lg:block">
-										<div className="relative h-[22px] w-[138px]">
-											<Image
-												src="/message-vendor.png"
-												alt=""
-												layout="fill"
-											/>
-										</div>
+									<div className="my-8 md:hidden lg:block">
+										{messageVendorButton}
 									</div>
 								</div>
 
 								{/* About */}
-								<div className="mt-4 lg:mt-0">
+								<div className="mb-10 mt-4 lg:mt-0">
 									<h2 className="border-b border-gray/40 text-[18px] font-semibold text-gray/40 md:text-[21px]">
 										{t('common:about')}
 									</h2>
-									<p className="mt-1 text-[13px] text-gray/40 md:text-[18px]">
-										{seller?.about_us}
+									<p className="mt-1 text-[13px] text-gray md:text-[18px]">
+										{seller?.about_us || store_front?.about_information}
 									</p>
 								</div>
 
@@ -222,46 +241,84 @@ const CompanyProfileTab: React.FC<{
 									<h2 className="border-b border-gray/40 text-[18px] font-semibold text-gray/40 md:text-[21px]">
 										{t('common:featured_product')}
 									</h2>
-									<div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-3 lg:grid-cols-4 lg:px-8">
-										{featuredProducts.map((featuredProduct) => {
-											return (
-												<div
-													key={featuredProduct.id}
-													className="flex flex-col-reverse md:flex-col"
-												>
-													<div className="relative h-[170px] w-[196px] xl:h-[186px] xl:w-[215px]">
-														<ImageWithErrorHandler
-															src={
-																featuredProduct?.images[0]
-																	? featuredProduct?.images[0]?.url
-																	: ''
-															}
-															alt=""
-															layout="fill"
-														/>
-													</div>
-													<div>
-														{/* Product name */}
-														<p className="flex justify-between space-x-8 text-[15px] font-bold text-primary-main md:text-[18px]">
-															{getLocaleText(
-																featuredProduct.product_name || {},
-																locale
-															)}
-														</p>
+									{featuredProducts?.length > 0 && (
+										<div className="navigation-wrapper group relative">
+											<div ref={sliderRef} className="keen-slider mt-8">
+												{featuredProducts?.map((featuredProduct) => {
+													return (
+														<div
+															key={featuredProduct.id}
+															className="keen-slider__slide"
+														>
+															<div className="h-[185px]">
+																<div className="relative h-[137px] w-[137px]">
+																	<ImageWithErrorHandler
+																		src={
+																			featuredProduct?.images[0]
+																				? featuredProduct?.images[0]
+																						?.url
+																				: ''
+																		}
+																		alt=""
+																		layout="fill"
+																	/>
+																</div>
+																<div>
+																	{/* Product name */}
+																	<p className="flex justify-between space-x-8 text-[15px] font-bold text-primary-main md:text-[18px]">
+																		{getLocaleText(
+																			featuredProduct.product_name ||
+																				{},
+																			locale
+																		)}
+																	</p>
 
-														{/* Product description */}
-														<p className="text-[15px] text-gray/40">
-															{getLocaleText(
-																featuredProduct.product_description ||
-																	{},
-																locale
-															)}
-														</p>
-													</div>
+																	{/* Product description */}
+																	<p className="text-[15px] text-gray">
+																		{getLocaleText(
+																			featuredProduct.product_description ||
+																				{},
+																			locale
+																		)}
+																	</p>
+																</div>
+															</div>
+														</div>
+													);
+												})}
+											</div>
+											{/* Navigation button */}
+											{loaded && instanceRef.current && (
+												<div className="hidden group-hover:block">
+													<Button
+														className={`absolute -left-2 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full border-2 border-primary-main !p-0 !text-primary-main`}
+														onClick={(e: any) =>
+															e.stopPropagation() ||
+															instanceRef.current?.prev()
+														}
+													>
+														<MdChevronLeft className="h-[32px] w-[32px]" />
+													</Button>
+
+													<Button
+														className={`absolute right-0 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full border-2 border-primary-main !p-0 !text-primary-main`}
+														onClick={(e: any) =>
+															e.stopPropagation() ||
+															instanceRef.current?.next()
+														}
+														disabled={
+															currentSlide ===
+															instanceRef?.current?.track?.details
+																?.slides?.length -
+																1
+														}
+													>
+														<MdChevronRight className="h-[32px] w-[32px]" />
+													</Button>
 												</div>
-											);
-										})}
-									</div>
+											)}
+										</div>
+									)}
 								</div>
 							</Tab.Panel>
 
@@ -286,38 +343,48 @@ const CompanyProfileTab: React.FC<{
 									}));
 
 									return (
-										<div key={name} className="mt-4 grid grid-cols-12">
+										<div
+											key={name}
+											className="mt-4 flex border-gray/40 pb-8 last:border-none sm:border-b"
+										>
 											{/* Collection card */}
-											<div className="col-span-4 hidden lg:block">
-												<CategoryCard
-													title={name}
-													name="Name here"
-													description="Lorem ipsum dolor sit amet, consecamet Lorem ipsum dolor sit amet, "
-													alt=""
-													imageUrl=""
-													bgHexColor=""
-													buttonText=""
-													containerClassName="h-full"
-													hideImage={true}
-													hideButton={true}
-												/>
+											<div className="hidden lg:block">
+												<div>
+													<h2 className="font-mont font-semibold text-primary-main dark:text-accent-secondary-eco lg:text-[25px]">
+														{name}
+													</h2>
+													<div className="h-[249px] w-[227px] bg-primary-main text-white dark:text-accent-secondary-eco">
+														<p className="p-4">
+															<span className="font-semibold">
+																{name} {` `}
+															</span>
+															<span>
+																lorem ipsum lorem ipsum lorem ipsum
+																lorem ipsum lorem ipsum lorem ipsum
+															</span>
+														</p>
+													</div>
+												</div>
 											</div>
 
-											<p className="col-span-12 text-[13px] font-semibold text-primary-main md:hidden">
-												{name}
-											</p>
-											<div className="col-span-12 lg:col-span-8">
-												<div className="hidden md:block">
+											<div className="w-full">
+												<p className="text-[13px] font-semibold text-primary-main sm:text-[18px] lg:hidden">
+													{name}
+												</p>
+												<div className="hidden sm:block">
 													<SubCategorySlider
 														className="!mx-0"
 														leftButtonClassName="lg:!left-8"
 														rightButtonClassName="lg:!right-10"
 														categories={products}
+														slidesToShow={products?.length <= 7 ? 4 : 8}
+														rows={products?.length <= 7 ? 1 : 2}
 													/>
 												</div>
 
 												{/* For mobile only */}
-												<div className="grid grid-cols-2 gap-4 md:hidden">
+
+												<div className="grid grid-cols-2 gap-4 sm:hidden">
 													{products.map((product: any) => {
 														return (
 															<SubCategoryCard

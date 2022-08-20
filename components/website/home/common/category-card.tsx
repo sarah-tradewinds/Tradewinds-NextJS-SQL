@@ -15,6 +15,9 @@ interface CategoryCardProps {
 	hideButton?: boolean;
 	bgHexColor?: string;
 	containerClassName?: string;
+	innerContainer?: string;
+	titleClassName?: string;
+	nameAndDescriptionClassName?: string;
 	onClick?: () => any;
 }
 
@@ -31,6 +34,9 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 		hideButton,
 		bgHexColor,
 		containerClassName,
+		titleClassName,
+		innerContainer,
+		nameAndDescriptionClassName,
 		onClick
 	} = props;
 
@@ -38,16 +44,20 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 		<div
 			className={`relative flex flex-col bg-agri-main py-4 pl-14 sm:bg-transparent sm:py-0 sm:pl-0 ${containerClassName}`}
 		>
-			<h2 className="mb-4 font-mont font-semibold text-primary-main dark:text-accent-secondary-eco lg:text-[25px]">
+			<h2
+				className={`mb-8 font-mont font-semibold text-primary-main dark:text-accent-secondary-eco lg:text-[25px] ${titleClassName}`}
+			>
 				{title}
 			</h2>
 
 			{/* Container */}
 			<div
-				className={`relative mt-4 flex h-full flex-col justify-between space-y-4 rounded-lg bg-agri-main p-4`}
+				className={`relative flex h-full flex-col justify-between space-y-4 rounded-lg bg-agri-main p-4 ${innerContainer}`}
 				style={{ backgroundColor: bgHexColor }}
 			>
-				<p className="mt-2 w-[64%] lg:text-[18px]">
+				<p
+					className={`mt-2 w-[64%] lg:text-[18px] ${nameAndDescriptionClassName}`}
+				>
 					<span className="font-semibold text-primary-main dark:text-accent-secondary-eco">
 						{name} {` `}
 					</span>

@@ -40,7 +40,7 @@ const ProductDetailsTabContainer: React.FC<{
 				<Tab.List className="flex space-x-4 bg-gray/20">
 					<Tab
 						className={({ selected }) =>
-							`bg-white px-4 py-2 ${
+							`bg-white px-4 py-2 outline-none ${
 								selected ? selectedClassName : unSelectedClassName
 							}`
 						}
@@ -49,7 +49,7 @@ const ProductDetailsTabContainer: React.FC<{
 					</Tab>
 					<Tab
 						className={({ selected }) =>
-							`bg-white px-4 py-2 ${
+							`bg-white px-4 py-2 outline-none ${
 								selected ? selectedClassName : unSelectedClassName
 							}`
 						}
@@ -58,7 +58,7 @@ const ProductDetailsTabContainer: React.FC<{
 					</Tab>
 					<Tab
 						className={({ selected }) =>
-							`bg-white px-4 py-2 ${
+							`bg-white px-4 py-2 outline-none ${
 								selected ? selectedClassName : unSelectedClassName
 							}`
 						}
@@ -68,7 +68,7 @@ const ProductDetailsTabContainer: React.FC<{
 				</Tab.List>
 
 				{/* Tab body */}
-				<Tab.Panels>
+				<Tab.Panels className="outline-none">
 					<Tab.Panel>
 						<ProductDetailsTab
 							productDetailItems={product_detail_item || []}

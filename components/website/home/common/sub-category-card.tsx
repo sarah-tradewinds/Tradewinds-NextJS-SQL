@@ -49,9 +49,9 @@ const SubCategoryCard = ({
 				{/* Content */}
 				<div className="pr-4 ">
 					<h2
-						className={`bg-secondary font-semibold text-primary-main dark:text-accent-secondary-eco md:text-[14px] lg:text-[18px] ${titleClassName}`}
+						className={`font-semibold text-primary-main dark:text-accent-secondary-eco md:text-[14px] lg:text-[18px] ${titleClassName}`}
 					>
-						{subCategoryTitle?.toString()}
+						{subCategoryTitle}
 					</h2>
 					<p className="text-primary-main md:text-[12px] lg:text-[15px]">
 						{subCat?.clr}
