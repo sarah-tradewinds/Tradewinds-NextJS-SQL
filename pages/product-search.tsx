@@ -99,7 +99,6 @@ const ProductSearchPage: NextPage<
 	} = useProductCompareStore();
 
 	const router = useRouter();
-	console.log('compareProducts =', compareProducts);
 
 	const mainCategory = getDataById(
 		allCategories,
@@ -121,13 +120,6 @@ const ProductSearchPage: NextPage<
 	}
 
 	const subCategoryList = (mainCategory as any)?.categories || [];
-
-	const subCategories = [...subCategoryList]
-		?.slice(0, 7)
-		.map((category: any) => {
-			category.isSelected = selectedCategoryIds.includes(category.id);
-			return category;
-		});
 
 	// Fetching mainCategories
 	useEffect(() => {
@@ -269,7 +261,7 @@ const ProductSearchPage: NextPage<
 
 		const selectedCategories = subCategoryList.filter(
 			(subCategory: any) => {
-				return categoryIdList.includes(subCategory.id);
+				return selectedCategoryIds.includes(subCategory.id);
 			}
 		);
 

@@ -36,11 +36,16 @@ const CategorySubCategoriesSection: React.FC<
 	const [screenSize, setScreenSize] = useState<null | number>(null);
 	const [isTablet, setIsTablet] = useState<boolean>(false);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
-	const { setSelectedMainCategoryId, setSelectedCategoryId } =
-		useCategoryStore((state) => ({
-			setSelectedMainCategoryId: state.setSelectedMainCategoryId,
-			setSelectedCategoryId: state.setSelectedCategoryId
-		}));
+	const {
+		setSelectedMainCategoryId,
+		setSelectedCategoryId,
+		fetchCategoriesByMainCategoryId
+	} = useCategoryStore((state) => ({
+		setSelectedMainCategoryId: state.setSelectedMainCategoryId,
+		setSelectedCategoryId: state.setSelectedCategoryId,
+		fetchCategoriesByMainCategoryId:
+			state.fetchCategoriesByMainCategoryId
+	}));
 
 	const router = useRouter();
 	const { locale } = router;
@@ -63,8 +68,10 @@ const CategorySubCategoriesSection: React.FC<
 	}, [isTablet, screenSize]);
 
 	const onSubCategoryTileClickHandler = async (categoryId: string) => {
+		const mainCategoryId = main_category.id!;
+		fetchCategoriesByMainCategoryId(mainCategoryId);
 		await setSelectedMainCategoryId(
-			main_category.id!,
+			mainCategoryId,
 			main_category.title?.en || ''
 		);
 		await setSelectedCategoryId(categoryId);

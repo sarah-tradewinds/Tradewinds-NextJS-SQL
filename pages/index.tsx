@@ -45,12 +45,9 @@ const HomePage: NextPage<
 	InferGetServerSidePropsType<GetServerSideProps>
 > = (props) => {
 	const {
-		// heroCarousels = [],
 		cardAList = [],
 		cardBData = {},
 		homeMainCategoriesAndCategories = []
-		// homeCountries = []
-		// homeAdvertisements = []
 	} = props;
 
 	// Fetching Hero carousel
@@ -101,13 +98,6 @@ const HomePage: NextPage<
 	useEffect(() => {
 		fetchMainCategories();
 	}, []);
-
-	// console.log(' ');
-	// console.log(
-	// 	'homeMainCategoriesAndCategories =',
-	// 	homeMainCategoriesAndCategories
-	// );
-	// console.log(' ');
 
 	const searchCategoriesAndTrendingBanner = (
 		<div className="grid gap-4 lg:grid-cols-2">
@@ -245,10 +235,6 @@ export const getServerSideProps: GetServerSideProps = async ({
 	locale
 }) => {
 	try {
-		// const heroCarousels = await getHeroCarousels();
-		// const homeAdvertisements = await getHomeAdvertisements();
-		// const homeCountries = await getHomeCountries();
-
 		const cardAList = await getCardAList();
 		const cardBData = await getCardB();
 
@@ -258,10 +244,6 @@ export const getServerSideProps: GetServerSideProps = async ({
 		return {
 			props: {
 				...(await serverSideTranslations(locale || 'en')),
-
-				// heroCarousels,
-				// homeAdvertisements
-				// homeCountries
 
 				cardAList,
 				cardBData,
@@ -277,9 +259,6 @@ export const getServerSideProps: GetServerSideProps = async ({
 		return {
 			props: {
 				...(await serverSideTranslations(locale || 'en')),
-
-				// heroCarousels: [],
-				// homeAdvertisements: []
 
 				cardAList: [],
 				cardBData: {},
