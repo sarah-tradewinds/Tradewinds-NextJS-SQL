@@ -159,9 +159,13 @@ const ProductDetailsTile: React.FC<{
 				</div>
 				{/* Keywords */}
 				<div className="flex justify-between text-[12px] font-semibold text-primary-main lg:text-[13px]">
-					{tags.map((tag: any, index: number) => (
-						<span key={`${tag}_${index}`}>{tag}</span>
-					))}
+					{tags.map((tag: any, index: number) => {
+						let tagName = tag;
+						if (typeof tag === 'object') {
+							tagName = getLocaleText(tag || {}, locale);
+						}
+						return <span key={`${tagName}_${index}`}>{tagName}</span>;
+					})}
 				</div>
 				{/* Metadata list */}
 				<div>

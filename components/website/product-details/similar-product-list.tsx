@@ -48,8 +48,7 @@ const SimilarProductList: React.FC<SimilarProductListProps> = (
 			</h3>
 
 			{/* Similar Products */}
-			{/* <div className={`grid grid-cols-5 gap-8 2xl:px-8 ${className}`}> */}
-			<div className="navigation-wrapper group relative">
+			<div className="navigation-wrapper group relative pl-8">
 				<div ref={sliderRef} className={`keen-slider ${className}`}>
 					{similarProducts.map((similarProduct, index) => (
 						<div
@@ -90,7 +89,7 @@ const SimilarProductList: React.FC<SimilarProductListProps> = (
 				{loaded && instanceRef.current && (
 					<div className="hidden group-hover:block">
 						<Button
-							className={`absolute -left-2 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full border-2 border-primary-main !p-0 !text-primary-main`}
+							className={`absolute -left-0 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full border-2 border-primary-main !p-0 !text-primary-main`}
 							onClick={(e: any) =>
 								e.stopPropagation() || instanceRef.current?.prev()
 							}

@@ -56,6 +56,21 @@ const ProductDetailsTab: React.FC<{
 				</div>
 			</div>
 
+			{/* Product certification  Details */}
+			<div>
+				<p className="border-b-2 border-gray/40 text-[15px] font-semibold text-gray md:text-[21px]">
+					{t('common:product_certifications')}
+				</p>
+				<div className="flex justify-between p-4">
+					<div className="space-y-2">
+						<p className="flex justify-between space-x-8 text-[15px] text-gray md:text-[18px]">
+							<span className="font-semibold">Certificate:</span>
+							<span>1</span>
+						</p>
+					</div>
+				</div>
+			</div>
+
 			{/* Shipping Details */}
 			<div>
 				<p className="border-b-2 border-gray/40 text-[15px] font-semibold text-gray md:text-[21px]">

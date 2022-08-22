@@ -243,7 +243,10 @@ const CompanyProfileTab: React.FC<{
 									</h2>
 									{featuredProducts?.length > 0 && (
 										<div className="navigation-wrapper group relative">
-											<div ref={sliderRef} className="keen-slider mt-8">
+											<div
+												ref={sliderRef}
+												className="keen-slider mt-8 pl-14"
+											>
 												{featuredProducts?.map((featuredProduct) => {
 													return (
 														<div

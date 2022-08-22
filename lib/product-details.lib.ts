@@ -5,6 +5,11 @@ export const getProductById = async (productId: string) => {
 		const { data } = await serviceAxiosInstance.get(
 			`/product/${productId}`
 		);
+
+		if (data?.data) {
+			data.data.tags = data.data.seo?.keyword || [];
+		}
+
 		return data.data || {};
 	} catch (error) {
 		console.log('[getProductById] =', error);
