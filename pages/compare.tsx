@@ -49,19 +49,23 @@ const ComparePage: NextPage = (props) => {
 
 			<div className="rounded bg-white p-4">
 				<div>
+					{/* Back, And Compare Buttons */}
 					<div>
 						<Button
 							onClick={router.back}
-							className="text-[12px] font-semibold !text-primary-main"
+							className="bg-secondary !px-0 text-[12px] font-semibold !text-primary-main"
 						>
 							{`<`} Back to Products
 						</Button>
-						<h1 className="text-[30px] font-bold text-primary-main">
+						<h1 className="text-[30px] font-bold !text-primary-main">
 							Compare Products
 						</h1>
-						<Button className="text-primary-main">
-							<MdOutlineBookmarkBorder />
-							<p className="text-[18px] font-bold">
+						<Button className="flex items-center !px-0">
+							<MdOutlineBookmarkBorder
+								size={32}
+								className="text-accent-primary-main"
+							/>
+							<p className="text-[18px] font-semibold text-primary-main">
 								Save comparison set
 							</p>
 						</Button>
@@ -70,7 +74,21 @@ const ComparePage: NextPage = (props) => {
 					<div className="lg:hidden">
 						<div ref={ref} className="keen-slider">
 							{compareProducts.map((compareProduct) => {
-								const { id } = compareProduct;
+								const {
+									id,
+									product_price,
+									is_bulk_pricing,
+									bulk_pricing
+								} = compareProduct;
+
+								// const displayPrice = getDisplayBulkPrice({
+								// 	product_price,
+								// 	is_bulk_pricing,
+								// 	bulk_pricing
+								// });
+
+								const displayPrice = '';
+
 								return (
 									<div key={id} className="keen-slider__slide">
 										<CompareProductTile
@@ -85,13 +103,10 @@ const ComparePage: NextPage = (props) => {
 												router.locale
 											)}
 											minimumOrderQuantity={0}
-											imageUrl={
-												compareProduct?.images
-													? compareProduct?.images[0].url
-													: ''
-											}
+											images={compareProduct?.images}
 											minPrice={10}
 											maxPrice={50}
+											displayPrice={displayPrice}
 											// onRemoveCompareProduct={() => {
 											// 	if (onRemoveCompareProduct) {
 											// 		onRemoveCompareProduct(product.id);
@@ -124,11 +139,7 @@ const ComparePage: NextPage = (props) => {
 										router.locale
 									)}
 									minimumOrderQuantity={0}
-									imageUrl={
-										compareProduct?.images
-											? compareProduct?.images[0].url
-											: ''
-									}
+									images={compareProduct?.images || []}
 									minPrice={10}
 									maxPrice={50}
 									// onRemoveCompareProduct={() => {

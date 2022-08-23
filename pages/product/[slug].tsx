@@ -52,6 +52,11 @@ const ProductDetailsPage: NextPage<
 			if (!updatedProductData.has_variants) {
 				updatedProductData.variants?.forEach((variant: any) => {
 					updatedProductData.product_name = variant.variants_option;
+					if (typeof variant.variants_option === 'string') {
+						updatedProductData.product_name = {
+							en: variant.variants_option
+						};
+					}
 					updatedProductData.images = variant.variants_images;
 					updatedProductData.product_price = variant.variants_price;
 					updatedProductData.inventory = variant.inventory;

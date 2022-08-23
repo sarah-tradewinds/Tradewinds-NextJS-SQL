@@ -68,14 +68,14 @@ const ProductDetailsTabContainer: React.FC<{
 				</Tab.List>
 
 				{/* Tab body */}
-				<Tab.Panels className="outline-none">
-					<Tab.Panel>
+				<Tab.Panels>
+					<Tab.Panel className="outline-none">
 						<ProductDetailsTab
 							productDetailItems={product_detail_item || []}
 							shipping={shipping}
 						/>
 					</Tab.Panel>
-					<Tab.Panel>
+					<Tab.Panel className="outline-none">
 						<ReviewsDetailsTab
 							reviews={reviews}
 							onReviewSubmit={onReviewSubmit}
@@ -87,7 +87,7 @@ const ProductDetailsTabContainer: React.FC<{
 							productId={product.id}
 						/>
 					</Tab.Panel>
-					<Tab.Panel>
+					<Tab.Panel className="outline-none">
 						<CompanyProfileTab seller={seller} />
 					</Tab.Panel>
 				</Tab.Panels>

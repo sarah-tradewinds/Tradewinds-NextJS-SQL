@@ -17,6 +17,7 @@ import ImageContainer from './product-details-images/image-contaier';
 import RatingStars from './product-details-tab/product-review/rating-stars';
 
 // utils
+import { useKeenSlider } from 'keen-slider/react';
 import { useTranslation } from 'next-i18next';
 import { useCartStore } from 'store/cart-store';
 import { getLocaleText } from 'utils/get_locale_text';
@@ -66,6 +67,10 @@ const ProductDetailsTile: React.FC<{
 		is_ready_to_ship,
 		is_verified
 	} = product || {};
+
+	const [sliderRef] = useKeenSlider<HTMLDivElement>({
+		slides: { perView: 4, spacing: 16 }
+	});
 
 	const productName = getLocaleText(product_name || {}, locale);
 
@@ -158,7 +163,7 @@ const ProductDetailsTile: React.FC<{
 					)}
 				</div>
 				{/* Keywords */}
-				<div className="flex justify-between text-[12px] font-semibold text-primary-main lg:text-[13px]">
+				<div className="flex space-x-4 text-[12px] font-semibold text-primary-main md:space-x-16 lg:text-[13px]">
 					{tags.map((tag: any, index: number) => {
 						let tagName = tag;
 						if (typeof tag === 'object') {
@@ -190,6 +195,7 @@ const ProductDetailsTile: React.FC<{
 						{metadataTileList[4]}
 					</div>
 				</div>
+
 				{/* Rating, review count and verified Image */}
 				<div className="hidden items-center space-x-8 pb-4 md:flex">
 					<RatingStars
@@ -279,24 +285,32 @@ const ProductDetailsTile: React.FC<{
 								</p>
 							))}
 					</div>
+
 					{/* Variants */}
-					<div className="flex space-x-8 ">
+					<div ref={sliderRef} className="keen-slider">
 						{variants.map((variant: any) => {
 							const { variant_id } = variant;
 							const isSelected = selectedVariantId === variant_id;
 							return (
-								<Button
+								<div
 									key={variant.variant_id}
-									onClick={() =>
-										onVariantClick(isSelected ? '' : variant.variant_id)
-									}
-									className="px-0 text-[21px] font-semibold !text-primary-main"
+									className="keen-slider__slide"
 								>
-									{variant.variants_option}
-								</Button>
+									<Button
+										onClick={() =>
+											onVariantClick(
+												isSelected ? '' : variant.variant_id
+											)
+										}
+										className="whitespace-nowraps px-0 !text-[21px] font-semibold !text-primary-main"
+									>
+										{variant.variants_option}
+									</Button>
+								</div>
 							);
 						})}
 					</div>
+
 					<p className="text-[21px] font-semibold text-primary-main">
 						{t('common:quantity')}: {inventory?.quantity || 0}
 					</p>
