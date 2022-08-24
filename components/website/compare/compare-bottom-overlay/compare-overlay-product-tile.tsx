@@ -6,8 +6,7 @@ interface CompareProductTileProps {
 	imageUrl: string;
 	alt?: string;
 	title: string;
-	minPrice: number;
-	maxPrice: number;
+	displayPrice: string;
 	className?: string;
 	onRemoveCompareProduct?: () => any;
 }
@@ -19,8 +18,7 @@ const CompareProductTile: React.FC<CompareProductTileProps> = (
 		imageUrl,
 		alt,
 		title,
-		minPrice,
-		maxPrice,
+		displayPrice,
 		className,
 		onRemoveCompareProduct
 	} = props;
@@ -36,9 +34,7 @@ const CompareProductTile: React.FC<CompareProductTileProps> = (
 			{/* Content */}
 			<div className="hidden w-[250px] space-y-2 text-[12px] lg:block">
 				<p>{title}</p>
-				<p className="font-semibold">
-					${minPrice} - ${maxPrice}/piece
-				</p>
+				<p className="font-semibold">{displayPrice}/piece</p>
 			</div>
 
 			{/* Close button */}

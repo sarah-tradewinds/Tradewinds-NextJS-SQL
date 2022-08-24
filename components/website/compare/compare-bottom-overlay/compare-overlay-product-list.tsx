@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { generateListByCount } from 'utils/common.util';
+import { getDisplayBulkPrice } from 'utils/get-bulk-price';
 import Button from '../../common/form/button';
 import CompareProductTile from './compare-overlay-product-tile';
 import CompareProductBottomOverlay from './compare-product-bootom-overlay';
@@ -30,20 +31,30 @@ const CompareProductList: React.FC<CompareProductListProps> = (
 				onClose={() => setIsOpen((prevState) => !prevState)}
 			>
 				<div className="flex flex-wrap items-center justify-center space-x-6 py-4 px-4 md:flex-nowrap 2xl:px-16">
-					{products.map((product) => (
-						<CompareProductTile
-							key={product.id}
-							imageUrl={product?.images ? product?.images[0].url : ''}
-							minPrice={0}
-							maxPrice={0}
-							title={product.name}
-							onRemoveCompareProduct={() => {
-								if (onRemoveCompareProduct) {
-									onRemoveCompareProduct(product.id);
-								}
-							}}
-						/>
-					))}
+					{products.map((product) => {
+						const { id, product_price, is_bulk_pricing, bulk_pricing } =
+							product;
+
+						const displayPrice = getDisplayBulkPrice({
+							product_price,
+							is_bulk_pricing,
+							bulk_pricing
+						});
+
+						return (
+							<CompareProductTile
+								key={id}
+								imageUrl={product?.images ? product?.images[0].url : ''}
+								displayPrice={displayPrice}
+								title={product.name}
+								onRemoveCompareProduct={() => {
+									if (onRemoveCompareProduct) {
+										onRemoveCompareProduct(product.id);
+									}
+								}}
+							/>
+						);
+					})}
 
 					{/* Show when we have less than 4 products */}
 					{generateListByCount(3 - products.length).map(

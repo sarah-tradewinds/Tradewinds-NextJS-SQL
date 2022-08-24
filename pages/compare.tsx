@@ -22,6 +22,7 @@ import { specs1, specs2 } from 'data/specs';
 import { useProductCompareStore } from 'store/product-compare-store';
 
 // utils
+import { getDisplayBulkPrice } from 'utils/get-bulk-price';
 import { getLocaleText } from 'utils/get_locale_text';
 
 const ComparePage: NextPage = (props) => {
@@ -38,7 +39,7 @@ const ComparePage: NextPage = (props) => {
 		},
 		breakpoints: {
 			'(min-width: 768px)': {
-				slides: { perView: 3, spacing: 8 }
+				slides: { perView: 2, spacing: 8 }
 			}
 		}
 	});
@@ -53,7 +54,7 @@ const ComparePage: NextPage = (props) => {
 					<div>
 						<Button
 							onClick={router.back}
-							className="bg-secondary !px-0 text-[12px] font-semibold !text-primary-main"
+							className="!px-0 text-[12px] font-semibold !text-primary-main"
 						>
 							{`<`} Back to Products
 						</Button>
@@ -78,16 +79,15 @@ const ComparePage: NextPage = (props) => {
 									id,
 									product_price,
 									is_bulk_pricing,
-									bulk_pricing
+									bulk_pricing,
+									inventory
 								} = compareProduct;
 
-								// const displayPrice = getDisplayBulkPrice({
-								// 	product_price,
-								// 	is_bulk_pricing,
-								// 	bulk_pricing
-								// });
-
-								const displayPrice = '';
+								const displayPrice = getDisplayBulkPrice({
+									product_price,
+									is_bulk_pricing,
+									bulk_pricing
+								});
 
 								return (
 									<div key={id} className="keen-slider__slide">
@@ -102,10 +102,10 @@ const ComparePage: NextPage = (props) => {
 												compareProduct.product_description || {},
 												router.locale
 											)}
-											minimumOrderQuantity={0}
+											minimumOrderQuantity={
+												inventory?.minimum_order_quantity || 0
+											}
 											images={compareProduct?.images}
-											minPrice={10}
-											maxPrice={50}
 											displayPrice={displayPrice}
 											// onRemoveCompareProduct={() => {
 											// 	if (onRemoveCompareProduct) {
@@ -123,9 +123,23 @@ const ComparePage: NextPage = (props) => {
 						</div>
 					</div>
 
-					<div className="hidden grid-cols-3 gap-4 divide-x-2 divide-gray/20 lg:grid lg:grid-cols-4">
-						{compareProducts.map((compareProduct) => {
-							const { id } = compareProduct;
+					<div
+						className={`hidden gap-4 divide-x-2 divide-gray/20 lg:grid grid-cols-${compareProducts.length}`}
+					>
+						{compareProducts.map((compareProduct: any) => {
+							const {
+								id,
+								product_price,
+								is_bulk_pricing,
+								bulk_pricing,
+								inventory
+							} = compareProduct;
+
+							const displayPrice = getDisplayBulkPrice({
+								product_price,
+								is_bulk_pricing,
+								bulk_pricing
+							});
 							return (
 								<CompareProductTile
 									key={compareProduct.id}
@@ -138,16 +152,11 @@ const ComparePage: NextPage = (props) => {
 										compareProduct.product_description || {},
 										router.locale
 									)}
-									minimumOrderQuantity={0}
+									displayPrice={displayPrice}
+									minimumOrderQuantity={
+										inventory?.minimum_order_quantity || 0
+									}
 									images={compareProduct?.images || []}
-									minPrice={10}
-									maxPrice={50}
-									// onRemoveCompareProduct={() => {
-									// 	if (onRemoveCompareProduct) {
-									// 		onRemoveCompareProduct(product.id);
-									// 	}
-									// }}
-
 									onProductRemove={() =>
 										removeProductFromCompareList(id)
 									}

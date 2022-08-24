@@ -333,6 +333,18 @@ const ProductSearchPage: NextPage<
 		}
 	}, [selectedCategories]);
 
+	useEffect(() => {
+		const updatedProductList = products?.map((product: any) => {
+			const isExist = compareProducts.find(
+				(compareProduct) => compareProduct.id === product.id
+			);
+			product.isInCompareList = isExist || false;
+
+			return product;
+		});
+		setProducts(updatedProductList);
+	}, [compareProducts.length]);
+
 	return (
 		<div className="container mx-auto">
 			<Seo title="Product search page" description="" />

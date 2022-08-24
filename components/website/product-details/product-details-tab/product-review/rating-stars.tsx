@@ -1,12 +1,24 @@
 const RatingStars: React.FC<{
-	startNum: number;
+	starNumber: number;
+	rating?: number;
+	containerClassName?: string;
 	className?: string;
-}> = ({ startNum, className }) => {
+	selectedClassName?: string;
+}> = ({
+	starNumber,
+	rating = 0,
+	containerClassName,
+	selectedClassName,
+	className
+}) => {
 	const starList = [];
-	for (let i = 1; i <= startNum; i++) {
+	for (let i = 1; i <= starNumber; i++) {
+		const isSelected = i <= rating;
 		starList.push(
 			<svg
-				className={`h-8 w-8 ${className}`}
+				className={`h-8 w-8 ${className} ${
+					isSelected ? selectedClassName : ''
+				}`}
 				fill="currentColor"
 				viewBox="0 0 20 20"
 				xmlns="http://www.w3.org/2000/svg"
@@ -16,7 +28,7 @@ const RatingStars: React.FC<{
 		);
 	}
 
-	return <div className="flex">{starList}</div>;
+	return <div className={`flex ${containerClassName}`}>{starList}</div>;
 }; // End of RatingStars
 
 export default RatingStars;

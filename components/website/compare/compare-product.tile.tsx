@@ -1,7 +1,6 @@
 // components
 import Button from 'components/website/common/form/button';
 import MetadataList from 'components/website/product-search/metadata/metadata-list';
-import VerifiedAndRating from '../product-search/verified-and-rating';
 
 // data
 import { metadataList } from 'data/product-search/metadata-list';
@@ -10,6 +9,7 @@ import { useState } from 'react';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
 import Input from '../common/form/input';
+import RatingStars from '../product-details/product-details-tab/product-review/rating-stars';
 
 interface CompareProductTileProps {
 	id: string;
@@ -52,6 +52,7 @@ const CompareProductTile: React.FC<CompareProductTileProps> = (
 		created() {
 			setLoaded(true);
 		},
+		drag: false,
 		slides: { perView: 1 }
 	});
 
@@ -125,8 +126,27 @@ const CompareProductTile: React.FC<CompareProductTileProps> = (
 			</div>
 
 			{/* Rating and metadata container */}
-			<div className="flex flex-col items-center space-y-6 lg:flex-row lg:items-start lg:justify-between lg:space-y-0 lg:space-x-4">
-				<VerifiedAndRating rating={4} totalReviewCount={105} />
+			<div className="flex flex-col items-center space-y-6 sm:flex-row sm:items-start sm:justify-between sm:space-y-0 sm:space-x-4">
+				{/* <VerifiedAndRating rating={4} totalReviewCount={105} /> */}
+				<div>
+					<ImageWithErrorHandler
+						key="twmp-verified"
+						src="/twmp-verified.png"
+						alt=""
+						width={88}
+						height={60}
+					/>
+					<RatingStars
+						starNumber={5}
+						rating={5}
+						className="w-[14px]"
+						selectedClassName="text-secondary"
+						containerClassName="space-x-1"
+					/>
+					<p className="text-center text-[12px] text-secondary">
+						146 Reviews
+					</p>
+				</div>
 				<MetadataList
 					metadataList={[
 						metadataList[0],
