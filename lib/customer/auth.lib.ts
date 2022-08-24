@@ -66,19 +66,21 @@ export const getCustomerDetails = async (token?: string) => {
 	}
 }; // End of getCustomerDetails
 
-export const getCustomerBuyerId = async (userId: string) => {
+export const getCustomerBuyerDetails = async (userId: string) => {
 	try {
 		const { data } = await serviceAxiosInstance.get(
 			`/buyer/user/${userId}`
 		);
 
-		return data?.data?.id;
+		return data?.data || {};
 	} catch (error) {
-		console.log('[getCustomerBuyerId] =', error);
+		console.log('[getCustomerBuyerDetails] =', error);
 		const { data } = (error as any).response || {};
-		throw Error(data?.message || 'Error occurred getCustomerBuyerId');
+		throw Error(
+			data?.message || 'Error occurred getCustomerBuyerDetails'
+		);
 	}
-}; // End of getCustomerBuyerId
+}; // End of getCustomerBuyerDetails
 
 export const forgetPasswordGenerateLink = async (email: string) => {
 	try {

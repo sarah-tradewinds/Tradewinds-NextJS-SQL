@@ -53,7 +53,7 @@ const ProductList: React.FC<ProductListProps> = ({
 					);
 
 					await sendMessageToSeller({
-						buyerEmail: customerData.email || '',
+						buyerEmail: customerData.tradewinds_email || '',
 						sellerEmail: email || '',
 						message,
 						subject: `Message from ${customerData.name}`

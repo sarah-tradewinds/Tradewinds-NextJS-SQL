@@ -18,7 +18,7 @@ import { buttonSpinner } from '../spinners/custom-spinners';
 import { addProductToCart } from 'lib/cart.lib';
 import { useCartStore } from 'store/cart-store';
 import {
-	getCustomerBuyerId,
+	getCustomerBuyerDetails,
 	getCustomerDetails,
 	userLogin
 } from '../../../../lib/customer/auth.lib';
@@ -62,7 +62,11 @@ const Login: React.FC = () => {
 				data.access_token.token
 			);
 
-			const buyerId = await getCustomerBuyerId(customerDetails.id);
+			const buyerData = await getCustomerBuyerDetails(
+				customerDetails.id
+			);
+
+			const buyerId = buyerData?.id;
 
 			if (cartProducts.length) {
 				await addProductToCart(
@@ -81,6 +85,7 @@ const Login: React.FC = () => {
 				name: customerDetails.name,
 				phone: customerDetails.phone,
 				email: customerDetails.email,
+				tradewinds_email: buyerData?.user_id?.trade_winds_email,
 				access: {
 					token: data.access_token.token,
 					expireIn: ''

@@ -1,6 +1,6 @@
 import {
 	autoLoginCustomer,
-	getCustomerBuyerId,
+	getCustomerBuyerDetails,
 	logoutCustomer
 } from 'lib/customer/auth.lib';
 import create from 'zustand';
@@ -11,6 +11,8 @@ export interface CustomerDataProps {
 	name: string;
 	phone?: string;
 	email?: string;
+	tradewinds_email?: string;
+
 	access: {
 		token: string;
 		expireIn: string;
@@ -40,6 +42,7 @@ const initialCustomerData = {
 	name: 'Guest',
 	phone: '',
 	email: '',
+	tradewinds_email: '',
 	access: {
 		token: '',
 		expireIn: ''
@@ -65,8 +68,9 @@ export const useAuthStore = create<AuthState>((set) => ({
 			const userId = data?.customerData?.id;
 			data.customerData.buyerId = '';
 			if (userId) {
-				const buyerId = await getCustomerBuyerId(userId);
-				data.customerData.buyerId = buyerId;
+				const { id, user_id } = await getCustomerBuyerDetails(userId);
+				data.customerData.buyerId = id;
+				data.customerData.tradewinds_email = user_id?.trade_winds_email;
 			}
 			set({
 				isAuth: data.isLoggedIn,
