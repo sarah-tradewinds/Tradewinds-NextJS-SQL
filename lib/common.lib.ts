@@ -91,3 +91,31 @@ export const getSearchSuggestions = async (searchText: string) => {
 		return [];
 	}
 }; // End of getSearchSuggestions function
+
+export const sendMessageToSeller = async (payload: {
+	buyerEmail: string;
+	sellerEmail: string;
+	subject: string;
+	message: string;
+}) => {
+	const { buyerEmail, sellerEmail, subject, message } = payload;
+
+	try {
+		const { data } = await serviceAxiosInstance.post('/message', {
+			from: buyerEmail,
+			to: [sellerEmail],
+			cc: [],
+			subject,
+			message,
+			type: 'commonmessage',
+			created_by: buyerEmail
+		});
+
+		return data.data || [];
+	} catch (error) {
+		console.log('[sendMessageToSeller] =', error);
+		const { data } = (error as any).response || {};
+		// throw Error(data || 'Error occurred sendMessageToSeller');
+		return [];
+	}
+}; // End of sendMessageToSeller function

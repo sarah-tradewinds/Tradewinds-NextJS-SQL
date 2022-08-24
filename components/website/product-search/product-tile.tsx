@@ -5,11 +5,6 @@ import Link from 'next/link';
 import MetadataTile from './metadata/metadata-tile';
 
 // data
-import {
-	BUYER_DASHBOARD_ACTIONS,
-	BUYER_DASHBOARD_PAGES,
-	generateBuyerDashboardUrl
-} from 'data/buyer/buyer-actions';
 import { metadataList } from 'data/product-search/metadata-list';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
@@ -39,6 +34,7 @@ interface ProductTileProps {
 	totalReviewCount?: number;
 	onCompareClick?: () => any;
 	onCartClick?: () => any;
+	onMessageVendorClick?: () => any;
 	isInCompareList?: boolean;
 	isVerified?: boolean;
 	isReadyToShip?: boolean;
@@ -66,7 +62,8 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 		isReadyToShip,
 		isCustomizable,
 		variantCount,
-		onCartClick
+		onCartClick,
+		onMessageVendorClick
 	} = props;
 
 	const router = useRouter();
@@ -83,20 +80,21 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 
 	const messageVendorButton = (
 		<Button
-			onClick={() => {
-				if (!isAuth) {
-					setIsLoginOpen();
-					return;
-				}
+			onClick={onMessageVendorClick}
+			// onClick={() => {
+			// 	if (!isAuth) {
+			// 		setIsLoginOpen();
+			// 		return;
+			// 	}
 
-				const buyerDashboardUrl = generateBuyerDashboardUrl({
-					redirect_to: BUYER_DASHBOARD_PAGES.message_vendor,
-					action: BUYER_DASHBOARD_ACTIONS.message_vendor,
-					access_key: customerData.access.token,
-					refresh_key: customerData.refresh.token
-				});
-				router.push(buyerDashboardUrl);
-			}}
+			// 	const buyerDashboardUrl = generateBuyerDashboardUrl({
+			// 		redirect_to: BUYER_DASHBOARD_PAGES.message_vendor,
+			// 		action: BUYER_DASHBOARD_ACTIONS.message_vendor,
+			// 		access_key: customerData.access.token,
+			// 		refresh_key: customerData.refresh.token
+			// 	});
+			// 	router.push(buyerDashboardUrl);
+			// }}
 			className="flex items-center border border-accent-primary-main !p-0 !pr-2 !text-accent-primary-main lg:px-2"
 		>
 			<MdOutlineMessage className="mr-1 block h-[40px] bg-accent-primary-main text-[24px] text-white lg:mr-2" />

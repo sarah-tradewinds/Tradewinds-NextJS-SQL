@@ -33,18 +33,18 @@ export const getProductReviewsByProductId = async (
 	}
 }; // End of getProductReviewsByProductId
 
-export const getSellerDetailsSellerId = async (sellerId: string) => {
+export const getSellerDetailsBySellerId = async (sellerId: string) => {
 	try {
 		const { data } = await serviceAxiosInstance.get(
 			`/seller/profile/${sellerId}`
 		);
 		return data.data || {};
 	} catch (error) {
-		console.log('[getSellerDetailsSellerId] =', error);
+		console.log('[getSellerDetailsBySellerId] =', error);
 		const { data, status } = (error as any).response || {};
 		return {};
 	}
-}; // End of getSellerDetailsSellerId
+}; // End of getSellerDetailsBySellerId
 
 export const getSellerStorefrontDetailsSellerId = async (
 	sellerId: string

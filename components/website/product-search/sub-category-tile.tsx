@@ -25,7 +25,6 @@ const SubCategoryTile: React.FC<SubCategoryTileProps> = ({
 			onClick={onTilePressed}
 		>
 			{!icon && (
-				// <div className="relative h-[44px] w-[51px] md:h-[60px] md:w-[60px]">
 				<div className="relative">
 					<ImageWithErrorHandler
 						src={imageUrl}

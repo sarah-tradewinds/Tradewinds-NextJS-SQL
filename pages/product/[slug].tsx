@@ -21,7 +21,7 @@ import ProductDetailsTabContainer from 'components/website/product-details/produ
 import {
 	getProductById,
 	getProductReviewsByProductId,
-	getSellerDetailsSellerId,
+	getSellerDetailsBySellerId,
 	getSimilarProducts,
 	submitProductRatingAndReview
 } from 'lib/product-details.lib';
@@ -209,7 +209,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
 		// Fetch seller company Data
 		const sellerId = product.seller_id.id;
-		const seller = (await getSellerDetailsSellerId(sellerId)) || {};
+		const seller = (await getSellerDetailsBySellerId(sellerId)) || {};
 		seller.id = sellerId;
 
 		const similarProducts = await getSimilarProducts(productId);
