@@ -199,7 +199,7 @@ const ProductDetailsTile: React.FC<{
 				{/* Rating, review count and verified Image */}
 				<div className="hidden items-center space-x-8 pb-4 md:flex">
 					<RatingStars
-						startNum={product.rating}
+						starNumber={product.rating}
 						className="text-secondary"
 					/>
 					<div className="relative h-[32px] w-[132px]">

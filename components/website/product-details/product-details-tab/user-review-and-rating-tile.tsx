@@ -22,7 +22,7 @@ const UserReviewAndRatingTile: React.FC<
 					<p className="text-[15px]">{customerName}</p>
 				</div>
 				<div className="flex items-center space-x-4">
-					<RatingStars startNum={rating} className="text-secondary" />
+					<RatingStars starNumber={rating} className="text-secondary" />
 					<p className="text-[13px] text-gray">{rating} out of 5</p>
 				</div>
 			</div>

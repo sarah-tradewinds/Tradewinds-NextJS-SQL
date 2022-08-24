@@ -285,7 +285,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 							<Image src="/twmp-verified.png" alt="" layout="fill" />
 						</div>
 						<div className="w-[80px] lg:w-[132px]">
-							<RatingStars startNum={5} className="text-secondary" />
+							<RatingStars starNumber={5} className="text-secondary" />
 						</div>
 					</div>
 				</div>
@@ -309,7 +309,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 							<div className="flex flex-col items-center space-y-2 pl-2 pb-4 md:pl-0">
 								<div className="w-[80px] md:hidden lg:block lg:w-[132px]">
 									<RatingStars
-										startNum={5}
+										starNumber={5}
 										className="text-secondary"
 									/>
 								</div>
