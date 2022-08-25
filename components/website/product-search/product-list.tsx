@@ -91,6 +91,7 @@ const ProductList: React.FC<ProductListProps> = ({
 							countryOfOrigin={
 								country_of_region ? country_of_region[0] : ''
 							}
+							isEco={product.is_eco}
 							keywords={product.tags || []}
 							productPrice={product_price}
 							displayPrice={displayPrice}

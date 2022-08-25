@@ -204,7 +204,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 						</Link>
 
 						{isEco && (
-							<div className="absolute top-0">
+							<div className="absolute top-2 left-2 lg:top-0">
 								<ImageWithErrorHandler
 									src="/static/icons/eco-icon.png"
 									alt="eco-icon"
