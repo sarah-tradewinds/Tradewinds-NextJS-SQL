@@ -106,7 +106,9 @@ const ProductDetailsTile: React.FC<{
 			alt={t('common:customizable')}
 			title={
 				<p>
-					{t('common:customizable')}{' '}
+					<span className="capitalize">
+						{t('common:customizable')}{' '}
+					</span>
 					<span className="text-secondary">
 						{is_customizable ? t('common:yes') : t('common:no')}
 					</span>
@@ -315,7 +317,7 @@ const ProductDetailsTile: React.FC<{
 						{t('common:quantity')}: {inventory?.quantity || 0}
 					</p>
 					<p className="text-[21px] text-primary-main">
-						<span className="font-semibold">
+						<span className="font-semibold capitalize">
 							{t('common:customization')}:
 						</span>{' '}
 						<span>

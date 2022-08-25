@@ -20,7 +20,7 @@ const SimilarProductList: React.FC<SimilarProductListProps> = (
 	const [currentSlide, setCurrentSlide] = useState(0);
 	const [loaded, setLoaded] = useState(false);
 
-	const { locale } = useRouter();
+	const { locale, push } = useRouter();
 
 	const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
 		initial: 0,
@@ -53,9 +53,10 @@ const SimilarProductList: React.FC<SimilarProductListProps> = (
 					{similarProducts.map((similarProduct, index) => (
 						<div
 							key={similarProduct.id}
-							className={`keen-slider__slide ${
+							className={`keen-slider__slide cursor-pointer ${
 								index === 3 ? 'hidden xl:block' : ''
 							}`}
+							onClick={() => push(`/product/${similarProduct.id}`)}
 						>
 							<div className="h-[274px] w-[298px]">
 								<div className="relative h-[205px] w-[240px]">

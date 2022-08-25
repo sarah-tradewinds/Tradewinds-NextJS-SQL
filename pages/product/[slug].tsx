@@ -27,24 +27,26 @@ import {
 } from 'lib/product-details.lib';
 import { useRouter } from 'next/router';
 import { useAuthStore } from 'store/auth';
-import { useCategoryStore } from 'store/category-store';
 import { getLocaleText } from 'utils/get_locale_text';
 
 const ProductDetailsPage: NextPage<
 	InferGetServerSidePropsType<GetServerSideProps>
-> = ({ product, productReviews, seller, similarProducts }) => {
+> = ({ slug, product, productReviews, seller, similarProducts }) => {
 	const [productData, setProductData] = useState(product);
 	const [productReviewList, setProductReviewList] =
 		useState(productReviews);
 	const [isReviewLoading, setIsReviewLoading] = useState(false);
 	const [selectedVariantId, setSelectedVariantId] = useState('');
-	const categories = useCategoryStore((state) => state.allCategories);
 
 	const { customerData } = useAuthStore((state) => ({
 		customerData: state.customerData
 	}));
 
 	const { locale } = useRouter();
+
+	useEffect(() => {
+		setProductData(product);
+	}, [slug]);
 
 	useEffect(() => {
 		if (selectedVariantId) {
@@ -120,14 +122,6 @@ const ProductDetailsPage: NextPage<
 				/>
 
 				<div className="bg-white md:hidden">
-					{/* <ProductDetailsTab
-						productDetailItem={
-							productData.product_detail_item
-								? productData.product_detail_item[0]
-								: []
-						}
-						shipping={productData.shipping}
-					/> */}
 					<ProductReviewsDetailsTab
 						reviews={productReviewList}
 						onReviewSubmit={submitReviewHandler}
@@ -151,23 +145,6 @@ const ProductDetailsPage: NextPage<
 				/>
 			</div>
 
-			{/* Categories */}
-			{/* {categories && categories.length > 0 && (
-				<div className="mx-4 rounded bg-white">
-					<CategorySubCategoriesSection
-						catSubCat={{
-							...categories[0]?.category,
-							category: {
-								...categories[0]?.category[0]?.sub_category,
-								id: '1',
-								title: 'Deals of the Month',
-								slug: { en: '/' },
-								image: { url: '/logo.png' }
-							}
-						}}
-					/>
-				</div>
-			)} */}
 			{/* Fixed container for small screen only */}
 			<div className="fixed left-0 right-0 bottom-0 z-[2000] flex justify-around bg-primary-main py-6 md:hidden">
 				<Button
@@ -191,6 +168,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 	params,
 	locale
 }) => {
+	console.log('Product details getting called...');
 	const notFound = {
 		props: {},
 		notFound: true
@@ -222,6 +200,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 				productReviews,
 				seller,
 				similarProducts,
+				slug: productId,
 				seo: {
 					title: getLocaleText(seo.title || {}),
 					description: getLocaleText(seo.description || {})

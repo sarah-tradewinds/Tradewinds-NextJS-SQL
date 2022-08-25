@@ -1,14 +1,11 @@
 import { Tab } from '@headlessui/react';
 import ImageWithErrorHandler from 'components/website/common/elements/image-with-error-handler';
 import Button from 'components/website/common/form/button';
+import MessageVendorPopup from 'components/website/common/popup/message-vendor.popup';
 import SubCategoryCard from 'components/website/home/common/sub-category-card';
 import SubCategorySlider from 'components/website/home/sub-category-slider';
-import {
-	BUYER_DASHBOARD_ACTIONS,
-	BUYER_DASHBOARD_PAGES,
-	generateBuyerDashboardUrl
-} from 'data/buyer/buyer-actions';
 import { useKeenSlider } from 'keen-slider/react';
+import { sendMessageToSeller } from 'lib/common.lib';
 import {
 	getFeaturedProductsBySellerId,
 	getProductsWithCollectionBySellerId,
@@ -39,6 +36,8 @@ const CompanyProfileTab: React.FC<{
 
 	const [currentSlide, setCurrentSlide] = useState(0);
 	const [loaded, setLoaded] = useState(false);
+	const [isMessageVendorPopupOpen, setIsMessageVendorPopupOpen] =
+		useState(false);
 
 	const { isAuth, setIsLoginOpen, customerData } = useAuthStore(
 		(state) => ({
@@ -95,13 +94,7 @@ const CompanyProfileTab: React.FC<{
 					setIsLoginOpen();
 					return;
 				}
-				const buyerDashboardUrl = generateBuyerDashboardUrl({
-					redirect_to: BUYER_DASHBOARD_PAGES.message_vendor,
-					action: BUYER_DASHBOARD_ACTIONS.message_vendor,
-					access_key: customerData.access.token,
-					refresh_key: customerData.refresh.token
-				});
-				push(buyerDashboardUrl);
+				setIsMessageVendorPopupOpen(true);
 			}}
 			className="flex items-center border border-accent-primary-main !p-0 !pr-2 !text-accent-primary-main lg:px-2"
 		>
@@ -112,6 +105,31 @@ const CompanyProfileTab: React.FC<{
 
 	return (
 		<>
+			<MessageVendorPopup
+				open={isMessageVendorPopupOpen}
+				onClose={() => setIsMessageVendorPopupOpen(false)}
+				onChange={() => {}}
+				onSendClick={async (message) => {
+					if (!isAuth) {
+						setIsLoginOpen();
+						return;
+					}
+
+					const { email } = await getSellerStorefrontDetailsSellerId(
+						seller?.id
+					);
+
+					await sendMessageToSeller({
+						buyerEmail: customerData.tradewinds_email || '',
+						sellerEmail: email || '',
+						message,
+						subject: `Message from ${customerData.name}`
+					});
+
+					setIsMessageVendorPopupOpen(false);
+				}}
+			/>
+
 			<div className="bg-bg-main">
 				{/* Store front Banner Image and Logo */}
 				<div className="relative">
@@ -251,7 +269,10 @@ const CompanyProfileTab: React.FC<{
 													return (
 														<div
 															key={featuredProduct.id}
-															className="keen-slider__slide"
+															className="keen-slider__slide cursor-pointer"
+															onClick={() =>
+																push(`/product/${featuredProduct.id}`)
+															}
 														>
 															<div className="h-[185px]">
 																<div className="relative h-[137px] w-[137px]">
@@ -382,6 +403,9 @@ const CompanyProfileTab: React.FC<{
 														categories={products}
 														slidesToShow={products?.length <= 7 ? 4 : 8}
 														rows={products?.length <= 7 ? 1 : 2}
+														onTileClick={(_, data) =>
+															push(`/product/${data.id}`)
+														}
 													/>
 												</div>
 

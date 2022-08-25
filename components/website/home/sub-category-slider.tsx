@@ -6,7 +6,7 @@ import SubCategoryCard from './common/sub-category-card';
 
 const SubCategorySlider: React.FC<{
 	categories: any[];
-	onTileClick?: (categoryId: string) => any;
+	onTileClick?: (categoryId: string, data: any) => any;
 	className?: string;
 	leftButtonClassName?: string;
 	rightButtonClassName?: string;
@@ -48,17 +48,18 @@ const SubCategorySlider: React.FC<{
 					<Slider ref={slider} {...settings}>
 						{categories.map((subCat: any) => {
 							const { categories: category } = subCat as any;
-
+							const categoryData = category || subCat;
 							return (
 								<div
 									key={subCat.id}
 									className="!mt-[24px] !w-[95%] transform transition duration-300 ease-in-out hover:-translate-y-2"
 								>
 									<SubCategoryCard
-										key={subCat.id}
-										subCat={category || subCat}
+										key={categoryData.id}
+										subCat={categoryData}
 										onClick={() => {
-											if (onTileClick) onTileClick(category.id);
+											if (onTileClick)
+												onTileClick(categoryData?.id, categoryData);
 										}}
 										containerClassName="min-h-[80px] md:min-h-[124px] lg:min-h-[140px]"
 									/>
