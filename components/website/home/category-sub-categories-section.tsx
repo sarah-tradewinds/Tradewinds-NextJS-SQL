@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { HiMinusCircle, HiPlusCircle } from 'react-icons/hi';
 import { useCategoryStore } from 'store/category-store';
+import { useHomeStore } from 'store/home';
 import { CatSubCatSectionType } from 'types/home';
 import { getLocaleText } from 'utils/get_locale_text';
 import Collapse from '../common/collapse';
@@ -47,6 +48,8 @@ const CategorySubCategoriesSection: React.FC<
 			state.fetchCategoriesByMainCategoryId
 	}));
 
+	const isEco = useHomeStore((state) => state.isEco);
+
 	const router = useRouter();
 	const { locale } = router;
 
@@ -69,7 +72,7 @@ const CategorySubCategoriesSection: React.FC<
 
 	const onSubCategoryTileClickHandler = async (categoryId: string) => {
 		const mainCategoryId = main_category.id!;
-		fetchCategoriesByMainCategoryId(mainCategoryId);
+		fetchCategoriesByMainCategoryId(mainCategoryId, isEco);
 		await setSelectedMainCategoryId(
 			mainCategoryId,
 			main_category.title?.en || ''
@@ -92,7 +95,11 @@ const CategorySubCategoriesSection: React.FC<
 							onClick={() => onSubCategoryTileClickHandler(category.id)}
 							style={
 								applyBgColor
-									? { backgroundColor: main_category.bgHexColor }
+									? {
+											backgroundColor:
+												main_category.bgHexColor ||
+												(main_category as any).color
+									  }
 									: null
 							}
 							containerClassName="min-h-[80px] md:min-h-[124px] lg:min-h-[140px]"

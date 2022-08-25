@@ -34,6 +34,7 @@ type subCategories = {
 	slug: { en: string };
 	image: { url: string };
 	clr: string;
+	is_eco?: boolean;
 };
 
 type CatSubCatSectionType = {

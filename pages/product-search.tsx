@@ -289,10 +289,13 @@ const ProductSearchPage: NextPage<
 			}
 		}
 
+		console.log('selectedMainCategoryId =', selectedMainCategoryId);
+
 		getProducts({
 			price_start: +minPrice,
 			price_end: +maxPrice,
-			main_category: mainCategory?.title?.en,
+			main_category:
+				mainCategory?.title?.en || selectedMainCategoryId.name,
 			category: categoryNames.toString(),
 			sub_category: subCategoryNames.toString(),
 			sub_sub_category: specificCategoryNames.toString(),

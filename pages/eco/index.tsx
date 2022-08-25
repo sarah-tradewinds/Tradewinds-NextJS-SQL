@@ -1,5 +1,6 @@
 // Third party packages
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import useSWR from 'swr';
 
 // components
 import Button from 'components/website/common/form/button';
@@ -33,20 +34,31 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 	props
 ) => {
 	const {
-		heroCarousels = [],
 		cardAList = [],
 		cardBData = {},
-		ecoHomeMainCategoriesAndCategories = [],
-		homeCountries = [],
-		homeAdvertisements = []
+		ecoHomeMainCategoriesAndCategories = []
 	} = props;
+
+	// Fetching Hero carousel
+	const { data: heroCarousels = [], error: heroCarouselsError } =
+		useSWR('/carousel/getallcarousel', getHeroCarousels);
+
+	// Fetching Advertisement
+	const { data: homeAdvertisements = [], error } = useSWR(
+		'/advertisement/getalladvertisement',
+		getHomeAdvertisements
+	);
+
+	// Fetching Countries
+	const { data: homeCountries = [] } = useSWR(
+		'/region_country/all',
+		getHomeCountries
+	);
 
 	const { setIsEco, isEco } = useHomeStore(({ setIsEco, isEco }) => ({
 		setIsEco,
 		isEco
 	}));
-
-	console.log('isEco =', isEco);
 
 	// enabling eco mode
 	useEffect(() => {
@@ -155,42 +167,33 @@ export const getServerSideProps: GetServerSideProps = async ({
 	locale
 }) => {
 	try {
-		const heroCarousels = await getHeroCarousels();
 		const cardAList = await getCardAList();
 		const cardBData = await getCardB();
 		const ecoHomeMainCategoriesAndCategories =
 			await getEcoHomeMainCategoriesAndCategories();
-		const homeCountries = await getHomeCountries();
-		const homeAdvertisements = await getHomeAdvertisements();
 
 		return {
 			props: {
 				...(await serverSideTranslations(locale || 'en')),
-				heroCarousels,
 				cardAList,
 				cardBData,
 				ecoHomeMainCategoriesAndCategories:
 					ecoHomeMainCategoriesAndCategories ?? {
 						cat_section: [],
 						is_custom: false
-					},
-				homeCountries,
-				homeAdvertisements
+					}
 			}
 		};
 	} catch (error) {
 		return {
 			props: {
 				...(await serverSideTranslations(locale || 'en')),
-				heroCarousels: [],
 				cardAList: [],
 				cardBData: {},
 				ecoHomeMainCategoriesAndCategories: {
 					cat_section: [],
 					is_custom: false
-				},
-				homeCountries: [],
-				homeAdvertisements: []
+				}
 			}
 		};
 	}

@@ -66,19 +66,21 @@ const SubCategoryCard = ({
 							layout="fill"
 						/>
 					</div>
-					<div className="relative h-5 w-5">
-						<Image
-							src="/static/images/TWEco.png"
-							alt="Logo"
-							layout="fill"
-						/>
-					</div>
+					{subCat.is_eco && (
+						<div className="relative h-5 w-5">
+							<Image
+								src="/static/images/TWEco.png"
+								alt="Logo"
+								layout="fill"
+							/>
+						</div>
+					)}
 				</div>
 			</div>
 
 			{!showImageInFront && (
 				<div className="absolute bottom-0 right-0">
-					<div className="relative h-[60px] w-[60px] md:h-[100px] md:w-[100px]">
+					<div className="relative h-[60px] w-[60px] md:h-[120px] md:w-[120px]">
 						<ImageWithErrorHandler
 							src={subCat?.image?.url}
 							alt="sub-cat-image"
