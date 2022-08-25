@@ -85,7 +85,7 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 				</div>
 
 				{/* Navigation button */}
-				{loaded && instanceRef.current && (
+				{loaded && instanceRef?.current && (
 					<>
 						<Button
 							className={`absolute left-3 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full border-2 border-white !p-0 !text-white`}
@@ -103,7 +103,7 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 							}
 							disabled={
 								currentSlide ===
-								instanceRef.current.track.details.slides.length - 1
+								instanceRef?.current?.track?.details?.slides?.length - 1
 							}
 						>
 							<MdChevronRight className="h-[32px] w-[32px]" />
