@@ -23,6 +23,7 @@ import { getRegionsAndCountries } from 'lib/shop-by-country.lib';
 import { useEffect } from 'react';
 import { useCategoryStore } from 'store/category-store';
 import { useCountriesStore } from 'store/countries-store';
+import { applyFiltersByUrl } from 'utils/nav-actions.utils';
 
 const ShopByCountryPage: NextPage<
 	InferGetServerSidePropsType<GetServerSideProps>
@@ -49,10 +50,17 @@ const ShopByCountryPage: NextPage<
 		countryId: string,
 		countryName: string
 	) => {
-		removeCategoryFilter();
+		// removeCategoryFilter();
 		// console.log(countryId, countryName);
-		setSelectedCountry(countryId, countryName);
-		router.push('/product-search');
+		// setSelectedCountry(countryId, countryName);
+		// router.push('/product-search');
+
+		router.push(
+			`/product-search?${applyFiltersByUrl({
+				country_id: countryId,
+				country_of_region: countryName || ''
+			})}`
+		);
 	}; // End of countryClickHandler
 
 	return (

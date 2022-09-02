@@ -1,8 +1,8 @@
 // components
 import Button from 'components/website/common/form/button';
 import Input from 'components/website/common/form/input';
-import CategoriesFilter from 'components/website/product-search/product-filter/categories-filter';
 import React, { useState } from 'react';
+import CategoriesFilterCopy from './categories-filter-copy';
 import CountrySearchFilter from './country-filter';
 
 interface ProductFilterProps {
@@ -24,7 +24,8 @@ const ProductFilter: React.FC<ProductFilterProps> = (props) => {
 				<h4 className="font-semibold text-gray md:text-[14px] lg:text-[18px]">
 					Categories
 				</h4>
-				<CategoriesFilter />
+				{/* <CategoriesFilter /> */}
+				<CategoriesFilterCopy />
 			</div>
 
 			{/* min order filter */}

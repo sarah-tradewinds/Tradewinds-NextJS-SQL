@@ -6,6 +6,7 @@ import { useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';
 import { CatSubCatSectionType } from 'types/home';
 import { getLocaleText } from 'utils/get_locale_text';
+import { applyFiltersByUrl } from 'utils/nav-actions.utils';
 import Collapse from '../common/collapse';
 import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
 import CatSubCatActionCard from './common/cat-sub-cat-action-card';
@@ -70,7 +71,10 @@ const CategorySubCategoriesSection: React.FC<
 		return () => window.removeEventListener('resize', handleResize);
 	}, [isTablet, screenSize]);
 
-	const onSubCategoryTileClickHandler = async (categoryId: string) => {
+	const onSubCategoryTileClickHandler = async (
+		categoryId: string,
+		categoryName: string
+	) => {
 		const mainCategoryId = main_category.id!;
 		fetchCategoriesByMainCategoryId(mainCategoryId, isEco);
 		await setSelectedMainCategoryId(
@@ -78,21 +82,37 @@ const CategorySubCategoriesSection: React.FC<
 			main_category.title?.en || ''
 		);
 		await setSelectedCategoryId(categoryId);
-		router.push('/product-search');
+
+		// router.push('/product-search');
+
+		router.push(
+			`/product-search?${applyFiltersByUrl({
+				main_category: main_category.title?.en || '',
+				main_category_id: main_category?.id,
+				category_id: categoryId,
+				category: categoryName
+			})}`
+		);
 	};
 
 	const subCategories = categories
 		? [...categories].slice(0, isTablet ? 5 : 7).map((subCat) => {
 				let { categories: category } = subCat as any;
 
+				const categoryData = category || subCat;
 				return (
 					<div
 						key={subCat.id}
 						className={`mb-2 transform transition duration-300 ease-in-out hover:-translate-y-2 md:mb-0 pc:border-b pc:border-gray/40 pc:last:border-b-0`}
 					>
 						<SubCategoryCard
-							subCat={category || subCat}
-							onClick={() => onSubCategoryTileClickHandler(category.id)}
+							subCat={categoryData}
+							onClick={() =>
+								onSubCategoryTileClickHandler(
+									categoryData.id,
+									categoryData?.title?.en || ''
+								)
+							}
 							style={
 								applyBgColor
 									? {
@@ -118,11 +138,17 @@ const CategorySubCategoriesSection: React.FC<
 					isReverse={isReverse}
 					onLeadingClick={() => setIsOpen((preState) => !preState)}
 					onContentClick={() => {
-						setSelectedMainCategoryId(
-							main_category.id!,
-							main_category.title?.en || ''
+						// setSelectedMainCategoryId(
+						// 	main_category.id!,
+						// 	main_category.title?.en || ''
+						// );
+						// router.push('/product-search');
+						router.push(
+							`/product-search?${applyFiltersByUrl({
+								main_category: main_category.title?.en || '',
+								main_category_id: main_category?.id
+							})}`
 						);
-						router.push('/product-search');
 					}}
 					leading={
 						isOpen ? (
@@ -184,7 +210,14 @@ const CategorySubCategoriesSection: React.FC<
 								main_category.id!,
 								main_category.title.en || ''
 							);
-							router.push('/product-search');
+
+							router.push(
+								`/product-search-copy?${applyFiltersByUrl({
+									main_category_id: main_category?.id,
+									main_category: main_category.title.en || ''
+								})}`
+							);
+							// router.push('/product-search');
 						}}
 						description={mainCategoryDescription}
 						buttonText={main_category.btnTxt}
@@ -208,8 +241,11 @@ const CategorySubCategoriesSection: React.FC<
 								rightButtonClassName={
 									subCategorySliderRightButtonClassName
 								}
-								onTileClick={(categoryId) =>
-									onSubCategoryTileClickHandler(categoryId)
+								onTileClick={(categoryId, data) =>
+									onSubCategoryTileClickHandler(
+										categoryId,
+										data?.title?.en || ''
+									)
 								}
 							/>
 						</div>

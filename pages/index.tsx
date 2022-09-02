@@ -33,13 +33,8 @@ import { useCategoryStore } from 'store/category-store';
 import { useCountriesStore } from 'store/countries-store';
 import { useHomeStore } from 'store/home';
 import useSWR from 'swr';
-import { CatSubCatSectionType, HeroCarouselType } from 'types/home';
-import { getLocaleText } from 'utils/get_locale_text';
-
-type Props = {
-	heroCarouselData: HeroCarouselType[];
-	agriData: CatSubCatSectionType;
-};
+import { CatSubCatSectionType } from 'types/home';
+import { applyFiltersByUrl } from 'utils/nav-actions.utils';
 
 const HomePage: NextPage<
 	InferGetServerSidePropsType<GetServerSideProps>
@@ -54,16 +49,14 @@ const HomePage: NextPage<
 	const { data: heroCarousels = [], error: heroCarouselsError } =
 		useSWR('/carousel/getallcarousel', getHeroCarousels);
 
+	// Fetching Countries
+	const { data: homeCountries, isValidating: isCountriesValidating } =
+		useSWR('/region_country/all', getHomeCountries);
+
 	// Fetching Advertisement
 	const { data: homeAdvertisements = [], error } = useSWR(
 		'/advertisement/getalladvertisement',
 		getHomeAdvertisements
-	);
-
-	// Fetching Countries
-	const { data: homeCountries = [] } = useSWR(
-		'/region_country/all',
-		getHomeCountries
 	);
 
 	const { isEco } = useHomeStore(({ isEco }) => ({
@@ -200,15 +193,24 @@ const HomePage: NextPage<
 					{/* Shop by country */}
 					<div className="mt-[30px]">
 						<CountrySlider
+							key={homeCountries?.length}
 							countries={homeCountries}
 							onCountryClick={(country) => {
-								removeCategoryFilter();
-								setSelectedCountry(
-									country.id,
-									getLocaleText(country.name || {}, router.locale)
+								// removeCategoryFilter();
+								// setSelectedCountry(
+								// 	country.id,
+								// 	getLocaleText(country.name || {}, router.locale)
+								// );
+								// router.push('/product-search');
+
+								router.push(
+									`/product-search?${applyFiltersByUrl({
+										country_id: country?.id,
+										country_of_region: country?.name?.en || ''
+									})}`
 								);
-								router.push('/product-search');
 							}}
+							isLoading={isCountriesValidating && !homeCountries}
 							className="overflow-hidden md:!rounded-md"
 						/>
 					</div>

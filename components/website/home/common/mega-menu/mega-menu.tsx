@@ -12,6 +12,7 @@ import { useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';
 import { getDataById, getObjectKeys } from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
+import { applyFiltersByUrl } from 'utils/nav-actions.utils';
 import styles from './mega-menu.module.css';
 
 interface MegaMenuProps {
@@ -171,7 +172,15 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 											? setSelectedMainCategoryId(id, mainCategoryTitle)
 											: null
 									}
-									onClick={navigateHandler}
+									// onClick={navigateHandler}
+									onClick={() => {
+										router.push(
+											`/product-search?${applyFiltersByUrl({
+												main_category: mainCategory.title?.en || '',
+												main_category_id: id
+											})}`
+										);
+									}}
 								>
 									<span className="hover: text-2xl hover:text-primary-main">
 										{isSelected && (
@@ -207,7 +216,15 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 								onMouseEnter={() =>
 									!isSelected ? setSelectedCategoryId(id, true) : null
 								}
-								onClick={navigateHandler}
+								// onClick={navigateHandler}
+								onClick={() => {
+									router.push(
+										`/product-search?${applyFiltersByUrl({
+											category_id: id,
+											category: title?.en
+										})}`
+									);
+								}}
 							>
 								<span>{getLocaleText(title || {}, locale)}</span>
 								<span className="hover: text-2xl hover:text-primary-main">
@@ -251,7 +268,15 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 										  )
 										: null
 								}
-								onClick={navigateHandler}
+								// onClick={navigateHandler}
+								onClick={() => {
+									router.push(
+										`/product-search?${applyFiltersByUrl({
+											sub_category_id: id,
+											sub_category: title?.en
+										})}`
+									);
+								}}
 							>
 								<span>{getLocaleText(title || {}, locale)}</span>
 								<span className="hover: text-2xl hover:text-primary-main">
@@ -309,7 +334,15 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 										  )
 										: null
 								}
-								onClick={navigateHandler}
+								// onClick={navigateHandler}
+								onClick={() => {
+									router.push(
+										`/product-search?${applyFiltersByUrl({
+											sub_sub_category_id: id,
+											sub_sub_category: title?.en
+										})}`
+									);
+								}}
 							>
 								<span>{getLocaleText(title || {}, locale)}</span>
 								<span className="hover: text-2xl hover:text-primary-main">

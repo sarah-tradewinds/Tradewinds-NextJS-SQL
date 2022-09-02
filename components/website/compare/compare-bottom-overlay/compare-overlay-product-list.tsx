@@ -31,7 +31,7 @@ const CompareProductList: React.FC<CompareProductListProps> = (
 				onClose={() => setIsOpen((prevState) => !prevState)}
 			>
 				<div className="flex flex-wrap items-center justify-center space-x-6 py-4 px-4 md:flex-nowrap 2xl:px-16">
-					{products.map((product) => {
+					{products?.map((product) => {
 						const { id, product_price, is_bulk_pricing, bulk_pricing } =
 							product;
 
@@ -44,7 +44,9 @@ const CompareProductList: React.FC<CompareProductListProps> = (
 						return (
 							<CompareProductTile
 								key={id}
-								imageUrl={product?.images ? product?.images[0].url : ''}
+								imageUrl={
+									product?.images ? product?.images[0]?.url : ''
+								}
 								displayPrice={displayPrice}
 								title={product.name}
 								onRemoveCompareProduct={() => {
