@@ -175,7 +175,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 									// onClick={navigateHandler}
 									onClick={() => {
 										router.push(
-											`/product-search?${applyFiltersByUrl({
+											`/product-search-copy?${applyFiltersByUrl({
 												main_category: mainCategory.title?.en || '',
 												main_category_id: id
 											})}`
@@ -219,7 +219,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 								// onClick={navigateHandler}
 								onClick={() => {
 									router.push(
-										`/product-search?${applyFiltersByUrl({
+										`/product-search-copy?${applyFiltersByUrl({
 											category_id: id,
 											category: title?.en
 										})}`
@@ -271,7 +271,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 								// onClick={navigateHandler}
 								onClick={() => {
 									router.push(
-										`/product-search?${applyFiltersByUrl({
+										`/product-search-copy?${applyFiltersByUrl({
 											sub_category_id: id,
 											sub_category: title?.en
 										})}`
@@ -337,7 +337,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 								// onClick={navigateHandler}
 								onClick={() => {
 									router.push(
-										`/product-search?${applyFiltersByUrl({
+										`/product-search-copy?${applyFiltersByUrl({
 											sub_sub_category_id: id,
 											sub_sub_category: title?.en
 										})}`

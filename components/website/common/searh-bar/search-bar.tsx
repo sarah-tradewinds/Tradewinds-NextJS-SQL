@@ -64,7 +64,7 @@ const SearchBar: React.FC = () => {
 		const searchTerm = (
 			e.currentTarget.elements.namedItem('searchBar') as any
 		).value;
-		// router.push(`/product-search?query=${searchTerm}`);
+		// router.push(`/product-search-copy?query=${searchTerm}`);
 	};
 
 	const onSearchTextChange = (e: any) => {

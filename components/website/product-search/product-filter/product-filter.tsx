@@ -2,6 +2,7 @@
 import Button from 'components/website/common/form/button';
 import Input from 'components/website/common/form/input';
 import React, { useState } from 'react';
+import CategoriesFilter from './categories-filter';
 import CategoriesFilterCopy from './categories-filter-copy';
 import CountrySearchFilter from './country-filter';
 
@@ -9,10 +10,12 @@ interface ProductFilterProps {
 	onMinPriceChange: (minPrice: string) => any;
 	onMinOrderChange: (minOrder: string) => any;
 	onCountryChange?: (countyCodes: string) => any;
+	// TODO:TMP Remove this once url state is done
+	url?: boolean;
 }
 
 const ProductFilter: React.FC<ProductFilterProps> = (props) => {
-	const { onMinPriceChange, onMinOrderChange, onCountryChange } = props;
+	const { onMinPriceChange, onMinOrderChange, url } = props;
 
 	const [minOrder, setMinOrder] = useState('0');
 	const [minPrice, setMinPrice] = useState('0');
@@ -24,8 +27,7 @@ const ProductFilter: React.FC<ProductFilterProps> = (props) => {
 				<h4 className="font-semibold text-gray md:text-[14px] lg:text-[18px]">
 					Categories
 				</h4>
-				{/* <CategoriesFilter /> */}
-				<CategoriesFilterCopy />
+				{url ? <CategoriesFilterCopy /> : <CategoriesFilter />}
 			</div>
 
 			{/* min order filter */}

@@ -18,7 +18,7 @@ import SubCategoryList from 'components/website/product-search/sub-category-list
 import ImageWithErrorHandler from 'components/website/common/elements/image-with-error-handler';
 import Seo from 'components/website/common/seo';
 import MainCategoryCard from 'components/website/product-search/main-category-card';
-import CategoriesFilterCopy from 'components/website/product-search/product-filter/categories-filter-copy';
+import ProductFilter from 'components/website/product-search/product-filter/product-filter';
 import SubCategoryTile from 'components/website/product-search/sub-category-tile';
 import TrendingSectionTile from 'components/website/product-search/trending-section-tile';
 import { getMainCategories } from 'lib/common.lib';
@@ -155,15 +155,16 @@ const ProductSearchPage: NextPage<
 				{/* Side container */}
 				<section className="col-span-4 hidden space-y-8 md:block lg:col-span-3">
 					{/* filters */}
-					<CategoriesFilterCopy />
-					{/* <ProductFilter
+					{/* <CategoriesFilterCopy /> */}
+					<ProductFilter
 						onMinOrderChange={(minOrderQuantity) =>
 							setMinOrder(minOrderQuantity)
 						}
 						onMinPriceChange={(minPriceQuantity) =>
 							setMinPrice(minPriceQuantity)
 						}
-					/> */}
+						url={true}
+					/>
 
 					{/* ads */}
 					<div>

@@ -86,7 +86,7 @@ const CategorySubCategoriesSection: React.FC<
 		// router.push('/product-search');
 
 		router.push(
-			`/product-search?${applyFiltersByUrl({
+			`/product-search-copy?${applyFiltersByUrl({
 				main_category: main_category.title?.en || '',
 				main_category_id: main_category?.id,
 				category_id: categoryId,
@@ -144,7 +144,7 @@ const CategorySubCategoriesSection: React.FC<
 						// );
 						// router.push('/product-search');
 						router.push(
-							`/product-search?${applyFiltersByUrl({
+							`/product-search-copy?${applyFiltersByUrl({
 								main_category: main_category.title?.en || '',
 								main_category_id: main_category?.id
 							})}`

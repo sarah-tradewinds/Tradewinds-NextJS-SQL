@@ -56,7 +56,7 @@ const ShopByCountryPage: NextPage<
 		// router.push('/product-search');
 
 		router.push(
-			`/product-search?${applyFiltersByUrl({
+			`/product-search-copy?${applyFiltersByUrl({
 				country_id: countryId,
 				country_of_region: countryName || ''
 			})}`

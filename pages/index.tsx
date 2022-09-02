@@ -115,7 +115,7 @@ const HomePage: NextPage<
 						{t('Find the latest Trends')}
 					</h3>
 					<Button
-						href={`/product-search?is_trending=${true}`}
+						href={`/product-search-copy?is_trending=${true}`}
 						className="border-2 border-secondary text-[21px] font-bold text-secondary pc:!rounded-full"
 					>
 						See Trends
@@ -204,7 +204,7 @@ const HomePage: NextPage<
 								// router.push('/product-search');
 
 								router.push(
-									`/product-search?${applyFiltersByUrl({
+									`/product-search-copy?${applyFiltersByUrl({
 										country_id: country?.id,
 										country_of_region: country?.name?.en || ''
 									})}`

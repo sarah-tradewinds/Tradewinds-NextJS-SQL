@@ -65,7 +65,7 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 				</p>
 
 				{/* Image */}
-				{!hideImage && (
+				{/* {!hideImage && (
 					<div className="absolute -top-12 right-0">
 						<div className="relative h-[60px] w-[60px] md:h-[100px] md:w-[100px] lg:h-[120px] lg:w-[120px]">
 							<ImageWithErrorHandler
@@ -75,7 +75,29 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 							/>
 						</div>
 					</div>
+				)} */}
+
+				{!hideImage && (
+					<div className="absolute bottom-0 right-0">
+						<div className="relative h-[60px] w-[60px] md:h-[100px] md:w-[100px] lg:h-[120px] lg:w-[120px]">
+							<ImageWithErrorHandler
+								src={imageUrl}
+								alt={alt || slug}
+								layout="fill"
+							/>
+						</div>
+					</div>
 				)}
+
+				{/* {!hideImage && (
+					<div className="relative h-[60px] w-[60px] md:h-[100px] md:w-[100px] lg:h-[120px] lg:w-[120px]">
+						<ImageWithErrorHandler
+							src={imageUrl}
+							alt={alt || slug}
+							layout="fill"
+						/>
+					</div>
+				)} */}
 
 				{/* Action button */}
 				{!hideButton && (
