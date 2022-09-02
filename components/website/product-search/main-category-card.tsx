@@ -32,7 +32,7 @@ const MainCategoryCard: React.FC<MainCategoryCardProps> = (props) => {
 
 			<div className="absolute right-0 bottom-0">
 				{/* <div className="relative h-[38px] w-[35px] p-4 md:h-[133px] md:w-[280px]"> */}
-				<div className="relative h-[60px] w-[60px]">
+				<div className="relative h-[60px] w-[60px] md:h-[120px] md:w-[120px]">
 					<ImageWithErrorHandler src={imageUrl} alt="" layout="fill" />
 				</div>
 			</div>
