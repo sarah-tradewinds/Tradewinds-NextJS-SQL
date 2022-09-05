@@ -29,6 +29,10 @@ import {
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
+import {
+	getIdAndName,
+	useCategoryStoreCopy
+} from 'store/category-store-copy';
 import { useProductCompareStore } from 'store/product-compare-store';
 import useSWR from 'swr';
 import { getLocaleText } from 'utils/get_locale_text';
@@ -49,15 +53,11 @@ const ProductSearchPage: NextPage<
 	const [selectedMainCategory, setSelectedMainCategory] =
 		useState<any>();
 	const [selectedCategories, setSelectedCategories] = useState([]);
+	const [isInitialFilterSet, setIsInitialFilterSet] = useState(false);
 
-	const { push, locale, query } = useRouter();
+	const { push, query } = useRouter();
 
-	const {
-		main_category_id,
-		category_id,
-		sub_category_id,
-		sub_sub_category_id
-	} = query;
+	const { main_category_id, category_id } = query;
 
 	const [
 		localSelectedSpecificCategoryId,
@@ -71,11 +71,30 @@ const ProductSearchPage: NextPage<
 		removeAllProductFromCompareList
 	} = useProductCompareStore();
 
+	const setInitialIds = useCategoryStoreCopy(
+		(state) => state.setInitialIds
+	);
+
 	const router = useRouter();
 
 	// swr
 	// Fetching mainCategories
 	const {} = useSWR('main_category', getMainCategories);
+
+	useEffect(() => {
+		const [mainCategoryId] =
+			getIdAndName((query.main_category || '') as string) || [];
+
+		if (!mainCategoryId && query.filters) {
+			push('/product-search-copy');
+			return;
+		}
+
+		if (query && !isInitialFilterSet) {
+			setInitialIds(query);
+			setIsInitialFilterSet(true);
+		}
+	}, [isInitialFilterSet]);
 
 	// Fetching selectedMainCategory and selectedCategories
 	useEffect(() => {
@@ -93,8 +112,34 @@ const ProductSearchPage: NextPage<
 
 	// Fetching products
 	useEffect(() => {
+		const [_, main_category] = getIdAndName(
+			(query.main_category || '') as string
+		);
+		const [__, category] = getIdAndName(
+			(query.category || '') as string
+		);
+
+		const [___, sub_category] = getIdAndName(
+			(query.sub_category || '') as string
+		);
+
+		const [____, sub_sub_category] = getIdAndName(
+			(query.sub_sub_category || '') as string
+		);
+
+		const [countryId, countryName] = getIdAndName(
+			(query.country || '') as string
+		);
+
+		const { price_start } = query;
+
 		getProducts({
-			...query
+			main_category,
+			category,
+			sub_category,
+			sub_sub_category,
+			country_of_region: countryName,
+			price_start: price_start ? +(price_start || 0) : 0
 		}).then((data: any) => {
 			const productList = data.data || [];
 			setProducts(productList);

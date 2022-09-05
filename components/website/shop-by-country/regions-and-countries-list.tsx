@@ -32,7 +32,13 @@ const RegionsAndCountriesList: React.FC<{
 						regionColor={regionAndCountries?.color}
 						countries={countries || []}
 						className={className}
-						onCountryTileClick={onCountryClick}
+						onCountryTileClick={(country) => {
+							country.region = {
+								id: regionAndCountries.id,
+								name: regionAndCountries?.name?.en
+							};
+							onCountryClick(country);
+						}}
 					/>
 				);
 			})}

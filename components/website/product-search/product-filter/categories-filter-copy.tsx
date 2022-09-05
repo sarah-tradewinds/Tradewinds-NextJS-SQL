@@ -14,13 +14,26 @@ import {
 } from 'lib/common.lib';
 
 // utils
+import {
+	getIdAndName,
+	useCategoryStoreCopy
+} from 'store/category-store-copy';
 import { getLocaleText } from 'utils/get_locale_text';
-import { applyFiltersByUrl } from 'utils/nav-actions.utils';
 
 const CategoriesFilterCopy: React.FC = (props) => {
 	const { push, locale, query } = useRouter();
 
-	const { main_category_id } = query;
+	const { main_category } = query;
+	const [main_category_id] = getIdAndName(
+		(main_category || '') as string
+	);
+
+	const {
+		setSelectedMainCategoryId,
+		setSelectedCategoryId,
+		setSelectedSubCategoryId,
+		setSelectedSpecificCategoryId
+	} = useCategoryStoreCopy();
 
 	// Fetching all main-categories
 	const { data: mainCategories } = useSWR(
@@ -57,17 +70,17 @@ const CategoriesFilterCopy: React.FC = (props) => {
 						isOpen={isMainCategorySelected}
 						title={mainCategoryTitle}
 						onClick={() => {
-							push(
-								`/product-search-copy?${applyFiltersByUrl({
-									main_category: mainCategoryTitle,
-									main_category_id: mainCategoryId
-								})}`
+							const params = setSelectedMainCategoryId(
+								mainCategoryId,
+								mainCategoryTitle
 							);
+							push(`/product-search-copy?${params}`);
 						}}
 					>
 						{/* Categories */}
 						{categories?.map((category: any) => {
 							const { id: categoryId } = category || {};
+
 							return (
 								<CategoryList
 									key={categoryId}
@@ -83,6 +96,7 @@ const CategoriesFilterCopy: React.FC = (props) => {
 	);
 };
 
+// CategoryList
 const CategoryList: React.FC<{
 	id: string;
 	title: string;
@@ -92,7 +106,11 @@ const CategoryList: React.FC<{
 	const { id, title } = props;
 	const { push, locale, query } = useRouter();
 
-	const { category_id } = query;
+	const { setSelectedCategoryId } = useCategoryStoreCopy();
+
+	const { category } = query;
+
+	const [category_id] = getIdAndName((category || '') as string);
 
 	const categoryIds = (category_id as string)?.split(',') || [];
 	const isCategorySelected = categoryIds.includes(id);
@@ -112,34 +130,8 @@ const CategoryList: React.FC<{
 			isOpen={isCategorySelected}
 			title={title}
 			onClick={() => {
-				let categoryIdList = [...categoryIds];
-
-				let categoryNames =
-					(query.category as string)?.split(',') || [];
-
-				if (isCategorySelected) {
-					categoryIdList = categoryIdList.filter(
-						(category) => category !== id
-					);
-					categoryNames = categoryNames.filter(
-						(category) => category !== title
-					);
-				} else {
-					categoryIdList.push(id);
-					categoryNames.push(title);
-				}
-
-				let categoryFilter = {
-					category: categoryNames?.toString(),
-					category_id: categoryIdList?.toString()
-				};
-
-				push(
-					`/product-search-copy?${applyFiltersByUrl({
-						...query,
-						...categoryFilter
-					})}`
-				);
+				const params = setSelectedCategoryId(id, title);
+				push(`/product-search-copy?${params}`);
 			}}
 			className="ml-4"
 		>
@@ -147,11 +139,18 @@ const CategoryList: React.FC<{
 			{subCategories?.map((subCategory: any) => {
 				const { id: subCategoryId } = subCategory || {};
 
+				const subCategoryTitle = getLocaleText(
+					subCategory?.title || {},
+					locale
+				);
+
 				return (
 					<SubCategoryList
 						key={subCategoryId}
+						categoryId={id}
+						categoryTitle={title}
 						id={subCategoryId}
-						title={getLocaleText(subCategory?.title || {}, locale)}
+						title={subCategoryTitle}
 					/>
 				);
 			})}
@@ -160,65 +159,55 @@ const CategoryList: React.FC<{
 };
 
 const SubCategoryList: React.FC<{
+	categoryId: string;
+	categoryTitle: string;
 	id: string;
 	title: string;
 	onClick?: () => any;
 	className?: string;
 }> = (props) => {
-	const { id, title } = props;
+	const {
+		id: subCategoryId,
+		title: subCategoryTitle,
+		categoryId,
+		categoryTitle
+	} = props;
 	const { push, locale, query } = useRouter();
 
-	const {
-		sub_category_id,
-		sub_category,
-		sub_sub_category_id,
-		sub_sub_category
-	} = query;
+	const { setSelectedSubCategoryId, setSelectedSpecificCategoryId } =
+		useCategoryStoreCopy();
+
+	const { sub_category, sub_sub_category_id } = query;
+	const [sub_category_id] = getIdAndName(
+		(sub_category || '') as string
+	);
 
 	const subCategoryIds = (sub_category_id as string)?.split(',') || [];
-	const isSubCategorySelected = subCategoryIds.includes(id);
+	const isSubCategorySelected = subCategoryIds.includes(subCategoryId);
 
 	// Fetching specific-categories based on sub_category_id
 	const { data: specificCategories } = useSWR(
-		`/specific_category/sub_sub_categories/${id}`,
+		`/specific_category/sub_sub_categories/${subCategoryId}`,
 		isSubCategorySelected
-			? () => getSpecificCategoriesBySubCategoryId(id as string)
+			? () =>
+					getSpecificCategoriesBySubCategoryId(subCategoryId as string)
 			: null
 	);
 
 	return (
 		<CategoryCollapse
-			key={id}
-			id={id}
+			key={subCategoryId}
+			id={subCategoryId}
 			isOpen={isSubCategorySelected}
-			title={title}
+			title={subCategoryTitle}
 			onClick={() => {
-				let subCategoryIdList = [...subCategoryIds];
-				let subCategoryNames =
-					(sub_category as string)?.split(',') || [];
-
-				if (isSubCategorySelected) {
-					subCategoryIdList = subCategoryIdList.filter(
-						(subCategory) => subCategory !== id
-					);
-					subCategoryNames = subCategoryNames.filter(
-						(category) => category !== title
-					);
-				} else {
-					subCategoryIdList.push(id);
-					subCategoryNames.push(title);
-				}
-
-				const subCategoryFilter = {
-					sub_category: subCategoryNames?.toString(),
-					sub_category_id: subCategoryIdList?.toString()
-				};
-				push(
-					`/product-search-copy?${applyFiltersByUrl({
-						...query,
-						...subCategoryFilter
-					})}`
+				const params = setSelectedSubCategoryId(
+					categoryId,
+					categoryTitle,
+					subCategoryId,
+					subCategoryTitle
 				);
+				push(`/product-search-copy?${params}`);
 			}}
 			className="ml-4"
 		>
@@ -231,6 +220,11 @@ const SubCategoryList: React.FC<{
 				const isSpecificCategorySelected =
 					specificCategoryIds.includes(specificCategoryId);
 
+				const specificCategoryTitle = getLocaleText(
+					specificCategory?.title || {},
+					locale
+				);
+
 				return (
 					<button
 						key={specificCategoryId}
@@ -238,33 +232,18 @@ const SubCategoryList: React.FC<{
 							isSpecificCategorySelected ? 'font-semibold' : ''
 						}`}
 						onClick={() => {
-							let specificCategoryIdList = [...specificCategoryIds];
-							let specificCategoryNames =
-								(sub_sub_category as string)?.split(',') || [];
-
-							if (isSpecificCategorySelected) {
-								specificCategoryIdList = specificCategoryIdList.filter(
-									(subCategory) => subCategory !== id
-								);
-								specificCategoryNames = specificCategoryNames.filter(
-									(category) => category !== title
-								);
-							} else {
-								specificCategoryIdList.push(id);
-								specificCategoryNames.push(title);
-							}
-
-							push(
-								`/product-search-copy?${applyFiltersByUrl({
-									...query,
-									sub_sub_category: specificCategoryNames?.toString(),
-									sub_sub_category_id:
-										specificCategoryIdList?.toString()
-								})}`
+							const params = setSelectedSpecificCategoryId(
+								categoryId,
+								categoryTitle,
+								subCategoryId,
+								subCategoryTitle,
+								specificCategoryId,
+								specificCategoryTitle
 							);
+							push(`/product-search-copy?${params}`);
 						}}
 					>
-						{getLocaleText(specificCategory?.title || {}, locale)}
+						{specificCategoryTitle}
 					</button>
 				);
 			})}

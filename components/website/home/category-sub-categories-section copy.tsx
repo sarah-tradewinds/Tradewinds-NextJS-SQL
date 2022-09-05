@@ -6,6 +6,7 @@ import { useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';
 import { CatSubCatSectionType } from 'types/home';
 import { getLocaleText } from 'utils/get_locale_text';
+import { applyFiltersByUrl } from 'utils/nav-actions.utils';
 import Collapse from '../common/collapse';
 import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
 import CatSubCatActionCard from './common/cat-sub-cat-action-card';
@@ -82,6 +83,13 @@ const CategorySubCategoriesSection: React.FC<
 	) => {
 		const mainCategoryId = main_category.id!;
 		fetchCategoriesByMainCategoryId(mainCategoryId, isEco);
+		// await setSelectedMainCategoryId(
+		// 	mainCategoryId,
+		// 	main_category.title?.en || ''
+		// );
+		// await setSelectedCategoryId(categoryId);
+
+		// router.push('/product-search');
 
 		setSelectedMainCategoryId(
 			mainCategoryId,
@@ -90,6 +98,15 @@ const CategorySubCategoriesSection: React.FC<
 
 		const params = setSelectedCategoryId(categoryId, categoryName);
 		router.push(`/product-search-copy?${params}`);
+
+		// router.push(
+		// 	`/product-search-copy?${applyFiltersByUrl({
+		// 		main_category: main_category.title?.en || '',
+		// 		main_category_id: main_category?.id,
+		// 		category_id: categoryId,
+		// 		category: categoryName
+		// 	})}`
+		// );
 	};
 
 	const subCategories = categories
@@ -135,11 +152,17 @@ const CategorySubCategoriesSection: React.FC<
 					isReverse={isReverse}
 					onLeadingClick={() => setIsOpen((preState) => !preState)}
 					onContentClick={() => {
-						const params = setSelectedMainCategoryId(
-							main_category.id!,
-							main_category.title.en || ''
+						// setSelectedMainCategoryId(
+						// 	main_category.id!,
+						// 	main_category.title?.en || ''
+						// );
+						// router.push('/product-search');
+						router.push(
+							`/product-search-copy?${applyFiltersByUrl({
+								main_category: main_category.title?.en || '',
+								main_category_id: main_category?.id
+							})}`
 						);
-						router.push(`/product-search-copy?${params}`);
 					}}
 					leading={
 						isOpen ? (
@@ -197,11 +220,18 @@ const CategorySubCategoriesSection: React.FC<
 						title={mainCategoryTitle}
 						name={(main_category as any).name || 'Name Here'}
 						onClick={() => {
+							// setSelectedMainCategoryId(
+							// 	main_category.id!,
+							// 	main_category.title.en || ''
+							// );
+
 							const params = setSelectedMainCategoryId(
 								main_category.id!,
 								main_category.title.en || ''
 							);
 							router.push(`/product-search-copy?${params}`);
+
+							// router.push('/product-search');
 						}}
 						description={mainCategoryDescription}
 						buttonText={main_category.btnTxt}

@@ -22,7 +22,6 @@ import {
 } from 'react-icons/md';
 import { useAuthStore } from 'store/auth';
 import { getLocaleText } from 'utils/get_locale_text';
-import ProductCollectionTile from '../product-collection/product-collection-tile';
 
 const CompanyProfileTab: React.FC<{
 	seller: any;
@@ -351,14 +350,6 @@ const CompanyProfileTab: React.FC<{
 							<Tab.Panel className="outline-none">
 								{collectionProducts.map((collectionProduct) => {
 									const { name, product } = collectionProduct || {};
-
-									return (
-										<ProductCollectionTile
-											key={name}
-											name={name}
-											products={product}
-										/>
-									);
 
 									const products = product?.map((productData: any) => ({
 										id: productData.id,

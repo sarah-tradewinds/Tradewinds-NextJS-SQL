@@ -1,10 +1,14 @@
+import { useRouter } from 'next/router';
+
 // components
 import Button from 'components/website/common/form/button';
 import Input from 'components/website/common/form/input';
 import React, { useState } from 'react';
+import { applyFiltersByUrl } from 'utils/nav-actions.utils';
 import CategoriesFilter from './categories-filter';
 import CategoriesFilterCopy from './categories-filter-copy';
 import CountrySearchFilter from './country-filter';
+import CountrySearchFilterCopy from './country-filter copy';
 
 interface ProductFilterProps {
 	onMinPriceChange: (minPrice: string) => any;
@@ -15,10 +19,12 @@ interface ProductFilterProps {
 }
 
 const ProductFilter: React.FC<ProductFilterProps> = (props) => {
-	const { onMinPriceChange, onMinOrderChange, url } = props;
+	const { onMinOrderChange, url } = props;
 
 	const [minOrder, setMinOrder] = useState('0');
-	const [minPrice, setMinPrice] = useState('0');
+	const [minPrice, setMinPrice] = useState('');
+
+	const { query, push } = useRouter();
 
 	return (
 		<div className="bg-whites h-screen space-y-6 overflow-y-auto rounded-xl bg-white p-4 pb-40 shadow-md">
@@ -61,13 +67,21 @@ const ProductFilter: React.FC<ProductFilterProps> = (props) => {
 					<Input
 						type="number"
 						className="w-full rounded-none rounded-l-md !px-2 2xl:w-auto"
-						value={minPrice}
+						value={minPrice || query?.price_start}
+						placeholder="0"
 						onChange={({ target }) => setMinPrice(target.value)}
 					/>
 					<Button
 						variant="buyer"
 						className="rounded-none rounded-r-md px-2"
-						onClick={() => onMinPriceChange(minPrice)}
+						onClick={() => {
+							push(
+								`/product-search-copy?${applyFiltersByUrl({
+									...query,
+									price_start: minPrice ? +minPrice : 0
+								})}`
+							);
+						}}
 					>
 						Go
 					</Button>
@@ -80,7 +94,7 @@ const ProductFilter: React.FC<ProductFilterProps> = (props) => {
 					Supplier Country/ Region
 				</h4>
 
-				<CountrySearchFilter />
+				{url ? <CountrySearchFilterCopy /> : <CountrySearchFilter />}
 			</div>
 		</div>
 	);

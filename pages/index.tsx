@@ -34,7 +34,6 @@ import { useCountriesStore } from 'store/countries-store';
 import { useHomeStore } from 'store/home';
 import useSWR from 'swr';
 import { CatSubCatSectionType } from 'types/home';
-import { applyFiltersByUrl } from 'utils/nav-actions.utils';
 
 const HomePage: NextPage<
 	InferGetServerSidePropsType<GetServerSideProps>
@@ -196,18 +195,10 @@ const HomePage: NextPage<
 							key={homeCountries?.length}
 							countries={homeCountries}
 							onCountryClick={(country) => {
-								// removeCategoryFilter();
-								// setSelectedCountry(
-								// 	country.id,
-								// 	getLocaleText(country.name || {}, router.locale)
-								// );
-								// router.push('/product-search');
-
 								router.push(
-									`/product-search-copy?${applyFiltersByUrl({
-										country_id: country?.id,
-										country_of_region: country?.name?.en || ''
-									})}`
+									`/product-search-copy?region=${country?.region?.id}_${
+										country?.region?.name
+									}&country=${country?.id}_${country?.name?.en || ''}`
 								);
 							}}
 							isLoading={isCountriesValidating && !homeCountries}
