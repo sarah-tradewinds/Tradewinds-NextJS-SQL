@@ -105,7 +105,7 @@ const SimilarProductList: React.FC<SimilarProductListProps> = (
 							}
 							disabled={
 								currentSlide ===
-								instanceRef.current.track.details.slides.length - 1
+								instanceRef?.current?.track?.details?.slides?.length - 1
 							}
 						>
 							<MdChevronRight className="h-[32px] w-[32px]" />

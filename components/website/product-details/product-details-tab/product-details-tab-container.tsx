@@ -27,7 +27,10 @@ const ProductDetailsTabContainer: React.FC<{
 	const { locale } = useRouter();
 	const { t } = useTranslation();
 
-	const { id, product_detail_item, shipping } = (product as any) || {};
+	const { product_detail_item, certification, shipping } =
+		(product as any) || {};
+
+	console.log(product);
 
 	const selectedClassName =
 		'font-semibold text-primary-main rounded-b-none rounded-t-md';
@@ -72,6 +75,7 @@ const ProductDetailsTabContainer: React.FC<{
 					<Tab.Panel className="outline-none">
 						<ProductDetailsTab
 							productDetailItems={product_detail_item || []}
+							certifications={certification || []}
 							shipping={shipping}
 						/>
 					</Tab.Panel>

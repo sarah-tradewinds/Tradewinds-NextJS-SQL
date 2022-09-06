@@ -4,8 +4,9 @@ import { getLocaleText } from 'utils/get_locale_text';
 
 const ProductDetailsTab: React.FC<{
 	productDetailItems: [];
+	certifications: [];
 	shipping: any;
-}> = ({ productDetailItems, shipping }) => {
+}> = ({ productDetailItems, certifications, shipping }) => {
 	const { locale } = useRouter();
 	const { t } = useTranslation();
 
@@ -63,10 +64,15 @@ const ProductDetailsTab: React.FC<{
 				</p>
 				<div className="flex justify-between p-4">
 					<div className="space-y-2">
-						<p className="flex justify-between space-x-8 text-[15px] text-gray md:text-[18px]">
-							<span className="font-semibold">Certificate:</span>
-							<span>1</span>
-						</p>
+						{certifications?.map((certificate: any) => (
+							<p
+								key={certificate?.name}
+								className="flex justify-between space-x-8 text-[15px] text-gray md:text-[18px]"
+							>
+								<span className="font-semibold">Certificate:</span>
+								<span>1</span>
+							</p>
+						))}
 					</div>
 				</div>
 			</div>

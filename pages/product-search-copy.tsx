@@ -57,7 +57,7 @@ const ProductSearchPage: NextPage<
 
 	const { push, query } = useRouter();
 
-	const { main_category_id, category_id } = query;
+	const { main_category, category_id } = query;
 
 	const [
 		localSelectedSpecificCategoryId,
@@ -98,17 +98,21 @@ const ProductSearchPage: NextPage<
 
 	// Fetching selectedMainCategory and selectedCategories
 	useEffect(() => {
-		if (main_category_id) {
+		const [mainCategoryId] = getIdAndName(
+			(main_category || '') as string
+		);
+
+		if (mainCategoryId) {
 			setIsSelectedMainCategoryAndCategoriesLoading(true);
 			getSelectedMainCategoryAndCategories(
-				main_category_id as string
+				mainCategoryId as string
 			).then((data) => {
 				setSelectedMainCategory(data.main_category || {});
 				setSelectedCategories(data.categories || []);
 				setIsSelectedMainCategoryAndCategoriesLoading(false);
 			});
 		}
-	}, [main_category_id]);
+	}, [main_category]);
 
 	// Fetching products
 	useEffect(() => {
@@ -181,7 +185,7 @@ const ProductSearchPage: NextPage<
 			<Seo title="Product search page" description="" />
 
 			{/* Main Category Banner */}
-			{main_category_id && (
+			{main_category && (
 				<div className="relative h-[103px] md:h-[234px]">
 					{/* <Image */}
 					<ImageWithErrorHandler
@@ -200,7 +204,6 @@ const ProductSearchPage: NextPage<
 				{/* Side container */}
 				<section className="col-span-4 hidden space-y-8 md:block lg:col-span-3">
 					{/* filters */}
-					{/* <CategoriesFilterCopy /> */}
 					<ProductFilter
 						onMinOrderChange={(minOrderQuantity) =>
 							setMinOrder(minOrderQuantity)
@@ -256,7 +259,7 @@ const ProductSearchPage: NextPage<
 					)}
 
 					{/* Category and categories list */}
-					{!router.query.is_trending && main_category_id && (
+					{!router.query.is_trending && main_category && (
 						<div className="grid grid-cols-12 md:gap-0 md:rounded-md md:bg-white md:p-4 md:shadow-md lg:gap-2">
 							{/* Main category Card */}
 							<div className="col-span-12 md:col-span-3">
