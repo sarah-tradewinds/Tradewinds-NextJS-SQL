@@ -39,20 +39,15 @@ const CategorySubCategoriesSection: React.FC<
 	const [screenSize, setScreenSize] = useState<null | number>(null);
 	const [isTablet, setIsTablet] = useState<boolean>(false);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
-	const {
-		// setSelectedMainCategoryId,
-		// setSelectedCategoryId,
-		fetchCategoriesByMainCategoryId
-	} = useCategoryStore((state) => ({
-		setSelectedMainCategoryId: state.setSelectedMainCategoryId,
-		setSelectedCategoryId: state.setSelectedCategoryId,
-		fetchCategoriesByMainCategoryId:
-			state.fetchCategoriesByMainCategoryId
-	}));
+	const { fetchCategoriesByMainCategoryId } = useCategoryStore(
+		(state) => ({
+			fetchCategoriesByMainCategoryId:
+				state.fetchCategoriesByMainCategoryId
+		})
+	);
 
 	//
-	const { setSelectedMainCategoryId, setSelectedCategoryId } =
-		useCategoryStoreCopy();
+	const { setMainCategory, setCategory } = useCategoryStoreCopy();
 
 	const isEco = useHomeStore((state) => state.isEco);
 
@@ -83,12 +78,9 @@ const CategorySubCategoriesSection: React.FC<
 		const mainCategoryId = main_category.id!;
 		fetchCategoriesByMainCategoryId(mainCategoryId, isEco);
 
-		setSelectedMainCategoryId(
-			mainCategoryId,
-			main_category.title?.en || ''
-		);
+		setMainCategory(mainCategoryId, main_category.title?.en || '');
 
-		const params = setSelectedCategoryId(categoryId, categoryName);
+		const params = setCategory(categoryId, categoryName);
 		router.push(`/product-search-copy?${params}`);
 	};
 
@@ -135,7 +127,7 @@ const CategorySubCategoriesSection: React.FC<
 					isReverse={isReverse}
 					onLeadingClick={() => setIsOpen((preState) => !preState)}
 					onContentClick={() => {
-						const params = setSelectedMainCategoryId(
+						const params = setMainCategory(
 							main_category.id!,
 							main_category.title.en || ''
 						);
@@ -197,7 +189,7 @@ const CategorySubCategoriesSection: React.FC<
 						title={mainCategoryTitle}
 						name={(main_category as any).name || 'Name Here'}
 						onClick={() => {
-							const params = setSelectedMainCategoryId(
+							const params = setMainCategory(
 								main_category.id!,
 								main_category.title.en || ''
 							);

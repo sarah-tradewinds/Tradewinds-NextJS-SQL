@@ -57,7 +57,8 @@ const ProductSearchPage: NextPage<
 
 	const { push, query } = useRouter();
 
-	const { main_category, category_id } = query;
+	const { main_category, category } = query;
+	const [categoryId] = getIdAndName((query.category || '') as string);
 
 	const [
 		localSelectedSpecificCategoryId,
@@ -70,6 +71,10 @@ const ProductSearchPage: NextPage<
 		removeProductFromCompareList,
 		removeAllProductFromCompareList
 	} = useProductCompareStore();
+
+	const setCategory = useCategoryStoreCopy(
+		(state) => state.setCategory
+	);
 
 	const setInitialIds = useCategoryStoreCopy(
 		(state) => state.setInitialIds
@@ -180,6 +185,8 @@ const ProductSearchPage: NextPage<
 		setProducts(updatedProductList);
 	}, [compareProducts.length]);
 
+	const selectedCategoryList = categoryId?.split(',') || [];
+
 	return (
 		<div className="container mx-auto">
 			<Seo title="Product search page" description="" />
@@ -288,9 +295,11 @@ const ProductSearchPage: NextPage<
 								<SubCategoryList
 									subCategories={selectedCategories || []}
 									className="hidden md:grid"
-									// onTilePressed={main_category_id || ''}
-									// selectedSubCategoryIds={[main_category_id ]}
-									onTilePressed={() => {}}
+									selectedSubCategoryIds={selectedCategoryList}
+									onTilePressed={(id, data) => {
+										const params = setCategory(id, data?.title?.en);
+										router.push(`/product-search-copy?${params}`);
+									}}
 									onClick={() => {}}
 									isLoading={isSelectedMainCategoryAndCategoriesLoading}
 								/>
@@ -314,8 +323,18 @@ const ProductSearchPage: NextPage<
 															subCategory.title || {},
 															router.locale
 														)}
-														showBorder={subCategory.id === category_id}
-														onTilePressed={() => {}}
+														showBorder={selectedCategoryList?.includes(
+															subCategory.id
+														)}
+														onTilePressed={() => {
+															const params = setCategory(
+																subCategory.id,
+																subCategory?.title?.en
+															);
+															router.push(
+																`/product-search-copy?${params}`
+															);
+														}}
 													/>
 												</div>
 											);

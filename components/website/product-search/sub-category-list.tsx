@@ -11,7 +11,7 @@ interface SubCategoryListProps {
 	subCategories: any[];
 	className?: string;
 	onClick: () => any;
-	onTilePressed: (subCategoryId: string) => any;
+	onTilePressed: (subCategoryId: string, data?: any) => any;
 	selectedSubCategoryIds?: string[];
 	isLoading?: boolean;
 }
@@ -75,7 +75,9 @@ const SubCategoryList: React.FC<SubCategoryListProps> = ({
 								? selectedSubCategoryIds?.includes(subCategory.id)
 								: false
 						}
-						onTilePressed={() => onTilePressed(subCategory.id)}
+						onTilePressed={() =>
+							onTilePressed(subCategory.id, subCategory)
+						}
 					/>
 				))}
 

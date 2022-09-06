@@ -4,20 +4,16 @@ import { useRouter } from 'next/router';
 import { MdPlayArrow } from 'react-icons/md';
 
 // data
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // styles
 import SpinnerIcon from 'components/website/common/elements/loader/spinner-icon';
-import {
-	getCategoriesByMainCategoryId,
-	getMainCategories,
-	getSpecificCategoriesBySubCategoryId,
-	getSubCategoriesByCategoryId
-} from 'lib/common.lib';
+import { useCategoryStore } from 'store/category-store';
 import { useCategoryStoreCopy } from 'store/category-store-copy';
 import { useHomeStore } from 'store/home';
-import useSWR from 'swr';
+import { getDataById, getObjectKeys } from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
+import { applyFiltersByUrl } from 'utils/nav-actions.utils';
 import styles from './mega-menu.module.css';
 
 interface CategoryData {
@@ -55,61 +51,137 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 		useState<CategoryData>();
 
 	const {
+		allCategories,
+		selectedMainCategoryId,
+		selectedCategoryIds,
+		selectedSubCategoryIds,
+		selectedCategoryAndSubCategoryAndSpecificCategoryIds,
+
+		// set methods
+		setSelectedMainCategoryId,
+		setSelectedCategoryId,
+		setSelectedSubCategoryId,
+		setSelectedSpecificCategoryId,
+
+		// fetch methods
+		fetchMainCategories,
+		fetchCategoriesByMainCategoryId,
+		fetchSubCategoriesByCategoryId,
+		fetchSpecificCategoriesBySubCategoryId
+	} = useCategoryStore();
+
+	const {
 		setMainCategory,
 		setCategory,
 		setSubCategory,
 		setSpecificCategory
 	} = useCategoryStoreCopy();
 
-	// Fetching all main-categories
-	const { data: mainCategories } = useSWR(
-		`main_category?is_eco${false}`,
-		() => getMainCategories(false)
+	const categoryIds = getObjectKeys(
+		selectedCategoryAndSubCategoryAndSpecificCategoryIds
 	);
 
-	// Fetching categories based on selectedMainCategory
-	const { data: categories, error: categoriesError } = useSWR(
-		`/category/categories/${selectedMainCategory?.id}`,
-		selectedMainCategory?.id
-			? () => getCategoriesByMainCategoryId(selectedMainCategory?.id)
-			: null
+	const subCategoryIds = getObjectKeys(
+		selectedCategoryAndSubCategoryAndSpecificCategoryIds[categoryIds[0]]
 	);
 
-	// Fetching sub-categories based on category_id
-	const { data: subCategories } = useSWR(
-		`/sub_category/sub_categories/${selectedCategory?.id}`,
-		selectedCategory?.id
-			? () => getSubCategoriesByCategoryId(selectedCategory?.id)
-			: null
-	);
+	// Fetching mainCategories
+	useEffect(() => {
+		if (allCategories.length <= 0) {
+			setIsMainCategoryLoading(true);
+			fetchMainCategories(isEco).then(() =>
+				setIsMainCategoryLoading(false)
+			);
+		}
+	}, [allCategories.length, isEco]);
 
-	// Fetching specific-categories based on sub_category_id
-	const { data: specificCategories } = useSWR(
-		`/specific_category/sub_sub_categories/${selectedSubCategory?.id}`,
-		selectedSubCategory?.id
-			? () =>
-					getSpecificCategoriesBySubCategoryId(selectedSubCategory?.id)
-			: null
-	);
+	// Fetching categories based on main category id
+	useEffect(() => {
+		if (selectedMainCategoryId.id) {
+			setIsCategoryLoading(true);
+
+			fetchCategoriesByMainCategoryId(
+				selectedMainCategoryId.id,
+				isEco
+			).then(() => setIsCategoryLoading(false));
+		}
+	}, [selectedMainCategoryId]);
+
+	// Fetching sub-categories based on selectedCategoryIds
+	useEffect(() => {
+		const categoriesIds = getObjectKeys(
+			selectedCategoryAndSubCategoryAndSpecificCategoryIds
+		);
+		if (categoriesIds.length > 0) {
+			setIsSubCategoryLoading(true);
+			fetchSubCategoriesByCategoryId(
+				categoriesIds.toString(),
+				isEco
+			).then(() => setIsSubCategoryLoading(false));
+		}
+	}, [selectedCategoryIds.length]);
+
+	// Fetching specific-categories based on selectedSubCategoryIds
+	useEffect(() => {
+		const subCategoryIds = getObjectKeys(
+			selectedCategoryAndSubCategoryAndSpecificCategoryIds[
+				categoryIds[0]
+			]
+		);
+		if (subCategoryIds.length > 0) {
+			setIsSpecificCategoryLoading(true);
+			fetchSpecificCategoriesBySubCategoryId(
+				subCategoryIds.toString(),
+				isEco
+			).then(() => setIsSpecificCategoryLoading(false));
+		}
+	}, [selectedSubCategoryIds.length]);
+
+	const navigateHandler = () => {
+		if (onClose) {
+			onClose();
+		}
+		router.push('/product-search');
+	}; // End of navigateHandler function
 
 	const megaMenuClassName = `relative grid grid-cols-12 border bg-white text-sm text-gray shadow-lg overflow-y-autos ${className}`;
 
+	const categoryList =
+		getDataById(allCategories, selectedMainCategoryId.id)?.categories ||
+		[];
+
+	// Fetching subCategories
+	const selectedCategoryId = categoryIds[0];
+	const subCategoryList =
+		getDataById(categoryList, selectedCategoryId)?.subCategories || [];
+
+	// Fetching specificCategories
+	const selectedSubCategoryId = subCategoryIds[0];
+	const specificCategoryList =
+		getDataById(subCategoryList, selectedSubCategoryId)
+			?.specificCategories || [];
+
 	return (
 		<div className={megaMenuClassName}>
-			{mainCategories?.length <= 0 ? <MegaMenuLoader /> : ''}
+			{allCategories.length <= 0 ? <MegaMenuLoader /> : ''}
 
 			{/* Main Categories */}
-			{mainCategories && (
+			{allCategories && (
 				<div
 					className={`col-span-3 my-1 ml-4 h-[487px] space-y-4 overflow-auto pl-2 shadow-mega-menu ${styles.megaMenuScrollbar}`}
 					style={{ direction: 'rtl' }}
 				>
 					<ul className="mr-1 h-full">
-						{mainCategories?.map((mainCategory: any) => {
+						{allCategories.map((mainCategory: any) => {
 							const { id, slug } = mainCategory;
 
-							const isSelected = id === selectedMainCategory?.id;
+							// const isSelected = id === selectedMainCategoryId.id;
+							// const mainCategoryTitle = getLocaleText(
+							// 	mainCategory.title || {},
+							// 	locale
+							// );
 
+							const isSelected = id === selectedMainCategory?.id;
 							const mainCategoryTitle = getLocaleText(
 								mainCategory.title || {},
 								locale
@@ -123,6 +195,11 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 											? 'font-semibold dark:bg-bg-eco/60 dark:text-primary-eco'
 											: ''
 									}`}
+									// onMouseEnter={() =>
+									// 	!isSelected
+									// 		? setSelectedMainCategoryId(id, mainCategoryTitle)
+									// 		: null
+									// }
 									onMouseEnter={() =>
 										!isSelected
 											? setSelectedMainCategory({
@@ -153,14 +230,14 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 			)}
 
 			{/* Categories */}
-			{mainCategories?.length > 0 && selectedMainCategory?.id && (
+			{allCategories.length > 0 && selectedMainCategoryId.id && (
 				<ul className="col-span-3 h-[487px] overflow-y-auto border-r border-dashed pt-1 pl-4 dark:bg-[#FCF5EB]">
-					{!categories && !categoriesError && <MegaMenuLoader />}
+					{isCategoryLoading && <MegaMenuLoader />}
 
-					{categories?.map((category: any) => {
+					{categoryList.map((category: any) => {
 						const { id, slug, title } = category;
 
-						const isSelected = id === selectedCategory?.id;
+						const isSelected = id === selectedCategoryId;
 
 						return (
 							<li
@@ -170,15 +247,16 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 										? ' font-semibold dark:bg-bg-eco/60 dark:text-primary-eco'
 										: ''
 								}`}
+								// onMouseEnter={() =>
+								// 	!isSelected ? setSelectedCategoryId(id, true) : null
+								// }
 								onMouseEnter={() =>
-									!isSelected
-										? setSelectedCategory({ id, name: title?.en })
-										: null
+									!isSelected ? setSelectedCategoryId(id, true) : null
 								}
 								onClick={() => {
 									setMainCategory(
-										selectedMainCategory?.id,
-										selectedMainCategory?.name || ''
+										selectedMainCategoryId.id,
+										selectedMainCategoryId.name || ''
 									);
 									const params = setCategory(id, title?.en || '');
 									router.push(`/product-search-copy?${params}`);
@@ -197,14 +275,17 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 			)}
 
 			{/* Sub Categories */}
-			{categories?.length > 0 && selectedCategory?.id && (
+			{categoryList.length > 0 && selectedCategoryId && (
 				<ul className="col-span-3 h-[487px] overflow-y-auto border-r border-dashed pl-4 dark:bg-[#FCF5EB]">
 					{isSubCategoryLoading && <MegaMenuLoader />}
 
-					{subCategories?.map((subCategory: any) => {
+					{subCategoryList.map((subCategory: any) => {
 						const { id, slug, title } = subCategory;
 
-						const isSelected = id === selectedSubCategory?.id;
+						const isSelected =
+							selectedCategoryAndSubCategoryAndSpecificCategoryIds[
+								selectedCategoryId
+							][id];
 
 						return (
 							<li
@@ -215,20 +296,29 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 										: ''
 								}`}
 								onMouseEnter={() =>
-									setSelectedSubCategory({ id, name: title?.en })
+									!isSelected
+										? setSelectedSubCategoryId(
+												selectedCategoryId,
+												id,
+												true
+										  )
+										: null
 								}
+								// onClick={navigateHandler}
 								onClick={() => {
 									setMainCategory(
-										selectedMainCategory?.id || '',
-										selectedMainCategory?.name || ''
+										selectedMainCategoryId.id,
+										selectedMainCategoryId.name || ''
 									);
-									const params = setSubCategory(
-										selectedCategory?.id,
-										selectedCategory?.name || '',
-										id,
-										title?.en
-									);
+									const params = setCategory(id, title?.en || '');
 									router.push(`/product-search-copy?${params}`);
+
+									router.push(
+										`/product-search-copy?${applyFiltersByUrl({
+											sub_category_id: id,
+											sub_category: title?.en
+										})}`
+									);
 								}}
 							>
 								<span>{getLocaleText(title || {}, locale)}</span>
@@ -244,14 +334,30 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 			)}
 
 			{/* Specific Categories */}
-			{subCategories?.length > 0 && selectedSubCategory?.id && (
+			{subCategoryList.length > 0 && selectedSubCategoryId && (
 				<ul className="col-span-3 h-[487px] overflow-y-auto pl-4 dark:bg-[#FCF5EB]">
 					{isSpecificCategoryLoading && <MegaMenuLoader />}
 
-					{specificCategories?.map((specificCategory: any) => {
+					{specificCategoryList.map((specificCategory: any) => {
 						const { id, slug, title } = specificCategory;
 
-						const isSelected = id === selectedSpecificCategory?.id;
+						// const isSelected = selectedSubCategoryId;
+						// id ===
+						// 	selectedSpecificCategoryIds[
+						// 		selectedSpecificCategoryIds.length - 1
+						// 	];
+
+						const isSelected =
+							(
+								selectedCategoryAndSubCategoryAndSpecificCategoryIds[
+									selectedCategoryId
+								][selectedSubCategoryId] || []
+							).findIndex(
+								(specificCategoryId: string) =>
+									specificCategoryId === id
+							) >= 0;
+
+						[].findIndex;
 
 						return (
 							<li
@@ -262,31 +368,23 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 										: ''
 								}`}
 								onMouseEnter={() =>
-									setSelectedSpecificCategory({
-										id,
-										name: title?.en
-									})
+									!isSelected
+										? setSelectedSpecificCategoryId(
+												selectedCategoryId,
+												selectedSubCategoryId,
+												id,
+												true
+										  )
+										: null
 								}
+								// onClick={navigateHandler}
 								onClick={() => {
-									setMainCategory(
-										selectedMainCategory?.id || '',
-										selectedMainCategory?.name || ''
+									router.push(
+										`/product-search-copy?${applyFiltersByUrl({
+											sub_sub_category_id: id,
+											sub_sub_category: title?.en
+										})}`
 									);
-									console.log(
-										selectedCategory?.id || '',
-										selectedCategory?.name || '',
-										selectedSubCategory?.id || '',
-										selectedSubCategory?.name || ''
-									);
-									const params = setSpecificCategory(
-										selectedCategory?.id || '',
-										selectedCategory?.name || '',
-										selectedSubCategory?.id || '',
-										selectedSubCategory?.name || '',
-										id,
-										title?.en
-									);
-									router.push(`/product-search-copy?${params}`);
 								}}
 							>
 								<span>{getLocaleText(title || {}, locale)}</span>

@@ -41,19 +41,16 @@ const CategorySubCategoriesSection: React.FC<
 	const [isTablet, setIsTablet] = useState<boolean>(false);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const {
-		// setSelectedMainCategoryId,
-		// setSelectedCategoryId,
+		// setMainCategory,
+		// setCategory,
 		fetchCategoriesByMainCategoryId
 	} = useCategoryStore((state) => ({
-		setSelectedMainCategoryId: state.setSelectedMainCategoryId,
-		setSelectedCategoryId: state.setSelectedCategoryId,
 		fetchCategoriesByMainCategoryId:
 			state.fetchCategoriesByMainCategoryId
 	}));
 
 	//
-	const { setSelectedMainCategoryId, setSelectedCategoryId } =
-		useCategoryStoreCopy();
+	const { setMainCategory, setCategory } = useCategoryStoreCopy();
 
 	const isEco = useHomeStore((state) => state.isEco);
 
@@ -83,20 +80,17 @@ const CategorySubCategoriesSection: React.FC<
 	) => {
 		const mainCategoryId = main_category.id!;
 		fetchCategoriesByMainCategoryId(mainCategoryId, isEco);
-		// await setSelectedMainCategoryId(
+		// await setMainCategory(
 		// 	mainCategoryId,
 		// 	main_category.title?.en || ''
 		// );
-		// await setSelectedCategoryId(categoryId);
+		// await setCategory(categoryId);
 
 		// router.push('/product-search');
 
-		setSelectedMainCategoryId(
-			mainCategoryId,
-			main_category.title?.en || ''
-		);
+		setMainCategory(mainCategoryId, main_category.title?.en || '');
 
-		const params = setSelectedCategoryId(categoryId, categoryName);
+		const params = setCategory(categoryId, categoryName);
 		router.push(`/product-search-copy?${params}`);
 
 		// router.push(
@@ -152,7 +146,7 @@ const CategorySubCategoriesSection: React.FC<
 					isReverse={isReverse}
 					onLeadingClick={() => setIsOpen((preState) => !preState)}
 					onContentClick={() => {
-						// setSelectedMainCategoryId(
+						// setMainCategory(
 						// 	main_category.id!,
 						// 	main_category.title?.en || ''
 						// );
@@ -220,12 +214,12 @@ const CategorySubCategoriesSection: React.FC<
 						title={mainCategoryTitle}
 						name={(main_category as any).name || 'Name Here'}
 						onClick={() => {
-							// setSelectedMainCategoryId(
+							// setMainCategory(
 							// 	main_category.id!,
 							// 	main_category.title.en || ''
 							// );
 
-							const params = setSelectedMainCategoryId(
+							const params = setMainCategory(
 								main_category.id!,
 								main_category.title.en || ''
 							);

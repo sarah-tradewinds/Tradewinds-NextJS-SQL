@@ -2,16 +2,6 @@
 import { applyFiltersByUrl } from 'utils/nav-actions.utils';
 import create from 'zustand';
 
-// lib
-
-const categoryIds = {
-	categoryId: {
-		subCategoriesId: {
-			specificCategoryIds: [0]
-		}
-	}
-};
-
 interface CategoryState {
 	// Property
 	selectedMainCategoryId: {
@@ -20,26 +10,15 @@ interface CategoryState {
 	};
 	selectedCategoryAndSubCategoryAndSpecificCategoryIds: any;
 
-	// methods
-	setSelectedAllCategoryId: (
-		mainCategoryId: string,
-		categoryId: string,
-		subCategoryId: string,
-		specificCategoryId: string,
-		isMegaMenu?: boolean
-	) => any;
-	setSelectedMainCategoryId: (id: string, name: string) => any;
-	setSelectedCategoryId: (
-		categoryId: string,
-		categoryName: string
-	) => any;
-	setSelectedSubCategoryId: (
+	setMainCategory: (id: string, name: string) => any;
+	setCategory: (categoryId: string, categoryName: string) => any;
+	setSubCategory: (
 		categoryId: string,
 		categoryName: string,
 		subCategoryId: string,
 		subCategoryName: string
 	) => any;
-	setSelectedSpecificCategoryId: (
+	setSpecificCategory: (
 		categoryId: string,
 		categoryName: string,
 		subCategoryId: string,
@@ -79,21 +58,7 @@ export const useCategoryStoreCopy = create<CategoryState>((set) => ({
 				parsedFilters
 		});
 	},
-	setSelectedAllCategoryId: (
-		mainCategoryId,
-		categoryId,
-		subCategoryId,
-		specificCategoryId
-	) => {
-		set({
-			selectedMainCategoryId: {
-				id: mainCategoryId,
-				name: ''
-			},
-			selectedCategoryAndSubCategoryAndSpecificCategoryIds: [categoryId]
-		});
-	},
-	setSelectedMainCategoryId: (mainCategoryId: string, name: string) => {
+	setMainCategory: (mainCategoryId: string, name: string) => {
 		if (!mainCategoryId) {
 			return;
 		}
@@ -110,7 +75,7 @@ export const useCategoryStoreCopy = create<CategoryState>((set) => ({
 
 		return `main_category=${selectedMainCategoryId?.id}_${selectedMainCategoryId.name}`;
 	},
-	setSelectedCategoryId: (categoryId, categoryName) => {
+	setCategory: (categoryId, categoryName) => {
 		if (!categoryId) return;
 
 		const categoryIdWithName = `${categoryId}_${categoryName}`;
@@ -159,7 +124,7 @@ export const useCategoryStoreCopy = create<CategoryState>((set) => ({
 			copySelectedCategoryAndSubCategoryAndSpecificCategoryIds
 		);
 	},
-	setSelectedSubCategoryId: (
+	setSubCategory: (
 		categoryId,
 		categoryName,
 		subCategoryId,
@@ -222,7 +187,7 @@ export const useCategoryStoreCopy = create<CategoryState>((set) => ({
 			copySelectedCategoryAndSubCategoryAndSpecificCategoryIds
 		);
 	},
-	setSelectedSpecificCategoryId: (
+	setSpecificCategory: (
 		categoryId,
 		categoryName,
 		subCategoryId,
@@ -251,6 +216,7 @@ export const useCategoryStoreCopy = create<CategoryState>((set) => ({
 					...(selectedCategoryAndSubCategoryAndSpecificCategoryIds ||
 						{})
 				};
+
 				let categoryIdsObject =
 					copySelectedCategoryAndSubCategoryAndSpecificCategoryIds[
 						categoryIdWithName
@@ -262,7 +228,13 @@ export const useCategoryStoreCopy = create<CategoryState>((set) => ({
 						categoryIdsObject[subCategoryIdWithName];
 				}
 
-				if (
+				if (!categoryIdsObject) {
+					copySelectedCategoryAndSubCategoryAndSpecificCategoryIds[
+						categoryIdWithName
+					] = {
+						[subCategoryIdWithName]: [specificCategoryIdWithName]
+					};
+				} else if (
 					specificCategoryIdList &&
 					specificCategoryIdList.length > 0
 				) {
@@ -292,14 +264,13 @@ export const useCategoryStoreCopy = create<CategoryState>((set) => ({
 	},
 
 	removeCategoryFilter: () => {
-		localStorage.removeItem('main_category_id');
-		localStorage.removeItem('category_ids');
 		set(() => {
 			return {
 				selectedMainCategoryId: { id: '', name: '' },
 				selectedCategoryAndSubCategoryAndSpecificCategoryIds: {}
 			};
 		});
+		return `/product-search-copy`;
 	}
 }));
 
@@ -355,15 +326,4 @@ export const getIdsInString = (
 	})}&filters=${JSON.stringify(
 		selectedCategoryAndSubCategoryAndSpecificCategoryIds
 	)}`;
-
-	// return `${applyFiltersByUrl({
-	// 	main_category_id,
-	// 	main_category,
-	// 	// category_id: categoryIdList?.toString(),
-	// 	// sub_category_id: subCategoryIdList?.toString(),
-	// 	// sub_sub_category_id: specificCategoryIdList?.toString()
-	// 	category: categoryNameList?.toString(),
-	// 	sub_category: subCategoryIdList?.toString(),
-	// 	sub_sub_category: specificCategoryIdList?.toString()
-	// })}`;
 };

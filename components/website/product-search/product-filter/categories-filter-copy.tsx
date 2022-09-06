@@ -28,12 +28,9 @@ const CategoriesFilterCopy: React.FC = (props) => {
 		(main_category || '') as string
 	);
 
-	const {
-		setSelectedMainCategoryId,
-		setSelectedCategoryId,
-		setSelectedSubCategoryId,
-		setSelectedSpecificCategoryId
-	} = useCategoryStoreCopy();
+	const setMainCategory = useCategoryStoreCopy(
+		(state) => state.setMainCategory
+	);
 
 	// Fetching all main-categories
 	const { data: mainCategories } = useSWR(
@@ -44,7 +41,9 @@ const CategoriesFilterCopy: React.FC = (props) => {
 	// Fetching categories based on main_category_id
 	const { data: categories } = useSWR(
 		`/category/categories/${main_category_id}`,
-		() => getCategoriesByMainCategoryId(main_category_id as string)
+		main_category_id
+			? () => getCategoriesByMainCategoryId(main_category_id)
+			: null
 	);
 
 	return (
@@ -70,7 +69,7 @@ const CategoriesFilterCopy: React.FC = (props) => {
 						isOpen={isMainCategorySelected}
 						title={mainCategoryTitle}
 						onClick={() => {
-							const params = setSelectedMainCategoryId(
+							const params = setMainCategory(
 								mainCategoryId,
 								mainCategoryTitle
 							);
@@ -106,7 +105,7 @@ const CategoryList: React.FC<{
 	const { id, title } = props;
 	const { push, locale, query } = useRouter();
 
-	const { setSelectedCategoryId } = useCategoryStoreCopy();
+	const { setCategory } = useCategoryStoreCopy();
 
 	const { category } = query;
 
@@ -130,7 +129,7 @@ const CategoryList: React.FC<{
 			isOpen={isCategorySelected}
 			title={title}
 			onClick={() => {
-				const params = setSelectedCategoryId(id, title);
+				const params = setCategory(id, title);
 				push(`/product-search-copy?${params}`);
 			}}
 			className="ml-4"
@@ -174,12 +173,16 @@ const SubCategoryList: React.FC<{
 	} = props;
 	const { push, locale, query } = useRouter();
 
-	const { setSelectedSubCategoryId, setSelectedSpecificCategoryId } =
+	const { setSubCategory, setSpecificCategory } =
 		useCategoryStoreCopy();
 
-	const { sub_category, sub_sub_category_id } = query;
+	const { sub_category, sub_sub_category } = query;
 	const [sub_category_id] = getIdAndName(
 		(sub_category || '') as string
+	);
+
+	const [sub_sub_category_id] = getIdAndName(
+		(sub_sub_category || '') as string
 	);
 
 	const subCategoryIds = (sub_category_id as string)?.split(',') || [];
@@ -201,7 +204,7 @@ const SubCategoryList: React.FC<{
 			isOpen={isSubCategorySelected}
 			title={subCategoryTitle}
 			onClick={() => {
-				const params = setSelectedSubCategoryId(
+				const params = setSubCategory(
 					categoryId,
 					categoryTitle,
 					subCategoryId,
@@ -232,7 +235,7 @@ const SubCategoryList: React.FC<{
 							isSpecificCategorySelected ? 'font-semibold' : ''
 						}`}
 						onClick={() => {
-							const params = setSelectedSpecificCategoryId(
+							const params = setSpecificCategory(
 								categoryId,
 								categoryTitle,
 								subCategoryId,
