@@ -67,10 +67,20 @@ const ProductDetailsTab: React.FC<{
 						{certifications?.map((certificate: any) => (
 							<p
 								key={certificate?.name}
-								className="flex justify-between space-x-8 text-[15px] text-gray md:text-[18px]"
+								className="flex items-center justify-between space-x-2 text-[15px] text-gray md:text-[18px]"
 							>
-								<span className="font-semibold">Certificate:</span>
-								<span>1</span>
+								<span className="font-semibold capitalize">
+									{certificate?.name}:
+								</span>
+								<span className="text-sm font-semibold text-accent-primary-main hover:underline">
+									<a
+										href={certificate?.certificate?.url}
+										target="_blank"
+										rel="noreferrer"
+									>
+										View
+									</a>
+								</span>
 							</p>
 						))}
 					</div>

@@ -30,8 +30,6 @@ const ProductDetailsTabContainer: React.FC<{
 	const { product_detail_item, certification, shipping } =
 		(product as any) || {};
 
-	console.log(product);
-
 	const selectedClassName =
 		'font-semibold text-primary-main rounded-b-none rounded-t-md';
 	const unSelectedClassName =

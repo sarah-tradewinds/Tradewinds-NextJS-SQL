@@ -9,6 +9,7 @@ export const getProductById = async (productId: string) => {
 		if (data?.data) {
 			data.data.tags = data.data.seo?.keyword || [];
 		}
+		console.log('product details =', data?.data);
 
 		return data.data || {};
 	} catch (error) {
@@ -38,7 +39,6 @@ export const getSellerDetailsBySellerId = async (sellerId: string) => {
 		const { data } = await serviceAxiosInstance.get(
 			`/seller/profile/${sellerId}`
 		);
-		console.log(data.data);
 		return data.data || {};
 	} catch (error) {
 		console.log('[getSellerDetailsBySellerId] =', error);

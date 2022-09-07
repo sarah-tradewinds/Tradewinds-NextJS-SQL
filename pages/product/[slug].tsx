@@ -88,7 +88,6 @@ const ProductDetailsPage: NextPage<
 				order_id: '6287507801163604d44c74b6',
 				user_id: customerData.id
 			};
-			console.log(reviewId);
 
 			await submitProductRatingAndReview(ratingAndReviewData, reviewId);
 			const productReviews = await getProductReviewsByProductId(
