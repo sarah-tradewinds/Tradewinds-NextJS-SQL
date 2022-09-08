@@ -1,10 +1,10 @@
 import React from 'react';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import Slider from 'react-slick';
-import Button from '../common/form/button';
-import SubCategoryCard from './common/sub-category-card';
+import Button from '../../common/form/button';
+import SubCategoryCard from '../../home/common/sub-category-card';
 
-const SubCategorySlider: React.FC<{
+const CollectionSlider: React.FC<{
 	categories: any[];
 	onTileClick?: (categoryId: string, data: any) => any;
 	className?: string;
@@ -34,8 +34,39 @@ const SubCategorySlider: React.FC<{
 		infinite: false
 	};
 
-	return (
-		<div className="relative w-full">
+	const categoryList = categories?.map((subCat: any) => {
+		const { categories: category } = subCat as any;
+		const categoryData = category || subCat;
+		return (
+			<div
+				key={subCat.id}
+				className="!mt-[24px] !w-[95%] transform transition duration-300 ease-in-out hover:-translate-y-2"
+			>
+				<SubCategoryCard
+					key={categoryData.id}
+					subCat={categoryData}
+					onClick={() => {
+						if (onTileClick)
+							onTileClick(categoryData?.id, categoryData);
+					}}
+					containerClassName="min-h-[80px] md:min-h-[124px] lg:min-h-[140px]"
+				/>
+			</div>
+		);
+	});
+
+	if (categoryList?.length === 0) {
+		return null;
+	}
+
+	return categoryList?.length < 8 ? (
+		<div className="flex h-full items-center lg:px-16">
+			<div className="w-full">
+				<div className="grid grid-cols-4 ">{categoryList}</div>
+			</div>
+		</div>
+	) : (
+		<div className="relative w-full px-24">
 			<Button
 				className={`absolute -left-2 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full border-2 border-primary-main !p-0 !text-primary-main ${leftButtonClassName}`}
 				onClick={() => (slider?.current as any)?.slickPrev()}
@@ -46,26 +77,7 @@ const SubCategorySlider: React.FC<{
 			<div className={`mx-[48px] ${className}`}>
 				<div>
 					<Slider ref={slider} {...settings}>
-						{categories?.map((subCat: any) => {
-							const { categories: category } = subCat as any;
-							const categoryData = category || subCat;
-							return (
-								<div
-									key={subCat.id}
-									className="!mt-[24px] !w-[95%] transform transition duration-300 ease-in-out hover:-translate-y-2"
-								>
-									<SubCategoryCard
-										key={categoryData.id}
-										subCat={categoryData}
-										onClick={() => {
-											if (onTileClick)
-												onTileClick(categoryData?.id, categoryData);
-										}}
-										containerClassName="min-h-[80px] md:min-h-[124px] lg:min-h-[140px]"
-									/>
-								</div>
-							);
-						})}
+						{categoryList}
 					</Slider>
 				</div>
 			</div>
@@ -80,4 +92,4 @@ const SubCategorySlider: React.FC<{
 	);
 };
 
-export default SubCategorySlider;
+export default CollectionSlider;

@@ -349,7 +349,7 @@ const CompanyProfileTab: React.FC<{
 
 							{/* Collection Products Panel */}
 							<Tab.Panel className="outline-none">
-								{collectionProducts.map((collectionProduct) => {
+								{collectionProducts?.map((collectionProduct) => {
 									const { name, product } = collectionProduct || {};
 
 									return (
