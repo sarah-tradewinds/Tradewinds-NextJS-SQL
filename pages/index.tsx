@@ -71,15 +71,13 @@ const HomePage: NextPage<
 
 	const { t } = useTranslation();
 
-	const {
-		setSelectedCountry,
-		fetchCountries,
-		removeSelectedCountries
-	} = useCountriesStore((state) => ({
-		setSelectedCountry: state.setSelectedCountry,
-		fetchCountries: state.fetchCountries,
-		removeSelectedCountries: state.removeSelectedCountries
-	}));
+	const { fetchCountries, removeSelectedCountries } = useCountriesStore(
+		(state) => ({
+			setSelectedCountry: state.setSelectedCountry,
+			fetchCountries: state.fetchCountries,
+			removeSelectedCountries: state.removeSelectedCountries
+		})
+	);
 
 	// Fetching countries
 	useEffect(() => {

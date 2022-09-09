@@ -2,18 +2,15 @@ import { useRouter } from 'next/router';
 
 // Third party packages
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
-import Skeleton from 'react-loading-skeleton';
-import useSWR from 'swr';
-
-// lib
-import {
-	getCategoriesByMainCategoryId,
-	getMainCategories,
-	getSpecificCategoriesBySubCategoryId,
-	getSubCategoriesByCategoryId
-} from 'lib/common.lib';
 
 // utils
+import { ContentSkeleton } from 'components/website/common/elements/skeleton/content.skeleton';
+import {
+	useCategoriesByMainCategoryId,
+	useMainCategories,
+	useSpecificCategoriesBySubCategoryId,
+	useSubCategoriesByCategoryId
+} from 'hooks/useMainCategories';
 import {
 	getIdAndName,
 	useCategoryStoreCopy
@@ -33,23 +30,17 @@ const CategoriesFilterCopy: React.FC = (props) => {
 	);
 
 	// Fetching all main-categories
-	const { data: mainCategories } = useSWR(
-		`main_category?is_eco${false}`,
-		() => getMainCategories(false)
-	);
+	const { mainCategories, isMainCategoriesLoading } =
+		useMainCategories();
 
 	// Fetching categories based on main_category_id
-	const { data: categories } = useSWR(
-		`/category/categories/${main_category_id}`,
-		main_category_id
-			? () => getCategoriesByMainCategoryId(main_category_id)
-			: null
-	);
+	const { categories, isCategoriesLoading } =
+		useCategoriesByMainCategoryId(main_category_id);
 
 	return (
 		<div className="mt-4 space-y-2">
 			{/* Main categories */}
-			{mainCategories?.length <= 0 && <Skeleton count={24} />}
+			<ContentSkeleton isLoading={isMainCategoriesLoading} />
 
 			{mainCategories?.map((mainCategory: any) => {
 				const { id: mainCategoryId } = mainCategory || {};
@@ -76,6 +67,11 @@ const CategoriesFilterCopy: React.FC = (props) => {
 							push(`/product-search-copy?${params}`);
 						}}
 					>
+						<ContentSkeleton
+							isLoading={isCategoriesLoading}
+							containerClassName="pl-6"
+						/>
+
 						{/* Categories */}
 						{categories?.map((category: any) => {
 							const { id: categoryId } = category || {};
@@ -84,7 +80,7 @@ const CategoriesFilterCopy: React.FC = (props) => {
 								<CategoryList
 									key={categoryId}
 									id={categoryId}
-									title={getLocaleText(category?.title || {}, locale)}
+									title={category?.title}
 								/>
 							);
 						})}
@@ -98,7 +94,7 @@ const CategoriesFilterCopy: React.FC = (props) => {
 // CategoryList
 const CategoryList: React.FC<{
 	id: string;
-	title: string;
+	title: any;
 	onClick?: () => any;
 	className?: string;
 }> = (props) => {
@@ -108,48 +104,45 @@ const CategoryList: React.FC<{
 	const { setCategory } = useCategoryStoreCopy();
 
 	const { category } = query;
-
 	const [category_id] = getIdAndName((category || '') as string);
 
 	const categoryIds = (category_id as string)?.split(',') || [];
 	const isCategorySelected = categoryIds.includes(id);
 
 	// Fetching sub-categories based on category_id
-	const { data: subCategories } = useSWR(
-		`/sub_category/sub_categories/${id}`,
-		isCategorySelected
-			? () => getSubCategoriesByCategoryId(id as string)
-			: null
-	);
+	const { subCategories, isSubCategoriesLoading } =
+		useSubCategoriesByCategoryId(id);
+
+	const categoryName = title?.en;
 
 	return (
 		<CategoryCollapse
 			key={id}
 			id={id}
 			isOpen={isCategorySelected}
-			title={title}
+			title={getLocaleText(title || {}, locale)}
 			onClick={() => {
-				const params = setCategory(id, title);
+				const params = setCategory(id, categoryName);
 				push(`/product-search-copy?${params}`);
 			}}
 			className="ml-4"
 		>
+			<ContentSkeleton
+				isLoading={isSubCategoriesLoading}
+				containerClassName="pl-6"
+			/>
+
 			{/* Sub Categories */}
 			{subCategories?.map((subCategory: any) => {
 				const { id: subCategoryId } = subCategory || {};
-
-				const subCategoryTitle = getLocaleText(
-					subCategory?.title || {},
-					locale
-				);
 
 				return (
 					<SubCategoryList
 						key={subCategoryId}
 						categoryId={id}
-						categoryTitle={title}
+						categoryTitle={categoryName}
 						id={subCategoryId}
-						title={subCategoryTitle}
+						title={subCategory?.title}
 					/>
 				);
 			})}
@@ -161,7 +154,7 @@ const SubCategoryList: React.FC<{
 	categoryId: string;
 	categoryTitle: string;
 	id: string;
-	title: string;
+	title: any;
 	onClick?: () => any;
 	className?: string;
 }> = (props) => {
@@ -189,31 +182,33 @@ const SubCategoryList: React.FC<{
 	const isSubCategorySelected = subCategoryIds.includes(subCategoryId);
 
 	// Fetching specific-categories based on sub_category_id
-	const { data: specificCategories } = useSWR(
-		`/specific_category/sub_sub_categories/${subCategoryId}`,
-		isSubCategorySelected
-			? () =>
-					getSpecificCategoriesBySubCategoryId(subCategoryId as string)
-			: null
-	);
+	const { specificCategories, isSpecificCategoriesLoading } =
+		useSpecificCategoriesBySubCategoryId(subCategoryId);
+
+	const subCategoryName = subCategoryTitle?.en;
 
 	return (
 		<CategoryCollapse
 			key={subCategoryId}
 			id={subCategoryId}
 			isOpen={isSubCategorySelected}
-			title={subCategoryTitle}
+			title={getLocaleText(subCategoryTitle || {}, locale)}
 			onClick={() => {
 				const params = setSubCategory(
 					categoryId,
 					categoryTitle,
 					subCategoryId,
-					subCategoryTitle
+					subCategoryName
 				);
 				push(`/product-search-copy?${params}`);
 			}}
 			className="ml-4"
 		>
+			<ContentSkeleton
+				isLoading={isSpecificCategoriesLoading}
+				containerClassName="pl-6"
+			/>
+
 			{/* Specific Categories */}
 			{specificCategories?.map((specificCategory: any) => {
 				const { id: specificCategoryId } = specificCategory || {};
@@ -239,9 +234,9 @@ const SubCategoryList: React.FC<{
 								categoryId,
 								categoryTitle,
 								subCategoryId,
-								subCategoryTitle,
+								subCategoryName,
 								specificCategoryId,
-								specificCategoryTitle
+								specificCategory?.title?.en
 							);
 							push(`/product-search-copy?${params}`);
 						}}

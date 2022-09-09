@@ -107,7 +107,7 @@ export const sendMessageToSeller = async (payload: {
 			cc: [],
 			subject,
 			message,
-			type: 'commonmessage',
+			type: 'enquiry',
 			created_by: buyerEmail
 		});
 

@@ -30,7 +30,6 @@ import {
 import { getAddresses } from 'lib/customer/addres.lib';
 import { useAuthStore } from 'store/auth';
 import { useCartStore } from 'store/cart-store';
-import { useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';
 import Loader from '../elements/loader/loader';
 import Button from '../form/button';
@@ -40,10 +39,6 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 	const { children, seo } = props;
 
 	const isEco = useHomeStore((state) => state.isEco);
-	const { isLoading, categoriesLength } = useCategoryStore((state) => ({
-		isLoading: state.isLoading,
-		categoriesLength: state.allCategories.length
-	}));
 
 	const {
 		isAuthenticating,

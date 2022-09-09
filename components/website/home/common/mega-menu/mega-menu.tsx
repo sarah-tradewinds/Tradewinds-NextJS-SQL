@@ -7,16 +7,15 @@ import { MdPlayArrow } from 'react-icons/md';
 import { useState } from 'react';
 
 // styles
-import SpinnerIcon from 'components/website/common/elements/loader/spinner-icon';
+import { ContentSkeleton } from 'components/website/common/elements/skeleton/content.skeleton';
 import {
-	getCategoriesByMainCategoryId,
-	getMainCategories,
-	getSpecificCategoriesBySubCategoryId,
-	getSubCategoriesByCategoryId
-} from 'lib/common.lib';
+	useCategoriesByMainCategoryId,
+	useMainCategories,
+	useSpecificCategoriesBySubCategoryId,
+	useSubCategoriesByCategoryId
+} from 'hooks/useMainCategories';
 import { useCategoryStoreCopy } from 'store/category-store-copy';
 import { useHomeStore } from 'store/home';
-import useSWR from 'swr';
 import { getLocaleText } from 'utils/get_locale_text';
 import styles from './mega-menu.module.css';
 
@@ -31,19 +30,12 @@ interface MegaMenuProps {
 }
 
 const MegaMenu: React.FC<MegaMenuProps> = (props) => {
-	const { className, onClose } = props;
+	const { className } = props;
 
 	const router = useRouter();
 	const { locale } = router;
 
 	const isEco = useHomeStore((state) => state.isEco);
-	const [isMainCategoryLoading, setIsMainCategoryLoading] =
-		useState(false);
-	const [isCategoryLoading, setIsCategoryLoading] = useState(false);
-	const [isSubCategoryLoading, setIsSubCategoryLoading] =
-		useState(false);
-	const [isSpecificCategoryLoading, setIsSpecificCategoryLoading] =
-		useState(false);
 
 	const [selectedMainCategory, setSelectedMainCategory] =
 		useState<CategoryData>();
@@ -62,254 +54,236 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 	} = useCategoryStoreCopy();
 
 	// Fetching all main-categories
-	const { data: mainCategories } = useSWR(
-		`main_category?is_eco${false}`,
-		() => getMainCategories(false)
-	);
+	const { mainCategories, isMainCategoriesLoading } =
+		useMainCategories();
 
-	// Fetching categories based on selectedMainCategory
-	const { data: categories, error: categoriesError } = useSWR(
-		`/category/categories/${selectedMainCategory?.id}`,
-		selectedMainCategory?.id
-			? () => getCategoriesByMainCategoryId(selectedMainCategory?.id)
-			: null
-	);
+	const { categories, isCategoriesLoading } =
+		useCategoriesByMainCategoryId(selectedMainCategory?.id || '');
 
-	// Fetching sub-categories based on category_id
-	const { data: subCategories } = useSWR(
-		`/sub_category/sub_categories/${selectedCategory?.id}`,
-		selectedCategory?.id
-			? () => getSubCategoriesByCategoryId(selectedCategory?.id)
-			: null
-	);
+	const { subCategories, isSubCategoriesLoading } =
+		useSubCategoriesByCategoryId(selectedCategory?.id || '');
 
-	// Fetching specific-categories based on sub_category_id
-	const { data: specificCategories } = useSWR(
-		`/specific_category/sub_sub_categories/${selectedSubCategory?.id}`,
-		selectedSubCategory?.id
-			? () =>
-					getSpecificCategoriesBySubCategoryId(selectedSubCategory?.id)
-			: null
-	);
+	const { specificCategories, isSpecificCategoriesLoading } =
+		useSpecificCategoriesBySubCategoryId(selectedSubCategory?.id || '');
 
 	const megaMenuClassName = `relative grid grid-cols-12 border bg-white text-sm text-gray shadow-lg overflow-y-autos ${className}`;
 
 	return (
 		<div className={megaMenuClassName}>
-			{mainCategories?.length <= 0 ? <MegaMenuLoader /> : ''}
-
 			{/* Main Categories */}
-			{mainCategories && (
-				<div
-					className={`col-span-3 my-1 ml-4 h-[487px] space-y-4 overflow-auto pl-2 shadow-mega-menu ${styles.megaMenuScrollbar}`}
-					style={{ direction: 'rtl' }}
-				>
-					<ul className="mr-1 h-full">
-						{mainCategories?.map((mainCategory: any) => {
-							const { id, slug } = mainCategory;
+			<div
+				className={`col-span-3 my-1 ml-4 h-[487px] space-y-4 overflow-auto pl-2 shadow-mega-menu ${styles.megaMenuScrollbar}`}
+				style={{ direction: 'rtl' }}
+			>
+				<ContentSkeleton
+					isLoading={isMainCategoriesLoading}
+					className="block"
+					containerClassName="mt-2"
+				/>
 
-							const isSelected = id === selectedMainCategory?.id;
+				<ul className="mr-1 h-full">
+					{mainCategories?.map((mainCategory: any) => {
+						const { id, slug } = mainCategory;
 
-							const mainCategoryTitle = getLocaleText(
-								mainCategory.title || {},
-								locale
-							);
+						const isSelected = id === selectedMainCategory?.id;
 
-							return (
-								<li
-									key={id || slug}
-									className={`flex cursor-pointer justify-between py-1 pl-4 text-left text-[15px] dark:hover:text-primary-eco ${
-										isSelected
-											? 'font-semibold dark:bg-bg-eco/60 dark:text-primary-eco'
-											: ''
-									}`}
-									onMouseEnter={() =>
-										!isSelected
-											? setSelectedMainCategory({
-													id,
-													name: mainCategoryTitle
-											  })
-											: null
-									}
-									onClick={() => {
-										const params = setMainCategory(
-											id,
-											mainCategory.title?.en || ''
-										);
-										router.push(`/product-search-copy?${params}`);
-									}}
-								>
-									<span className="hover: text-2xl hover:text-primary-main">
-										{isSelected && (
-											<MdPlayArrow className="font-semibold" />
-										)}
-									</span>
-									<span>{mainCategoryTitle}</span>
-								</li>
-							);
-						})}
-					</ul>
-				</div>
-			)}
-
-			{/* Categories */}
-			{mainCategories?.length > 0 && selectedMainCategory?.id && (
-				<ul className="col-span-3 h-[487px] overflow-y-auto border-r border-dashed pt-1 pl-4 dark:bg-[#FCF5EB]">
-					{!categories && !categoriesError && <MegaMenuLoader />}
-
-					{categories?.map((category: any) => {
-						const { id, slug, title } = category;
-
-						const isSelected = id === selectedCategory?.id;
+						const mainCategoryTitle = getLocaleText(
+							mainCategory.title || {},
+							locale
+						);
 
 						return (
 							<li
 								key={id || slug}
-								className={`flex cursor-pointer items-center justify-between py-1 text-[15px] dark:hover:text-primary-eco ${
+								className={`flex cursor-pointer justify-between py-1 pl-4 text-left text-[15px] dark:hover:text-primary-eco ${
 									isSelected
-										? ' font-semibold dark:bg-bg-eco/60 dark:text-primary-eco'
+										? 'font-semibold dark:bg-bg-eco/60 dark:text-primary-eco'
 										: ''
 								}`}
 								onMouseEnter={() =>
 									!isSelected
-										? setSelectedCategory({ id, name: title?.en })
+										? setSelectedMainCategory({
+												id,
+												name: mainCategoryTitle
+										  })
 										: null
 								}
 								onClick={() => {
-									setMainCategory(
-										selectedMainCategory?.id,
-										selectedMainCategory?.name || ''
+									const params = setMainCategory(
+										id,
+										mainCategory.title?.en || ''
 									);
-									const params = setCategory(id, title?.en || '');
 									router.push(`/product-search-copy?${params}`);
 								}}
 							>
-								<span>{getLocaleText(title || {}, locale)}</span>
 								<span className="hover: text-2xl hover:text-primary-main">
 									{isSelected && (
 										<MdPlayArrow className="font-semibold" />
 									)}
 								</span>
+								<span>{mainCategoryTitle}</span>
 							</li>
 						);
 					})}
 				</ul>
-			)}
+			</div>
+
+			{/* Categories */}
+			<ul className="col-span-3 h-[487px] overflow-y-auto border-r border-dashed pt-1 pl-4 dark:bg-[#FCF5EB]">
+				<ContentSkeleton
+					isLoading={isCategoriesLoading}
+					className="block"
+					containerClassName="mt-2"
+				/>
+
+				{categories?.map((category: any) => {
+					const { id, slug, title } = category;
+
+					const isSelected = id === selectedCategory?.id;
+
+					return (
+						<li
+							key={id || slug}
+							className={`flex cursor-pointer items-center justify-between py-1 text-[15px] dark:hover:text-primary-eco ${
+								isSelected
+									? ' font-semibold dark:bg-bg-eco/60 dark:text-primary-eco'
+									: ''
+							}`}
+							onMouseEnter={() =>
+								!isSelected
+									? setSelectedCategory({ id, name: title?.en })
+									: null
+							}
+							onClick={() => {
+								setMainCategory(
+									selectedMainCategory?.id || '',
+									selectedMainCategory?.name || ''
+								);
+								const params = setCategory(id, title?.en || '');
+								router.push(`/product-search-copy?${params}`);
+							}}
+						>
+							<span>{getLocaleText(title || {}, locale)}</span>
+							<span className="hover: text-2xl hover:text-primary-main">
+								{isSelected && (
+									<MdPlayArrow className="font-semibold" />
+								)}
+							</span>
+						</li>
+					);
+				})}
+			</ul>
 
 			{/* Sub Categories */}
-			{categories?.length > 0 && selectedCategory?.id && (
-				<ul className="col-span-3 h-[487px] overflow-y-auto border-r border-dashed pl-4 dark:bg-[#FCF5EB]">
-					{isSubCategoryLoading && <MegaMenuLoader />}
+			<ul className="col-span-3 h-[487px] overflow-y-auto border-r border-dashed pl-4 dark:bg-[#FCF5EB]">
+				<ContentSkeleton
+					isLoading={isSubCategoriesLoading}
+					className="block"
+					containerClassName="mt-2"
+				/>
 
-					{subCategories?.map((subCategory: any) => {
-						const { id, slug, title } = subCategory;
+				{subCategories?.map((subCategory: any) => {
+					const { id, slug, title } = subCategory;
 
-						const isSelected = id === selectedSubCategory?.id;
+					const isSelected = id === selectedSubCategory?.id;
 
-						return (
-							<li
-								key={id || slug}
-								className={`flex cursor-pointer items-center justify-between py-1 text-[15px] dark:hover:text-primary-eco ${
-									isSelected
-										? ' font-semibold dark:bg-bg-eco/60 dark:text-primary-eco'
-										: ''
-								}`}
-								onMouseEnter={() =>
-									setSelectedSubCategory({ id, name: title?.en })
-								}
-								onClick={() => {
-									setMainCategory(
-										selectedMainCategory?.id || '',
-										selectedMainCategory?.name || ''
-									);
-									const params = setSubCategory(
-										selectedCategory?.id,
-										selectedCategory?.name || '',
-										id,
-										title?.en
-									);
-									router.push(`/product-search-copy?${params}`);
-								}}
-							>
-								<span>{getLocaleText(title || {}, locale)}</span>
-								<span className="hover: text-2xl hover:text-primary-main">
-									{isSelected && (
-										<MdPlayArrow className="font-semibold" />
-									)}
-								</span>
-							</li>
-						);
-					})}
-				</ul>
-			)}
+					return (
+						<li
+							key={id || slug}
+							className={`flex cursor-pointer items-center justify-between py-1 text-[15px] dark:hover:text-primary-eco ${
+								isSelected
+									? ' font-semibold dark:bg-bg-eco/60 dark:text-primary-eco'
+									: ''
+							}`}
+							onMouseEnter={() =>
+								setSelectedSubCategory({ id, name: title?.en })
+							}
+							onClick={() => {
+								setMainCategory(
+									selectedMainCategory?.id || '',
+									selectedMainCategory?.name || ''
+								);
+								const params = setSubCategory(
+									selectedCategory?.id || '',
+									selectedCategory?.name || '',
+									id,
+									title?.en
+								);
+								router.push(`/product-search-copy?${params}`);
+							}}
+						>
+							<span>{getLocaleText(title || {}, locale)}</span>
+							<span className="hover: text-2xl hover:text-primary-main">
+								{isSelected && (
+									<MdPlayArrow className="font-semibold" />
+								)}
+							</span>
+						</li>
+					);
+				})}
+			</ul>
 
 			{/* Specific Categories */}
-			{subCategories?.length > 0 && selectedSubCategory?.id && (
-				<ul className="col-span-3 h-[487px] overflow-y-auto pl-4 dark:bg-[#FCF5EB]">
-					{isSpecificCategoryLoading && <MegaMenuLoader />}
+			<ul className="col-span-3 h-[487px] overflow-y-auto pl-4 dark:bg-[#FCF5EB]">
+				<ContentSkeleton
+					isLoading={isSpecificCategoriesLoading}
+					className="block"
+					containerClassName="mt-2"
+				/>
 
-					{specificCategories?.map((specificCategory: any) => {
-						const { id, slug, title } = specificCategory;
+				{specificCategories?.map((specificCategory: any) => {
+					const { id, slug, title } = specificCategory;
 
-						const isSelected = id === selectedSpecificCategory?.id;
+					const isSelected = id === selectedSpecificCategory?.id;
 
-						return (
-							<li
-								key={id || slug}
-								className={`flex cursor-pointer items-center justify-between text-[15px] dark:hover:text-primary-eco ${
-									isSelected
-										? ' font-semibold dark:bg-bg-eco/60 dark:text-primary-eco'
-										: ''
-								}`}
-								onMouseEnter={() =>
-									setSelectedSpecificCategory({
-										id,
-										name: title?.en
-									})
-								}
-								onClick={() => {
-									setMainCategory(
-										selectedMainCategory?.id || '',
-										selectedMainCategory?.name || ''
-									);
-									console.log(
-										selectedCategory?.id || '',
-										selectedCategory?.name || '',
-										selectedSubCategory?.id || '',
-										selectedSubCategory?.name || ''
-									);
-									const params = setSpecificCategory(
-										selectedCategory?.id || '',
-										selectedCategory?.name || '',
-										selectedSubCategory?.id || '',
-										selectedSubCategory?.name || '',
-										id,
-										title?.en
-									);
-									router.push(`/product-search-copy?${params}`);
-								}}
-							>
-								<span>{getLocaleText(title || {}, locale)}</span>
-								<span className="hover: text-2xl hover:text-primary-main">
-									{isSelected && (
-										<MdPlayArrow className="font-semibold" />
-									)}
-								</span>
-							</li>
-						);
-					})}
-				</ul>
-			)}
+					return (
+						<li
+							key={id || slug}
+							className={`flex cursor-pointer items-center justify-between text-[15px] dark:hover:text-primary-eco ${
+								isSelected
+									? ' font-semibold dark:bg-bg-eco/60 dark:text-primary-eco'
+									: ''
+							}`}
+							onMouseEnter={() =>
+								setSelectedSpecificCategory({
+									id,
+									name: title?.en
+								})
+							}
+							onClick={() => {
+								setMainCategory(
+									selectedMainCategory?.id || '',
+									selectedMainCategory?.name || ''
+								);
+								console.log(
+									selectedCategory?.id || '',
+									selectedCategory?.name || '',
+									selectedSubCategory?.id || '',
+									selectedSubCategory?.name || ''
+								);
+								const params = setSpecificCategory(
+									selectedCategory?.id || '',
+									selectedCategory?.name || '',
+									selectedSubCategory?.id || '',
+									selectedSubCategory?.name || '',
+									id,
+									title?.en
+								);
+								router.push(`/product-search-copy?${params}`);
+							}}
+						>
+							<span>{getLocaleText(title || {}, locale)}</span>
+							<span className="hover: text-2xl hover:text-primary-main">
+								{isSelected && (
+									<MdPlayArrow className="font-semibold" />
+								)}
+							</span>
+						</li>
+					);
+				})}
+			</ul>
 		</div>
 	);
 }; // End of MegaMenu component
 
 export default MegaMenu;
-
-const MegaMenuLoader = () => {
-	return (
-		<div className="flex h-full items-center justify-center">
-			<SpinnerIcon className="!mr-0 md:h-16 md:w-16" />
-		</div>
-	);
-};
