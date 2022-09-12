@@ -116,9 +116,14 @@ const AddressModal: React.FC<ModalProps> = (props) => {
 			className={`${isLoginOpen || isSignUpOpen ? '!z-[5]' : ''}`}
 		>
 			<div className="w-fulls m-8 pr-4">
-				<h1 className="mb-6 text-[40px] font-semibold">
-					Select Shipping and Billing Address
-				</h1>
+				<div className="mb-6 flex items-center justify-between">
+					<h1 className="text-[40px] font-semibold">
+						Select Shipping and Billing Address
+					</h1>
+					<Button className="border border-accent-primary-main !text-accent-primary-main">
+						+ ADD NEW ADDRESS
+					</Button>
+				</div>
 
 				{errorMessage && (
 					<h2 className="mb-4 text-[24px] font-semibold text-error">
@@ -131,24 +136,34 @@ const AddressModal: React.FC<ModalProps> = (props) => {
 						<Tab
 							className={({ selected }) =>
 								`mr-4 rounded-md  p-2 shadow-md ${
+									!selectedShippingAddressId && errorMessage
+										? 'animate-bounce'
+										: ''
+								} ${
 									selected
 										? 'bg-primary-main text-white'
 										: 'border border-primary-main text-primary-main'
 								}`
 							}
 						>
-							Shipping Address
+							SHIPPING ADDRESS
 						</Tab>
 						<Tab
 							className={({ selected }) =>
 								`mr-4 rounded-md p-2 shadow-md ${
+									!selectedBillingAddressId &&
+									selectedShippingAddressId &&
+									errorMessage
+										? 'animate-bounce'
+										: ''
+								}  ${
 									selected
 										? 'bg-primary-main text-white'
 										: 'border border-primary-main text-primary-main'
 								}`
 							}
 						>
-							Billing Address
+							BILLING ADDRESS
 						</Tab>
 					</Tab.List>
 
@@ -172,7 +187,7 @@ const AddressModal: React.FC<ModalProps> = (props) => {
 
 				<div className="mt-16 flex justify-center">
 					<Button onClick={gotoCartReview} variant="buyer">
-						Cart Review
+						Processed to Cart Review
 					</Button>
 				</div>
 			</div>
