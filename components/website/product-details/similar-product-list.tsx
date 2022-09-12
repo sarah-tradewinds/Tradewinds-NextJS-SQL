@@ -88,7 +88,7 @@ const SimilarProductList: React.FC<SimilarProductListProps> = (
 
 				{/* Navigation button */}
 				{loaded && instanceRef.current && (
-					<div className="hidden group-hover:block">
+					<div>
 						<Button
 							className={`absolute -left-0 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full border-2 border-primary-main !p-0 !text-primary-main`}
 							onClick={(e: any) =>

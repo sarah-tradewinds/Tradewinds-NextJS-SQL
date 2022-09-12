@@ -59,11 +59,61 @@ const CollectionSlider: React.FC<{
 		return null;
 	}
 
+	const isSliderOn = categoryList?.length < 8;
+
+	return (
+		<div className="relative h-full w-full px-24">
+			{isSliderOn ? (
+				<div className="flex h-full w-full items-center">
+					<div className="w-full">
+						<div className="grid grid-cols-4">{categoryList}</div>
+					</div>
+				</div>
+			) : (
+				<div className={`mx-[48px] ${className}`}>
+					<div>
+						<Slider ref={slider} {...settings}>
+							{categoryList}
+						</Slider>
+					</div>
+				</div>
+			)}
+
+			<Button
+				className={`absolute -left-2 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full border-2 border-primary-main !p-0 !text-primary-main ${leftButtonClassName}`}
+				onClick={() => (slider?.current as any)?.slickPrev()}
+				disabled={isSliderOn}
+			>
+				<MdChevronLeft className="h-[32px] w-[32px]" />
+			</Button>
+
+			<Button
+				className={`absolute right-0 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full border-2 border-primary-main !p-0 !text-primary-main ${rightButtonClassName}`}
+				onClick={() => (slider?.current as any)?.slickNext()}
+				disabled={isSliderOn}
+			>
+				<MdChevronRight className="h-[32px] w-[32px]" />
+			</Button>
+		</div>
+	);
+
 	return categoryList?.length < 8 ? (
-		<div className="flex h-full items-center lg:px-16">
+		<div className="relative flex h-full items-center px-24">
+			<Button
+				className={`absolute -left-2 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full border-2 border-primary-main !p-0 !text-primary-main ${leftButtonClassName}`}
+				onClick={() => (slider?.current as any)?.slickPrev()}
+			>
+				<MdChevronLeft className="h-[32px] w-[32px]" />
+			</Button>
 			<div className="w-full">
 				<div className="grid grid-cols-4 ">{categoryList}</div>
 			</div>
+			<Button
+				className={`absolute right-0 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full border-2 border-primary-main !p-0 !text-primary-main ${rightButtonClassName}`}
+				onClick={() => (slider?.current as any)?.slickNext()}
+			>
+				<MdChevronRight className="h-[32px] w-[32px]" />
+			</Button>
 		</div>
 	) : (
 		<div className="relative w-full px-24">

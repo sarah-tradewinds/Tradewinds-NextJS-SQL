@@ -2,8 +2,6 @@ import { Tab } from '@headlessui/react';
 import ImageWithErrorHandler from 'components/website/common/elements/image-with-error-handler';
 import Button from 'components/website/common/form/button';
 import MessageVendorPopup from 'components/website/common/popup/message-vendor.popup';
-import SubCategoryCard from 'components/website/home/common/sub-category-card';
-import SubCategorySlider from 'components/website/home/sub-category-slider';
 import { useKeenSlider } from 'keen-slider/react';
 import { sendMessageToSeller } from 'lib/common.lib';
 import {
@@ -314,7 +312,7 @@ const CompanyProfileTab: React.FC<{
 											</div>
 											{/* Navigation button */}
 											{loaded && instanceRef.current && (
-												<div className="hidden group-hover:block">
+												<div>
 													<Button
 														className={`absolute -left-2 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full border-2 border-primary-main !p-0 !text-primary-main`}
 														onClick={(e: any) =>
@@ -358,81 +356,6 @@ const CompanyProfileTab: React.FC<{
 											name={name}
 											products={product}
 										/>
-									);
-
-									const products = product?.map((productData: any) => ({
-										id: productData.id,
-										title: productData?.product_name,
-										slug: {
-											en: `/product/${productData.id}`
-										},
-										clr: '',
-										image: {
-											url: productData?.images[0]
-												? productData?.images[0]?.url
-												: ''
-										}
-									}));
-
-									return (
-										<div
-											key={name}
-											className="mt-4 flex border-gray/40 pb-8 last:border-none sm:border-b"
-										>
-											{/* Collection card */}
-											<div className="hidden lg:block">
-												<div>
-													<h2 className="font-mont font-semibold text-primary-main dark:text-accent-secondary-eco lg:text-[25px]">
-														{name}
-													</h2>
-													<div className="h-[249px] w-[227px] bg-primary-main text-white dark:text-accent-secondary-eco">
-														<p className="p-4">
-															<span className="font-semibold">
-																{name} {` `}
-															</span>
-															<span>
-																lorem ipsum lorem ipsum lorem ipsum
-																lorem ipsum lorem ipsum lorem ipsum
-															</span>
-														</p>
-													</div>
-												</div>
-											</div>
-
-											<div className="w-full">
-												<p className="text-[13px] font-semibold text-primary-main sm:text-[18px] lg:hidden">
-													{name}
-												</p>
-												<div className="hidden sm:block">
-													<SubCategorySlider
-														key={name}
-														rows={products?.length <= 7 ? 1 : 2}
-														className="!mx-0"
-														leftButtonClassName="lg:!left-8"
-														rightButtonClassName="lg:!right-10"
-														categories={products}
-														slidesToShow={products?.length <= 7 ? 4 : 8}
-														onTileClick={(_, data) =>
-															push(`/product/${data.id}`)
-														}
-													/>
-												</div>
-
-												{/* For mobile only */}
-
-												<div className="grid grid-cols-2 gap-4 sm:hidden">
-													{products?.map((product: any) => {
-														return (
-															<SubCategoryCard
-																key={product.id}
-																subCat={product}
-																className="!h-[88px]"
-															/>
-														);
-													})}
-												</div>
-											</div>
-										</div>
 									);
 								})}
 							</Tab.Panel>
