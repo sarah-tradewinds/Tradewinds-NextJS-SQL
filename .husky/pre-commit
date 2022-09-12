@@ -2,5 +2,5 @@
 . "$(dirname "$0")/_/husky.sh"
 
 npx lint-staged
-npx pretty-quick --staged --pattern "**/*.*(js|jsx|ts|tsx)"
+npx pretty-quick --staged --pattern "**/*.*(js)"
 # npx pretty-quick --ignore-path=.prettierignore
