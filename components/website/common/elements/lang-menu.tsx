@@ -71,7 +71,7 @@ const LanguageDropdown: React.FC = () => {
 													: ''
 											}`}
 										>
-											name
+											{name}
 										</button>
 									</Menu.Item>
 								);
