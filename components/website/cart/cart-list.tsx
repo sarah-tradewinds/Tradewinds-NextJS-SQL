@@ -33,6 +33,7 @@ const CartList: React.FC<CartListProps> = (props) => {
 					<div key={id} className="border-b-gray/40 pb-4 odd:border-b">
 						<CartItem
 							id={product.id}
+							slug={product.id}
 							productName={getLocaleText(
 								product.product_name || {},
 								locale

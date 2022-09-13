@@ -13,6 +13,7 @@ import MetadataTile from '../product-search/metadata/metadata-tile';
 
 interface CartItemProps {
 	id: string;
+	slug: string;
 	productName: string;
 	description: string;
 	quantity: number;
@@ -29,6 +30,7 @@ interface CartItemProps {
 const CartItem: React.FC<CartItemProps> = (props) => {
 	const {
 		id,
+		slug,
 		productName,
 		description,
 		quantity,
@@ -113,9 +115,6 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 			{metadataTileList}
 		</div>
 	);
-
-	const slug = 'product-id';
-	const name = 'product name';
 
 	const quantityChangeHandler = (e: any) => {
 		const value = e.target.value;
