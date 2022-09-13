@@ -53,7 +53,7 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 							</p>
 							<div className="flex">
 								<Button href={item.action?.slug} variant="buyer">
-									{item.btn_text}
+									{getLocaleText(item?.btn_text || {}, locale)}
 								</Button>
 							</div>
 						</div>

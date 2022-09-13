@@ -3,6 +3,10 @@ export const getLocaleText = (
 	locale?: string,
 	defaultLocale?: string
 ) => {
+	if (typeof payload === 'string') {
+		return payload;
+	}
+
 	if (typeof payload !== 'object') {
 		throw TypeError('Object is required');
 	}
