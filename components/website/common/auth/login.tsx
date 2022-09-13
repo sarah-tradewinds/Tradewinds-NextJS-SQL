@@ -16,6 +16,7 @@ import { buttonSpinner } from '../spinners/custom-spinners';
 
 // libs
 import { addProductToCart } from 'lib/cart.lib';
+import { useTranslation } from 'next-i18next';
 import { useCartStore } from 'store/cart-store';
 import {
 	getCustomerBuyerDetails,
@@ -47,6 +48,7 @@ const Login: React.FC = () => {
 		result: false
 	});
 	const router = useRouter();
+	const { t } = useTranslation();
 
 	const cartProducts = useCartStore((state) => state.cartProducts);
 
@@ -122,7 +124,7 @@ const Login: React.FC = () => {
 				<div className="mt-16 flex w-full justify-center rounded-md bg-white p-8 shadow-md md:w-[740px] lg:w-[1000px] lg:justify-start lg:p-16">
 					<div className="flex flex-col items-center border-gray/40 lg:border-r lg:pr-24">
 						<h2 className="mb-8 border-b border-gray/40  pb-4 text-2xl font-semibold text-black md:text-3xl">
-							Login to your account
+							{t('auth:login_to_your_account')}
 						</h2>
 
 						<div className="flex w-full justify-center border-b border-gray/40 pb-8">
@@ -130,7 +132,7 @@ const Login: React.FC = () => {
 								<Input
 									name="email"
 									type="email"
-									placeholder="Email"
+									placeholder={t('auth:email')}
 									icon={<HiSparkles />}
 									className="w-full"
 									onChange={(e: React.FormEvent<HTMLInputElement>) =>
@@ -140,7 +142,7 @@ const Login: React.FC = () => {
 								<Input
 									name="password"
 									type="password"
-									placeholder="Password"
+									placeholder={t('auth:password')}
 									icon={<HiSparkles />}
 									className="w-full"
 									onChange={(e: React.FormEvent<HTMLInputElement>) =>
@@ -154,7 +156,7 @@ const Login: React.FC = () => {
 									onClick={(e: any) => loginUser(e)}
 									disabled={loading}
 								>
-									{loading ? BUTTON_SPINNER : null} Login
+									{loading ? BUTTON_SPINNER : null} {t('auth:login')}
 								</Button>
 								<p
 									className="mt-8 cursor-pointer text-center text-sm text-accent-primary-main underline"
@@ -163,13 +165,13 @@ const Login: React.FC = () => {
 										router.push('/forgot-password');
 									}}
 								>
-									Forgot Password?
+									{t('auth:forgot_password')}?
 								</p>
 							</form>
 						</div>
 						<div>
 							<p className="mt-8 text-center text-lg font-semibold opacity-80">
-								Dont Have an Account?
+								{t('auth:dont_have_an_account')}
 							</p>
 							<Button
 								className="mt-2 border border-accent-secondary-main text-accent-secondary-main hover:bg-accent-secondary-main hover:text-white"
@@ -178,7 +180,7 @@ const Login: React.FC = () => {
 									setIsLoginOpen();
 								}}
 							>
-								Become A Member Today
+								{t('auth:become_a_member_today')}
 							</Button>
 						</div>
 

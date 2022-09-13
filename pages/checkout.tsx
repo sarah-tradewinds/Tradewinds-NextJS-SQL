@@ -7,6 +7,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // components
 import PaymentForm from 'components/website/checkout/payment-form';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
@@ -20,6 +21,7 @@ const CheckoutPage: NextPage = () => {
 	const [clientSecret, setClientSecret] = useState('');
 
 	const { query } = useRouter();
+	const { t } = useTranslation();
 
 	useEffect(() => {
 		const clientSecret = (query.client_secret || '') as string;
@@ -35,7 +37,7 @@ const CheckoutPage: NextPage = () => {
 		<div className="container mx-auto flex justify-center">
 			<div className="m-4 w-[480px] rounded bg-white px-8 py-4">
 				<h1 className="mb-6 text-[32px] font-semibold text-gray">
-					Checkout
+					{t('common:checkout')}
 				</h1>
 				{clientSecret && (
 					<Elements stripe={stripePromise} options={options}>

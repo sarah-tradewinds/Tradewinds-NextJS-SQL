@@ -1,29 +1,30 @@
 import { Menu, Transition } from '@headlessui/react';
-import { i18n } from 'next-i18next';
+import { i18n, useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { Fragment } from 'react';
 
 const supportedLocales = [
 	{
 		code: 'en',
-		name: 'English'
+		name: 'english'
 	},
 	{
 		code: 'es',
-		name: 'Spanish'
+		name: 'spanish'
 	},
 	{
 		code: 'fr',
-		name: 'French'
+		name: 'french'
 	},
 	{
 		code: 'pt',
-		name: 'Portuguese'
+		name: 'portuguese'
 	}
 ];
 
 const LanguageDropdown: React.FC = () => {
 	const { push, pathname, query, asPath, locale } = useRouter();
+	const { t } = useTranslation('common');
 
 	const localeHandler = (locale: string) => {
 		i18n?.changeLanguage(locale);
@@ -44,7 +45,7 @@ const LanguageDropdown: React.FC = () => {
 			<Menu as="div" className="relative inline-block text-left">
 				<div>
 					<Menu.Button className="flex items-center space-x-1 font-semibold">
-						<span>{selectedLocale.name}</span>
+						<span>{t(selectedLocale.name)}</span>
 						<span className="hidden md:inline">&gt;</span>
 					</Menu.Button>
 				</div>
@@ -70,7 +71,7 @@ const LanguageDropdown: React.FC = () => {
 													: ''
 											}`}
 										>
-											{name}
+											name
 										</button>
 									</Menu.Item>
 								);

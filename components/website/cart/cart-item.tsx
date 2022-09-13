@@ -184,8 +184,13 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 								</div>
 
 								<div className="mt-2 hidden text-primary-main md:block">
-									<p>Price Per unit: ${productPrice}</p>
-									<p>{minOrderQuantity} Pieces /Min. Order</p>
+									<p>
+										{t('common:price_per_unit')}: ${productPrice}
+									</p>
+									<p>
+										{minOrderQuantity} {t('common:pieces')} /
+										{t('common:min_order')}
+									</p>
 								</div>
 							</div>
 
@@ -194,7 +199,7 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 								<div className="">
 									<div>
 										<span className="text-[15px] font-semibold text-primary-main md:text-[21px]">
-											Qty:
+											{t('cart:qty')}:
 										</span>
 										<input
 											value={productQuantity}
@@ -209,22 +214,25 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 										}
 									>
 										<p className="text-right text-[12px] font-semibold text-accent-primary-main md:text-[18px]">
-											Update
+											{t('cart:update')}
 										</p>
 									</Button>
 								</div>
 								<p className="text-[15px] font-semibold text-primary-main md:text-[21px]">
-									Total: ${total}
+									{t('cart:total')}: ${total}
 								</p>
 							</div>
 
 							{/* for small screen */}
 							<div className="col-span-12 text-[12px] text-accent-primary-main md:hidden">
-								<p>Big Bad Ass Tractor</p>
+								<p>{productName}</p>
 								<p className="font-semibold">
-									Price Per unit: ${productPrice}
+									{t('common:price_per_unit')}: ${productPrice}
 								</p>
-								<p>{minOrderQuantity} Pieces /Min. Order</p>
+								<p>
+									{minOrderQuantity} {t('common:pieces')} /
+									{t('common:min_order')}
+								</p>
 							</div>
 						</div>
 
@@ -243,17 +251,17 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 			{/* Delete, save, ratings and isVerified */}
 			<div className="col-span-12 mt-2 items-center justify-between md:mt-4 md:flex">
 				<Button className="ml-6 hidden !border !text-primary-main md:block">
-					Message Vendor
+					{t('common:message_vendor')}
 				</Button>
 				<div className="flex justify-center space-x-4 text-accent-primary-main md:justify-start">
 					<p
 						onClick={onRemove}
 						className="cursor-pointer border-r pr-4"
 					>
-						Delete
+						{t('cart:delete')}
 					</p>
 					<p onClick={() => {}} className="cursor-pointer">
-						Save for later
+						{t('cart:save_for_later')}
 					</p>
 				</div>
 				<div className="hidden items-center space-x-32 md:flex">

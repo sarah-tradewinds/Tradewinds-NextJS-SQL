@@ -197,7 +197,7 @@ const Header = () => {
 										className="flex flex-col items-center justify-center rounded-none !px-4 py-3 transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary"
 									>
 										<AiOutlineDashboard size={35} />
-										<p>Dashboard</p>
+										<p>{t('common:dashboard')}</p>
 									</Button>
 
 									<Button

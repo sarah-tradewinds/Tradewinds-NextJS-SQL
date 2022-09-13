@@ -9,6 +9,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 // store
 import AddressModal from 'components/website/address/address-modal';
 import { createOrder } from 'lib/order';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAuthStore } from 'store/auth';
@@ -16,6 +17,7 @@ import { useCartStore } from 'store/cart-store';
 
 const CartPage: NextPage = () => {
 	const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
+	const { t } = useTranslation();
 
 	const { customerData, isAuth, setIsLoginOpen } = useAuthStore(
 		(state) => ({
@@ -111,32 +113,34 @@ const CartPage: NextPage = () => {
 						{/* Stat cards */}
 						<div className="space-y-4 bg-white px-4 py-2 pb-8 shadow-md md:rounded-md">
 							<p className="text-[18px]  font-semibold text-primary-main md:text-[38px]">
-								Hi, {customerData.name || 'Guest'}
+								{t('common:hi')},{' '}
+								{customerData.name || t('common:guest')}
 							</p>
 
 							{/* For small device */}
 							<div className="space-y-2 px-8 md:hidden">
 								<div className="flex flex-col items-end">
 									<p className="text-[14px] font-semibold text-gray">
-										Total number of items
+										{t('cart:total_number_of_items_in_cart')}
 										<span>: {totalCartItemCount}</span>
 									</p>
 									<p className="text-[14px] font-semibold text-gray">
-										Total number of SKUs
+										{t('cart:total_number_of_skus')}
 										<span>: {totalCartItemCount}</span>
 									</p>
 								</div>
 								<div className="flex flex-col items-end space-y-2">
 									<div className="text-[14px] font-semibold">
 										<p className="text-gray">
-											Subtotal ({totalCartItemCount} items)
+											{t('cart:subtotal')} ({totalCartItemCount}{' '}
+											{t('cart:items')})
 										</p>
 										<p className="text-right text-primary-main">
 											${subtotal}
 										</p>
 									</div>
 									<Button onClick={cartReviewHandler} variant="special">
-										Proceed to checkout
+										{t('cart:proceed_to_checkout')}
 									</Button>
 								</div>
 							</div>
@@ -144,7 +148,7 @@ const CartPage: NextPage = () => {
 							{/* For medium device */}
 							<div className="hidden md:block">
 								<p className="text-[26px] font-semibold text-gray">
-									Total number of items in cart
+									{t('cart:total_number_of_items_in_cart')}
 								</p>
 								<p className="text-center text-[38px] font-semibold">
 									{/* <span className="text-gray">Qty:</span> */}
@@ -158,7 +162,8 @@ const CartPage: NextPage = () => {
 						<div className="hidden flex-col items-center space-y-4 rounded-md bg-white p-2 pb-8 shadow-md md:flex">
 							<div className="text-[35px] font-semibold">
 								<p className="text-gray">
-									Subtotal ({totalCartItemCount} items):
+									{t('cart:subtotal')} ({totalCartItemCount}{' '}
+									{t('cart:items')}):
 								</p>
 								<p className="text-center text-primary-main">
 									${subtotal}
@@ -169,7 +174,7 @@ const CartPage: NextPage = () => {
 								variant="special"
 								className="h-[71px] !text-[30px]"
 							>
-								Review and purchase
+								{t('cart:review_and_purchase')}
 							</Button>
 						</div>
 					</div>
@@ -178,7 +183,7 @@ const CartPage: NextPage = () => {
 				{/* carts product list */}
 				<div className="col-span-12 bg-white px-4 py-2">
 					<h3 className="mb-4 border-b-2 border-gray/40 text-[18px] font-semibold text-primary-main md:text-[38px]">
-						Shopping Cart
+						{t('cart:shopping_cart')}
 					</h3>
 
 					<div>
@@ -206,7 +211,8 @@ const CartPage: NextPage = () => {
 					<div className="flex flex-col items-center space-y-4 rounded-md bg-white p-2 pb-8 shadow-md">
 						<div className="text-[35px] font-semibold">
 							<p className="text-gray">
-								Subtotal ({totalCartItemCount} items):
+								{t('cart:subtotal')} ({totalCartItemCount}{' '}
+								{t('cart:items')}):
 							</p>
 							<p className="text-center text-primary-main">
 								${subtotal}
@@ -217,7 +223,7 @@ const CartPage: NextPage = () => {
 							variant="special"
 							className="h-[71px] !text-[30px]"
 						>
-							Review and purchase
+							{t('cart:review_and_purchase')}
 						</Button>
 					</div>
 				</div>

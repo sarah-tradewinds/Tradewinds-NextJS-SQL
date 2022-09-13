@@ -4,6 +4,7 @@ import {
 	generateBuyerDashboardUrl
 } from 'data/buyer/buyer-actions';
 import { GetStaticProps, NextPage } from 'next';
+import { useTranslation } from 'next-i18next';
 
 // Third party packages
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -20,6 +21,7 @@ const CheckoutPage: NextPage = () => {
 	}));
 
 	const { query } = useRouter();
+	const { t } = useTranslation();
 
 	useEffect(() => {
 		const {
@@ -41,12 +43,12 @@ const CheckoutPage: NextPage = () => {
 	return (
 		<div className="container mx-auto flex flex-col items-center p-4 md:p-8">
 			<h1 className="text-center font-semibold text-primary-main md:text-[40px]">
-				Your order has been placed successfully{' '}
+				{t('cart:your_order_has_been_placed_successfully')}{' '}
 			</h1>
 
 			<div className="my-8 flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4">
 				<Button href="/" variant="buyer">
-					Continue Shopping
+					{t('cart:continue_shopping')}
 				</Button>
 				<Button
 					href={generateBuyerDashboardUrl({
@@ -56,7 +58,7 @@ const CheckoutPage: NextPage = () => {
 					})}
 					className="border-2 border-accent-primary-main !text-accent-primary-main hover:bg-accent-primary-main hover:!text-white"
 				>
-					See all orders
+					{t('cart:see_all_orders')}
 				</Button>
 			</div>
 		</div>

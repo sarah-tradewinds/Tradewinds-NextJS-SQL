@@ -7,6 +7,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // store
 import { getOrderById, getPaymentIntentByOrderId } from 'lib/order';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAuthStore } from 'store/auth';
@@ -21,7 +22,7 @@ const CartReviewPage: NextPage = () => {
 			setIsLoginOpen: state.setIsLoginOpen
 		})
 	);
-
+	const { t } = useTranslation();
 	const cartProducts = useCartStore((state) => state.cartProducts);
 
 	const [orderReview, setOrderReview] = useState({});
@@ -75,25 +76,26 @@ const CartReviewPage: NextPage = () => {
 					{/* Stat cards */}
 					<div className="space-y-4 bg-white px-4 py-2 pb-8 shadow-md md:rounded-md">
 						<p className="text-[18px]  font-semibold text-primary-main md:text-[38px]">
-							Hi, {customerData.name}
+							{t('common:hi')}, {customerData.name}
 						</p>
 
 						{/* For small device */}
 						<div className="space-y-2 px-8 md:hidden">
 							<div className="flex flex-col items-end">
 								<p className="text-[14px] font-semibold text-gray">
-									Total number of items
+									{t('cart:total_number_of_items_in_cart')}
 									<span>: {totalCartItemCount}</span>
 								</p>
 								<p className="text-[14px] font-semibold text-gray">
-									Total number of SKUs
+									{t('cart:total_number_of_skus')}
 									<span>: {totalCartItemCount}</span>
 								</p>
 							</div>
 							<div className="flex flex-col items-end space-y-2">
 								<div className="text-[14px] font-semibold">
 									<p className="text-gray">
-										Subtotal ({totalCartItemCount} items)
+										{t('cart:subtotal')} ({totalCartItemCount}{' '}
+										{t('cart:items')})
 									</p>
 									<p className="text-right text-primary-main">
 										${sub_total}
@@ -101,7 +103,7 @@ const CartReviewPage: NextPage = () => {
 								</div>
 								<Button onClick={gotoCheckout} variant="product">
 									{' '}
-									Buy now
+									{t('cart:buy_now')}
 								</Button>
 							</div>
 						</div>
@@ -109,7 +111,8 @@ const CartReviewPage: NextPage = () => {
 						{/* For medium and large device */}
 						<div className="hidden md:block">
 							<p className="text-[26px] font-semibold text-gray">
-								Total number of items in cart: {totalCartItemCount}
+								{t('cart:total_number_of_items_in_cart')}:{' '}
+								{totalCartItemCount}
 							</p>
 							{/* <p className="text-center text-[38px] font-semibold">
 								<span className="text-gray">Qty:</span>
@@ -123,7 +126,8 @@ const CartReviewPage: NextPage = () => {
 					<div className="hidden flex-col items-center space-y-4 rounded-md bg-white p-2 pb-8 shadow-md md:flex">
 						<div className="text-[35px] font-semibold">
 							<p className="text-gray">
-								Subtotal ({totalCartItemCount} items):
+								{t('cart:subtotal')} ({totalCartItemCount}{' '}
+								{t('cart:items')}):
 							</p>
 							<p className="text-center text-primary-main">
 								${sub_total}
@@ -134,7 +138,7 @@ const CartReviewPage: NextPage = () => {
 							variant="product"
 							className="h-[71px] !text-[30px]"
 						>
-							Buy now
+							{t('cart:buy_now')}
 						</Button>
 					</div>
 				</div>
@@ -153,7 +157,7 @@ const CartReviewPage: NextPage = () => {
 						{/* Billed to */}
 						<div className="md:w-[400px]">
 							<p className="text-[18px] font-semibold text-accent-primary-main md:text-[25px]">
-								Billed to:
+								{t('cart:bill_to')}:
 							</p>
 							<p className="text-[15px] text-gray md:ml-16 md:text-[18px]">
 								{getLocaleText(
@@ -165,7 +169,7 @@ const CartReviewPage: NextPage = () => {
 						{/* Email */}
 						<p>
 							<span className="block text-[18px] font-semibold text-accent-primary-main md:inline-block md:w-[116px] md:text-[25px]">
-								Email:
+								{t('auth:email')}:
 							</span>
 							<span className="text-[18px] text-gray">
 								{billing_address?.email || customerData.email}
@@ -174,7 +178,7 @@ const CartReviewPage: NextPage = () => {
 						{/* Phone */}
 						<p>
 							<span className="block text-[18px] font-semibold text-accent-primary-main md:inline-block md:w-[116px] md:text-[25px]">
-								Phone:
+								{t('auth:phone')}:
 							</span>
 							<span className="text-[18px] text-gray">
 								{billing_address?.phone}
@@ -187,7 +191,7 @@ const CartReviewPage: NextPage = () => {
 						{/* Ship to */}
 						<div className="md:w-[400px]">
 							<p className="text-[18px] font-semibold text-accent-primary-main md:text-[25px]">
-								Ship to:
+								{t('cart:ship_to')}:
 							</p>
 							<p className="text-[15px] text-gray md:ml-16 md:text-[18px]">
 								{getLocaleText(
@@ -199,7 +203,7 @@ const CartReviewPage: NextPage = () => {
 						{/* Email */}
 						<p>
 							<span className="block text-[18px] font-semibold text-accent-primary-main md:inline-block md:w-[116px] md:text-[25px]">
-								Email:
+								{t('auth:email')}:
 							</span>
 							<span className="text-[18px] text-gray">
 								{shipping_address?.email || customerData.email}
@@ -208,7 +212,7 @@ const CartReviewPage: NextPage = () => {
 						{/* Phone */}
 						<p>
 							<span className="block text-[18px] font-semibold text-accent-primary-main md:inline-block md:w-[116px] md:text-[25px]">
-								Phone:
+								{t('auth:phone')}:
 							</span>
 							<span className="text-[18px] text-gray">
 								{shipping_address?.phone}
@@ -220,14 +224,14 @@ const CartReviewPage: NextPage = () => {
 				{/* order summary */}
 				<div className="mt-8">
 					<p className="border-b border-gray text-[18px] font-semibold text-primary-main md:text-[25px]">
-						Order Summary
+						{t('common:order_summary')}:
 					</p>
 					<table className="w-ful">
 						<tr className="text-[18px] text-accent-primary-main md:text-[25px]">
 							<th className="w-1/4 md:w-1/4">Item</th>
-							<th className="w-1/4 md:w-1/4">QTY</th>
-							<th className="w-1/2 md:w-1/2">Unit Price</th>
-							<th className="w-1/4 md:w-1/2">Total</th>
+							<th className="w-1/4 md:w-1/4">{t('cart:unit_price')}</th>
+							<th className="w-1/2 md:w-1/2">{t('cart:total')}</th>
+							<th className="w-1/4 md:w-1/2">{t('cart:total')}</th>
 						</tr>
 						<tbody>
 							{cartProducts?.map((cartProduct: any) => {
@@ -255,13 +259,6 @@ const CartReviewPage: NextPage = () => {
 									</tr>
 								);
 							})}
-							{/*
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td className="pt-8 text-center">${sub_total}</td>
-							</tr> */}
 						</tbody>
 					</table>
 				</div>
@@ -269,14 +266,14 @@ const CartReviewPage: NextPage = () => {
 				{/* shipping and handling */}
 				<div className="mt-4">
 					<p className="border-b border-gray text-[18px] font-semibold text-primary-main md:text-[25px]">
-						Shipping & Handling
+						{t('common:shipping_and_handling')}:
 					</p>
 					<div className="mt-4 flex justify-end space-x-16">
 						<div className="text-[18px] text-gray">
-							<p>Item Subtotal</p>
-							<p>Shipping & Handling</p>
-							<p>Transaction Fees</p>
-							<p>Taxes</p>
+							<p>{t('cart:item_subtotal')}</p>
+							<p>{t('common:shipping_and_handling')}:</p>
+							<p>{t('common:transaction_fees')}</p>
+							<p>{t('common:taxes')}</p>
 						</div>
 						<div className="text-[18px] text-gray">
 							<p>${sub_total}</p>
@@ -287,16 +284,14 @@ const CartReviewPage: NextPage = () => {
 					</div>
 					{/* Total container */}
 					<p className="text-[8px] font-semibold text-primary-main">
-						Please note, buyer will be responsible for any applicable
-						VAT, import, Customs, Nationalization fees if applicable
+						{t(
+							'cart:please_note_buyer_will_be_responsible_for_any_applicable_vat_import_customs_nationalization_fees_if_applicable'
+						)}
 					</p>
 					<div className="mt-1 flex justify-between bg-gray/20 px-4 py-2 text-[18px] font-semibold md:justify-end md:space-x-16 md:text-[25px]">
-						<p>Grand Total</p>
+						<p>{t('common:grand_total')}</p>
 						<div>
 							<p>${grand_total}</p>
-							{/* <p className="mt-0 text-right text-[8px] font-semibold text-primary-main">
-								Transation fee apply
-							</p> */}
 						</div>
 					</div>
 				</div>
@@ -304,11 +299,11 @@ const CartReviewPage: NextPage = () => {
 				{/* actions */}
 				<div className="mt-4 flex flex-col items-center">
 					<Button onClick={gotoCheckout} variant="product">
-						Buy now
+						{t('cart:buy_now')}
 					</Button>
 					<Button onClick={() => router.back()} className="mt-4">
 						<span className="text-[18px] font-semibold text-accent-primary-main">
-							Back to cart
+							{t('cart:back_to_cart')}
 						</span>
 					</Button>
 				</div>

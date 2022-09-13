@@ -166,7 +166,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 				</div>
 			}
 			alt={t('common:save')}
-			title={t('Cart')}
+			title={t('cart')}
 			className="cursor-pointer"
 			onClick={onCartClick}
 		/>

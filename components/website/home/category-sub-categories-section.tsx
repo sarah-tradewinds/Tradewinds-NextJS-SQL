@@ -13,6 +13,7 @@ import CategoryCard from './common/category-card';
 import SubCategoryCard from './common/sub-category-card';
 import SubCategorySlider from './sub-category-slider';
 
+import { useTranslation } from 'next-i18next';
 import { useCategoryStoreCopy } from '../../../store/category-store-copy';
 
 type CategorySubCategoriesSectionProps = {
@@ -46,7 +47,7 @@ const CategorySubCategoriesSection: React.FC<
 		})
 	);
 
-	//
+	const { t } = useTranslation('common');
 	const { setMainCategory, setCategory } = useCategoryStoreCopy();
 
 	const isEco = useHomeStore((state) => state.isEco);
@@ -196,7 +197,10 @@ const CategorySubCategoriesSection: React.FC<
 							router.push(`/product-search-copy?${params}`);
 						}}
 						description={mainCategoryDescription}
-						buttonText={main_category.btnTxt}
+						buttonText={getLocaleText(
+							main_category.btnTxt || t('source_now'),
+							locale
+						)}
 						imageUrl={main_category?.image?.url}
 						alt={main_category.title?.en || ''}
 						bgHexColor={main_category.bgHexColor}

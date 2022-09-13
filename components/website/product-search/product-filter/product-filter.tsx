@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 // components
 import Button from 'components/website/common/form/button';
 import Input from 'components/website/common/form/input';
+import { useTranslation } from 'next-i18next';
 import React, { useState } from 'react';
 import { applyFiltersByUrl } from 'utils/nav-actions.utils';
 import CategoriesFilter from './categories-filter';
@@ -24,6 +25,8 @@ const ProductFilter: React.FC<ProductFilterProps> = (props) => {
 	const [minOrder, setMinOrder] = useState('0');
 	const [minPrice, setMinPrice] = useState('');
 
+	const { t } = useTranslation();
+
 	const { query, push } = useRouter();
 
 	return (
@@ -31,7 +34,7 @@ const ProductFilter: React.FC<ProductFilterProps> = (props) => {
 			{/* Categories filter */}
 			<div>
 				<h4 className="font-semibold text-gray md:text-[14px] lg:text-[18px]">
-					Categories
+					{t('navigation:categories_text')}
 				</h4>
 				{url ? <CategoriesFilterCopy /> : <CategoriesFilter />}
 			</div>

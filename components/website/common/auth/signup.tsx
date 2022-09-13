@@ -16,6 +16,7 @@ import { Modal } from '../modal/modal';
 import { buttonSpinner } from '../spinners/custom-spinners';
 // import { userSignup } from './auth-services';
 import { userSignup } from 'lib/customer/auth.lib';
+import { useTranslation } from 'next-i18next';
 
 const SignUp: React.FC = () => {
 	const BUTTON_SPINNER = buttonSpinner();
@@ -27,6 +28,7 @@ const SignUp: React.FC = () => {
 	const regPassword =
 		/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
 	const router = useRouter();
+	const { t } = useTranslation();
 	const [signupResult, setSignupResult] = useState({
 		message: '',
 		result: false,
@@ -137,22 +139,27 @@ const SignUp: React.FC = () => {
 
 		if (!(signupData?.password && signupData?.confirm_password)) {
 			if (!signupData?.password)
-				setError({ ...error, password: 'Please enter both password' });
+				setError({
+					...error,
+					password: t('auth:please_enter_both_password')
+				});
 			if (!signupData?.confirm_password)
 				setError({
 					...error,
-					confirm_password: 'Please enter both password'
+					confirm_password: t('auth:please_enter_both_password')
 				});
 			return false;
 		}
 		if (signupData?.password !== signupData?.confirm_password) {
-			setError({ ...error, password: 'Password do not match' });
+			setError({ ...error, password: t('auth:password_do_not_match') });
 			return false;
 		}
 		if (signupData?.password?.length < 8) {
 			setError({
 				...error,
-				password: 'Password should be at least 8 characters long'
+				password: t(
+					'auth:password_should_be_at_least_8_characters_long'
+				)
 			});
 			return false;
 		}
@@ -160,7 +167,7 @@ const SignUp: React.FC = () => {
 		if (!regPassword.test(signupData?.password)) {
 			setError({
 				...error,
-				password: 'Password policy is not followed'
+				password: t('auth:password_policy_is_not_followed')
 			});
 
 			return false;
@@ -169,7 +176,7 @@ const SignUp: React.FC = () => {
 		if (!regPassword.test(signupData?.confirm_password)) {
 			setError({
 				...error,
-				confirm_password: 'Password policy is not followed'
+				confirm_password: t('auth:password_policy_is_not_followed')
 			});
 
 			return false;
@@ -189,14 +196,14 @@ const SignUp: React.FC = () => {
 					<div className="flex justify-center rounded-md bg-white shadow-md md:mt-12 md:w-[740px] md:py-4 lg:w-[1000px] lg:justify-start lg:px-16">
 						<div className="flex h-[640px] flex-col items-center overflow-auto border-gray/40 py-8 md:h-auto lg:w-full lg:border-r lg:py-0 lg:pr-24">
 							<h2 className="mb-8 border-b border-gray/40 pb-4 text-3xl font-semibold text-black md:text-4xl">
-								Create an Account
+								{t('auth:create_an_account')}
 							</h2>
 
 							<div className="flex w-full justify-center border-b border-gray/40 pb-4">
 								<form className="space-y-4 px-8 lg:w-[360px] lg:px-0">
 									<Input
 										name="first_name"
-										placeholder="Give Name"
+										placeholder={t('auth:give_name')}
 										icon={<HiSparkles />}
 										isSmall={true}
 										required={true}
@@ -211,12 +218,12 @@ const SignUp: React.FC = () => {
 									/>
 									{error?.first_name && (
 										<span className={`text-[12px] text-[red]`}>
-											Please enter firstname
+											{t('auth:please_enter_first_name')}
 										</span>
 									)}
 									<Input
 										name="last_name"
-										placeholder="Surname"
+										placeholder={t('auth:surname')}
 										icon={<HiSparkles />}
 										isSmall={true}
 										required={true}
@@ -231,12 +238,12 @@ const SignUp: React.FC = () => {
 									/>
 									{error?.last_name && (
 										<span className={`text-[12px] text-[red]`}>
-											Please enter lastName
+											{t('auth:please_enter_last_name')}
 										</span>
 									)}
 									<Input
 										name="country"
-										placeholder="Country"
+										placeholder={t('auth:country')}
 										icon={<HiSparkles />}
 										isSmall={true}
 										required={true}
@@ -251,13 +258,13 @@ const SignUp: React.FC = () => {
 									/>
 									{error?.country && (
 										<span className={`text-[12px] text-[red]`}>
-											Please enter country
+											{t('auth:please_enter_country')}
 										</span>
 									)}
 									<Input
 										name="email"
 										type="email"
-										placeholder="Email"
+										placeholder={t('auth:email')}
 										icon={<HiSparkles />}
 										isSmall={true}
 										required={true}
@@ -272,13 +279,13 @@ const SignUp: React.FC = () => {
 									/>
 									{error?.email && (
 										<span className={`text-[12px] text-[red]`}>
-											Please enter email
+											{t('auth:please_enter_email')}
 										</span>
 									)}
 									<Input
 										name="phone_number"
 										type="number"
-										placeholder="Phone number"
+										placeholder={t('auth:phone_number')}
 										icon={<HiSparkles />}
 										isSmall={true}
 										required={true}
@@ -293,13 +300,13 @@ const SignUp: React.FC = () => {
 									/>
 									{error?.phone_number && (
 										<span className={`text-[12px] text-[red]`}>
-											Please enter phone number
+											{t('auth:please_enter_phone_number')}
 										</span>
 									)}
 									<Input
 										name="password"
 										type="password"
-										placeholder="Password"
+										placeholder={t('auth:password')}
 										icon={<HiSparkles />}
 										isSmall={true}
 										className="w-full"
@@ -319,7 +326,7 @@ const SignUp: React.FC = () => {
 									<Input
 										name="confirm_password"
 										type="password"
-										placeholder="Verify Password"
+										placeholder={t('auth:verify_password')}
 										icon={<HiSparkles />}
 										isSmall={true}
 										required={true}
@@ -356,7 +363,7 @@ const SignUp: React.FC = () => {
 												htmlFor="isSubscribeToEmail"
 												className="text-sm"
 											>
-												Send me occasional emails about TWM
+												{t('auth:send_me_occasional_emails_about_twm')}
 											</label>
 										</div>
 										<div className="flex space-x-2">
@@ -374,7 +381,7 @@ const SignUp: React.FC = () => {
 												htmlFor="isAcceptToTerms"
 												className="text-sm"
 											>
-												I agree to the Terms of Use
+												{t('auth:i_agree_to_the_terms_of_use')}
 											</label>
 										</div>
 									</div>
@@ -387,7 +394,7 @@ const SignUp: React.FC = () => {
 										}
 									>
 										{loading ? BUTTON_SPINNER : null}{' '}
-										<>Create My Account</>
+										<>{t('auth:create_my_account')}</>
 									</Button>
 
 									{signupResult.signupDone && !signupResult?.result && (
@@ -407,13 +414,13 @@ const SignUp: React.FC = () => {
 							</div>
 							<div>
 								<Button
-									className="mt-4 rounded-lg border border-accent-primary-main text-accent-primary-main"
+									className="mt-4 rounded-lg border border-accent-primary-main !text-accent-primary-main"
 									onClick={() => {
 										authStore.setIsSignUpOpen();
 										authStore.setIsLoginOpen();
 									}}
 								>
-									Already have an account? Log in
+									{t('auth:already_have_an_account_log_in')}
 								</Button>
 							</div>
 						</div>
@@ -442,19 +449,22 @@ const SignUp: React.FC = () => {
 				) : (
 					<div className="mt-16 items-center justify-center rounded-md bg-[#d1f0ff] p-8 shadow-md lg:w-[600px]">
 						<h1 className="font-large mt-4 mb-2 text-center text-3xl text-primary-main">
-							Thank you for registering
+							{t('auth:thank_you_for_registering')}
 						</h1>
 						<h4 className="font-small mb-4 text-center text-primary-main">
-							You are almost there! We sent an email to
+							{t('auth:you_are_almost_there_we_sent_an_email_to')}
 							<br />
 							<span className="font-bold">{signupData?.email}</span>
 						</h4>
 						<h4 className="font-small mb-4 text-center text-primary-main">
-							Just click on the link in that email to complete your
-							verification.
+							{t(
+								'auth:just_click_on_the_link_in_that_email_to_complete_your_verification'
+							)}
+							.
 							<br />
-							If you dont see it, you may need to <b>check your spam</b>
-							folder.
+							{t('auth:if_you_dont_see_it_you_may_need_to')}{' '}
+							<b>{t('auth:check_your_spam')}</b>
+							{t('common:folder')}.
 						</h4>
 
 						<h4 className="font-small mb-4 text-center font-bold text-primary-main">
