@@ -151,7 +151,6 @@ const CartPage: NextPage = () => {
 									{t('cart:total_number_of_items_in_cart')}
 								</p>
 								<p className="text-center text-[38px] font-semibold">
-									{/* <span className="text-gray">Qty:</span> */}
 									<span className="text-primary-main">
 										{totalCartItemCount}
 									</span>

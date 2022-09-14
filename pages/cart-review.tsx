@@ -114,12 +114,6 @@ const CartReviewPage: NextPage = () => {
 								{t('cart:total_number_of_items_in_cart')}:{' '}
 								{totalCartItemCount}
 							</p>
-							{/* <p className="text-center text-[38px] font-semibold">
-								<span className="text-gray">Qty:</span>
-								<span className="text-primary-main">
-									{totalCartItemCount}
-								</span>
-							</p> */}
 						</div>
 					</div>
 
@@ -229,8 +223,8 @@ const CartReviewPage: NextPage = () => {
 					<table className="w-ful">
 						<tr className="text-[18px] text-accent-primary-main md:text-[25px]">
 							<th className="w-1/4 md:w-1/4">Item</th>
+							<th className="w-1/4 md:w-1/4">{t('cart:qty')}</th>
 							<th className="w-1/4 md:w-1/4">{t('cart:unit_price')}</th>
-							<th className="w-1/2 md:w-1/2">{t('cart:total')}</th>
 							<th className="w-1/4 md:w-1/2">{t('cart:total')}</th>
 						</tr>
 						<tbody>
