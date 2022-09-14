@@ -14,7 +14,7 @@ import {
 	useSpecificCategoriesBySubCategoryId,
 	useSubCategoriesByCategoryId
 } from 'hooks/useMainCategories';
-import { useCategoryStoreCopy } from 'store/category-store-copy';
+import { useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';
 import { getLocaleText } from 'utils/get_locale_text';
 import styles from './mega-menu.module.css';
@@ -51,7 +51,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 		setCategory,
 		setSubCategory,
 		setSpecificCategory
-	} = useCategoryStoreCopy();
+	} = useCategoryStore();
 
 	// Fetching all main-categories
 	const { mainCategories, isMainCategoriesLoading } =
@@ -113,7 +113,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 										id,
 										mainCategory.title?.en || ''
 									);
-									router.push(`/product-search-copy?${params}`);
+									router.push(`/product-search?${params}`);
 								}}
 							>
 								<span className="hover: text-2xl hover:text-primary-main">
@@ -160,7 +160,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 									selectedMainCategory?.name || ''
 								);
 								const params = setCategory(id, title?.en || '');
-								router.push(`/product-search-copy?${params}`);
+								router.push(`/product-search?${params}`);
 							}}
 						>
 							<span>{getLocaleText(title || {}, locale)}</span>
@@ -209,7 +209,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 									id,
 									title?.en
 								);
-								router.push(`/product-search-copy?${params}`);
+								router.push(`/product-search?${params}`);
 							}}
 						>
 							<span>{getLocaleText(title || {}, locale)}</span>
@@ -269,7 +269,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 									id,
 									title?.en
 								);
-								router.push(`/product-search-copy?${params}`);
+								router.push(`/product-search?${params}`);
 							}}
 						>
 							<span>{getLocaleText(title || {}, locale)}</span>

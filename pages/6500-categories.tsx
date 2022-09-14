@@ -122,7 +122,7 @@ const CategoriesPage: NextPage<
 																	onClick={() => {
 																		removeCategoryFilter();
 																		router.push(
-																			`/product-search-copy?categories=${encodeURIComponent(
+																			`/product-search?categories=${encodeURIComponent(
 																				category
 																			)}`
 																		);

@@ -29,7 +29,6 @@ import {
 } from 'lib/home.lib';
 
 // stores
-import { useCategoryStore } from 'store/category-store';
 import { useCountriesStore } from 'store/countries-store';
 import { useHomeStore } from 'store/home';
 import useSWR from 'swr';
@@ -62,13 +61,6 @@ const HomePage: NextPage<
 		isEco
 	}));
 
-	// Loading mega-menu data here
-	const { fetchMainCategories, removeCategoryFilter } =
-		useCategoryStore((state) => ({
-			fetchMainCategories: state.fetchMainCategories,
-			removeCategoryFilter: state.removeCategoryFilter
-		}));
-
 	const { t } = useTranslation();
 
 	const { fetchCountries, removeSelectedCountries } = useCountriesStore(
@@ -83,10 +75,6 @@ const HomePage: NextPage<
 	useEffect(() => {
 		fetchCountries(homeCountries);
 		removeSelectedCountries();
-	}, []);
-
-	useEffect(() => {
-		fetchMainCategories();
 	}, []);
 
 	const searchCategoriesAndTrendingBanner = (
@@ -112,7 +100,7 @@ const HomePage: NextPage<
 						{t('Find the latest Trends')}
 					</h3>
 					<Button
-						href={`/product-search-copy?is_trending=${true}`}
+						href={`/product-search?is_trending=${true}`}
 						className="border-2 border-secondary text-[21px] font-bold text-secondary pc:!rounded-full"
 					>
 						See Trends
@@ -194,7 +182,7 @@ const HomePage: NextPage<
 							countries={homeCountries}
 							onCountryClick={(country) => {
 								router.push(
-									`/product-search-copy?region=${country?.region?.id}_${
+									`/product-search?region=${country?.region?.id}_${
 										country?.region?.name
 									}&country=${country?.id}_${country?.name?.en || ''}`
 								);

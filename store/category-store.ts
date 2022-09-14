@@ -1,467 +1,329 @@
 // Third party packages
-import {
-	getCategoriesByMainCategoryId,
-	getMainCategories,
-	getSpecificCategoriesBySubCategoryId,
-	getSubCategoriesByCategoryId
-} from 'lib/common.lib';
+import { applyFiltersByUrl } from 'utils/nav-actions.utils';
 import create from 'zustand';
 
-const categoryIds = {
-	categoryId: {
-		subCategoriesId: {
-			specificCategoryIds: [0]
-		}
-	}
-};
-
 interface CategoryState {
-	isLoading?: boolean;
 	// Property
 	selectedMainCategoryId: {
 		id: string;
 		name: string;
 	};
-	selectedCategoryIds: string[];
-	selectedSubCategoryIds: string[];
-	selectedSpecificCategoryIds: string[];
 	selectedCategoryAndSubCategoryAndSpecificCategoryIds: any;
-	allCategories: any[];
 
-	setSelectedAllCategoryId: (
-		mainCategoryId: string,
+	setMainCategory: (id: string, name: string) => any;
+	setCategory: (categoryId: string, categoryName: string) => any;
+	setSubCategory: (
 		categoryId: string,
+		categoryName: string,
 		subCategoryId: string,
+		subCategoryName: string
+	) => any;
+	setSpecificCategory: (
+		categoryId: string,
+		categoryName: string,
+		subCategoryId: string,
+		subCategoryName: string,
 		specificCategoryId: string,
-		isMegaMenu?: boolean
+		specificCategoryName: string
 	) => any;
-	setSelectedMainCategoryId: (id: string, name: string) => any;
-	setSelectedCategoryId: (
-		categoryId: string,
-		isMegaMenu?: boolean
-	) => any;
-	setSelectedSubCategoryId: (
-		categoryId: string,
-		subCategoryId: string,
-		isMegaMenu?: boolean
-	) => any;
-	setSelectedSpecificCategoryId: (
-		categoryId: string,
-		subCategoryId: string,
-		specificCategoryId: string,
-		isMegaMenu?: boolean
-	) => any;
+	setInitialIds: (query: any) => any;
 	removeCategoryFilter: () => any;
-
-	fetchMainCategories: (isEco?: boolean) => any;
-	fetchCategoriesByMainCategoryId: (
-		mainCategoryId: string,
-		isEco?: boolean
-	) => any;
-	fetchSubCategoriesByCategoryId: (
-		categoryId: string,
-		isEco?: boolean
-	) => any;
-	fetchSpecificCategoriesBySubCategoryId: (
-		subCategoryId: string,
-		isEco?: boolean
-	) => any;
 }
-
-const updateElementByIndex = (
-	list: string[],
-	elementId: string
-): string[] => {
-	const elementIndex = list.findIndex(
-		(selectedId) => selectedId === elementId
-	);
-
-	const updatedList: string[] = [...list];
-	if (elementIndex < 0) {
-		updatedList.push(elementId);
-	} else if (elementIndex >= 0) {
-		updatedList.splice(elementIndex, 1);
-	}
-	return updatedList;
-}; // End of updateElementByIndex function
 
 export const useCategoryStore = create<CategoryState>((set) => ({
 	selectedMainCategoryId: {
 		id: '',
 		name: ''
 	},
-	selectedCategoryIds: [],
-	selectedSubCategoryIds: [],
-	selectedSpecificCategoryIds: [],
 	selectedCategoryAndSubCategoryAndSpecificCategoryIds: {},
-	allCategories: [],
+	setInitialIds: (query: any) => {
+		const [mainCategoryId, mainCategoryName] = getIdAndName(
+			(query.main_category || '') as string
+		);
 
-	setSelectedAllCategoryId: (
-		mainCategoryId,
-		categoryId,
-		subCategoryId,
-		specificCategoryId,
-		isMegaMenu
-	) => {
+		const filters = query?.filters || '';
+		const parsedFilters = filters ? JSON.parse(filters) || {} : {};
+
+		// console.log({
+		// 	id: mainCategoryId,
+		// 	name: mainCategoryName
+		// });
+
 		set({
 			selectedMainCategoryId: {
 				id: mainCategoryId,
-				name: ''
+				name: mainCategoryName
 			},
-			selectedCategoryIds: [categoryId],
-			selectedSubCategoryIds: [subCategoryId],
-			selectedSpecificCategoryIds: [specificCategoryId],
-			allCategories: [
-				{
-					[categoryId]: {
-						[subCategoryId]: {
-							[specificCategoryId]: []
-						}
-					}
-				}
-			]
+			selectedCategoryAndSubCategoryAndSpecificCategoryIds:
+				parsedFilters
 		});
 	},
-	setSelectedMainCategoryId: (mainCategoryId: string, name: string) => {
+	setMainCategory: (mainCategoryId: string, name: string) => {
 		if (!mainCategoryId) {
 			return;
 		}
 
-		set(({ allCategories }) => {
-			// localStorage.setItem('main_category_id', mainCategoryId);
-			// localStorage.removeItem('category_ids');
-			const updatedAllCategories = allCategories.map((mainCategory) => {
-				delete mainCategory.categories;
-				return mainCategory;
-			});
+		const selectedMainCategoryId = {
+			id: mainCategoryId,
+			name
+		};
 
-			return {
-				selectedMainCategoryId: {
-					id: mainCategoryId,
-					name: name
-				},
-				selectedCategoryAndSubCategoryAndSpecificCategoryIds: {},
-				selectedCategoryIds: [],
-				selectedSubCategoryIds: [],
-				selectedSpecificCategoryIds: [],
-				allCategories: updatedAllCategories
-			};
+		set({
+			selectedMainCategoryId,
+			selectedCategoryAndSubCategoryAndSpecificCategoryIds: {}
 		});
+
+		return `main_category=${selectedMainCategoryId?.id}_${selectedMainCategoryId.name}`;
 	},
-	setSelectedCategoryId: (categoryId, isMegaMenu) => {
+	setCategory: (categoryId, categoryName) => {
 		if (!categoryId) return;
+
+		const categoryIdWithName = `${categoryId}_${categoryName}`;
+
+		let selectedMainCategory = {
+			id: '',
+			name: ''
+		};
+		let copySelectedCategoryAndSubCategoryAndSpecificCategoryIds: any =
+			{};
+
 		set(
 			({
-				selectedCategoryIds,
+				selectedMainCategoryId,
 				selectedCategoryAndSubCategoryAndSpecificCategoryIds
 			}) => {
+				selectedMainCategory = selectedMainCategoryId;
+
+				copySelectedCategoryAndSubCategoryAndSpecificCategoryIds =
+					selectedCategoryAndSubCategoryAndSpecificCategoryIds || {};
+
 				const isCategoryIdExists =
-					selectedCategoryAndSubCategoryAndSpecificCategoryIds[
-						categoryId
+					copySelectedCategoryAndSubCategoryAndSpecificCategoryIds[
+						categoryIdWithName
 					];
 
-				if (isMegaMenu) {
-					selectedCategoryAndSubCategoryAndSpecificCategoryIds = {
-						[categoryId]: {}
-					};
+				if (isCategoryIdExists) {
+					delete copySelectedCategoryAndSubCategoryAndSpecificCategoryIds[
+						categoryIdWithName
+					];
+				} else {
+					copySelectedCategoryAndSubCategoryAndSpecificCategoryIds[
+						categoryIdWithName
+					] = {};
 				}
-
-				if (!isMegaMenu) {
-					if (isCategoryIdExists) {
-						delete selectedCategoryAndSubCategoryAndSpecificCategoryIds[
-							categoryId
-						];
-					} else {
-						selectedCategoryAndSubCategoryAndSpecificCategoryIds[
-							categoryId
-						] = {};
-					}
-				}
-
-				const categoryIdKeys = updateElementByIndex(
-					selectedCategoryIds,
-					categoryId
-				);
-
-				// localStorage.setItem('category_ids', categoryIdKeys.toString());
-
-				console.log('[setSelectedCategoryId] got called');
 
 				return {
-					selectedCategoryAndSubCategoryAndSpecificCategoryIds,
-					selectedCategoryIds: categoryIdKeys
+					selectedCategoryAndSubCategoryAndSpecificCategoryIds
 				};
 			}
 		);
+
+		return getIdsInString(
+			selectedMainCategory.id,
+			selectedMainCategory.name,
+			copySelectedCategoryAndSubCategoryAndSpecificCategoryIds
+		);
 	},
-	setSelectedSubCategoryId: (categoryId, subCategoryId, isMegaMenu) => {
-		// if (!categoryId && !isMegaMenu) return;
+	setSubCategory: (
+		categoryId,
+		categoryName,
+		subCategoryId,
+		subCategoryName
+	) => {
+		const categoryIdWithName = `${categoryId}_${categoryName}`;
+		const subCategoryIdWithName = `${subCategoryId}_${subCategoryName}`;
+
+		let selectedMainCategory = {
+			id: '',
+			name: ''
+		};
+		let copySelectedCategoryAndSubCategoryAndSpecificCategoryIds: any =
+			{};
 
 		set(
 			({
-				selectedSubCategoryIds,
+				selectedMainCategoryId,
 				selectedCategoryAndSubCategoryAndSpecificCategoryIds
 			}) => {
+				selectedMainCategory = selectedMainCategoryId;
+				copySelectedCategoryAndSubCategoryAndSpecificCategoryIds = {
+					...(selectedCategoryAndSubCategoryAndSpecificCategoryIds ||
+						{})
+				};
+
 				let categoryIdObject =
-					selectedCategoryAndSubCategoryAndSpecificCategoryIds[
-						categoryId
+					copySelectedCategoryAndSubCategoryAndSpecificCategoryIds[
+						categoryIdWithName
 					];
 
 				let subCategoryIdObject;
 				if (categoryIdObject) {
-					subCategoryIdObject = categoryIdObject[subCategoryId];
+					subCategoryIdObject = categoryIdObject[subCategoryIdWithName];
 				} else {
-					selectedCategoryAndSubCategoryAndSpecificCategoryIds[
-						categoryId
+					copySelectedCategoryAndSubCategoryAndSpecificCategoryIds[
+						categoryIdWithName
 					] = {};
 				}
 
-				if (isMegaMenu) {
-					selectedCategoryAndSubCategoryAndSpecificCategoryIds = {
-						[categoryId]: { [subCategoryId]: [] }
-					};
+				if (subCategoryIdObject) {
+					delete copySelectedCategoryAndSubCategoryAndSpecificCategoryIds[
+						categoryIdWithName
+					][subCategoryIdWithName];
+				} else {
+					copySelectedCategoryAndSubCategoryAndSpecificCategoryIds[
+						categoryIdWithName
+					][subCategoryIdWithName] = [];
 				}
-
-				if (!isMegaMenu) {
-					if (subCategoryIdObject) {
-						delete selectedCategoryAndSubCategoryAndSpecificCategoryIds[
-							categoryId
-						][subCategoryId];
-					} else {
-						selectedCategoryAndSubCategoryAndSpecificCategoryIds[
-							categoryId
-						][subCategoryId] = [];
-					}
-				}
-
-				const subCategoryIds = updateElementByIndex(
-					selectedSubCategoryIds,
-					subCategoryId
-				);
 
 				return {
-					selectedCategoryAndSubCategoryAndSpecificCategoryIds,
-					selectedSubCategoryIds: subCategoryIds
+					selectedCategoryAndSubCategoryAndSpecificCategoryIds
 				};
 			}
 		);
+
+		return getIdsInString(
+			selectedMainCategory.id,
+			selectedMainCategory.name,
+			copySelectedCategoryAndSubCategoryAndSpecificCategoryIds
+		);
 	},
-	setSelectedSpecificCategoryId: (
+	setSpecificCategory: (
 		categoryId,
+		categoryName,
 		subCategoryId,
+		subCategoryName,
 		specificCategoryId,
-		isMegaMenu
-	) =>
+		specificCategoryName
+	) => {
+		const categoryIdWithName = `${categoryId}_${categoryName}`;
+		const subCategoryIdWithName = `${subCategoryId}_${subCategoryName}`;
+		const specificCategoryIdWithName = `${specificCategoryId}_${specificCategoryName}`;
+
+		let selectedMainCategory = {
+			id: '',
+			name: ''
+		};
+		let copySelectedCategoryAndSubCategoryAndSpecificCategoryIds: any =
+			{};
+
 		set(
 			({
-				selectedSpecificCategoryIds,
+				selectedMainCategoryId,
 				selectedCategoryAndSubCategoryAndSpecificCategoryIds
 			}) => {
+				selectedMainCategory = selectedMainCategoryId;
+				copySelectedCategoryAndSubCategoryAndSpecificCategoryIds = {
+					...(selectedCategoryAndSubCategoryAndSpecificCategoryIds ||
+						{})
+				};
+
 				let categoryIdsObject =
-					selectedCategoryAndSubCategoryAndSpecificCategoryIds[
-						categoryId
+					copySelectedCategoryAndSubCategoryAndSpecificCategoryIds[
+						categoryIdWithName
 					];
 
 				let specificCategoryIdList;
 				if (categoryIdsObject) {
-					specificCategoryIdList = categoryIdsObject[subCategoryId];
+					specificCategoryIdList =
+						categoryIdsObject[subCategoryIdWithName];
 				}
 
-				if (isMegaMenu) {
-					selectedCategoryAndSubCategoryAndSpecificCategoryIds = {
-						[categoryId]: {
-							[subCategoryId]: [specificCategoryId]
-						}
+				if (!categoryIdsObject) {
+					copySelectedCategoryAndSubCategoryAndSpecificCategoryIds[
+						categoryIdWithName
+					] = {
+						[subCategoryIdWithName]: [specificCategoryIdWithName]
 					};
+				} else if (
+					specificCategoryIdList &&
+					specificCategoryIdList.length > 0
+				) {
+					copySelectedCategoryAndSubCategoryAndSpecificCategoryIds[
+						categoryIdWithName
+					][subCategoryIdWithName] = specificCategoryIdList.filter(
+						(selectedSpecificCategoryId: string) =>
+							selectedSpecificCategoryId !== specificCategoryIdWithName
+					);
+				} else {
+					copySelectedCategoryAndSubCategoryAndSpecificCategoryIds[
+						categoryIdWithName
+					][subCategoryIdWithName] = [specificCategoryIdWithName];
 				}
-
-				if (!isMegaMenu) {
-					if (
-						specificCategoryIdList &&
-						specificCategoryIdList.length > 0
-					) {
-						selectedCategoryAndSubCategoryAndSpecificCategoryIds[
-							categoryId
-						][subCategoryId] = specificCategoryIdList.filter(
-							(selectedSpecificCategoryId: string) =>
-								selectedSpecificCategoryId !== specificCategoryId
-						);
-					} else {
-						selectedCategoryAndSubCategoryAndSpecificCategoryIds[
-							categoryId
-						][subCategoryId] = [specificCategoryId];
-					}
-				}
-
-				const specificCategoryIds = updateElementByIndex(
-					selectedSpecificCategoryIds,
-					specificCategoryId
-				);
 
 				return {
-					selectedCategoryAndSubCategoryAndSpecificCategoryIds,
-					selectedSpecificCategoryIds: specificCategoryIds
+					selectedCategoryAndSubCategoryAndSpecificCategoryIds
 				};
 			}
-		),
+		);
+
+		return getIdsInString(
+			selectedMainCategory.id,
+			selectedMainCategory.name,
+			copySelectedCategoryAndSubCategoryAndSpecificCategoryIds
+		);
+	},
 
 	removeCategoryFilter: () => {
-		localStorage.removeItem('main_category_id');
-		localStorage.removeItem('category_ids');
 		set(() => {
 			return {
 				selectedMainCategoryId: { id: '', name: '' },
-				selectedCategoryIds: [],
-				selectedSubCategoryIds: [],
-				selectedSpecificCategoryIds: []
+				selectedCategoryAndSubCategoryAndSpecificCategoryIds: {}
 			};
 		});
-	},
-
-	fetchMainCategories: async (isEco?: boolean) => {
-		const mainCategories = await getMainCategories(isEco);
-		set(() => {
-			// const localMainCategoryId =
-			// 	localStorage.getItem('main_category_id');
-
-			// let defaultMainCategoryId: string = localMainCategoryId || '';
-			// if (!localMainCategoryId) {
-			// 	defaultMainCategoryId = mainCategories[0]?.id?.toString();
-			// localStorage.setItem('main_category_id', defaultMainCategoryId);
-			// }
-
-			return {
-				// selectedMainCategoryId: defaultMainCategoryId,
-				allCategories: mainCategories
-			};
-		});
-	},
-	fetchCategoriesByMainCategoryId: async (
-		mainCategoryId: string,
-		isEco?: boolean
-	) => {
-		const categories = await getCategoriesByMainCategoryId(
-			mainCategoryId
-		);
-
-		set(({ allCategories }) => {
-			const updatedAllCategories = allCategories.map(
-				(mainCategory: any) => {
-					if (mainCategory.id === mainCategoryId) {
-						mainCategory.categories = categories;
-						mainCategory.isSelected = true;
-					} else {
-						mainCategory.categories = mainCategory.categories || [];
-						mainCategory.isSelected = false;
-					}
-					return mainCategory;
-				}
-			);
-
-			return {
-				selectedSubCategoryIds: [],
-				selectedSpecificCategoryIds: [],
-				allCategories: updatedAllCategories
-			};
-		});
-	},
-	fetchSubCategoriesByCategoryId: async (categoryId: string) => {
-		const subCategories = await getSubCategoriesByCategoryId(
-			categoryId
-		);
-
-		set(
-			({
-				allCategories,
-				selectedMainCategoryId,
-				selectedCategoryIds
-			}) => {
-				const updatedAllCategories: any[] = allCategories.map(
-					(allCategory: any) => {
-						if (
-							allCategory.id === selectedMainCategoryId.id &&
-							allCategory.categories?.length > 0
-						) {
-							const updatedCategories = allCategory.categories.map(
-								(category: any) => {
-									if (category.id === categoryId) {
-										category.subCategories = subCategories;
-										category.isSelected = !category.isSelected;
-									} else {
-										category.subCategories =
-											category.subCategories || [];
-										category.isSelected = category.isSelected;
-									}
-									return category;
-								}
-							);
-							allCategory.categories = updatedCategories;
-						}
-						return allCategory;
-					}
-				);
-
-				return {
-					selectedSubCategoryIds: [],
-					selectedSpecificCategoryIds: [],
-					allCategories: updatedAllCategories
-				};
-			}
-		);
-	},
-	fetchSpecificCategoriesBySubCategoryId: async (
-		subCategoryId: string
-	) => {
-		const specificCategories =
-			await getSpecificCategoriesBySubCategoryId(subCategoryId);
-
-		set(
-			({
-				allCategories,
-				selectedMainCategoryId,
-				selectedCategoryIds
-			}) => {
-				const updatedAllCategories = allCategories.map(
-					(allCategory: any) => {
-						if (
-							allCategory.id === selectedMainCategoryId.id &&
-							allCategory.categories?.length > 0
-						) {
-							const lastCategoryId =
-								selectedCategoryIds[selectedCategoryIds.length - 1];
-							const updatedCategories = allCategory.categories.map(
-								(category: any) => {
-									if (
-										category.id === lastCategoryId &&
-										category.subCategories?.length > 0
-									) {
-										const updatedSuCategories =
-											category.subCategories.map((subCategory: any) => {
-												if (subCategory.id === subCategoryId) {
-													subCategory.specificCategories =
-														specificCategories;
-												} else {
-													subCategory.specificCategories =
-														subCategory.specificCategories || [];
-												}
-												return subCategory;
-											});
-										category.subCategories = updatedSuCategories;
-									}
-									return category;
-								}
-							);
-							allCategory.categories = updatedCategories;
-						}
-						return allCategory;
-					}
-				);
-
-				return {
-					selectedSpecificCategoryIds: [],
-					allCategories: updatedAllCategories
-				};
-			}
-		);
+		return `/product-search`;
 	}
 }));
+
+export const getIdAndName = (idWithNameParam: string) => {
+	const idWithNames = idWithNameParam?.split(',') || [];
+
+	const ids = [];
+	const names = [];
+	let idWithName = '';
+
+	for (const idWithName of idWithNames) {
+		const [id, name] = idWithName.split('_') || [];
+		ids.push(id);
+		names.push(name);
+	}
+
+	return [ids?.toString(), names?.toString(), idWithName];
+}; // End of getIdAndName function
+
+export const getIdsInString = (
+	main_category_id: string,
+	main_category: string,
+	selectedCategoryAndSubCategoryAndSpecificCategoryIds: any
+): string => {
+	const categoryIdList: string[] = [];
+	const categoryNameList: string[] = [];
+	const subCategoryIdList: string[] = [];
+	const specificCategoryIdList: string[] = [];
+
+	for (let categoryIdWithName in selectedCategoryAndSubCategoryAndSpecificCategoryIds) {
+		const [categoryId, categoryName] =
+			categoryIdWithName.split('_') || [];
+		categoryIdList.push(categoryIdWithName);
+		categoryNameList.push(categoryName);
+
+		const subCategoryObject =
+			selectedCategoryAndSubCategoryAndSpecificCategoryIds[
+				categoryIdWithName
+			];
+
+		for (let subCategoryId in subCategoryObject) {
+			subCategoryIdList.push(subCategoryId);
+			const specificCategoryIds = subCategoryObject[subCategoryId];
+			specificCategoryIdList.push(...specificCategoryIds);
+		}
+	}
+
+	return `${applyFiltersByUrl({
+		main_category: `${main_category_id}_${main_category}`,
+		category: categoryIdList?.toString(),
+		sub_category: subCategoryIdList?.toString(),
+		sub_sub_category: specificCategoryIdList?.toString()
+	})}&filters=${JSON.stringify(
+		selectedCategoryAndSubCategoryAndSpecificCategoryIds
+	)}`;
+};

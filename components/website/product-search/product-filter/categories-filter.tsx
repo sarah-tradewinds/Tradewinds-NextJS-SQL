@@ -1,48 +1,46 @@
-// Third party packages
 import { useRouter } from 'next/router';
-import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
-import Skeleton from 'react-loading-skeleton';
 
-// data
-import { useCategoryStore } from 'store/category-store';
+// Third party packages
+import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
+
+// utils
+import { ContentSkeleton } from 'components/website/common/elements/skeleton/content.skeleton';
+import {
+	useCategoriesByMainCategoryId,
+	useMainCategories,
+	useSpecificCategoriesBySubCategoryId,
+	useSubCategoriesByCategoryId
+} from 'hooks/useMainCategories';
+import { getIdAndName, useCategoryStore } from 'store/category-store';
 import { getLocaleText } from 'utils/get_locale_text';
 
 const CategoriesFilter: React.FC = (props) => {
-	const { locale } = useRouter();
+	const { push, locale, query } = useRouter();
 
-	const {
-		selectedMainCategoryId,
-		allCategories,
-		selectedCategoryAndSubCategoryAndSpecificCategoryIds,
+	const { main_category } = query;
+	const [main_category_id] = getIdAndName(
+		(main_category || '') as string
+	);
 
-		setSelectedMainCategoryId,
-		setSelectedCategoryId,
-		setSelectedSubCategoryId,
-		setSelectedSpecificCategoryId
-	} = useCategoryStore();
+	const setMainCategory = useCategoryStore(
+		(state) => state.setMainCategory
+	);
 
-	const categoryIdList: string[] = [];
-	const subCategoryIdList: string[] = [];
-	const specificCategoryIdList: string[] = [];
-	for (let categoryId in selectedCategoryAndSubCategoryAndSpecificCategoryIds) {
-		categoryIdList.push(categoryId);
-		const subCategoryObject =
-			selectedCategoryAndSubCategoryAndSpecificCategoryIds[categoryId];
-		for (let subCategoryId in subCategoryObject) {
-			subCategoryIdList.push(subCategoryId);
-			const specificCategoryIds = subCategoryObject[subCategoryId];
-			specificCategoryIdList.push(...specificCategoryIds);
-		}
-	}
+	// Fetching all main-categories
+	const { mainCategories, isMainCategoriesLoading } =
+		useMainCategories();
+
+	// Fetching categories based on main_category_id
+	const { categories, isCategoriesLoading } =
+		useCategoriesByMainCategoryId(main_category_id);
 
 	return (
 		<div className="mt-4 space-y-2">
 			{/* Main categories */}
-			{allCategories.length <= 0 && <Skeleton count={24} />}
+			<ContentSkeleton isLoading={isMainCategoriesLoading} />
 
-			{allCategories.map((mainCategory: any) => {
-				const { id: mainCategoryId, categories = [] } =
-					mainCategory || {};
+			{mainCategories?.map((mainCategory: any) => {
+				const { id: mainCategoryId } = mainCategory || {};
 
 				const mainCategoryTitle = getLocaleText(
 					mainCategory?.title || {},
@@ -50,7 +48,7 @@ const CategoriesFilter: React.FC = (props) => {
 				);
 
 				const isMainCategorySelected =
-					selectedMainCategoryId.id === mainCategoryId;
+					main_category_id === mainCategoryId;
 
 				return (
 					<CategoryCollapse
@@ -59,107 +57,191 @@ const CategoriesFilter: React.FC = (props) => {
 						isOpen={isMainCategorySelected}
 						title={mainCategoryTitle}
 						onClick={() => {
-							setSelectedMainCategoryId(
-								isMainCategorySelected ? '' : mainCategoryId,
+							const params = setMainCategory(
+								mainCategoryId,
 								mainCategoryTitle
 							);
+							push(`/product-search?${params}`);
 						}}
 					>
+						<ContentSkeleton
+							isLoading={isCategoriesLoading}
+							containerClassName="pl-6"
+						/>
+
 						{/* Categories */}
 						{categories?.map((category: any) => {
-							const { id: categoryId, subCategories = [] } =
-								category || {};
-
-							const isCategorySelected =
-								categoryIdList.findIndex(
-									(selectedCategoryId) =>
-										selectedCategoryId === categoryId
-								) >= 0;
+							const { id: categoryId } = category || {};
 
 							return (
-								<CategoryCollapse
+								<CategoryList
 									key={categoryId}
 									id={categoryId}
-									isOpen={isCategorySelected}
-									title={getLocaleText(category?.title || {}, locale)}
-									onClick={() => setSelectedCategoryId(categoryId)}
-									className="ml-4"
-								>
-									{/* Sub Categories */}
-									{subCategories?.map((subCategory: any) => {
-										const {
-											id: subCategoryId,
-											specificCategories = []
-										} = subCategory || {};
-
-										const isSubCategorySelected =
-											subCategoryIdList.findIndex(
-												(selectedSubCategoryId) =>
-													selectedSubCategoryId === subCategoryId
-											) >= 0;
-
-										return (
-											<CategoryCollapse
-												key={subCategoryId}
-												id={subCategoryId}
-												isOpen={isSubCategorySelected}
-												title={getLocaleText(
-													subCategory?.title || {},
-													locale
-												)}
-												onClick={() =>
-													setSelectedSubCategoryId(
-														categoryId,
-														subCategoryId
-													)
-												}
-												className="ml-4"
-											>
-												{/* Specific Categories */}
-												{specificCategories?.map(
-													(specificCategory: any) => {
-														const { id: specificCategoryId } =
-															specificCategory || {};
-
-														const isSpecificCategorySelected =
-															specificCategoryIdList.includes(
-																specificCategoryId
-															);
-
-														return (
-															<button
-																key={specificCategoryId}
-																className={`ml-4 text-left ${
-																	isSpecificCategorySelected
-																		? 'font-semibold'
-																		: ''
-																}`}
-																onClick={() => {
-																	setSelectedSpecificCategoryId(
-																		categoryId,
-																		subCategoryId,
-																		specificCategoryId
-																	);
-																}}
-															>
-																{getLocaleText(
-																	specificCategory?.title || {},
-																	locale
-																)}
-															</button>
-														);
-													}
-												)}
-											</CategoryCollapse>
-										);
-									})}
-								</CategoryCollapse>
+									title={category?.title}
+								/>
 							);
 						})}
 					</CategoryCollapse>
 				);
 			})}
 		</div>
+	);
+};
+
+// CategoryList
+const CategoryList: React.FC<{
+	id: string;
+	title: any;
+	onClick?: () => any;
+	className?: string;
+}> = (props) => {
+	const { id, title } = props;
+	const { push, locale, query } = useRouter();
+
+	const { setCategory } = useCategoryStore();
+
+	const { category } = query;
+	const [category_id] = getIdAndName((category || '') as string);
+
+	const categoryIds = (category_id as string)?.split(',') || [];
+	const isCategorySelected = categoryIds.includes(id);
+
+	// Fetching sub-categories based on category_id
+	const { subCategories, isSubCategoriesLoading } =
+		useSubCategoriesByCategoryId(id);
+
+	const categoryName = title?.en;
+
+	return (
+		<CategoryCollapse
+			key={id}
+			id={id}
+			isOpen={isCategorySelected}
+			title={getLocaleText(title || {}, locale)}
+			onClick={() => {
+				const params = setCategory(id, categoryName);
+				push(`/product-search?${params}`);
+			}}
+			className="ml-4"
+		>
+			<ContentSkeleton
+				isLoading={isSubCategoriesLoading}
+				containerClassName="pl-6"
+			/>
+
+			{/* Sub Categories */}
+			{subCategories?.map((subCategory: any) => {
+				const { id: subCategoryId } = subCategory || {};
+
+				return (
+					<SubCategoryList
+						key={subCategoryId}
+						categoryId={id}
+						categoryTitle={categoryName}
+						id={subCategoryId}
+						title={subCategory?.title}
+					/>
+				);
+			})}
+		</CategoryCollapse>
+	);
+};
+
+const SubCategoryList: React.FC<{
+	categoryId: string;
+	categoryTitle: string;
+	id: string;
+	title: any;
+	onClick?: () => any;
+	className?: string;
+}> = (props) => {
+	const {
+		id: subCategoryId,
+		title: subCategoryTitle,
+		categoryId,
+		categoryTitle
+	} = props;
+	const { push, locale, query } = useRouter();
+
+	const { setSubCategory, setSpecificCategory } = useCategoryStore();
+
+	const { sub_category, sub_sub_category } = query;
+	const [sub_category_id] = getIdAndName(
+		(sub_category || '') as string
+	);
+
+	const [sub_sub_category_id] = getIdAndName(
+		(sub_sub_category || '') as string
+	);
+
+	const subCategoryIds = (sub_category_id as string)?.split(',') || [];
+	const isSubCategorySelected = subCategoryIds.includes(subCategoryId);
+
+	// Fetching specific-categories based on sub_category_id
+	const { specificCategories, isSpecificCategoriesLoading } =
+		useSpecificCategoriesBySubCategoryId(subCategoryId);
+
+	const subCategoryName = subCategoryTitle?.en;
+
+	return (
+		<CategoryCollapse
+			key={subCategoryId}
+			id={subCategoryId}
+			isOpen={isSubCategorySelected}
+			title={getLocaleText(subCategoryTitle || {}, locale)}
+			onClick={() => {
+				const params = setSubCategory(
+					categoryId,
+					categoryTitle,
+					subCategoryId,
+					subCategoryName
+				);
+				push(`/product-search?${params}`);
+			}}
+			className="ml-4"
+		>
+			<ContentSkeleton
+				isLoading={isSpecificCategoriesLoading}
+				containerClassName="pl-6"
+			/>
+
+			{/* Specific Categories */}
+			{specificCategories?.map((specificCategory: any) => {
+				const { id: specificCategoryId } = specificCategory || {};
+
+				const specificCategoryIds =
+					(sub_sub_category_id as string)?.split(',') || [];
+				const isSpecificCategorySelected =
+					specificCategoryIds.includes(specificCategoryId);
+
+				const specificCategoryTitle = getLocaleText(
+					specificCategory?.title || {},
+					locale
+				);
+
+				return (
+					<button
+						key={specificCategoryId}
+						className={`ml-4 text-left ${
+							isSpecificCategorySelected ? 'font-semibold' : ''
+						}`}
+						onClick={() => {
+							const params = setSpecificCategory(
+								categoryId,
+								categoryTitle,
+								subCategoryId,
+								subCategoryName,
+								specificCategoryId,
+								specificCategory?.title?.en
+							);
+							push(`/product-search?${params}`);
+						}}
+					>
+						{specificCategoryTitle}
+					</button>
+				);
+			})}
+		</CategoryCollapse>
 	);
 };
 

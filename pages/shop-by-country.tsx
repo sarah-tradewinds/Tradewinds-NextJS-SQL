@@ -52,7 +52,7 @@ const ShopByCountryPage: NextPage<
 		countryName: string
 	) => {
 		router.push(
-			`/product-search-copy?region=${regionId}_${regionName}&country=${countryId}_${countryName}`
+			`/product-search?region=${regionId}_${regionName}&country=${countryId}_${countryName}`
 		);
 	}; // End of countryClickHandler
 

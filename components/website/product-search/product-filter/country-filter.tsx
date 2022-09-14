@@ -7,14 +7,13 @@ import { getRegionsAndCountries } from 'lib/shop-by-country.lib';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
+import { getIdAndName } from 'store/category-store';
 import { useCountriesStore } from 'store/countries-store';
 import { getLocaleText } from 'utils/get_locale_text';
 
 const CountrySearchFilter: React.FC<{
 	onCountryChange?: (countryIds: string) => any;
 }> = (props) => {
-	const { onCountryChange } = props;
-
 	const [searchCounty, setSearchCounty] = useState('');
 	const [regionsAndCountryList, setRegionsAndCountryList] = useState<
 		any[]
@@ -22,12 +21,13 @@ const CountrySearchFilter: React.FC<{
 	const [filteredRegionsAndCountries, setFilteredRegionsAndCountries] =
 		useState<any[]>([]);
 
-	const { locale } = useRouter();
+	const { locale, push, query } = useRouter();
+
+	const { region, country } = query;
 
 	const {
 		regionsAndCountries,
 		fetchRegionsAndCountries,
-		selectedCountries,
 		setSelectedCountry
 	} = useCountriesStore();
 
@@ -44,23 +44,6 @@ const CountrySearchFilter: React.FC<{
 			fetchRegionsAndCountries();
 		}
 	}, [regionsAndCountries]);
-
-	// useEffect(() => {
-	// 	if (onCountryChange) {
-	// 		onCountryChange(getCountriesName(selectedCountries).toString());
-	// 	}
-	// }, [selectedCountries]);
-
-	// Setting filter
-	// useEffect(() => {
-	// 	setFilteredRegionsAndCountries([...regionsAndCountries]);
-	// }, [regionsAndCountries]);
-
-	// console.log('regionsAndCountryList =', regionsAndCountryList);
-	// console.log(
-	// 	'filteredRegionsAndCountries =',
-	// 	filteredRegionsAndCountries
-	// );
 
 	return (
 		<>
@@ -97,10 +80,17 @@ const CountrySearchFilter: React.FC<{
 				{regionsAndCountries.map((regionAndCountries) => {
 					const { countries = [] } = regionAndCountries || {};
 
+					const regionId = regionAndCountries?.id;
+
+					const [selectedRegionId] =
+						getIdAndName((region || '') as string) || [];
+
+					const isRegionSelected = regionId === selectedRegionId;
+
 					return (
 						<CountryCollapse
-							key={regionAndCountries?.id}
-							isOpen={regionAndCountries.isSelected}
+							key={regionId}
+							isOpen={isRegionSelected}
 							leading={countries?.length}
 							title={getLocaleText(
 								regionAndCountries?.name || {},
@@ -120,21 +110,33 @@ const CountrySearchFilter: React.FC<{
 							contentContainerClassName="flex-row-reverse space-x-4 justify-end "
 						>
 							<div>
-								{countries.map((country: any) => {
+								{countries.map((countryData: any) => {
 									const countryName = getLocaleText(
-										country.name || {},
+										countryData.name || {},
 										locale
 									);
 
+									const [selectedCountryId] =
+										getIdAndName((country || '') as string) || [];
+
+									const isCountrySelected =
+										countryData.id === selectedCountryId;
+
 									return (
 										<Button
-											key={country.id}
+											key={countryData.id}
 											className={`!block !min-h-[24px] !text-gray ${
-												country.isSelected ? '!text-black' : ''
+												isCountrySelected ? '!text-black' : ''
 											}`}
-											onClick={() =>
-												setSelectedCountry(country.id, countryName)
-											}
+											onClick={() => {
+												push(
+													`/product-search?region=${regionId}_${
+														regionAndCountries?.name?.en || ''
+													}&country=${countryData.id}_${
+														countryData?.name?.en || ''
+													}`
+												);
+											}}
 										>
 											{countryName}
 										</Button>

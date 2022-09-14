@@ -14,7 +14,6 @@ import SubCategoryCard from './common/sub-category-card';
 import SubCategorySlider from './sub-category-slider';
 
 import { useTranslation } from 'next-i18next';
-import { useCategoryStoreCopy } from '../../../store/category-store-copy';
 
 type CategorySubCategoriesSectionProps = {
 	catSubCat: CatSubCatSectionType;
@@ -40,15 +39,9 @@ const CategorySubCategoriesSection: React.FC<
 	const [screenSize, setScreenSize] = useState<null | number>(null);
 	const [isTablet, setIsTablet] = useState<boolean>(false);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
-	const { fetchCategoriesByMainCategoryId } = useCategoryStore(
-		(state) => ({
-			fetchCategoriesByMainCategoryId:
-				state.fetchCategoriesByMainCategoryId
-		})
-	);
 
 	const { t } = useTranslation('common');
-	const { setMainCategory, setCategory } = useCategoryStoreCopy();
+	const { setMainCategory, setCategory } = useCategoryStore();
 
 	const isEco = useHomeStore((state) => state.isEco);
 
@@ -77,12 +70,10 @@ const CategorySubCategoriesSection: React.FC<
 		categoryName: string
 	) => {
 		const mainCategoryId = main_category.id!;
-		fetchCategoriesByMainCategoryId(mainCategoryId, isEco);
-
 		setMainCategory(mainCategoryId, main_category.title?.en || '');
 
 		const params = setCategory(categoryId, categoryName);
-		router.push(`/product-search-copy?${params}`);
+		router.push(`/product-search?${params}`);
 	};
 
 	const subCategories = categories
@@ -132,7 +123,7 @@ const CategorySubCategoriesSection: React.FC<
 							main_category.id!,
 							main_category.title.en || ''
 						);
-						router.push(`/product-search-copy?${params}`);
+						router.push(`/product-search?${params}`);
 					}}
 					leading={
 						isOpen ? (
@@ -194,7 +185,7 @@ const CategorySubCategoriesSection: React.FC<
 								main_category.id!,
 								main_category.title.en || ''
 							);
-							router.push(`/product-search-copy?${params}`);
+							router.push(`/product-search?${params}`);
 						}}
 						description={mainCategoryDescription}
 						buttonText={getLocaleText(

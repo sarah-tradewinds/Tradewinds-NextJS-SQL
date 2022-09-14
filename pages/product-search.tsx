@@ -11,16 +11,17 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // components
 import CompareProductList from 'components/website/compare/compare-bottom-overlay/compare-overlay-product-list';
-import ProductFilter from 'components/website/product-search/product-filter/product-filter';
 import ProductList from 'components/website/product-search/product-list';
-import SubCategoryList from 'components/website/product-search/sub-category-list';
 
 // stores
 import ImageWithErrorHandler from 'components/website/common/elements/image-with-error-handler';
 import Seo from 'components/website/common/seo';
+import SubCategorySlider from 'components/website/home/sub-category-slider';
 import MainCategoryCard from 'components/website/product-search/main-category-card';
+import ProductFilter from 'components/website/product-search/product-filter/product-filter';
 import SubCategoryTile from 'components/website/product-search/sub-category-tile';
 import TrendingSectionTile from 'components/website/product-search/trending-section-tile';
+import { getMainCategories } from 'lib/common.lib';
 import {
 	getProducts,
 	getSelectedMainCategoryAndCategories
@@ -28,15 +29,9 @@ import {
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
-import { useCategoryStore } from 'store/category-store';
-import { useCountriesStore } from 'store/countries-store';
-import { useHomeStore } from 'store/home';
+import { getIdAndName, useCategoryStore } from 'store/category-store';
 import { useProductCompareStore } from 'store/product-compare-store';
-import {
-	getCountriesName,
-	getDataById,
-	getObjectKeys
-} from 'utils/common.util';
+import useSWR from 'swr';
 import { getLocaleText } from 'utils/get_locale_text';
 
 const ProductSearchPage: NextPage<
@@ -47,49 +42,25 @@ const ProductSearchPage: NextPage<
 	const [minPrice, setMinPrice] = useState('0');
 	const [maxPrice, setMaxPrice] = useState('0');
 	const [filterBuyEco, setFilterBuyEco] = useState(false);
-	const [selectedCountryCode, setSelectedCountryCode] = useState('');
 
-	const [localSelectedCategoryId, setLocalSelectedCategoryId] =
-		useState('');
-	const [localSelectedSubCategoryId, setLocalSelectedSubCategoryId] =
-		useState('');
-	const [
-		localSelectedSpecificCategoryId,
-		setLocalSelectedSpecificCategoryId
-	] = useState('');
-
-	const [selectedMainCategory, setSelectedMainCategory] =
-		useState<any>();
-	const [selectedCategories, setSelectedCategories] = useState([]);
 	const [
 		isSelectedMainCategoryAndCategoriesLoading,
 		setIsSelectedMainCategoryAndCategoriesLoading
 	] = useState(false);
+	const [selectedMainCategory, setSelectedMainCategory] =
+		useState<any>();
+	const [selectedCategories, setSelectedCategories] = useState([]);
+	const [isInitialFilterSet, setIsInitialFilterSet] = useState(false);
 
-	const isEco = useHomeStore((state) => state.isEco);
+	const { push, query } = useRouter();
 
-	const selectedCountries = useCountriesStore(
-		(state) => state.selectedCountries
-	);
+	const { main_category, category } = query;
+	const [categoryId] = getIdAndName((query.category || '') as string);
 
-	const {
-		allCategories,
-		selectedMainCategoryId,
-		selectedCategoryIds,
-		setSelectedMainCategoryId,
-		setSelectedCategoryId,
-		setSelectedSubCategoryId,
-		setSelectedSpecificCategoryId,
-		setSelectedAllCategoryId,
-		selectedSubCategoryIds,
-		selectedSpecificCategoryIds,
-		selectedCategoryAndSubCategoryAndSpecificCategoryIds,
-
-		fetchMainCategories,
-		fetchCategoriesByMainCategoryId,
-		fetchSubCategoriesByCategoryId,
-		fetchSpecificCategoriesBySubCategoryId
-	} = useCategoryStore();
+	const [
+		localSelectedSpecificCategoryId,
+		setLocalSelectedSpecificCategoryId
+	] = useState('');
 
 	const {
 		compareProducts,
@@ -98,208 +69,81 @@ const ProductSearchPage: NextPage<
 		removeAllProductFromCompareList
 	} = useProductCompareStore();
 
-	const router = useRouter();
+	const setCategory = useCategoryStore((state) => state.setCategory);
 
-	const mainCategory = getDataById(
-		allCategories,
-		selectedMainCategoryId.id
+	const setInitialIds = useCategoryStore(
+		(state) => state.setInitialIds
 	);
 
-	const categoryIdList: string[] = [];
-	const subCategoryIdList: string[] = [];
-	const specificCategoryIdList: string[] = [];
-	for (let categoryId in selectedCategoryAndSubCategoryAndSpecificCategoryIds) {
-		categoryIdList.push(categoryId);
-		const subCategoryObject =
-			selectedCategoryAndSubCategoryAndSpecificCategoryIds[categoryId];
-		for (let subCategoryId in subCategoryObject) {
-			subCategoryIdList.push(subCategoryId);
-			const specificCategoryIds = subCategoryObject[subCategoryId];
-			specificCategoryIdList.push(...specificCategoryIds);
-		}
-	}
+	const router = useRouter();
 
-	const subCategoryList = (mainCategory as any)?.categories || [];
-
+	// swr
 	// Fetching mainCategories
-	useEffect(() => {
-		if (allCategories.length <= 0) {
-			fetchMainCategories(isEco);
-		}
-	}, [allCategories.length, isEco]);
+	const {} = useSWR('main_category', getMainCategories);
 
-	// Fetching categories based on mainCategoryId
 	useEffect(() => {
-		if (selectedMainCategoryId.id) {
-			fetchCategoriesByMainCategoryId(selectedMainCategoryId.id, isEco);
-		}
-	}, [selectedMainCategoryId.id]);
+		const [mainCategoryId] =
+			getIdAndName((query.main_category || '') as string) || [];
 
-	// Fetching sub-categories based on selectedCategoryIds
-	useEffect(() => {
-		const categoriesIds = getObjectKeys(
-			selectedCategoryAndSubCategoryAndSpecificCategoryIds
-		);
-		if (categoriesIds.length > 0) {
-			fetchSubCategoriesByCategoryId(
-				categoriesIds.toString(),
-				isEco
-			).then(() => {
-				// setSelectedSubCategoryId(
-				// 	localSelectedCategoryId,
-				// 	localSelectedSubCategoryId
-				// );
-			});
+		if (!mainCategoryId && query.filters) {
+			push('/product-search');
+			return;
 		}
-	}, [selectedCategoryIds.length]);
 
-	// Fetching specific-categories based on selectedSubCategoryIds
-	useEffect(() => {
-		if (subCategoryIdList.length > 0) {
-			fetchSpecificCategoriesBySubCategoryId(
-				subCategoryIdList.toString(),
-				isEco
-			);
+		if (query && !isInitialFilterSet) {
+			setInitialIds(query);
+			setIsInitialFilterSet(true);
 		}
-	}, [selectedSubCategoryIds]);
+	}, [isInitialFilterSet]);
 
 	// Fetching selectedMainCategory and selectedCategories
 	useEffect(() => {
-		if (selectedMainCategoryId.id) {
+		const [mainCategoryId] = getIdAndName(
+			(main_category || '') as string
+		);
+
+		if (mainCategoryId) {
 			setIsSelectedMainCategoryAndCategoriesLoading(true);
 			getSelectedMainCategoryAndCategories(
-				selectedMainCategoryId.id
+				mainCategoryId as string
 			).then((data) => {
 				setSelectedMainCategory(data.main_category || {});
 				setSelectedCategories(data.categories || []);
 				setIsSelectedMainCategoryAndCategoriesLoading(false);
 			});
 		}
-	}, [selectedMainCategoryId.id]);
-
-	// Fetching products based on categories
-	useEffect(() => {
-		const { query: searchQuery, categories } = router.query;
-
-		if (!selectedMainCategoryId.id && !searchQuery && categories) {
-			getProducts({
-				price_start: +(minPrice || 0),
-				categories: (categories || '') as string,
-				is_eco: isEco
-			}).then((data: any) => {
-				let categories = data.categories || {};
-				const productList = data.data || [];
-				const [firstProduct] = productList;
-
-				if (!categories.main_category) {
-					if (firstProduct) {
-						categories = {
-							main_category: firstProduct?.main_category?.id,
-							category: firstProduct?.category?.id,
-							sub_category: firstProduct?.sub_category?.id,
-							sub_sub_category: firstProduct?.specific_category?.id
-						};
-					}
-				}
-
-				// Setting default category Ids
-				const {
-					main_category,
-					category,
-					sub_category,
-					sub_sub_category
-				} = categories || {};
-
-				if (!selectedMainCategoryId.id) {
-					setSelectedMainCategoryId(main_category, '');
-					setSelectedCategoryId(category);
-					setSelectedSubCategoryId(category, sub_category);
-					setSelectedSpecificCategoryId(
-						category,
-						sub_category,
-						sub_sub_category
-					);
-				}
-
-				setProducts(productList);
-
-				console.log(' ');
-				console.log(
-					'Calling only when some one click on categories in category page'
-				);
-				console.log(' ');
-			});
-		}
-	}, [router.query?.categories]);
-
-	// Fetching products based on search query
-	useEffect(() => {
-		const searchQuery = router.query?.query;
-		if (searchQuery) {
-			getProducts({
-				price_start: +(minPrice || 0),
-				all: (searchQuery || '') as string,
-				is_eco: isEco
-			}).then((data: any) => {
-				const productList = data.data || [];
-				setProducts(productList);
-				console.log(' ');
-				console.log(
-					'Calling only when query changes or search someone'
-				);
-				console.log(' ');
-			});
-		}
-	}, [router.query?.query]);
+	}, [main_category]);
 
 	// Fetching products
 	useEffect(() => {
-		const { query: searchText, is_trending } = router.query;
-		if (!selectedMainCategoryId.id && searchText) {
-			return;
-		}
-
-		const selectedCategories = subCategoryList.filter(
-			(subCategory: any) => {
-				return selectedCategoryIds.includes(subCategory.id);
-			}
+		const [_, main_category] = getIdAndName(
+			(query.main_category || '') as string
+		);
+		const [__, category] = getIdAndName(
+			(query.category || '') as string
 		);
 
-		const categoryNames = selectedCategories.map((subCategory: any) => {
-			return subCategory.title?.en;
-		});
+		const [___, sub_category] = getIdAndName(
+			(query.sub_category || '') as string
+		);
 
-		const subCategoryNames = [];
-		const specificCategoryNames = [];
-		for (let category of selectedCategories) {
-			const { subCategories = [] } = category || {};
+		const [____, sub_sub_category] = getIdAndName(
+			(query.sub_sub_category || '') as string
+		);
 
-			for (let subCategory of subCategories) {
-				const { specificCategories = [] } = subCategory || {};
+		const [countryId, countryName] = getIdAndName(
+			(query.country || '') as string
+		);
 
-				if (subCategoryIdList.includes(subCategory.id)) {
-					subCategoryNames.push(subCategory?.title?.en);
-				}
-
-				for (let specificCategory of specificCategories) {
-					if (specificCategoryIdList.includes(specificCategory.id)) {
-						specificCategoryNames.push(specificCategory?.title?.en);
-					}
-				}
-			}
-		}
+		const { price_start } = query;
 
 		getProducts({
-			price_start: +minPrice,
-			price_end: +maxPrice,
-			main_category:
-				mainCategory?.title?.en || selectedMainCategoryId.name,
-			category: categoryNames.toString(),
-			sub_category: subCategoryNames.toString(),
-			sub_sub_category: specificCategoryNames.toString(),
-			country_of_region: getCountriesName(selectedCountries).toString(),
-			is_eco: isEco || filterBuyEco,
-			is_all_trending: is_trending ? true : false
+			main_category,
+			category,
+			sub_category,
+			sub_sub_category,
+			country_of_region: countryName,
+			price_start: price_start ? +(price_start || 0) : 0
 		}).then((data: any) => {
 			const productList = data.data || [];
 			setProducts(productList);
@@ -307,17 +151,7 @@ const ProductSearchPage: NextPage<
 			console.log('Calling only products');
 			console.log(' ');
 		});
-	}, [
-		selectedMainCategoryId.id,
-		selectedCategoryIds.length,
-		selectedSubCategoryIds.length,
-		selectedSpecificCategoryIds.length,
-		minPrice,
-		maxPrice,
-		selectedCountries,
-		isEco,
-		filterBuyEco
-	]);
+	}, [query]);
 
 	const [options, setOptions] = useState({});
 	const [ref] = useKeenSlider<HTMLDivElement>(options);
@@ -346,12 +180,14 @@ const ProductSearchPage: NextPage<
 		setProducts(updatedProductList);
 	}, [compareProducts.length]);
 
+	const selectedCategoryList = categoryId?.split(',') || [];
+
 	return (
 		<div className="container mx-auto">
 			<Seo title="Product search page" description="" />
 
 			{/* Main Category Banner */}
-			{selectedMainCategoryId.id && (
+			{main_category && (
 				<div className="relative h-[103px] md:h-[234px]">
 					{/* <Image */}
 					<ImageWithErrorHandler
@@ -377,6 +213,7 @@ const ProductSearchPage: NextPage<
 						onMinPriceChange={(minPriceQuantity) =>
 							setMinPrice(minPriceQuantity)
 						}
+						url={true}
 					/>
 
 					{/* ads */}
@@ -424,7 +261,7 @@ const ProductSearchPage: NextPage<
 					)}
 
 					{/* Category and categories list */}
-					{!router.query.is_trending && selectedMainCategoryId.id && (
+					{!router.query.is_trending && main_category && (
 						<div className="grid grid-cols-12 md:gap-0 md:rounded-md md:bg-white md:p-4 md:shadow-md lg:gap-2">
 							{/* Main category Card */}
 							<div className="col-span-12 md:col-span-3">
@@ -450,14 +287,18 @@ const ProductSearchPage: NextPage<
 							</div>
 							{/* Categories */}
 							<div className="col-span-12 border-gray/20 md:col-span-9 md:ml-4 md:border-l-2 md:pl-4">
-								<SubCategoryList
-									subCategories={selectedCategories || []}
-									className="hidden md:grid"
-									onTilePressed={setSelectedCategoryId}
-									selectedSubCategoryIds={categoryIdList}
-									onClick={() => {}}
-									isLoading={isSelectedMainCategoryAndCategoriesLoading}
-								/>
+								<div className="hidden md:block">
+									<SubCategorySlider
+										categories={[...selectedCategories]}
+										onTileClick={(categoryId, data) => {
+											const params = setCategory(
+												categoryId,
+												data?.title?.en
+											);
+											router.push(`/product-search?${params}`);
+										}}
+									/>
+								</div>
 
 								{/* For small screen only */}
 								<div className="px-2 py-4 md:hidden">
@@ -478,16 +319,16 @@ const ProductSearchPage: NextPage<
 															subCategory.title || {},
 															router.locale
 														)}
-														showBorder={
-															selectedCategoryIds
-																? selectedCategoryIds?.includes(
-																		subCategory.id
-																  )
-																: false
-														}
-														onTilePressed={() =>
-															setSelectedCategoryId(subCategory.id)
-														}
+														showBorder={selectedCategoryList?.includes(
+															subCategory.id
+														)}
+														onTilePressed={() => {
+															const params = setCategory(
+																subCategory.id,
+																subCategory?.title?.en
+															);
+															router.push(`/product-search?${params}`);
+														}}
 													/>
 												</div>
 											);

@@ -7,9 +7,7 @@ import { useTranslation } from 'next-i18next';
 import React, { useState } from 'react';
 import { applyFiltersByUrl } from 'utils/nav-actions.utils';
 import CategoriesFilter from './categories-filter';
-import CategoriesFilterCopy from './categories-filter-copy';
 import CountrySearchFilter from './country-filter';
-import CountrySearchFilterCopy from './country-filter copy';
 
 interface ProductFilterProps {
 	onMinPriceChange: (minPrice: string) => any;
@@ -36,7 +34,7 @@ const ProductFilter: React.FC<ProductFilterProps> = (props) => {
 				<h4 className="font-semibold text-gray md:text-[14px] lg:text-[18px]">
 					{t('navigation:categories_text')}
 				</h4>
-				{url ? <CategoriesFilterCopy /> : <CategoriesFilter />}
+				<CategoriesFilter />
 			</div>
 
 			{/* min order filter */}
@@ -79,7 +77,7 @@ const ProductFilter: React.FC<ProductFilterProps> = (props) => {
 						className="rounded-none rounded-r-md px-2"
 						onClick={() => {
 							push(
-								`/product-search-copy?${applyFiltersByUrl({
+								`/product-search?${applyFiltersByUrl({
 									...query,
 									price_start: minPrice ? +minPrice : 0
 								})}`
@@ -97,7 +95,7 @@ const ProductFilter: React.FC<ProductFilterProps> = (props) => {
 					Supplier Country/ Region
 				</h4>
 
-				{url ? <CountrySearchFilterCopy /> : <CountrySearchFilter />}
+				<CountrySearchFilter />
 			</div>
 		</div>
 	);
