@@ -22,6 +22,7 @@ const CartReviewPage: NextPage = () => {
 			setIsLoginOpen: state.setIsLoginOpen
 		})
 	);
+
 	const { t } = useTranslation();
 	const cartProducts = useCartStore((state) => state.cartProducts);
 
@@ -228,28 +229,25 @@ const CartReviewPage: NextPage = () => {
 							<th className="w-1/4 md:w-1/2">{t('cart:total')}</th>
 						</tr>
 						<tbody>
-							{cartProducts?.map((cartProduct: any) => {
-								const { product } = cartProduct || {};
+							{order_items?.map((orderItem: any) => {
 								return (
 									<tr
-										key={cartProduct.id}
+										key={orderItem?.id}
 										className="text-[18px] text-gray"
 									>
 										<td className="text-center">
 											{getLocaleText(
-												product.product_name || {},
+												orderItem?.name || {},
 												router.locale
 											)}
 										</td>
 										<td className="text-center">
-											{cartProduct.quantity}
+											{orderItem?.quantity}
 										</td>
 										<td className="text-center">
-											${product.product_price}
+											${orderItem?.unit_cost}
 										</td>
-										<td className="text-center">
-											${cartProduct.total}
-										</td>
+										<td className="text-center">${orderItem?.total}</td>
 									</tr>
 								);
 							})}
