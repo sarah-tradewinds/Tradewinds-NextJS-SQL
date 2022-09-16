@@ -32,6 +32,7 @@ import Skeleton from 'react-loading-skeleton';
 import { getIdAndName, useCategoryStore } from 'store/category-store';
 import { useProductCompareStore } from 'store/product-compare-store';
 import useSWR from 'swr';
+import { getAlignmentClassName } from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
 
 const ProductSearchPage: NextPage<
@@ -199,6 +200,17 @@ const ProductSearchPage: NextPage<
 						)}
 						layout="fill"
 					/>
+
+					{selectedMainCategory?.banner_image_text && (
+						<h4
+							className={`${getAlignmentClassName(
+								selectedMainCategory?.horizontal,
+								selectedMainCategory?.vertical
+							)} absolute text-[40px] font-semibold text-white`}
+						>
+							{selectedMainCategory?.banner_image_text}
+						</h4>
+					)}
 				</div>
 			)}
 

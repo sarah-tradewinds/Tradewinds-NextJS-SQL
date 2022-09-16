@@ -13,13 +13,13 @@ import CategoryCard from './common/category-card';
 import SubCategoryCard from './common/sub-category-card';
 import SubCategorySlider from './sub-category-slider';
 
+import useDeviceSize from 'hooks/use-device-size.hooks';
 import { useTranslation } from 'next-i18next';
 
 type CategorySubCategoriesSectionProps = {
 	catSubCat: CatSubCatSectionType;
 	isReverse?: boolean;
 	isCustom?: boolean;
-	applyBgColor?: boolean;
 	subCategorySliderClassName?: string;
 	subCategorySliderLeftButtonClassName?: string;
 	subCategorySliderRightButtonClassName?: string;
@@ -30,7 +30,6 @@ const CategorySubCategoriesSection: React.FC<
 > = ({
 	catSubCat,
 	isReverse,
-	applyBgColor,
 	isCustom,
 	subCategorySliderClassName,
 	subCategorySliderLeftButtonClassName,
@@ -39,6 +38,8 @@ const CategorySubCategoriesSection: React.FC<
 	const [screenSize, setScreenSize] = useState<null | number>(null);
 	const [isTablet, setIsTablet] = useState<boolean>(false);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
+
+	const { deviceWidth, deviceSize } = useDeviceSize();
 
 	const { t } = useTranslation('common');
 	const { setMainCategory, setCategory } = useCategoryStore();
@@ -77,37 +78,40 @@ const CategorySubCategoriesSection: React.FC<
 	};
 
 	const subCategories = categories
-		? [...categories].slice(0, isTablet ? 5 : 7).map((subCat) => {
-				let { categories: category } = subCat as any;
+		? [...categories]
+				.slice(0, deviceSize === 'md' ? 5 : 7)
+				.map((subCat) => {
+					let { categories: category } = subCat as any;
 
-				const categoryData = category || subCat;
-				return (
-					<div
-						key={subCat.id}
-						className={`mb-2 transform transition duration-300 ease-in-out hover:-translate-y-2 md:mb-0 pc:border-b pc:border-gray/40 pc:last:border-b-0`}
-					>
-						<SubCategoryCard
-							subCat={categoryData}
-							onClick={() =>
-								onSubCategoryTileClickHandler(
-									categoryData.id,
-									categoryData?.title?.en || ''
-								)
-							}
-							style={
-								applyBgColor
-									? {
-											backgroundColor:
-												main_category.bgHexColor ||
-												(main_category as any).color
-									  }
-									: null
-							}
-							containerClassName="min-h-[80px] md:min-h-[124px] lg:min-h-[140px]"
-						/>
-					</div>
-				);
-		  })
+					const categoryData = category || subCat;
+					return (
+						<div
+							key={subCat.id}
+							className={`mb-2 transform transition duration-300 ease-in-out hover:-translate-y-2 md:mb-0 pc:border-b pc:border-gray/40 pc:last:border-b-0`}
+						>
+							<SubCategoryCard
+								subCat={categoryData}
+								onClick={() =>
+									onSubCategoryTileClickHandler(
+										categoryData.id,
+										categoryData?.title?.en || ''
+									)
+								}
+								// style={
+								// 	deviceWidth >= 768
+								// 		? {
+								// 				backgroundColor: main_category.color
+								// 		  }
+								// 		: null
+								// }
+								style={{
+									backgroundColor: main_category.panel_color
+								}}
+								containerClassName={`min-h-[80px] md:min-h-[124px] lg:min-h-[140px] !bg-[${main_category.color}]`}
+							/>
+						</div>
+					);
+				})
 		: [];
 
 	return (
@@ -115,7 +119,7 @@ const CategorySubCategoriesSection: React.FC<
 			{/* For Small Screen- Collapse */}
 			<div className="md:hidden">
 				<Collapse
-					collapseHeadBgHexColor={main_category.bgHexColor || 'white'}
+					collapseHeadBgHexColor={main_category.color}
 					isReverse={isReverse}
 					onLeadingClick={() => setIsOpen((preState) => !preState)}
 					onContentClick={() => {
@@ -194,7 +198,7 @@ const CategorySubCategoriesSection: React.FC<
 						)}
 						imageUrl={main_category?.image?.url}
 						alt={main_category.title?.en || ''}
-						bgHexColor={main_category.bgHexColor}
+						bgHexColor={main_category?.color}
 						containerClassName="md:h-[340px] lg:h-[380px] xl:h-[340px]"
 					/>
 				</div>
@@ -212,6 +216,9 @@ const CategorySubCategoriesSection: React.FC<
 								rightButtonClassName={
 									subCategorySliderRightButtonClassName
 								}
+								subCategoryStyle={{
+									backgroundColor: main_category.color
+								}}
 								onTileClick={(categoryId, data) =>
 									onSubCategoryTileClickHandler(
 										categoryId,

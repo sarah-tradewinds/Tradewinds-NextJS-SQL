@@ -25,7 +25,8 @@ type Category = {
 	image: { url: string };
 	description: LocalesType;
 	btnTxt: string;
-	bgHexColor?: string;
+	color?: string;
+	panel_color?: string;
 };
 
 type subCategories = {

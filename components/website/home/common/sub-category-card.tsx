@@ -21,7 +21,7 @@ const SubCategoryCard = ({
 	style,
 	showImageInFront,
 	onClick,
-	containerClassName,
+	containerClassName = '',
 	className,
 	titleClassName
 }: Props) => {
@@ -31,8 +31,8 @@ const SubCategoryCard = ({
 
 	return (
 		<div
-			style={style}
 			className={`relative flex cursor-pointer rounded border-2 border-gray/40 ${containerClassName}`}
+			style={style}
 			onClick={onClick}
 		>
 			{showImageInFront && (

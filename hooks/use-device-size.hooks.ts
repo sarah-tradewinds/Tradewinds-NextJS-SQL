@@ -4,7 +4,7 @@ const useDeviceSize = () => {
 	const [deviceSize, setDeviceSize] = useState<
 		'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'
 	>();
-	const [deviceWidth, setDeviceWidth] = useState<number>();
+	const [deviceWidth, setDeviceWidth] = useState<number>(0);
 
 	useEffect(() => {
 		const width = window.innerWidth;

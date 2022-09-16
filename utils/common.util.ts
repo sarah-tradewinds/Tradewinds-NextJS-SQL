@@ -29,3 +29,26 @@ export const generateListByCount = (count: number) => {
 	}
 	return list;
 }; // End of generateListByCount
+
+type yAxisAlignment = 'top' | 'center' | 'middle' | 'bottom';
+type xAxisAlignment = 'left' | 'center' | 'middle' | 'right';
+export const getAlignmentClassName = (
+	xAxis: xAxisAlignment,
+	yAxis: yAxisAlignment
+) => {
+	let xAxisAlignmentClassName = 'left-0';
+	if (xAxis === 'center' || xAxis === 'middle') {
+		xAxisAlignmentClassName = 'left-1/2 transform -translate-x-1/2';
+	} else if (xAxis === 'right') {
+		xAxisAlignmentClassName = 'right-0';
+	}
+
+	let yAxisAlignmentClassName = 'top-0';
+	if (yAxis === 'center' || yAxis === 'middle') {
+		yAxisAlignmentClassName = 'top-1/2 transform -translate-y-1/2';
+	} else if (yAxis === 'bottom') {
+		yAxisAlignmentClassName = 'bottom-0';
+	}
+
+	return `${xAxisAlignmentClassName} ${yAxisAlignmentClassName}`;
+};
