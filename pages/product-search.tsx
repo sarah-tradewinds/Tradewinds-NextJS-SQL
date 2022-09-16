@@ -136,7 +136,7 @@ const ProductSearchPage: NextPage<
 			(query.country || '') as string
 		);
 
-		const { price_start } = query;
+		const { price_start, searchQuery } = query;
 
 		getProducts({
 			main_category,
@@ -144,7 +144,8 @@ const ProductSearchPage: NextPage<
 			sub_category,
 			sub_sub_category,
 			country_of_region: countryName,
-			price_start: price_start ? +(price_start || 0) : 0
+			price_start: price_start ? +(price_start || 0) : 0,
+			all: (searchQuery || '') as string
 		}).then((data: any) => {
 			const productList = data.data || [];
 			setProducts(productList);

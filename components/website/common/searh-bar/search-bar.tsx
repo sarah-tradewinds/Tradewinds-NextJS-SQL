@@ -82,7 +82,7 @@ const SearchBar: React.FC = () => {
 		}
 		removeCategoryFilter();
 		removeSelectedCountries();
-		router.push(`product-search?query=${suggestion}`);
+		router.push(`product-search?searchQuery=${suggestion}`);
 	}; // End of onSuggestionSelectHandler function
 
 	const onFocusHandler = () => {

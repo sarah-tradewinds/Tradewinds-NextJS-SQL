@@ -114,13 +114,13 @@ const CompanyProfileTab: React.FC<{
 						return;
 					}
 
-					const { email } = await getSellerStorefrontDetailsSellerId(
+					const { user_id } = await getSellerStorefrontDetailsSellerId(
 						seller?.id
 					);
 
 					await sendMessageToSeller({
 						buyerEmail: customerData.tradewinds_email || '',
-						sellerEmail: email || '',
+						sellerEmail: user_id?.trade_winds_email || '',
 						message,
 						subject: `Message from ${customerData.name}`
 					});

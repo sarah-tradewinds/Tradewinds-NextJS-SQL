@@ -57,6 +57,7 @@ const SubCategoryCard = ({
 						{subCat?.clr}
 					</p>
 				</div>
+
 				{/* Icon or Image */}
 				<div className="hidden gap-2 md:flex">
 					<div className="relative h-5 w-5">
