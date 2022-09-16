@@ -136,13 +136,15 @@ const ProductDetailsPage: NextPage<
 			</div>
 
 			{/* Similar Product */}
-			<div className="hidden md:block">
-				<SimilarProductList
-					title="Similar Product"
-					similarProducts={similarProducts}
-					className="px-8"
-				/>
-			</div>
+			{similarProducts?.length > 0 && (
+				<div className="hidden md:block">
+					<SimilarProductList
+						title="Similar Product"
+						similarProducts={similarProducts}
+						className="px-8"
+					/>
+				</div>
+			)}
 
 			{/* Fixed container for small screen only */}
 			<div className="fixed left-0 right-0 bottom-0 z-[2000] flex justify-around bg-primary-main py-6 md:hidden">
