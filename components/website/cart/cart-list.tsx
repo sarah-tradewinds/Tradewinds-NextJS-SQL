@@ -45,7 +45,10 @@ const CartList: React.FC<CartListProps> = (props) => {
 								locale
 							)}
 							productPrice={getProductPrice({
-								bulkPrices: product?.bulk_pricing,
+								bulkPrices:
+									product?.bulk_pricing?.length < 1
+										? undefined
+										: product?.bulk_pricing,
 								salePrice: product?.sale_price,
 								price: product?.product_price,
 								quantity: cartProduct?.quantity

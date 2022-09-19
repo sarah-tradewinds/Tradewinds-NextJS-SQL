@@ -25,6 +25,12 @@ const getProductPriceBuyQuantityRange = (
 	bulkPrices: BulkPrice[]
 ): number => {
 	let filteredPrice = 0;
+
+	const getQuantityFromRange = (range: string) => {
+		const [startQuantity, endQuantity] = range?.split('-');
+		return {};
+	};
+
 	for (const bulkPrice of bulkPrices) {
 		const { range, price } = bulkPrice;
 
@@ -34,6 +40,20 @@ const getProductPriceBuyQuantityRange = (
 			filteredPrice = price;
 			break;
 		}
+	}
+
+	if (!filteredPrice) {
+		const firstRange = bulkPrices[0];
+		const [startQuantity, endQuantity] = firstRange.range?.split('-');
+
+		if (quantity <= +startQuantity && quantity >= +endQuantity) {
+			filteredPrice = firstRange.price;
+		}
+	}
+
+	if (!filteredPrice) {
+		const lastRange = bulkPrices[bulkPrices.length - 1];
+		filteredPrice = lastRange.price;
 	}
 
 	return filteredPrice;
