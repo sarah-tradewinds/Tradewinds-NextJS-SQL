@@ -4,6 +4,7 @@ import { MdOutlineClose } from 'react-icons/md';
 import ThumbnailList from './thumbnail-list';
 
 // styles
+import ImageWithErrorHandler from 'components/website/common/elements/image-with-error-handler';
 import 'keen-slider/keen-slider.min.css';
 
 interface ImageContainerProps {
@@ -32,7 +33,7 @@ const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 		<div className={className}>
 			{/* Main Image */}
 			<div className="relative h-[211px] w-full md:h-[475px]">
-				<Image src={imageUrl} alt={alt} layout="fill" />
+				<ImageWithErrorHandler src={imageUrl} alt={alt} layout="fill" />
 
 				<button className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-primary-eco !p-0 md:hidden">
 					<MdOutlineClose className="text-[24px] font-bold text-white" />

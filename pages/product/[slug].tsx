@@ -27,6 +27,7 @@ import {
 } from 'lib/product-details.lib';
 import { useRouter } from 'next/router';
 import { useAuthStore } from 'store/auth';
+import { useCartStore } from 'store/cart-store';
 import { getLocaleText } from 'utils/get_locale_text';
 
 const ProductDetailsPage: NextPage<
@@ -38,9 +39,8 @@ const ProductDetailsPage: NextPage<
 	const [isReviewLoading, setIsReviewLoading] = useState(false);
 	const [selectedVariantId, setSelectedVariantId] = useState('');
 
-	const { customerData } = useAuthStore((state) => ({
-		customerData: state.customerData
-	}));
+	const customerData = useAuthStore((state) => state.customerData);
+	const addToCart = useCartStore((state) => state.addToCart);
 
 	const { locale } = useRouter();
 
@@ -51,23 +51,39 @@ const ProductDetailsPage: NextPage<
 	useEffect(() => {
 		if (selectedVariantId) {
 			const updatedProductData = { ...productData };
-			if (!updatedProductData.has_variants) {
-				updatedProductData.variants?.forEach((variant: any) => {
-					updatedProductData.product_name = variant.variants_option;
-					if (typeof variant.variants_option === 'string') {
-						updatedProductData.product_name = {
-							en: variant.variants_option
-						};
-					}
-					updatedProductData.images = variant.variants_images;
-					updatedProductData.product_price = variant.variants_price;
-					updatedProductData.inventory = variant.inventory;
 
-					updatedProductData.is_bulk_pricing =
-						variant.is_bulk_pricing || true;
-					updatedProductData.bulk_pricing = variant.bulk_pricing;
-				});
+			// TODO: This should be correct
+			if (!updatedProductData.has_variants) {
+				const productVariant = updatedProductData.variants?.find(
+					(variant: any) => variant.variant_id === selectedVariantId
+				);
+				if (!productVariant) {
+					return;
+				}
+
+				updatedProductData.variant_id = productVariant?.variant_id;
+				updatedProductData.product_name =
+					productVariant?.variants_option;
+				updatedProductData.images = productVariant?.variants_images;
+				updatedProductData.product_price =
+					productVariant?.variants_price;
+				updatedProductData.inventory = productVariant?.inventory;
+				updatedProductData.is_bulk_pricing =
+					productVariant?.is_bulk_pricing || true;
+				updatedProductData.bulk_pricing = productVariant?.bulk_pricing;
 				setProductData(updatedProductData);
+
+				// updatedProductData.variants?.forEach((variant: any) => {
+				// 	updatedProductData.variant_id = variant.variant_id;
+				// 	updatedProductData.product_name = variant.variants_option;
+				// 	updatedProductData.images = variant.variants_images;
+				// 	updatedProductData.product_price = variant.variants_price;
+				// 	updatedProductData.inventory = variant.inventory;
+				// 	updatedProductData.is_bulk_pricing =
+				// 		variant.is_bulk_pricing || true;
+				// 	updatedProductData.bulk_pricing = variant.bulk_pricing;
+				// });
+				// setProductData(updatedProductData);
 			}
 		} else {
 			setProductData(product);
@@ -107,6 +123,11 @@ const ProductDetailsPage: NextPage<
 				onVariantClick={setSelectedVariantId}
 				selectedVariantId={selectedVariantId}
 				totalReviewCount={productReviewList.length}
+				onAddToCart={() => {
+					productData.variant_id = selectedVariantId;
+					console.log(selectedVariantId);
+					addToCart(productData.id, productData);
+				}}
 			/>
 
 			{/* Tabs */}

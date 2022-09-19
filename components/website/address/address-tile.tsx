@@ -12,6 +12,7 @@ interface AddressTileProps {
 	country: string;
 	phoneNumber: string;
 	isSelected?: boolean;
+	containerClassName?: string;
 	onChange: (currentState: boolean) => any;
 }
 
@@ -28,15 +29,17 @@ const AddressTile: React.FC<AddressTileProps> = (props) => {
 		country,
 		phoneNumber,
 		isSelected,
+		containerClassName,
 		onChange
 	} = props;
+
 	return (
 		<div
 			className={`flex cursor-pointer flex-col justify-between rounded-md bg-white px-4 pb-4 pt-2 shadow-md ${
 				isSelected
 					? 'outline outline-accent-primary-main'
 					: 'border border-gray/20'
-			}`}
+			} ${containerClassName}`}
 			onClick={() => onChange(isSelected || false)}
 		>
 			<div>

@@ -113,15 +113,20 @@ const AddressModal: React.FC<ModalProps> = (props) => {
 			open={open}
 			onClose={() => {}}
 			overlayClassName="!bg-white top-[80px]"
-			className={`${isLoginOpen || isSignUpOpen ? '!z-[5]' : ''}`}
+			className={`${
+				isLoginOpen || isSignUpOpen ? '!z-[5]' : ''
+			} !top-4 w-full`}
 		>
-			<div className="w-fulls m-8 pr-4">
+			<div className="mx-4 pr-4 lg:mx-8">
 				<div className="mb-6 flex items-center justify-between">
-					<h1 className="text-[40px] font-semibold">
+					<h1 className="text-lg font-semibold md:text-[24px] lg:text-[32px] xl:text-[40px]">
 						Select Shipping and Billing Address
 					</h1>
-					<Button className="border border-accent-primary-main !text-accent-primary-main">
-						+ ADD NEW ADDRESS
+					<Button className="!h-10 !w-10 rounded-full border border-accent-primary-main !py-0 !px-2 !text-accent-primary-main md:!h-[40px] md:!w-[240px] md:rounded-none">
+						+
+						<span className="hidden px-2 xl:inline-block">
+							ADD NEW ADDRESS
+						</span>
 					</Button>
 				</div>
 
@@ -132,10 +137,10 @@ const AddressModal: React.FC<ModalProps> = (props) => {
 				)}
 
 				<Tab.Group>
-					<Tab.List>
+					<Tab.List className="flex items-center">
 						<Tab
 							className={({ selected }) =>
-								`mr-4 rounded-md  p-2 shadow-md ${
+								`mr-4 rounded-md p-2 shadow-md ${
 									!selectedShippingAddressId && errorMessage
 										? 'animate-bounce'
 										: ''
@@ -167,7 +172,7 @@ const AddressModal: React.FC<ModalProps> = (props) => {
 						</Tab>
 					</Tab.List>
 
-					<Tab.Panels className="mt-6">
+					<Tab.Panels className="mt-6 h-[380px] overflow-y-auto p-4 pb-24 md:h-[80vh] lg:h-[72vh]">
 						<Tab.Panel>
 							<AddressList
 								addresses={shippingAddresses}
@@ -185,9 +190,21 @@ const AddressModal: React.FC<ModalProps> = (props) => {
 					</Tab.Panels>
 				</Tab.Group>
 
-				<div className="mt-16 flex justify-center">
-					<Button onClick={gotoCartReview} variant="buyer">
+				<div className="fixed bottom-0 left-0 flex w-full rounded-none bg-secondary md:mt-16 md:justify-center">
+					<Button
+						onClick={gotoCartReview}
+						variant="buyer"
+						className="!w-full !rounded-none"
+					>
 						Processed to Cart Review
+					</Button>
+
+					<Button
+						variant="special"
+						onClick={onClose}
+						className="!rounded-none"
+					>
+						Close
 					</Button>
 				</div>
 			</div>

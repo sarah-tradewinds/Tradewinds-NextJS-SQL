@@ -8,6 +8,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // store
 import AddressModal from 'components/website/address/address-modal';
+import ErrorPopup from 'components/website/common/popup/error-popup';
 import { createOrder } from 'lib/order';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
@@ -17,6 +18,11 @@ import { useCartStore } from 'store/cart-store';
 
 const CartPage: NextPage = () => {
 	const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
+	const [isMinimumQuantityModalOpen, setIsMinimumQuantityModalOpen] =
+		useState(false);
+	const [minimumQuantityErrorMessage, setMinimumQuantityErrorMessage] =
+		useState('');
+
 	const { t } = useTranslation();
 
 	const { customerData, isAuth, setIsLoginOpen } = useAuthStore(
@@ -61,6 +67,11 @@ const CartPage: NextPage = () => {
 			return;
 		}
 
+		if (minimumQuantityErrorMessage) {
+			setIsMinimumQuantityModalOpen(true);
+			return;
+		}
+
 		if (
 			!localStorage.getItem('shipping_address_id') ||
 			!localStorage.getItem('billing_address_id')
@@ -91,6 +102,7 @@ const CartPage: NextPage = () => {
 			return;
 		}
 
+		setMinimumQuantityErrorMessage('');
 		router.push(`/cart-review?order_id=${orderId}`);
 	}; // End of cartReviewHandler function
 
@@ -103,9 +115,19 @@ const CartPage: NextPage = () => {
 				open={isAddressModalOpen}
 				onClose={() => {
 					setIsAddressModalOpen(false);
-					cartReviewHandler();
+					// cartReviewHandler();
 				}}
 			/>
+			<ErrorPopup
+				title="Minimum Order Quantity"
+				description={minimumQuantityErrorMessage}
+				isOpen={isMinimumQuantityModalOpen}
+				onClose={() => {
+					setIsMinimumQuantityModalOpen(false);
+					setMinimumQuantityErrorMessage('');
+				}}
+			/>
+
 			<div className="container mx-auto grid grid-cols-12 gap-4 md:py-4 md:px-8">
 				{/* Stat cards */}
 				<div className="col-span-12">
@@ -188,13 +210,31 @@ const CartPage: NextPage = () => {
 					<div>
 						<CartList
 							carts={cartProducts}
-							updateQuantityByProductId={(quantity, productId) =>
+							updateQuantityByProductId={(
+								inputQuantity,
+								productId,
+								payload
+							) => {
+								const { product } = payload || {};
+								const minimumOrderQuantity =
+									product?.inventory?.minimum_order_quantity;
+
+								if (inputQuantity < minimumOrderQuantity) {
+									setIsMinimumQuantityModalOpen(true);
+									setMinimumQuantityErrorMessage(
+										`You have add altleast ${minimumOrderQuantity} quantity`
+									);
+									return;
+								}
+
+								setMinimumQuantityErrorMessage('');
+
 								updateQuantityByProductId(
-									quantity,
+									inputQuantity,
 									productId,
 									customerData.buyerId
-								)
-							}
+								);
+							}}
 							removeProductByIdFromCart={(productId) =>
 								removeProductByIdFromCart(
 									productId,

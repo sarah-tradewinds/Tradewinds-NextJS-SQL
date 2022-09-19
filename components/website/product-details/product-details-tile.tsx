@@ -27,11 +27,13 @@ const ProductDetailsTile: React.FC<{
 	product: any;
 	selectedVariantId?: string;
 	onVariantClick: (variantId: string) => any;
+	onAddToCart: () => any;
 }> = (props) => {
 	const {
 		totalReviewCount,
 		product = {},
 		onVariantClick,
+		onAddToCart,
 		selectedVariantId
 	} = props;
 
@@ -81,8 +83,6 @@ const ProductDetailsTile: React.FC<{
 	});
 
 	const minOrderQuantity = inventory?.minimum_order_quantity || 0;
-
-	const mainImageUrl = images[0]?.url || '/vehicles/green-tractor.png';
 
 	const metadataTileList = [
 		// country of origin
@@ -136,7 +136,7 @@ const ProductDetailsTile: React.FC<{
 			{/* Images container */}
 			<ImageContainer
 				className="col-span-12 md:first-letter:p-8 lg:col-span-5"
-				imageUrl={mainImageUrl}
+				imageUrl={images[0]?.url}
 				alt=""
 				thumbnails={images}
 			/>
@@ -176,11 +176,6 @@ const ProductDetailsTile: React.FC<{
 				</div>
 				{/* Metadata list */}
 				<div>
-					{/* <MetadataList
-						metadataList={metadataList}
-						className="!grid-cols-2 md:grid-cols-3"
-					/> */}
-
 					<div
 						className={`grid grid-cols-3 gap-4 text-[12px] text-gray`}
 					>
@@ -230,13 +225,6 @@ const ProductDetailsTile: React.FC<{
 							{getLocaleText(product_description || {}, locale)}
 						</span>
 					</h2>
-					<ul className="ml-8 list-disc text-[12px] text-gray md:text-[15px]">
-						<li>Bullet point</li>
-						<li>Bullet point</li>
-						<li>Bullet point</li>
-						<li>Bullet point</li>
-						<li>Bullet point</li>
-					</ul>
 
 					<div className="mt-4 flex items-center space-x-2">
 						<Button
@@ -266,7 +254,12 @@ const ProductDetailsTile: React.FC<{
 						<div>
 							<Button
 								variant="special"
-								onClick={() => addToCart(product.id, product)}
+								onClick={onAddToCart}
+								// onClick={() => {
+								//   product.buyer_id = customerData.buyerId;
+								//   onAddToCart
+								// 	addToCart(product.id, product);
+								// }}
 							>
 								{t('common:add_to_cart')}
 							</Button>
@@ -276,15 +269,20 @@ const ProductDetailsTile: React.FC<{
 
 				{/* Additional info */}
 				<div className="hidden space-y-4 rounded-md bg-gray/20 p-4 md:block">
-					<div className="flex items-center space-x-8 text-[21px] text-primary-main">
+					<div ref={sliderRef} className="keen-slider">
 						{is_bulk_pricing &&
-							bulk_pricing?.map((bulkPrice: any) => (
-								<p key={bulkPrice.range}>
-									<span className="font-semibold">
-										{bulkPrice.range}
-									</span>{' '}
-									{t('common:piece')}= ${bulkPrice.price}
-								</p>
+							bulk_pricing?.map((bulkPrice: any, index: any) => (
+								<div
+									key={`${bulkPrice.range}_${bulkPrice.price}_${index}`}
+									className="keen-slider__slide"
+								>
+									<p>
+										<span className="font-semibold">
+											{bulkPrice.range}
+										</span>{' '}
+										{t('common:piece')}= ${bulkPrice.price}
+									</p>
+								</div>
 							))}
 					</div>
 
@@ -294,17 +292,14 @@ const ProductDetailsTile: React.FC<{
 							const { variant_id } = variant;
 							const isSelected = selectedVariantId === variant_id;
 							return (
-								<div
-									key={variant.variant_id}
-									className="keen-slider__slide"
-								>
+								<div key={variant_id} className="keen-slider__slide">
 									<Button
 										onClick={() =>
-											onVariantClick(
-												isSelected ? '' : variant.variant_id
-											)
+											onVariantClick(isSelected ? '' : variant_id)
 										}
-										className="whitespace-nowraps px-0 !text-[21px] font-semibold !text-primary-main"
+										className={`px-0 !text-[21px] ${
+											isSelected ? 'font-semibold' : 'font-normal'
+										} !text-primary-main`}
 									>
 										{variant.variants_option}
 									</Button>

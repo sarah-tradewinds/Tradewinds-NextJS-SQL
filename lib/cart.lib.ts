@@ -2,6 +2,7 @@ import { serviceAxiosInstance } from 'utils/axios-instance.utils';
 
 interface CartProduct {
 	product_id: string;
+	variant_id?: string;
 	quantity: number;
 }
 

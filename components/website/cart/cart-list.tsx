@@ -5,12 +5,14 @@ import CartItem from './cart-item';
 import { useRouter } from 'next/router';
 import { CartProduct } from 'store/cart-store';
 import { getLocaleText } from 'utils/get_locale_text';
+import { getProductPrice } from 'utils/pricing.utils';
 
 interface CartListProps {
 	carts: CartProduct[];
 	updateQuantityByProductId: (
 		quantity: number,
-		productId: string
+		productId: string,
+		payload?: any
 	) => any;
 	removeProductByIdFromCart: (productId: string) => any;
 }
@@ -42,7 +44,12 @@ const CartList: React.FC<CartListProps> = (props) => {
 								product.product_description || {},
 								locale
 							)}
-							productPrice={product.product_price}
+							productPrice={getProductPrice({
+								bulkPrices: product?.bulk_pricing,
+								salePrice: product?.sale_price,
+								price: product?.product_price,
+								quantity: cartProduct?.quantity
+							})}
 							imageUrl={product?.images[0] ? product.images[0].url : ''}
 							quantity={cartProduct.quantity}
 							total={cartProduct.total}
@@ -51,7 +58,13 @@ const CartList: React.FC<CartListProps> = (props) => {
 								product?.inventory?.minimum_order_quantity
 							}
 							totalReviewCount={10}
-							onUpdate={updateQuantityByProductId}
+							onUpdate={(quantity, productId) =>
+								updateQuantityByProductId(
+									quantity,
+									productId,
+									cartProduct
+								)
+							}
 							onRemove={() => removeProductByIdFromCart(product.id)}
 						/>
 					</div>

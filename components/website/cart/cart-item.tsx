@@ -36,7 +36,6 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 		quantity,
 		total,
 		productPrice,
-		displayPrice,
 		minOrderQuantity,
 		imageUrl,
 		totalReviewCount,
@@ -124,7 +123,6 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 
 		setProductQuantity(value);
 	}; // End of quantityChangeHandler
-	console.log(imageUrl);
 
 	return (
 		<div className="grid grid-cols-12">

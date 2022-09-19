@@ -62,10 +62,14 @@ export const useCartStore = create<CartState>((set) => ({
 				(cartProduct) => cartProduct.product?.id === productId
 			);
 
+			const { inventory } = product;
+			const minimumOrderQuantity =
+				inventory?.minimum_order_quantity || 0;
+
 			// Adding new product in cart if product is not available in the cart list
 			if (productIndex < 0) {
 				cartList.push({
-					quantity: 1,
+					quantity: minimumOrderQuantity || 1,
 					product: product || {},
 					total: product.product_price
 				});
@@ -90,22 +94,22 @@ export const useCartStore = create<CartState>((set) => ({
 				getTotalAmountAndQuantity(cartList);
 
 			// Sending request when buyer Id is available
-			if (buyerId) {
-				if (!totalCartProductQuantity) {
-					addProductToCart(buyerId, {
-						product_id: productId,
-						quantity: 1
-					});
-				} else {
-					updateCart(
-						id,
-						buyerId,
-						cartList.map((cartProduct) => ({
-							product_id: cartProduct.product?.id,
-							quantity: cartProduct.quantity
-						}))
-					);
-				}
+			if (!totalCartProductQuantity) {
+				addProductToCart(buyerId, {
+					product_id: productId,
+					variant_id: product?.variant_id,
+					quantity: 1
+				});
+			} else {
+				updateCart(
+					id,
+					buyerId,
+					cartList.map((cartProduct) => ({
+						product_id: cartProduct.product?.id,
+						variant_id: cartProduct.product?.variant_id,
+						quantity: cartProduct.quantity
+					}))
+				);
 			}
 
 			return {
