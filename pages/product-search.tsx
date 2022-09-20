@@ -21,7 +21,6 @@ import MainCategoryCard from 'components/website/product-search/main-category-ca
 import ProductFilter from 'components/website/product-search/product-filter/product-filter';
 import SubCategoryTile from 'components/website/product-search/sub-category-tile';
 import TrendingSectionTile from 'components/website/product-search/trending-section-tile';
-import { getMainCategories } from 'lib/common.lib';
 import {
 	getProducts,
 	getSelectedMainCategoryAndCategories
@@ -30,8 +29,8 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { getIdAndName, useCategoryStore } from 'store/category-store';
+import { useHomeStore } from 'store/home';
 import { useProductCompareStore } from 'store/product-compare-store';
-import useSWR from 'swr';
 import { getAlignmentClassName } from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
 
@@ -39,7 +38,6 @@ const ProductSearchPage: NextPage<
 	InferGetServerSidePropsType<GetServerSideProps>
 > = (props) => {
 	const [products, setProducts] = useState(props.products?.data || []);
-	const [minOrder, setMinOrder] = useState('0');
 	const [minPrice, setMinPrice] = useState('0');
 	const [maxPrice, setMaxPrice] = useState('0');
 	const [filterBuyEco, setFilterBuyEco] = useState(false);
@@ -55,13 +53,8 @@ const ProductSearchPage: NextPage<
 
 	const { push, query } = useRouter();
 
-	const { main_category, category } = query;
+	const { main_category } = query;
 	const [categoryId] = getIdAndName((query.category || '') as string);
-
-	const [
-		localSelectedSpecificCategoryId,
-		setLocalSelectedSpecificCategoryId
-	] = useState('');
 
 	const {
 		compareProducts,
@@ -70,6 +63,7 @@ const ProductSearchPage: NextPage<
 		removeAllProductFromCompareList
 	} = useProductCompareStore();
 
+	const isEco = useHomeStore((state) => state.isEco);
 	const setCategory = useCategoryStore((state) => state.setCategory);
 
 	const setInitialIds = useCategoryStore(
@@ -77,10 +71,6 @@ const ProductSearchPage: NextPage<
 	);
 
 	const router = useRouter();
-
-	// swr
-	// Fetching mainCategories
-	const {} = useSWR('main_category', getMainCategories);
 
 	useEffect(() => {
 		const [mainCategoryId] =
@@ -145,7 +135,8 @@ const ProductSearchPage: NextPage<
 			sub_sub_category,
 			country_of_region: countryName,
 			price_start: price_start ? +(price_start || 0) : 0,
-			all: (searchQuery || '') as string
+			all: (searchQuery || '') as string,
+			is_eco: isEco
 		}).then((data: any) => {
 			const productList = data.data || [];
 			setProducts(productList);
@@ -222,15 +213,7 @@ const ProductSearchPage: NextPage<
 				{/* Side container */}
 				<section className="col-span-4 hidden space-y-8 md:block lg:col-span-3">
 					{/* filters */}
-					<ProductFilter
-						onMinOrderChange={(minOrderQuantity) =>
-							setMinOrder(minOrderQuantity)
-						}
-						onMinPriceChange={(minPriceQuantity) =>
-							setMinPrice(minPriceQuantity)
-						}
-						url={true}
-					/>
+					<ProductFilter />
 
 					{/* ads */}
 					<div>

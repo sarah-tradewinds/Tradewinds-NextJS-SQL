@@ -10,16 +10,10 @@ import CategoriesFilter from './categories-filter';
 import CountrySearchFilter from './country-filter';
 
 interface ProductFilterProps {
-	onMinPriceChange: (minPrice: string) => any;
-	onMinOrderChange: (minOrder: string) => any;
 	onCountryChange?: (countyCodes: string) => any;
-	// TODO:TMP Remove this once url state is done
-	url?: boolean;
 }
 
 const ProductFilter: React.FC<ProductFilterProps> = (props) => {
-	const { onMinOrderChange, url } = props;
-
 	const [minOrder, setMinOrder] = useState('0');
 	const [minPrice, setMinPrice] = useState('');
 
@@ -52,7 +46,14 @@ const ProductFilter: React.FC<ProductFilterProps> = (props) => {
 					<Button
 						variant="buyer"
 						className="rounded-none rounded-r-md px-2"
-						onClick={() => onMinOrderChange(minOrder)}
+						onClick={() => {
+							push(
+								`/product-search?${applyFiltersByUrl({
+									...query,
+									min_order: minOrder ? +minOrder : 0
+								})}`
+							);
+						}}
 					>
 						Go
 					</Button>

@@ -97,15 +97,11 @@ const CategorySubCategoriesSection: React.FC<
 										categoryData?.title?.en || ''
 									)
 								}
-								// style={
-								// 	deviceWidth >= 768
-								// 		? {
-								// 				backgroundColor: main_category.color
-								// 		  }
-								// 		: null
-								// }
 								style={{
-									backgroundColor: main_category.panel_color
+									backgroundColor: main_category.panel_color,
+									border: !main_category.panel_color
+										? '2px solid gray'
+										: ''
 								}}
 								containerClassName={`min-h-[80px] md:min-h-[124px] lg:min-h-[140px] !bg-[${main_category.color}]`}
 							/>
@@ -217,7 +213,10 @@ const CategorySubCategoriesSection: React.FC<
 									subCategorySliderRightButtonClassName
 								}
 								subCategoryStyle={{
-									backgroundColor: main_category.color
+									backgroundColor: main_category.panel_color,
+									border: !main_category.panel_color
+										? '2px solid gray'
+										: ''
 								}}
 								onTileClick={(categoryId, data) =>
 									onSubCategoryTileClickHandler(

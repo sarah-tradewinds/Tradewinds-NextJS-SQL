@@ -1,6 +1,7 @@
 import { generateQueryString } from './generate_query_string.utils';
 
 export const applyFiltersByUrl = (filterParams: {
+	min_order?: number;
 	price_start?: number;
 	price_end?: number;
 	categories?: string;
