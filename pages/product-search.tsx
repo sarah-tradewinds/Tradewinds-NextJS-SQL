@@ -207,7 +207,7 @@ const ProductSearchPage: NextPage<
 							className={`${getAlignmentClassName(
 								selectedMainCategory?.horizontal,
 								selectedMainCategory?.vertical
-							)} absolute text-[40px] font-semibold text-white`}
+							)} absolute text-[40px] font-semibold text-white md:w-[480px]`}
 							style={{
 								color: selectedMainCategory?.banner_image_font_color
 							}}
