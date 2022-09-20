@@ -36,18 +36,18 @@ export const getAlignmentClassName = (
 	xAxis: xAxisAlignment,
 	yAxis: yAxisAlignment
 ) => {
-	let xAxisAlignmentClassName = 'left-0';
+	let xAxisAlignmentClassName = 'left-4';
 	if (xAxis === 'center' || xAxis === 'middle') {
 		xAxisAlignmentClassName = 'left-1/2 transform -translate-x-1/2';
 	} else if (xAxis === 'right') {
-		xAxisAlignmentClassName = 'right-0';
+		xAxisAlignmentClassName = 'right-4';
 	}
 
-	let yAxisAlignmentClassName = 'top-0';
+	let yAxisAlignmentClassName = 'top-4';
 	if (yAxis === 'center' || yAxis === 'middle') {
 		yAxisAlignmentClassName = 'top-1/2 transform -translate-y-1/2';
 	} else if (yAxis === 'bottom') {
-		yAxisAlignmentClassName = 'bottom-0';
+		yAxisAlignmentClassName = 'bottom-4';
 	}
 
 	return `${xAxisAlignmentClassName} ${yAxisAlignmentClassName}`;
