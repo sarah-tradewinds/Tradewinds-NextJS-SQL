@@ -208,6 +208,9 @@ const ProductSearchPage: NextPage<
 								selectedMainCategory?.horizontal,
 								selectedMainCategory?.vertical
 							)} absolute text-[40px] font-semibold text-white`}
+							style={{
+								color: selectedMainCategory?.banner_image_font_color
+							}}
 						>
 							{selectedMainCategory?.banner_image_text}
 						</h4>
