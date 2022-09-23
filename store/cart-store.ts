@@ -68,10 +68,11 @@ export const useCartStore = create<CartState>((set) => ({
 
 			// Adding new product in cart if product is not available in the cart list
 			if (productIndex < 0) {
+				const quantity = minimumOrderQuantity || 1;
 				cartList.push({
-					quantity: minimumOrderQuantity || 1,
+					quantity,
 					product: product || {},
-					total: product.product_price
+					total: product.product_price * quantity
 				});
 			} else {
 				// Updating product quantity by 1 in cart because product is available in the cart list
