@@ -19,8 +19,7 @@ const CategoriesFilter: React.FC = (props) => {
 
 	const { main_category } = query;
 	const [main_category_id] = getIdAndName(
-		(main_category || '') as string,
-		'_'
+		(main_category || '') as string
 	);
 
 	const setMainCategory = useCategoryStore(

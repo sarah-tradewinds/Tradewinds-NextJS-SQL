@@ -274,8 +274,14 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 	}
 }));
 
-export const getIdAndName = (idWithNameParam: string) => {
-	const idWithNames = idWithNameParam?.split(',') || [];
+export const getIdAndName = (
+	idWithNameParam: string,
+	separator?: string
+) => {
+	const idWithNames = idWithNameParam?.split(separator || ',') || [];
+	if (separator === '_') {
+		return idWithNames;
+	}
 
 	const ids = [];
 	const names = [];

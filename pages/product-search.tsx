@@ -110,8 +110,10 @@ const ProductSearchPage: NextPage<
 	// Fetching products
 	useEffect(() => {
 		const [_, main_category] = getIdAndName(
-			(query.main_category || '') as string
+			(query.main_category || '') as string,
+			'_'
 		);
+
 		const [__, category] = getIdAndName(
 			(query.category || '') as string
 		);
