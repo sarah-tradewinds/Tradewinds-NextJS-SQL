@@ -41,7 +41,7 @@ const LanguageDropdown: React.FC = () => {
 	}
 
 	return (
-		<div className="2xl:right-[660px]s fixed top-[86px] md:right-2 lg:right-8 4k:right-[540px]">
+		<div className="2xl:right-[660px]s fixed top-[96px] md:right-2 lg:right-8 4k:right-[540px]">
 			<Menu as="div" className="relative inline-block text-left">
 				<div>
 					<Menu.Button className="flex items-center space-x-1 font-semibold">
