@@ -59,7 +59,8 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 						</div>
 					)}
 
-					<div className="absolute inset-0 z-[2] h-full w-full bg-gradient-to-t from-bg-main to-transparent"></div>
+					{/* <div className="absolute inset-0 z-[2] h-full w-full bg-gradient-to-t from-bg-main to-transparent"></div> */}
+					<div className="absolute bottom-0 z-[2] h-[96px] w-full bg-gradient-to-t from-bg-main to-transparent"></div>
 				</div>
 			))}
 		</Slider>

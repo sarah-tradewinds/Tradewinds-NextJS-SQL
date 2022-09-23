@@ -8,6 +8,7 @@ const SubCategorySlider: React.FC<{
 	categories: any[];
 	onTileClick?: (categoryId: string, data: any) => any;
 	className?: string;
+	subCategoryContainerClassName?: string;
 	subCategoryStyle?: any;
 	leftButtonClassName?: string;
 	rightButtonClassName?: string;
@@ -20,6 +21,7 @@ const SubCategorySlider: React.FC<{
 		categories = [],
 		onTileClick,
 		className,
+		subCategoryContainerClassName,
 		subCategoryStyle,
 		leftButtonClassName,
 		rightButtonClassName,
@@ -64,7 +66,7 @@ const SubCategorySlider: React.FC<{
 												onTileClick(categoryData?.id, categoryData);
 										}}
 										style={subCategoryStyle}
-										containerClassName="min-h-[80px] md:min-h-[124px] lg:min-h-[140px]"
+										containerClassName={`min-h-[80px] md:min-h-[124px] lg:min-h-[140px] ${subCategoryContainerClassName}`}
 									/>
 								</div>
 							);

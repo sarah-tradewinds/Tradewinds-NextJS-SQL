@@ -31,7 +31,7 @@ const SubCategoryCard = ({
 
 	return (
 		<div
-			className={`relative flex cursor-pointer rounded border-2 border-gray/40 ${containerClassName}`}
+			className={`relative flex cursor-pointer rounded ${containerClassName}`}
 			style={style}
 			onClick={onClick}
 		>

@@ -86,7 +86,7 @@ const Header = () => {
 				<div className="2xl:container 2xl:mx-auto">
 					{/* Menu icon */}
 					<div
-						className="mx-auto flex h-[80px] w-[96%] items-center justify-between"
+						className="mx-auto flex h-[88px] w-[96%] items-center justify-between"
 						onClick={() => setShowLogout(false)}
 					>
 						<button
@@ -102,57 +102,63 @@ const Header = () => {
 						</button>
 
 						{/* Tradewinds logo */}
-						<div
-							className="relative h-[28px] w-[101px] md:h-[80px] md:w-[100px] lg:h-[56px] lg:w-[202px]"
-							id="logo"
-						>
-							<Link href="/">
-								<a>
-									{/* For mobile */}
-									<div className="relative hidden h-full w-full md:block lg:hidden">
-										<Image
-											src="/TW-Create an account page-02.png"
-											alt="Logo"
-											layout="fill"
-											className="cursor-pointer"
-											onClick={() => {
-												if (isEco) {
-													setIsEco();
-												}
-											}}
-										/>
-									</div>
+						<div className="flex w-full justify-center md:w-auto">
+							<div
+								className="relative h-[28px] w-[101px] md:h-[80px] md:w-[100px] lg:h-[56px] lg:w-[202px]"
+								id="logo"
+							>
+								<Link href="/">
+									<a>
+										{/* For mobile and medium*/}
+										<div className="relative hidden h-full w-full md:block lg:hidden">
+											<Image
+												src="/TW-Create an account page-02.png"
+												alt="Logo"
+												layout="fill"
+												className="cursor-pointer"
+												onClick={() => {
+													if (isEco) {
+														setIsEco();
+													}
+												}}
+											/>
+										</div>
 
-									{/* For desktop */}
-									<div className="md:hidden lg:block">
-										<Image
-											src="/static/images/tradewinds_logo.png"
-											alt="Logo"
-											layout="fill"
-											className="cursor-pointer"
-											onClick={() => {
-												removeCategoryFilter();
-												removeSelectedCountries();
-												if (isEco) {
-													setIsEco();
-												}
-											}}
-										/>
-									</div>
-								</a>
-							</Link>
+										{/* For desktop */}
+										<div className="md:hidden lg:block">
+											<Image
+												src="/static/images/tradewinds_logo.png"
+												alt="Logo"
+												layout="fill"
+												className="cursor-pointer"
+												onClick={() => {
+													removeCategoryFilter();
+													removeSelectedCountries();
+													if (isEco) {
+														setIsEco();
+													}
+												}}
+											/>
+										</div>
+									</a>
+								</Link>
+							</div>
 						</div>
 
 						{/* Search Input */}
 						<SearchBar />
 
 						{/* Mobile Right Search Icons */}
-						<div className="flex gap-3 sm:hidden">
+						<div className="mr-4 sm:hidden">
 							<HiOutlineSearch className="h-6 w-6 text-white" />
 						</div>
 
 						<div className="flex">
-							<div className={`${isAuth ? 'mt-4 mr-8' : 'mt-2 mr-16'}`}>
+							<div
+								className={`${
+									isAuth ? 'mt-4 mr-8' : 'mr-2 md:mt-2 md:mr-16'
+								}`}
+							>
 								<CartIcon
 									count={cartProducts?.length || 0}
 									onClick={() => router.push('/cart')}

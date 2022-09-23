@@ -62,6 +62,7 @@ const ProductCollectionTile: React.FC<ProductCollectionTileProps> = (
 										key={product.id}
 										subCat={product}
 										className="!h-[88px]"
+										containerClassName="!border-2 !border-gray/40"
 									/>
 								</div>
 							);

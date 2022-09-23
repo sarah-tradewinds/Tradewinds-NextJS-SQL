@@ -289,6 +289,7 @@ const ProductSearchPage: NextPage<
 								<div className="hidden md:block">
 									<SubCategorySlider
 										categories={[...selectedCategories]}
+										subCategoryContainerClassName="!border-2 !border-gray/40"
 										onTileClick={(categoryId, data) => {
 											const params = setCategory(
 												categoryId,

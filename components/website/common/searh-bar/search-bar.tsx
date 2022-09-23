@@ -59,12 +59,19 @@ const SearchBar: React.FC = () => {
 		return () => clearTimeout(setTimeoutHandler);
 	}, [searchText]);
 
+	const gotToSearch = (searchTerm: string) => {
+		router.push(`product-search?searchQuery=${searchTerm}`);
+	};
+
 	const searchHandler = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const searchTerm = (
 			e.currentTarget.elements.namedItem('searchBar') as any
 		).value;
-		// router.push(`/product-search?query=${searchTerm}`);
+
+		setShowSuggestion(false);
+
+		gotToSearch(searchTerm);
 	};
 
 	const onSearchTextChange = (e: any) => {
@@ -82,7 +89,7 @@ const SearchBar: React.FC = () => {
 		}
 		removeCategoryFilter();
 		removeSelectedCountries();
-		router.push(`product-search?searchQuery=${suggestion}`);
+		gotToSearch(suggestion);
 	}; // End of onSuggestionSelectHandler function
 
 	const onFocusHandler = () => {
