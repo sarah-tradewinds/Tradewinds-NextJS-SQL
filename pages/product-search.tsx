@@ -89,9 +89,11 @@ const ProductSearchPage: NextPage<
 
 	// Fetching selectedMainCategory and selectedCategories
 	useEffect(() => {
-		const [mainCategoryId] = getIdAndName(
+		const [rawMainCategoryId] = getIdAndName(
 			(main_category || '') as string
 		);
+
+		const [mainCategoryId] = rawMainCategoryId?.split(',') || [];
 
 		if (mainCategoryId) {
 			setIsSelectedMainCategoryAndCategoriesLoading(true);
@@ -280,6 +282,12 @@ const ProductSearchPage: NextPage<
 											router.locale
 										)}
 										imageUrl={selectedMainCategory?.icon?.url}
+										style={{
+											backgroundColor: selectedMainCategory?.color,
+											border: selectedMainCategory?.color
+												? ''
+												: '2px solid gray'
+										}}
 										className="w-screen md:w-auto"
 									/>
 								)}
