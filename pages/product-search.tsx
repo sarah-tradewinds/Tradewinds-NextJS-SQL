@@ -138,17 +138,24 @@ const ProductSearchPage: NextPage<
 			sub_category,
 			sub_sub_category,
 			country_of_region: countryName,
-			price_start: price_start ? +(price_start || 0) : 0,
+			price_start: price_start ? +(price_start || 0) : +(minPrice || 0),
+			price_end: +(maxPrice || 0),
 			all: (searchQuery || '') as string,
-			is_eco: isEco
+			is_eco: isEco || main_category ? false : filterBuyEco
 		}).then((data: any) => {
 			const productList = data.data || [];
 			setProducts(productList);
 			console.log(' ');
 			console.log('Calling only products');
 			console.log(' ');
+			const {
+				main_category,
+				category,
+				sub_category,
+				sub_sub_category
+			} = data.categories || {};
 		});
-	}, [query]);
+	}, [query, minPrice, maxPrice, isEco, filterBuyEco]);
 
 	const [options, setOptions] = useState({});
 	const [ref] = useKeenSlider<HTMLDivElement>(options);

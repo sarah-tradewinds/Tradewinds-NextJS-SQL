@@ -27,10 +27,6 @@ export const getProducts = async (params: {
 		};
 	} catch (error) {
 		console.log('[getProducts] =', error);
-		const { data, status } = (error as any).response || {};
-		// if (status >= 500) {
-		//   throw Error('Error occurred in getProducts');
-		// }
 		return {
 			categories: {},
 			data: []
