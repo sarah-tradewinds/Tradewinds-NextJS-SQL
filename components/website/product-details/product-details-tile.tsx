@@ -59,6 +59,8 @@ const ProductDetailsTile: React.FC<{
 		product_description,
 		inventory,
 		product_price,
+		sale_price,
+		is_on_sale,
 		is_bulk_pricing,
 		bulk_pricing = [],
 		tags = [],
@@ -153,7 +155,7 @@ const ProductDetailsTile: React.FC<{
 					</p>
 				</div>
 				{/* Price and quantity info */}
-				<div className="flex justify-between text-[12px] font-semibold text-primary-main lg:text-[21px]">
+				{/* <div className="flex justify-between text-[12px] font-semibold text-primary-main lg:text-[21px]">
 					<p>
 						{displayPrice} /{t('common:piece')}
 					</p>
@@ -162,6 +164,28 @@ const ProductDetailsTile: React.FC<{
 							{minOrderQuantity} {t('common:piece')} /
 							{t('common:min_order')}
 						</p>
+					)}
+				</div> */}
+				<div className="flex justify-between text-[12px] font-semibold text-primary-main lg:text-[21px]">
+					<h3 className="flex items-center space-x-8">
+						{is_on_sale ? (
+							<>
+								<span className="text-accent-error">
+									Sale {sale_price}/piece
+								</span>
+								<span className="text-gray line-through">
+									${product_price}/piece
+								</span>
+							</>
+						) : (
+							<>{displayPrice} / piece</>
+						)}
+					</h3>
+					{minOrderQuantity > 0 && (
+						<h4 className="-mt-1 font-normal md:font-semibold">
+							{minOrderQuantity} {t('common:piece')} /
+							{t('common:min_order')}
+						</h4>
 					)}
 				</div>
 				{/* Keywords */}
