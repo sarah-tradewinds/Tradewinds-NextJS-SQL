@@ -19,7 +19,6 @@ import RatingStars from './product-details-tab/product-review/rating-stars';
 // utils
 import { useKeenSlider } from 'keen-slider/react';
 import { useTranslation } from 'next-i18next';
-import { useCartStore } from 'store/cart-store';
 import { getLocaleText } from 'utils/get_locale_text';
 
 const ProductDetailsTile: React.FC<{
@@ -46,10 +45,6 @@ const ProductDetailsTile: React.FC<{
 			customerData: state.customerData
 		})
 	);
-
-	const { addToCart } = useCartStore((state) => ({
-		addToCart: state.addToCart
-	}));
 
 	const router = useRouter();
 	const { locale } = router;
@@ -276,15 +271,7 @@ const ProductDetailsTile: React.FC<{
 
 						{/* cart */}
 						<div>
-							<Button
-								variant="special"
-								onClick={onAddToCart}
-								// onClick={() => {
-								//   product.buyer_id = customerData.buyerId;
-								//   onAddToCart
-								// 	addToCart(product.id, product);
-								// }}
-							>
+							<Button variant="special" onClick={onAddToCart}>
 								{t('common:add_to_cart')}
 							</Button>
 						</div>

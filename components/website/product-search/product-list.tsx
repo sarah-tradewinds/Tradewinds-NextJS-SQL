@@ -1,3 +1,4 @@
+import { addProductToCart, updateCart } from 'lib/cart.lib';
 import { sendMessageToSeller } from 'lib/common.lib';
 import { getSellerStorefrontDetailsSellerId } from 'lib/product-details.lib';
 import { useRouter } from 'next/router';
@@ -20,7 +21,19 @@ const ProductList: React.FC<ProductListProps> = ({
 }) => {
 	const { locale, push } = useRouter();
 
-	const addToCart = useCartStore((state) => state.addToCart);
+	const {
+		cartId,
+		addToCart,
+		setCartId,
+		totalCartProductQuantity,
+		cartProducts
+	} = useCartStore((state) => ({
+		cartId: state.id,
+		addToCart: state.addToCart,
+		setCartId: state.setCartId,
+		totalCartProductQuantity: state.totalCartProductQuantity,
+		cartProducts: state.cartProducts
+	}));
 
 	const { isAuth, setIsLoginOpen, customerData } = useAuthStore(
 		(state) => ({
@@ -103,9 +116,31 @@ const ProductList: React.FC<ProductListProps> = ({
 							}
 							totalReviewCount={product.totalReviewCount}
 							onCompareClick={() => onCompareClick(product)}
-							onCartClick={() => {
-								product.buyer_id = customerData.buyerId;
-								addToCart(product.id, product);
+							onCartClick={async () => {
+								const buyerId = customerData.buyerId;
+								product.buyer_id = buyerId;
+								const productId = product.id;
+								await addToCart(productId, product);
+
+								// Sending request when buyer Id is available
+								if (!totalCartProductQuantity) {
+									const cartId = await addProductToCart(buyerId, {
+										product_id: productId,
+										variant_id: product?.variant_id,
+										quantity: 1
+									});
+									setCartId(cartId);
+								} else {
+									updateCart(
+										cartId,
+										buyerId,
+										cartProducts.map((cartProduct) => ({
+											product_id: cartProduct.product?.id,
+											variant_id: cartProduct.product?.variant_id,
+											quantity: cartProduct.quantity
+										}))
+									);
+								}
 							}}
 							isInCompareList={product.isInCompareList}
 							isVerified={product.is_verified}

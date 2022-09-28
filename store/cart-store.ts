@@ -1,4 +1,4 @@
-import { addProductToCart, getCart, updateCart } from 'lib/cart.lib';
+import { getCart, updateCart } from 'lib/cart.lib';
 import create from 'zustand';
 
 export interface CartProduct {
@@ -13,6 +13,7 @@ interface CartState {
 	totalCartProductQuantity: number;
 	subtotal: number;
 	fetchCart: (buyerId: string) => any;
+	setCartId: (cartId: string) => any;
 	addToCart: (productId: string, product?: any) => any;
 	updateQuantityByProductId: (
 		quantity: number,
@@ -52,6 +53,7 @@ export const useCartStore = create<CartState>((set) => ({
 			subtotal: cart.subtotal || 0
 		});
 	},
+	setCartId: (cartId: string) => set({ id: cartId }),
 	addToCart: async (productId: string, product?: any) => {
 		// This should be taken from token by backend team
 		const buyerId = product.buyer_id;
@@ -95,23 +97,23 @@ export const useCartStore = create<CartState>((set) => ({
 				getTotalAmountAndQuantity(cartList);
 
 			// Sending request when buyer Id is available
-			if (!totalCartProductQuantity) {
-				addProductToCart(buyerId, {
-					product_id: productId,
-					variant_id: product?.variant_id,
-					quantity: 1
-				});
-			} else {
-				updateCart(
-					id,
-					buyerId,
-					cartList.map((cartProduct) => ({
-						product_id: cartProduct.product?.id,
-						variant_id: cartProduct.product?.variant_id,
-						quantity: cartProduct.quantity
-					}))
-				);
-			}
+			// if (!totalCartProductQuantity) {
+			// 	const cartId = await addProductToCart(buyerId, {
+			// 		product_id: productId,
+			// 		variant_id: product?.variant_id,
+			// 		quantity: 1
+			// 	});
+			// } else {
+			// 	updateCart(
+			// 		id,
+			// 		buyerId,
+			// 		cartList.map((cartProduct) => ({
+			// 			product_id: cartProduct.product?.id,
+			// 			variant_id: cartProduct.product?.variant_id,
+			// 			quantity: cartProduct.quantity
+			// 		}))
+			// 	);
+			// }
 
 			return {
 				cartProducts: cartList,

@@ -10,18 +10,21 @@ export const addProductToCart = async (
 	buyerId: string,
 	product?: CartProduct | null,
 	products?: CartProduct[] | null
-) => {
+): Promise<string> => {
 	try {
 		const { data } = await serviceAxiosInstance.post('/addtocart', {
 			buyer_id: buyerId,
 			item: product ? [product] : products,
 			discount: 0
 		});
+
+		// Returning cartId
+		return data?.data?.InsertedID;
 	} catch (error) {
 		console.log('[addProductToCart] =', error);
 		const { data } = (error as any).response || {};
 		// throw Error(data || 'Error occurred addProductToCart');
-		return [];
+		return '';
 	}
 }; // End of addProductToCart function
 

@@ -18,6 +18,7 @@ import SimilarProductList from 'components/website/product-details/similar-produ
 
 // lib
 import ProductDetailsTabContainer from 'components/website/product-details/product-details-tab/product-details-tab-container';
+import { addProductToCart, updateCart } from 'lib/cart.lib';
 import {
 	getProductById,
 	getProductReviewsByProductId,
@@ -40,7 +41,20 @@ const ProductDetailsPage: NextPage<
 	const [selectedVariantId, setSelectedVariantId] = useState('');
 
 	const customerData = useAuthStore((state) => state.customerData);
-	const addToCart = useCartStore((state) => state.addToCart);
+
+	const {
+		cartId,
+		addToCart,
+		setCartId,
+		totalCartProductQuantity,
+		cartProducts
+	} = useCartStore((state) => ({
+		cartId: state.id,
+		addToCart: state.addToCart,
+		setCartId: state.setCartId,
+		totalCartProductQuantity: state.totalCartProductQuantity,
+		cartProducts: state.cartProducts
+	}));
 
 	const { locale } = useRouter();
 
@@ -123,10 +137,32 @@ const ProductDetailsPage: NextPage<
 				onVariantClick={setSelectedVariantId}
 				selectedVariantId={selectedVariantId}
 				totalReviewCount={productReviewList.length}
-				onAddToCart={() => {
+				onAddToCart={async () => {
+					const productId = productData.id;
 					productData.variant_id = selectedVariantId;
-					console.log(selectedVariantId);
-					addToCart(productData.id, productData);
+					const buyerId = customerData.buyerId;
+					productData.buyerId = buyerId;
+					await addToCart(productId, productData);
+
+					// Sending request when buyer Id is available
+					if (!totalCartProductQuantity) {
+						const cartId = await addProductToCart(buyerId, {
+							product_id: productId,
+							variant_id: product?.variant_id,
+							quantity: 1
+						});
+						setCartId(cartId);
+					} else {
+						updateCart(
+							cartId,
+							buyerId,
+							cartProducts.map((cartProduct) => ({
+								product_id: cartProduct.product?.id,
+								variant_id: cartProduct.product?.variant_id,
+								quantity: cartProduct.quantity
+							}))
+						);
+					}
 				}}
 			/>
 
