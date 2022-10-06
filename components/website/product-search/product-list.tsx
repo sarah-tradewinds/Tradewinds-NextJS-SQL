@@ -125,10 +125,13 @@ const ProductList: React.FC<ProductListProps> = ({
 
 								// Sending request when buyer Id is available
 								if (!totalCartProductQuantity) {
+									const minimumOrderQuantity =
+										product?.inventory?.minimum_order_quantity || 0;
+
 									const cartId = await addProductToCart(buyerId, {
 										product_id: productId,
 										variant_id: product?.variant_id,
-										quantity: 1
+										quantity: minimumOrderQuantity || 1
 									});
 									setCartId(cartId);
 								} else {
