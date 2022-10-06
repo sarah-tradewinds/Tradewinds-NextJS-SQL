@@ -1,4 +1,5 @@
 import { getCart, updateCart } from 'lib/cart.lib';
+import { getProductPrice } from 'utils/pricing.utils';
 import create from 'zustand';
 
 export interface CartProduct {
@@ -55,9 +56,6 @@ export const useCartStore = create<CartState>((set) => ({
 	},
 	setCartId: (cartId: string) => set({ id: cartId }),
 	addToCart: async (productId: string, product?: any) => {
-		// This should be taken from token by backend team
-		const buyerId = product.buyer_id;
-
 		set(({ id, totalCartProductQuantity, cartProducts }) => {
 			const cartList: CartProduct[] = [...(cartProducts || [])];
 			const productIndex = cartList.findIndex(
@@ -71,18 +69,33 @@ export const useCartStore = create<CartState>((set) => ({
 			// Adding new product in cart if product is not available in the cart list
 			if (productIndex < 0) {
 				const quantity = minimumOrderQuantity || 1;
+				const productPrice = getProductPrice({
+					bulkPrices: product?.bulk_pricing || [],
+					price: product.product_price,
+					quantity,
+					salePrice: product.sale_price
+				});
+
 				cartList.push({
 					quantity,
 					product: product || {},
-					total: product.product_price * quantity
+					total: productPrice * quantity
 				});
 			} else {
 				// Updating product quantity by 1 in cart because product is available in the cart list
 				const cartProduct = cartList[productIndex];
 
 				const updatedQuantity = cartProduct.quantity + 1;
-				const total =
-					cartProduct.product.product_price * updatedQuantity;
+				const product = cartProduct.product;
+
+				const productPrice = getProductPrice({
+					bulkPrices: product?.bulk_pricing || [],
+					price: product.product_price,
+					salePrice: product.sale_price,
+					quantity: updatedQuantity
+				});
+
+				const total = productPrice * updatedQuantity;
 
 				const updatedCartProduct = {
 					...cartProduct,
@@ -96,25 +109,6 @@ export const useCartStore = create<CartState>((set) => ({
 			const { totalQuantity, subtotal } =
 				getTotalAmountAndQuantity(cartList);
 
-			// Sending request when buyer Id is available
-			// if (!totalCartProductQuantity) {
-			// 	const cartId = await addProductToCart(buyerId, {
-			// 		product_id: productId,
-			// 		variant_id: product?.variant_id,
-			// 		quantity: 1
-			// 	});
-			// } else {
-			// 	updateCart(
-			// 		id,
-			// 		buyerId,
-			// 		cartList.map((cartProduct) => ({
-			// 			product_id: cartProduct.product?.id,
-			// 			variant_id: cartProduct.product?.variant_id,
-			// 			quantity: cartProduct.quantity
-			// 		}))
-			// 	);
-			// }
-
 			return {
 				cartProducts: cartList,
 				totalCartProductQuantity: totalQuantity,
@@ -127,9 +121,16 @@ export const useCartStore = create<CartState>((set) => ({
 			const updatedCart: CartProduct[] = cartProducts.map(
 				(cartProduct) => {
 					if (cartProduct.product.id === productId) {
+						const product = cartProduct.product;
+						const productPrice = getProductPrice({
+							bulkPrices: product?.bulk_pricing || [],
+							price: product.product_price,
+							quantity,
+							salePrice: product.sale_price
+						});
+
 						cartProduct.quantity = quantity;
-						cartProduct.total =
-							cartProduct.product.product_price * quantity;
+						cartProduct.total = productPrice * quantity;
 					}
 					return cartProduct;
 				}

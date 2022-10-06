@@ -61,6 +61,7 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 	useEffect(() => {
 		autoLogin();
 	}, []);
+	` `;
 
 	useEffect(() => {
 		if (customerData.buyerId) {

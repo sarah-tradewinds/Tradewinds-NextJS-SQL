@@ -109,6 +109,7 @@ const ProductList: React.FC<ProductListProps> = ({
 							productPrice={product_price}
 							salePrice={product?.sale_price}
 							isSaleOn={product?.is_on_sale || 0}
+							isBulkPricing={product?.is_bulk_pricing}
 							displayPrice={displayPrice}
 							alt={product.alt || product.name}
 							minOrderQuantity={

@@ -163,7 +163,7 @@ const ProductDetailsTile: React.FC<{
 				</div> */}
 				<div className="flex justify-between text-[12px] font-semibold text-primary-main lg:text-[21px]">
 					<h3 className="flex items-center space-x-8">
-						{is_on_sale ? (
+						{is_on_sale && !is_bulk_pricing ? (
 							<>
 								<span className="text-accent-error">
 									Sale {sale_price}/piece

@@ -32,6 +32,7 @@ interface ProductTileProps {
 	isSaleOn?: boolean;
 	salePrice: number;
 	displayPrice: string;
+	isBulkPricing: boolean;
 	minOrderQuantity: number;
 	totalReviewCount?: number;
 	onCompareClick?: () => any;
@@ -56,6 +57,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 		countryOfOrigin,
 		productPrice,
 		salePrice,
+		isBulkPricing,
 		isSaleOn,
 		displayPrice,
 		minOrderQuantity,
@@ -258,7 +260,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 							</div> */}
 							<div className="col-span-12 text-[12px] font-semibold text-primary-main md:col-span-8 md:py-2 md:text-[18px] lg:col-span-12 lg:text-[21px]">
 								<h3 className="flex items-center space-x-8">
-									{isSaleOn ? (
+									{isSaleOn && !isBulkPricing ? (
 										<>
 											<span className="text-accent-error">
 												Sale {salePrice}/piece
