@@ -16,6 +16,7 @@ import {
 } from 'hooks/useMainCategories';
 import { useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';
+import { generateQueryString } from 'utils/generate_query_string.utils';
 import { getLocaleText } from 'utils/get_locale_text';
 import styles from './mega-menu.module.css';
 
@@ -113,7 +114,12 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 										id,
 										mainCategory.title?.en || ''
 									);
-									router.push(`/product-search?${params}`);
+									router.push(
+										`/product-search?${params}&${generateQueryString({
+											region: router.query.region,
+											country: router.query.region
+										})}`
+									);
 								}}
 							>
 								<span className="hover: text-2xl hover:text-primary-main">
@@ -160,7 +166,12 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 									selectedMainCategory?.name || ''
 								);
 								const params = setCategory(id, title?.en || '');
-								router.push(`/product-search?${params}`);
+								router.push(
+									`/product-search?${params}&${generateQueryString({
+										region: router.query.region,
+										country: router.query.region
+									})}`
+								);
 							}}
 						>
 							<span>{getLocaleText(title || {}, locale)}</span>
@@ -209,7 +220,12 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 									id,
 									title?.en
 								);
-								router.push(`/product-search?${params}`);
+								router.push(
+									`/product-search?${params}&${generateQueryString({
+										region: router.query.region,
+										country: router.query.region
+									})}`
+								);
 							}}
 						>
 							<span>{getLocaleText(title || {}, locale)}</span>
@@ -269,7 +285,12 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 									id,
 									title?.en
 								);
-								router.push(`/product-search?${params}`);
+								router.push(
+									`/product-search?${params}&${generateQueryString({
+										region: router.query.region,
+										country: router.query.region
+									})}`
+								);
 							}}
 						>
 							<span>{getLocaleText(title || {}, locale)}</span>

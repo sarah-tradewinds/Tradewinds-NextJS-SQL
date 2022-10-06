@@ -12,6 +12,7 @@ import {
 	useSubCategoriesByCategoryId
 } from 'hooks/useMainCategories';
 import { getIdAndName, useCategoryStore } from 'store/category-store';
+import { generateQueryString } from 'utils/generate_query_string.utils';
 import { getLocaleText } from 'utils/get_locale_text';
 
 const CategoriesFilter: React.FC = (props) => {
@@ -62,7 +63,12 @@ const CategoriesFilter: React.FC = (props) => {
 								mainCategoryId,
 								mainCategoryTitle
 							);
-							push(`/product-search?${params}`);
+							push(
+								`/product-search?${params}&${generateQueryString({
+									region: query.region,
+									country: query.region
+								})}`
+							);
 						}}
 					>
 						<ContentSkeleton
@@ -121,7 +127,10 @@ const CategoryList: React.FC<{
 			title={getLocaleText(title || {}, locale)}
 			onClick={() => {
 				const params = setCategory(id, categoryName);
-				push(`/product-search?${params}`);
+				`/product-search?${params}&${generateQueryString({
+					region: query.region,
+					country: query.region
+				})}`;
 			}}
 			className="ml-4"
 		>
@@ -162,7 +171,7 @@ const SubCategoryList: React.FC<{
 		categoryId,
 		categoryTitle
 	} = props;
-	const { push, locale, query } = useRouter();
+	const { locale, query } = useRouter();
 
 	const { setSubCategory, setSpecificCategory } = useCategoryStore();
 
@@ -197,7 +206,10 @@ const SubCategoryList: React.FC<{
 					subCategoryId,
 					subCategoryName
 				);
-				push(`/product-search?${params}`);
+				`/product-search?${params}&${generateQueryString({
+					region: query.region,
+					country: query.region
+				})}`;
 			}}
 			className="ml-4"
 		>
@@ -235,7 +247,11 @@ const SubCategoryList: React.FC<{
 								specificCategoryId,
 								specificCategory?.title?.en
 							);
-							push(`/product-search?${params}`);
+
+							`/product-search?${params}&${generateQueryString({
+								region: query.region,
+								country: query.region
+							})}`;
 						}}
 					>
 						{specificCategoryTitle}

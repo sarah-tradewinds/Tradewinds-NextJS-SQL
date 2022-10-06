@@ -278,7 +278,13 @@ export const getIdAndName = (
 	idWithNameParam: string,
 	separator?: string
 ) => {
-	const idWithNames = idWithNameParam?.split(separator || ',') || [];
+	let idWithNames: any[] = [];
+	if (typeof idWithNameParam === 'string') {
+		idWithNames = idWithNameParam?.split(separator || ',') || [];
+	} else if (typeof idWithNameParam) {
+		idWithNames = idWithNameParam || [];
+	}
+
 	if (separator === '_') {
 		return idWithNames;
 	}

@@ -14,13 +14,14 @@ import CompareProductList from 'components/website/compare/compare-bottom-overla
 import ProductList from 'components/website/product-search/product-list';
 
 // stores
-import ImageWithErrorHandler from 'components/website/common/elements/image-with-error-handler';
 import Seo from 'components/website/common/seo';
 import SubCategorySlider from 'components/website/home/sub-category-slider';
 import MainCategoryCard from 'components/website/product-search/main-category-card';
 import ProductFilter from 'components/website/product-search/product-filter/product-filter';
+import ProductSearchTopBanner from 'components/website/product-search/product-search-top-banner';
 import SubCategoryTile from 'components/website/product-search/sub-category-tile';
 import TrendingSectionTile from 'components/website/product-search/trending-section-tile';
+import { getCountryById } from 'lib/common.lib';
 import {
 	getProducts,
 	getSelectedMainCategoryAndCategories
@@ -31,7 +32,6 @@ import Skeleton from 'react-loading-skeleton';
 import { getIdAndName, useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';
 import { useProductCompareStore } from 'store/product-compare-store';
-import { getAlignmentClassName } from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
 
 const ProductSearchPage: NextPage<
@@ -49,6 +49,10 @@ const ProductSearchPage: NextPage<
 	const [selectedMainCategory, setSelectedMainCategory] =
 		useState<any>();
 	const [selectedCategories, setSelectedCategories] = useState([]);
+	const [
+		selectedCountryBannerImageUrl,
+		setSelectedCountryBannerImageUrl
+	] = useState('');
 	const [isInitialFilterSet, setIsInitialFilterSet] = useState(false);
 
 	const { push, query } = useRouter();
@@ -107,6 +111,18 @@ const ProductSearchPage: NextPage<
 		}
 	}, [main_category]);
 
+	// Fetching country by id
+	useEffect(() => {
+		const [countryIds] = getIdAndName((query.country || '') as string);
+
+		if (countryIds) {
+			const [countryId] = countryIds?.split(',');
+			getCountryById(countryId).then((countryBannerImageUrl) => {
+				setSelectedCountryBannerImageUrl(countryBannerImageUrl || '');
+			});
+		}
+	}, [query.country]);
+
 	// Fetching products
 	useEffect(() => {
 		const [_, main_category] = getIdAndName(
@@ -148,12 +164,17 @@ const ProductSearchPage: NextPage<
 			console.log(' ');
 			console.log('Calling only products');
 			console.log(' ');
-			const {
-				main_category,
-				category,
-				sub_category,
-				sub_sub_category
-			} = data.categories || {};
+			const { main_category } = data.categories || {};
+			if (main_category) {
+				setIsSelectedMainCategoryAndCategoriesLoading(true);
+				getSelectedMainCategoryAndCategories(
+					main_category as string
+				).then((data) => {
+					setSelectedMainCategory(data.main_category || {});
+					setSelectedCategories(data.categories || []);
+					setIsSelectedMainCategoryAndCategoriesLoading(false);
+				});
+			}
 		});
 	}, [query, minPrice, maxPrice, isEco, filterBuyEco]);
 
@@ -186,38 +207,32 @@ const ProductSearchPage: NextPage<
 
 	const selectedCategoryList = categoryId?.split(',') || [];
 
+	const [countryId] = getIdAndName((query.country || '') as string);
+
 	return (
 		<div className="container mx-auto">
 			<Seo title="Product search page" description="" />
 
 			{/* Main Category Banner */}
-			{main_category && (
-				<div className="relative h-[103px] md:h-[234px]">
-					{/* <Image */}
-					<ImageWithErrorHandler
-						key={selectedMainCategory?.banner_image?.url}
-						src={selectedMainCategory?.banner_image?.url}
-						alt={getLocaleText(
-							selectedMainCategory?.title || {},
-							router.locale
-						)}
-						layout="fill"
-					/>
-
-					{selectedMainCategory?.banner_image_text && (
-						<h4
-							className={`${getAlignmentClassName(
-								selectedMainCategory?.horizontal,
-								selectedMainCategory?.vertical
-							)} absolute text-[40px] font-semibold text-white md:w-[480px]`}
-							style={{
-								color: selectedMainCategory?.banner_image_font_color
-							}}
-						>
-							{selectedMainCategory?.banner_image_text}
-						</h4>
+			{main_category && !countryId && (
+				<ProductSearchTopBanner
+					key={selectedMainCategory?.banner_image?.url}
+					imageUrl={selectedMainCategory?.banner_image?.url}
+					text={getLocaleText(
+						selectedMainCategory?.banner_image_text || {},
+						router.locale
 					)}
-				</div>
+					horizontal={selectedMainCategory?.horizontal}
+					vertical={selectedMainCategory?.vertical}
+				/>
+			)}
+
+			{/* Main Category Banner */}
+			{selectedCountryBannerImageUrl && (
+				<ProductSearchTopBanner
+					key={selectedCountryBannerImageUrl}
+					imageUrl={selectedCountryBannerImageUrl}
+				/>
 			)}
 
 			<div className="relative grid grid-cols-12 gap-4 md:p-4 lg:gap-6 lg:p-6">

@@ -77,6 +77,19 @@ export const getCountries = async () => {
 	}
 }; // End of getCountries function
 
+export const getCountryById = async (countryId: string) => {
+	try {
+		const { data } = await serviceAxiosInstance.get(
+			`/region_country/${countryId}`
+		);
+
+		return data?.data?.image?.url || '';
+	} catch (error) {
+		console.log('[getCountryById] =', error);
+		return '';
+	}
+}; // End of getCountryById function
+
 export const getSearchSuggestions = async (searchText: string) => {
 	try {
 		const { data } = await serviceAxiosInstance.get(

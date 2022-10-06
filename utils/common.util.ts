@@ -30,8 +30,9 @@ export const generateListByCount = (count: number) => {
 	return list;
 }; // End of generateListByCount
 
-type yAxisAlignment = 'top' | 'center' | 'middle' | 'bottom';
-type xAxisAlignment = 'left' | 'center' | 'middle' | 'right';
+export type yAxisAlignment = 'top' | 'center' | 'middle' | 'bottom';
+export type xAxisAlignment = 'left' | 'center' | 'middle' | 'right';
+
 export const getAlignmentClassName = (
 	xAxis: xAxisAlignment,
 	yAxis: yAxisAlignment

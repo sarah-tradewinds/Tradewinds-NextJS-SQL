@@ -9,6 +9,7 @@ import React, { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { getIdAndName } from 'store/category-store';
 import { useCountriesStore } from 'store/countries-store';
+import { generateQueryString } from 'utils/generate_query_string.utils';
 import { getLocaleText } from 'utils/get_locale_text';
 
 const CountrySearchFilter: React.FC<{
@@ -134,7 +135,9 @@ const CountrySearchFilter: React.FC<{
 														regionAndCountries?.name?.en || ''
 													}&country=${countryData.id}_${
 														countryData?.name?.en || ''
-													}`
+													}&${generateQueryString({
+														...query
+													})}`
 												);
 											}}
 										>
