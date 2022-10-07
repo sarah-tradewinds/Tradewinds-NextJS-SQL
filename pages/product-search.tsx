@@ -117,8 +117,8 @@ const ProductSearchPage: NextPage<
 
 		if (countryIds) {
 			const [countryId] = countryIds?.split(',');
-			getCountryById(countryId).then((countryBannerImageUrl) => {
-				setSelectedCountryBannerImageUrl(countryBannerImageUrl || '');
+			getCountryById(countryId).then((data) => {
+				setSelectedCountryBannerImageUrl(data?.banner_image?.url || '');
 			});
 		}
 	}, [query.country]);
@@ -227,7 +227,7 @@ const ProductSearchPage: NextPage<
 				/>
 			)}
 
-			{/* Main Category Banner */}
+			{/* Country Banner */}
 			{selectedCountryBannerImageUrl && (
 				<ProductSearchTopBanner
 					key={selectedCountryBannerImageUrl}
@@ -286,7 +286,7 @@ const ProductSearchPage: NextPage<
 					)}
 
 					{/* Category and categories list */}
-					{!router.query.is_trending && main_category && (
+					{!router.query.is_trending && selectedCategories.length > 0 && (
 						<div className="grid grid-cols-12 md:gap-0 md:rounded-md md:bg-white md:p-4 md:shadow-md lg:gap-2">
 							{/* Main category Card */}
 							<div className="col-span-12 md:col-span-3">

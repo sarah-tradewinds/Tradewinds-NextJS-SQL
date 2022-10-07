@@ -83,10 +83,10 @@ export const getCountryById = async (countryId: string) => {
 			`/region_country/${countryId}`
 		);
 
-		return data?.data?.image?.url || '';
+		return data?.data || {};
 	} catch (error) {
 		console.log('[getCountryById] =', error);
-		return '';
+		return {};
 	}
 }; // End of getCountryById function
 

@@ -82,7 +82,13 @@ const Header = () => {
 
 	return (
 		<>
-			<header className="sticky top-0 z-[1000] w-full bg-gradient-to-r from-success via-accent-primary-main to-primary-main dark:bg-primary-eco">
+			<header
+				className={`sticky top-0 z-[1000] w-full ${
+					isEco
+						? 'bg-primary-eco'
+						: 'bg-gradient-to-r from-success via-accent-primary-main to-primary-main'
+				}`}
+			>
 				<div className="2xl:container 2xl:mx-auto">
 					{/* Menu icon */}
 					<div
