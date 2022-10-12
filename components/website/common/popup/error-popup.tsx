@@ -4,13 +4,22 @@ import Button from '../form/button';
 
 interface ErrorPopupProps {
 	title: string;
+	titleClassName?: string;
 	description: string;
 	isOpen?: boolean;
+	actions?: React.ReactNode[];
 	onClose: () => any;
 }
 
 const ErrorPopup: React.FC<ErrorPopupProps> = (props) => {
-	const { title, description, isOpen, onClose } = props;
+	const {
+		title,
+		titleClassName,
+		description,
+		isOpen,
+		actions,
+		onClose
+	} = props;
 
 	return (
 		<>
@@ -42,7 +51,7 @@ const ErrorPopup: React.FC<ErrorPopupProps> = (props) => {
 								<Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
 									<Dialog.Title
 										as="h3"
-										className="text-lg font-medium leading-6 text-error"
+										className={`text-lg font-medium leading-6 text-error ${titleClassName}`}
 									>
 										{title}
 									</Dialog.Title>
@@ -54,12 +63,16 @@ const ErrorPopup: React.FC<ErrorPopupProps> = (props) => {
 									</div>
 
 									<div className="mt-4">
-										<Button
-											onClick={onClose}
-											className="!bg-accent-primary-main"
-										>
-											Okay
-										</Button>
+										{actions?.length === 0 ? (
+											<Button
+												onClick={onClose}
+												className="!bg-accent-primary-main"
+											>
+												Okay
+											</Button>
+										) : (
+											actions
+										)}
 									</div>
 								</Dialog.Panel>
 							</Transition.Child>

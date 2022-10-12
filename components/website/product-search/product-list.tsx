@@ -7,6 +7,8 @@ import { useAuthStore } from 'store/auth';
 import { useCartStore } from 'store/cart-store';
 import { getDisplayBulkPrice } from 'utils/get-bulk-price';
 import { getLocaleText } from 'utils/get_locale_text';
+import Button from '../common/form/button';
+import ErrorPopup from '../common/popup/error-popup';
 import MessageVendorPopup from '../common/popup/message-vendor.popup';
 import ProductTile from './product-tile';
 
@@ -48,6 +50,41 @@ const ProductList: React.FC<ProductListProps> = ({
 		useState(false);
 
 	const [selectedSellerId, setSelectedSellerId] = useState('');
+	const [minimumProductOrderQuantity, setMinimumProductOrderQuantity] =
+		useState<number>(0);
+	const [selectedProduct, setSelectedProduct] = useState<any>({});
+
+	const addToCartHandler = async (product: any) => {
+		const buyerId = customerData.buyerId;
+		product.buyer_id = buyerId;
+		const productId = product.id;
+		await addToCart(productId, product);
+		const minimumOrderQuantity =
+			product?.inventory?.minimum_order_quantity || 0;
+
+		// Sending request when buyer Id is available
+		if (!totalCartProductQuantity) {
+			const minimumOrderQuantity =
+				product?.inventory?.minimum_order_quantity || 0;
+
+			const cartId = await addProductToCart(buyerId, {
+				product_id: productId,
+				variant_id: product?.variant_id,
+				quantity: minimumOrderQuantity || 1
+			});
+			setCartId(cartId);
+		} else {
+			updateCart(
+				cartId,
+				buyerId,
+				cartProducts.map((cartProduct) => ({
+					product_id: cartProduct.product?.id,
+					variant_id: cartProduct.product?.variant_id,
+					quantity: cartProduct.quantity
+				}))
+			);
+		}
+	}; // End of addToCartHandler
 
 	return (
 		<>
@@ -76,6 +113,38 @@ const ProductList: React.FC<ProductListProps> = ({
 					setIsMessageVendorPopupOpen(false);
 				}}
 			/>
+
+			{/* Minimum Quantity */}
+			<ErrorPopup
+				isOpen={minimumProductOrderQuantity >= 1}
+				title={`You will add ${minimumProductOrderQuantity} product minimum`}
+				titleClassName="!text-gray"
+				description="This product have minimum quantity constraint"
+				onClose={() => {}}
+				actions={[
+					<div key="action-button-container" className="space-x-4">
+						<Button
+							key="okay-button"
+							variant="buyer"
+							onClick={async () => {
+								await addToCartHandler(selectedProduct);
+								setMinimumProductOrderQuantity(0);
+								setSelectedProduct({});
+							}}
+						>
+							Add to Cart
+						</Button>
+						<Button
+							key="cancel-button"
+							className="!text-error"
+							onClick={() => setMinimumProductOrderQuantity(0)}
+						>
+							Cancel
+						</Button>
+					</div>
+				]}
+			/>
+
 			<div className="grid grid-cols-1 gap-4 md:gap-5">
 				{products.map((product) => {
 					const {
@@ -117,33 +186,46 @@ const ProductList: React.FC<ProductListProps> = ({
 							}
 							totalReviewCount={product.totalReviewCount}
 							onCompareClick={() => onCompareClick(product)}
+							// onCartClick={async () => {
+							// 	const buyerId = customerData.buyerId;
+							// 	product.buyer_id = buyerId;
+							// 	const productId = product.id;
+							// 	await addToCart(productId, product);
+
+							// 	// Sending request when buyer Id is available
+							// 	if (!totalCartProductQuantity) {
+							// 		const minimumOrderQuantity =
+							// 			product?.inventory?.minimum_order_quantity || 0;
+
+							// 		const cartId = await addProductToCart(buyerId, {
+							// 			product_id: productId,
+							// 			variant_id: product?.variant_id,
+							// 			quantity: minimumOrderQuantity || 1
+							// 		});
+							// 		setCartId(cartId);
+							// 	} else {
+							// 		updateCart(
+							// 			cartId,
+							// 			buyerId,
+							// 			cartProducts.map((cartProduct) => ({
+							// 				product_id: cartProduct.product?.id,
+							// 				variant_id: cartProduct.product?.variant_id,
+							// 				quantity: cartProduct.quantity
+							// 			}))
+							// 		);
+							// 	}
+							// }}
 							onCartClick={async () => {
-								const buyerId = customerData.buyerId;
-								product.buyer_id = buyerId;
-								const productId = product.id;
-								await addToCart(productId, product);
+								const minimumOrderQuantity =
+									product?.inventory?.minimum_order_quantity || 0;
 
-								// Sending request when buyer Id is available
-								if (!totalCartProductQuantity) {
-									const minimumOrderQuantity =
-										product?.inventory?.minimum_order_quantity || 0;
-
-									const cartId = await addProductToCart(buyerId, {
-										product_id: productId,
-										variant_id: product?.variant_id,
-										quantity: minimumOrderQuantity || 1
-									});
-									setCartId(cartId);
+								if (minimumOrderQuantity > 0) {
+									setMinimumProductOrderQuantity(+minimumOrderQuantity);
+									setSelectedProduct(product);
 								} else {
-									updateCart(
-										cartId,
-										buyerId,
-										cartProducts.map((cartProduct) => ({
-											product_id: cartProduct.product?.id,
-											variant_id: cartProduct.product?.variant_id,
-											quantity: cartProduct.quantity
-										}))
-									);
+									await addToCartHandler(product);
+									setMinimumProductOrderQuantity(0);
+									setSelectedProduct({});
 								}
 							}}
 							isInCompareList={product.isInCompareList}

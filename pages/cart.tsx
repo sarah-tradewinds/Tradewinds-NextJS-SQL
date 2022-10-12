@@ -39,6 +39,8 @@ const CartPage: NextPage = () => {
 		updateQuantityByProductId,
 		removeProductByIdFromCart
 	} = useCartStore();
+	console.log('[cart] cartProducts =', cartProducts);
+	console.log('[cart] subtotal =', subtotal);
 
 	const router = useRouter();
 

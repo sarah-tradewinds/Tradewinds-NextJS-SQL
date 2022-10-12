@@ -19,7 +19,10 @@ interface CartItemProps {
 	quantity: number;
 	total: number;
 	productPrice: number;
+	isSaleOn?: boolean;
+	salePrice: number;
 	displayPrice: string;
+	isBulkPricing: boolean;
 	minOrderQuantity: number;
 	imageUrl: string;
 	totalReviewCount: number;
@@ -36,7 +39,11 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 		quantity,
 		total,
 		productPrice,
+		isSaleOn,
+		salePrice,
+		displayPrice,
 		minOrderQuantity,
+		isBulkPricing,
 		imageUrl,
 		totalReviewCount,
 		onUpdate,
@@ -181,9 +188,24 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 								</div>
 
 								<div className="mt-2 hidden text-primary-main md:block">
-									<p>
+									{/* <p>
 										{t('common:price_per_unit')}: ${productPrice}
-									</p>
+									</p> */}
+
+									<h3 className="flex items-center space-x-8">
+										{isSaleOn && !isBulkPricing ? (
+											<>
+												<span className="text-accent-error">
+													Sale {salePrice}/piece
+												</span>
+												<span className="text-gray line-through">
+													${productPrice}/piece
+												</span>
+											</>
+										) : (
+											<>{displayPrice} / piece</>
+										)}
+									</h3>
 									<p>
 										{minOrderQuantity} {t('common:pieces')} /
 										{t('common:min_order')}

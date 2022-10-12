@@ -4,6 +4,7 @@ import CartItem from './cart-item';
 // store
 import { useRouter } from 'next/router';
 import { CartProduct } from 'store/cart-store';
+import { getDisplayBulkPrice } from 'utils/get-bulk-price';
 import { getLocaleText } from 'utils/get_locale_text';
 import { getProductPrice } from 'utils/pricing.utils';
 
@@ -31,6 +32,18 @@ const CartList: React.FC<CartListProps> = (props) => {
 			{carts?.map((cartProduct: any) => {
 				const { id, product } = cartProduct;
 
+				const {
+					product_price,
+					is_bulk_pricing,
+					bulk_pricing = []
+				} = product || {};
+
+				const displayPrice = getDisplayBulkPrice({
+					product_price,
+					is_bulk_pricing,
+					bulk_pricing
+				});
+
 				return (
 					<div key={id} className="border-b-gray/40 pb-4 odd:border-b">
 						<CartItem
@@ -53,10 +66,13 @@ const CartList: React.FC<CartListProps> = (props) => {
 								price: product?.product_price,
 								quantity: cartProduct?.quantity
 							})}
+							salePrice={product?.sale_price}
+							isSaleOn={product?.is_on_sale || 0}
+							isBulkPricing={product?.is_bulk_pricing}
 							imageUrl={product?.images[0] ? product.images[0].url : ''}
 							quantity={cartProduct.quantity}
 							total={cartProduct.total}
-							displayPrice=""
+							displayPrice={displayPrice}
 							minOrderQuantity={
 								product?.inventory?.minimum_order_quantity
 							}

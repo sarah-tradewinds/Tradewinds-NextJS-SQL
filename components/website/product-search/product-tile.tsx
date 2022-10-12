@@ -249,15 +249,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 						{/* Product price and verified image */}
 						<div className="mb-2 grid grid-cols-12 border-b-gray/20 md:border-b-2">
 							{/* Price and quantity */}
-							{/* <div className="col-span-12 text-[12px] font-semibold text-primary-main md:col-span-8 md:py-2 md:text-[18px] lg:col-span-12 lg:text-[21px]">
-								<h3>{displayPrice}/piece</h3>
-								{minOrderQuantity > 0 && (
-									<h4 className="-mt-1 font-normal md:-mt-2 md:font-semibold">
-										{minOrderQuantity} {t('common:piece')} /
-										{t('common:min_order')}
-									</h4>
-								)}
-							</div> */}
+
 							<div className="col-span-12 text-[12px] font-semibold text-primary-main md:col-span-8 md:py-2 md:text-[18px] lg:col-span-12 lg:text-[21px]">
 								<h3 className="flex items-center space-x-8">
 									{isSaleOn && !isBulkPricing ? (

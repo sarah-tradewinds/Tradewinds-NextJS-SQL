@@ -187,9 +187,9 @@ const getTotalAmountAndQuantity = (cartList: CartProduct[]) => {
 	let subtotal = 0;
 	if (cartList) {
 		for (const cart of cartList) {
-			const { quantity, product } = cart;
+			const { quantity } = cart;
 			totalQuantity += +quantity;
-			subtotal += +quantity * product.product_price;
+			subtotal += cart.total;
 		}
 	}
 
