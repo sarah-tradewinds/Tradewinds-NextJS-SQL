@@ -6,7 +6,17 @@ const ProductDetailsTab: React.FC<{
 	productDetailItems: [];
 	certifications: [];
 	shipping: any;
-}> = ({ productDetailItems, certifications, shipping }) => {
+	productDetailsContainerClassName?: string;
+	certificationContainerClassName?: string;
+	dimensionContainerClassName?: string;
+}> = ({
+	productDetailItems,
+	certifications,
+	shipping,
+	productDetailsContainerClassName,
+	certificationContainerClassName,
+	dimensionContainerClassName
+}) => {
 	const { locale } = useRouter();
 	const { t } = useTranslation();
 
@@ -17,7 +27,9 @@ const ProductDetailsTab: React.FC<{
 					{t('common:product_details')}
 				</p>
 				{/* Product details body */}
-				<div className="flex flex-col p-4 md:flex-row md:justify-between">
+				<div
+					className={`flex flex-col p-4 md:flex-row md:justify-between ${productDetailsContainerClassName}`}
+				>
 					<div className="space-y-2">
 						{productDetailItems.map((productDetailItem: any) => {
 							const key = getLocaleText(
@@ -43,7 +55,7 @@ const ProductDetailsTab: React.FC<{
 			</div>
 
 			{/* Product certification  Details */}
-			<div>
+			<div className={certificationContainerClassName}>
 				<p className="border-b-2 border-gray/40 text-[15px] font-semibold text-gray md:text-[21px]">
 					{t('common:product_certifications')}
 				</p>
@@ -73,7 +85,7 @@ const ProductDetailsTab: React.FC<{
 			</div>
 
 			{/* Shipping Details */}
-			<div>
+			<div className={dimensionContainerClassName}>
 				<p className="border-b-2 border-gray/40 text-[15px] font-semibold text-gray md:text-[21px]">
 					{t('common:shipping_details')}
 				</p>

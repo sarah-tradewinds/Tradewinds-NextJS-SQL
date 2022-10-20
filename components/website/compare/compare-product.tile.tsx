@@ -17,9 +17,11 @@ interface CompareProductTileProps {
 	alt?: string;
 	name: string;
 	description: string;
-	minPrice?: number;
-	maxPrice?: number;
+	isSaleOn?: boolean;
+	salePrice: number;
+	productPrice: number;
 	displayPrice?: string;
+	isBulkPricing?: boolean;
 	minimumOrderQuantity: number;
 	className?: string;
 	onProductRemove?: () => any;
@@ -33,9 +35,11 @@ const CompareProductTile: React.FC<CompareProductTileProps> = (
 		alt,
 		name,
 		description,
-		maxPrice,
-		minPrice,
+		isSaleOn,
+		salePrice,
+		productPrice,
 		displayPrice,
+		isBulkPricing,
 		minimumOrderQuantity,
 		className,
 		onProductRemove
@@ -79,6 +83,11 @@ const CompareProductTile: React.FC<CompareProductTileProps> = (
 							</div>
 						</div>
 					))}
+					{(!images || images?.length === 0) && (
+						<div className="relative h-[202px] w-[240px]">
+							<ImageWithErrorHandler src={''} alt={alt} layout="fill" />
+						</div>
+					)}
 				</div>
 
 				{/* Navigation button */}
@@ -86,9 +95,12 @@ const CompareProductTile: React.FC<CompareProductTileProps> = (
 					<div className="flex items-center">
 						<Button
 							className="!text-primary-main"
-							onClick={(e: any) =>
-								e.stopPropagation() || instanceRef.current?.prev()
-							}
+							onClick={(e: any) => {
+								if (images && images?.length > 1) {
+									e.stopPropagation() || instanceRef.current?.prev();
+								}
+							}}
+							disabled={images && images?.length <= 1}
 						>
 							<MdChevronLeft className="h-[32px] w-[32px]" />
 						</Button>
@@ -99,12 +111,16 @@ const CompareProductTile: React.FC<CompareProductTileProps> = (
 
 						<Button
 							className="!h-[40px] !w-[40px] !text-primary-main"
-							onClick={(e: any) =>
-								e.stopPropagation() || instanceRef.current?.next()
-							}
+							onClick={(e: any) => {
+								if (images && images?.length > 1) {
+									e?.stopPropagation() || instanceRef?.current?.next();
+								}
+							}}
 							disabled={
 								currentSlide ===
-								instanceRef?.current?.track?.details?.slides?.length - 1
+									instanceRef?.current?.track?.details?.slides?.length -
+										1 ||
+								(images && images?.length <= 1)
 							}
 						>
 							<MdChevronRight className="h-[32px] w-[32px]" />
@@ -121,7 +137,20 @@ const CompareProductTile: React.FC<CompareProductTileProps> = (
 
 			{/* Price */}
 			<div className="text-[18px] font-semibold text-primary-main lg:text-[21px]">
-				<p>{displayPrice} /piece</p>
+				<div>
+					{isSaleOn && !isBulkPricing ? (
+						<p className="space-x-2">
+							<span className="text-accent-error">
+								Sale {salePrice}/piece
+							</span>
+							<span className="text-gray line-through">
+								${productPrice}/piece
+							</span>
+						</p>
+					) : (
+						<>{displayPrice} / piece</>
+					)}
+				</div>
 				<p>{minimumOrderQuantity} Pieces /Min. Order</p>
 			</div>
 
@@ -141,7 +170,7 @@ const CompareProductTile: React.FC<CompareProductTileProps> = (
 						rating={5}
 						className="w-[14px]"
 						selectedClassName="text-secondary"
-						containerClassName="space-x-1"
+						containerClassName="space-x-1 w-[120px]"
 					/>
 					<p className="text-center text-[12px] text-secondary">
 						146 Reviews

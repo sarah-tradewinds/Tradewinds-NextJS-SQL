@@ -53,7 +53,78 @@ const ComparePage: NextPage = (props) => {
 		colSpan = 'col-span-3';
 	}
 
-	console.log(compareProducts);
+	const compareProductTiles = (isSlider?: boolean) => {
+		return compareProducts.map((compareProduct: any, index) => {
+			const {
+				id,
+				product_price,
+				is_bulk_pricing,
+				bulk_pricing,
+				inventory
+			} = compareProduct;
+
+			const displayPrice = getDisplayBulkPrice({
+				product_price,
+				is_bulk_pricing,
+				bulk_pricing
+			});
+
+			return (
+				<div
+					key={compareProduct.id}
+					className={isSlider ? 'keen-slider__slide' : ''}
+				>
+					<CompareProductTile
+						key={compareProduct.id}
+						id={id}
+						name={getLocaleText(
+							compareProduct.product_name || {},
+							router.locale
+						)}
+						description={getLocaleText(
+							compareProduct.product_description || {},
+							router.locale
+						)}
+						productPrice={product_price}
+						salePrice={compareProduct?.sale_price}
+						isSaleOn={compareProduct?.is_on_sale || 0}
+						isBulkPricing={compareProduct?.is_bulk_pricing}
+						displayPrice={displayPrice}
+						minimumOrderQuantity={
+							inventory?.minimum_order_quantity || 0
+						}
+						images={compareProduct?.images || []}
+						onProductRemove={() => removeProductFromCompareList(id)}
+						className={
+							compareProducts?.length - 1 === index
+								? ''
+								: 'border-r-2 border-gray/20'
+						}
+					/>
+
+					<div className="mt-8">
+						<p className="ml-8 text-[24px] font-semibold text-primary-main">
+							<span
+								className={index === 0 ? 'opacity-100' : 'opacity-0'}
+							>
+								All Specs
+							</span>
+						</p>
+						<ProductDetailsTab
+							productDetailItems={
+								compareProduct?.product_detail_item || []
+							}
+							certifications={compareProduct?.certification || []}
+							shipping={compareProduct?.product_dimension || {}}
+							productDetailsContainerClassName="h-[280px] overflow-y-auto"
+							certificationContainerClassName="h-[280px] overflow-y-auto"
+							dimensionContainerClassName="h-[280px] overflow-y-auto"
+						/>
+					</div>
+				</div>
+			);
+		});
+	}; // End of compareProductTiles
 
 	return (
 		<>
@@ -83,101 +154,22 @@ const ComparePage: NextPage = (props) => {
 						</Button>
 					</div>
 
+					{/* For mobile */}
 					<div className="lg:hidden">
 						<div ref={ref} className="keen-slider">
-							{compareProducts.map((compareProduct) => {
-								const {
-									id,
-									product_price,
-									is_bulk_pricing,
-									bulk_pricing,
-									inventory
-								} = compareProduct;
-
-								const displayPrice = getDisplayBulkPrice({
-									product_price,
-									is_bulk_pricing,
-									bulk_pricing
-								});
-
-								return (
-									<div key={id} className="keen-slider__slide">
-										<CompareProductTile
-											key={compareProduct.id}
-											id={id}
-											name={getLocaleText(
-												compareProduct.product_name || {},
-												router.locale
-											)}
-											description={getLocaleText(
-												compareProduct.product_description || {},
-												router.locale
-											)}
-											minimumOrderQuantity={
-												inventory?.minimum_order_quantity || 0
-											}
-											images={compareProduct?.images}
-											displayPrice={displayPrice}
-											// onRemoveCompareProduct={() => {
-											// 	if (onRemoveCompareProduct) {
-											// 		onRemoveCompareProduct(product.id);
-											// 	}
-											// }}
-
-											onProductRemove={() =>
-												removeProductFromCompareList(id)
-											}
-										/>
-									</div>
-								);
-							})}
+							{compareProductTiles(true)}
 						</div>
 					</div>
 
+					{/* For desktop */}
 					<div
-						className={`hidden gap-4 divide-x-2 divide-gray/20 lg:grid grid-cols-${compareProducts.length}`}
+						className={`hidden gap-4  lg:grid grid-cols-${compareProducts.length}`}
 					>
-						{compareProducts.map((compareProduct: any) => {
-							const {
-								id,
-								product_price,
-								is_bulk_pricing,
-								bulk_pricing,
-								inventory
-							} = compareProduct;
-
-							const displayPrice = getDisplayBulkPrice({
-								product_price,
-								is_bulk_pricing,
-								bulk_pricing
-							});
-							return (
-								<CompareProductTile
-									key={compareProduct.id}
-									id={id}
-									name={getLocaleText(
-										compareProduct.product_name || {},
-										router.locale
-									)}
-									description={getLocaleText(
-										compareProduct.product_description || {},
-										router.locale
-									)}
-									displayPrice={displayPrice}
-									minimumOrderQuantity={
-										inventory?.minimum_order_quantity || 0
-									}
-									images={compareProduct?.images || []}
-									onProductRemove={() =>
-										removeProductFromCompareList(id)
-									}
-								/>
-							);
-						})}
+						{compareProductTiles()}
 					</div>
 
 					{/* Spec */}
-					<div className="mx-4 mt-16">
+					<div className="mx-4 mt-16 hidden">
 						<Collapse
 							initialValue={true}
 							leading={
@@ -203,6 +195,9 @@ const ComparePage: NextPage = (props) => {
 												compareProduct?.certification || []
 											}
 											shipping={compareProduct?.product_dimension || {}}
+											productDetailsContainerClassName="h-[280px] overflow-y-auto"
+											certificationContainerClassName="h-[280px] overflow-y-auto"
+											dimensionContainerClassName="h-[280px] overflow-y-auto"
 										/>
 									</div>
 								))}
