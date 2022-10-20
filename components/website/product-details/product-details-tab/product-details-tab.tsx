@@ -39,21 +39,6 @@ const ProductDetailsTab: React.FC<{
 							);
 						})}
 					</div>
-
-					{/* <div className="space-y-2">
-						<p className="flex justify-between  space-x-8 text-[15px] text-gray md:text-[18px]">
-							<span className="font-semibold">CERTIFICATION:</span>
-							<span> CE / EU</span>
-						</p>
-						<p className="flex justify-between  space-x-8 text-[15px] text-gray md:text-[18px]">
-							<span className="font-semibold">Variants:</span>
-							<div>
-								<span>Variants 1</span>
-								<span>Variants 2</span>
-								<span>Variants 3</span>
-							</div>
-						</p>
-					</div> */}
 				</div>
 			</div>
 

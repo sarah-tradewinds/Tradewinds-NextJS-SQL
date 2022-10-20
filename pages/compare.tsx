@@ -15,13 +15,12 @@ import Collapse from 'components/website/common/collapse';
 import Button from 'components/website/common/form/button';
 import Seo from 'components/website/common/seo';
 import CompareProductTile from 'components/website/compare/compare-product.tile';
-import Specs from 'components/website/compare/specs/specs';
-import { specs1, specs2 } from 'data/specs';
 
 // store
 import { useProductCompareStore } from 'store/product-compare-store';
 
 // utils
+import ProductDetailsTab from 'components/website/product-details/product-details-tab/product-details-tab';
 import { getDisplayBulkPrice } from 'utils/get-bulk-price';
 import { getLocaleText } from 'utils/get_locale_text';
 
@@ -43,6 +42,18 @@ const ComparePage: NextPage = (props) => {
 			}
 		}
 	});
+
+	const compareProductsLength = compareProducts.length;
+	let colSpan = 'col-span-12';
+	if (compareProductsLength === 2) {
+		colSpan = 'col-span-6';
+	} else if (compareProductsLength === 3) {
+		colSpan = 'col-span-4';
+	} else if (compareProductsLength === 4) {
+		colSpan = 'col-span-3';
+	}
+
+	console.log(compareProducts);
 
 	return (
 		<>
@@ -181,9 +192,20 @@ const ComparePage: NextPage = (props) => {
 								</Button>
 							}
 						>
-							<div className="space-y-2">
-								<Specs title="Key Specs" specsList={specs1} />
-								<Specs title="Specs section 2" specsList={specs2} />
+							<div className="grid grid-cols-12">
+								{compareProducts.map((compareProduct) => (
+									<div key={compareProduct.id} className={colSpan}>
+										<ProductDetailsTab
+											productDetailItems={
+												compareProduct?.product_detail_item || []
+											}
+											certifications={
+												compareProduct?.certification || []
+											}
+											shipping={compareProduct?.product_dimension || {}}
+										/>
+									</div>
+								))}
 							</div>
 						</Collapse>
 					</div>
