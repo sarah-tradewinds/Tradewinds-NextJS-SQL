@@ -1,7 +1,7 @@
 import {
-	GetServerSideProps,
-	InferGetServerSidePropsType,
-	NextPage
+  GetServerSideProps,
+  InferGetServerSidePropsType,
+  NextPage
 } from 'next';
 import Image from 'next/image';
 
@@ -23,8 +23,8 @@ import SubCategoryTile from 'components/website/product-search/sub-category-tile
 import TrendingSectionTile from 'components/website/product-search/trending-section-tile';
 import { getCountryById } from 'lib/common.lib';
 import {
-	getProducts,
-	getSelectedMainCategoryAndCategories
+  getProducts,
+  getSelectedMainCategoryAndCategories
 } from 'lib/product-search.lib';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -285,39 +285,41 @@ const ProductSearchPage: NextPage<
 						/>
 					)}
 
-					{/* Category and categories list */}
+					{/* MainCategory and categories list */}
 					{!router.query.is_trending && selectedCategories.length > 0 && (
 						<div className="grid grid-cols-12 md:gap-0 md:rounded-md md:bg-white md:p-4 md:shadow-md lg:gap-2">
 							{/* Main category Card */}
-							<div className="col-span-12 md:col-span-3">
+							<div className="col-span-12 md:col-span-4 lg:col-span-3">
 								{isSelectedMainCategoryAndCategoriesLoading ? (
 									<div>
 										<Skeleton />
 										<Skeleton height="180px" />
 									</div>
 								) : (
-									<MainCategoryCard
-										title={getLocaleText(
-											selectedMainCategory?.title || {},
-											router.locale
-										)}
-										subtitle={getLocaleText(
-											selectedMainCategory?.description || {},
-											router.locale
-										)}
-										imageUrl={selectedMainCategory?.icon?.url}
-										style={{
-											backgroundColor: selectedMainCategory?.color,
-											border: selectedMainCategory?.color
-												? ''
-												: '2px solid gray'
-										}}
-										className="w-screen md:w-auto"
-									/>
+									<div className="h-4/5">
+										<MainCategoryCard
+											title={getLocaleText(
+												selectedMainCategory?.title || {},
+												router.locale
+											)}
+											subtitle={getLocaleText(
+												selectedMainCategory?.description || {},
+												router.locale
+											)}
+											imageUrl={selectedMainCategory?.icon?.url}
+											style={{
+												backgroundColor: selectedMainCategory?.color,
+												border: selectedMainCategory?.color
+													? ''
+													: '2px solid gray'
+											}}
+											className="w-screen md:w-auto"
+										/>
+									</div>
 								)}
 							</div>
 							{/* Categories */}
-							<div className="col-span-12 border-gray/20 md:col-span-9 md:ml-4 md:border-l-2 md:pl-4">
+							<div className="col-span-12 border-gray/20 md:col-span-8 md:ml-4 md:border-l-2 md:pl-4 lg:col-span-9">
 								<div className="hidden md:block">
 									<SubCategorySlider
 										categories={[...selectedCategories]}
