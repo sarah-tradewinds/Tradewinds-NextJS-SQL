@@ -66,8 +66,7 @@ const ProductDetailsPage: NextPage<
 		if (selectedVariantId) {
 			const updatedProductData = { ...productData };
 
-			// TODO: This should be correct
-			if (!updatedProductData.has_variants) {
+			if (updatedProductData.has_variants) {
 				const productVariant = updatedProductData.variants?.find(
 					(variant: any) => variant.variant_id === selectedVariantId
 				);
@@ -103,6 +102,8 @@ const ProductDetailsPage: NextPage<
 			setProductData(product);
 		}
 	}, [selectedVariantId]);
+
+	console.log('selectedVariantId =', selectedVariantId);
 
 	const submitReviewHandler = async (
 		rating: number,
