@@ -247,7 +247,9 @@ const CartReviewPage: NextPage = () => {
 										<td className="text-center">
 											${orderItem?.unit_cost}
 										</td>
-										<td className="text-center">${orderItem?.total}</td>
+										<td className="text-center">
+											${orderItem?.sub_total}
+										</td>
 									</tr>
 								);
 							})}
