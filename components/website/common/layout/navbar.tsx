@@ -169,7 +169,9 @@ const Header = () => {
 									count={cartProducts?.length || 0}
 									onClick={() => router.push('/cart')}
 									iconClassName="pc:!text-[24px]"
-									countClassName={isAuth ? '!-right-4' : ''}
+									countClassName={
+										isAuth ? '!-top-2 !lg:-top-2 !-right-2' : ''
+									}
 								/>
 
 								{/* Name and logout button */}

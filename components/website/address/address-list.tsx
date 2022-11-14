@@ -31,7 +31,7 @@ const AddressList: React.FC<AddressListProps> = (props) => {
 						city={getLocaleText(address?.city || {}, router.locale)}
 						state={getLocaleText(address?.state || {}, router.locale)}
 						zipCode={zip}
-						country={country?.name}
+						country={getLocaleText(country?.name || {}, router.locale)}
 						phoneNumber={address?.phone}
 						isSelected={isSelected}
 						onChange={(currentState) =>
