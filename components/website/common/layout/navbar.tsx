@@ -73,7 +73,7 @@ const Header = () => {
 	useMainCategories();
 
 	let classes = `bg-white dark:bg-accent-primary-eco md:bg-bg-main sm:h-[40px] h-[100vh] w-[60%] sm:w-full sm:grid sm:place-items-center sm:relative absolute opacity-100 transition-all ease-in-out duration-300 ${
-		!isOpen ? 'pc:w-0 pc:opacity-0 pc: overflow-hidden' : ''
+		!isOpen ? 'pc:w-0 pc:opacity-0 pc:overflow-hidden' : ''
 	}`;
 
 	const drawerHandler = () => {
@@ -114,39 +114,36 @@ const Header = () => {
 								id="logo"
 							>
 								<Link href="/">
-									<a>
-										{/* For mobile and medium*/}
-										<div className="relative hidden h-full w-full md:block lg:hidden">
-											<Image
-												src="/TW-Create an account page-02.png"
-												alt="Logo"
-												fill={true}
-												className="cursor-pointer"
-												onClick={() => {
-													if (isEco) {
-														setIsEco();
-													}
-												}}
-											/>
-										</div>
-
-										{/* For desktop */}
-										<div className="md:hidden lg:block">
-											<Image
-												src="/static/images/tradewinds_logo.png"
-												alt="Logo"
-												fill={true}
-												className="cursor-pointer"
-												onClick={() => {
-													removeCategoryFilter();
-													removeSelectedCountries();
-													if (isEco) {
-														setIsEco();
-													}
-												}}
-											/>
-										</div>
-									</a>
+									{/* For mobile and medium*/}
+									<div className="relative hidden h-full w-full md:block lg:hidden">
+										<Image
+											src="/TW-Create an account page-02.png"
+											alt="Logo"
+											fill={true}
+											className="cursor-pointer"
+											onClick={() => {
+												if (isEco) {
+													setIsEco();
+												}
+											}}
+										/>
+									</div>
+									{/* For desktop */}
+									<div className="md:hidden lg:block">
+										<Image
+											src="/static/images/tradewinds_logo.png"
+											alt="Logo"
+											fill={true}
+											className="cursor-pointer"
+											onClick={() => {
+												removeCategoryFilter();
+												removeSelectedCountries();
+												if (isEco) {
+													setIsEco();
+												}
+											}}
+										/>
+									</div>
 								</Link>
 							</div>
 						</div>
@@ -370,7 +367,7 @@ const Header = () => {
 								</nav>
 							</div>
 
-							<div className="relative w-[40px]">
+							<div className="relative mr-8 hidden w-[40px] lg:block">
 								<LanguageDropdown />
 							</div>
 						</div>

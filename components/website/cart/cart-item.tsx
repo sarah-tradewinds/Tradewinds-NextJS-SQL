@@ -127,7 +127,6 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 		if (isNaN(value)) {
 			return;
 		}
-
 		setProductQuantity(value);
 	}; // End of quantityChangeHandler
 
@@ -139,17 +138,15 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 					<div className="col-span-5 md:col-span-3">
 						<div>
 							<Link href={`/product/${slug}`}>
-								<a>
-									<div className="relative h-[81px] w-[114px] md:h-[101px] md:w-[143px] lg:h-[205px] lg:w-[290px]">
-										<ImageWithErrorHandler
-											key={imageUrl}
-											src={imageUrl}
-											alt={'alt'}
-											fill={true}
-											className="object-contain"
-										/>
-									</div>
-								</a>
+								<div className="relative h-[81px] w-[114px] md:h-[101px] md:w-[143px] lg:h-[205px] lg:w-[290px]">
+									<ImageWithErrorHandler
+										key={imageUrl}
+										src={imageUrl}
+										alt={'alt'}
+										fill={true}
+										className="object-contain"
+									/>
+								</div>
 							</Link>
 						</div>
 
@@ -170,24 +167,23 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 					</div>
 
 					{/* Content and metadata */}
-					<div className="col-span-7 space-y-4 md:col-span-9">
+					<div className="col-span-7 space-y-4 bg-error md:col-span-9">
 						<div className="grid grid-cols-12">
-							<div className="col-span-7">
+							{/* Visible only on medium and large device */}
+							<div className="col-span-7 hidden md:block">
 								{/* Title and description */}
-								<div className="hidden md:block">
+								<div>
 									<Link href={`/product/${slug}`}>
-										<a>
-											<h2 className="md:text-[16px] lg:text-[15px]">
-												<span className="font-semibold">
-													{productName}:{' '}
-												</span>
-												<span className="text-gray">{description}</span>
-											</h2>
-										</a>
+										<h2 className="md:text-[16px] lg:text-[15px]">
+											<span className="font-semibold">
+												{productName}:{' '}
+											</span>
+											<span className="text-gray">{description}</span>
+										</h2>
 									</Link>
 								</div>
 
-								<div className="mt-2 hidden text-primary-main md:block">
+								<div className="mt-2 text-primary-main">
 									{/* <p>
 										{t('common:price_per_unit')}: ${productPrice}
 									</p> */}
@@ -214,7 +210,7 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 							</div>
 
 							{/* Quantity input and total amount */}
-							<div className="col-span-12 mt-2 md:col-span-5 md:flex md:justify-between">
+							<div className="col-span-12 mt-2 bg-black md:col-span-5 md:flex md:justify-between">
 								<div className="">
 									<div>
 										<span className="text-[15px] font-semibold text-primary-main md:text-[21px]">

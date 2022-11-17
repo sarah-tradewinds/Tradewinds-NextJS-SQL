@@ -43,14 +43,14 @@ const Button: React.FC<ButtonProps> = (props) => {
 
 	if (href) {
 		return (
-			<Link href={href}>
-				<a
-					className={`flex items-center justify-center ${buttonClassName} ${className}`}
-				>
-					{children}
-				</a>
-			</Link>
-		);
+            (<Link
+                href={href}
+                className={`flex items-center justify-center ${buttonClassName} ${className}`}>
+
+                {children}
+
+            </Link>)
+        );
 	}
 
 	return (

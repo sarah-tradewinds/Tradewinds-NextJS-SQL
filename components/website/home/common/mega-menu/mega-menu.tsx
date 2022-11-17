@@ -69,6 +69,10 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 
 	const megaMenuClassName = `relative grid grid-cols-12 border bg-white text-sm text-gray shadow-lg overflow-y-autos ${className}`;
 
+	const navigateWithShallow = (path: string) => {
+		router.push(path, undefined, { shallow: true });
+	}; // End of navigateWithShallow function
+
 	return (
 		<div className={megaMenuClassName}>
 			{/* Main Categories */}
@@ -114,7 +118,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 										id,
 										mainCategory.title?.en || ''
 									);
-									router.push(
+									navigateWithShallow(
 										`/product-search?${params}&${generateQueryString({
 											region: router.query.region,
 											country: router.query.region
@@ -166,7 +170,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 									selectedMainCategory?.name || ''
 								);
 								const params = setCategory(id, title?.en || '');
-								router.push(
+								navigateWithShallow(
 									`/product-search?${params}&${generateQueryString({
 										region: router.query.region,
 										country: router.query.region
@@ -220,7 +224,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 									id,
 									title?.en
 								);
-								router.push(
+								navigateWithShallow(
 									`/product-search?${params}&${generateQueryString({
 										region: router.query.region,
 										country: router.query.region
@@ -285,7 +289,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 									id,
 									title?.en
 								);
-								router.push(
+								navigateWithShallow(
 									`/product-search?${params}&${generateQueryString({
 										region: router.query.region,
 										country: router.query.region

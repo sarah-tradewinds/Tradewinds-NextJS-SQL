@@ -416,9 +416,9 @@ export const getServerSideProps: GetServerSideProps = async ({
 	locale
 }) => {
 	console.log('[getServerSideProps] running');
-	// const products = await getProducts({
-	//  price_start: 0
-	// });
+	const products = await getProducts({
+		price_start: 0
+	});
 
 	return {
 		props: {

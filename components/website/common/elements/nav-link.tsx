@@ -25,12 +25,12 @@ const NavLink: React.FC<NavLinkProps> = (props) => {
 	// };
 
 	return (
-		<Link href={href}>
-			<a className={navLinkClassName} onClick={onClick}>
-				{children}
-			</a>
-		</Link>
-	);
+        (<Link href={href} className={navLinkClassName} onClick={onClick}>
+
+            {children}
+
+        </Link>)
+    );
 };
 
 export default NavLink;

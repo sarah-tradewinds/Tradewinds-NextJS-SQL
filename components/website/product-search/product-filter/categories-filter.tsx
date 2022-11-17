@@ -131,10 +131,16 @@ const CategoryList: React.FC<{
 			title={getLocaleText(title || {}, locale)}
 			onClick={() => {
 				const params = setCategory(id, categoryName);
-				`/product-search?${params}&${generateQueryString({
-					region: query.region,
-					country: query.region
-				})}`;
+				push(
+					`/product-search?${params}&${generateQueryString({
+						region: query.region,
+						country: query.region
+					})}`,
+					undefined,
+					{
+						shallow: true
+					}
+				);
 			}}
 			className="ml-4"
 		>
@@ -175,7 +181,7 @@ const SubCategoryList: React.FC<{
 		categoryId,
 		categoryTitle
 	} = props;
-	const { locale, query } = useRouter();
+	const { push, locale, query } = useRouter();
 
 	const { setSubCategory, setSpecificCategory } = useCategoryStore();
 
@@ -210,10 +216,16 @@ const SubCategoryList: React.FC<{
 					subCategoryId,
 					subCategoryName
 				);
-				`/product-search?${params}&${generateQueryString({
-					region: query.region,
-					country: query.region
-				})}`;
+				push(
+					`/product-search?${params}&${generateQueryString({
+						region: query.region,
+						country: query.region
+					})}`,
+					undefined,
+					{
+						shallow: true
+					}
+				);
 			}}
 			className="ml-4"
 		>
@@ -252,10 +264,16 @@ const SubCategoryList: React.FC<{
 								specificCategory?.title?.en
 							);
 
-							`/product-search?${params}&${generateQueryString({
-								region: query.region,
-								country: query.region
-							})}`;
+							push(
+								`/product-search?${params}&${generateQueryString({
+									region: query.region,
+									country: query.region
+								})}`,
+								undefined,
+								{
+									shallow: true
+								}
+							);
 						}}
 					>
 						{specificCategoryTitle}

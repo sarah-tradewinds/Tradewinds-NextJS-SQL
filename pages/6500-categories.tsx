@@ -34,7 +34,7 @@ const CategoriesPage: NextPage<
 	const alphabetList = showAll ? alphabets : [...alphabets].slice(0, 3);
 
 	return (
-		<div className="relative bg-cyan">
+        <div className="relative bg-cyan">
 			<div className="relative">
 				<div className="absolutes h-[320px] w-full bg-[url(/trending.png)] lg:h-[420px]">
 					{/* <Image src="/trending.png" alt="trending" fill={true} /> */}
@@ -70,19 +70,20 @@ const CategoriesPage: NextPage<
 									<div className="flex flex-wrap md:flex-nowrap lg:space-x-4">
 										{alphabets.map((alphabet, index) => {
 											return (
-												<Link href={`#${alphabet}`} key={alphabet}>
-													<a
-														onClick={() => {
-															if (!showAll && index >= 2) {
-																setShowAll(true);
-															}
-														}}
-														className="mx-2 cursor-pointer border-b-2 border-green bg-gradient-to-r from-green to-primary-eco bg-clip-text text-[18px] text-transparent lg:text-[24px]"
-													>
-														{alphabet}
-													</a>
-												</Link>
-											);
+                                                (<Link
+                                                    href={`#${alphabet}`}
+                                                    key={alphabet}
+                                                    onClick={() => {
+                                                        if (!showAll && index >= 2) {
+                                                            setShowAll(true);
+                                                        }
+                                                    }}
+                                                    className="mx-2 cursor-pointer border-b-2 border-green bg-gradient-to-r from-green to-primary-eco bg-clip-text text-[18px] text-transparent lg:text-[24px]">
+
+                                                    {alphabet}
+
+                                                </Link>)
+                                            );
 										})}
 									</div>
 
@@ -159,7 +160,7 @@ const CategoriesPage: NextPage<
 				</Tab.Group>
 			</div>
 		</div>
-	);
+    );
 }; // End of CategoriesPage
 
 export const getServerSideProps: GetServerSideProps = async ({

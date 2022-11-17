@@ -24,24 +24,24 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 	};
 
 	return (
-		<Slider {...settings}>
+        <Slider {...settings}>
 			{heroCarouselData.map((item, index) => (
 				<div
 					className="relative h-[75vh] w-full"
 					key={item.id || index}
 				>
 					<Link href={item.link ?? '/'}>
-						<a>
-							<div className="relative h-[75vh] w-full">
-								<Image
-									src={item.image?.url}
-									alt={String(item.order)}
-									fill={true}
-									objectFit="cover"
-								/>
-							</div>
-						</a>
-					</Link>
+
+                        <div className="relative h-[75vh] w-full">
+                            <Image
+                                src={item.image?.url}
+                                alt={String(item.order)}
+                                fill={true}
+                                objectFit="cover"
+                            />
+                        </div>
+
+                    </Link>
 
 					{item.title?.en && (
 						<div className="absolute left-4 top-16 z-[4] w-[90%] space-y-2 bg-black/60 p-4 text-white md:left-16 md:top-40 md:w-auto">
@@ -64,7 +64,7 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 				</div>
 			))}
 		</Slider>
-	);
+    );
 };
 
 export default HeroCarousel;

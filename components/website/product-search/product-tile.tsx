@@ -187,7 +187,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 	);
 
 	return (
-		<div
+        <div
 			className={`bg-se grid w-full grid-cols-12 overflow-hidden bg-white md:rounded-xl md:shadow-md lg:p-4 ${
 				isEco ? 'border-2 border-accent-success' : ''
 			}`}
@@ -197,17 +197,17 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 					{/* Product Image Container */}
 					<div className="relative col-span-5 pr-2 md:col-span-3 lg:col-span-4">
 						<Link href={`/product/${slug}`}>
-							<a>
-								<div className="relative h-full w-full">
-									<ImageWithErrorHandler
-										src={imageUrl}
-										alt={alt}
-										fill={true}
-										className="object-contain"
-									/>
-								</div>
-							</a>
-						</Link>
+
+                            <div className="relative h-full w-full">
+                                <ImageWithErrorHandler
+                                    src={imageUrl}
+                                    alt={alt}
+                                    fill={true}
+                                    className="object-contain"
+                                />
+                            </div>
+
+                        </Link>
 
 						{isEco && (
 							<div className="absolute top-2 left-2 lg:top-0">
@@ -224,20 +224,22 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 					{/* Content */}
 					<div className="col-span-7 pl-2 md:col-span-5 lg:col-span-8">
 						{/* Product Info and keywords*/}
-						<Link href={`/product/${slug}`}>
-							<a className="text-[12px] text-primary-main md:hidden">
-								{name}
-							</a>
-						</Link>
+						<Link
+                            href={`/product/${slug}`}
+                            className="text-[12px] text-primary-main md:hidden">
+
+                            {name}
+
+                        </Link>
 						<div className="hidden space-y-4 md:block">
 							<Link href={`/product/${slug}`}>
-								<a>
-									<h2 className="md:text-[16px] lg:text-[15px]">
-										<span className="font-semibold">{name}: </span>
-										<span className="text-gray">{description}</span>
-									</h2>
-								</a>
-							</Link>
+
+                                <h2 className="md:text-[16px] lg:text-[15px]">
+                                    <span className="font-semibold">{name}: </span>
+                                    <span className="text-gray">{description}</span>
+                                </h2>
+
+                            </Link>
 							{/* keywords */}
 							<div className="flex justify-between font-semibold text-primary-main md:text-[12px] lg:text-[16px]">
 								{keywords.map((keyword) => (
@@ -357,7 +359,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 				</div>
 			</div>
 		</div>
-	);
+    );
 };
 
 export default ProductTile;
