@@ -367,7 +367,7 @@ const Header = () => {
 								</nav>
 							</div>
 
-							<div className="relative mr-8 hidden w-[40px] lg:block">
+							<div className="relative lg:mr-8">
 								<LanguageDropdown />
 							</div>
 						</div>
