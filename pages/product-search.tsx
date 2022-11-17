@@ -14,12 +14,13 @@ import CompareProductList from 'components/website/compare/compare-bottom-overla
 import ProductList from 'components/website/product-search/product-list';
 
 // stores
+import ImageWithErrorHandler from 'components/website/common/elements/image-with-error-handler';
 import Seo from 'components/website/common/seo';
 import SubCategorySlider from 'components/website/home/sub-category-slider';
-import MainCategoryCard from 'components/website/product-search/main-category-card';
 import ProductFilter from 'components/website/product-search/product-filter/product-filter';
 import ProductSearchTopBanner from 'components/website/product-search/product-search-top-banner';
 import SubCategoryTile from 'components/website/product-search/sub-category-tile';
+import TrendingCategorySlider from 'components/website/product-search/trending-category-slider';
 import TrendingSectionTile from 'components/website/product-search/trending-section-tile';
 import { getCountryById } from 'lib/common.lib';
 import {
@@ -289,38 +290,49 @@ const ProductSearchPage: NextPage<
 					{!router.query.is_trending && selectedCategories.length > 0 && (
 						<div className="grid grid-cols-12 md:gap-0 md:rounded-md md:bg-white md:p-4 md:shadow-md lg:gap-2">
 							{/* Main category Card */}
-							<div className="col-span-12 md:col-span-4 lg:col-span-3">
+							<div className="col-span-12 md:col-span-3 lg:col-span-3">
 								{isSelectedMainCategoryAndCategoriesLoading ? (
 									<div>
 										<Skeleton />
-										<Skeleton height="180px" />
+										<Skeleton height="80px" />
 									</div>
 								) : (
-									<div className="h-4/5">
-										<MainCategoryCard
-											title={getLocaleText(
+									<div className="flex items-center space-x-4 p-2 md:block md:space-x-0 md:p-0">
+										<p className="text-lg font-semibold md:text-[10px] md:text-gray/80 lg:text-[21px]">
+											{getLocaleText(
 												selectedMainCategory?.title || {},
 												router.locale
 											)}
-											subtitle={getLocaleText(
-												selectedMainCategory?.description || {},
-												router.locale
-											)}
-											imageUrl={selectedMainCategory?.icon?.url}
+										</p>
+										<div
+											className="relative mt-2 h-[38px] w-[38px] md:h-10 md:w-12 lg:h-[82px] lg:w-[98px]"
 											style={{
 												backgroundColor: selectedMainCategory?.color,
 												border: selectedMainCategory?.color
 													? ''
 													: '2px solid gray'
 											}}
-											className="w-screen md:w-auto"
-										/>
+										>
+											<div className="md:absolute md:bottom-0 md:right-0">
+												<div className="relative h-[38px] w-[38px] md:h-[30px] md:w-[30px] lg:h-[67px] lg:w-[67px]">
+													<ImageWithErrorHandler
+														src={selectedMainCategory?.icon?.url}
+														alt={getLocaleText(
+															selectedMainCategory?.title || {},
+															router.locale
+														)}
+														fill={true}
+													/>
+												</div>
+											</div>
+										</div>
 									</div>
 								)}
 							</div>
+
 							{/* Categories */}
-							<div className="col-span-12 border-gray/20 md:col-span-8 md:ml-4 md:border-l-2 md:pl-4 lg:col-span-9">
-								<div className="hidden md:block">
+							<div className="col-span-12 border-gray/20 md:col-span-9 md:ml-4 lg:col-span-9 lg:pl-4">
+								<div className="md:blocks hidden">
 									<SubCategorySlider
 										categories={[...selectedCategories]}
 										subCategoryContainerClassName="!border-2 !border-gray/40"
@@ -330,6 +342,24 @@ const ProductSearchPage: NextPage<
 												data?.title?.en
 											);
 											router.push(`/product-search?${params}`);
+										}}
+									/>
+								</div>
+
+								<div className="hidden md:block">
+									<TrendingCategorySlider
+										categories={[...selectedCategories]}
+										selectedCategoryIds={selectedCategoryList || []}
+										onTileClick={(categoryId, data) => {
+											const params = setCategory(
+												categoryId,
+												data?.title?.en
+											);
+											router.push(
+												`/product-search?${params}`,
+												undefined,
+												{ shallow: true }
+											);
 										}}
 									/>
 								</div>

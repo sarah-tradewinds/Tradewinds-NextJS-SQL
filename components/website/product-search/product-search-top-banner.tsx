@@ -39,7 +39,7 @@ const ProductSearchTopBanner: React.FC<ProductSearchTopBannerProps> = (
 					className={`${getAlignmentClassName(
 						horizontal,
 						vertical
-					)} absolute text-[40px] font-semibold text-white md:w-[480px]`}
+					)} absolute p-1 text-xl font-semibold text-white md:w-[480px] md:text-[27px]`}
 					style={{
 						color: textColor
 					}}
