@@ -74,14 +74,14 @@ const CollectionSlider: React.FC<CollectionSliderProps> = (props) => {
 								<Image
 									src="/static/images/TWSafety.png"
 									alt="Logo"
-									layout="fill"
+									fill={true}
 								/>
 							</div>
 							<div className="relative h-5 w-5">
 								<Image
 									src="/static/images/TWEco.png"
 									alt="Logo"
-									layout="fill"
+									fill={true}
 								/>
 							</div>
 						</div>
@@ -93,7 +93,7 @@ const CollectionSlider: React.FC<CollectionSliderProps> = (props) => {
 								key={imageUrl}
 								src={imageUrl}
 								alt=""
-								layout="fill"
+								fill={true}
 							/>
 						</div>
 					</div>

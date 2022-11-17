@@ -33,7 +33,7 @@ const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 		<div className={className}>
 			{/* Main Image */}
 			<div className="relative h-[211px] w-full md:h-[475px]">
-				<ImageWithErrorHandler src={imageUrl} alt={alt} layout="fill" />
+				<ImageWithErrorHandler src={imageUrl} alt={alt} fill={true} />
 
 				<button className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-primary-eco !p-0 md:hidden">
 					<MdOutlineClose className="text-[24px] font-bold text-white" />
@@ -49,7 +49,7 @@ const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 								<Image
 									src={thumbnail.url || '/loading-circle-50.png'}
 									alt={thumbnail.alt}
-									layout="fill"
+									fill={true}
 								/>
 							</div>
 						</div>

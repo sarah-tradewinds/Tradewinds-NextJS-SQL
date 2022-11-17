@@ -1,7 +1,7 @@
 import {
-  GetServerSideProps,
-  InferGetServerSidePropsType,
-  NextPage
+	GetServerSideProps,
+	InferGetServerSidePropsType,
+	NextPage
 } from 'next';
 import Image from 'next/image';
 
@@ -23,8 +23,8 @@ import SubCategoryTile from 'components/website/product-search/sub-category-tile
 import TrendingSectionTile from 'components/website/product-search/trending-section-tile';
 import { getCountryById } from 'lib/common.lib';
 import {
-  getProducts,
-  getSelectedMainCategoryAndCategories
+	getProducts,
+	getSelectedMainCategoryAndCategories
 } from 'lib/product-search.lib';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -247,7 +247,7 @@ const ProductSearchPage: NextPage<
 							Buy My Smokes
 						</h4>
 						<div className="relative h-[471px] w-full">
-							<Image src="/smoker.png" alt="" layout="fill" />
+							<Image src="/smoker.png" alt="" fill={true} />
 						</div>
 					</div>
 				</section>
@@ -415,14 +415,15 @@ const ProductSearchPage: NextPage<
 export const getServerSideProps: GetServerSideProps = async ({
 	locale
 }) => {
-	const products = await getProducts({
-		price_start: 0
-	});
+	console.log('[getServerSideProps] running');
+	// const products = await getProducts({
+	//  price_start: 0
+	// });
 
 	return {
 		props: {
-			...(await serverSideTranslations(locale || 'en')),
-			products
+			...(await serverSideTranslations(locale || 'en'))
+			// products
 		}
 	};
 }; // End of getServerSideProps function

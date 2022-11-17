@@ -43,7 +43,7 @@ const WhatIsTrendingPage: NextPage<
 					<ImageWithErrorHandler
 						src="/latest-trend-image.png"
 						alt="Trending"
-						layout="fill"
+						fill={true}
 					/>
 				</div>
 

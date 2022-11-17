@@ -69,12 +69,13 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 					}}
 					className="keen-slider__slide"
 				>
-					<ImageWithErrorHandler
-						src={country.image?.url}
-						alt=""
-						width="107px"
-						height="64.2px"
-					/>
+					<div className="relative h-[64px] w-[107px]">
+						<ImageWithErrorHandler
+							src={country.image?.url}
+							alt={country.name?.toString()}
+							fill={true}
+						/>
+					</div>
 				</Button>
 		  ));
 

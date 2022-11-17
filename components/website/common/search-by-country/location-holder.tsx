@@ -26,7 +26,7 @@ const LocationHolder: React.FC<LocationHolderProps> = (props) => {
 						<Image
 							src="/static/images/search-by-country-images/shape.png"
 							alt={title}
-							layout="fill"
+							fill={true}
 						/>
 
 						<div className="absolute top-8 left-0 right-0 bottom-0">
@@ -36,7 +36,7 @@ const LocationHolder: React.FC<LocationHolderProps> = (props) => {
 									<ImageWithErrorHandler
 										src={imageUrl}
 										alt={title}
-										layout="fill"
+										fill={true}
 									/>
 								</div>
 							</div>

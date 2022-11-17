@@ -199,7 +199,7 @@ const Login: React.FC = () => {
 							<Image
 								src="/TW-Create an account page-02.png"
 								alt=""
-								layout="fill"
+								fill={true}
 								className="object-contain"
 							/>
 						</div>
@@ -208,7 +208,7 @@ const Login: React.FC = () => {
 							<Image
 								src="/TW-Create an account page-03.png"
 								alt=""
-								layout="fill"
+								fill={true}
 								className="object-contain"
 							/>
 						</div>

@@ -137,7 +137,7 @@ const CompanyProfileTab: React.FC<{
 							key={store_front?.store_banner?.url}
 							src={store_front?.store_banner?.url}
 							alt=""
-							layout="fill"
+							fill={true}
 						/>
 
 						<p className="absolute top-0 p-8 text-[55px] font-semibold text-white pc:text-[23px]">
@@ -150,7 +150,7 @@ const CompanyProfileTab: React.FC<{
 							key={store_front?.store_logo?.url}
 							src={store_front?.store_logo?.url}
 							alt=""
-							layout="fill"
+							fill={true}
 							className="h-[94px] w-[121px]"
 						/>
 					</div>
@@ -228,7 +228,7 @@ const CompanyProfileTab: React.FC<{
 													<Image
 														src="/twmp-verified.png"
 														alt=""
-														layout="fill"
+														fill={true}
 													/>
 												</div>
 											</div>
@@ -283,7 +283,7 @@ const CompanyProfileTab: React.FC<{
 																				: ''
 																		}
 																		alt=""
-																		layout="fill"
+																		fill={true}
 																	/>
 																</div>
 																<div>

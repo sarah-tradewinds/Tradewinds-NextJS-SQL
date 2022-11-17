@@ -219,7 +219,7 @@ const ProductDetailsTile: React.FC<{
 						className="text-secondary"
 					/>
 					<div className="relative h-[32px] w-[132px]">
-						<Image src="/rating.png" alt="" layout="fill" />
+						<Image src="/rating.png" alt="" fill={true} />
 					</div>
 					<p className="text-center text-[13px] text-secondary">
 						{totalReviewCount} {t('common:reviews')}
@@ -229,7 +229,7 @@ const ProductDetailsTile: React.FC<{
 							<Image
 								src="/tradewinds-horizontal-logo.png"
 								alt=""
-								layout="fill"
+								fill={true}
 							/>
 						</div>
 					)}

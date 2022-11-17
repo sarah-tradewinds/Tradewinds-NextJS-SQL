@@ -67,7 +67,11 @@ const CategoriesFilter: React.FC = (props) => {
 								`/product-search?${params}&${generateQueryString({
 									region: query.region,
 									country: query.region
-								})}`
+								})}`,
+								undefined,
+								{
+									shallow: true
+								}
 							);
 						}}
 					>

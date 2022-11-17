@@ -112,7 +112,7 @@ const ProductReviewsDetailsTab: React.FC<{
 					{t('common:reviews')}
 				</h2>
 				<div className="relative hidden h-[24px] w-[108px] md:block">
-					<Image src="/rating.png" alt="" layout="fill" />
+					<Image src="/rating.png" alt="" fill={true} />
 				</div>
 				<p className=" hidden text-[13px] text-secondary md:block">
 					146 {t('common:reviews')}
@@ -123,7 +123,7 @@ const ProductReviewsDetailsTab: React.FC<{
 				<div className="col-span-12 space-y-6 md:col-span-6 lg:col-span-5 2xl:col-span-3">
 					<div className="flex items-center space-x-4">
 						<div className="relative h-[24px] w-[108px]">
-							<Image src="/rating.png" alt="" layout="fill" />
+							<Image src="/rating.png" alt="" fill={true} />
 						</div>
 						<p className="text-[13px] text-gray">5 out of 5</p>
 					</div>

@@ -31,7 +31,7 @@ const ProductSearchTopBanner: React.FC<ProductSearchTopBannerProps> = (
 				key={imageUrl}
 				src={imageUrl}
 				alt={text}
-				layout="fill"
+				fill={true}
 			/>
 
 			{text && (

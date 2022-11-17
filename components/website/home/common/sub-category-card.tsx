@@ -40,7 +40,7 @@ const SubCategoryCard = ({
 					<ImageWithErrorHandler
 						src={subCat.image?.url}
 						alt="sub-cat-image"
-						layout="fill"
+						fill={true}
 					/>
 				</div>
 			)}
@@ -64,7 +64,7 @@ const SubCategoryCard = ({
 						<Image
 							src="/static/images/TWSafety.png"
 							alt="Logo"
-							layout="fill"
+							fill={true}
 						/>
 					</div>
 					{subCat.is_eco && (
@@ -72,7 +72,7 @@ const SubCategoryCard = ({
 							<Image
 								src="/static/images/TWEco.png"
 								alt="Logo"
-								layout="fill"
+								fill={true}
 							/>
 						</div>
 					)}
@@ -85,7 +85,7 @@ const SubCategoryCard = ({
 						<ImageWithErrorHandler
 							src={subCat?.image?.url}
 							alt="sub-cat-image"
-							layout="fill"
+							fill={true}
 							className="h-full w-full"
 						/>
 					</div>

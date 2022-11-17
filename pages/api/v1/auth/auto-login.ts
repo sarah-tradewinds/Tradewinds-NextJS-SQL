@@ -35,10 +35,14 @@ const autoLoginHandler: NextApiHandler = async (req, res) => {
 		}
 
 		const currentDate = new Date();
-		const accessTokenExpireIn = new Date(access_token_expire_in);
+		const accessTokenExpireIn = new Date(
+			(access_token_expire_in || '')?.toString()
+		);
 		const isAccessTokenExpired =
 			new Date(accessTokenExpireIn) <= currentDate;
-		const refreshTokenExpireIn = new Date(refresh_token_expire_in);
+		const refreshTokenExpireIn = new Date(
+			(refresh_token_expire_in || '')?.toString()
+		);
 		const isRefreshTokenExpired =
 			new Date(refreshTokenExpireIn) <= currentDate;
 
@@ -62,7 +66,7 @@ const autoLoginHandler: NextApiHandler = async (req, res) => {
 			.toString();
 
 		// Setting refresh token
-		initialCustomerData.refresh.token = refresh_token;
+		initialCustomerData.refresh.token = refresh_token || '';
 		initialCustomerData.refresh.expireIn = refreshTokenExpireIn
 			.getMinutes()
 			.toString();

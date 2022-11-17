@@ -10,7 +10,7 @@ const CardWrapper: React.FC<{
 	const { locale } = useRouter();
 
 	return (
-		<div className="mx-auto flex w-[96%] flex-col gap-2 space-y-4 sm:flex-row md:space-y-0 lg:gap-[25px]">
+		<div className="mx-auto flex w-[96%] flex-col gap-2 space-y-4 sm:flex-row md:space-x-2 md:space-y-0 lg:gap-[25px] lg:space-x-4">
 			{cardAList.map((cardAData) => (
 				<CardA
 					key={cardAData.id}

@@ -152,7 +152,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 										<ImageWithErrorHandler
 											src={imageUrl}
 											alt={alt}
-											layout="fill"
+											fill={true}
 											className="object-contain"
 										/>
 									</div>
@@ -215,7 +215,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 										<Image
 											src="/twmp-verified.png"
 											alt=""
-											layout="fill"
+											fill={true}
 										/>
 									</div>
 								</div>
@@ -244,14 +244,14 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 										<Image
 											src="/twmp-verified.png"
 											alt=""
-											layout="fill"
+											fill={true}
 										/>
 									</div>
 								)}
 								{/* Rating and reviews */}
 								<div className="flex flex-col items-center space-y-2 lg:pb-4">
 									<div className="relative h-[13px] w-[80px] lg:h-[32px] lg:w-[132px]">
-										<Image src="/rating.png" alt="" layout="fill" />
+										<Image src="/rating.png" alt="" fill={true} />
 									</div>
 									<p className="hidden text-center text-[13px] text-secondary md:block">
 										{totalReviewCount} Reviews
@@ -263,7 +263,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 										<Image
 											src="/twmp-verified.png"
 											alt=""
-											layout="fill"
+											fill={true}
 										/>
 									</div>
 
@@ -305,13 +305,13 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 										<Image
 											src="/message-vendor-lg.png"
 											alt=""
-											layout="fill"
+											fill={true}
 											className="lg:hidden"
 										/>
 										<Image
 											src="/message-vendor.png"
 											alt=""
-											layout="fill"
+											fill={true}
 											className="hidden lg:block"
 										/>
 									</Button>

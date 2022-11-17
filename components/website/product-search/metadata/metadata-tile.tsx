@@ -32,9 +32,9 @@ const MetadataTile: React.FC<MetadataTileProps> = (props) => {
 				>
 					<Image
 						src={imageUrl}
-						alt={alt}
-						layout="fill"
-						objectFit="contain"
+						alt={alt || ''}
+						fill={true}
+						className="object-contain"
 					/>
 				</div>
 			)}

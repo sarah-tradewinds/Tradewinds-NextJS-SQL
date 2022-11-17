@@ -24,7 +24,7 @@ const WhatIsRFQPage: NextPage = () => {
 						<Image
 							src="/static/images/RfqPageImages/rfq-header.png"
 							alt=""
-							layout="fill"
+							fill={true}
 						/>
 					</div>
 
@@ -132,7 +132,7 @@ const WhatIsRFQPage: NextPage = () => {
 							<Image
 								src="/static/images/RfqPageImages/rfq-main.png"
 								alt=""
-								layout="fill"
+								fill={true}
 								className="object-contain"
 							/>
 						</div>
@@ -141,7 +141,7 @@ const WhatIsRFQPage: NextPage = () => {
 							<Image
 								src="/static/images/RfqPageImages/rfq-main-tablet.png"
 								alt=""
-								layout="fill"
+								fill={true}
 							/>
 						</div>
 
@@ -229,7 +229,7 @@ const WhatIsRFQPage: NextPage = () => {
 							<Image
 								src="/static/images/RfqPageImages/stock.png"
 								alt=""
-								layout="fill"
+								fill={true}
 							/>
 						</div>
 

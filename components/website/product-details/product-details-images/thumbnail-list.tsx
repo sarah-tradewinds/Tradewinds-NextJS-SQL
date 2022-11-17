@@ -20,7 +20,7 @@ const ThumbnailList: React.FC<ThumbnailListProps> = (props) => {
 					<Image
 						src={thumbnail.url || '/loading-circle-50.png'}
 						alt={thumbnail.alt}
-						layout="fill"
+						fill={true}
 					/>
 				</div>
 			))}

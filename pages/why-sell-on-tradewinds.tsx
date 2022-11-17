@@ -100,7 +100,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 												<Image
 													src="/static/images/why-sell-on-tradewinds-images/non-member.png"
 													alt=""
-													layout="fill"
+													fill={true}
 												/>
 											</div>
 											<p className="text-center text-[10px]">
@@ -112,7 +112,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 												<Image
 													src="/static/images/why-sell-on-tradewinds-images/twmp-member.png"
 													alt=""
-													layout="fill"
+													fill={true}
 												/>
 											</div>
 											<p className="text-center text-[10px] ">
@@ -132,7 +132,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 												<Image
 													src="/static/images/why-sell-on-tradewinds-images/cart-non-member.png"
 													alt=""
-													layout="fill"
+													fill={true}
 												/>
 											</div>
 											<p className="text-center text-[10px]">
@@ -144,7 +144,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 												<Image
 													src="/static/images/why-sell-on-tradewinds-images/cart-twmp-member.png"
 													alt=""
-													layout="fill"
+													fill={true}
 												/>
 											</div>
 											<p className="text-center text-[10px]">
@@ -168,7 +168,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 												<Image
 													src="/static/images/why-sell-on-tradewinds-images/dollar-non-member.png"
 													alt=""
-													layout="fill"
+													fill={true}
 												/>
 											</div>
 											<p className="text-center text-[10px]">
@@ -180,7 +180,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 												<Image
 													src="/static/images/why-sell-on-tradewinds-images/dollar-twmp-member.png"
 													alt=""
-													layout="fill"
+													fill={true}
 												/>
 											</div>
 											<p className="text-center text-[10px]">
@@ -196,7 +196,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 									<Image
 										src="/static/images/why-sell-on-tradewinds-images/5x-traffic.png"
 										alt=""
-										layout="fill"
+										fill={true}
 									/>
 								</div>
 								<div className="flex space-x-4">
@@ -204,14 +204,14 @@ const WhySellOnTradewindsPage: NextPage = () => {
 										<Image
 											src="/static/images/why-sell-on-tradewinds-images/6x-purchasing-exposure.png"
 											alt=""
-											layout="fill"
+											fill={true}
 										/>
 									</div>
 									<div className="relative h-[174px]  md:w-[361px] lg:w-[690px]">
 										<Image
 											src="/static/images/why-sell-on-tradewinds-images/website-cost.png"
 											alt=""
-											layout="fill"
+											fill={true}
 										/>
 									</div>
 								</div>
@@ -247,7 +247,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 											<Image
 												src="/static/images/why-sell-on-tradewinds-images/diversity.png"
 												alt=""
-												layout="fill"
+												fill={true}
 											/>
 										</div>
 										<p className="mt-4 text-[18px]  font-semibold text-white md:text-[20px] lg:text-[25px]">
@@ -264,7 +264,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 											<Image
 												src="/static/images/why-sell-on-tradewinds-images/free-trade.png"
 												alt=""
-												layout="fill"
+												fill={true}
 											/>
 										</div>
 										<p className="mt-4 font-semibold text-white md:text-[20px] lg:text-[25px]">

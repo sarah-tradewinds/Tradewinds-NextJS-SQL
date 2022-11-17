@@ -36,7 +36,7 @@ const CardB: React.FC<CardBProps> = (props) => {
 						<ImageWithErrorHandler
 							src={imageUrl}
 							alt={alt}
-							layout="fill"
+							fill={true}
 							className="object-cover"
 						/>
 					</div>

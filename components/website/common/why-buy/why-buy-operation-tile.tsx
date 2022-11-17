@@ -31,7 +31,7 @@ export const WhyBuyOperationTile: React.FC<WhyBuyOperationProps> = ({
 					<div
 						className={`relative md:h-[400px] md:w-[300px] lg:h-[380px] lg:w-[601px] ${imageClassName}`}
 					>
-						<Image src={imageUrl} alt={alt || title} layout="fill" />
+						<Image src={imageUrl} alt={alt || title} fill={true} />
 					</div>
 				</div>
 
@@ -84,7 +84,7 @@ export const WhyBuyOperationSubTile: React.FC<{
 					<Image
 						src={imageUrl}
 						alt={alt || title}
-						layout="fill"
+						fill={true}
 						className="h-full w-full"
 					/>
 				</div>

@@ -37,7 +37,7 @@ const CategoriesPage: NextPage<
 		<div className="relative bg-cyan">
 			<div className="relative">
 				<div className="absolutes h-[320px] w-full bg-[url(/trending.png)] lg:h-[420px]">
-					{/* <Image src="/trending.png" alt="trending" layout="fill" /> */}
+					{/* <Image src="/trending.png" alt="trending" fill={true} /> */}
 				</div>
 
 				<div className="absolute top-1/2 -translate-y-1/2 transform pl-4">

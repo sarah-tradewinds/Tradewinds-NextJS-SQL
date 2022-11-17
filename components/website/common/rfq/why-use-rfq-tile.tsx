@@ -32,7 +32,7 @@ const WhyUseRFQTile: React.FC<WhyUseRFQTileProps> = (props) => {
 						: 'bg-accent-primary-main'
 				} p-4`}
 			>
-				<Image src={imageUrl} alt={alt || title} layout="fill" />
+				<Image src={imageUrl} alt={alt || title} fill={true} />
 			</div>
 			<p
 				className={`mx-4 text-[18px] font-semibold ${

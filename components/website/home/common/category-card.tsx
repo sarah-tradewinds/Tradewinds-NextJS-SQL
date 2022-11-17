@@ -71,7 +71,7 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 							<ImageWithErrorHandler
 								src={imageUrl}
 								alt={alt || slug}
-								layout="fill"
+								fill={true}
 							/>
 						</div>
 					</div>
@@ -83,7 +83,7 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 							<ImageWithErrorHandler
 								src={imageUrl}
 								alt={alt || slug}
-								layout="fill"
+								fill={true}
 							/>
 						</div>
 					</div>
@@ -94,7 +94,7 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 						<ImageWithErrorHandler
 							src={imageUrl}
 							alt={alt || slug}
-							layout="fill"
+							fill={true}
 						/>
 					</div>
 				)} */}

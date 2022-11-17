@@ -120,7 +120,7 @@ const Header = () => {
 											<Image
 												src="/TW-Create an account page-02.png"
 												alt="Logo"
-												layout="fill"
+												fill={true}
 												className="cursor-pointer"
 												onClick={() => {
 													if (isEco) {
@@ -135,7 +135,7 @@ const Header = () => {
 											<Image
 												src="/static/images/tradewinds_logo.png"
 												alt="Logo"
-												layout="fill"
+												fill={true}
 												className="cursor-pointer"
 												onClick={() => {
 													removeCategoryFilter();

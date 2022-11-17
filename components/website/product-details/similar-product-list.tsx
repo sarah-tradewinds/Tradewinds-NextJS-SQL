@@ -66,7 +66,7 @@ const SimilarProductList: React.FC<SimilarProductListProps> = (
 											'/loading-circle-50.png'
 										}
 										alt=""
-										layout="fill"
+										fill={true}
 									/>
 								</div>
 								<p className="mt-1 flex justify-between space-x-8 text-[18px] font-bold text-primary-main">

@@ -17,7 +17,7 @@ const CountryFlagTile: React.FC<CountryFlagTileProps> = (props) => {
 					<ImageWithErrorHandler
 						src={imageUrl}
 						alt={title}
-						layout="fill"
+						fill={true}
 					/>
 				</div>
 				<p className="pl-4 text-[20px] text-gray">{title}</p>

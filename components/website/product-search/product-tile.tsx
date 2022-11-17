@@ -202,7 +202,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 									<ImageWithErrorHandler
 										src={imageUrl}
 										alt={alt}
-										layout="fill"
+										fill={true}
 										className="object-contain"
 									/>
 								</div>
@@ -285,11 +285,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 							{/* Verified image container */}
 							<div className="hidden justify-self-end md:col-span-4 md:hidden lg:col-span-3">
 								<div className="relative h-[64px] w-[88px]">
-									<Image
-										src="/twmp-verified.png"
-										alt=""
-										layout="fill"
-									/>
+									<Image src="/twmp-verified.png" alt="" fill={true} />
 								</div>
 							</div>
 						</div>
@@ -300,7 +296,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 
 					<div className=" col-span-4 mt-4 hidden flex-col items-center justify-end md:flex lg:hidden">
 						<div className="relative h-[64px] w-[88px]">
-							<Image src="/twmp-verified.png" alt="" layout="fill" />
+							<Image src="/twmp-verified.png" alt="" fill={true} />
 						</div>
 						<div className="w-[80px] lg:w-[132px]">
 							<RatingStars starNumber={5} className="text-secondary" />
@@ -320,7 +316,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 						<div className="mt-2 flex h-full items-center md:mt-0 md:flex-col md:justify-end lg:flex lg:space-y-4">
 							{/* Verified Image */}
 							<div className="relative hidden h-[64px] w-[108px] lg:block">
-								<Image src="/twmp-verified.png" alt="" layout="fill" />
+								<Image src="/twmp-verified.png" alt="" fill={true} />
 							</div>
 
 							{/* Rating and reviews */}
@@ -342,11 +338,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 
 							<div className="ml-4 flex space-x-4 md:hidden">
 								<div className="relative h-[32px] w-[48px]">
-									<Image
-										src="/twmp-verified.png"
-										alt=""
-										layout="fill"
-									/>
+									<Image src="/twmp-verified.png" alt="" fill={true} />
 								</div>
 
 								<div className="flex space-x-4">

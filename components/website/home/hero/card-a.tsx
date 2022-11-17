@@ -23,7 +23,7 @@ const CardA: React.FC<CardAProps> = (props) => {
 					<ImageWithErrorHandler
 						src={imageUrl}
 						alt={alt}
-						layout="fill"
+						fill={true}
 						className="object-cover"
 					/>
 				</div>

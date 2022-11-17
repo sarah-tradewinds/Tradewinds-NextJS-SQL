@@ -145,7 +145,7 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 											key={imageUrl}
 											src={imageUrl}
 											alt={'alt'}
-											layout="fill"
+											fill={true}
 											className="object-contain"
 										/>
 									</div>
@@ -157,14 +157,14 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 						<div className="mt-2 flex items-center justify-between p-2">
 							<div>
 								<div className="relative h-[10px] w-[63px]">
-									<Image src="/rating.png" alt="" layout="fill" />
+									<Image src="/rating.png" alt="" fill={true} />
 								</div>
 								<p className="hidden text-center text-[13px] text-secondary md:block">
 									{totalReviewCount} {t('common:reviews')}
 								</p>
 							</div>
 							<div className="relative h-[19px] w-[30px]">
-								<Image src="/twmp-verified.png" alt="" layout="fill" />
+								<Image src="/twmp-verified.png" alt="" fill={true} />
 							</div>
 						</div>
 					</div>
@@ -286,14 +286,14 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 				<div className="hidden items-center space-x-32 md:flex">
 					<div>
 						<div className="relative h-[13px] w-[80px] lg:h-[32px] lg:w-[132px]">
-							<Image src="/rating.png" alt="" layout="fill" />
+							<Image src="/rating.png" alt="" fill={true} />
 						</div>
 						<p className="text-center text-[13px] text-secondary">
 							{totalReviewCount} {t('common:reviews')}
 						</p>
 					</div>
 					<div className="relative h-[55px] w-[85px]">
-						<Image src="/twmp-verified.png" alt="" layout="fill" />
+						<Image src="/twmp-verified.png" alt="" fill={true} />
 					</div>
 				</div>
 			</div>
