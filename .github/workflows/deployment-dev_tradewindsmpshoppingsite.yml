@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'TradewindsMPShoppingsite'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7693EBF946754B67A842BC43D7722EC6 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_394A293D4EC8467DBDF2681FD633688C }}
           package: .
