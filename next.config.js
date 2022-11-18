@@ -41,7 +41,7 @@ const nextConfig = (phase) => {
 			SITE_URL: 'https://tradewinds.vercel.app',
 			BUYER_DASHBOARD_SITE_URL:
 				// 'https://tradewinds-dev-public.s3.us-east-2.amazonaws.com',
-				'https://www.tradewindsdev.com/#/',
+				'https://www.tradewindsdev.com/#',
 			API_BASE_URL: 'https://tradewinds-dev.eastus.cloudapp.azure.com',
 			STRIPE_PUBLISHABLE_KEY:
 				'pk_test_51JAhKFCQTcpcYTusSG85R25JWHRXIbw9mg6bn2mJAIncKhAhXpxvAemulgavKUw0iv4J1ygM6zSWGbthNAMWGftk00Jzzmiqcs'
