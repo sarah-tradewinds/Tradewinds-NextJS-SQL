@@ -63,6 +63,7 @@ const ProductDetailsTile: React.FC<{
 		images = [],
 		is_customizable,
 		country_of_region,
+		is_live,
 		is_ready_to_ship,
 		is_verified
 	} = product || {};
@@ -270,8 +271,14 @@ const ProductDetailsTile: React.FC<{
 						</Button>
 
 						{/* cart */}
-						<div>
-							<Button variant="special" onClick={onAddToCart}>
+						<div title={!is_live ? 'Product is not available' : ''}>
+							<Button
+								variant="special"
+								className={
+									!is_live ? '!cursor-not-allowed !opacity-60' : ''
+								}
+								onClick={is_live ? onAddToCart : undefined}
+							>
 								{t('common:add_to_cart')}
 							</Button>
 						</div>

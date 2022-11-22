@@ -11,6 +11,7 @@ import Button from '../common/form/button';
 import ErrorPopup from '../common/popup/error-popup';
 import MessageVendorPopup from '../common/popup/message-vendor.popup';
 import ProductTile from './product-tile';
+import RFQCard from './rfq-card.components';
 
 interface ProductListProps {
 	products: any[];
@@ -146,7 +147,7 @@ const ProductList: React.FC<ProductListProps> = ({
 			/>
 
 			<div className="grid grid-cols-1 gap-4 md:gap-5">
-				{products.map((product) => {
+				{products.map((product, index) => {
 					const {
 						product_price,
 						is_bulk_pricing,
@@ -161,83 +162,65 @@ const ProductList: React.FC<ProductListProps> = ({
 					});
 
 					return (
-						<ProductTile
-							key={product.id}
-							name={getLocaleText(product.product_name || {}, locale)}
-							slug={product?.id}
-							description={getLocaleText(
-								product.product_description,
-								locale
-							)}
-							imageUrl={product.images[0]?.url}
-							countryOfOrigin={
-								country_of_region ? country_of_region[0] : ''
-							}
-							isEco={product.is_eco}
-							keywords={product.tags || []}
-							productPrice={product_price}
-							salePrice={product?.sale_price}
-							isSaleOn={product?.is_on_sale || 0}
-							isBulkPricing={product?.is_bulk_pricing}
-							displayPrice={displayPrice}
-							alt={product.alt || product.name}
-							minOrderQuantity={
-								product?.inventory?.minimum_order_quantity || 0
-							}
-							totalReviewCount={product.totalReviewCount}
-							onCompareClick={() => onCompareClick(product)}
-							// onCartClick={async () => {
-							// 	const buyerId = customerData.buyerId;
-							// 	product.buyer_id = buyerId;
-							// 	const productId = product.id;
-							// 	await addToCart(productId, product);
-
-							// 	// Sending request when buyer Id is available
-							// 	if (!totalCartProductQuantity) {
-							// 		const minimumOrderQuantity =
-							// 			product?.inventory?.minimum_order_quantity || 0;
-
-							// 		const cartId = await addProductToCart(buyerId, {
-							// 			product_id: productId,
-							// 			variant_id: product?.variant_id,
-							// 			quantity: minimumOrderQuantity || 1
-							// 		});
-							// 		setCartId(cartId);
-							// 	} else {
-							// 		updateCart(
-							// 			cartId,
-							// 			buyerId,
-							// 			cartProducts.map((cartProduct) => ({
-							// 				product_id: cartProduct.product?.id,
-							// 				variant_id: cartProduct.product?.variant_id,
-							// 				quantity: cartProduct.quantity
-							// 			}))
-							// 		);
-							// 	}
-							// }}
-							onCartClick={async () => {
-								const minimumOrderQuantity =
-									product?.inventory?.minimum_order_quantity || 0;
-
-								if (minimumOrderQuantity > 0) {
-									setMinimumProductOrderQuantity(+minimumOrderQuantity);
-									setSelectedProduct(product);
-								} else {
-									await addToCartHandler(product);
-									setMinimumProductOrderQuantity(0);
-									setSelectedProduct({});
+						<>
+							<ProductTile
+								key={product.id}
+								name={getLocaleText(product.product_name || {}, locale)}
+								slug={product?.id}
+								description={getLocaleText(
+									product.product_description,
+									locale
+								)}
+								imageUrl={product.images[0]?.url}
+								countryOfOrigin={
+									country_of_region ? country_of_region[0] : ''
 								}
-							}}
-							isInCompareList={product.isInCompareList}
-							isVerified={product.is_verified}
-							isReadyToShip={product.is_ready_to_ship}
-							isCustomizable={product.is_customizable}
-							variantCount={product?.variants?.length || 0}
-							onMessageVendorClick={() => {
-								setSelectedSellerId(product?.seller_id?.id);
-								setIsMessageVendorPopupOpen(true);
-							}}
-						/>
+								isEco={product.is_eco}
+								keywords={product.tags || []}
+								productPrice={product_price}
+								salePrice={product?.sale_price}
+								isSaleOn={product?.is_on_sale || 0}
+								isBulkPricing={product?.is_bulk_pricing}
+								displayPrice={displayPrice}
+								alt={product.alt || product.name}
+								minOrderQuantity={
+									product?.inventory?.minimum_order_quantity || 0
+								}
+								totalReviewCount={product.totalReviewCount}
+								onCompareClick={() => onCompareClick(product)}
+								onCartClick={async () => {
+									const minimumOrderQuantity =
+										product?.inventory?.minimum_order_quantity || 0;
+
+									if (minimumOrderQuantity > 0) {
+										setMinimumProductOrderQuantity(
+											+minimumOrderQuantity
+										);
+										setSelectedProduct(product);
+									} else {
+										await addToCartHandler(product);
+										setMinimumProductOrderQuantity(0);
+										setSelectedProduct({});
+									}
+								}}
+								isInCompareList={product.isInCompareList}
+								isVerified={product.is_verified}
+								isLive={product.is_live}
+								isReadyToShip={product.is_ready_to_ship}
+								isCustomizable={product.is_customizable}
+								variantCount={product?.variants?.length || 0}
+								onMessageVendorClick={() => {
+									setSelectedSellerId(product?.seller_id?.id);
+									setIsMessageVendorPopupOpen(true);
+								}}
+							/>
+
+							{index === 3 && (
+								<div className="hidden md:block">
+									<RFQCard size="sm" />
+								</div>
+							)}
+						</>
 					);
 				})}
 			</div>

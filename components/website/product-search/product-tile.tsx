@@ -40,6 +40,7 @@ interface ProductTileProps {
 	onMessageVendorClick?: () => any;
 	isInCompareList?: boolean;
 	isVerified?: boolean;
+	isLive?: boolean;
 	isReadyToShip?: boolean;
 	isCustomizable?: boolean;
 	variantCount: number;
@@ -65,6 +66,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 		onCompareClick,
 		isInCompareList,
 		isVerified,
+		isLive,
 		isReadyToShip,
 		isCustomizable,
 		variantCount,
@@ -167,14 +169,18 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 		<MetadataTile
 			key={t('common:save')}
 			icon={
-				<div className="text-[24px] text-accent-primary-main">
+				<div
+					className={`text-[24px] ${
+						isLive ? 'text-accent-primary-main' : 'text-gray/40'
+					}`}
+				>
 					<MdOutlineShoppingCart />
 				</div>
 			}
 			alt={t('common:save')}
 			title={t('cart')}
-			className="cursor-pointer"
-			onClick={onCartClick}
+			className={isLive ? 'cursor-pointer' : 'cursor-not-allowed'}
+			onClick={isLive ? onCartClick : undefined}
 		/>
 	];
 
@@ -187,7 +193,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 	);
 
 	return (
-        <div
+		<div
 			className={`bg-se grid w-full grid-cols-12 overflow-hidden bg-white md:rounded-xl md:shadow-md lg:p-4 ${
 				isEco ? 'border-2 border-accent-success' : ''
 			}`}
@@ -197,17 +203,15 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 					{/* Product Image Container */}
 					<div className="relative col-span-5 pr-2 md:col-span-3 lg:col-span-4">
 						<Link href={`/product/${slug}`}>
-
-                            <div className="relative h-full w-full">
-                                <ImageWithErrorHandler
-                                    src={imageUrl}
-                                    alt={alt}
-                                    fill={true}
-                                    className="object-contain"
-                                />
-                            </div>
-
-                        </Link>
+							<div className="relative h-full w-full">
+								<ImageWithErrorHandler
+									src={imageUrl}
+									alt={alt}
+									fill={true}
+									className="object-contain"
+								/>
+							</div>
+						</Link>
 
 						{isEco && (
 							<div className="absolute top-2 left-2 lg:top-0">
@@ -225,21 +229,18 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 					<div className="col-span-7 pl-2 md:col-span-5 lg:col-span-8">
 						{/* Product Info and keywords*/}
 						<Link
-                            href={`/product/${slug}`}
-                            className="text-[12px] text-primary-main md:hidden">
-
-                            {name}
-
-                        </Link>
+							href={`/product/${slug}`}
+							className="text-[12px] text-primary-main md:hidden"
+						>
+							{name}
+						</Link>
 						<div className="hidden space-y-4 md:block">
 							<Link href={`/product/${slug}`}>
-
-                                <h2 className="md:text-[16px] lg:text-[15px]">
-                                    <span className="font-semibold">{name}: </span>
-                                    <span className="text-gray">{description}</span>
-                                </h2>
-
-                            </Link>
+								<h2 className="md:text-[16px] lg:text-[15px]">
+									<span className="font-semibold">{name}: </span>
+									<span className="text-gray">{description}</span>
+								</h2>
+							</Link>
 							{/* keywords */}
 							<div className="flex justify-between font-semibold text-primary-main md:text-[12px] lg:text-[16px]">
 								{keywords.map((keyword) => (
@@ -359,7 +360,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 				</div>
 			</div>
 		</div>
-    );
+	);
 };
 
 export default ProductTile;

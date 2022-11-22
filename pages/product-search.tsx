@@ -19,6 +19,7 @@ import Seo from 'components/website/common/seo';
 import SubCategorySlider from 'components/website/home/sub-category-slider';
 import ProductFilter from 'components/website/product-search/product-filter/product-filter';
 import ProductSearchTopBanner from 'components/website/product-search/product-search-top-banner';
+import RFQCard from 'components/website/product-search/rfq-card.components';
 import SubCategoryTile from 'components/website/product-search/sub-category-tile';
 import TrendingCategorySlider from 'components/website/product-search/trending-category-slider';
 import TrendingSectionTile from 'components/website/product-search/trending-section-tile';
@@ -27,9 +28,11 @@ import {
 	getProducts,
 	getSelectedMainCategoryAndCategories
 } from 'lib/product-search.lib';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
+import { useAuthStore } from 'store/auth';
 import { getIdAndName, useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';
 import { useProductCompareStore } from 'store/product-compare-store';
@@ -76,6 +79,15 @@ const ProductSearchPage: NextPage<
 	);
 
 	const router = useRouter();
+	const { t } = useTranslation();
+
+	const { isAuth, setIsLoginOpen, customerData } = useAuthStore(
+		(state) => ({
+			isAuth: state.isAuth,
+			setIsLoginOpen: state.setIsLoginOpen,
+			customerData: state.customerData
+		})
+	);
 
 	useEffect(() => {
 		const [mainCategoryId] =
@@ -253,7 +265,7 @@ const ProductSearchPage: NextPage<
 					</div>
 				</section>
 
-				{/* product list and Category container*/}
+				{/* Category container and Product list */}
 				<div className="col-span-12 md:col-span-8 md:space-y-8 lg:col-span-9">
 					{router.query.is_trending && (
 						<TrendingSectionTile
@@ -402,6 +414,11 @@ const ProductSearchPage: NextPage<
 							</div>
 						</div>
 					)}
+
+					{/* Submit RFQ Card */}
+					<div className="hidden md:block">
+						<RFQCard />
+					</div>
 
 					{/* Product List */}
 					<div className="space-y-4 md:space-y-8">
