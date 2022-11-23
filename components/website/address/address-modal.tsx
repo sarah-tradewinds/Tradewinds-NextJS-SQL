@@ -196,7 +196,7 @@ const AddressModal: React.FC<ModalProps> = (props) => {
 						variant="buyer"
 						className="!w-full !rounded-none"
 					>
-						Processed to Cart Review
+						Proceed to Cart Review
 					</Button>
 
 					<Button

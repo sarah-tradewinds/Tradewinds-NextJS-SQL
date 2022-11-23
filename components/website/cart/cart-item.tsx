@@ -167,7 +167,7 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 					</div>
 
 					{/* Content and metadata */}
-					<div className="col-span-7 space-y-4 bg-error md:col-span-9">
+					<div className="col-span-7 space-y-4 md:col-span-9">
 						<div className="grid grid-cols-12">
 							{/* Visible only on medium and large device */}
 							<div className="col-span-7 hidden md:block">
@@ -210,7 +210,7 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 							</div>
 
 							{/* Quantity input and total amount */}
-							<div className="col-span-12 mt-2 bg-black md:col-span-5 md:flex md:justify-between">
+							<div className="col-span-12 mt-2 md:col-span-5 md:flex md:justify-between">
 								<div className="">
 									<div>
 										<span className="text-[15px] font-semibold text-primary-main md:text-[21px]">
