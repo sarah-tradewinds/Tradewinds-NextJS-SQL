@@ -206,7 +206,8 @@ const ProductList: React.FC<ProductListProps> = ({
 								isInCompareList={product.isInCompareList}
 								isVerified={product.is_verified}
 								isLive={product.is_live}
-								isReadyToShip={product.is_ready_to_ship}
+								isReadyToShip={product.is_live}
+								// isReadyToShip={product.is_ready_to_ship}
 								isCustomizable={product.is_customizable}
 								variantCount={product?.variants?.length || 0}
 								onMessageVendorClick={() => {

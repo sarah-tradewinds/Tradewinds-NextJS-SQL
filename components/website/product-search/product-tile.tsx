@@ -166,22 +166,27 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 			title={`${t('common:variant')} ${variantCount}`}
 		/>,
 		// add to cart
-		<MetadataTile
+		<div
 			key={t('common:save')}
-			icon={
-				<div
-					className={`text-[24px] ${
-						isLive ? 'text-accent-primary-main' : 'text-gray/40'
-					}`}
-				>
-					<MdOutlineShoppingCart />
-				</div>
-			}
-			alt={t('common:save')}
-			title={t('cart')}
-			className={isLive ? 'cursor-pointer' : 'cursor-not-allowed'}
-			onClick={isLive ? onCartClick : undefined}
-		/>
+			title={!isLive ? 'Use message vendor' : ''}
+		>
+			<MetadataTile
+				key={t('common:save')}
+				icon={
+					<div
+						className={`text-[24px] ${
+							isLive ? 'text-accent-primary-main' : 'text-gray/40'
+						}`}
+					>
+						<MdOutlineShoppingCart />
+					</div>
+				}
+				alt={t('common:save')}
+				title={t('cart')}
+				className={isLive ? 'cursor-pointer' : 'cursor-not-allowed'}
+				onClick={isLive ? onCartClick : undefined}
+			/>
+		</div>
 	];
 
 	const metadataElements = (

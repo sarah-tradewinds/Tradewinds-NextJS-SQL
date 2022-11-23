@@ -117,7 +117,8 @@ const Header = () => {
 									{/* For mobile and medium*/}
 									<div className="relative hidden h-full w-full md:block lg:hidden">
 										<Image
-											src="/TW-Create an account page-02.png"
+											// src="/TW-Create an account page-02.png"
+											src="/tradewind-logo.png"
 											alt="Logo"
 											fill={true}
 											className="cursor-pointer"

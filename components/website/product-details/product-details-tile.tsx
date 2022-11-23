@@ -4,9 +4,9 @@ import { useRouter } from 'next/router';
 // components
 import Button from 'components/website/common/form/button';
 import {
-	BUYER_DASHBOARD_ACTIONS,
-	BUYER_DASHBOARD_PAGES,
-	generateBuyerDashboardUrl
+  BUYER_DASHBOARD_ACTIONS,
+  BUYER_DASHBOARD_PAGES,
+  generateBuyerDashboardUrl
 } from 'data/buyer/buyer-actions';
 import { metadataList } from 'data/product-search/metadata-list';
 import { BiMessageAltDetail } from 'react-icons/bi';
@@ -271,7 +271,7 @@ const ProductDetailsTile: React.FC<{
 						</Button>
 
 						{/* cart */}
-						<div title={!is_live ? 'Product is not available' : ''}>
+						<div title={!is_live ? 'Message Vendor' : ''}>
 							<Button
 								variant="special"
 								className={
