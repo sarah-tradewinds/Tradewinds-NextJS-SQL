@@ -13,6 +13,6 @@ export const BUYER_DASHBOARD_ACTIONS = {
 
 export const generateBuyerDashboardUrl = (paramsData: object) => {
 	const queryString = generateQueryString(paramsData);
-	const url = `${process.env.BUYER_DASHBOARD_SITE_URL}/index.html#/app/buyers?role=buyer&${queryString}`;
+	const url = `${process.env.BUYER_DASHBOARD_SITE_URL}/app/buyers?role=buyer&${queryString}`;
 	return url;
 };
