@@ -13,7 +13,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 
-// local styles
+// local style
 import '../styles/globals.css';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
