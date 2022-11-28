@@ -39,7 +39,9 @@ const nextConfig = (phase) => {
 		reactStrictMode: true,
 		env: {
 			// SITE_URL: 'https://tradewindsmp-shopping-dev.azurewebsites.net',
-			SITE_URL: 'https://tradewinds.vercel.app',
+			// SITE_URL: 'https://tradewinds.vercel.app',
+			SITE_URL: 'https://tradewindsmpuatshoppingsite.azurewebsites.net',
+
 			BUYER_DASHBOARD_SITE_URL:
 				// 'https://tradewinds-dev-public.s3.us-east-2.amazonaws.com',
 				'https://www.tradewindsqa.com/#',
