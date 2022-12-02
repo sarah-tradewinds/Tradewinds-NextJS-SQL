@@ -38,16 +38,16 @@ const nextConfig = (phase) => {
 		i18n,
 		reactStrictMode: true,
 		env: {
-			// SITE_URL: 'https://tradewindsmp-shopping-dev.azurewebsites.net',
 			// SITE_URL: 'https://tradewinds.vercel.app',
-			SITE_URL: 'https://tradewindsmpuatshoppingsite.azurewebsites.net',
+			// SITE_URL: 'https://tradewindsmpuatshoppingsite.azurewebsites.net',
+			SITE_URL: 'https://tradewindsmpshoppingsite.azurewebsites.net',
 
 			BUYER_DASHBOARD_SITE_URL:
 				// 'https://tradewinds-dev-public.s3.us-east-2.amazonaws.com',
-				'https://www.tradewindsqa.com/#',
-			API_BASE_URL:
-				// 'https://tradewinds-dev.eastus.cloudapp.azure.com',
-				'https://tradewinds-uat-api.azure-api.net',
+				'www.tradewindsdev.com',
+			// 'https://www.tradewindsqa.com/#',
+			API_BASE_URL: 'https://tradewinds-dev.eastus.cloudapp.azure.com',
+			// 'https://tradewinds-uat-api.azure-api.net',
 			STRIPE_PUBLISHABLE_KEY:
 				'pk_test_51JAhKFCQTcpcYTusSG85R25JWHRXIbw9mg6bn2mJAIncKhAhXpxvAemulgavKUw0iv4J1ygM6zSWGbthNAMWGftk00Jzzmiqcs'
 		},
