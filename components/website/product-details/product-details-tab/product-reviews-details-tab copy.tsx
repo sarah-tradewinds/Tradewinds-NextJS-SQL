@@ -141,6 +141,14 @@ const ProductReviewsDetailsTab: React.FC<{
 				<div className="grid grid-cols-12">
 					{/* Reviews stats, Write reviews */}
 					<div className="col-span-12 space-y-6 md:col-span-6 lg:col-span-5 2xl:col-span-3">
+						{/* <div className="flex items-center space-x-4">
+							<div className="relative h-[24px] w-[108px]">
+								<Image src="/rating.png" alt="" fill={true} />
+							</div>
+							<p className="text-[13px] text-gray">5 out of 5</p>
+            </div>
+             */}
+
 						{/* Rating bars */}
 						<div className="hidden space-y-6 px-8 md:block">
 							{[50, 30, 14, 5, 1].map((ratingStat) => (
@@ -155,7 +163,7 @@ const ProductReviewsDetailsTab: React.FC<{
 						</div>
 
 						{/* Write your reviews */}
-						{writeReview}
+						{reviews.length > 0 && writeReview}
 					</div>
 
 					{/* Rating and reviews list */}
