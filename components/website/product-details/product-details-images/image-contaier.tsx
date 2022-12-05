@@ -6,6 +6,7 @@ import ThumbnailList from './thumbnail-list';
 // styles
 import ImageWithErrorHandler from 'components/website/common/elements/image-with-error-handler';
 import 'keen-slider/keen-slider.min.css';
+import { useRouter } from 'next/dist/client/router';
 
 interface ImageContainerProps {
 	imageUrl: string;
@@ -21,6 +22,8 @@ interface ImageContainerProps {
 const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 	const { imageUrl, alt, thumbnails, className } = props;
 
+	const { back } = useRouter();
+
 	const [ref] = useKeenSlider<HTMLDivElement>({
 		loop: true,
 		slides: {
@@ -35,7 +38,10 @@ const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 			<div className="relative h-[211px] w-full md:h-[475px]">
 				<ImageWithErrorHandler src={imageUrl} alt={alt} fill={true} />
 
-				<button className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-primary-eco !p-0 md:hidden">
+				<button
+					onClick={back}
+					className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-primary-eco !p-0 md:hidden"
+				>
 					<MdOutlineClose className="text-[24px] font-bold text-white" />
 				</button>
 			</div>

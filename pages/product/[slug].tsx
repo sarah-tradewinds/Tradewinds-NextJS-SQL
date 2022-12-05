@@ -21,6 +21,7 @@ import ProductDetailsTabContainer from 'components/website/product-details/produ
 import { addProductToCart, updateCart } from 'lib/cart.lib';
 import {
 	getProductById,
+	getProductReviewAnalyticsByProductId,
 	getProductReviewsByProductId,
 	getSellerDetailsBySellerId,
 	getSimilarProducts,
@@ -33,7 +34,14 @@ import { getLocaleText } from 'utils/get_locale_text';
 
 const ProductDetailsPage: NextPage<
 	InferGetServerSidePropsType<GetServerSideProps>
-> = ({ slug, product, productReviews, seller, similarProducts }) => {
+> = ({
+	slug,
+	product,
+	productReviews,
+	reviewAnalytics,
+	seller,
+	similarProducts
+}) => {
 	const [productData, setProductData] = useState(product);
 	const [productReviewList, setProductReviewList] =
 		useState(productReviews);
@@ -85,25 +93,11 @@ const ProductDetailsPage: NextPage<
 					productVariant?.is_bulk_pricing || true;
 				updatedProductData.bulk_pricing = productVariant?.bulk_pricing;
 				setProductData(updatedProductData);
-
-				// updatedProductData.variants?.forEach((variant: any) => {
-				// 	updatedProductData.variant_id = variant.variant_id;
-				// 	updatedProductData.product_name = variant.variants_option;
-				// 	updatedProductData.images = variant.variants_images;
-				// 	updatedProductData.product_price = variant.variants_price;
-				// 	updatedProductData.inventory = variant.inventory;
-				// 	updatedProductData.is_bulk_pricing =
-				// 		variant.is_bulk_pricing || true;
-				// 	updatedProductData.bulk_pricing = variant.bulk_pricing;
-				// });
-				// setProductData(updatedProductData);
 			}
 		} else {
 			setProductData(product);
 		}
 	}, [selectedVariantId]);
-
-	console.log('selectedVariantId =', selectedVariantId);
 
 	const submitReviewHandler = async (
 		rating: number,
@@ -175,7 +169,8 @@ const ProductDetailsPage: NextPage<
 				<ProductDetailsTabContainer
 					className="hidden md:block"
 					product={productData}
-					reviews={productReviewList}
+					reviews={productReviewList || []}
+					reviewAnalytics={reviewAnalytics || {}}
 					seller={seller}
 					onReviewSubmit={submitReviewHandler}
 					isReviewLoading={isReviewLoading}
@@ -184,6 +179,7 @@ const ProductDetailsPage: NextPage<
 				<div className="bg-white md:hidden">
 					<ProductReviewsDetailsTab
 						reviews={productReviewList}
+						reviewAnalytics={reviewAnalytics || {}}
 						onReviewSubmit={submitReviewHandler}
 						isLoading={isReviewLoading}
 						productName={getLocaleText(
@@ -246,6 +242,8 @@ export const getServerSideProps: GetServerSideProps = async ({
 		// Fetch product reviews
 		const productReviews =
 			(await getProductReviewsByProductId(productId)) || [];
+		const reviewAnalytics =
+			(await getProductReviewAnalyticsByProductId(productId)) || {};
 
 		// Fetch seller company Data
 		const sellerId = product.seller_id.id;
@@ -260,6 +258,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 			props: {
 				product,
 				productReviews,
+				reviewAnalytics,
 				seller,
 				similarProducts,
 				slug: productId,

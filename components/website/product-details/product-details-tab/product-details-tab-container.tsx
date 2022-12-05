@@ -11,6 +11,7 @@ const ProductDetailsTabContainer: React.FC<{
 	className?: string;
 	product: any;
 	reviews: any[];
+	reviewAnalytics: any;
 	seller: any;
 	onReviewSubmit: (rating: number, review: string) => any;
 	isReviewLoading?: boolean;
@@ -18,6 +19,7 @@ const ProductDetailsTabContainer: React.FC<{
 	const {
 		className,
 		reviews = [],
+		reviewAnalytics,
 		product = {},
 		seller = {},
 		onReviewSubmit,
@@ -80,6 +82,7 @@ const ProductDetailsTabContainer: React.FC<{
 					<Tab.Panel className="outline-none">
 						<ReviewsDetailsTab
 							reviews={reviews}
+							reviewAnalytics={reviewAnalytics}
 							onReviewSubmit={onReviewSubmit}
 							isLoading={isReviewLoading}
 							productName={getLocaleText(

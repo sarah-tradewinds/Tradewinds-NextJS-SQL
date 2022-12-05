@@ -26,6 +26,7 @@ export const getProductReviewsByProductId = async (
 		const { data } = await serviceAxiosInstance.get(
 			`/order_review/product/${productId}`
 		);
+
 		return data.data || [];
 	} catch (error) {
 		console.log('[getProductReviewsByProductId] =', error);
@@ -33,6 +34,22 @@ export const getProductReviewsByProductId = async (
 		return [];
 	}
 }; // End of getProductReviewsByProductId
+
+export const getProductReviewAnalyticsByProductId = async (
+	productId: string
+) => {
+	try {
+		const { data } = await serviceAxiosInstance.get(
+			`/order_review/analytical/${productId}`
+		);
+
+		return data.data || [];
+	} catch (error) {
+		console.log('[getProductReviewAnalyticsByProductId] =', error);
+		const { data, status } = (error as any).response || {};
+		return [];
+	}
+}; // End of getProductReviewAnalyticsByProductId
 
 export const getSellerDetailsBySellerId = async (sellerId: string) => {
 	try {

@@ -4,9 +4,9 @@ import { useRouter } from 'next/router';
 // components
 import Button from 'components/website/common/form/button';
 import {
-  BUYER_DASHBOARD_ACTIONS,
-  BUYER_DASHBOARD_PAGES,
-  generateBuyerDashboardUrl
+	BUYER_DASHBOARD_ACTIONS,
+	BUYER_DASHBOARD_PAGES,
+	generateBuyerDashboardUrl
 } from 'data/buyer/buyer-actions';
 import { metadataList } from 'data/product-search/metadata-list';
 import { BiMessageAltDetail } from 'react-icons/bi';
@@ -151,17 +151,6 @@ const ProductDetailsTile: React.FC<{
 					</p>
 				</div>
 				{/* Price and quantity info */}
-				{/* <div className="flex justify-between text-[12px] font-semibold text-primary-main lg:text-[21px]">
-					<p>
-						{displayPrice} /{t('common:piece')}
-					</p>
-					{minOrderQuantity > 0 && (
-						<p>
-							{minOrderQuantity} {t('common:piece')} /
-							{t('common:min_order')}
-						</p>
-					)}
-				</div> */}
 				<div className="flex justify-between text-[12px] font-semibold text-primary-main lg:text-[21px]">
 					<h3 className="flex items-center space-x-8">
 						{is_on_sale && !is_bulk_pricing ? (

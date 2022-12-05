@@ -12,6 +12,7 @@ const ProductReviewsDetailsTab: React.FC<{
 	productId: string;
 	productName: string;
 	reviews: any[];
+	reviewAnalytics: any;
 	onReviewSubmit: (
 		rating: number,
 		review: string,
@@ -21,6 +22,7 @@ const ProductReviewsDetailsTab: React.FC<{
 }> = ({
 	productName,
 	reviews = [],
+	reviewAnalytics = {},
 	onReviewSubmit,
 	isLoading,
 	productId
@@ -56,7 +58,7 @@ const ProductReviewsDetailsTab: React.FC<{
 			return;
 		}
 
-		const reviewData = reviews.find(
+		const reviewData = reviews?.find(
 			(review: any) => review.user_id === customerData.id
 		);
 
@@ -134,7 +136,7 @@ const ProductReviewsDetailsTab: React.FC<{
 						<Image src="/rating.png" alt="" fill={true} />
 					</div>
 					<p className=" hidden text-[13px] text-secondary md:block">
-						146 {t('common:reviews')}
+						{reviewAnalytics.total_review} {t('common:reviews')}
 					</p>
 				</div>
 
@@ -143,15 +145,26 @@ const ProductReviewsDetailsTab: React.FC<{
 					<div className="col-span-12 space-y-6 md:col-span-6 lg:col-span-5 2xl:col-span-3">
 						{/* Rating bars */}
 						<div className="hidden space-y-6 px-8 md:block">
-							{[50, 30, 14, 5, 1].map((ratingStat) => (
-								<div
-									key={ratingStat}
-									className="flex items-center space-x-2"
-								>
-									<p className="w-10 text-xs text-secondary">1000</p>
-									<RatingBar childStyle={{ width: `${ratingStat}%` }} />
-								</div>
-							))}
+							<RatingBar
+								totalReview={reviewAnalytics?.star_1}
+								childStyle={{ width: `${10}%` }}
+							/>
+							<RatingBar
+								totalReview={reviewAnalytics?.star_2}
+								childStyle={{ width: `${10}%` }}
+							/>
+							<RatingBar
+								totalReview={reviewAnalytics?.star_3}
+								childStyle={{ width: `${10}%` }}
+							/>
+							<RatingBar
+								totalReview={reviewAnalytics?.star_4}
+								childStyle={{ width: `${10}%` }}
+							/>
+							<RatingBar
+								totalReview={reviewAnalytics?.star_5}
+								childStyle={{ width: `${10}%` }}
+							/>
 						</div>
 
 						{/* Write your reviews */}
@@ -167,7 +180,7 @@ const ProductReviewsDetailsTab: React.FC<{
 							</div>
 						)}
 
-						{reviews.map((review) => (
+						{reviews?.map((review) => (
 							<UserReviewAndRatingTile
 								key={review.id}
 								customerName={review.name}
@@ -185,15 +198,24 @@ const ProductReviewsDetailsTab: React.FC<{
 export default ProductReviewsDetailsTab;
 
 const RatingBar: React.FC<{
+	totalReview?: string;
 	childClassName?: string;
 	childStyle?: React.CSSProperties;
-}> = ({ childClassName, childStyle }) => {
+}> = ({ totalReview = '0', childClassName, childStyle }) => {
 	return (
-		<div className="relative h-[22px] w-[165px] overflow-hidden rounded-md border border-[#FC5267]">
-			<div
-				className={`h-full rounded-r-md bg-[#FC5267] ${childClassName}`}
-				style={childStyle}
-			></div>
+		<div className="flex items-center">
+			<p
+				className="text-xs text-secondary"
+				style={{ width: `${8 * totalReview?.length}px` }}
+			>
+				{totalReview}
+			</p>
+			<div className="relative h-[22px] w-[165px] overflow-hidden rounded-md border border-[#FC5267]">
+				<div
+					className={`h-full rounded-r-md bg-[#FC5267] ${childClassName}`}
+					style={childStyle}
+				></div>
+			</div>
 		</div>
 	);
 };
