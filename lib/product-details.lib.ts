@@ -43,36 +43,7 @@ export const getProductReviewAnalyticsByProductId = async (
 			`/order_review/analytical/${productId}`
 		);
 
-		const getRatingPercentage = (totalRating: number) => {
-			return Math.ceil(totalRating / 100);
-		};
-
-		const { star_1, star_2, star_3, star_4, star_5, total_review } =
-			data.data || {};
-
-		return {
-			star_1: {
-				totalReview: star_1,
-				percentage: getRatingPercentage(star_1)
-			},
-			star_2: {
-				totalReview: star_2,
-				percentage: getRatingPercentage(star_2)
-			},
-			star_3: {
-				totalReview: star_3,
-				percentage: getRatingPercentage(star_3)
-			},
-			star_4: {
-				totalReview: star_4,
-				percentage: getRatingPercentage(star_4)
-			},
-			star_5: {
-				totalReview: star_5,
-				percentage: getRatingPercentage(star_5)
-			},
-			total_review
-		};
+		return data.data || {};
 	} catch (error) {
 		console.log('[getProductReviewAnalyticsByProductId] =', error);
 		const { data, status } = (error as any).response || {};
