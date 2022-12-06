@@ -104,6 +104,8 @@ const ProductReviewsDetailsTab: React.FC<{
 		</div>
 	);
 
+	console.log('reviewAnalytics =', reviewAnalytics);
+
 	return (
 		<>
 			{/* Review Input  */}
@@ -147,24 +149,39 @@ const ProductReviewsDetailsTab: React.FC<{
 						{/* Rating bars */}
 						<div className="hidden space-y-6 px-8 md:block">
 							<RatingBar
-								totalReview={reviewAnalytics?.star_1}
-								childStyle={{ width: `${10}%` }}
+								leading="5 star"
+								totalReview={reviewAnalytics?.star_1.totalReview}
+								childStyle={{
+									width: `${reviewAnalytics?.star_1.percentage}%`
+								}}
 							/>
 							<RatingBar
-								totalReview={reviewAnalytics?.star_2}
-								childStyle={{ width: `${10}%` }}
+								leading="4 star"
+								totalReview={reviewAnalytics?.star_2.totalReview}
+								childStyle={{
+									width: `${reviewAnalytics?.star_2.percent}%`
+								}}
 							/>
 							<RatingBar
-								totalReview={reviewAnalytics?.star_3}
-								childStyle={{ width: `${10}%` }}
+								leading="3 star"
+								totalReview={reviewAnalytics?.star_3.totalReview}
+								childStyle={{
+									width: `${reviewAnalytics?.star_3.percent}%`
+								}}
 							/>
 							<RatingBar
-								totalReview={reviewAnalytics?.star_4}
-								childStyle={{ width: `${10}%` }}
+								leading="2 star"
+								totalReview={reviewAnalytics?.star_4.totalReview}
+								childStyle={{
+									width: `${reviewAnalytics?.star_4.percent}%`
+								}}
 							/>
 							<RatingBar
-								totalReview={reviewAnalytics?.star_5}
-								childStyle={{ width: `${10}%` }}
+								leading="1 star"
+								totalReview={reviewAnalytics?.star_5.totalReview}
+								childStyle={{
+									width: `${reviewAnalytics?.star_5.percent}%`
+								}}
 							/>
 						</div>
 
@@ -189,6 +206,11 @@ const ProductReviewsDetailsTab: React.FC<{
 								review={review.comments}
 							/>
 						))}
+						<div className="flex justify-center md:hidden">
+							<Button className="text-[15px] text-[#33A7DF]">
+								More
+							</Button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -199,25 +221,25 @@ const ProductReviewsDetailsTab: React.FC<{
 export default ProductReviewsDetailsTab;
 
 const RatingBar: React.FC<{
-	totalReview?: string;
+	leading?: string;
+	totalReview?: number;
 	childClassName?: string;
 	childStyle?: React.CSSProperties;
-}> = ({ totalReview = '0', childClassName, childStyle }) => {
+}> = ({ leading, totalReview = 0, childClassName, childStyle }) => {
 	return (
 		<div className="flex items-center space-x-1">
-			<p
-				className="text-xs text-secondary"
-				style={{ width: `${8 * totalReview?.length}px` }}
-			>
-				{totalReview}
+			<p className="w-12 font-medium text-accent-primary-main">
+				{leading}
 			</p>
-
 			<div className="h-[22px] w-[165px] overflow-hidden rounded-md border-2 border-[#FC5267]">
 				<div
-					className={`h-full rounded bg-[#FC5267] ${childClassName}`}
+					className={`h-full w-0 rounded bg-[#FC5267] ${childClassName}`}
 					style={childStyle}
 				></div>
 			</div>
+			<p className="pl-2 font-medium text-accent-primary-main">
+				{totalReview}
+			</p>
 		</div>
 	);
 };

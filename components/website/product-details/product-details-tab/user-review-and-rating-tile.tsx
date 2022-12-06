@@ -1,4 +1,3 @@
-import Button from 'components/website/common/form/button';
 import { MdPerson } from 'react-icons/md';
 import RatingStars from './product-review/rating-stars';
 
@@ -28,10 +27,6 @@ const UserReviewAndRatingTile: React.FC<
 			</div>
 			{/* User Review */}
 			<p className="text-[13px] text-gray md:text-[18px]">{review}</p>
-
-			<div className="flex justify-center md:hidden">
-				<Button className="text-[15px] text-[#33A7DF]">More</Button>
-			</div>
 		</div>
 	);
 }; // End of UserReviewAndRatingTile component
