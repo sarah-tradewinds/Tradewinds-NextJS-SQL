@@ -35,9 +35,10 @@ const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 	return (
 		<div className={className}>
 			{/* Main Image */}
-			<div className="relative h-[211px] w-full md:h-[475px]">
-				<ImageWithErrorHandler src={imageUrl} alt={alt} fill={true} />
-
+			<div className="relative p-4">
+				<div className="relative h-[211px] w-full md:h-[475px]">
+					<ImageWithErrorHandler src={imageUrl} alt={alt} fill={true} />
+				</div>
 				<button
 					onClick={back}
 					className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-primary-eco !p-0 md:hidden"

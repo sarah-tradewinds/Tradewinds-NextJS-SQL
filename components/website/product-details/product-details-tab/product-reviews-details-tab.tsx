@@ -70,14 +70,15 @@ const ProductReviewsDetailsTab: React.FC<{
 	}, [showReview]);
 
 	useEffect(() => {
-		canCustomerGiveReviewOnThisProduct(customerData.id, productId).then(
-			(data: any) => {
-				setCanCustomerWriteReviewForThisProduct(
-					data.canCustomerWiteReviewForThisProduct
-				);
-			}
-		);
-	}, [customerData.id]);
+		canCustomerGiveReviewOnThisProduct(
+			customerData.buyerId,
+			productId
+		).then((data: any) => {
+			setCanCustomerWriteReviewForThisProduct(
+				data.canCustomerWiteReviewForThisProduct
+			);
+		});
+	}, [customerData.buyerId]);
 
 	const onReviewSubmitHandler = () => {
 		onReviewSubmit(rating, review, reviewId);
@@ -123,7 +124,7 @@ const ProductReviewsDetailsTab: React.FC<{
 				/>
 			</Modal>
 
-			<div className="space-y-4 bg-white p-8">
+			<div className="space-y-4 bg-white p-4 md:p-8">
 				{/* Customer reviews and rating count */}
 				<div className="flex items-center space-x-4 border-b-2 border-t-2 border-gray/40 pb-2 md:border-t-0">
 					<h2 className="hidden text-[21px] font-semibold text-gray/40 md:block">
@@ -132,15 +133,15 @@ const ProductReviewsDetailsTab: React.FC<{
 					<h2 className="text-[22px] font-semibold text-gray/40 md:hidden">
 						{t('common:reviews')}
 					</h2>
-					<div className="relative hidden h-[24px] w-[108px] md:block">
+					<div className="relative hidden h-[24px] w-[124px] md:block">
 						<Image src="/rating.png" alt="" fill={true} />
 					</div>
-					<p className=" hidden text-[13px] text-secondary md:block">
+					<p className="hidden text-[13px] text-secondary md:block">
 						{reviewAnalytics.total_review} {t('common:reviews')}
 					</p>
 				</div>
 
-				<div className="grid grid-cols-12">
+				<div className="grid grid-cols-12 ">
 					{/* Reviews stats, Write reviews */}
 					<div className="col-span-12 space-y-6 md:col-span-6 lg:col-span-5 2xl:col-span-3">
 						{/* Rating bars */}
@@ -203,16 +204,17 @@ const RatingBar: React.FC<{
 	childStyle?: React.CSSProperties;
 }> = ({ totalReview = '0', childClassName, childStyle }) => {
 	return (
-		<div className="flex items-center">
+		<div className="flex items-center space-x-1">
 			<p
 				className="text-xs text-secondary"
 				style={{ width: `${8 * totalReview?.length}px` }}
 			>
 				{totalReview}
 			</p>
-			<div className="relative h-[22px] w-[165px] overflow-hidden rounded-md border border-[#FC5267]">
+
+			<div className="h-[22px] w-[165px] overflow-hidden rounded-md border-2 border-[#FC5267]">
 				<div
-					className={`h-full rounded-r-md bg-[#FC5267] ${childClassName}`}
+					className={`h-full rounded bg-[#FC5267] ${childClassName}`}
 					style={childStyle}
 				></div>
 			</div>

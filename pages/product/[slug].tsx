@@ -18,6 +18,11 @@ import SimilarProductList from 'components/website/product-details/similar-produ
 
 // lib
 import ProductDetailsTabContainer from 'components/website/product-details/product-details-tab/product-details-tab-container';
+import {
+	BUYER_DASHBOARD_ACTIONS,
+	BUYER_DASHBOARD_PAGES,
+	generateBuyerDashboardUrl
+} from 'data/buyer/buyer-actions';
 import { addProductToCart, updateCart } from 'lib/cart.lib';
 import {
 	getProductById,
@@ -45,6 +50,8 @@ const ProductDetailsPage: NextPage<
 	const [productData, setProductData] = useState(product);
 	const [productReviewList, setProductReviewList] =
 		useState(productReviews);
+	const [productReviewAnalytics, setProductReviewAnalytics] =
+		useState(reviewAnalytics);
 	const [isReviewLoading, setIsReviewLoading] = useState(false);
 	const [selectedVariantId, setSelectedVariantId] = useState('');
 
@@ -106,11 +113,14 @@ const ProductDetailsPage: NextPage<
 	) => {
 		try {
 			setIsReviewLoading(true);
+			const productId = productData.id;
 			const ratingAndReviewData = {
 				rating,
 				comments: review,
-				product_id: productData.id,
-				order_id: '6287507801163604d44c74b6',
+				product_id: productId,
+				// order_id: '6287507801163604d44c74b6',
+				// TODO: Have to ask is this required
+				order_id: '',
 				user_id: customerData.id
 			};
 
@@ -118,7 +128,11 @@ const ProductDetailsPage: NextPage<
 			const productReviews = await getProductReviewsByProductId(
 				productData.id
 			);
+			const updatedProductReviewAnalytics =
+				await getProductReviewAnalyticsByProductId(productData.id);
+
 			setProductReviewList(productReviews);
+			setProductReviewAnalytics(updatedProductReviewAnalytics);
 			setIsReviewLoading(false);
 		} catch (error) {
 			setIsReviewLoading(false);
@@ -170,7 +184,7 @@ const ProductDetailsPage: NextPage<
 					className="hidden md:block"
 					product={productData}
 					reviews={productReviewList || []}
-					reviewAnalytics={reviewAnalytics || {}}
+					reviewAnalytics={productReviewAnalytics || {}}
 					seller={seller}
 					onReviewSubmit={submitReviewHandler}
 					isReviewLoading={isReviewLoading}
@@ -179,7 +193,7 @@ const ProductDetailsPage: NextPage<
 				<div className="bg-white md:hidden">
 					<ProductReviewsDetailsTab
 						reviews={productReviewList}
-						reviewAnalytics={reviewAnalytics || {}}
+						reviewAnalytics={productReviewAnalytics || {}}
 						onReviewSubmit={submitReviewHandler}
 						isLoading={isReviewLoading}
 						productName={getLocaleText(
@@ -207,12 +221,24 @@ const ProductDetailsPage: NextPage<
 			<div className="fixed left-0 right-0 bottom-0 z-[2000] flex justify-around bg-primary-main py-6 md:hidden">
 				<Button
 					variant="special"
+					href={generateBuyerDashboardUrl({
+						redirect_to: BUYER_DASHBOARD_PAGES.buyer_rfq,
+						action: BUYER_DASHBOARD_ACTIONS.create_rfq,
+						access_key: customerData.access.token,
+						refresh_key: customerData.refresh.token
+					})}
 					className="rounded-full px-4 !text-[15px]"
 				>
 					Submit RFQ
 				</Button>
 				<Button
 					variant="product"
+					href={generateBuyerDashboardUrl({
+						redirect_to: BUYER_DASHBOARD_PAGES.buyer_rfq,
+						action: BUYER_DASHBOARD_ACTIONS.create_rfq,
+						access_key: customerData.access.token,
+						refresh_key: customerData.refresh.token
+					})}
 					className="rounded-full px-4 !text-[15px]"
 				>
 					Message Seller
