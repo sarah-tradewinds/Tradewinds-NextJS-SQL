@@ -12,7 +12,7 @@ const nextConfig = (phase) => {
 			env: {
 				SITE_URL: 'http://localhost:3000',
 				BUYER_DASHBOARD_SITE_URL:
-					'https://tradewinds-dev-public.s3.us-east-2.amazonaws.com',
+					'https://tradewinds-dev-public.s3.us-east-2.amazonaws.com/index.html#',
 				API_BASE_URL:
 					'https://tradewinds-dev.eastus.cloudapp.azure.com',
 				STRIPE_PUBLISHABLE_KEY:
@@ -42,7 +42,7 @@ const nextConfig = (phase) => {
 			// SITE_URL: 'https://tradewindsmpuatshoppingsite.azurewebsites.net',
 
 			BUYER_DASHBOARD_SITE_URL:
-				'https://tradewinds-dev-public.s3.us-east-2.amazonaws.com',
+				'https://tradewinds-dev-public.s3.us-east-2.amazonaws.com/index.html#',
 			// #DEV
 			// 'www.tradewindsdev.com',
 			// #UAT
