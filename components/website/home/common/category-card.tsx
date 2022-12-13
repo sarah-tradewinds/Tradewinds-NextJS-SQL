@@ -52,7 +52,7 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 
 			{/* Container */}
 			<div
-				className={`relative flex h-full flex-col justify-between space-y-4 rounded-lg bg-agri-main p-4 ${innerContainer}`}
+				className={`relative flex h-full flex-col justify-between space-y-4 overflow-hidden rounded-lg bg-agri-main p-4 ${innerContainer}`}
 				style={{ backgroundColor: bgHexColor }}
 			>
 				<p

@@ -309,7 +309,7 @@ const ProductSearchPage: NextPage<
 										<Skeleton height="80px" />
 									</div>
 								) : (
-									<div className="flex items-center space-x-4 p-2 md:block md:space-x-0 md:p-0">
+									<div className="flex items-center space-x-4 border-gray/60 p-2 md:block md:space-x-0 md:border-r-2 md:p-0">
 										<p className="text-lg font-semibold md:text-[10px] md:text-gray/80 lg:text-[21px]">
 											{getLocaleText(
 												selectedMainCategory?.title || {},
@@ -317,7 +317,8 @@ const ProductSearchPage: NextPage<
 											)}
 										</p>
 										<div
-											className="relative mt-2 h-[38px] w-[38px] md:h-10 md:w-12 lg:h-[82px] lg:w-[98px]"
+											// className="relative mt-2 h-[38px] w-[38px] md:h-10 md:w-12 lg:h-[140px] lg:w-[198px]"
+											className="relative mt-2 h-[38px] w-[38px] md:h-[70px] md:w-[99px] lg:h-[120px] lg:w-[140px] xl:h-[140px] xl:w-[198px]"
 											style={{
 												backgroundColor: selectedMainCategory?.color,
 												border: selectedMainCategory?.color
@@ -326,7 +327,7 @@ const ProductSearchPage: NextPage<
 											}}
 										>
 											<div className="md:absolute md:bottom-0 md:right-0">
-												<div className="relative h-[38px] w-[38px] md:h-[30px] md:w-[30px] lg:h-[67px] lg:w-[67px]">
+												<div className="relative h-[38px] w-[38px] md:h-[30px] md:w-[30px] lg:h-[99px] lg:w-[100px]">
 													<ImageWithErrorHandler
 														src={selectedMainCategory?.icon?.url}
 														alt={getLocaleText(
