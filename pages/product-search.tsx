@@ -423,11 +423,7 @@ const ProductSearchPage: NextPage<
 
 					{/* Product List */}
 					<div className="space-y-4 md:space-y-8">
-						{products?.length <= 0 ? (
-							<p className="text-center text-[32px] font-semibold">
-								No product found
-							</p>
-						) : (
+						{products?.length <= 0 && (
 							<ProductList
 								products={products}
 								onCompareClick={addProductToCompareList}
