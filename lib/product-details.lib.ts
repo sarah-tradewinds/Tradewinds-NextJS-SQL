@@ -1,4 +1,7 @@
-import { serviceAxiosInstance } from 'utils/axios-instance.utils';
+import {
+	proxyServiceAxiosInstance,
+	serviceAxiosInstance
+} from 'utils/axios-instance.utils';
 
 export const getProductById = async (productId: string) => {
 	try {
@@ -93,7 +96,7 @@ export const canCustomerGiveReviewOnThisProduct = async (
 	}
 
 	try {
-		const { data } = await serviceAxiosInstance.post(
+		const { data } = await proxyServiceAxiosInstance.post(
 			'/order_review/is-review-allowed',
 			{ buyer_id: customerId, product_id: productId }
 		);

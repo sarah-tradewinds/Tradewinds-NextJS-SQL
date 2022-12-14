@@ -1,11 +1,11 @@
 import {
-	axiosInstance,
-	serviceAxiosInstance
+	proxyAxiosInstance,
+	proxyServiceAxiosInstance
 } from 'utils/axios-instance.utils';
 
 export const userSignup = async (customerData: any) => {
 	try {
-		const { data } = await axiosInstance.post(
+		const { data } = await proxyAxiosInstance.post(
 			'/auth/buyer_signup',
 			customerData
 		);
@@ -22,7 +22,10 @@ export const userSignup = async (customerData: any) => {
 
 export const userLogin = async (params: any) => {
 	try {
-		const { data } = await axiosInstance.post('/auth/login', params);
+		const { data } = await proxyAxiosInstance.post(
+			'/auth/login',
+			params
+		);
 		return {
 			message: data.message,
 			...(data.data || {})
@@ -36,7 +39,7 @@ export const userLogin = async (params: any) => {
 
 export const autoLoginCustomer = async () => {
 	try {
-		const { data } = await axiosInstance.get('/auth/auto-login');
+		const { data } = await proxyAxiosInstance.get('/auth/auto-login');
 		return data;
 	} catch (error) {
 		console.log('[autoLoginCustomer] =', error);
@@ -47,11 +50,14 @@ export const autoLoginCustomer = async () => {
 
 export const getCustomerDetails = async (token?: string) => {
 	try {
-		const { data } = await serviceAxiosInstance.get('/auth/user/me', {
-			headers: {
-				Authorization: token ? `Bearer ${token}` : ''
+		const { data } = await proxyServiceAxiosInstance.get(
+			'/auth/user/me',
+			{
+				headers: {
+					Authorization: token ? `Bearer ${token}` : ''
+				}
 			}
-		});
+		);
 
 		return {
 			id: data?.data?.id,
@@ -68,7 +74,7 @@ export const getCustomerDetails = async (token?: string) => {
 
 export const getCustomerBuyerDetails = async (userId: string) => {
 	try {
-		const { data } = await serviceAxiosInstance.get(
+		const { data } = await proxyServiceAxiosInstance.get(
 			`/buyer/user/${userId}`
 		);
 
@@ -84,9 +90,12 @@ export const getCustomerBuyerDetails = async (userId: string) => {
 
 export const forgetPasswordGenerateLink = async (email: string) => {
 	try {
-		const { data } = await axiosInstance.post('/auth/forgot_password', {
-			email
-		});
+		const { data } = await proxyAxiosInstance.post(
+			'/auth/forgot_password',
+			{
+				email
+			}
+		);
 
 		return {
 			message: data.message,
@@ -103,7 +112,7 @@ export const forgetPasswordGenerateLink = async (email: string) => {
 
 export const logoutCustomer = async () => {
 	try {
-		const { data } = await axiosInstance.get('/auth/logout');
+		const { data } = await proxyAxiosInstance.get('/auth/logout');
 		return {
 			message: data.message,
 			...(data.data || {})

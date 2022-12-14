@@ -7,11 +7,6 @@ export const getAllCategoryByAlphabets = async () => {
 	} catch (error) {
 		console.log('[getAllCategoryByAlphabets] =', error);
 		const { data, status } = (error as any).response || {};
-		// if (status >= 500) {
-		// 	throw Error(
-		// 		'Error occurred in getAllCategoryByAlphabets'
-		// 	);
-		// }
 		return {};
 	}
 }; // End of getAllCategoryByAlphabets function

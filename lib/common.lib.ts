@@ -9,7 +9,6 @@ export const getMainCategories = async (isEco?: boolean) => {
 	} catch (error) {
 		console.log('[getMainCategories] =', error);
 		const { data } = (error as any).response || {};
-		// throw Error(data || 'Error occurred getMainCategories');
 		return [];
 	}
 }; // End of getMainCategories function

@@ -1,4 +1,4 @@
-import { serviceAxiosInstance } from 'utils/axios-instance.utils';
+import { proxyServiceAxiosInstance } from 'utils/axios-instance.utils';
 
 interface CreateOrder {
 	buyer_id: string;
@@ -20,7 +20,7 @@ export const createOrder = async (orderPayload: CreateOrder) => {
 			orderPayload.shipping_address = orderPayload.billing_address;
 		}
 
-		const { data } = await serviceAxiosInstance.post(
+		const { data } = await proxyServiceAxiosInstance.post(
 			'/order',
 			orderPayload
 		);
@@ -38,7 +38,7 @@ export const createOrder = async (orderPayload: CreateOrder) => {
 
 export const getOrderById = async (orderId: string) => {
 	try {
-		const { data } = await serviceAxiosInstance.get(
+		const { data } = await proxyServiceAxiosInstance.get(
 			`/order/${orderId}`
 		);
 
@@ -73,7 +73,7 @@ export const getOrderById = async (orderId: string) => {
 
 export const getPaymentIntentByOrderId = async (orderId: string) => {
 	try {
-		const { data } = await serviceAxiosInstance.get(
+		const { data } = await proxyServiceAxiosInstance.get(
 			`/order/checkout/${orderId}`
 		);
 

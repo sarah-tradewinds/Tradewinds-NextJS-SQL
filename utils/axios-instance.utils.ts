@@ -7,15 +7,17 @@ if (typeof window === 'undefined') {
 	baseURL = process.env.SITE_URL || '';
 }
 
-export const axiosInstance = axios.create({
+const API_BASE_URL = process.env.API_BASE_URL;
+
+export const proxyAxiosInstance = axios.create({
 	baseURL: `${baseURL}/api/v1`
 });
 
-export const serviceAxiosInstance = axios.create({
+export const proxyServiceAxiosInstance = axios.create({
 	baseURL: `${baseURL}/api/v1/services/api/v1`
 });
 
-serviceAxiosInstance.interceptors.request.use(
+proxyServiceAxiosInstance.interceptors.request.use(
 	(request) => {
 		if (typeof window !== 'undefined') {
 			const accessToken = localStorage.getItem('tw-access_token');
@@ -31,3 +33,11 @@ serviceAxiosInstance.interceptors.request.use(
 		return Promise.reject(error);
 	}
 );
+
+export const axiosInstance = axios.create({
+	baseURL: `${API_BASE_URL}/api/v1`
+});
+
+export const serviceAxiosInstance = axios.create({
+	baseURL: `${API_BASE_URL}/services/api/v1`
+});

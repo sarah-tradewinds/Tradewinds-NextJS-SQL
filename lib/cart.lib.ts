@@ -1,4 +1,4 @@
-import { serviceAxiosInstance } from 'utils/axios-instance.utils';
+import { proxyServiceAxiosInstance } from 'utils/axios-instance.utils';
 
 interface CartProduct {
 	product_id: string;
@@ -12,11 +12,14 @@ export const addProductToCart = async (
 	products?: CartProduct[] | null
 ): Promise<string> => {
 	try {
-		const { data } = await serviceAxiosInstance.post('/addtocart', {
-			buyer_id: buyerId,
-			item: product ? [product] : products,
-			discount: 0
-		});
+		const { data } = await proxyServiceAxiosInstance.post(
+			'/addtocart',
+			{
+				buyer_id: buyerId,
+				item: product ? [product] : products,
+				discount: 0
+			}
+		);
 
 		// Returning cartId
 		return data?.data?.InsertedID;
@@ -30,7 +33,7 @@ export const addProductToCart = async (
 
 export const getCart = async (buyerId: string) => {
 	try {
-		const { data } = await serviceAxiosInstance.get(
+		const { data } = await proxyServiceAxiosInstance.get(
 			`addtocart/cart/${buyerId}`
 		);
 
@@ -58,7 +61,7 @@ export const updateCart = async (
 	products: CartProduct[]
 ) => {
 	try {
-		const { data } = await serviceAxiosInstance.put(
+		const { data } = await proxyServiceAxiosInstance.put(
 			`addtocart/update/${cartId}`,
 			{
 				buyer_id: buyerId,
