@@ -22,7 +22,7 @@ const ProductList: React.FC<ProductListProps> = ({
 	products,
 	onCompareClick
 }) => {
-	const { locale, push } = useRouter();
+	const { locale } = useRouter();
 
 	const {
 		cartId,

@@ -175,7 +175,7 @@ const ProductSearchPage: NextPage<
 			const productList = data.data || [];
 			setProducts(productList);
 			console.log(' ');
-			console.log('Calling only products');
+			console.log('Calling only products', query, productList);
 			console.log(' ');
 			const { main_category } = data.categories || {};
 			if (main_category) {
@@ -189,7 +189,14 @@ const ProductSearchPage: NextPage<
 				});
 			}
 		});
-	}, [query, minPrice, maxPrice, isEco, filterBuyEco]);
+	}, [
+		query,
+		query.searchQuery,
+		minPrice,
+		maxPrice,
+		isEco,
+		filterBuyEco
+	]);
 
 	const [options, setOptions] = useState({});
 	const [ref] = useKeenSlider<HTMLDivElement>(options);
@@ -423,7 +430,7 @@ const ProductSearchPage: NextPage<
 
 					{/* Product List */}
 					<div className="space-y-4 md:space-y-8">
-						{products?.length <= 0 && (
+						{products?.length > 0 && (
 							<ProductList
 								products={products}
 								onCompareClick={addProductToCompareList}
