@@ -150,37 +150,37 @@ const ProductReviewsDetailsTab: React.FC<{
 						<div className="hidden space-y-6 px-8 md:block">
 							<RatingBar
 								leading="5 star"
-								totalReview={reviewAnalytics?.star_1.total_count}
+								totalReview={reviewAnalytics?.star_1?.total_count}
 								childStyle={{
-									width: `${reviewAnalytics?.star_1.percentage}%`
+									width: `${reviewAnalytics?.star_1?.percentage}%`
 								}}
 							/>
 							<RatingBar
 								leading="4 star"
-								totalReview={reviewAnalytics?.star_2.total_count}
+								totalReview={reviewAnalytics?.star_2?.total_count}
 								childStyle={{
-									width: `${reviewAnalytics?.star_2.percentage}%`
+									width: `${reviewAnalytics?.star_2?.percentage}%`
 								}}
 							/>
 							<RatingBar
 								leading="3 star"
-								totalReview={reviewAnalytics?.star_3.total_count}
+								totalReview={reviewAnalytics?.star_3?.total_count}
 								childStyle={{
-									width: `${reviewAnalytics?.star_3.percentage}%`
+									width: `${reviewAnalytics?.star_3?.percentage}%`
 								}}
 							/>
 							<RatingBar
 								leading="2 star"
-								totalReview={reviewAnalytics?.star_4.total_count}
+								totalReview={reviewAnalytics?.star_4?.total_count}
 								childStyle={{
-									width: `${reviewAnalytics?.star_4.percentage}%`
+									width: `${reviewAnalytics?.star_4?.percentage}%`
 								}}
 							/>
 							<RatingBar
 								leading="1 star"
-								totalReview={reviewAnalytics?.star_5.total_count}
+								totalReview={reviewAnalytics?.star_5?.total_count}
 								childStyle={{
-									width: `${reviewAnalytics?.star_5.percentage}%`
+									width: `${reviewAnalytics?.star_5?.percentage}%`
 								}}
 							/>
 						</div>
