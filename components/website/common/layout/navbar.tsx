@@ -83,7 +83,7 @@ const Header = () => {
 	return (
 		<>
 			<header
-				className={`sticky top-0 z-[1000] w-full ${
+				className={`sticky top-0 z-[10000] w-full ${
 					isEco
 						? 'bg-primary-eco'
 						: 'bg-gradient-to-r from-success via-accent-primary-main to-primary-main'

@@ -163,6 +163,11 @@ const ProductList: React.FC<ProductListProps> = ({
 
 					return (
 						<>
+							{products?.length < 0 && (
+								<div className="hidden md:block">
+									<RFQCard size="sm" />
+								</div>
+							)}
 							<ProductTile
 								key={product.id}
 								name={getLocaleText(product.product_name || {}, locale)}
@@ -215,12 +220,6 @@ const ProductList: React.FC<ProductListProps> = ({
 									setIsMessageVendorPopupOpen(true);
 								}}
 							/>
-
-							{index === 3 && (
-								<div className="hidden md:block">
-									<RFQCard size="sm" />
-								</div>
-							)}
 						</>
 					);
 				})}

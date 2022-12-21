@@ -2,12 +2,9 @@ import { useRouter } from 'next/router';
 
 // components
 import Button from 'components/website/common/form/button';
-import Input from 'components/website/common/form/input';
 import { useTranslation } from 'next-i18next';
 import React, { useState } from 'react';
-import { applyFiltersByUrl } from 'utils/nav-actions.utils';
 import CategoriesFilter from './categories-filter';
-import CountrySearchFilter from './country-filter';
 
 interface ProductFilterProps {
 	onCountryChange?: (countyCodes: string) => any;
@@ -29,10 +26,29 @@ const ProductFilter: React.FC<ProductFilterProps> = (props) => {
 					{t('navigation:categories_text')}
 				</h4>
 				<CategoriesFilter />
+
+				<div className="mt-6 space-y-2">
+					<Button
+						className={`
+          
+          'flex lg:max-h-6' w-full items-center bg-primary-main !px-2 !text-white
+          `}
+					>
+						Search
+					</Button>
+					<Button
+						className={`
+          
+          'flex lg:max-h-6' w-full items-center bg-transparent !px-2 !text-primary-main
+          `}
+					>
+						Reset Filters
+					</Button>
+				</div>
 			</div>
 
 			{/* min order filter */}
-			<div>
+			{/* <div>
 				<h4 className="text-[18px] font-semibold text-gray">
 					Min. Order
 				</h4>
@@ -58,10 +74,10 @@ const ProductFilter: React.FC<ProductFilterProps> = (props) => {
 						Go
 					</Button>
 				</div>
-			</div>
+			</div> */}
 
 			{/* price filter */}
-			<div>
+			{/* <div>
 				<h4 className="text-[18px] font-semibold text-gray">
 					Min. Price
 				</h4>
@@ -88,16 +104,16 @@ const ProductFilter: React.FC<ProductFilterProps> = (props) => {
 						Go
 					</Button>
 				</div>
-			</div>
+			</div> */}
 
 			{/* country search filter */}
-			<div className="space-y-4">
+			{/* <div className="space-y-4">
 				<h4 className="text-[18px] font-semibold text-gray">
 					Supplier Country/ Region
 				</h4>
 
 				<CountrySearchFilter />
-			</div>
+			</div> */}
 		</div>
 	);
 };

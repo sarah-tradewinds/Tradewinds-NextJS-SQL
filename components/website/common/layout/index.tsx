@@ -26,6 +26,9 @@ import {
 	MdOutlineMessage,
 	MdPerson
 } from 'react-icons/md';
+import {
+	BsSliders
+} from 'react-icons/bs';
 
 import { getAddresses } from 'lib/customer/addres.lib';
 import { useAuthStore } from 'store/auth';
@@ -112,7 +115,9 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 						{/* Home Icon */}
 						<Link href="/" className="ml-4">
 							<MdOutlineHome className="text-[32px] font-semibold text-white" />
-						</Link>
+            </Link>
+            
+							<BsSliders className="text-[32px] font-semibold text-white" />
 
 						{/* Sign-in button */}
 						{!isAuth && (

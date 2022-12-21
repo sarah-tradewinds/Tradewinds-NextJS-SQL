@@ -1,9 +1,8 @@
 import {
-	GetServerSideProps,
-	InferGetServerSidePropsType,
-	NextPage
+  GetServerSideProps,
+  InferGetServerSidePropsType,
+  NextPage
 } from 'next';
-import Image from 'next/image';
 
 // Third party packages
 import { useKeenSlider } from 'keen-slider/react';
@@ -18,15 +17,17 @@ import ImageWithErrorHandler from 'components/website/common/elements/image-with
 import Seo from 'components/website/common/seo';
 import SubCategorySlider from 'components/website/home/sub-category-slider';
 import ProductFilter from 'components/website/product-search/product-filter/product-filter';
+import ProductSearchFilterBar from 'components/website/product-search/product-search-filter-bar';
 import ProductSearchTopBanner from 'components/website/product-search/product-search-top-banner';
 import RFQCard from 'components/website/product-search/rfq-card.components';
+import MiniRFQCard from 'components/website/product-search/rfq-mini-card.components';
 import SubCategoryTile from 'components/website/product-search/sub-category-tile';
 import TrendingCategorySlider from 'components/website/product-search/trending-category-slider';
 import TrendingSectionTile from 'components/website/product-search/trending-section-tile';
 import { getCountryById } from 'lib/common.lib';
 import {
-	getProducts,
-	getSelectedMainCategoryAndCategories
+  getProducts,
+  getSelectedMainCategoryAndCategories
 } from 'lib/product-search.lib';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
@@ -255,20 +256,26 @@ const ProductSearchPage: NextPage<
 				/>
 			)}
 
+			{/* ProductSearchFilterBar */}
+			<ProductSearchFilterBar />
+
 			<div className="relative grid grid-cols-12 gap-4 md:p-4 lg:gap-6 lg:p-6">
 				{/* Side container */}
 				<section className="col-span-4 hidden space-y-8 md:block lg:col-span-3">
 					{/* filters */}
 					<ProductFilter />
 
-					{/* ads */}
-					<div>
+					{/* Submit RFQ Card - Fixed Side container */}
+					{/* <div>
 						<h4 className="bg-accent-primary-main p-4 text-center text-[25px] font-semibold text-white">
 							Buy My Smokes
 						</h4>
 						<div className="relative h-[471px] w-full">
 							<Image src="/smoker.png" alt="" fill={true} />
 						</div>
+					</div> */}
+					<div className="hidden md:block">
+						<MiniRFQCard size="xl" />
 					</div>
 				</section>
 
@@ -306,128 +313,131 @@ const ProductSearchPage: NextPage<
 					)}
 
 					{/* MainCategory and categories list */}
-					{!router.query.is_trending && selectedCategories.length > 0 && (
-						<div className="grid grid-cols-12 md:gap-0 md:rounded-md md:bg-white md:p-4 md:shadow-md lg:gap-2">
-							{/* Main category Card */}
-							<div className="col-span-12 md:col-span-3 lg:col-span-3">
-								{isSelectedMainCategoryAndCategoriesLoading ? (
-									<div>
-										<Skeleton />
-										<Skeleton height="80px" />
-									</div>
-								) : (
-									<div className="flex items-center space-x-4 border-gray/60 p-2 md:block md:space-x-0 md:border-r-2 md:p-0">
-										<p className="text-lg font-semibold md:text-[10px] md:text-gray/80 lg:text-[21px]">
-											{getLocaleText(
-												selectedMainCategory?.title || {},
-												router.locale
-											)}
-										</p>
-										<div
-											// className="relative mt-2 h-[38px] w-[38px] md:h-10 md:w-12 lg:h-[140px] lg:w-[198px]"
-											className="relative mt-2 h-[38px] w-[38px] md:h-[70px] md:w-[99px] lg:h-[120px] lg:w-[140px] xl:h-[140px] xl:w-[198px]"
-											style={{
-												backgroundColor: selectedMainCategory?.color,
-												border: selectedMainCategory?.color
-													? ''
-													: '2px solid gray'
-											}}
-										>
-											<div className="md:absolute md:bottom-0 md:right-0">
-												<div className="relative h-[38px] w-[38px] md:h-[30px] md:w-[30px] lg:h-[99px] lg:w-[100px]">
-													<ImageWithErrorHandler
-														src={selectedMainCategory?.icon?.url}
-														alt={getLocaleText(
-															selectedMainCategory?.title || {},
-															router.locale
-														)}
-														fill={true}
-													/>
+					{!router.query.is_trending &&
+						selectedCategories.length > 0 && (
+							<div className="grid grid-cols-12 md:gap-0 md:rounded-md md:bg-white md:p-4 md:shadow-md lg:gap-2">
+								{/* Main category Card */}
+								<div className="col-span-12 md:col-span-3 lg:col-span-3">
+									{isSelectedMainCategoryAndCategoriesLoading ? (
+										<div>
+											<Skeleton />
+											<Skeleton height="80px" />
+										</div>
+									) : (
+										<div className="flex items-center space-x-4 border-gray/60 p-2 md:block md:space-x-0 md:border-r-2 md:p-0">
+											<p className="text-lg font-semibold md:text-[10px] md:text-gray/80 lg:text-[21px]">
+												{getLocaleText(
+													selectedMainCategory?.title || {},
+													router.locale
+												)}
+											</p>
+											<div
+												// className="relative mt-2 h-[38px] w-[38px] md:h-10 md:w-12 lg:h-[140px] lg:w-[198px]"
+												className="relative mt-2 h-[38px] w-[38px] md:h-[70px] md:w-[99px] lg:h-[120px] lg:w-[140px] xl:h-[140px] xl:w-[198px]"
+												style={{
+													backgroundColor: selectedMainCategory?.color,
+													border: selectedMainCategory?.color
+														? ''
+														: '2px solid gray'
+												}}
+											>
+												<div className="md:absolute md:bottom-0 md:right-0">
+													<div className="relative h-[38px] w-[38px] md:h-[30px] md:w-[30px] lg:h-[99px] lg:w-[100px]">
+														<ImageWithErrorHandler
+															src={selectedMainCategory?.icon?.url}
+															alt={getLocaleText(
+																selectedMainCategory?.title || {},
+																router.locale
+															)}
+															fill={true}
+														/>
+													</div>
 												</div>
 											</div>
 										</div>
+									)}
+								</div>
+
+								{/* Categories */}
+								<div className="col-span-12 border-gray/20 md:col-span-9 md:ml-4 lg:col-span-9 lg:pl-4">
+									<div className="md:blocks hidden">
+										<SubCategorySlider
+											categories={[...selectedCategories]}
+											subCategoryContainerClassName="!border-2 !border-gray/40"
+											onTileClick={(categoryId, data) => {
+												const params = setCategory(
+													categoryId,
+													data?.title?.en
+												);
+												router.push(`/product-search?${params}`);
+											}}
+										/>
 									</div>
-								)}
-							</div>
 
-							{/* Categories */}
-							<div className="col-span-12 border-gray/20 md:col-span-9 md:ml-4 lg:col-span-9 lg:pl-4">
-								<div className="md:blocks hidden">
-									<SubCategorySlider
-										categories={[...selectedCategories]}
-										subCategoryContainerClassName="!border-2 !border-gray/40"
-										onTileClick={(categoryId, data) => {
-											const params = setCategory(
-												categoryId,
-												data?.title?.en
-											);
-											router.push(`/product-search?${params}`);
-										}}
-									/>
-								</div>
+									<div className="hidden md:block">
+										<TrendingCategorySlider
+											categories={[...selectedCategories]}
+											selectedCategoryIds={selectedCategoryList || []}
+											onTileClick={(categoryId, data) => {
+												const params = setCategory(
+													categoryId,
+													data?.title?.en
+												);
+												router.push(
+													`/product-search?${params}`,
+													undefined,
+													{ shallow: true }
+												);
+											}}
+										/>
+									</div>
 
-								<div className="hidden md:block">
-									<TrendingCategorySlider
-										categories={[...selectedCategories]}
-										selectedCategoryIds={selectedCategoryList || []}
-										onTileClick={(categoryId, data) => {
-											const params = setCategory(
-												categoryId,
-												data?.title?.en
-											);
-											router.push(
-												`/product-search?${params}`,
-												undefined,
-												{ shallow: true }
-											);
-										}}
-									/>
-								</div>
-
-								{/* For small screen only */}
-								<div className="px-2 py-4 md:hidden">
-									<div ref={ref} className="keen-slider">
-										{selectedCategories?.map((subCategory: any) => {
-											return (
-												<div
-													key={subCategory.id}
-													className="keen-slider__slide"
-												>
-													<SubCategoryTile
-														className="pb-4"
-														imageUrl={
-															subCategory.image?.url ||
-															'/vehicles/green-tractor.png'
-														}
-														title={getLocaleText(
-															subCategory.title || {},
-															router.locale
-														)}
-														showBorder={selectedCategoryList?.includes(
-															subCategory.id
-														)}
-														onTilePressed={() => {
-															const params = setCategory(
-																subCategory.id,
-																subCategory?.title?.en
-															);
-															router.push(`/product-search?${params}`);
-														}}
-													/>
-												</div>
-											);
-										})}
+									{/* For small screen only */}
+									<div className="px-2 py-4 md:hidden">
+										<div ref={ref} className="keen-slider">
+											{selectedCategories?.map((subCategory: any) => {
+												return (
+													<div
+														key={subCategory.id}
+														className="keen-slider__slide"
+													>
+														<SubCategoryTile
+															className="pb-4"
+															imageUrl={
+																subCategory.image?.url ||
+																'/vehicles/green-tractor.png'
+															}
+															title={getLocaleText(
+																subCategory.title || {},
+																router.locale
+															)}
+															showBorder={selectedCategoryList?.includes(
+																subCategory.id
+															)}
+															onTilePressed={() => {
+																const params = setCategory(
+																	subCategory.id,
+																	subCategory?.title?.en
+																);
+																router.push(
+																	`/product-search?${params}`
+																);
+															}}
+														/>
+													</div>
+												);
+											})}
+										</div>
 									</div>
 								</div>
 							</div>
+						)}
+					{/*If no any product in the product list - Speed your search up!! RFQ Card  */}
+					{products?.length < 0 && (
+						<div className="hidden md:block">
+							<RFQCard size="lg" />
 						</div>
 					)}
-
-					{/* Submit RFQ Card */}
-					<div className="hidden md:block">
-						<RFQCard />
-					</div>
-
 					{/* Product List */}
 					<div className="space-y-4 md:space-y-8">
 						{products?.length > 0 && (
@@ -436,6 +446,11 @@ const ProductSearchPage: NextPage<
 								onCompareClick={addProductToCompareList}
 							/>
 						)}
+					</div>
+
+					{/* If product are available in the product list - Submit RFQ Card */}
+					<div className="">
+						{products?.length > 0 && <MiniRFQCard size="xs" />}
 					</div>
 
 					{/* Pagination */}

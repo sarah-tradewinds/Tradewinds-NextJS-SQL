@@ -15,10 +15,10 @@ import { useRouter } from 'next/router';
 import { useAuthStore } from 'store/auth';
 
 interface RFQCardProps {
-	size?: 'sm' | 'lg';
+	size?: 'xs' | 'sm' | 'lg' | 'xl';
 }
 
-const RFQCard: React.FC<RFQCardProps> = (props) => {
+const MiniRFQCard: React.FC<RFQCardProps> = (props) => {
 	const { size } = props;
 
 	const router = useRouter();
@@ -32,13 +32,22 @@ const RFQCard: React.FC<RFQCardProps> = (props) => {
 		})
 	);
 
-	let rfqCardContainerClassName =
-		'flex items-center space-x-16 rounded-md bg-secondary p-8 lg:space-x-24';
+	let rfqCardContainerClassName = `${
+		size === 'xl'
+			? 'space-y-8 lg:rounded-md bg-secondary p-4 lg:space-y-12'
+			: 'flex items-center space-x-16 lg:rounded-md bg-secondary p-8 lg:space-x-24'
+	}`;
 	let imageClassName = '';
 
-	if (size === 'sm') {
-		rfqCardContainerClassName = `${rfqCardContainerClassName} h-[204px]`;
+	if (size === 'xs') {
+		rfqCardContainerClassName = `${rfqCardContainerClassName} lg:h-[140px] h-[180px]`;
+		imageClassName = `${imageClassName} lg:h-[87px] lg:w-[81px] h-[107px] w-[101px]`;
+	} else if (size === 'sm') {
+		rfqCardContainerClassName = `${rfqCardContainerClassName} h-[180px]`;
 		imageClassName = `${imageClassName} h-[87px] w-[81px]`;
+	} else if (size === 'xl') {
+		rfqCardContainerClassName = `${rfqCardContainerClassName} h-[512px]`;
+		imageClassName = `${imageClassName} lg:h-[104px] lg:w-[172px]`;
 	} else {
 		rfqCardContainerClassName = `${rfqCardContainerClassName} h-[312px] w-full`;
 		imageClassName = `${imageClassName} h-[129px] w-[121px] lg:h-[184px] lg:w-[172px]`;
@@ -46,26 +55,55 @@ const RFQCard: React.FC<RFQCardProps> = (props) => {
 
 	return (
 		<div className={rfqCardContainerClassName}>
-			<div className={`relative ${imageClassName}`}>
-				<ImageWithErrorHandler
-					src="/static/rfq-box.png"
-					alt="rfq box"
-					fill={true}
-				/>
+			<div
+				className={`${
+					size === 'xl'
+						? 'lg:mt-2 lg:flex lg:place-items-end lg:space-x-2'
+						: ''
+				}`}
+			>
+				<div className={`relative ${imageClassName}`}>
+					<ImageWithErrorHandler
+						src="/static/rfq-box.png"
+						alt="rfq box"
+						fill={true}
+					/>
+				</div>
+				<div
+					className={` ${
+						size === 'xl'
+							? 'pb-4 text-[16px] font-semibold text-white lg:text-[25px]'
+							: 'hidden'
+					}`}
+				>
+					<p>Submit an RFQ for anything!</p>
+				</div>
 			</div>
 
-			<div>
+			<div
+				className={`${
+					size === 'xs'
+						? 'lg:flex lg:w-full lg:items-center lg:justify-between'
+						: ''
+				} ${size === 'xl' ? 'grid grid-cols-1 lg:space-y-12' : ''}`}
+			>
 				<div
 					className={`pb-4 text-[16px] font-semibold text-white lg:text-[25px] ${
 						size === 'lg' ? 'border-b-2' : ''
 					}`}
 				>
-					<p>Speed your search up!!</p>
+					<p className={`${size === 'xl' ? 'hidden' : 'block'}`}>
+						Submit an RFQ for anything!
+					</p>
 					<ul
-						className={`list-disc lg:text-[20px] ${
-							size === 'sm'
-								? 'grid grid-cols-2 text-[16px] font-normal'
-								: 'ml-8 text-[15px]'
+						className={`list-disc text-[32px] lg:text-[20px] ${
+							size === 'xs'
+								? 'grid grid-cols-2 text-[13px] font-normal'
+								: 'ml-8 text-[12px]'
+						} ${
+							size === 'xl'
+								? 'grid grid-cols-1 font-normal lg:text-[22px]'
+								: ''
 						}`}
 					>
 						<li>One request</li>
@@ -95,7 +133,13 @@ const RFQCard: React.FC<RFQCardProps> = (props) => {
 								);
 							}
 						}}
-						className="flex items-center bg-white !px-2 !text-secondary"
+						className={`${
+							size === 'xs'
+								? 'flex items-center bg-white !px-2 !text-secondary lg:max-h-6'
+								: 'flex items-center bg-white !px-2 !text-secondary'
+						} ${
+							size === 'xl' ? 'lg:flex lg:w-full lg:justify-center' : ''
+						}`}
 					>
 						<div className="relative h-[31px] w-[36px]">
 							<ImageWithErrorHandler
@@ -110,6 +154,6 @@ const RFQCard: React.FC<RFQCardProps> = (props) => {
 			</div>
 		</div>
 	);
-}; // End of RFQCard
+}; // End of MiniRFQCard
 
-export default RFQCard;
+export default MiniRFQCard;
