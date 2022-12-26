@@ -200,14 +200,14 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 
 	return (
 		<div
-			className={`grid w-full grid-cols-12 overflow-hidden bg-white md:rounded-xl md:shadow-md lg:p-4 ${
+			className={`bg-se grid w-full grid-cols-12 overflow-hidden bg-white md:rounded-xl md:shadow-md lg:p-4 ${
 				isEco ? 'border-2 border-accent-success' : ''
 			}`}
 		>
-			<div className="col-span-12 space-y-4 lg:col-span-12">
+			<div className="col-span-12 space-y-4 lg:col-span-9">
 				<div className="grid grid-cols-12 gap-4 md:gap-0">
-					{/* Image Container */}
-					<div className="relative col-span-5 pr-2 md:col-span-3">
+					{/* Product Image Container */}
+					<div className="relative col-span-5 pr-2 md:col-span-3 lg:col-span-4">
 						<Link href={`/product/${slug}`}>
 							<div className="relative h-full w-full">
 								<ImageWithErrorHandler
@@ -231,7 +231,8 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 						)}
 					</div>
 
-					<div className="col-span-7 pl-2 md:col-span-9">
+					{/* Content */}
+					<div className="col-span-7 pl-2 md:col-span-5 lg:col-span-8">
 						{/* Product Info and keywords*/}
 						<Link
 							href={`/product/${slug}`}
@@ -239,7 +240,6 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 						>
 							{name}
 						</Link>
-						{/* Product name, description and keywords container */}
 						<div className="hidden space-y-4 md:block">
 							<Link href={`/product/${slug}`}>
 								<h2 className="md:text-[16px] lg:text-[15px]">
@@ -251,100 +251,44 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 									</span>
 								</h2>
 							</Link>
-							{/* keywords */}
-							{keywords.length > 0 && (
-								<KeywordSlider keywords={keywords || []} />
-							)}
+              {/* keywords */}
+							<div className="flex justify-between font-semibold text-primary-main md:text-[12px] lg:text-[16px]">
+
+							<KeywordSlider keywords={keywords || []} />
+							</div>
+                <div className="flex justify-between font-semibold text-primary-main md:text-[12px] lg:text-[16px]">
+								{keywords.map((keyword) => (
+									<span key={keyword}>{keyword}</span>
+								))}
+							</div>
 						</div>
 
-						{/* Product price, quantity and verified image */}
-						<div className="mb-2 grid grid-cols-12">
-							<div className="col-span-12 text-[12px] font-semibold text-primary-main md:col-span-7 md:py-2 md:text-[18px] lg:col-span-9 lg:text-[21px]">
-								{/* Price and quantity */}
-								<div className="border-b-gray/20 md:border-b-2 md:py-2">
-									<h3 className="flex items-center space-x-2 md:space-x-8">
-										{isSaleOn && !isBulkPricing ? (
-											<>
-												<span className="text-accent-error">
-													Sale {salePrice}/piece
-												</span>
-												<span className="text-gray line-through">
-													${productPrice}/piece
-												</span>
-											</>
-										) : (
-											<>{displayPrice} / piece</>
-										)}
-									</h3>
-									{minOrderQuantity > 0 && (
-										<h4 className="-mt-1 font-normal md:font-semibold">
-											{minOrderQuantity} {t('common:piece')} /
-											{t('common:min_order')}
-										</h4>
+						{/* Product price and verified image */}
+						<div className="mb-2 grid grid-cols-12 border-b-gray/20 md:border-b-2">
+							{/* Price and quantity */}
+
+							<div className="col-span-12 text-[12px] font-semibold text-primary-main md:col-span-8 md:py-2 md:text-[18px] lg:col-span-12 lg:text-[21px]">
+								<h3 className="flex items-center space-x-8">
+									{isSaleOn && !isBulkPricing ? (
+										<>
+											<span className="text-accent-error">
+												Sale {salePrice}/piece
+											</span>
+											<span className="text-gray line-through">
+												${productPrice}/piece
+											</span>
+										</>
+									) : (
+										<>{displayPrice} / piece</>
 									)}
-								</div>
-
-								{/* Metadata for large screen*/}
-								<div className={`hidden md:pt-4 lg:block`}>
-									{metadataElements}
-								</div>
+								</h3>
+								{minOrderQuantity > 0 && (
+									<h4 className="-mt-1 font-normal md:font-semibold">
+										{minOrderQuantity} {t('common:piece')} /
+										{t('common:min_order')}
+									</h4>
+								)}
 							</div>
-
-							{/* Tradewinds verified logo ratings and reviews */}
-							<div className="col-span-12 mt-4 hidden pb-4 md:col-span-5 md:block md:px-2 lg:col-span-3 lg:px-2">
-								<div className="grid h-full grid-cols-12">
-									<div className="col-span-8 hidden md:hidden">
-										{metadataElements}
-									</div>
-
-									<div className="col-span-12 md:col-span-12">
-										<div className="mt-2 flex h-full items-center md:mt-0 md:flex-col md:justify-end lg:flex lg:space-y-4">
-											{/* Verified Image */}
-											<div className="relative hidden h-[64px] w-[108px] md:block">
-												<Image
-													src="/twmp-verified.png"
-													alt=""
-													fill={true}
-												/>
-											</div>
-
-											{/* Rating and reviews */}
-											<div className="flex flex-col items-center space-y-2 pl-2 pb-4 md:pl-0">
-												<div className="w-[80px] md:hidden lg:block lg:w-[132px]">
-													<RatingStars
-														starNumber={5}
-														className="text-secondary"
-													/>
-												</div>
-												<p className="hidden text-center text-[13px] text-secondary md:block">
-													{totalReviewCount} {t('common:reviews')}
-												</p>
-											</div>
-
-											<div className="hidden md:block">
-												{messageVendorButton}
-											</div>
-
-											<div className="ml-4 flex space-x-4 md:hidden">
-												<div className="relative h-[32px] w-[48px]">
-													<Image
-														src="/twmp-verified.png"
-														alt=""
-														fill={true}
-													/>
-												</div>
-
-												<div className="flex space-x-4">
-													{metadataTileList[2]}
-													{metadataTileList[5]}
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							{/* TMP */}
 
 							{/* For small screen only */}
 							<div className="col-span-12 mt-2 space-y-2 md:hidden">
@@ -362,14 +306,26 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 								</div>
 							</div>
 						</div>
+
+						{/* Metadata for large screen*/}
+						<div className={`hidden lg:block`}>{metadataElements}</div>
+					</div>
+
+					<div className=" col-span-4 mt-4 hidden flex-col items-center justify-end md:flex lg:hidden">
+						<div className="relative h-[64px] w-[88px]">
+							<Image src="/twmp-verified.png" alt="" fill={true} />
+						</div>
+						<div className="w-[80px] lg:w-[132px]">
+							<RatingStars starNumber={5} className="text-secondary" />
+						</div>
 					</div>
 				</div>
 			</div>
 
-			{/*Metadata and Reviews count and rating. For medium screen only */}
-			<div className="bg-errors col-span-12 pb-4 md:col-span-8 md:-mt-20 md:block md:px-2 lg:col-span-3 lg:hidden lg:px-2">
+			{/*Metadata and Reviews count and rating. For medium screen */}
+			<div className="col-span-12 pb-4 md:px-2 lg:col-span-3 lg:px-2">
 				<div className="grid h-full grid-cols-12">
-					<div className="col-span-12 hidden md:block lg:hidden">
+					<div className="col-span-8 hidden md:block lg:hidden">
 						{metadataElements}
 					</div>
 
@@ -381,7 +337,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 							</div>
 
 							{/* Rating and reviews */}
-							<div className="flex flex-col items-center space-y-2 pl-2 md:hidden md:pl-0">
+							<div className="flex flex-col items-center space-y-2 pl-2 pb-4 md:pl-0">
 								<div className="w-[80px] md:hidden lg:block lg:w-[132px]">
 									<RatingStars
 										starNumber={5}
@@ -393,18 +349,28 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 								</p>
 							</div>
 
+							<div className="hidden md:block lg:hidden">
+								{messageVendorButton}
+							</div>
+
 							<div className="ml-4 flex space-x-4 md:hidden">
 								<div className="relative h-[32px] w-[48px]">
 									<Image src="/twmp-verified.png" alt="" fill={true} />
 								</div>
 
-								<div className="flex items-center space-x-4">
+								<div className="flex space-x-4">
 									{metadataTileList[2]}
 									{metadataTileList[5]}
 								</div>
 							</div>
 						</div>
 					</div>
+				</div>
+			</div>
+
+			<div className="col-span-12 hidden lg:block">
+				<div className="flex justify-end pr-12">
+					{messageVendorButton}
 				</div>
 			</div>
 		</div>
