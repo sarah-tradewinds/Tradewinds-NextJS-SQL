@@ -233,31 +233,34 @@ const ProductSearchPage: NextPage<
 		<div className="container mx-auto">
 			<Seo title="Product search page" description="" />
 
-			{/* <div> */}
-			{/* Main Category Banner */}
-			{main_category && !countryId && (
-				<ProductSearchTopBanner
-					key={selectedMainCategory?.banner_image?.url}
-					imageUrl={selectedMainCategory?.banner_image?.url}
-					text={getLocaleText(
-						selectedMainCategory?.banner_image_text || {},
-						router.locale
+			<div className="top-[120px] z-[1000] md:sticky lg:top-[120px]">
+				<div>
+					{/* Main Category Banner */}
+					{main_category && !countryId && (
+						<ProductSearchTopBanner
+							key={selectedMainCategory?.banner_image?.url}
+							imageUrl={selectedMainCategory?.banner_image?.url}
+							text={getLocaleText(
+								selectedMainCategory?.banner_image_text || {},
+								router.locale
+							)}
+							horizontal={selectedMainCategory?.horizontal}
+							vertical={selectedMainCategory?.vertical}
+						/>
 					)}
-					horizontal={selectedMainCategory?.horizontal}
-					vertical={selectedMainCategory?.vertical}
-				/>
-			)}
 
-			{/* Country Banner */}
-			{selectedCountryBannerImageUrl && (
-				<ProductSearchTopBanner
-					key={selectedCountryBannerImageUrl}
-					imageUrl={selectedCountryBannerImageUrl}
-				/>
-			)}
-
-			{/* </div> */}
-			<ProductSearchFilterBar />
+					{/* Country Banner */}
+					{selectedCountryBannerImageUrl && (
+						<ProductSearchTopBanner
+							key={selectedCountryBannerImageUrl}
+							imageUrl={selectedCountryBannerImageUrl}
+						/>
+					)}
+				</div>
+				<div className="md:mx-4 md:mt-2 lg:mx-6">
+					<ProductSearchFilterBar />
+				</div>
+			</div>
 
 			<div className="relative grid grid-cols-12 gap-4 md:p-4 lg:gap-6 lg:p-6">
 				{/* Side container */}
