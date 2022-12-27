@@ -1,3 +1,4 @@
+import useDeviceSize from 'hooks/use-device-size.hooks';
 import { useRouter } from 'next/router';
 import React, { useRef } from 'react';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
@@ -15,6 +16,9 @@ const TrendingCategorySlider: React.FC<{
 	const slider = useRef(null);
 	const router = useRouter();
 
+	const { deviceSize } = useDeviceSize();
+	console.log('deviceSize =', deviceSize);
+
 	const {
 		categories = [],
 		onTileClick,
@@ -22,8 +26,13 @@ const TrendingCategorySlider: React.FC<{
 		className
 	} = props;
 
+	let slideToShow = 3;
+	if (deviceSize === 'md') {
+		slideToShow = 2;
+	}
+
 	const settings = {
-		slidesToShow: 3,
+		slidesToShow: slideToShow,
 		slidesToScroll: 3,
 		speed: 500,
 		rows: 2,
@@ -34,13 +43,13 @@ const TrendingCategorySlider: React.FC<{
 	return (
 		<div className="relative w-full">
 			<Button
-				className={`lg-left-2 absolute -left-3 top-1/2 flex !h-8 !w-8 -translate-y-1/2 transform items-center justify-center !rounded-full border-2 border-gray/40 !p-0 !text-gray/40 lg:!h-[40px] lg:!w-[40px]`}
+				className={`lg-left-2 absolute -left-3 top-1/2 flex !h-8 !w-10 -translate-y-1/2 transform items-center justify-center !rounded-full border-2 border-gray/40 !p-0 !text-gray/40 lg:!h-[40px] lg:!w-[40px]`}
 				onClick={() => (slider?.current as any)?.slickPrev()}
 			>
 				<MdChevronLeft className="h-[32px] w-[32px]" />
 			</Button>
 
-			<div className={`mx-6 lg:mx-[48px] ${className}`}>
+			<div className={`mx-6 md:ml-10 lg:mx-[48px] ${className}`}>
 				<div>
 					<Slider ref={slider} {...settings}>
 						{categories?.map((subCat: any) => {
@@ -88,7 +97,7 @@ const TrendingCategorySlider: React.FC<{
 			</div>
 
 			<Button
-				className={`absolute -right-2 top-1/2 flex !h-8 !w-8 -translate-y-1/2 transform items-center justify-center !rounded-full border-2 border-gray/80 !p-0 !text-gray/80 lg:right-0 lg:!h-[40px] lg:!w-[40px]`}
+				className={`absolute right-0 top-1/2 flex !h-8 !w-10 -translate-y-1/2 transform items-center justify-center !rounded-full border-2 border-gray/80 !p-0 !text-gray/80 lg:-right-2 lg:!h-[40px] lg:!w-[40px]`}
 				onClick={() => (slider?.current as any)?.slickNext()}
 			>
 				<MdChevronRight className="h-[32px] w-[32px]" />
