@@ -63,7 +63,7 @@ const CountrySearchDropdown: React.FC<CountrySearchDropdownProps> = (
 							className="text-gray-900 h-9 w-[84px] border-2 border-gray/20 py-2 pl-3 pr-10 font-semibold outline-none lg:w-[202px]"
 							displayValue={(country) =>
 								getLocaleText(
-									(country as any).name || '',
+									(country as any)?.name || '',
 									router.locale
 								)
 							}
