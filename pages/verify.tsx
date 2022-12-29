@@ -1,10 +1,10 @@
+import { buttonSpinner } from 'components/website/common/spinners/custom-spinners';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAuthStore } from 'store/auth';
-import { buttonSpinner } from '../components/website/common/spinners/custom-spinners';
 
+import { verifyUser } from 'components/website/common/auth/auth-services';
 import Seo from 'components/website/common/seo';
-import { verifyUser } from '../components/website/common/auth/auth-services';
 
 const Verify = () => {
 	const BUTTON_SPINNER = buttonSpinner();

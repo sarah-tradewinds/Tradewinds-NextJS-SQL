@@ -4,7 +4,8 @@ import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // components
-import Seo from '../components/website/common/seo';
+import Seo from 'components/website/common/seo';
+// import Seo from 'components/website/common/seo';
 
 export default function Custom404() {
 	return (

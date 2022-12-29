@@ -1,7 +1,7 @@
 // Third party packages
 
 // components
-import Seo from '../components/website/common/seo';
+import Seo from 'components/website/common/seo';
 
 // pages/500.js
 export default function Custom500() {

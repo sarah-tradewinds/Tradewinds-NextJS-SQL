@@ -5,10 +5,10 @@ import { useAuthStore } from 'store/auth';
 
 import Seo from 'components/website/common/seo';
 
+import { forgetPasswordChange } from 'components/website/common/auth/auth-services';
 import { forgetPasswordGenerateLink } from 'lib/customer/auth.lib';
 import { AiOutlineMail } from 'react-icons/ai';
 import { RiLockPasswordLine } from 'react-icons/ri';
-import { forgetPasswordChange } from '../components/website/common/auth/auth-services';
 
 const ForgotPassword = () => {
 	const authStore = useAuthStore();
