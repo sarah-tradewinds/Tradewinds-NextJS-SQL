@@ -47,9 +47,10 @@ const nextConfig = (phase) => {
 			// 'www.tradewindsdev.com',
 			// #UAT
 			// 'https://www.tradewindsqa.com/#',
+
 			API_BASE_URL:
 				// #DEV
-				'https://tradewinds-dev.eastus.cloudapp.azure.com',
+				'https://tradewinds-dev-api.azure-api.net',
 			// #UAT
 			// 'https://tradewinds-uat-api.azure-api.net',
 			STRIPE_PUBLISHABLE_KEY:
