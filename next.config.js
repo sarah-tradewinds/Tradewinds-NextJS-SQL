@@ -18,9 +18,9 @@ const nextConfig = (phase) => {
 
 				API_BASE_URL:
 					// #DEV
-					// 'https://tradewinds-dev-api.azure-api.net',
-					// #UAT
-					'https://tradewinds-uat-api.azure-api.net',
+					'https://tradewinds-dev-api.azure-api.net',
+				// #UAT
+				// 'https://tradewinds-uat-api.azure-api.net',
 
 				STRIPE_PUBLISHABLE_KEY:
 					'pk_test_51JAhKFCQTcpcYTusSG85R25JWHRXIbw9mg6bn2mJAIncKhAhXpxvAemulgavKUw0iv4J1ygM6zSWGbthNAMWGftk00Jzzmiqcs'
@@ -42,9 +42,9 @@ const nextConfig = (phase) => {
 		i18n,
 		reactStrictMode: true,
 		env: {
-			// SITE_URL: 'https://tradewinds.vercel.app',
+			SITE_URL: 'https://tradewinds.vercel.app',
 			// #DEV
-			SITE_URL: 'https://tradewindsmpshoppingsite.azurewebsites.net',
+			// SITE_URL: 'https://tradewindsmpshoppingsite.azurewebsites.net',
 			// #UAT
 			// SITE_URL: 'https://tradewindsmpuatshoppingsite.azurewebsites.net',
 
