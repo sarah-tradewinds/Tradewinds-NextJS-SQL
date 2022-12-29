@@ -35,13 +35,13 @@ const MiniRFQCard: React.FC<RFQCardProps> = (props) => {
 	let rfqCardContainerClassName = `${
 		size === 'xl'
 			? 'space-y-8 lg:rounded-md bg-secondary p-4 lg:space-y-12'
-			: 'flex items-center space-x-16 lg:rounded-md bg-secondary p-8 lg:space-x-24'
+			: 'flex items-center space-x-6 md:space-x-16 lg:rounded-md bg-secondary p-4 md:p-8 lg:space-x-24'
 	}`;
 	let imageClassName = '';
 
 	if (size === 'xs') {
-		rfqCardContainerClassName = `${rfqCardContainerClassName} lg:h-[140px] h-[180px]`;
-		imageClassName = `${imageClassName} lg:h-[87px] lg:w-[81px] h-[107px] w-[101px]`;
+		rfqCardContainerClassName = `${rfqCardContainerClassName} h-[125px] lg:h-[140px] md:h-[180px]`;
+		imageClassName = `${imageClassName} lg:h-[87px] lg:w-[81px] h-[87px] w-[81px] md:h-[107px] md:w-[101px]`;
 	} else if (size === 'sm') {
 		rfqCardContainerClassName = `${rfqCardContainerClassName} h-[180px]`;
 		imageClassName = `${imageClassName} h-[87px] w-[81px]`;
@@ -88,7 +88,7 @@ const MiniRFQCard: React.FC<RFQCardProps> = (props) => {
 				} ${size === 'xl' ? 'grid grid-cols-1 lg:space-y-12' : ''}`}
 			>
 				<div
-					className={`pb-4 text-[16px] font-semibold text-white lg:text-[25px] ${
+					className={`pb-2 text-[16px] font-semibold text-white md:pb-4 lg:text-[25px] ${
 						size === 'lg' ? 'border-b-2' : ''
 					}`}
 				>
@@ -98,7 +98,7 @@ const MiniRFQCard: React.FC<RFQCardProps> = (props) => {
 					<ul
 						className={`list-disc text-[32px] lg:text-[20px] ${
 							size === 'xs'
-								? 'grid grid-cols-2 text-[13px] font-normal'
+								? 'grid grid-cols-1 text-[13px] font-normal md:grid-cols-2'
 								: 'ml-8 text-[12px]'
 						} ${
 							size === 'xl'
@@ -108,14 +108,14 @@ const MiniRFQCard: React.FC<RFQCardProps> = (props) => {
 					>
 						<li>One request</li>
 						<li>Receive multiple quotes</li>
-						<li>Responded</li>
-						<li>Close the deal</li>
+						<li className='md"block hidden'>Responded</li>
+						<li className='md"block hidden'>Close the deal</li>
 					</ul>
 				</div>
 
 				<div
-					className={`flex justify-center lg:justify-start ${
-						size === 'lg' ? 'mt-8 ' : ' mt-2'
+					className={`flex md:justify-center lg:justify-start ${
+						size === 'lg' ? 'mt-8 ' : ' md:mt-2'
 					}`}
 				>
 					<Button

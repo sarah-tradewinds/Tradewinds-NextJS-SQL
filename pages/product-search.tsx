@@ -409,7 +409,7 @@ const ProductSearchPage: NextPage<
 						</div>
 					)}
 					{/*If no any product in the product list - Speed your search up!! RFQ Card  */}
-					{products?.length < 0 && (
+					{products?.length <= 0 && (
 						<div className="hidden md:block">
 							<RFQCard size="lg" />
 						</div>
@@ -425,7 +425,7 @@ const ProductSearchPage: NextPage<
 					</div>
 
 					{/* If product are available in the product list - Submit RFQ Card */}
-					<div className="">
+					<div className="mt-4 md:mt-2">
 						{products?.length > 0 && <MiniRFQCard size="xs" />}
 					</div>
 

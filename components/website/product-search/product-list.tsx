@@ -163,7 +163,7 @@ const ProductList: React.FC<ProductListProps> = ({
 
 					return (
 						<>
-							{products?.length < 0 && (
+							{products?.length <= 0 && (
 								<div className="hidden md:block">
 									<RFQCard size="sm" />
 								</div>
