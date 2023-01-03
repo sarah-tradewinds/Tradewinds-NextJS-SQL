@@ -5,27 +5,21 @@ import { Fragment, useState } from 'react';
 import { LocalesType } from 'types/common.types';
 import { getLocaleText } from 'utils/get_locale_text';
 
-const people = [
-	{ id: 1, name: 'Wade Cooper' },
-	{ id: 2, name: 'Arlene Mccoy' },
-	{ id: 3, name: 'Devon Webb' },
-	{ id: 4, name: 'Tom Cook' },
-	{ id: 5, name: 'Tanya Fox' },
-	{ id: 6, name: 'Hellen Schmidt' }
-];
+interface ICountry {
+	id: string;
+	name: LocalesType;
+	slug: LocalesType;
+}
 
 interface CountrySearchDropdownProps {
-	countries: {
-		id: string;
-		name: LocalesType;
-		slug: LocalesType;
-	}[];
+	countries: ICountry[];
+	onCountryChange?: (id: string, name?: string) => void;
 }
 
 const CountrySearchDropdown: React.FC<CountrySearchDropdownProps> = (
 	props
 ) => {
-	const { countries = [] } = props;
+	const { countries = [], onCountryChange } = props;
 
 	const [selected, setSelected] = useState(countries[0]);
 	const [query, setQuery] = useState('');
@@ -100,6 +94,9 @@ const CountrySearchDropdown: React.FC<CountrySearchDropdownProps> = (
 											}`
 										}
 										value={country}
+										onClick={() =>
+											onCountryChange?.(country.id, country.name?.en)
+										}
 									>
 										{({ selected, active }) => (
 											<>

@@ -22,9 +22,13 @@ export const getObjectKeys = (givenObject: any) => {
 	return Object.keys(myObject || {});
 };
 
-export const generateListByCount = (count: number) => {
+export const generateListByCount = (
+	count: number,
+	startCount?: number,
+	endCount?: number
+) => {
 	const list = [];
-	for (let i = 0; i <= count; i++) {
+	for (let i = startCount || 0; i <= (endCount || count); i++) {
 		list.push(i);
 	}
 	return list;

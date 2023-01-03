@@ -36,6 +36,7 @@ import { useAuthStore } from 'store/auth';
 import { getIdAndName, useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';
 import { useProductCompareStore } from 'store/product-compare-store';
+import { generateQueryString } from 'utils/generate_query_string.utils';
 import { getLocaleText } from 'utils/get_locale_text';
 
 const ProductSearchPage: NextPage<
@@ -258,7 +259,21 @@ const ProductSearchPage: NextPage<
 					)}
 				</div>
 				<div className="md:mx-4 md:mt-2 lg:mx-6">
-					<ProductSearchFilterBar />
+					<ProductSearchFilterBar
+						onCountryChange={(id, name) => {
+							push(
+								`/product-search?country=${id}_${
+									name || ''
+								}&${generateQueryString({
+									...query
+								})}`,
+								undefined,
+								{
+									shallow: true
+								}
+							);
+						}}
+					/>
 				</div>
 			</div>
 
