@@ -13,7 +13,17 @@ export const getProducts = async (params: {
 	country_of_region?: string;
 	is_eco?: boolean;
 	is_all_trending?: boolean;
+	is_customizable?: boolean;
+	is_ready_to_ship?: boolean;
+	is_live?: boolean;
+	minimum_order?: string | number;
+	maximum_order?: string | number;
+	minimum_order_quantity?: boolean;
 }) => {
+	if (params.maximum_order) {
+		params.minimum_order_quantity = true;
+	}
+
 	const queryString = generateQueryString(params);
 
 	try {

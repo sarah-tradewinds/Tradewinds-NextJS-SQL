@@ -32,7 +32,6 @@ import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
-import { useAuthStore } from 'store/auth';
 import { getIdAndName, useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';
 import { useProductCompareStore } from 'store/product-compare-store';
@@ -45,7 +44,12 @@ const ProductSearchPage: NextPage<
 	const [products, setProducts] = useState(props.products?.data || []);
 	const [minPrice, setMinPrice] = useState('0');
 	const [maxPrice, setMaxPrice] = useState('0');
+	const [minOrder, setMinOrder] = useState<number | undefined>(0);
+	const [maxOrder, setMaxOrder] = useState<number | undefined>(0);
 	const [filterBuyEco, setFilterBuyEco] = useState(false);
+	const [isCustomizable, setIsCustomizable] = useState(false);
+	const [isReadyToShip, setIsReadyToShip] = useState(false);
+	const [isLive, setIsLive] = useState(false);
 
 	const [
 		isSelectedMainCategoryAndCategoriesLoading,
@@ -81,14 +85,6 @@ const ProductSearchPage: NextPage<
 
 	const router = useRouter();
 	const { t } = useTranslation();
-
-	const { isAuth, setIsLoginOpen, customerData } = useAuthStore(
-		(state) => ({
-			isAuth: state.isAuth,
-			setIsLoginOpen: state.setIsLoginOpen,
-			customerData: state.customerData
-		})
-	);
 
 	useEffect(() => {
 		const [mainCategoryId] =
@@ -171,7 +167,12 @@ const ProductSearchPage: NextPage<
 			price_start: price_start ? +(price_start || 0) : +(minPrice || 0),
 			price_end: +(maxPrice || 0),
 			all: (searchQuery || '') as string,
-			is_eco: isEco || main_category ? false : filterBuyEco
+			is_eco: isEco || main_category ? false : filterBuyEco,
+			is_customizable: isCustomizable,
+			is_ready_to_ship: isReadyToShip,
+			is_live: isLive,
+			minimum_order: minOrder,
+			maximum_order: maxOrder
 		}).then((data: any) => {
 			const productList = data.data || [];
 			setProducts(productList);
@@ -195,8 +196,13 @@ const ProductSearchPage: NextPage<
 		query.searchQuery,
 		minPrice,
 		maxPrice,
+		minOrder,
+		maxOrder,
 		isEco,
-		filterBuyEco
+		filterBuyEco,
+		isCustomizable,
+		isReadyToShip,
+		isLive
 	]);
 
 	const [options, setOptions] = useState({});
@@ -274,33 +280,17 @@ const ProductSearchPage: NextPage<
 							);
 						}}
 						onOrderChange={(minOrder, maxOrder) => {
-							push(
-								`/product-search?min_order=${minOrder}&max_order${maxOrder}&${generateQueryString(
-									{
-										...query
-									}
-								)}`,
-								undefined,
-								{
-									shallow: true
-								}
-							);
+							setMinOrder(minOrder);
+							setMaxOrder(maxOrder);
 						}}
 						onPriceChange={(minPrice, maxPrice) => {
 							setMinPrice(minPrice?.toString() || '');
 							setMaxPrice(maxPrice?.toString() || '');
-
-							// push(
-							// 	`/product-search?min_price=${minPrice}&max_price${maxPrice}&${generateQueryString(
-							// 		{
-							// 			...query
-							// 		}
-							// 	)}`,
-							// 	undefined,
-							// 	{
-							// 		shallow: true
-							// 	}
-							// );
+						}}
+						onCustomizableChange={setIsCustomizable}
+						onLiveBuyReadyToShipChange={(value) => {
+							setIsReadyToShip(value);
+							setIsLive(value);
 						}}
 					/>
 				</div>

@@ -11,17 +11,27 @@ interface ProductSearchFilterBarProps {
 	onCountryChange?: (id: string, name?: string) => void;
 	onOrderChange?: (minOrder?: number, maxOrder?: number) => void;
 	onPriceChange?: (minPrice?: number, maxPrice?: number) => void;
+	onCustomizableChange?: (isCustomizable: boolean) => void;
+	onLiveBuyReadyToShipChange?: (value: boolean) => void;
 }
 
 const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 	props
 ) => {
-	const { onCountryChange, onOrderChange, onPriceChange } = props;
+	const {
+		onCountryChange,
+		onOrderChange,
+		onPriceChange,
+		onCustomizableChange,
+		onLiveBuyReadyToShipChange
+	} = props;
 
 	const [minOrder, setMinOrder] = useState(0);
 	const [maxOrder, setMaxOrder] = useState(0);
 	const [minPrice, setMinPrice] = useState(0);
 	const [maxPrice, setMaxPrice] = useState(0);
+	const [isCustomizable, setIsCustomizable] = useState(false);
+	const [isReadyToShip, setIsReadyToShip] = useState(false);
 
 	// Fetching Countries
 	const { data: countries, isValidating: isCountriesValidating } =
@@ -34,7 +44,17 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 		<div className="hidden justify-between rounded-md border border-gray/10 bg-white p-2 shadow-lg md:flex lg:p-4">
 			{/* Live Buy/ Ready to ship - checkbox */}
 			<label className="flex cursor-pointer items-center">
-				<input type="checkbox" className="!rounded-none md:scale-125" />
+				<input
+					type="checkbox"
+					checked={isReadyToShip}
+					className="!rounded-none md:scale-125"
+					onChange={() => {
+						setIsReadyToShip((prevState) => {
+							onLiveBuyReadyToShipChange?.(!prevState);
+							return !prevState;
+						});
+					}}
+				/>
 				{/* For large screen */}
 				<p className="ml-2 font-semibold text-gray">
 					<span className="hidden text-[15px] lg:block">
@@ -49,7 +69,17 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 			</label>
 			{/* Customizable - checkbox */}
 			<label className="flex cursor-pointer items-center">
-				<input type="checkbox" className="!rounded-none md:scale-125" />
+				<input
+					type="checkbox"
+					checked={isCustomizable}
+					className="!rounded-none md:scale-125"
+					onChange={() => {
+						setIsCustomizable((prevState) => {
+							onCustomizableChange?.(!prevState);
+							return !prevState;
+						});
+					}}
+				/>
 				<p className="ml-2 text-[10px] font-semibold text-gray lg:text-[15px]">
 					Customizable
 				</p>
