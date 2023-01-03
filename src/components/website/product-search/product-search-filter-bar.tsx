@@ -1,6 +1,11 @@
+import { Popover } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { getHomeCountries } from 'lib/home.lib';
+import { useState } from 'react';
 import useSWR from 'swr';
+import Button from '../common/form/button';
 import CountrySearchDropdown from './country-search-dropdown';
+import MinMaxPicker from './product-filter/min-max-picker.components';
 
 interface ProductSearchFilterBarProps {
 	onCountryChange?: (id: string, name?: string) => void;
@@ -12,6 +17,11 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 	props
 ) => {
 	const { onCountryChange, onOrderChange, onPriceChange } = props;
+
+	const [minOrder, setMinOrder] = useState(0);
+	const [maxOrder, setMaxOrder] = useState(0);
+	const [minPrice, setMinPrice] = useState(0);
+	const [maxPrice, setMaxPrice] = useState(0);
 
 	// Fetching Countries
 	const { data: countries, isValidating: isCountriesValidating } =
@@ -58,44 +68,115 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 				/>
 			</div>
 			{/* Min. Order - dropdown */}
-			<div className="flex items-center">
-				<label
-					htmlFor="country"
-					className="mr-2 whitespace-nowrap text-[10px] font-semibold text-gray lg:text-[15px]"
-				>
+			<div className="relative flex items-center">
+				<p className="mr-2 whitespace-nowrap text-[10px] font-semibold text-gray lg:text-[15px]">
 					Min. Order
-				</label>
-				<select name="country" id="country" className={dropDownSelect}>
-					<option value="">0 - 10</option>
-					<option value="0 - 1">0 - 1</option>
-					<option value="0 - 2">0 - 2</option>
-					<option value="0 -  3">0 - 3</option>
-					<option value="0 - 4">0 - 4</option>
-				</select>
+				</p>
 
-				{/* Dollar - dropdown */}
-				<div className="flex items-center">
-					<label
-						htmlFor="country"
-						className="mr-2 hidden text-[10px] font-semibold text-gray lg:inline-block lg:text-[15px]"
+				<Popover className="relative">
+					<Popover.Button
+						className={`flex items-center justify-between px-2 ${dropDownSelect}`}
 					>
-						$$$
-					</label>
-					<select
-						name="country"
-						id="country"
-						className={dropDownSelect}
+						<span>
+							{minOrder}-{maxOrder}
+						</span>
+						<ChevronDownIcon className="h-6 w-6" />
+					</Popover.Button>
+
+					<Popover.Panel className="absolute -right-0 z-10 mt-1 w-auto bg-black">
+						{({ close }) => (
+							<>
+								<MinMaxPicker
+									minStart={100}
+									minEnd={200}
+									maxStart={300}
+									maxEnd={500}
+									className="h-[180px] rounded-md"
+									onMinChange={setMinOrder}
+									onMaxChange={setMaxOrder}
+								/>
+
+								<div className="mt-4 flex">
+									<Button
+										className="!text-error"
+										onClick={() => {
+											setMinOrder(0);
+											setMaxOrder(0);
+											close();
+										}}
+									>
+										Cancel
+									</Button>
+									<Button
+										className="!text-primary-main"
+										onClick={() => {
+											onOrderChange?.(minOrder, maxOrder);
+											close();
+										}}
+									>
+										Okay
+									</Button>
+								</div>
+							</>
+						)}
+					</Popover.Panel>
+				</Popover>
+			</div>
+			{/* Dollar - dropdown */}
+			<div className="relative flex items-center">
+				<p className="mr-2 whitespace-nowrap text-[10px] font-semibold text-gray lg:text-[15px]">
+					$$$
+				</p>
+
+				<Popover className="relative">
+					<Popover.Button
+						className={`flex items-center justify-between px-2 ${dropDownSelect}`}
 					>
-						<option className="text-gray" value="">
-							$0 - $10
-						</option>
-						<option value="$0 - $1">$0 - $1</option>
-						<option value="$0 - $2">$0 - $2</option>
-						<option value="$0 - $3">$0 - $3</option>
-						<option value="$0 - $4">$0 - $4</option>
-					</select>
-				</div>
-			</div>{' '}
+						<span>
+							{minPrice}-{maxPrice}
+						</span>
+						<ChevronDownIcon className="h-6 w-6" />
+					</Popover.Button>
+
+					<Popover.Panel className="absolute -right-8 z-10 w-auto bg-black">
+						{({ close }) => (
+							<>
+								<MinMaxPicker
+									minStart={100}
+									minEnd={200}
+									maxStart={300}
+									maxEnd={500}
+									className="h-[180px] rounded-md"
+									onMinChange={setMinPrice}
+									onMaxChange={setMaxPrice}
+								/>
+
+								<div className="mt-4 flex">
+									<Button
+										className="!text-error"
+										onClick={() => {
+											setMinPrice(0);
+											setMaxPrice(0);
+											close();
+										}}
+									>
+										Cancel
+									</Button>
+									<Button
+										className="!text-primary-main"
+										onClick={() => {
+											onPriceChange?.(minPrice, maxPrice);
+											close();
+										}}
+									>
+										Okay
+									</Button>
+								</div>
+							</>
+						)}
+					</Popover.Panel>
+				</Popover>
+			</div>
 		</div>
 	);
 }; //end of ProductSearchFilterBar

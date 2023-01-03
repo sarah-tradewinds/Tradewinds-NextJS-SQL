@@ -1,7 +1,7 @@
 import {
-	GetServerSideProps,
-	InferGetServerSidePropsType,
-	NextPage
+  GetServerSideProps,
+  InferGetServerSidePropsType,
+  NextPage
 } from 'next';
 
 // Third party packages
@@ -25,8 +25,8 @@ import TrendingCategorySlider from 'components/website/product-search/trending-c
 import TrendingSectionTile from 'components/website/product-search/trending-section-tile';
 import { getCountryById } from 'lib/common.lib';
 import {
-	getProducts,
-	getSelectedMainCategoryAndCategories
+  getProducts,
+  getSelectedMainCategoryAndCategories
 } from 'lib/product-search.lib';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
@@ -272,6 +272,35 @@ const ProductSearchPage: NextPage<
 									shallow: true
 								}
 							);
+						}}
+						onOrderChange={(minOrder, maxOrder) => {
+							push(
+								`/product-search?min_order=${minOrder}&max_order${maxOrder}&${generateQueryString(
+									{
+										...query
+									}
+								)}`,
+								undefined,
+								{
+									shallow: true
+								}
+							);
+						}}
+						onPriceChange={(minPrice, maxPrice) => {
+							setMinPrice(minPrice?.toString() || '');
+							setMaxPrice(maxPrice?.toString() || '');
+
+							// push(
+							// 	`/product-search?min_price=${minPrice}&max_price${maxPrice}&${generateQueryString(
+							// 		{
+							// 			...query
+							// 		}
+							// 	)}`,
+							// 	undefined,
+							// 	{
+							// 		shallow: true
+							// 	}
+							// );
 						}}
 					/>
 				</div>

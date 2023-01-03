@@ -6,38 +6,38 @@ interface MinMaxPickerProps {
 	minEnd: number;
 	maxStart: number;
 	maxEnd: number;
+	className?: string;
+	onMinChange?: (value: number) => void;
+	onMaxChange?: (value: number) => void;
 }
 
 const MinMaxPicker: React.FC<MinMaxPickerProps> = (props) => {
-	const { minStart, minEnd } = props;
+	const {
+		minStart,
+		minEnd,
+		maxStart,
+		maxEnd,
+		className,
+		onMinChange,
+		onMaxChange
+	} = props;
+
+	const minStartEndList =
+		generateListByCount(0, minStart, minEnd) || [];
+	const maxStartEndList =
+		generateListByCount(0, maxStart, maxEnd) || [];
 
 	const [sliderRefMin] = useKeenSlider(
 		{
-			// slideChanged: (s) => {
-			// 	console.log(
-			// 		'[slideChanged]',
-			// 		s,
-			// 		s.track.details.rel,
-			// 		s.track.details.abs
-			// 	);
-			// },
 			animationEnded: (s) => {
-				console.log(
-					'[animationEnded]',
-					s,
-					s.track.details.rel,
-					s.track.details.abs
-				);
+				onMinChange?.(minStartEndList[s.track.details.abs]);
+				// console.log(
+				// 	'[animationEnded]',
+				// 	s,
+				// 	s.track.details.rel,
+				// 	s.track.details.abs
+				// );
 			},
-			animationStopped: (s) => {
-				console.log(
-					'[animationStopped]',
-					s,
-					s.track.details.rel,
-					s.track.details.abs
-				);
-			},
-
 			slides: {
 				origin: 'center',
 				perView: 4
@@ -53,22 +53,14 @@ const MinMaxPicker: React.FC<MinMaxPickerProps> = (props) => {
 	const [sliderRefMax] = useKeenSlider(
 		{
 			animationEnded: (s) => {
-				console.log(
-					'[animationEnded]',
-					s,
-					s.track.details.rel,
-					s.track.details.abs
-				);
+				onMaxChange?.(maxStartEndList[s.track.details.abs]);
+				// console.log(
+				// 	'[animationEnded]',
+				// 	s,
+				// 	s.track.details.rel,
+				// 	s.track.details.abs
+				// );
 			},
-			animationStopped: (s) => {
-				console.log(
-					'[animationStopped]',
-					s,
-					s.track.details.rel,
-					s.track.details.abs
-				);
-			},
-
 			slides: {
 				origin: 'center',
 				perView: 4
@@ -81,40 +73,38 @@ const MinMaxPicker: React.FC<MinMaxPickerProps> = (props) => {
 		]
 	);
 
-	const list = [];
-	for (let i = 1; i <= 100; i++) {
-		list.push(i);
-	}
-
 	return (
-		<div className="relative h-full w-full bg-black">
+		<div className={`relative h-full w-full bg-black ${className}`}>
 			<div className="absolute top-16 h-8 w-full border-y border-white"></div>
 			<div className="flex h-full w-full justify-center space-x-4">
-				<div className={'keen-slider h-full !w-8'} ref={sliderRefMin}>
-					{generateListByCount(0, props.minStart, props.minEnd).map(
-						(count) => (
-							<div
-								key={count}
-								className="keen-slider__slide text-center text-white"
-							>
-								{count}
-							</div>
-						)
-					)}
+				<div
+					key="min-slider"
+					className={'keen-slider h-full !w-8'}
+					ref={sliderRefMin}
+				>
+					{minStartEndList.map((count) => (
+						<div
+							key={count}
+							className="keen-slider__slide text-center text-white"
+						>
+							{count}
+						</div>
+					))}
 				</div>
 
-				<div className={'keen-slider h-full !w-8'} ref={sliderRefMax}>
-					{generateListByCount(0, props.maxStart, props.maxEnd).map(
-						(count) => (
-							<div
-								key={count}
-								defaultValue={count}
-								className="keen-slider__slide text-center text-white"
-							>
-								{count}
-							</div>
-						)
-					)}
+				<div
+					key="max-slider"
+					className={'keen-slider h-full !w-8'}
+					ref={sliderRefMax}
+				>
+					{maxStartEndList.map((count) => (
+						<div
+							key={count}
+							className="keen-slider__slide text-center text-white"
+						>
+							{count}
+						</div>
+					))}
 				</div>
 			</div>
 		</div>
