@@ -26,10 +26,10 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 		onLiveBuyReadyToShipChange
 	} = props;
 
-	const [minOrder, setMinOrder] = useState(0);
-	const [maxOrder, setMaxOrder] = useState(0);
-	const [minPrice, setMinPrice] = useState(0);
-	const [maxPrice, setMaxPrice] = useState(0);
+	const [minOrder, setMinOrder] = useState(1);
+	const [maxOrder, setMaxOrder] = useState(100);
+	const [minPrice, setMinPrice] = useState(1);
+	const [maxPrice, setMaxPrice] = useState(100);
 	const [isCustomizable, setIsCustomizable] = useState(false);
 	const [isReadyToShip, setIsReadyToShip] = useState(false);
 
@@ -107,11 +107,9 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 					<Popover.Button
 						className={`flex items-center justify-between px-2 ${dropDownSelect}`}
 					>
-						{minOrder && maxOrder && (
-							<span>
-								{minOrder}-{maxOrder}
-							</span>
-						)}
+						<span>
+							{minOrder}-{maxOrder}
+						</span>
 						<ChevronDownIcon className="h-6 w-6" />
 					</Popover.Button>
 

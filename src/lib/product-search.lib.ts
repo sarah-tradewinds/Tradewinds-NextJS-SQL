@@ -20,7 +20,7 @@ export const getProducts = async (params: {
 	maximum_order?: string | number;
 	minimum_order_quantity?: boolean;
 }) => {
-	if (params.maximum_order) {
+	if (params.minimum_order || params.maximum_order) {
 		params.minimum_order_quantity = true;
 	}
 
