@@ -116,7 +116,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 											close();
 										}}
 									>
-										Okay
+										Select
 									</Button>
 								</div>
 							</>
@@ -171,7 +171,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 											close();
 										}}
 									>
-										Okay
+										Select
 									</Button>
 								</div>
 							</>
