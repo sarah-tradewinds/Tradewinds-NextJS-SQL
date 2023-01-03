@@ -77,9 +77,11 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 					<Popover.Button
 						className={`flex items-center justify-between px-2 ${dropDownSelect}`}
 					>
-						<span>
-							{minOrder}-{maxOrder}
-						</span>
+						{minOrder && maxOrder && (
+							<span>
+								{minOrder}-{maxOrder}
+							</span>
+						)}
 						<ChevronDownIcon className="h-6 w-6" />
 					</Popover.Button>
 
@@ -87,10 +89,10 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 						{({ close }) => (
 							<>
 								<MinMaxPicker
-									minStart={100}
-									minEnd={200}
-									maxStart={300}
-									maxEnd={500}
+									minStart={1}
+									minEnd={100}
+									maxStart={1}
+									maxEnd={100}
 									className="h-[180px] rounded-md"
 									onMinChange={setMinOrder}
 									onMaxChange={setMaxOrder}
@@ -142,10 +144,10 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 						{({ close }) => (
 							<>
 								<MinMaxPicker
-									minStart={100}
-									minEnd={200}
-									maxStart={300}
-									maxEnd={500}
+									minStart={1}
+									minEnd={100}
+									maxStart={1}
+									maxEnd={100}
 									className="h-[180px] rounded-md"
 									onMinChange={setMinPrice}
 									onMaxChange={setMaxPrice}
