@@ -1,11 +1,11 @@
 import { Combobox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useRouter } from 'next/router';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { LocalesType } from 'types/common.types';
 import { getLocaleText } from 'utils/get_locale_text';
 
-interface ICountry {
+export interface ICountry {
 	id: string;
 	name: LocalesType;
 	slug: LocalesType;
@@ -13,18 +13,26 @@ interface ICountry {
 
 interface CountrySearchDropdownProps {
 	countries: ICountry[];
-	onCountryChange?: (id: string, name?: string) => void;
+	defaultValue?: ICountry;
+	onCountryChange?: (id?: string, name?: string) => void;
 }
 
 const CountrySearchDropdown: React.FC<CountrySearchDropdownProps> = (
 	props
 ) => {
-	const { countries = [], onCountryChange } = props;
+	const { countries = [], defaultValue, onCountryChange } = props;
 
-	const [selected, setSelected] = useState(countries[0]);
+	const [selected, setSelected] = useState<ICountry | undefined>(
+		defaultValue
+	);
+
 	const [query, setQuery] = useState('');
 
 	const router = useRouter();
+
+	useEffect(() => {
+		setSelected(defaultValue);
+	}, [defaultValue]);
 
 	const filteredCountries =
 		query === ''
@@ -50,16 +58,26 @@ const CountrySearchDropdown: React.FC<CountrySearchDropdownProps> = (
 
 	return (
 		<div className="w-">
-			<Combobox value={selected} onChange={setSelected}>
+			<Combobox
+				value={selected}
+				onChange={(value: ICountry) =>
+					setSelected((prevState) => {
+						const updatedValue =
+							prevState?.id !== value.id ? value : undefined;
+						onCountryChange?.(updatedValue?.id, updatedValue?.name?.en);
+						return updatedValue;
+					})
+				}
+			>
 				<div className="relative mt-1">
-					<div className="">
+					<div>
 						<Combobox.Input
 							className="text-gray-900 h-9 w-[84px] border-2 border-gray/20 py-2 pl-3 pr-10 font-semibold outline-none lg:w-[202px]"
 							displayValue={(country) =>
 								getLocaleText(
 									(country as any)?.name || '',
 									router.locale
-								)
+								) || 'Select'
 							}
 							onChange={(event) => setQuery(event.target.value)}
 						/>
@@ -94,9 +112,6 @@ const CountrySearchDropdown: React.FC<CountrySearchDropdownProps> = (
 											}`
 										}
 										value={country}
-										onClick={() =>
-											onCountryChange?.(country.id, country.name?.en)
-										}
 									>
 										{({ selected, active }) => (
 											<>

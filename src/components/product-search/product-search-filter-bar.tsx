@@ -1,14 +1,18 @@
 import { Popover } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { getHomeCountries } from 'lib/home.lib';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import useSWR from 'swr';
+import { getFilterValueFromQuery } from 'utils/common.util';
 import Button from '../common/form/button';
-import CountrySearchDropdown from './country-search-dropdown';
+import CountrySearchDropdown, {
+	ICountry
+} from './country-search-dropdown';
 import MinMaxPicker from './product-filter/min-max-picker.components';
 
 interface ProductSearchFilterBarProps {
-	onCountryChange?: (id: string, name?: string) => void;
+	onCountryChange?: (id?: string, name?: string) => void;
 	onOrderChange?: (minOrder?: number, maxOrder?: number) => void;
 	onPriceChange?: (minPrice?: number, maxPrice?: number) => void;
 	onCustomizableChange?: (isCustomizable: boolean) => void;
@@ -26,12 +30,46 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 		onLiveBuyReadyToShipChange
 	} = props;
 
+	const [isCustomizable, setIsCustomizable] = useState(false);
+	const [isReadyToShip, setIsReadyToShip] = useState(false);
 	const [minOrder, setMinOrder] = useState(1);
 	const [maxOrder, setMaxOrder] = useState(100);
 	const [minPrice, setMinPrice] = useState(1);
 	const [maxPrice, setMaxPrice] = useState(100);
-	const [isCustomizable, setIsCustomizable] = useState(false);
-	const [isReadyToShip, setIsReadyToShip] = useState(false);
+	const [selectedCountry, setSelectedCountry] = useState<
+		ICountry | undefined
+	>();
+
+	const { query } = useRouter();
+
+	useEffect(() => {
+		const filterValue = getFilterValueFromQuery(query);
+		console.log(filterValue);
+		setIsCustomizable(filterValue.is_customizable);
+		setIsReadyToShip(filterValue.is_ready_to_ship);
+
+		// order
+		setMinOrder(+(filterValue.minimum_order || 1));
+		setMaxOrder(+(filterValue.maximum_order || 100));
+
+		// price
+		setMinPrice(+(filterValue.price_start || 1));
+		setMaxPrice(+(filterValue.price_end || 100));
+
+		// country
+		const countryId = filterValue.countryId;
+		setSelectedCountry(
+			countryId
+				? {
+						id: (countryId || '').toString(),
+						name: {
+							en: (filterValue.country_of_region || '').toString()
+						},
+						slug: {}
+				  }
+				: undefined
+		);
+	}, [query]);
 
 	// Fetching Countries
 	const { data: countries, isValidating: isCountriesValidating } =
@@ -94,6 +132,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 				</label>
 				<CountrySearchDropdown
 					countries={countries || []}
+					defaultValue={selectedCountry}
 					onCountryChange={onCountryChange}
 				/>
 			</div>

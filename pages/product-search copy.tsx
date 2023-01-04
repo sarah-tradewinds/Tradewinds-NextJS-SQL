@@ -134,7 +134,6 @@ const ProductSearchPage: NextPage<
 	// Fetching products
 	useEffect(() => {
 		const filterValue = getFilterValueFromQuery(query);
-		console.log('filterValue =', filterValue);
 
 		getProducts({
 			...filterValue,
@@ -163,6 +162,77 @@ const ProductSearchPage: NextPage<
 			}
 		});
 	}, [query]);
+
+	// useEffect(() => {
+	// 	const [_, main_category] = getIdAndName(
+	// 		(query.main_category || '') as string,
+	// 		'_'
+	// 	);
+
+	// 	const [__, category] = getIdAndName(
+	// 		(query.category || '') as string
+	// 	);
+
+	// 	const [___, sub_category] = getIdAndName(
+	// 		(query.sub_category || '') as string
+	// 	);
+
+	// 	const [____, sub_sub_category] = getIdAndName(
+	// 		(query.sub_sub_category || '') as string
+	// 	);
+
+	// 	const [countryId, countryName] = getIdAndName(
+	// 		(query.country || '') as string
+	// 	);
+
+	// 	const { price_start, searchQuery } = query;
+
+	// 	getProducts({
+	// 		main_category,
+	// 		category,
+	// 		sub_category,
+	// 		sub_sub_category,
+	// 		country_of_region: countryName,
+	// 		price_start: price_start ? +(price_start || 0) : +(minPrice || 0),
+	// 		price_end: +(maxPrice || 0),
+	// 		all: (searchQuery || '') as string,
+	// 		is_eco: isEco || main_category ? false : filterBuyEco,
+	// 		is_customizable: isCustomizable,
+	// 		is_ready_to_ship: isReadyToShip,
+	// 		is_live: isLive,
+	// 		minimum_order: minOrder,
+	// 		maximum_order: maxOrder
+	// 	}).then((data: any) => {
+	// 		const productList = data.data || [];
+	// 		setProducts(productList);
+	// 		console.log(' ');
+	// 		console.log('Calling only products', query, productList);
+	// 		console.log(' ');
+	// 		const { main_category } = data.categories || {};
+	// 		if (main_category) {
+	// 			setIsSelectedMainCategoryAndCategoriesLoading(true);
+	// 			getSelectedMainCategoryAndCategories(
+	// 				main_category as string
+	// 			).then((data) => {
+	// 				setSelectedMainCategory(data.main_category || {});
+	// 				setSelectedCategories(data.categories || []);
+	// 				setIsSelectedMainCategoryAndCategoriesLoading(false);
+	// 			});
+	// 		}
+	// 	});
+	// }, [
+	// 	query,
+	// 	query.searchQuery,
+	// 	minPrice,
+	// 	maxPrice,
+	// 	minOrder,
+	// 	maxOrder,
+	// 	isEco,
+	// 	filterBuyEco,
+	// 	isCustomizable,
+	// 	isReadyToShip,
+	// 	isLive
+	// ]);
 
 	const [options, setOptions] = useState({});
 	const [ref] = useKeenSlider<HTMLDivElement>(options);
@@ -225,10 +295,10 @@ const ProductSearchPage: NextPage<
 
 			<div className="top-[120px] z-20 md:sticky md:mx-4 md:mt-2 lg:top-[120px] lg:mx-6">
 				<ProductSearchFilterBar
-					onCountryChange={(id = '', name = '') => {
-						const country = id && name ? `${id}_${name || ''}` : '';
-
-						getProductSearchURL(router, { country });
+					onCountryChange={(id, name) => {
+						getProductSearchURL(router, {
+							country: `${id}_${name || ''}`
+						});
 					}}
 					onOrderChange={(minOrder, maxOrder) => {
 						getProductSearchURL(router, { minOrder, maxOrder });

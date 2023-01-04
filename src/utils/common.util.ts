@@ -1,3 +1,7 @@
+import { NextRouter } from 'next/router';
+import { getIdAndName } from 'store/category-store';
+import { generateQueryString } from './generate_query_string.utils';
+
 export const getDataById = (
 	list: any[],
 	id: string,
@@ -57,3 +61,73 @@ export const getAlignmentClassName = (
 
 	return `${xAxisAlignmentClassName} ${yAxisAlignmentClassName}`;
 };
+
+export const getFilterValueFromQuery = (query: any) => {
+	const [_, main_category] = getIdAndName(
+		(query.main_category || '') as string,
+		'_'
+	);
+
+	const [__, category] = getIdAndName((query.category || '') as string);
+
+	const [___, sub_category] = getIdAndName(
+		(query.sub_category || '') as string
+	);
+
+	const [____, sub_sub_category] = getIdAndName(
+		(query.sub_sub_category || '') as string
+	);
+
+	const [countryId, countryName] = getIdAndName(
+		(query.country || '') as string
+	);
+
+	const {
+		price_start,
+		price_end,
+		isCustomizable,
+		isReadyToShip,
+		minOrder,
+		maxOrder,
+		searchQuery
+	} = query;
+
+	return {
+		main_category,
+		category,
+		sub_category,
+		sub_sub_category,
+		countryId,
+		country_of_region: countryName,
+		price_start,
+		price_end,
+		all: (searchQuery || '') as string,
+		// is_eco: isEco || main_category ? false : filterBuyEco,
+		is_customizable: isCustomizable === 'true' ? true : false,
+		is_ready_to_ship: isReadyToShip === 'true' ? true : false,
+		// is_live: isLive,
+		minimum_order: minOrder,
+		maximum_order: maxOrder
+	};
+}; // End of getFilterValueFromQuery
+
+export const getProductSearchURL = (
+	router: NextRouter,
+	payload: any,
+	reset?: boolean
+) => {
+	const { push, query } = router;
+
+	let queryString = generateQueryString({
+		...query,
+		...payload
+	});
+
+	if (queryString) {
+		queryString = `?${queryString}`;
+	}
+
+	return push(`/product-search${reset ? '' : queryString}`, undefined, {
+		shallow: true
+	});
+}; // End of getProductSearchURL
