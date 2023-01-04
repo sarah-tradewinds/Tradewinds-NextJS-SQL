@@ -11,16 +11,16 @@ import {
 } from 'react-icons/md';
 
 // components
-import Collapse from 'components/website/common/collapse';
-import Button from 'components/website/common/form/button';
-import Seo from 'components/website/common/seo';
-import CompareProductTile from 'components/website/compare/compare-product.tile';
+import Collapse from 'components/common/collapse';
+import Button from 'components/common/form/button';
+import Seo from 'components/common/seo';
+import CompareProductTile from 'components/compare/compare-product.tile';
 
 // store
 import { useProductCompareStore } from 'store/product-compare-store';
 
 // utils
-import ProductDetailsTab from 'components/website/product-details/product-details-tab/product-details-tab';
+import ProductDetailsTab from 'components/product-details/product-details-tab/product-details-tab';
 import { getDisplayBulkPrice } from 'utils/get-bulk-price';
 import { getLocaleText } from 'utils/get_locale_text';
 

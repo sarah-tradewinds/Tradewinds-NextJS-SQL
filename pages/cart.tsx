@@ -1,14 +1,14 @@
 import { GetStaticProps, NextPage } from 'next';
 
-import CartList from 'components/website/cart/cart-list';
-import Button from 'components/website/common/form/button';
+import CartList from 'components/cart/cart-list';
+import Button from 'components/common/form/button';
 
 // Third party packages
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // store
-import AddressModal from 'components/website/address/address-modal';
-import ErrorPopup from 'components/website/common/popup/error-popup';
+import AddressModal from 'components/address/address-modal';
+import ErrorPopup from 'components/common/popup/error-popup';
 import { createOrder } from 'lib/order';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';

@@ -1,8 +1,8 @@
-import ImageWithErrorHandler from 'components/website/common/elements/image-with-error-handler';
-import Button from 'components/website/common/form/button';
-import CategoryCard from 'components/website/home/common/category-card';
-import SubCategoryCard from 'components/website/home/common/sub-category-card';
-import CategoriesSlider from 'components/website/what-is-trending/categories-slider';
+import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
+import Button from 'components/common/form/button';
+import CategoryCard from 'components/home/common/category-card';
+import SubCategoryCard from 'components/home/common/sub-category-card';
+import CategoriesSlider from 'components/what-is-trending/categories-slider';
 import { getHomeMainCategoriesAndCategories } from 'lib/home.lib';
 import { getTrendingProducts } from 'lib/trending.lib';
 import {

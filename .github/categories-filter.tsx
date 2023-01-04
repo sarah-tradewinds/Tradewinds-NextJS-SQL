@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 
 // utils
-import { ContentSkeleton } from 'components/website/common/elements/skeleton/content.skeleton';
+import { ContentSkeleton } from 'components/common/elements/skeleton/content.skeleton';
 import {
 	useCategoriesByMainCategoryId,
 	useMainCategories,

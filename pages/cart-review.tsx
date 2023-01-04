@@ -1,6 +1,6 @@
 import { GetStaticProps, NextPage } from 'next';
 
-import Button from 'components/website/common/form/button';
+import Button from 'components/common/form/button';
 
 // Third party packages
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';

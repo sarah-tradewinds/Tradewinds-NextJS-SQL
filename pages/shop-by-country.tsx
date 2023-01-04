@@ -14,9 +14,9 @@ import { HiMinusCircle, HiPlusCircle } from 'react-icons/hi';
 import { getLocaleText } from 'utils/get_locale_text';
 
 // components
-import CountryFlagTile from 'components/website/common/search-by-country/country-flag-tile';
-import Seo from 'components/website/common/seo';
-import RegionsAndCountriesList from 'components/website/shop-by-country/regions-and-countries-list';
+import CountryFlagTile from 'components/common/search-by-country/country-flag-tile';
+import Seo from 'components/common/seo';
+import RegionsAndCountriesList from 'components/shop-by-country/regions-and-countries-list';
 
 // lib
 import { getRegionsAndCountries } from 'lib/shop-by-country.lib';

@@ -6,9 +6,9 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // components
-import CountryFlagTile from 'components/website/common/search-by-country/country-flag-tile';
-import LocationHolder from 'components/website/common/search-by-country/location-holder';
-import Seo from 'components/website/common/seo';
+import CountryFlagTile from 'components/common/search-by-country/country-flag-tile';
+import LocationHolder from 'components/common/search-by-country/location-holder';
+import Seo from 'components/common/seo';
 
 const SearchByCountryPage: NextPage = (props) => {
 	const { t } = useTranslation('search_by_country');

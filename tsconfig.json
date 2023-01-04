@@ -18,11 +18,12 @@
     "paths": {
       "@src/*": ["src/*"],
       "@components/*": ["src/components/*"],
+      "@data/*": ["src/data/*"],
       "@store/*": ["src/store/*"],
       "@types/*": ["src/types/*"],
       "@utils/*": ["src/utils/*"]
     },
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/website/common/spinners/custom-spinners.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/common/spinners/custom-spinners.js"],
   "exclude": ["node_modules"]
 }

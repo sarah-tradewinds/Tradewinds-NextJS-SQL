@@ -1,7 +1,7 @@
 import {
-  GetServerSideProps,
-  InferGetServerSidePropsType,
-  NextPage
+	GetServerSideProps,
+	InferGetServerSidePropsType,
+	NextPage
 } from 'next';
 
 // Third party packages
@@ -9,24 +9,24 @@ import { useKeenSlider } from 'keen-slider/react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // components
-import CompareProductList from 'components/website/compare/compare-bottom-overlay/compare-overlay-product-list';
-import ProductList from 'components/website/product-search/product-list';
+import CompareProductList from 'components/compare/compare-bottom-overlay/compare-overlay-product-list';
+import ProductList from 'components/product-search/product-list';
 
 // stores
-import ImageWithErrorHandler from 'components/website/common/elements/image-with-error-handler';
-import Seo from 'components/website/common/seo';
-import ProductFilter from 'components/website/product-search/product-filter/product-filter';
-import ProductSearchFilterBar from 'components/website/product-search/product-search-filter-bar';
-import ProductSearchTopBanner from 'components/website/product-search/product-search-top-banner';
-import RFQCard from 'components/website/product-search/rfq-card.components';
-import MiniRFQCard from 'components/website/product-search/rfq-mini-card.components';
-import SubCategoryTile from 'components/website/product-search/sub-category-tile';
-import TrendingCategorySlider from 'components/website/product-search/trending-category-slider';
-import TrendingSectionTile from 'components/website/product-search/trending-section-tile';
+import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
+import Seo from 'components/common/seo';
+import ProductFilter from 'components/product-search/product-filter/product-filter';
+import ProductSearchFilterBar from 'components/product-search/product-search-filter-bar';
+import ProductSearchTopBanner from 'components/product-search/product-search-top-banner';
+import RFQCard from 'components/product-search/rfq-card.components';
+import MiniRFQCard from 'components/product-search/rfq-mini-card.components';
+import SubCategoryTile from 'components/product-search/sub-category-tile';
+import TrendingCategorySlider from 'components/product-search/trending-category-slider';
+import TrendingSectionTile from 'components/product-search/trending-section-tile';
 import { getCountryById } from 'lib/common.lib';
 import {
-  getProducts,
-  getSelectedMainCategoryAndCategories
+	getProducts,
+	getSelectedMainCategoryAndCategories
 } from 'lib/product-search.lib';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';

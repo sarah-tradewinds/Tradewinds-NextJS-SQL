@@ -9,15 +9,15 @@ import { useEffect, useState } from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // components
-import ProductDetailsTile from 'components/website/product-details/product-details-tile';
+import ProductDetailsTile from 'components/product-details/product-details-tile';
 
-import Button from 'components/website/common/form/button';
-import CompanyProfileTab from 'components/website/product-details/product-details-tab/company-profile-tab';
-import ProductReviewsDetailsTab from 'components/website/product-details/product-details-tab/product-reviews-details-tab';
-import SimilarProductList from 'components/website/product-details/similar-product-list';
+import Button from 'components/common/form/button';
+import CompanyProfileTab from 'components/product-details/product-details-tab/company-profile-tab';
+import ProductReviewsDetailsTab from 'components/product-details/product-details-tab/product-reviews-details-tab';
+import SimilarProductList from 'components/product-details/similar-product-list';
 
 // lib
-import ProductDetailsTabContainer from 'components/website/product-details/product-details-tab/product-details-tab-container';
+import ProductDetailsTabContainer from 'components/product-details/product-details-tab/product-details-tab-container';
 import {
 	BUYER_DASHBOARD_ACTIONS,
 	BUYER_DASHBOARD_PAGES,

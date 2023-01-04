@@ -6,7 +6,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // components
-import PaymentForm from 'components/website/checkout/payment-form';
+import PaymentForm from 'components/checkout/payment-form';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';

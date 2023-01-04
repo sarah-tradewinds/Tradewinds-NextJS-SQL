@@ -6,12 +6,12 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // components
-import Button from 'components/website/common/form/button';
-import Seo from 'components/website/common/seo';
+import Button from 'components/common/form/button';
+import Seo from 'components/common/seo';
 import {
 	WhyBuyOperationSubTile,
 	WhyBuyOperationTile
-} from 'components/website/common/why-buy/why-buy-operation-tile';
+} from 'components/common/why-buy/why-buy-operation-tile';
 
 const WhySellOnTradewindsPage: NextPage = () => {
 	const { t } = useTranslation('why_sell_on_tw');

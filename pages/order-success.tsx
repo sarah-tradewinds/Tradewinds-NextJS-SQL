@@ -1,4 +1,4 @@
-import Button from 'components/website/common/form/button';
+import Button from 'components/common/form/button';
 import {
 	BUYER_DASHBOARD_PAGES,
 	generateBuyerDashboardUrl

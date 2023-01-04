@@ -3,11 +3,11 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import useSWR from 'swr';
 
 // components
-import Button from 'components/website/common/form/button';
-import AddBanner from 'components/website/home/ads-banner';
-import CategorySubCategoriesSection from 'components/website/home/category-sub-categories-section';
-import CountrySlider from 'components/website/home/country-slider';
-import Hero from 'components/website/home/hero';
+import Button from 'components/common/form/button';
+import AddBanner from 'components/home/ads-banner';
+import CategorySubCategoriesSection from 'components/home/category-sub-categories-section';
+import CountrySlider from 'components/home/country-slider';
+import Hero from 'components/home/hero';
 
 // lib
 import {

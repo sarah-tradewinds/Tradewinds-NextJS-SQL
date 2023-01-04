@@ -1,11 +1,11 @@
-import Input from 'components/website/common/form/input';
+import Input from 'components/common/form/input';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAuthStore } from 'store/auth';
 
-import Seo from 'components/website/common/seo';
+import Seo from 'components/common/seo';
 
-import { forgetPasswordChange } from 'components/website/common/auth/auth-services';
+import { forgetPasswordChange } from 'components/common/auth/auth-services';
 import { forgetPasswordGenerateLink } from 'lib/customer/auth.lib';
 import { AiOutlineMail } from 'react-icons/ai';
 import { RiLockPasswordLine } from 'react-icons/ri';

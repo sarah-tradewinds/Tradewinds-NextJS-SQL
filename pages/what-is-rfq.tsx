@@ -6,9 +6,9 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // components
-import Button from 'components/website/common/form/button';
-import WhyUseRFQTile from 'components/website/common/rfq/why-use-rfq-tile';
-import Seo from 'components/website/common/seo';
+import Button from 'components/common/form/button';
+import WhyUseRFQTile from 'components/common/rfq/why-use-rfq-tile';
+import Seo from 'components/common/seo';
 
 const WhatIsRFQPage: NextPage = () => {
 	const { t } = useTranslation('what_is_rfq');
