@@ -192,7 +192,7 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 										{isSaleOn && !isBulkPricing ? (
 											<>
 												<span className="text-accent-error">
-													Sale {salePrice}/piece
+													Sale ${salePrice}/piece
 												</span>
 												<span className="text-gray line-through">
 													${productPrice}/piece
