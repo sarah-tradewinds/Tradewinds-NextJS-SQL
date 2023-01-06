@@ -137,9 +137,11 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 					})}
 				</ul>
 			</div>
-
 			{/* Categories */}
-			<ul className="col-span-3 h-[487px] overflow-y-auto border-r border-dashed pt-1 pl-4 dark:bg-[#FCF5EB]">
+			<ul
+				className="col-span-3 h-[487px] overflow-y-auto border-r border-dashed pt-1 pl-4 text-left dark:bg-[#FCF5EB]"
+				style={{ direction: 'rtl' }}
+			>
 				<ContentSkeleton
 					isLoading={isCategoriesLoading}
 					className="block"
@@ -159,6 +161,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 									? ' font-semibold dark:bg-bg-eco/60 dark:text-primary-eco'
 									: ''
 							}`}
+							style={{ direction: 'ltr' }}
 							onMouseEnter={() =>
 								!isSelected
 									? setSelectedCategory({ id, name: title?.en })
@@ -190,7 +193,10 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 			</ul>
 
 			{/* Sub Categories */}
-			<ul className="col-span-3 h-[487px] overflow-y-auto border-r border-dashed pl-4 dark:bg-[#FCF5EB]">
+			<ul
+				className="col-span-3 h-[487px] overflow-y-auto border-r border-dashed pl-4 dark:bg-[#FCF5EB]"
+				style={{ direction: 'rtl' }}
+			>
 				<ContentSkeleton
 					isLoading={isSubCategoriesLoading}
 					className="block"
@@ -210,6 +216,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 									? ' font-semibold dark:bg-bg-eco/60 dark:text-primary-eco'
 									: ''
 							}`}
+							style={{ direction: 'ltr' }}
 							onMouseEnter={() =>
 								setSelectedSubCategory({ id, name: title?.en })
 							}
@@ -244,7 +251,10 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 			</ul>
 
 			{/* Specific Categories */}
-			<ul className="col-span-3 h-[487px] overflow-y-auto pl-4 dark:bg-[#FCF5EB]">
+			<ul
+				className="col-span-3 h-[487px] overflow-y-auto pl-4 dark:bg-[#FCF5EB]"
+				style={{ direction: 'rtl' }}
+			>
 				<ContentSkeleton
 					isLoading={isSpecificCategoriesLoading}
 					className="block"
@@ -264,6 +274,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 									? ' font-semibold dark:bg-bg-eco/60 dark:text-primary-eco'
 									: ''
 							}`}
+							style={{ direction: 'ltr' }}
 							onMouseEnter={() =>
 								setSelectedSpecificCategory({
 									id,

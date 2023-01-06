@@ -14,13 +14,25 @@ export interface ICountry {
 interface CountrySearchDropdownProps {
 	countries: ICountry[];
 	defaultValue?: ICountry;
+	inputClassName?: string;
+	buttonClassName?: string;
+	inputAndButtonContainerClassName?: string;
+	optionsContainerClassName?: string;
 	onCountryChange?: (id?: string, name?: string) => void;
 }
 
 const CountrySearchDropdown: React.FC<CountrySearchDropdownProps> = (
 	props
 ) => {
-	const { countries = [], defaultValue, onCountryChange } = props;
+	const {
+		countries = [],
+		defaultValue,
+		inputClassName,
+		buttonClassName,
+		inputAndButtonContainerClassName,
+		optionsContainerClassName,
+		onCountryChange
+	} = props;
 
 	const [selected, setSelected] = useState<ICountry | undefined>(
 		defaultValue
@@ -57,7 +69,7 @@ const CountrySearchDropdown: React.FC<CountrySearchDropdownProps> = (
 			  });
 
 	return (
-		<div className="w-">
+		<div>
 			<Combobox
 				value={selected}
 				onChange={(value: ICountry) =>
@@ -70,9 +82,9 @@ const CountrySearchDropdown: React.FC<CountrySearchDropdownProps> = (
 				}
 			>
 				<div className="relative mt-1">
-					<div>
+					<div className={inputAndButtonContainerClassName}>
 						<Combobox.Input
-							className="text-gray-900 h-9 w-[84px] border-2 border-gray/20 py-2 pl-3 pr-10 font-semibold outline-none lg:w-[202px]"
+							className={`h-full w-full outline-none ${inputClassName}`}
 							displayValue={(country) =>
 								getLocaleText(
 									(country as any)?.name || '',
@@ -81,7 +93,7 @@ const CountrySearchDropdown: React.FC<CountrySearchDropdownProps> = (
 							}
 							onChange={(event) => setQuery(event.target.value)}
 						/>
-						<Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
+						<Combobox.Button className={buttonClassName}>
 							<ChevronDownIcon
 								className="text-gray-400 h-5 w-5"
 								aria-hidden="true"
@@ -95,7 +107,9 @@ const CountrySearchDropdown: React.FC<CountrySearchDropdownProps> = (
 						leaveTo="opacity-0"
 						afterLeave={() => setQuery('')}
 					>
-						<Combobox.Options className="absolute mt-1 max-h-60 w-[280px] overflow-auto rounded-md bg-white py-1 shadow-lg outline-none ring-1 ring-black ring-opacity-5">
+						<Combobox.Options
+							className={`absolute mt-1 max-h-60 overflow-auto rounded-md bg-white py-1 shadow-lg outline-none ring-1 ring-black ring-opacity-5 ${optionsContainerClassName}`}
+						>
 							{filteredCountries.length === 0 && query !== '' ? (
 								<div className="text-gray-700 relative cursor-default select-none py-2 px-4">
 									Nothing found.

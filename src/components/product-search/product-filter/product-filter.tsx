@@ -22,7 +22,7 @@ const ProductFilter: React.FC<ProductFilterProps> = (props) => {
 		<div className="bg-whites h-screen space-y-6 overflow-y-auto rounded-xl bg-white p-4 pb-40 shadow-md">
 			{/* Categories filter */}
 			<div>
-				<h4 className="font-semibold text-gray md:text-[14px] lg:text-[18px]">
+				<h4 className="font-semibold text-gray md:text-[14px] lg:text-[18px] lg:leading-[33px]">
 					{t('navigation:categories_text')}
 				</h4>
 				<CategoriesFilter />

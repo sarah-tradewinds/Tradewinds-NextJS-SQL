@@ -37,7 +37,7 @@ const CategoriesFilter: React.FC = (props) => {
 		useCategoriesByMainCategoryId(main_category_id);
 
 	return (
-		<div className="mt-4 space-y-2">
+		<div className="space-y-2">
 			{/* Main categories */}
 			<ContentSkeleton isLoading={isMainCategoriesLoading} />
 
@@ -297,7 +297,7 @@ const CategoryCollapse: React.FC<{
 			<label
 				htmlFor={id}
 				onClick={onClick}
-				className={`flex cursor-pointer items-center space-x-2 text-left text-[18px] ${
+				className={`flex cursor-pointer items-center space-x-2 text-left text-[13.2704px] leading-[16px] md:text-[15px] md:leading-[22px] ${
 					isOpen ? 'font-semibold' : ''
 				}`}
 			>

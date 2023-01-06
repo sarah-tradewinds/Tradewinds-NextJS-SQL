@@ -304,14 +304,14 @@ const ProductSearchPage: NextPage<
 									</div>
 								) : (
 									<div className="md:justify-betweens flex h-full items-center space-x-4 p-2 md:flex-col md:items-start md:space-x-0 md:p-0">
-										<p className="text-lg font-semibold md:text-[10px] md:text-gray/80 lg:text-[21px]">
+										<p className="bg-errors text-lg font-semibold md:text-[10px] md:text-gray/80 lg:w-[266px] lg:text-[21px]">
 											{getLocaleText(
 												selectedMainCategory?.title || {},
 												router.locale
 											)}
 										</p>
 										<div
-											className="relative mt-2 h-[38px] w-[38px] md:h-[70px] md:w-[99px] lg:h-[82px] lg:w-[266px]"
+											className="relative mt-2 h-[38px] w-[38px] md:h-[70px] md:w-[99px] lg:h-full lg:w-[266px]"
 											style={{
 												backgroundColor: selectedMainCategory?.color,
 												border: selectedMainCategory?.color

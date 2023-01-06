@@ -179,7 +179,7 @@ const CategorySubCategoriesSection: React.FC<
 				<div className="md:col-span-4 xl:col-span-3">
 					<CategoryCard
 						title={mainCategoryTitle}
-						name={(main_category as any).name || 'Name Here'}
+						name={(main_category as any).name || ''}
 						onClick={() => {
 							const params = setMainCategory(
 								main_category.id!,
@@ -214,9 +214,10 @@ const CategorySubCategoriesSection: React.FC<
 								}
 								subCategoryStyle={{
 									backgroundColor: main_category.panel_color,
-									border: !main_category.panel_color
-										? '2px solid gray'
-										: ''
+									// border: !main_category.panel_color
+									// 	? '2px solid gray'
+									// 	: ''
+									border: '2px solid gray'
 								}}
 								onTileClick={(categoryId, data) =>
 									onSubCategoryTileClickHandler(
