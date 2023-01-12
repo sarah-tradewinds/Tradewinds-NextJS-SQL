@@ -109,7 +109,7 @@ const SearchByCountryPage: NextPage = (props) => {
 							src="/static/images/search-by-country-images/search-by-country-header.png"
 							alt=""
 							fill={true}
-							className="object-cover"
+							// className="object-cover"
 						/>
 						<h1 className="absolute inset-0 top-16 text-center text-[35px] font-semibold text-white md:top-24 md:text-[40px] lg:top-16 lg:text-[96px]">
 							{t('search_by_country')}

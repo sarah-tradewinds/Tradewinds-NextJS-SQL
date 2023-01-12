@@ -279,7 +279,7 @@ const Header = () => {
 								</div>
 
 								{isMegaMenuOpen && (
-									<div className="fixed top-[120px] left-0 right-0 z-[9000000000000]">
+									<div className="fixed top-[110px] left-0 right-0 z-[9000000000000]">
 										<MegaMenu
 											onClose={() => setIsMegaMenuOpen(false)}
 										/>

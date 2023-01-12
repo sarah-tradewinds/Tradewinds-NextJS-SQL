@@ -34,7 +34,7 @@ const MiniRFQCard: React.FC<RFQCardProps> = (props) => {
 
 	let rfqCardContainerClassName = `${
 		size === 'xl'
-			? 'space-y-8 lg:rounded-md bg-secondary p-4 lg:space-y-12'
+			? 'space-y-8 lg:rounded-lg bg-gradient-to-r from-[#E7CA00] via-[#E8A30E] to-[#E8A30E] p-4 lg:space-y-12'
 			: 'flex items-center space-x-6 md:space-x-16 lg:rounded-md bg-secondary p-4 md:p-8 lg:space-x-24'
 	}`;
 	let imageClassName = '';

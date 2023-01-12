@@ -1,7 +1,7 @@
 import {
-  GetServerSideProps,
-  InferGetServerSidePropsType,
-  NextPage
+	GetServerSideProps,
+	InferGetServerSidePropsType,
+	NextPage
 } from 'next';
 
 // Third party packages
@@ -25,8 +25,8 @@ import TrendingCategorySlider from 'components/product-search/trending-category-
 import TrendingSectionTile from 'components/product-search/trending-section-tile';
 import { getCountryById } from 'lib/common.lib';
 import {
-  getProducts,
-  getSelectedMainCategoryAndCategories
+	getProducts,
+	getSelectedMainCategoryAndCategories
 } from 'lib/product-search.lib';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
@@ -36,8 +36,8 @@ import { getIdAndName, useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';
 import { useProductCompareStore } from 'store/product-compare-store';
 import {
-  getFilterValueFromQuery,
-  getProductSearchURL
+	getFilterValueFromQuery,
+	getProductSearchURL
 } from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
 
@@ -248,8 +248,10 @@ const ProductSearchPage: NextPage<
 				/>
 			</div>
 
+			{/* <div className="relative grid grid-cols-12 gap-4 md:p-4 lg:gap-6 lg:p-6"> */}
 			<div className="relative flex lg:mt-[19px] lg:pl-6">
 				{/* Side container */}
+				{/* <section className="col-span-4 hidden space-y-8 md:block lg:col-span-3"> */}
 				<section className="lg:mr-[25px] lg:w-[297px]">
 					{/* filters */}
 					<div className="lg:mb-[17px] lg:h-[475px]">
@@ -262,6 +264,7 @@ const ProductSearchPage: NextPage<
 				</section>
 
 				{/* Category container and Product list */}
+				{/* <div className="col-span-12 md:col-span-8 md:space-y-8 lg:col-span-9"> */}
 				<div className="lg:w-[1142px]">
 					{router.query.is_trending && (
 						<TrendingSectionTile
@@ -296,8 +299,10 @@ const ProductSearchPage: NextPage<
 
 					{/* MainCategory and categories list */}
 					{!router.query.is_trending && selectedCategories.length > 0 && (
+						// <div className="grid grid-cols-12 md:gap-0 md:rounded-md md:bg-white md:p-4 md:shadow-md lg:gap-2">
 						<div className="flex rounded-md bg-white lg:mb-[23px] lg:h-[209px] lg:py-[17px] lg:pl-[17px]">
 							{/* Main category Card */}
+							{/* <div className="col-span-12 md:col-span-3 lg:col-span-3"> */}
 							<div className="lg:w-[266px]">
 								{isSelectedMainCategoryAndCategoriesLoading ? (
 									<div>
@@ -356,39 +361,61 @@ const ProductSearchPage: NextPage<
 								/>
 							</div>
 
-							{/* For small screen only */}
-							<div className="px-2 py-4 md:hidden">
-								<div ref={ref} className="keen-slider">
-									{selectedCategories?.map((subCategory: any) => {
-										return (
-											<div
-												key={subCategory.id}
-												className="keen-slider__slide"
-											>
-												<SubCategoryTile
-													className="pb-4"
-													imageUrl={
-														subCategory.image?.url ||
-														'/vehicles/green-tractor.png'
-													}
-													title={getLocaleText(
-														subCategory.title || {},
-														router.locale
-													)}
-													showBorder={selectedCategoryList?.includes(
-														subCategory.id
-													)}
-													onTilePressed={() => {
-														const params = setCategory(
-															subCategory.id,
-															subCategory?.title?.en
-														);
-														router.push(`/product-search?${params}`);
-													}}
-												/>
-											</div>
-										);
-									})}
+							{/* Categories */}
+							{/* <div className="col-span-12 hidden border-gray/20 md:col-span-9 md:ml-4 lg:col-span-9 lg:pl-4"> */}
+							<div className="col-span-12 hidden border-gray/20 md:col-span-9 md:ml-4 lg:col-span-9 lg:pl-4">
+								<div className="hidden md:block">
+									<TrendingCategorySlider
+										categories={[...selectedCategories]}
+										selectedCategoryIds={selectedCategoryList || []}
+										onTileClick={(categoryId, data) => {
+											const params = setCategory(
+												categoryId,
+												data?.title?.en
+											);
+											router.push(
+												`/product-search?${params}`,
+												undefined,
+												{ shallow: true }
+											);
+										}}
+									/>
+								</div>
+
+								{/* For small screen only */}
+								<div className="px-2 py-4 md:hidden">
+									<div ref={ref} className="keen-slider">
+										{selectedCategories?.map((subCategory: any) => {
+											return (
+												<div
+													key={subCategory.id}
+													className="keen-slider__slide"
+												>
+													<SubCategoryTile
+														className="pb-4"
+														imageUrl={
+															subCategory.image?.url ||
+															'/vehicles/green-tractor.png'
+														}
+														title={getLocaleText(
+															subCategory.title || {},
+															router.locale
+														)}
+														showBorder={selectedCategoryList?.includes(
+															subCategory.id
+														)}
+														onTilePressed={() => {
+															const params = setCategory(
+																subCategory.id,
+																subCategory?.title?.en
+															);
+															router.push(`/product-search?${params}`);
+														}}
+													/>
+												</div>
+											);
+										})}
+									</div>
 								</div>
 							</div>
 						</div>

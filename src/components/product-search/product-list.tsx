@@ -146,7 +146,7 @@ const ProductList: React.FC<ProductListProps> = ({
 				]}
 			/>
 
-			<div className="grid grid-cols-1 gap-4 md:gap-5">
+			<div className="grid grid-cols-1 gap-4 md:gap-[27px]">
 				{products.map((product, index) => {
 					const {
 						product_price,
@@ -168,6 +168,7 @@ const ProductList: React.FC<ProductListProps> = ({
 									<RFQCard size="sm" />
 								</div>
 							)}
+
 							<ProductTile
 								key={product.id}
 								name={getLocaleText(product.product_name || {}, locale)}

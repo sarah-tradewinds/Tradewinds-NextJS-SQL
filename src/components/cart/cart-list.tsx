@@ -76,7 +76,8 @@ const CartList: React.FC<CartListProps> = (props) => {
 							minOrderQuantity={
 								product?.inventory?.minimum_order_quantity
 							}
-							totalReviewCount={10}
+							totalReviewCount={product?.totalReviewCount || 0}
+							variantCount={product?.variants?.length || 0}
 							onUpdate={(quantity, productId) =>
 								updateQuantityByProductId(
 									quantity,

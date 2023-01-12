@@ -30,7 +30,7 @@ const CardA: React.FC<CardAProps> = (props) => {
 					src={imageUrl}
 					alt={alt}
 					fill={true}
-					className="object-cover"
+					// className="object-cover"
 				/>
 			</div>
 			<p className="font-mont capitalize text-gray tablet:ml-[10.17px] tablet:mr-[14.36px] tablet:mt-[9.09px] tablet:text-[16px]  tablet:leading-5 desktop:mx-[21px] desktop:mt-[15px] desktop:text-lg desktop:leading-[22px]">

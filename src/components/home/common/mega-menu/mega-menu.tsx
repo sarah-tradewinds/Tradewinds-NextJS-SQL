@@ -73,6 +73,15 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 		router.push(path, undefined, { shallow: true });
 	}; // End of navigateWithShallow function
 
+	const loadingSkeleton = (
+		<ContentSkeleton
+			count={12}
+			isLoading={true}
+			className="block !w-full"
+			containerClassName="mt-2 mr-2"
+		/>
+	);
+
 	return (
 		<div className={megaMenuClassName}>
 			{/* Main Categories */}
@@ -137,16 +146,17 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 					})}
 				</ul>
 			</div>
+
 			{/* Categories */}
 			<ul
-				className="col-span-3 h-[487px] overflow-y-auto border-r border-dashed pt-1 pl-4 text-left dark:bg-[#FCF5EB]"
+				className={`col-span-3 h-[487px] overflow-y-auto border-dashed pt-1 pl-4 text-left dark:bg-[#FCF5EB] ${
+					isSubCategoriesLoading || subCategories?.length > 0
+						? 'border-r'
+						: ''
+				}`}
 				style={{ direction: 'rtl' }}
 			>
-				<ContentSkeleton
-					isLoading={isCategoriesLoading}
-					className="block"
-					containerClassName="mt-2"
-				/>
+				{isCategoriesLoading && loadingSkeleton}
 
 				{categories?.map((category: any) => {
 					const { id, slug, title } = category;
@@ -194,14 +204,14 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 
 			{/* Sub Categories */}
 			<ul
-				className="col-span-3 h-[487px] overflow-y-auto border-r border-dashed pl-4 dark:bg-[#FCF5EB]"
+				className={`col-span-3 h-[487px] overflow-y-auto border-dashed pl-4 dark:bg-[#FCF5EB] ${
+					isSpecificCategoriesLoading || specificCategories?.length > 0
+						? 'border-r'
+						: ''
+				}`}
 				style={{ direction: 'rtl' }}
 			>
-				<ContentSkeleton
-					isLoading={isSubCategoriesLoading}
-					className="block"
-					containerClassName="mt-2"
-				/>
+				{isSubCategoriesLoading && loadingSkeleton}
 
 				{subCategories?.map((subCategory: any) => {
 					const { id, slug, title } = subCategory;
@@ -255,11 +265,7 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 				className="col-span-3 h-[487px] overflow-y-auto pl-4 dark:bg-[#FCF5EB]"
 				style={{ direction: 'rtl' }}
 			>
-				<ContentSkeleton
-					isLoading={isSpecificCategoriesLoading}
-					className="block"
-					containerClassName="mt-2"
-				/>
+				{isSpecificCategoriesLoading && loadingSkeleton}
 
 				{specificCategories?.map((specificCategory: any) => {
 					const { id, slug, title } = specificCategory;

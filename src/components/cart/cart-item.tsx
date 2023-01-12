@@ -26,6 +26,7 @@ interface CartItemProps {
 	minOrderQuantity: number;
 	imageUrl: string;
 	totalReviewCount: number;
+	variantCount: number;
 	onUpdate: (quantity: number, productId: string) => any;
 	onRemove?: () => any;
 }
@@ -46,6 +47,7 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 		isBulkPricing,
 		imageUrl,
 		totalReviewCount,
+		variantCount,
 		onUpdate,
 		onRemove
 	} = props;
@@ -105,7 +107,7 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 			key={metadataList[4].title}
 			imageUrl={metadataList[4].imageUrl}
 			alt={metadataList[4].title}
-			title={`${t('common:variant')} ${10}`}
+			title={`${t('common:variant')} ${variantCount}`}
 		/>,
 		// save
 		<MetadataTile

@@ -79,9 +79,12 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 		'outline-none border-2 border-gray/20 h-9 w-[84px] lg:w-[202px]';
 
 	return (
-		<div className="hidden justify-between rounded-md border border-gray/10 bg-white p-2 shadow-lg md:flex lg:p-4">
+		<div
+			// className="hidden justify-between rounded-md border border-gray/10 bg-white p-2 shadow-lg md:flex lg:p-4"
+			className="hidden justify-between rounded-md border border-gray/10 bg-white shadow-lg md:flex lg:h-[54px] lg:pl-[13px] lg:pr-[14px] lg:pt-2 lg:pb-[10px]"
+		>
 			{/* Live Buy/ Ready to ship - checkbox */}
-			<label className="flex cursor-pointer items-center">
+			<label className="flex cursor-pointer items-center ">
 				<input
 					type="checkbox"
 					checked={isReadyToShip}
@@ -95,7 +98,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 				/>
 				{/* For large screen */}
 				<p className="ml-2 font-semibold text-gray">
-					<span className="hidden text-[15px] lg:block">
+					<span className="hidden text-[15px] lg:block lg:leading-[18px]">
 						Live Buy/ Ready to ship
 					</span>
 
@@ -105,6 +108,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 					</span>
 				</p>
 			</label>
+
 			{/* Customizable - checkbox */}
 			<label className="flex cursor-pointer items-center">
 				<input
@@ -118,10 +122,11 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 						});
 					}}
 				/>
-				<p className="ml-2 text-[10px] font-semibold text-gray lg:text-[15px]">
+				<p className="ml-2 text-[10px] font-semibold text-gray lg:text-[15px] lg:leading-[18px]">
 					Customizable
 				</p>
 			</label>
+
 			{/* Country - dropdown */}
 			<div className="relative flex items-center">
 				<label
