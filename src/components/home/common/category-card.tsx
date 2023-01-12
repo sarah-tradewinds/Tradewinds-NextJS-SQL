@@ -40,7 +40,8 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 
 	return (
 		<div
-			className={`py-4s pl-14s sm:bg-transparents sm:py-0s sm:pl-0s flexs flex-cols relative ${containerClassName}`}
+			// className={`py-4s pl-14s sm:bg-transparents sm:py-0s sm:pl-0s flexs flex-cols relative ${containerClassName}`}
+			className={`relative ${containerClassName}`}
 		>
 			<h2
 				className={`font-montserrat font-semibold text-primary-main dark:text-accent-secondary-eco lg:mb-[11px] lg:text-[25px] lg:leading-[30px] ${titleClassName}`}
@@ -50,7 +51,8 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 
 			{/* Container */}
 			<div
-				className={`relative flex flex-col justify-between space-y-4 overflow-hidden rounded-lg bg-agri-main p-4 font-montserrat lg:h-[236.3px] ${innerContainer}`}
+				// className={`lg:h-fulls flexs flex-cols justify-betweens space-y-4s relative overflow-hidden rounded-lg bg-agri-main p-4 font-montserrat ${innerContainer}`}
+				className={`relative rounded-lg bg-agri-main p-4 font-montserrat lg:h-full ${innerContainer}`}
 				style={{ backgroundColor: bgHexColor }}
 			>
 				<p
@@ -65,7 +67,7 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 				{!hideImage && (
 					<div className="absolute bottom-0 right-0">
 						{/* <div className="relative h-[60px] w-[60px] md:h-[100px] md:w-[100px] lg:h-[120px] lg:w-[120px]"> */}
-						<div className="relative h-[60px] w-[60px] md:h-[100px] md:w-[100px] lg:h-[263px] lg:w-[164px]">
+						<div className="relative h-[60px] w-[60px] md:h-[100px] md:w-[100px] lg:h-[250px] lg:w-[250px]">
 							<ImageWithErrorHandler
 								src={imageUrl}
 								alt={alt || slug}
@@ -77,12 +79,12 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 
 				{/* Action button */}
 				{!hideButton && (
-					<div className="absolute lg:left-[27px] lg:bottom-[22.05px]">
+					<div className="absolute lg:left-[27px] lg:bottom-[21.12px]">
 						<Button
 							href={onClick ? '' : slug}
 							onClick={onClick}
 							// className={`bg-[${bgHexColor}]/70 flex items-center justify-center rounded-md border border-black/20 text-[18px] uppercase text-white`}
-							className={`whitespace-nowrap !bg-gray !px-0 !py-0 capitalize text-white lg:!h-[24.62px] lg:!w-[138.39px] lg:text-lg lg:!font-normal lg:!leading-[22px]`}
+							className={`whitespace-nowrap !bg-gray !px-0 !py-0 font-montserrat capitalize text-white lg:!h-[25.95px] lg:!w-[138.39px] lg:!rounded-lg lg:text-lg lg:!font-normal lg:!leading-[22px]`}
 							style={{
 								backgroundColor: bgHexColor
 							}}

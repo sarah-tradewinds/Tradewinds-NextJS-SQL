@@ -49,7 +49,7 @@ const SubCategoryCard = ({
 				{/* Content */}
 				<div className="pr-4">
 					<h2
-						className={`font-semibold text-primary-main dark:text-accent-secondary-eco md:text-[14px] lg:text-[18px] ${titleClassName}`}
+						className={`font-semibold text-primary-main dark:text-accent-secondary-eco md:text-[14px] lg:text-[16px] lg:leading-5 ${titleClassName}`}
 					>
 						{subCategoryTitle}
 					</h2>
@@ -60,7 +60,7 @@ const SubCategoryCard = ({
 
 				{/* Icon or Image */}
 				<div className="hidden gap-2 md:flex">
-					<div className="relative h-5 w-5">
+					<div className="relative h-5 w-5 lg:h-[22px] lg:w-[21.08px]">
 						<Image
 							src="/static/images/TWSafety.png"
 							alt="Logo"
@@ -68,7 +68,7 @@ const SubCategoryCard = ({
 						/>
 					</div>
 					{subCat.is_eco && (
-						<div className="relative h-5 w-5">
+						<div className="relative h-5 w-5 lg:h-[22px] lg:w-[23px]">
 							<Image
 								src="/static/images/TWEco.png"
 								alt="Logo"

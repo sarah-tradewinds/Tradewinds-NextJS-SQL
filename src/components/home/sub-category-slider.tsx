@@ -15,8 +15,6 @@ const SubCategorySlider: React.FC<{
 	slidesToShow?: number;
 	rows?: number;
 }> = (props) => {
-	const slider = React.useRef(null);
-
 	const {
 		categories = [],
 		onTileClick,
@@ -29,6 +27,8 @@ const SubCategorySlider: React.FC<{
 		rows = 2
 	} = props;
 
+	const slider = React.useRef(null);
+
 	const settings = {
 		slidesToShow: slidesToShow || 4,
 		slidesToScroll: 4,
@@ -39,16 +39,16 @@ const SubCategorySlider: React.FC<{
 	};
 
 	return (
-		<div className="relative w-full">
+		<div className={`relative w-full ${subCategoryContainerClassName}`}>
 			<Button
 				// className={`absolute -left-2 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full border-2 border-primary-main !p-0 !text-primary-main ${leftButtonClassName}`}
 				onClick={() => (slider?.current as any)?.slickPrev()}
-				className={`absolute -left-[32px] top-1/2 flex -translate-y-1/2 transform items-center justify-center !rounded-full !px-0 !py-0 lg:!h-[20px] lg:!w-[28px] lg:!bg-[#DCDBDB] ${leftButtonClassName}`}
+				className={`absolute -left-[40px] top-1/2 flex -translate-y-1/2 transform items-center justify-center !rounded-full !px-0 !py-0 lg:!h-[33px] lg:!w-[33px] lg:border lg:!border-[#575858] ${leftButtonClassName}`}
 			>
-				<MdChevronLeft className="h-full w-full text-white" />
+				<MdChevronLeft className="w-full text-[#575858] lg:h-full" />
 			</Button>
 
-			<div className={`mx-[48px]s ${className}`}>
+			<div className={`${className}`}>
 				<div>
 					<Slider ref={slider} {...settings}>
 						{categories?.map((subCat: any) => {
@@ -69,7 +69,7 @@ const SubCategorySlider: React.FC<{
 										}}
 										style={subCategoryStyle}
 										// containerClassName={`min-h-[80px] md:min-h-[124px] lg:min-h-[140px] ${subCategoryContainerClassName}`}
-										containerClassName="lg:!w-[239px] lg:!h-[134px] lg:!border-[2px] lg:!border-[#E1DDDD] lg:!mb-[11px]"
+										containerClassName="lg:!w-[239px] lg:!h-[134px] lg:!border-[2px] lg:!border-[#C4C4C4] lg:!mb-[11px]"
 									/>
 								</div>
 							);
@@ -79,10 +79,10 @@ const SubCategorySlider: React.FC<{
 			</div>
 
 			<Button
-				className={`absolute -right-[18px] top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full !px-0 !py-0 lg:!h-[20px] lg:!w-[28px] lg:!bg-[#DCDBDB] ${rightButtonClassName}`}
+				className={`absolute -right-[34px] top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full !px-0 !py-0 lg:!h-[33px] lg:!w-[33px] lg:border lg:!border-[#575858] ${rightButtonClassName}`}
 				onClick={() => (slider?.current as any)?.slickNext()}
 			>
-				<MdChevronRight className="h-full w-full text-white" />
+				<MdChevronRight className="w-full text-[#575858] lg:h-full" />
 			</Button>
 		</div>
 	);

@@ -110,7 +110,7 @@ const CategorySubCategoriesSection: React.FC<
 		: [];
 
 	return (
-		<div className="bg-white md:rounded-md lg:h-[334.13px] lg:w-[1466.01px] lg:pl-[22px] lg:pt-[25px] lg:pr-[10px]">
+		<div className="bg-white md:rounded-md lg:h-[334.09px] lg:w-[1466.01px] lg:pl-[22px] lg:pt-[25px] lg:pr-[10px]">
 			{/* For Small Screen- Collapse */}
 			<div className="md:hidden">
 				<Collapse
@@ -196,12 +196,12 @@ const CategorySubCategoriesSection: React.FC<
 					alt={main_category.title?.en || ''}
 					bgHexColor={main_category?.color}
 					// containerClassName="md:h-[340px] lg:h-[380px] xl:h-[340px]"
-					containerClassName="lg:h-[269.51px] lg:w-[349.08px]"
+					containerClassName="lg:h-[269.51px] lg:w-[349.08px] lg:pb-[25.09px]"
 				/>
 
 				{/* Sub categories */}
 				{/* <div className="hidden md:col-span-8 xl:col-span-9"> */}
-				<div className="lg:ml-[44px] lg:h-[279px] lg:w-[1025px]">
+				<div className="lg:mr-[56.01px] lg:h-[279px] lg:w-[1046px] lg:pl-[61px]">
 					{!isCustom ? (
 						<div className="">
 							<SubCategorySlider
@@ -223,6 +223,7 @@ const CategorySubCategoriesSection: React.FC<
 										data?.title?.en || ''
 									)
 								}
+								subCategoryContainerClassName="lg:mx-8s"
 							/>
 						</div>
 					) : (
