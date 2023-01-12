@@ -7,6 +7,7 @@ interface ButtonProps {
 	href?: string;
 	onClick?: (event: any) => any;
 	disabled?: boolean;
+	style?: any;
 }
 
 const Button: React.FC<ButtonProps> = (props) => {
@@ -17,7 +18,8 @@ const Button: React.FC<ButtonProps> = (props) => {
 		className,
 		onClick,
 		href,
-		disabled
+		disabled,
+		style
 	} = props;
 
 	const buttonBaseClassName = `min-h-[40px] px-8 rounded-md text-sm font-semibold text-white tracking-wider disabled:opacity-60`;
@@ -43,14 +45,14 @@ const Button: React.FC<ButtonProps> = (props) => {
 
 	if (href) {
 		return (
-            (<Link
-                href={href}
-                className={`flex items-center justify-center ${buttonClassName} ${className}`}>
-
-                {children}
-
-            </Link>)
-        );
+			<Link
+				href={href}
+				className={`flex items-center justify-center ${buttonClassName} ${className}`}
+				style={style}
+			>
+				{children}
+			</Link>
+		);
 	}
 
 	return (
@@ -59,6 +61,7 @@ const Button: React.FC<ButtonProps> = (props) => {
 			onClick={onClick}
 			className={`${buttonClassName} ${className}`}
 			disabled={disabled}
+			style={style}
 		>
 			{children}
 		</button>

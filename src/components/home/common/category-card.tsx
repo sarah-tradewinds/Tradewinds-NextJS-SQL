@@ -1,8 +1,6 @@
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import Button from 'components/common/form/button';
 
-// store
-
 interface CategoryCardProps {
 	title: string;
 	name?: string;
@@ -42,44 +40,32 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 
 	return (
 		<div
-			className={`relative flex flex-col py-4 pl-14 sm:bg-transparent sm:py-0 sm:pl-0 ${containerClassName}`}
+			className={`py-4s pl-14s sm:bg-transparents sm:py-0s sm:pl-0s flexs flex-cols relative ${containerClassName}`}
 		>
 			<h2
-				className={`font-mont font-semibold text-primary-main dark:text-accent-secondary-eco lg:text-[25px] ${titleClassName}`}
+				className={`font-montserrat font-semibold text-primary-main dark:text-accent-secondary-eco lg:mb-[11px] lg:text-[25px] lg:leading-[30px] ${titleClassName}`}
 			>
 				{title}
 			</h2>
 
 			{/* Container */}
 			<div
-				className={`relative flex h-full flex-col justify-between space-y-4 overflow-hidden rounded-lg bg-agri-main p-4 ${innerContainer}`}
+				className={`relative flex flex-col justify-between space-y-4 overflow-hidden rounded-lg bg-agri-main p-4 font-montserrat lg:h-[236.3px] ${innerContainer}`}
 				style={{ backgroundColor: bgHexColor }}
 			>
 				<p
-					className={`mt-2 w-[64%] lg:text-[18px] ${nameAndDescriptionClassName}`}
+					className={`lg:h-[162px] lg:w-[183px] lg:text-[18px] lg:leading-[22px] ${nameAndDescriptionClassName}`}
 				>
-					<span className="font-semibold text-primary-main dark:text-accent-secondary-eco">
+					{/* <span className="font-semibold text-primary-main dark:text-accent-secondary-eco">
 						{name} {` `}
-					</span>
+					</span> */}
 					<span className="text-gray">{description}</span>
 				</p>
 
-				{/* Image */}
-				{/* {!hideImage && (
-					<div className="absolute -top-12 right-0">
-						<div className="relative h-[60px] w-[60px] md:h-[100px] md:w-[100px] lg:h-[120px] lg:w-[120px]">
-							<ImageWithErrorHandler
-								src={imageUrl}
-								alt={alt || slug}
-								fill={true}
-							/>
-						</div>
-					</div>
-				)} */}
-
 				{!hideImage && (
 					<div className="absolute bottom-0 right-0">
-						<div className="relative h-[60px] w-[60px] md:h-[100px] md:w-[100px] lg:h-[120px] lg:w-[120px]">
+						{/* <div className="relative h-[60px] w-[60px] md:h-[100px] md:w-[100px] lg:h-[120px] lg:w-[120px]"> */}
+						<div className="relative h-[60px] w-[60px] md:h-[100px] md:w-[100px] lg:h-[263px] lg:w-[164px]">
 							<ImageWithErrorHandler
 								src={imageUrl}
 								alt={alt || slug}
@@ -89,23 +75,17 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 					</div>
 				)}
 
-				{/* {!hideImage && (
-					<div className="relative h-[60px] w-[60px] md:h-[100px] md:w-[100px] lg:h-[120px] lg:w-[120px]">
-						<ImageWithErrorHandler
-							src={imageUrl}
-							alt={alt || slug}
-							fill={true}
-						/>
-					</div>
-				)} */}
-
 				{/* Action button */}
 				{!hideButton && (
-					<div>
+					<div className="absolute lg:left-[27px] lg:bottom-[22.05px]">
 						<Button
 							href={onClick ? '' : slug}
 							onClick={onClick}
-							className={`bg-[${bgHexColor}]/70 flex h-[40px] w-[180px] items-center justify-center rounded-md border border-black/20 text-[18px] uppercase text-white`}
+							// className={`bg-[${bgHexColor}]/70 flex items-center justify-center rounded-md border border-black/20 text-[18px] uppercase text-white`}
+							className={`whitespace-nowrap !bg-gray !px-0 !py-0 capitalize text-white lg:!h-[24.62px] lg:!w-[138.39px] lg:text-lg lg:!font-normal lg:!leading-[22px]`}
+							style={{
+								backgroundColor: bgHexColor
+							}}
 						>
 							{buttonText || 'SOURCE NOW'}
 						</Button>

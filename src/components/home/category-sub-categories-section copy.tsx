@@ -8,6 +8,7 @@ import { CatSubCatSectionType } from 'types/home';
 import { getLocaleText } from 'utils/get_locale_text';
 import Collapse from '../common/collapse';
 import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
+import CatSubCatActionCard from './common/cat-sub-cat-action-card';
 import CategoryCard from './common/category-card';
 import SubCategoryCard from './common/sub-category-card';
 import SubCategorySlider from './sub-category-slider';
@@ -110,7 +111,7 @@ const CategorySubCategoriesSection: React.FC<
 		: [];
 
 	return (
-		<div className="bg-white md:rounded-md lg:h-[334.13px] lg:w-[1466.01px] lg:pl-[22px] lg:pt-[25px] lg:pr-[10px]">
+		<div className="bg-white md:rounded-md">
 			{/* For Small Screen- Collapse */}
 			<div className="md:hidden">
 				<Collapse
@@ -173,37 +174,35 @@ const CategorySubCategoriesSection: React.FC<
 			</div>
 
 			{/* For Medium and Large screen */}
-			{/* <div className="hidden grid-cols-12 items-end gap-4 p-4 md:grid lg:gap-[30px] 2xl:p-8"> */}
-			<div className="hidden md:flex">
-				{/* Category For medium and large screen */}
-				{/* <div className="md:col-span-4 xl:col-span-3"> */}
-				<CategoryCard
-					title={mainCategoryTitle}
-					name={(main_category as any).name || ''}
-					onClick={() => {
-						const params = setMainCategory(
-							main_category.id!,
-							main_category.title.en || ''
-						);
-						router.push(`/product-search?${params}`);
-					}}
-					description={mainCategoryDescription}
-					buttonText={getLocaleText(
-						main_category.btnTxt || t('source_now'),
-						locale
-					)}
-					imageUrl={main_category?.image?.url}
-					alt={main_category.title?.en || ''}
-					bgHexColor={main_category?.color}
-					// containerClassName="md:h-[340px] lg:h-[380px] xl:h-[340px]"
-					containerClassName="lg:h-[269.51px] lg:w-[349.08px]"
-				/>
+			<div className="hidden grid-cols-12 items-end gap-4 p-4 md:grid lg:gap-[30px] 2xl:p-8">
+				{/* Category */}
+				<div className="md:col-span-4 xl:col-span-3">
+					<CategoryCard
+						title={mainCategoryTitle}
+						name={(main_category as any).name || ''}
+						onClick={() => {
+							const params = setMainCategory(
+								main_category.id!,
+								main_category.title.en || ''
+							);
+							router.push(`/product-search?${params}`);
+						}}
+						description={mainCategoryDescription}
+						buttonText={getLocaleText(
+							main_category.btnTxt || t('source_now'),
+							locale
+						)}
+						imageUrl={main_category?.image?.url}
+						alt={main_category.title?.en || ''}
+						bgHexColor={main_category?.color}
+						containerClassName="md:h-[340px] lg:h-[380px] xl:h-[340px]"
+					/>
+				</div>
 
 				{/* Sub categories */}
-				{/* <div className="hidden md:col-span-8 xl:col-span-9"> */}
-				<div className="lg:ml-[44px] lg:h-[279px] lg:w-[1025px]">
+				<div className="md:col-span-8 xl:col-span-9">
 					{!isCustom ? (
-						<div className="">
+						<div>
 							<SubCategorySlider
 								categories={[...categories]}
 								className={subCategorySliderClassName}
@@ -215,6 +214,9 @@ const CategorySubCategoriesSection: React.FC<
 								}
 								subCategoryStyle={{
 									backgroundColor: main_category.panel_color,
+									// border: !main_category.panel_color
+									//  ? '2px solid gray'
+									//  : ''
 									border: '2px solid gray'
 								}}
 								onTileClick={(categoryId, data) =>
@@ -226,11 +228,10 @@ const CategorySubCategoriesSection: React.FC<
 							/>
 						</div>
 					) : (
-						// <div className="grid items-end gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-						<div className="">
+						<div className="grid items-end gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 							{/* TODO: Data Slicing to be done based on the screen width with a stat*/}
 							{subCategories}
-							{/* <CatSubCatActionCard /> */}
+							<CatSubCatActionCard />
 						</div>
 					)}
 				</div>

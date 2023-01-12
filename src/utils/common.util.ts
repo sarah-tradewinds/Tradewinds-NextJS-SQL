@@ -131,3 +131,50 @@ export const getProductSearchURL = (
 		shallow: true
 	});
 }; // End of getProductSearchURL
+
+interface IClassNameBasedOnSize {
+	sm?: string;
+	md?: string;
+	lg?: string;
+	xl?: string;
+	'2xl'?: string;
+	'4k'?: string;
+	mobile?: string;
+	tablet?: string;
+	desktop?: string;
+}
+
+export const getTailwind = (
+	className: string,
+	classNameBasedOnSize?:
+		| { [key: string]: string }
+		| IClassNameBasedOnSize
+) => {
+	const classNames: string[] = [];
+
+	// if (className) {
+	//  classNames.push(className?.trim());
+	// }
+
+	classNames.push(className);
+
+	if (classNameBasedOnSize) {
+		for (const key in classNameBasedOnSize) {
+			const classNameForSize: string[] = [];
+
+			const classNameDataList =
+				classNameBasedOnSize[
+					key as keyof IClassNameBasedOnSize
+				]?.trim();
+
+			classNameDataList
+				?.split(' ')
+				.forEach((classNameData) =>
+					classNameForSize.push(`${key}:${classNameData}`)
+				);
+			classNames.push(classNameForSize.join(' '));
+		}
+	}
+
+	return classNames.join(' ') || '';
+}; // End of getTailwind

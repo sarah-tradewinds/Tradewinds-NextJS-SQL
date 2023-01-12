@@ -31,7 +31,7 @@ const SubCategoryCard = ({
 
 	return (
 		<div
-			className={`relative flex cursor-pointer rounded ${containerClassName}`}
+			className={`relative flex cursor-pointer ${containerClassName}`}
 			style={style}
 			onClick={onClick}
 		>
@@ -47,7 +47,7 @@ const SubCategoryCard = ({
 
 			<div className={`flex flex-col justify-between p-2 ${className}`}>
 				{/* Content */}
-				<div className="pr-4 ">
+				<div className="pr-4">
 					<h2
 						className={`font-semibold text-primary-main dark:text-accent-secondary-eco md:text-[14px] lg:text-[18px] ${titleClassName}`}
 					>

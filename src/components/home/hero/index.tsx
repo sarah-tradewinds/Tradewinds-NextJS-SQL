@@ -9,11 +9,20 @@ type Props = {
 
 const Index = ({ hcd, cardAList, cardBData }: Props) => {
 	return (
-		<section className="relative h-[680px] w-full overflow-hidden md:h-[780px] lg:h-[880px] xl:h-[980px]">
-			<HeroCarousel heroCarouselData={hcd} />
-
-			<div className="absolute bottom-0 z-[3] w-full md:bottom-16 lg:bottom-32 xl:bottom-16">
+		// <section className="relative h-[680px] w-full overflow-hidden md:h-[343px] lg:h-[880px] xl:h-[980px]">
+		<section className="relative">
+			<div className="relative h-[680px] w-full overflow-hidden md:h-[343px] lg:h-[880px] xl:h-[980px]">
+				<HeroCarousel heroCarouselData={hcd} />
+				<div className="absolute bottom-0 z-[2] h-[96px] w-full bg-gradient-to-t from-bg-main to-transparent"></div>
+			</div>
+			{/* <div className="absolute bottom-0 z-[3] w-full md:bottom-16 lg:bottom-32 xl:bottom-16">
 				<div className="container mx-auto">
+					<CardWrapper cardAList={cardAList} cardBData={cardBData} />
+				</div>
+			</div> */}
+
+			<div className="absolute bottom-0 z-[3] w-full md:-bottom-44 lg:bottom-0">
+				<div className="4k:container 4k:mx-auto tablet:ml-4 tablet:mr-[18px] desktop:ml-[19px] desktop:mr-[23px]">
 					<CardWrapper cardAList={cardAList} cardBData={cardBData} />
 				</div>
 			</div>
