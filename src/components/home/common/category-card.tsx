@@ -1,3 +1,6 @@
+// Third party package
+import tinycolor from 'tinycolor2';
+
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import Button from 'components/common/form/button';
 
@@ -38,6 +41,11 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 		onClick
 	} = props;
 
+	const bgDarkHexColor = bgHexColor
+		? tinycolor(bgHexColor).darken(25).toHexString()
+		: '';
+
+	// console.log('darkBgColor =', darkBgColor);
 	return (
 		<div
 			// className={`py-4s pl-14s sm:bg-transparents sm:py-0s sm:pl-0s flexs flex-cols relative ${containerClassName}`}
@@ -84,9 +92,9 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 							href={onClick ? '' : slug}
 							onClick={onClick}
 							// className={`bg-[${bgHexColor}]/70 flex items-center justify-center rounded-md border border-black/20 text-[18px] uppercase text-white`}
-							className={`whitespace-nowrap !bg-gray !px-0 !py-0 font-montserrat capitalize text-white lg:!h-[25.95px] lg:!w-[138.39px] lg:!rounded-lg lg:text-lg lg:!font-normal lg:!leading-[22px]`}
+							className={`whitespace-nowrap !px-0 !py-0 font-montserrat capitalize text-white lg:!h-[25.95px] lg:!w-[138.39px] lg:!rounded-lg lg:text-lg lg:!font-normal lg:!leading-[22px]`}
 							style={{
-								backgroundColor: bgHexColor
+								backgroundColor: bgDarkHexColor
 							}}
 						>
 							{buttonText || 'SOURCE NOW'}

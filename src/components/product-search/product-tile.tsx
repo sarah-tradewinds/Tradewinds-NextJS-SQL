@@ -104,7 +104,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 			// 	});
 			// 	router.push(buyerDashboardUrl);
 			// }}
-			className="flex items-center border border-accent-primary-main !p-0 !pr-2 !text-accent-primary-main lg:px-2"
+			className="md:!h-[189px flex items-center border border-accent-primary-main !p-0 !pr-2 !text-accent-primary-main md:!text-xs lg:px-2"
 		>
 			<MdOutlineMessage className="mr-1 block h-[40px] bg-accent-primary-main text-[24px] text-white lg:mr-2" />
 			Message Vendor
@@ -209,7 +209,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 					{/* Image Container */}
 					<div className="relative col-span-5 pr-2 md:col-span-3">
 						<Link href={`/product/${slug}`}>
-							<div className="relative h-full w-full">
+							<div className="relative h-full w-full md:mt-5 md:h-[97px] lg:mt-0 lg:h-full">
 								<ImageWithErrorHandler
 									src={imageUrl}
 									alt={alt}
@@ -231,7 +231,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 						)}
 					</div>
 
-					<div className="col-span-7 pl-2 md:col-span-9">
+					<div className="col-span-7 pl-2 md:col-span-9 md:pt-3">
 						{/* Product Info and keywords*/}
 						<Link
 							href={`/product/${slug}`}

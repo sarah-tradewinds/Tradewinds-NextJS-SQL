@@ -29,7 +29,7 @@ const ProductDetailsTab: React.FC<{
 			: true;
 
 	return (
-		<div className="space-y-8 bg-white p-4 md:space-y-16 md:p-8">
+		<div className="space-y-8 bg-white p-4 md:space-y-8 md:p-8">
 			<div>
 				<p className="border-b-2 border-t-2 border-gray/40 text-[18px] font-semibold text-gray md:border-t-0 md:text-[21px]">
 					{t('common:product_details')}

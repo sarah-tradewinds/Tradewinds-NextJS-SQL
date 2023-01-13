@@ -146,7 +146,7 @@ const ProductList: React.FC<ProductListProps> = ({
 				]}
 			/>
 
-			<div className="grid grid-cols-1 gap-4 md:gap-[27px]">
+			<div className="grid grid-cols-1 gap-4 md:gap-[15px] lg:gap-[27px]">
 				{products.map((product, index) => {
 					const {
 						product_price,

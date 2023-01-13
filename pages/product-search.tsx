@@ -198,7 +198,7 @@ const ProductSearchPage: NextPage<
 	const [countryId] = getIdAndName((query.country || '') as string);
 
 	return (
-		<div className="scontainer mx-autos">
+		<div className="container mx-auto">
 			<Seo title="Product search page" description="" />
 
 			<div>

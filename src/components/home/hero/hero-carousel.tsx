@@ -27,23 +27,25 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 		<Slider {...settings}>
 			{heroCarouselData.map((item, index) => (
 				<div
-					className="relative h-[75vh] w-full"
+					// className="relative h-[75vh] w-full"
+					className="relative h-[688px] w-full"
 					key={item.id || index}
 				>
 					<Link href={item.link ?? '/'}>
-						<div className="relative h-[75vh] w-full">
+						{/* <div className="relative h-[75vh] w-full"> */}
+						<div className="relative h-full w-full">
 							<Image
 								src={item.image?.url}
 								alt={String(item.order)}
 								fill={true}
-								objectFit="cover"
+								// objectFit="cover"
 							/>
 						</div>
 					</Link>
 
 					{item.title?.en && (
-						<div className="absolute left-4 top-16 z-[4] w-[90%] space-y-2 bg-black/60 p-4 text-white md:left-16 md:top-40 md:w-auto">
-							<p className="text-[24px] font-semibold xl:text-[32px]">
+						<div className="bg-black/60s text-whites absolute left-4 top-16 z-[4] w-[90%] space-y-2 p-4 md:left-16 md:top-40 md:w-auto">
+							<p className="lg:leading-[ 88px] text-[24px] font-semibold lg:text-[72px]">
 								{getLocaleText(item?.title || {}, locale)}
 							</p>
 							<p className="text-[16px] xl:text-[24px]">
