@@ -42,7 +42,7 @@ const nextConfig = (phase) => {
 		i18n,
 		reactStrictMode: true,
 		env: {
-			SITE_URL: 'https://dev-tradewinds.vercel.app',
+			SITE_URL: 'https://pixel-tradewinds.vercel.app',
 			// #DEV
 			// SITE_URL: 'https://tradewindsmpshoppingsite.azurewebsites.net',
 			// #UAT
