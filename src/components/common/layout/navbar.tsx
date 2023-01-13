@@ -84,21 +84,122 @@ const Header = () => {
 		setIsOpen((pevState) => !pevState);
 	};
 
+	const cartIconAndUsername = (
+		<div className="flex justify-center">
+			<div
+				className={`${
+					isAuth
+						? 'md:mx-4 md:mt-5 lg:mr-[58px] lg:ml-[111.1px]'
+						: 'md:mx-[38px] md:mt-5 lg:ml-[111.43px]'
+				}`}
+			>
+				<CartIcon
+					count={cartProducts?.length || 0}
+					onClick={() => router.push('/cart')}
+					iconClassName="text-[11.74px] md:text-[19px] lg:text-[25.16px]"
+					countClassName={`hidden md:block ${
+						isAuth ? 'md:!-top-3 !lg:-top-2 !right-0' : ''
+					}`}
+				/>
+
+				{/* Name and logout button */}
+				{isAuth && (
+					<div className="group relative cursor-pointer">
+						<p
+							className="overflow-ellipsis whitespace-nowrap text-white md:w-[64px] md:text-xs md:leading-[15px] lg:!text-lg lg:leading-[22px]"
+							onMouseEnter={() => setShowLogout(true)}
+						>
+							{`Hi, ${customerData.name.substring(0, 10)}`}
+						</p>
+
+						<div className="absolute right-0 z-50 hidden w-[200px] bg-accent-primary-main p-2 text-white hover:bg-primary-main group-hover:block md:right-auto">
+							<div
+								className="flex cursor-pointer"
+								onClick={() => {
+									resetCartState();
+									logout();
+									setShowLogout(false);
+								}}
+							>
+								<FiLogOut size={20} className="mr-2" />{' '}
+								{t('logout_text')}
+							</div>
+						</div>
+					</div>
+				)}
+			</div>
+
+			{isAuth ? (
+				<div className="hidden md:ml-[6px] md:flex">
+					<Button
+						href={generateBuyerDashboardUrl({
+							redirect_to: BUYER_DASHBOARD_PAGES.buyers,
+							access_key: customerData.access.token,
+							refresh_key: customerData.refresh.token
+						})}
+						variant="buyer"
+						className="flex flex-col items-center justify-center rounded-none !px-0 !py-0 transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary md:mr-[5.56px] md:!h-[70px] md:!w-[73px] lg:!mr-[6.57px] lg:!h-[78.63px] lg:!w-[94.43px] lg:!text-lg lg:leading-[22px]"
+					>
+						<AiOutlineDashboard size={35} />
+						<p className="md:text-[8px]">{t('common:dashboard')}</p>
+					</Button>
+
+					<Button
+						href={generateBuyerDashboardUrl({
+							redirect_to: BUYER_DASHBOARD_PAGES.buyer_rfq,
+							action: BUYER_DASHBOARD_ACTIONS.create_rfq,
+							access_key: customerData.access.token,
+							refresh_key: customerData.refresh.token
+						})}
+						variant="special"
+						className="flex-col !items-center rounded-none !px-0 py-0 transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08] md:!h-[70px] md:!w-[73px] lg:!h-[78.63px] lg:!w-[94.43px] lg:!text-lg lg:leading-[22px]"
+					>
+						<div className="flex items-center justify-center text-center">
+							<BiMessageDetail size={25} />
+						</div>
+						<p className="text-primary-main md:text-[8px] md:leading-[15px]">
+							{t('navigation:submit_rfq_text')}
+						</p>
+					</Button>
+				</div>
+			) : (
+				<div className="hidden md:flex md:items-center lg:ml-[6px]">
+					<button
+						type="button"
+						// className="rounded-sm border-[1px] bg-transparent px-5 py-2 text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary"
+						className="flex flex-col items-center justify-center rounded-sm border bg-transparent text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary md:mr-[5.56px] md:!h-[42px] md:!w-[73px] md:!font-normal lg:!mr-[9px] lg:!w-[94px] lg:!border-2 lg:!border-secondary lg:!text-lg lg:leading-[22px]"
+						onClick={setIsSignUpOpen}
+					>
+						{t('sign_up_text')}
+					</button>
+					<Button
+						variant="special"
+						// className="rounded-sm border-[1px] border-secondary bg-secondary px-5 py-2 text-white transition duration-300 ease-in-out hover:border-white hover:bg-transparent"
+						className="rounded-none !px-0 py-0 transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08] md:!h-[42px] md:!w-[73px] md:!font-normal lg:!w-[94px] lg:!text-lg lg:leading-[22px]"
+						onClick={setIsLoginOpen}
+					>
+						{t('log_in_text')}
+					</Button>
+				</div>
+			)}
+		</div>
+	);
+
 	return (
 		<header
-			className={`sticky top-0 z-[10000] w-full md:h-[111px] lg:h-[119.68px] ${
+			className={`sticky top-0 z-[10000] h-[50.6px] w-full md:h-[111px] lg:h-[119.68px] ${
 				isEco
 					? 'bg-primary-eco'
 					: 'bg-gradient-to-r from-success via-accent-primary-main to-primary-main'
 			}`}
 		>
 			{/* <div className="2xl:container 2xl:mx-auto"> */}
-			<div>
-				{/* Menu icon */}
+			<div className="h-full">
 				<div
-					className="mx-autos flex items-center md:h-[70px] lg:h-[76px]"
+					className="mx-autos md:px-auto flex h-[50.6px] items-center justify-between px-[21.46px] md:h-[70px] md:px-0 lg:h-[76px]"
 					onClick={() => setShowLogout(false)}
 				>
+					{/* Menu icon */}
 					<button
 						type="button"
 						className="flex md:hidden"
@@ -112,7 +213,11 @@ const Header = () => {
 					</button>
 
 					{/* Tradewinds logo */}
-					<div className="md:mr-[24.51px] md:mt-[6px] md:mb-[7.44] md:ml-[17px] lg:mr-[112px] lg:h-[56px] lg:w-[202px]">
+					<div
+						className={`md:mt-[6px] md:mb-[7.44] md:ml-[17px] lg:mr-[112px] lg:h-[56px] lg:w-[202px] ${
+							isAuth ? '' : 'md:mr-[24.51px]'
+						}`}
+					>
 						<div
 							className="relative h-[28px] w-[101px] md:h-[57px] md:w-[69.49px] lg:h-[56px] lg:w-[202px]"
 							id="logo"
@@ -157,111 +262,14 @@ const Header = () => {
 					<SearchBar />
 
 					{/* Mobile Right Search Icons */}
-					<div className="mr-4 md:hidden">
-						<HiOutlineSearch className="h-6 w-6 text-white" />
+					<div className="flex items-center md:mr-4 md:hidden">
+						{/* <HiOutlineSearch className="h-[7.9px] w-[7.37px] text-white md:h-6 md:w-6" /> */}
+						<HiOutlineSearch className="mr-4 h-4 w-4 text-white md:h-6 md:w-6" />
+						{cartIconAndUsername}
 					</div>
 
-					<div className="flex justify-center">
-						{/* Cart Icon and Login user name */}
-						<div
-							className={`${
-								isAuth
-									? 'md:mx-4 md:mt-5 lg:mr-[58px] lg:ml-[111.1px]'
-									: 'md:mx-[38px] md:mt-5 lg:ml-[111.43px]'
-							}`}
-						>
-							<CartIcon
-								count={cartProducts?.length || 0}
-								onClick={() => router.push('/cart')}
-								iconClassName="md:text-[19px] lg:text-[25.16px]"
-								countClassName={
-									isAuth ? 'md:!-top-3 !lg:-top-2 !right-0' : ''
-								}
-							/>
-
-							{/* Name and logout button */}
-							{isAuth && (
-								<div className="group relative cursor-pointer">
-									<p
-										className="overflow-ellipsis whitespace-nowrap text-white md:w-[64px] md:text-xs md:leading-[15px] lg:!text-lg lg:leading-[22px]"
-										onMouseEnter={() => setShowLogout(true)}
-									>
-										{`Hi, ${customerData.name.substring(0, 10)}`}
-									</p>
-
-									<div className="absolute right-0 z-50 hidden w-[200px] bg-accent-primary-main p-2 text-white hover:bg-primary-main group-hover:block md:right-auto">
-										<div
-											className="flex cursor-pointer"
-											onClick={() => {
-												resetCartState();
-												logout();
-												setShowLogout(false);
-											}}
-										>
-											<FiLogOut size={20} className="mr-2" />{' '}
-											{t('logout_text')}
-										</div>
-									</div>
-								</div>
-							)}
-						</div>
-
-						{isAuth ? (
-							<div className="hidden md:ml-[6px] md:flex">
-								<Button
-									href={generateBuyerDashboardUrl({
-										redirect_to: BUYER_DASHBOARD_PAGES.buyers,
-										access_key: customerData.access.token,
-										refresh_key: customerData.refresh.token
-									})}
-									variant="buyer"
-									className="flex flex-col items-center justify-center rounded-none !px-0 !py-0 transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary md:mr-[5.56px] md:!h-[70px] md:!w-[73px] lg:!mr-[6.57px] lg:!h-[78.63px] lg:!w-[94.43px] lg:!text-lg lg:leading-[22px]"
-								>
-									<AiOutlineDashboard size={35} />
-									<p className="md:text-[8px]">
-										{t('common:dashboard')}
-									</p>
-								</Button>
-
-								<Button
-									href={generateBuyerDashboardUrl({
-										redirect_to: BUYER_DASHBOARD_PAGES.buyer_rfq,
-										action: BUYER_DASHBOARD_ACTIONS.create_rfq,
-										access_key: customerData.access.token,
-										refresh_key: customerData.refresh.token
-									})}
-									variant="special"
-									className="flex-col !items-center rounded-none !px-0 py-0 transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08] md:!h-[70px] md:!w-[73px] lg:!h-[78.63px] lg:!w-[94.43px] lg:!text-lg lg:leading-[22px]"
-								>
-									<div className="flex items-center justify-center text-center">
-										<BiMessageDetail size={25} />
-									</div>
-									<p className="text-primary-main md:text-[8px] md:leading-[15px]">
-										{t('navigation:submit_rfq_text')}
-									</p>
-								</Button>
-							</div>
-						) : (
-							<div className="hidden md:flex md:items-center lg:ml-[6px]">
-								<button
-									type="button"
-									// className="rounded-sm border-[1px] bg-transparent px-5 py-2 text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary"
-									className="flex flex-col items-center justify-center rounded-sm border bg-transparent text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary md:mr-[5.56px] md:!h-[42px] md:!w-[73px] md:!font-normal lg:!mr-[9px] lg:!w-[94px] lg:!border-2 lg:!border-secondary lg:!text-lg lg:leading-[22px]"
-									onClick={setIsSignUpOpen}
-								>
-									{t('sign_up_text')}
-								</button>
-								<Button
-									variant="special"
-									// className="rounded-sm border-[1px] border-secondary bg-secondary px-5 py-2 text-white transition duration-300 ease-in-out hover:border-white hover:bg-transparent"
-									className="rounded-none !px-0 py-0 transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08] md:!h-[42px] md:!w-[73px] md:!font-normal lg:!w-[94px] lg:!text-lg lg:leading-[22px]"
-									onClick={setIsLoginOpen}
-								>
-									{t('log_in_text')}
-								</Button>
-							</div>
-						)}
-					</div>
+					{/* Cart Icon and Login user name */}
+					<div className="hidden md:block">{cartIconAndUsername}</div>
 				</div>
 
 				{/* Bottom nav */}

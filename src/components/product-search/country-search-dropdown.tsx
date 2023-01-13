@@ -84,7 +84,7 @@ const CountrySearchDropdown: React.FC<CountrySearchDropdownProps> = (
 				<div className="relative mt-1">
 					<div className={inputAndButtonContainerClassName}>
 						<Combobox.Input
-							className={`h-full w-full outline-none ${inputClassName}`}
+							className={`h-full w-full outline-none lg:!text-[15px] lg:!leading-[41px] ${inputClassName}`}
 							displayValue={(country) =>
 								getLocaleText(
 									(country as any)?.name || '',
@@ -95,7 +95,7 @@ const CountrySearchDropdown: React.FC<CountrySearchDropdownProps> = (
 						/>
 						<Combobox.Button className={buttonClassName}>
 							<ChevronDownIcon
-								className="text-gray-400 h-5 w-5"
+								className="h-5 w-5 text-[#E1DDDD]"
 								aria-hidden="true"
 							/>
 						</Combobox.Button>

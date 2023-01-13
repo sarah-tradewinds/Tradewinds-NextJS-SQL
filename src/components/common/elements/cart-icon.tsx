@@ -22,11 +22,11 @@ const CartIcon: React.FC<CartIconProps> = ({
 			<AiOutlineShoppingCart
 				className={`text-[40px] text-white ${iconClassName}`}
 			/>
-			<span
-				className={`absolute -top-6 -right-2 flex h-[24px] w-[24px] items-center justify-center rounded-full bg-secondary font-semibold text-white md:h-[24px] md:w-[24px] md:text-xs lg:-top-6 ${countClassName}`}
+			<div
+				className={`absolute -top-6 -right-2 flex h-[24px] w-[24px] items-center justify-center rounded-full bg-secondary text-center align-middle font-semibold text-white md:h-[24px] md:w-[24px] md:text-xs lg:-top-6 ${countClassName}`}
 			>
-				{count}
-			</span>
+				<span>{count}</span>
+			</div>
 		</div>
 	);
 };

@@ -127,10 +127,10 @@ const HomePage: NextPage<
 			/>
 
 			{/* <div className="desktop:mt-[31px]s container mx-auto md:px-4 lg:px-8"> */}
-			<div className="md:mt-48 lg:mt-[31px]">
+			<div className="mt-12 md:mt-48 lg:mt-[31px]">
 				{/* Category and sub categories */}
 				{/* <div className="mt-12 space-y-12 md:mt-0 md:space-y-8"> */}
-				<div className="lg:mx-[23px] lg:space-y-[27px]">
+				<div className="space-y-[41px] lg:mx-[23px] lg:space-y-[27px]">
 					{homeMainCategoriesAndCategories?.cat_section &&
 						homeMainCategoriesAndCategories?.cat_section?.map(
 							(

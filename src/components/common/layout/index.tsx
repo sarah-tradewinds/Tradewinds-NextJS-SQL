@@ -30,6 +30,7 @@ import {
 
 import ProductFilterSlider from 'components/product-search/product-filter-mobile/product-filter-slider';
 import { getAddresses } from 'lib/customer/addres.lib';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useAuthStore } from 'store/auth';
 import { useCartStore } from 'store/cart-store';
@@ -62,6 +63,7 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 
 	const fetchCart = useCartStore((state) => state.fetchCart);
 
+	const { route } = useRouter();
 	const { routeChangeStart } = useRouteEvent();
 
 	useEffect(() => {
@@ -102,7 +104,9 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 				<NavBar />
 				<SignUpPage />
 				<Login />
-				<main className="bg-bg-main dark:bg-bg-eco">{children}</main>
+				<main className="bg-bg-main pb-8 dark:bg-bg-eco">
+					{children}
+				</main>
 
 				{/* Bottom navbar for small screen */}
 				<div className="fixed bottom-0 left-0 right-0 z-[1000] h-[51px] bg-primary-main dark:bg-primary-eco md:hidden">
@@ -112,12 +116,16 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 							<MdOutlineHome className="text-[32px] font-semibold text-white" />
 						</Link>
 
-						<BsSliders
-							className="text-[32px] font-semibold text-white"
-							onClick={() =>
-								setIsProductFilterSliderOpen((prevState) => !prevState)
-							}
-						/>
+						{route === '/product-search' && (
+							<BsSliders
+								className="text-[32px] font-semibold text-white"
+								onClick={() =>
+									setIsProductFilterSliderOpen(
+										(prevState) => !prevState
+									)
+								}
+							/>
+						)}
 
 						{/* Sign-in button */}
 						{!isAuth && (
@@ -181,6 +189,7 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 						)}
 					</div>
 				</div>
+
 				<Footer />
 			</div>
 			{/* </SWRConfig> */}

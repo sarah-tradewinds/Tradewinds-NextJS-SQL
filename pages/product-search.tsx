@@ -1,7 +1,7 @@
 import {
-  GetServerSideProps,
-  InferGetServerSidePropsType,
-  NextPage
+	GetServerSideProps,
+	InferGetServerSidePropsType,
+	NextPage
 } from 'next';
 
 // Third party packages
@@ -23,10 +23,11 @@ import MiniRFQCard from 'components/product-search/rfq-mini-card.components';
 import SubCategoryTile from 'components/product-search/sub-category-tile';
 import TrendingCategorySlider from 'components/product-search/trending-category-slider';
 import TrendingSectionTile from 'components/product-search/trending-section-tile';
+import useDeviceSize from 'hooks/use-device-size.hooks';
 import { getCountryById } from 'lib/common.lib';
 import {
-  getProducts,
-  getSelectedMainCategoryAndCategories
+	getProducts,
+	getSelectedMainCategoryAndCategories
 } from 'lib/product-search.lib';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
@@ -36,8 +37,8 @@ import { getIdAndName, useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';
 import { useProductCompareStore } from 'store/product-compare-store';
 import {
-  getFilterValueFromQuery,
-  getProductSearchURL
+	getFilterValueFromQuery,
+	getProductSearchURL
 } from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
 
@@ -83,6 +84,7 @@ const ProductSearchPage: NextPage<
 
 	const router = useRouter();
 	const { t } = useTranslation();
+	const { deviceWidth } = useDeviceSize();
 
 	useEffect(() => {
 		const [mainCategoryId] =
@@ -196,7 +198,7 @@ const ProductSearchPage: NextPage<
 	const [countryId] = getIdAndName((query.country || '') as string);
 
 	return (
-		<div className="container mx-auto">
+		<div className="scontainer mx-autos">
 			<Seo title="Product search page" description="" />
 
 			<div>
@@ -223,7 +225,7 @@ const ProductSearchPage: NextPage<
 				)}
 			</div>
 
-			<div className="top-[120px] z-20 md:sticky lg:top-[120px] lg:mt-[18.14px] lg:ml-[26px] lg:mr-[23px]">
+			<div className="top-[104px] z-20 md:sticky md:ml-[9px] md:mr-[10px] md:pt-[14.01px] lg:top-[120px] lg:ml-[26px] lg:mr-[23px] lg:pt-[18.14px]">
 				<ProductSearchFilterBar
 					onCountryChange={(id = '', name = '') => {
 						const country = id && name ? `${id}_${name || ''}` : '';
@@ -248,11 +250,11 @@ const ProductSearchPage: NextPage<
 				/>
 			</div>
 
-			<div className="relative flex lg:mt-[19px] lg:pl-6">
+			<div className="relative flex md:mt-[9px] md:mr-[10px] md:pl-[9px] lg:mt-[19px] lg:pl-6">
 				{/* Side container */}
-				<section className="lg:mr-[25px] lg:w-[297px]">
+				<section className="hidden md:mr-[13px] md:block md:w-[159px] lg:mr-[25px] lg:w-[297px]">
 					{/* filters */}
-					<div className="lg:mb-[17px] lg:h-[475px]">
+					<div className="md:mb-[14px] md:h-[383px] lg:mb-[17px] lg:h-[475px]">
 						<ProductFilter />
 					</div>
 
@@ -262,7 +264,7 @@ const ProductSearchPage: NextPage<
 				</section>
 
 				{/* Category container and Product list */}
-				<div className="lg:w-[1142px]">
+				<div className="md:w-[552.06px] lg:w-[1142px]">
 					{router.query.is_trending && (
 						<TrendingSectionTile
 							minPrice={+minPrice}
@@ -296,24 +298,30 @@ const ProductSearchPage: NextPage<
 
 					{/* MainCategory and categories list */}
 					{!router.query.is_trending && selectedCategories.length > 0 && (
-						<div className="flex rounded-md bg-white lg:mb-[23px] lg:h-[209px] lg:py-[17px] lg:pl-[17px]">
+						<div className="rounded-md bg-white md:mb-[10.87px] md:flex md:h-[101.13px] md:py-2 md:pl-[8.06px] lg:mb-[23px] lg:h-[209px] lg:py-[17px] lg:pl-[17px]">
 							{/* Main category Card */}
-							<div className="lg:w-[266px]">
+							<div
+								className="h-[42px] w-full md:h-auto md:w-[122px] lg:w-[266px]"
+								style={{
+									backgroundColor:
+										deviceWidth < 744 ? selectedMainCategory?.color : ''
+								}}
+							>
 								{isSelectedMainCategoryAndCategoriesLoading ? (
 									<div>
 										<Skeleton />
-										<Skeleton height="154px" />
+										<Skeleton height="84px" />
 									</div>
 								) : (
-									<div className="md:justify-betweens flex h-full items-center space-x-4 p-2 md:flex-col md:items-start md:space-x-0 md:p-0">
-										<p className="text-lg font-semibold md:text-[10px] md:text-gray/80 lg:text-[21px] lg:leading-[26px]">
+									<div className="md:justify-betweens flex h-full items-center p-2 md:flex-col md:items-start md:space-x-0 md:p-0 lg:space-x-4">
+										<p className="text-[16px] font-semibold leading-5 md:text-[10px] md:leading-3 md:text-gray/80 lg:text-[21px] lg:leading-[26px]">
 											{getLocaleText(
 												selectedMainCategory?.title || {},
 												router.locale
 											)}
 										</p>
 										<div
-											className="relative mt-2 h-[38px] w-[38px] md:h-[70px] md:w-[99px] lg:h-full lg:w-[266px]"
+											className="relative hidden h-[38px] w-[38px] md:mt-1 md:block md:h-[70px] md:w-[99px] lg:mt-2 lg:h-full lg:w-[266px]"
 											style={{
 												backgroundColor: selectedMainCategory?.color,
 												border: selectedMainCategory?.color
@@ -338,7 +346,7 @@ const ProductSearchPage: NextPage<
 								)}
 							</div>
 
-							<div className="hidden md:block lg:ml-[13px] lg:mt-[35px] lg:mb-[25px] lg:h-[150px] lg:w-[838px]">
+							<div className="hidden md:mt-[9px] md:block md:w-[402px] lg:ml-[13px] lg:mt-[35px] lg:mb-[25px] lg:h-[150px] lg:w-[838px]">
 								<TrendingCategorySlider
 									categories={[...selectedCategories]}
 									selectedCategoryIds={selectedCategoryList || []}
@@ -357,7 +365,10 @@ const ProductSearchPage: NextPage<
 							</div>
 
 							{/* For small screen only */}
-							<div className="px-2 py-4 md:hidden">
+							<div
+								className="flex h-12 overflow-x-auto bg-[#F5F5F5] px-2 py-4 md:hidden"
+								style={{ width: `${deviceWidth}px` }}
+							>
 								<div ref={ref} className="keen-slider">
 									{selectedCategories?.map((subCategory: any) => {
 										return (
@@ -366,7 +377,7 @@ const ProductSearchPage: NextPage<
 												className="keen-slider__slide"
 											>
 												<SubCategoryTile
-													className="pb-4"
+													className="!w-[148px] pb-4"
 													imageUrl={
 														subCategory.image?.url ||
 														'/vehicles/green-tractor.png'

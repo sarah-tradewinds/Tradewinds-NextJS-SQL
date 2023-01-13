@@ -37,7 +37,7 @@ const CategoriesFilter: React.FC = (props) => {
 		useCategoriesByMainCategoryId(main_category_id);
 
 	return (
-		<div className="space-y-2">
+		<div className="space-y-1">
 			{/* Main categories */}
 			<ContentSkeleton isLoading={isMainCategoriesLoading} />
 
@@ -251,7 +251,7 @@ const SubCategoryList: React.FC<{
 				return (
 					<button
 						key={specificCategoryId}
-						className={`ml-4 text-left ${
+						className={`ml-4 text-left md:text-[12px] md:leading-[15px] lg:text-[15px] lg:leading-[22px] ${
 							isSpecificCategorySelected ? 'font-semibold' : ''
 						}`}
 						onClick={() => {
@@ -297,7 +297,7 @@ const CategoryCollapse: React.FC<{
 			<label
 				htmlFor={id}
 				onClick={onClick}
-				className={`flex cursor-pointer items-center space-x-2 text-left text-[13.2704px] leading-[16px] md:text-[15px] md:leading-[22px] ${
+				className={`flex cursor-pointer items-center space-x-1 text-left md:text-[12px] md:leading-[15px] lg:text-[15px] lg:leading-[22px] ${
 					isOpen ? 'font-semibold' : ''
 				}`}
 			>

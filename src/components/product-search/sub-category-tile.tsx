@@ -26,7 +26,7 @@ const SubCategoryTile: React.FC<SubCategoryTileProps> = ({
 		>
 			{!icon && (
 				<div>
-					<div className="relative h-[60px] w-[60px] object-cover">
+					<div className="object-covers relative h-[33px] w-[37px] md:h-[60px] md:w-[60px]">
 						<ImageWithErrorHandler
 							src={imageUrl}
 							alt={alt}
@@ -37,7 +37,7 @@ const SubCategoryTile: React.FC<SubCategoryTileProps> = ({
 			)}
 			{icon}
 			<div className="relative">
-				<p className="text-[15px] font-semibold text-gray md:text-[12px] lg:text-[18px]">
+				<p className="text-[15px] font-semibold leading-[18px] text-gray md:text-[12px] lg:text-[18px]">
 					{title}
 				</p>
 				{showBorder && (

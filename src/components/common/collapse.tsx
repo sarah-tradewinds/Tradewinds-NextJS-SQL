@@ -43,18 +43,19 @@ const Collapse: React.FC<CollapseProps> = (props) => {
 		<div>
 			{/* Header */}
 			<div
-				className={`relative flex cursor-pointer justify-between ${
+				className={`relative flex h-[67px] cursor-pointer justify-between ${
 					isReverse ? 'flex-row-reverse' : ''
 				} items-center`}
 				style={{ backgroundColor: collapseHeadBgHexColor }}
 			>
 				<div
-					className={`flex items-center ${
+					className={`items-centers flex ${
 						isReverse ? 'flex-row-reverse' : ''
 					}`}
 				>
 					<div
 						onClick={() => {
+							console.log('clicked');
 							setIsOpen((prevState) => !prevState);
 							if (onLeadingClick) {
 								onLeadingClick();
@@ -65,7 +66,7 @@ const Collapse: React.FC<CollapseProps> = (props) => {
 					</div>
 					<div
 						onClick={onContentClick}
-						className={`ml-4 flex flex-col p-2 ${contentClassName}`}
+						className={`ml-2 flex flex-col ${contentClassName}`}
 					>
 						<p>{title}</p>
 						<p>{subtitle}</p>

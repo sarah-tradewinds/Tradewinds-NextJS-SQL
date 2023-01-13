@@ -125,20 +125,22 @@ const CategorySubCategoriesSection: React.FC<
 						router.push(`/product-search?${params}`);
 					}}
 					leading={
-						isOpen ? (
-							<HiMinusCircle className="m-1 text-3xl text-primary-main" />
-						) : (
-							<HiPlusCircle className="m-1 text-3xl text-primary-main" />
-						)
+						<div
+							className={`mt-1 text-[19.9px] text-primary-main ${
+								isReverse ? 'mr-4' : 'ml-4 '
+							}`}
+						>
+							{isOpen ? <HiMinusCircle /> : <HiPlusCircle />}
+						</div>
 					}
 					title={
-						<span className="text-left text-[15px] font-semibold text-primary-main">
+						<span className="text-left text-[15px] font-semibold leading-[18px] text-primary-main">
 							{mainCategoryTitle}
 						</span>
 					}
 					subtitle={
 						<div>
-							<span className="text-[12px] font-semibold text-primary-main">
+							<span className="text-[12px] font-semibold leading-[15px] text-primary-main">
 								Name Here {` `}
 							</span>
 							<span className="text-gray">

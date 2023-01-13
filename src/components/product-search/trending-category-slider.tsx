@@ -5,7 +5,6 @@ import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import Slider from 'react-slick';
 import { getLocaleText } from 'utils/get_locale_text';
 import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
-import Button from '../common/form/button';
 
 const TrendingCategorySlider: React.FC<{
 	categories: any[];
@@ -16,8 +15,7 @@ const TrendingCategorySlider: React.FC<{
 	const slider = useRef(null);
 	const router = useRouter();
 
-	const { deviceSize } = useDeviceSize();
-	console.log('deviceSize =', deviceSize);
+	const { deviceSize, deviceWidth } = useDeviceSize();
 
 	const {
 		categories = [],
@@ -27,7 +25,7 @@ const TrendingCategorySlider: React.FC<{
 	} = props;
 
 	let slideToShow = 3;
-	if (deviceSize === 'md') {
+	if (deviceWidth >= 744) {
 		slideToShow = 2;
 	}
 
@@ -42,17 +40,14 @@ const TrendingCategorySlider: React.FC<{
 
 	return (
 		<div className="relative w-full">
-			<Button
-				className={`-left-3s absolute left-0 top-1/2 flex !h-8 !w-10 -translate-y-1/2 transform items-center justify-center !rounded-full border-2 border-gray !p-0 !text-gray lg:!h-[33px] lg:!w-[33px]`}
+			<button
+				className={`absolute top-1/2 -left-1 flex -translate-y-1/2 transform items-center justify-center !rounded-full border border-gray !px-0 !py-0 !text-gray md:!h-[22px] md:!w-[22px] lg:left-4 lg:!h-[33px] lg:!w-[33px] lg:border-2`}
 				onClick={() => (slider?.current as any)?.slickPrev()}
 			>
 				<MdChevronLeft className="h-full w-full" />
-			</Button>
+			</button>
 
-			<div
-				// className={`mx-6s md:ml-10s lg:mx-[48px]s bg-error ${className}`}
-				className={`lg:ml-14 ${className}`}
-			>
+			<div className={`md:ml-6 lg:ml-14 ${className}`}>
 				<Slider ref={slider} {...settings}>
 					{categories?.map((subCat: any) => {
 						const { categories: category } = subCat as any;
@@ -76,17 +71,18 @@ const TrendingCategorySlider: React.FC<{
 									onTileClick?.(categoryData?.id, categoryData)
 								}
 							>
-								<div className="flex items-center space-x-[7px]">
-									<div className="relative h-[29px] w-[29px] lg:h-[60px] lg:w-[60px] lg:leading-[18px]">
+								<div className="flex items-center">
+									<div className="relative h-[30px] w-[30px] md:mr-[6px] lg:mr-[7px] lg:h-[60px] lg:w-[60px] lg:leading-[18px]">
 										<ImageWithErrorHandler
 											src={categoryData.image?.url}
 											alt="bean"
 											fill={true}
+											className="object-contain"
 										/>
 									</div>
 
 									<p
-										className={`w-[186px] text-[8px] lg:text-[15px] lg:font-semibold ${
+										className={`w-[186px]s md:text-[10px] md:leading-3 lg:text-[15px] lg:font-semibold ${
 											isSelected ? 'border-b-4 border-secondary' : ''
 										}`}
 									>
@@ -99,12 +95,12 @@ const TrendingCategorySlider: React.FC<{
 				</Slider>
 			</div>
 
-			<Button
-				className={`absolute right-0 top-1/2 flex !h-8 !w-10 -translate-y-1/2 transform items-center justify-center !rounded-full border-2 border-gray/80 !p-0 !text-gray/80 lg:!h-[33px] lg:!w-[33px]`}
+			<button
+				className={`absolute right-0 top-1/2 flex -translate-y-1/2 transform items-center justify-center !rounded-full border border-gray/80 !px-0 !py-0 !text-gray/80 md:!h-[22px] md:!w-[22px] lg:!h-[33px] lg:!w-[33px] lg:border-2`}
 				onClick={() => (slider?.current as any)?.slickNext()}
 			>
 				<MdChevronRight className="h-full w-full" />
-			</Button>
+			</button>
 		</div>
 	);
 };

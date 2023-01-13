@@ -22,7 +22,7 @@ const Index = ({ hcd, cardAList, cardBData }: Props) => {
 			</div> */}
 
 			<div className="absolute bottom-0 z-[3] w-full md:-bottom-44 lg:bottom-0">
-				<div className="4k:container 4k:mx-auto tablet:ml-4 tablet:mr-[18px] desktop:ml-[19px] desktop:mr-[23px]">
+				<div className="4k:containers 4k:mx-autos md:ml-4 md:mr-[18px] lg:ml-[19px] lg:mr-[23px]">
 					<CardWrapper cardAList={cardAList} cardBData={cardBData} />
 				</div>
 			</div>
