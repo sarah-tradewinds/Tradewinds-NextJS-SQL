@@ -28,7 +28,7 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 			{heroCarouselData.map((item, index) => (
 				<div
 					// className="relative h-[75vh] w-full"
-					className="relative h-[688px] w-full"
+					className="relative h-[329px] w-full md:h-[343px] lg:h-[688px]"
 					key={item.id || index}
 				>
 					<Link href={item.link ?? '/'}>
