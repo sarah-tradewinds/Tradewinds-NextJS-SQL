@@ -313,7 +313,7 @@ const ProductSearchPage: NextPage<
 										<Skeleton height="84px" />
 									</div>
 								) : (
-									<div className="md:justify-betweens flex h-full items-center p-2 md:flex-col md:items-start md:space-x-0 md:p-0 lg:space-x-4">
+									<div className="md:justify-betweens flex h-full items-center p-2 md:flex-col md:items-start md:space-x-0 md:p-0">
 										<p className="text-[16px] font-semibold leading-5 md:text-[10px] md:leading-3 md:text-gray/80 lg:text-[21px] lg:leading-[26px]">
 											{getLocaleText(
 												selectedMainCategory?.title || {},

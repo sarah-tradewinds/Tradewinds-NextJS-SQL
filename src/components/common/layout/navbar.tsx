@@ -76,8 +76,10 @@ const Header = () => {
 	//  !isOpen ? 'pc:w-0 pc:opacity-0 pc:overflow-hidden' : ''
 	// }`;
 
-	let classes = `bg-white dark:bg-accent-primary-eco md:bg-bg-main md:w-full md:h-[41px] lg:h-[43.68px] md:pl-4 md:flex items-center ${
-		!isOpen ? 'pc:w-0 pc:opacity-0 pc:overflow-hidden' : ''
+	let classes = `bg-white dark:bg-accent-primary-eco md:bg-[#DCDBDB] w-[180.97px] md:w-full md:h-[41px] lg:h-[43.68px] md:pl-5 md:pr-4 lg:px-[35px] md:flex items-center ${
+		!isOpen
+			? 'pc:w-0 pc:opacity-0 pc:overflow-hidden'
+			: 'fixed bottom-[51px] top-[50.6px]'
 	}`;
 
 	const drawerHandler = () => {
@@ -98,7 +100,7 @@ const Header = () => {
 					onClick={() => router.push('/cart')}
 					iconClassName="text-[11.74px] md:text-[19px] lg:text-[25.16px]"
 					countClassName={`hidden md:block ${
-						isAuth ? 'md:!-top-3 !lg:-top-2 !right-0' : ''
+						isAuth ? 'md:!-top-3 !lg:-top-0 !right-2' : ''
 					}`}
 				/>
 
@@ -138,7 +140,7 @@ const Header = () => {
 							refresh_key: customerData.refresh.token
 						})}
 						variant="buyer"
-						className="flex flex-col items-center justify-center rounded-none !px-0 !py-0 transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary md:mr-[5.56px] md:!h-[70px] md:!w-[73px] lg:!mr-[6.57px] lg:!h-[78.63px] lg:!w-[94.43px] lg:!text-lg lg:leading-[22px]"
+						className="flex flex-col items-center justify-center rounded-none !px-0 !py-0 transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary md:mr-[5.56px] md:!h-[70px] md:!w-[73px] lg:!mr-[6.57px] lg:!h-[76px] lg:!w-[94.43px] lg:!text-lg lg:leading-[22px]"
 					>
 						<AiOutlineDashboard size={35} />
 						<p className="md:text-[8px]">{t('common:dashboard')}</p>
@@ -152,7 +154,7 @@ const Header = () => {
 							refresh_key: customerData.refresh.token
 						})}
 						variant="special"
-						className="flex-col !items-center rounded-none !px-0 py-0 transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08] md:!h-[70px] md:!w-[73px] lg:!h-[78.63px] lg:!w-[94.43px] lg:!text-lg lg:leading-[22px]"
+						className="flex-col !items-center rounded-none !px-0 py-0 transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08] md:!h-[70px] md:!w-[73px] lg:!h-[76px] lg:!w-[94.43px] lg:!text-lg lg:leading-[22px]"
 					>
 						<div className="flex items-center justify-center text-center">
 							<BiMessageDetail size={25} />
@@ -163,7 +165,7 @@ const Header = () => {
 					</Button>
 				</div>
 			) : (
-				<div className="hidden md:flex md:items-center lg:ml-[6px]">
+				<div className="mr-[39px] hidden md:flex md:items-center">
 					<button
 						type="button"
 						// className="rounded-sm border-[1px] bg-transparent px-5 py-2 text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary"
@@ -274,14 +276,17 @@ const Header = () => {
 
 				{/* Bottom nav */}
 				<div className={classes}>
-					<div className="m-4 flex w-full flex-col justify-between pt-4 sm:mx-auto sm:w-[96%] sm:flex-row sm:pt-0 md:m-0 md:ml-3">
+					<div
+						// className="m-4 flex w-full flex-col justify-between pt-4 sm:mx-auto sm:w-[96%] sm:flex-row sm:pt-0 md:m-0 md:ml-3"
+						className="m-4 flex w-full flex-col justify-between pt-4 md:m-0 md:flex-row md:items-center md:pt-0"
+					>
 						<div className="flex">
 							<div
 								className="group hidden md:inline-block"
 								onMouseEnter={() => setIsMegaMenuOpen(true)}
 								onMouseLeave={() => setIsMegaMenuOpen(false)}
 							>
-								<div className="cursor-pointer font-semibold text-primary-main outline-none dark:text-accent-secondary-eco md:text-xs md:leading-[15px] lg:text-[18px] lg:leading-[22px]">
+								<div className="cursor-pointer font-semibold text-primary-main outline-none dark:text-accent-secondary-eco md:text-xs md:leading-[15px] md:text-[#575858] lg:text-[18px] lg:leading-[22px]">
 									{t('categories_text')}{' '}
 									<span className="hidden md:inline">&gt;</span>
 								</div>
@@ -374,7 +379,7 @@ const Header = () => {
 									<NavLink
 										href="/"
 										className="nav-link border-0"
-										activeClassName="underline font-semibold"
+										activeClassName="capitalize underline font-semibold"
 										onClick={() => {
 											logout();
 											resetCartState();
@@ -387,7 +392,7 @@ const Header = () => {
 							</nav>
 						</div>
 
-						<div className="relative lg:mr-8">
+						<div className="relative">
 							<LanguageDropdown />
 						</div>
 					</div>
