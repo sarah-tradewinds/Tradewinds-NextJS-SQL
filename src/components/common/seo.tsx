@@ -17,8 +17,8 @@ const Seo: React.FC<NextSeoProps> = (props) => {
 				<meta httpEquiv="X-UA-Compatible" content="IE=Edge" />
 				<meta
 					name="viewport"
-					content="width=device-width, initial-scale=1.0"
-					// content="width=device-width, initial-scale=0.9"
+					// content="width=device-width, initial-scale=1.0"
+					content="width=device-width, initial-scale=0.8"
 				/>
 				<meta name="theme-color" content="#044E86" />
 

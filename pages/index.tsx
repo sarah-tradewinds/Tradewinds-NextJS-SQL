@@ -127,81 +127,83 @@ const HomePage: NextPage<
 			/>
 
 			{/* <div className="desktop:mt-[31px]s container mx-auto md:px-4 lg:px-8"> */}
-			<div className="lg:mt-[31px]s mt-12 md:mt-48 lg:-mt-14">
-				{/* Category and sub categories */}
-				{/* <div className="mt-12 space-y-12 md:mt-0 md:space-y-8"> */}
-				<div className="space-y-[41px] lg:mx-[23px] lg:space-y-[27px]">
-					{homeMainCategoriesAndCategories?.cat_section &&
-						homeMainCategoriesAndCategories?.cat_section?.map(
-							(
-								homeMainCategoryAndCategories: CatSubCatSectionType,
-								index: number
-							) => {
-								const canIDisplayFlags = Math.floor(
-									homeMainCategoriesAndCategories?.cat_section?.length /
-										2
-								);
+			<div className="md:container">
+				<div className="mt-12 md:mt-48 lg:-mt-14">
+					{/* Category and sub categories */}
+					{/* <div className="mt-12 space-y-12 md:mt-0 md:space-y-8"> */}
+					<div className="space-y-[41px] lg:mx-[23px] lg:space-y-[27px]">
+						{homeMainCategoriesAndCategories?.cat_section &&
+							homeMainCategoriesAndCategories?.cat_section?.map(
+								(
+									homeMainCategoryAndCategories: CatSubCatSectionType,
+									index: number
+								) => {
+									const canIDisplayFlags = Math.floor(
+										homeMainCategoriesAndCategories?.cat_section
+											?.length / 2
+									);
 
-								if (index !== 0) {
-									isReverse = !isReverse;
+									if (index !== 0) {
+										isReverse = !isReverse;
+									}
+
+									return (
+										<>
+											<CategorySubCategoriesSection
+												key={
+													homeMainCategoryAndCategories.main_category.id
+												}
+												catSubCat={homeMainCategoryAndCategories}
+												isCustom={
+													homeMainCategoriesAndCategories.is_custom
+												}
+												isReverse={isReverse}
+											/>
+											{/*  Search Categories Banner */}
+											{canIDisplayFlags === index && (
+												<div className="my-[30px] hidden md:block">
+													{searchCategoriesAndTrendingBanner}
+												</div>
+											)}
+										</>
+									);
 								}
-
-								return (
-									<>
-										<CategorySubCategoriesSection
-											key={
-												homeMainCategoryAndCategories.main_category.id
-											}
-											catSubCat={homeMainCategoryAndCategories}
-											isCustom={
-												homeMainCategoriesAndCategories.is_custom
-											}
-											isReverse={isReverse}
-										/>
-										{/*  Search Categories Banner */}
-										{canIDisplayFlags === index && (
-											<div className="my-[30px] hidden md:block">
-												{searchCategoriesAndTrendingBanner}
-											</div>
-										)}
-									</>
-								);
-							}
-						)}
-				</div>
-
-				{/*  Search Categories Banner */}
-				<div className="my-[30px] md:hidden">
-					{searchCategoriesAndTrendingBanner}
-				</div>
-
-				{/* Shop by country and ads */}
-				<div className="space-y-8">
-					{/* Shop by country */}
-					<div className="mt-[30px]">
-						<CountrySlider
-							key={homeCountries?.length}
-							countries={homeCountries}
-							onCountryClick={(country) => {
-								router.push(
-									`/product-search?region=${country?.region?.id}_${
-										country?.region?.name
-									}&country=${country?.id}_${country?.name?.en || ''}`
-								);
-							}}
-							isLoading={isCountriesValidating && !homeCountries}
-							className="overflow-hidden md:!rounded-md"
-						/>
+							)}
 					</div>
 
-					{/* Bottom ADS Banner */}
-					<div className="mt-[30px] grid grid-cols-2">
-						{homeAdvertisements.map((advertisement: any) => (
-							<AddBanner
-								key={advertisement.id}
-								iframe_code={advertisement.i_frame_code}
+					{/*  Search Categories Banner */}
+					<div className="my-[30px] md:hidden">
+						{searchCategoriesAndTrendingBanner}
+					</div>
+
+					{/* Shop by country and ads */}
+					<div className="space-y-8">
+						{/* Shop by country */}
+						<div className="mt-[30px]">
+							<CountrySlider
+								key={homeCountries?.length}
+								countries={homeCountries}
+								onCountryClick={(country) => {
+									router.push(
+										`/product-search?region=${country?.region?.id}_${
+											country?.region?.name
+										}&country=${country?.id}_${country?.name?.en || ''}`
+									);
+								}}
+								isLoading={isCountriesValidating && !homeCountries}
+								className="overflow-hidden md:!rounded-md"
 							/>
-						))}
+						</div>
+
+						{/* Bottom ADS Banner */}
+						<div className="mt-[30px] grid grid-cols-2">
+							{homeAdvertisements.map((advertisement: any) => (
+								<AddBanner
+									key={advertisement.id}
+									iframe_code={advertisement.i_frame_code}
+								/>
+							))}
+						</div>
 					</div>
 				</div>
 			</div>

@@ -37,23 +37,27 @@ module.exports = {
 			'agri-main': '#C4CE7F'
 		},
 		screens: {
-			sm: '640px',
+			// sm: '640px',
 			// md: '768px',
 			// lg: '1024px',
+			// xl: '1280px',
+			// '2xl': '1536px',
+			// '4k': '2560px',
+			// mobile: '320px',
+			// tablet: '744px',
+			// desktop: '1512px'
+			sm: '640px',
 			md: '744px',
-			lg: '1024px',
-			xl: '1280px',
-			'2xl': '1536px',
-			'4k': '2560px',
-			mobile: '320px',
-			tablet: '744px',
-			desktop: '1512px'
+			lg: '1512px'
 		},
+		// container: {
+		//  screens: {
+		//      md: '744px',
+		//      lg: '1512px'
+		//  }
+		// },
 		container: {
-			screens: {
-				'2xl': '1512px',
-				'4k': '1512px'
-			}
+			center: true
 		},
 		extend: {
 			screens: {

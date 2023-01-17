@@ -69,7 +69,7 @@ const ShopByCountryPage: NextPage<
 					</h1>
 				</div>
 
-				<div className="container mx-auto">
+				<div className="container">
 					{/* for small device */}
 					<div className="absolute top-[140px] left-1/2 w-5/6 -translate-x-1/2 transform rounded-t-[40px] bg-white  pt-8 md:hidden">
 						<div className="space-y-2 px-4">
@@ -141,10 +141,68 @@ const ShopByCountryPage: NextPage<
 export const getServerSideProps: GetServerSideProps = async ({
 	locale
 }) => {
+	// Top Row, from left to right: North America, Mexico and Central America, The Caribbean, South America
+	// const topRegionsAndCountries: any[] = [];
+	// const topRegionNames = [
+	//  'north america',
+	//  'mexico and central',
+	//  'america',
+	//  'the caribbean',
+	//  'south america'
+	// ];
+
+	// const middleRegionsAndCountries: any[] = [];
+	// // Bottom Row, from left to right: Europe, Africa, Middle East, Asia
+	// const middleRegionsNames = [
+	//  'europe',
+	//  'africa',
+	//  'middle east',
+	//  'asia'
+	// ];
+
+	// const bottomRegionsAndCountries: any[] = [];
+
 	const regionsAndCountries = await getRegionsAndCountries();
+
+	// const getRegionsAndCountriesList = (
+	//  regionNames: string[],
+	//  revert?: boolean
+	// ) => {
+	//  const regionsAndCountryList: any[] = [];
+	//  regionNames.forEach((regionName) => {
+	//      regionsAndCountries?.forEach((regionAndCountries: any) => {
+	//          const fetchedRegionName = (
+	//              regionAndCountries?.name?.en || ''
+	//          )?.toLowerCase();
+
+	//          if (
+	//              fetchedRegionName === regionName?.toLowerCase() &&
+	//              !revert
+	//          ) {
+	//              regionsAndCountryList.push(regionAndCountries);
+	//          }
+
+	//          if (revert && fetchedRegionName !== regionName?.toLowerCase()) {
+	//              regionsAndCountryList.push(regionAndCountries);
+	//          }
+	//      });
+	//  });
+
+	//  return regionsAndCountryList || [];
+	// }; // End of getRegionsAndCountriesList
+
+	// const regionsAndCountryList: any[] = [
+	//  ...getRegionsAndCountriesList(topRegionNames),
+	//  ...getRegionsAndCountriesList(middleRegionsNames),
+	//  ...getRegionsAndCountriesList(
+	//      [...topRegionNames, ...middleRegionsNames],
+	//      true
+	//  )
+	// ];
 
 	return {
 		props: {
+			// regionsAndCountries: regionsAndCountryList || regionsAndCountries,
 			regionsAndCountries,
 			...(await serverSideTranslations(locale || 'en'))
 		}

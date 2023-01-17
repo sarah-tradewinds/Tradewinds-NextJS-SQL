@@ -38,6 +38,10 @@ import { useCategoryStore } from 'store/eco/category-store';
 import { useHomeStore } from 'store/home';
 
 const Header = () => {
+	const [isOpen, setIsOpen] = useState(false);
+	const [showLogout, setShowLogout] = useState(false);
+	const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
+
 	const {
 		setIsLoginOpen,
 		setIsSignUpOpen,
@@ -63,10 +67,6 @@ const Header = () => {
 		resetCartState: state.resetCartState
 	}));
 
-	const [isOpen, setIsOpen] = useState(false);
-	const [showLogout, setShowLogout] = useState(false);
-	const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
-
 	const { t } = useTranslation('navigation');
 
 	const router = useRouter();
@@ -79,7 +79,7 @@ const Header = () => {
 	let classes = `bg-white dark:bg-accent-primary-eco md:bg-[#DCDBDB] w-[180.97px] md:w-full md:h-[41px] lg:h-[43.68px] md:pl-5 md:pr-4 lg:px-[35px] md:flex items-center ${
 		!isOpen
 			? 'pc:w-0 pc:opacity-0 pc:overflow-hidden'
-			: 'fixed bottom-[51px] top-[50.6px]'
+			: 'fixed bottom-[51px] top-[50.6px] md:relative md:bottom-0 md:top-0'
 	}`;
 
 	const drawerHandler = () => {
@@ -311,7 +311,6 @@ const Header = () => {
 										alt="EcoLogo"
 										width={20}
 										height={20}
-										className=""
 									/>
 									{t('eco_text')}
 								</NavLink>

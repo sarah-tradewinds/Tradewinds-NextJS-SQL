@@ -22,8 +22,10 @@ const Index = ({ hcd, cardAList, cardBData }: Props) => {
 			</div> */}
 
 			<div className="absolute bottom-0 z-[3] w-full md:bottom-16 lg:bottom-20">
-				<div className="4k:containers 4k:mx-autos md:ml-4 md:mr-[18px] lg:ml-[19px] lg:mr-[23px]">
-					<CardWrapper cardAList={cardAList} cardBData={cardBData} />
+				<div className="md:container md:mx-auto">
+					<div className="md:ml-4 md:mr-[18px] lg:ml-[19px] lg:mr-[23px]">
+						<CardWrapper cardAList={cardAList} cardBData={cardBData} />
+					</div>
 				</div>
 			</div>
 		</section>
