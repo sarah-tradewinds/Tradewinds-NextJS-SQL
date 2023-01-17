@@ -150,8 +150,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 	const topRegionsAndCountries: any[] = [];
 	const topRegionNames = [
 		'north america',
-		'mexico and central',
-		'america',
+		'mexico and central america',
 		'the caribbean',
 		'south america'
 	];
@@ -201,8 +200,8 @@ export const getServerSideProps: GetServerSideProps = async ({
 
 	return {
 		props: {
-			// regionsAndCountries: regionsAndCountryList || regionsAndCountries,
-			regionsAndCountries,
+			regionsAndCountries: regionsAndCountryList || regionsAndCountries,
+			// regionsAndCountries,
 			...(await serverSideTranslations(locale || 'en'))
 		}
 	};
