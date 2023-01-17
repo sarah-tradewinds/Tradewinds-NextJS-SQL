@@ -1,10 +1,11 @@
 import Head from 'next/head';
 
 // Third party packages
+import useDeviceSize from 'hooks/use-device-size.hooks';
 import { NextSeo, NextSeoProps } from 'next-seo';
 
 const Seo: React.FC<NextSeoProps> = (props) => {
-	// console.log('[Seo] component', props);
+	const { deviceWidth } = useDeviceSize();
 
 	return (
 		<>
@@ -18,7 +19,9 @@ const Seo: React.FC<NextSeoProps> = (props) => {
 				<meta
 					name="viewport"
 					// content="width=device-width, initial-scale=1.0"
-					content="width=device-width, initial-scale=0.8"
+					content={`width=device-width, initial-scale=${
+						deviceWidth < 744 ? '1' : '0.8'
+					}`}
 				/>
 				<meta name="theme-color" content="#044E86" />
 

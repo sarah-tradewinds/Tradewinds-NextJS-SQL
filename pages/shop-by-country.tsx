@@ -141,64 +141,63 @@ const ShopByCountryPage: NextPage<
 export const getServerSideProps: GetServerSideProps = async ({
 	locale
 }) => {
-	// Top Row, from left to right: North America, Mexico and Central America, The Caribbean, South America
-	// const topRegionsAndCountries: any[] = [];
-	// const topRegionNames = [
-	//  'north america',
-	//  'mexico and central',
-	//  'america',
-	//  'the caribbean',
-	//  'south america'
-	// ];
-
-	// const middleRegionsAndCountries: any[] = [];
-	// // Bottom Row, from left to right: Europe, Africa, Middle East, Asia
-	// const middleRegionsNames = [
-	//  'europe',
-	//  'africa',
-	//  'middle east',
-	//  'asia'
-	// ];
-
-	// const bottomRegionsAndCountries: any[] = [];
-
 	const regionsAndCountries = await getRegionsAndCountries();
 
-	// const getRegionsAndCountriesList = (
-	//  regionNames: string[],
-	//  revert?: boolean
-	// ) => {
-	//  const regionsAndCountryList: any[] = [];
-	//  regionNames.forEach((regionName) => {
-	//      regionsAndCountries?.forEach((regionAndCountries: any) => {
-	//          const fetchedRegionName = (
-	//              regionAndCountries?.name?.en || ''
-	//          )?.toLowerCase();
+	// Top Row, from left to right: North America, Mexico and Central America, The Caribbean, South America
+	// Bottom Row, from left to right: Europe, Africa, Middle East, Asia
+	// Lastly: Global/Rest of worlds (Australia)
 
-	//          if (
-	//              fetchedRegionName === regionName?.toLowerCase() &&
-	//              !revert
-	//          ) {
-	//              regionsAndCountryList.push(regionAndCountries);
-	//          }
+	const topRegionsAndCountries: any[] = [];
+	const topRegionNames = [
+		'north america',
+		'mexico and central',
+		'america',
+		'the caribbean',
+		'south america'
+	];
 
-	//          if (revert && fetchedRegionName !== regionName?.toLowerCase()) {
-	//              regionsAndCountryList.push(regionAndCountries);
-	//          }
-	//      });
-	//  });
+	const middleRegionsAndCountries: any[] = [];
+	const middleRegionsNames = [
+		'europe',
+		'africa',
+		'middle east',
+		'asia'
+	];
 
-	//  return regionsAndCountryList || [];
-	// }; // End of getRegionsAndCountriesList
+	const bottomRegionsAndCountries: any[] = [];
 
-	// const regionsAndCountryList: any[] = [
-	//  ...getRegionsAndCountriesList(topRegionNames),
-	//  ...getRegionsAndCountriesList(middleRegionsNames),
-	//  ...getRegionsAndCountriesList(
-	//      [...topRegionNames, ...middleRegionsNames],
-	//      true
-	//  )
-	// ];
+	const getRegionsAndCountriesList = (
+		regionNames: string[],
+		revert?: boolean
+	) => {
+		const regionsAndCountryList: any[] = [];
+		regionNames.forEach((regionName) => {
+			regionsAndCountries?.forEach((regionAndCountries: any) => {
+				const fetchedRegionName = (
+					regionAndCountries?.name?.en || ''
+				)?.toLowerCase();
+
+				if (
+					fetchedRegionName === regionName?.toLowerCase() &&
+					!revert
+				) {
+					regionsAndCountryList.push(regionAndCountries);
+				}
+
+				if (revert && fetchedRegionName !== regionName?.toLowerCase()) {
+					regionsAndCountryList.push(regionAndCountries);
+				}
+			});
+		});
+
+		return regionsAndCountryList || [];
+	}; // End of getRegionsAndCountriesList
+
+	const regionsAndCountryList: any[] = [
+		...getRegionsAndCountriesList(topRegionNames),
+		...getRegionsAndCountriesList(middleRegionsNames),
+		...getRegionsAndCountriesList(['australia'])
+	];
 
 	return {
 		props: {
