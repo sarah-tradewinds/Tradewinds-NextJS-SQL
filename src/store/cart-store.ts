@@ -15,7 +15,11 @@ interface CartState {
 	subtotal: number;
 	fetchCart: (buyerId: string) => any;
 	setCartId: (cartId: string) => any;
-	addToCart: (productId: string, product?: any) => any;
+	addToCart: (
+		productId: string,
+		variantId?: string,
+		product?: any
+	) => any;
 	updateQuantityByProductId: (
 		quantity: number,
 		productId: string,
@@ -55,12 +59,23 @@ export const useCartStore = create<CartState>((set) => ({
 		});
 	},
 	setCartId: (cartId: string) => set({ id: cartId }),
-	addToCart: async (productId: string, product?: any) => {
+	addToCart: async (
+		productId: string,
+		variantId?: string,
+		product?: any
+	) => {
+		let cartList: CartProduct[] = [];
 		set(({ id, totalCartProductQuantity, cartProducts }) => {
-			const cartList: CartProduct[] = [...(cartProducts || [])];
-			const productIndex = cartList.findIndex(
-				(cartProduct) => cartProduct.product?.id === productId
-			);
+			cartList = [...(cartProducts || [])];
+			const productIndex = cartList.findIndex((cartProduct) => {
+				if (variantId) {
+					return (
+						cartProduct.product?.id === productId &&
+						cartProduct.product.variant_id === variantId
+					);
+				}
+				return cartProduct.product?.id === productId;
+			});
 
 			const { inventory } = product;
 			const minimumOrderQuantity =
@@ -103,6 +118,7 @@ export const useCartStore = create<CartState>((set) => ({
 					quantity: updatedQuantity,
 					total
 				};
+
 				cartList[productIndex] = updatedCartProduct;
 			}
 
@@ -115,6 +131,8 @@ export const useCartStore = create<CartState>((set) => ({
 				subtotal
 			};
 		});
+
+		return cartList;
 	},
 	updateQuantityByProductId: (quantity, productId, buyerId) => {
 		set(({ id, cartProducts }) => {

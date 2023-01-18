@@ -151,7 +151,12 @@ const ProductDetailsPage: NextPage<
 					productData.variant_id = selectedVariantId;
 					const buyerId = customerData.buyerId;
 					productData.buyerId = buyerId;
-					await addToCart(productId, productData);
+					const updatedCartList = await addToCart(
+						productId,
+						selectedVariantId,
+						productData
+					);
+					console.log('updatedCartList =', updatedCartList);
 
 					// Sending request when buyer Id is available
 					if (!totalCartProductQuantity) {
@@ -168,7 +173,7 @@ const ProductDetailsPage: NextPage<
 						updateCart(
 							cartId,
 							buyerId,
-							cartProducts.map((cartProduct) => ({
+							updatedCartList.map((cartProduct: any) => ({
 								product_id: cartProduct.product?.id,
 								variant_id: cartProduct.product?.variant_id,
 								quantity: cartProduct.quantity
