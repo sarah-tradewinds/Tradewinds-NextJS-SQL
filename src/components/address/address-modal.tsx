@@ -26,6 +26,13 @@ const AddressModal: React.FC<ModalProps> = (props) => {
 			isSignUpOpen: state.isSignUpOpen
 		})
 	);
+	useEffect(() => {
+		const [bodyTag] =
+			Array.from(document.getElementsByTagName('body')) || [];
+		if (open && bodyTag) {
+			bodyTag.style.overflow = 'hidden';
+		}
+	}, [open]);
 
 	useEffect(() => {
 		getAddresses(buyerId, 'shipping').then((addresses) =>
@@ -48,6 +55,16 @@ const AddressModal: React.FC<ModalProps> = (props) => {
 			selectedBillingAddressId
 		);
 	}, [selectedShippingAddressId, selectedBillingAddressId]);
+
+	const closeModal = () => {
+		const [bodyTag] =
+			Array.from(document.getElementsByTagName('body')) || [];
+		if (bodyTag) {
+			bodyTag.style.overflow = 'auto';
+		}
+
+		onClose();
+	}; // End of closeModal
 
 	const onShippingAddressSelectUnSelectHandler = (
 		currentState: boolean,
@@ -105,7 +122,7 @@ const AddressModal: React.FC<ModalProps> = (props) => {
 		}
 
 		setErrorMessage('');
-		onClose();
+		closeModal();
 	};
 
 	return (
@@ -115,16 +132,16 @@ const AddressModal: React.FC<ModalProps> = (props) => {
 			overlayClassName="!bg-white top-[80px]"
 			className={`${
 				isLoginOpen || isSignUpOpen ? '!z-[5]' : ''
-			} !top-4 w-full`}
+			} !top-[128px] w-full`}
 		>
 			<div className="mx-4 pr-4 lg:mx-8">
 				<div className="mb-6 flex items-center justify-between">
-					<h1 className="text-lg font-semibold md:text-[24px] lg:text-[32px] xl:text-[40px]">
+					<h1 className="xl:text-[40px] text-lg font-semibold md:text-[24px] lg:text-[32px]">
 						Select Shipping and Billing Address
 					</h1>
 					<Button className="!h-10 !w-10 rounded-full border border-accent-primary-main !py-0 !px-2 !text-accent-primary-main md:!h-[40px] md:!w-[240px] md:rounded-none">
 						+
-						<span className="hidden px-2 xl:inline-block">
+						<span className="xl:inline-block hidden px-2">
 							ADD NEW ADDRESS
 						</span>
 					</Button>
@@ -201,7 +218,7 @@ const AddressModal: React.FC<ModalProps> = (props) => {
 
 					<Button
 						variant="special"
-						onClick={onClose}
+						onClick={closeModal}
 						className="!rounded-none"
 					>
 						Close
