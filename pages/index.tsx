@@ -177,7 +177,7 @@ const HomePage: NextPage<
 					</div>
 
 					{/* Shop by country and ads */}
-					<div className="space-y-8">
+					<div className="space-y-8 lg:mx-[23px]">
 						{/* Shop by country */}
 						<div className="mt-[30px]">
 							<CountrySlider

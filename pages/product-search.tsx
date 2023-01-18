@@ -198,7 +198,7 @@ const ProductSearchPage: NextPage<
 	const [countryId] = getIdAndName((query.country || '') as string);
 
 	return (
-		<div>
+		<div className="md:container">
 			<Seo title="Product search page" description="" />
 
 			<div>
@@ -225,217 +225,210 @@ const ProductSearchPage: NextPage<
 				)}
 			</div>
 
-			<div className="md:container">
-				<div className="top-[104px] z-20 md:sticky md:ml-[9px] md:mr-[10px] md:pt-[14.01px] lg:top-[120px] lg:ml-[26px] lg:mr-[23px] lg:pt-[18.14px]">
-					<ProductSearchFilterBar
-						onCountryChange={(id = '', name = '') => {
-							const country = id && name ? `${id}_${name || ''}` : '';
+			<div className="top-[104px] z-20 md:sticky md:ml-[9px] md:mr-[10px] md:pt-[14.01px] lg:top-[120px] lg:ml-[26px] lg:mr-[23px] lg:pt-[18.14px]">
+				<ProductSearchFilterBar
+					onCountryChange={(id = '', name = '') => {
+						const country = id && name ? `${id}_${name || ''}` : '';
 
-							getProductSearchURL(router, { country });
-						}}
-						onOrderChange={(minOrder, maxOrder) => {
-							getProductSearchURL(router, { minOrder, maxOrder });
-						}}
-						onPriceChange={(minPrice, maxPrice) => {
-							getProductSearchURL(router, {
-								price_start: minPrice,
-								price_end: maxPrice
-							});
-						}}
-						onCustomizableChange={(isCustomizable) => {
-							getProductSearchURL(router, { isCustomizable });
-						}}
-						onLiveBuyReadyToShipChange={(isReadyToShip) => {
-							getProductSearchURL(router, { isReadyToShip });
-						}}
-					/>
-				</div>
+						getProductSearchURL(router, { country });
+					}}
+					onOrderChange={(minOrder, maxOrder) => {
+						getProductSearchURL(router, { minOrder, maxOrder });
+					}}
+					onPriceChange={(minPrice, maxPrice) => {
+						getProductSearchURL(router, {
+							price_start: minPrice,
+							price_end: maxPrice
+						});
+					}}
+					onCustomizableChange={(isCustomizable) => {
+						getProductSearchURL(router, { isCustomizable });
+					}}
+					onLiveBuyReadyToShipChange={(isReadyToShip) => {
+						getProductSearchURL(router, { isReadyToShip });
+					}}
+				/>
+			</div>
 
-				<div className="relative flex md:mt-[9px] md:mr-[10px] md:pl-[9px] lg:mt-[19px] lg:pl-6">
-					{/* Side container */}
-					<section className="hidden md:mr-[13px] md:block md:w-[159px] lg:mr-[25px] lg:w-[297px]">
-						{/* filters */}
-						<div className="md:mb-[14px] md:h-[383px] lg:mb-[17px] lg:h-[475px]">
-							<ProductFilter />
-						</div>
+			<div className="relative flex md:mt-[9px] md:mr-[10px] md:pl-[9px] lg:mt-[19px] lg:pl-6">
+				{/* Side container */}
+				<section className="hidden md:mr-[13px] md:block md:w-[159px] lg:mr-[25px] lg:w-[297px]">
+					{/* filters */}
+					<div className="md:mb-[14px] md:h-[383px] lg:mb-[17px] lg:h-[475px]">
+						<ProductFilter />
+					</div>
 
-						<div className="hidden md:block">
-							<MiniRFQCard size="xl" />
-						</div>
-					</section>
+					<div className="hidden md:block">
+						<MiniRFQCard size="xl" />
+					</div>
+				</section>
 
-					{/* Category container and Product list */}
-					<div className="md:w-[552.06px] lg:w-[1142px]">
-						{router.query.is_trending && (
-							<TrendingSectionTile
-								minPrice={+minPrice}
-								maxPrice={+maxPrice}
-								filterByEco={filterBuyEco}
-								onMinPriceClick={() => {
-									if (+minPrice === 100) {
-										setMinPrice('0');
-									} else {
-										setMinPrice('100');
-										setMaxPrice('0');
-										setFilterBuyEco(false);
-									}
-								}}
-								onMaxPriceClick={() => {
-									if (+maxPrice === 100) {
-										setMaxPrice('0');
-									} else {
-										setMaxPrice('100');
-										setMinPrice('0');
-										setFilterBuyEco(false);
-									}
-								}}
-								onEcoClick={() => {
-									setMaxPrice('0');
+				{/* Category container and Product list */}
+				<div className="md:w-[552.06px] lg:w-[1142px]">
+					{router.query.is_trending && (
+						<TrendingSectionTile
+							minPrice={+minPrice}
+							maxPrice={+maxPrice}
+							filterByEco={filterBuyEco}
+							onMinPriceClick={() => {
+								if (+minPrice === 100) {
 									setMinPrice('0');
-									setFilterBuyEco((prevState) => !prevState);
-								}}
-							/>
-						)}
+								} else {
+									setMinPrice('100');
+									setMaxPrice('0');
+									setFilterBuyEco(false);
+								}
+							}}
+							onMaxPriceClick={() => {
+								if (+maxPrice === 100) {
+									setMaxPrice('0');
+								} else {
+									setMaxPrice('100');
+									setMinPrice('0');
+									setFilterBuyEco(false);
+								}
+							}}
+							onEcoClick={() => {
+								setMaxPrice('0');
+								setMinPrice('0');
+								setFilterBuyEco((prevState) => !prevState);
+							}}
+						/>
+					)}
 
-						{/* MainCategory and categories list */}
-						{!router.query.is_trending &&
-							selectedCategories.length > 0 && (
-								<div className="rounded-md bg-white md:mb-[10.87px] md:flex md:h-[101.13px] md:py-2 md:pl-[8.06px] lg:mb-[23px] lg:h-[209px] lg:py-[17px] lg:pl-[17px]">
-									{/* Main category Card */}
-									<div
-										className="h-[42px] w-full md:h-auto md:w-[122px] lg:w-[266px]"
-										style={{
-											backgroundColor:
-												deviceWidth < 744
-													? selectedMainCategory?.color
-													: ''
-										}}
-									>
-										{isSelectedMainCategoryAndCategoriesLoading ? (
-											<div>
-												<Skeleton />
-												<Skeleton height="84px" />
-											</div>
-										) : (
-											<div className="md:justify-betweens flex h-full items-center p-2 md:flex-col md:items-start md:space-x-0 md:p-0">
-												<p className="text-[16px] font-semibold leading-5 md:text-[10px] md:leading-3 md:text-gray/80 lg:text-[21px] lg:leading-[26px]">
-													{getLocaleText(
-														selectedMainCategory?.title || {},
-														router.locale
-													)}
-												</p>
-												<div
-													className="relative hidden h-[38px] w-[38px] md:mt-1 md:block md:h-[70px] md:w-[99px] lg:mt-2 lg:h-full lg:w-[266px]"
-													style={{
-														backgroundColor:
-															selectedMainCategory?.color,
-														border: selectedMainCategory?.color
-															? ''
-															: '2px solid gray'
-													}}
-												>
-													<div className="md:absolute md:bottom-0 md:right-0">
-														<div className="relative h-[38px] w-[38px] md:h-[30px] md:w-[30px] lg:h-[60px] lg:w-[60px]">
-															<ImageWithErrorHandler
-																src={selectedMainCategory?.icon?.url}
-																alt={getLocaleText(
-																	selectedMainCategory?.title || {},
-																	router.locale
-																)}
-																fill={true}
-															/>
-														</div>
-													</div>
+					{/* MainCategory and categories list */}
+					{!router.query.is_trending && selectedCategories.length > 0 && (
+						<div className="rounded-md bg-white md:mb-[10.87px] md:flex md:h-[101.13px] md:py-2 md:pl-[8.06px] lg:mb-[23px] lg:h-[209px] lg:py-[17px] lg:pl-[17px]">
+							{/* Main category Card */}
+							<div
+								className="h-[42px] w-full md:h-auto md:w-[122px] lg:w-[266px]"
+								style={{
+									backgroundColor:
+										deviceWidth < 744 ? selectedMainCategory?.color : ''
+								}}
+							>
+								{isSelectedMainCategoryAndCategoriesLoading ? (
+									<div>
+										<Skeleton />
+										<Skeleton height="84px" />
+									</div>
+								) : (
+									<div className="md:justify-betweens flex h-full items-center p-2 md:flex-col md:items-start md:space-x-0 md:p-0">
+										<p className="text-[16px] font-semibold leading-5 md:text-[10px] md:leading-3 md:text-gray/80 lg:text-[21px] lg:leading-[26px]">
+											{getLocaleText(
+												selectedMainCategory?.title || {},
+												router.locale
+											)}
+										</p>
+										<div
+											className="relative hidden h-[38px] w-[38px] md:mt-1 md:block md:h-[70px] md:w-[99px] lg:mt-2 lg:h-full lg:w-[266px]"
+											style={{
+												backgroundColor: selectedMainCategory?.color,
+												border: selectedMainCategory?.color
+													? ''
+													: '2px solid gray'
+											}}
+										>
+											<div className="md:absolute md:bottom-0 md:right-0">
+												<div className="relative h-[38px] w-[38px] md:h-[30px] md:w-[30px] lg:h-[60px] lg:w-[60px]">
+													<ImageWithErrorHandler
+														src={selectedMainCategory?.icon?.url}
+														alt={getLocaleText(
+															selectedMainCategory?.title || {},
+															router.locale
+														)}
+														fill={true}
+													/>
 												</div>
 											</div>
-										)}
-									</div>
-
-									<div className="hidden md:mt-[9px] md:block md:w-[402px] lg:ml-[13px] lg:mt-[35px] lg:mb-[25px] lg:h-[150px] lg:w-[838px]">
-										<TrendingCategorySlider
-											categories={[...selectedCategories]}
-											selectedCategoryIds={selectedCategoryList || []}
-											onTileClick={(categoryId, data) => {
-												const params = setCategory(
-													categoryId,
-													data?.title?.en
-												);
-												router.push(
-													`/product-search?${params}`,
-													undefined,
-													{ shallow: true }
-												);
-											}}
-										/>
-									</div>
-
-									{/* For small screen only */}
-									<div
-										className="flex h-12 overflow-x-auto bg-[#F5F5F5] px-2 py-4 md:hidden"
-										style={{ width: `${deviceWidth}px` }}
-									>
-										<div ref={ref} className="keen-slider">
-											{selectedCategories?.map((subCategory: any) => {
-												return (
-													<div
-														key={subCategory.id}
-														className="keen-slider__slide"
-													>
-														<SubCategoryTile
-															className="!w-[148px] pb-4"
-															imageUrl={
-																subCategory.image?.url ||
-																'/vehicles/green-tractor.png'
-															}
-															title={getLocaleText(
-																subCategory.title || {},
-																router.locale
-															)}
-															showBorder={selectedCategoryList?.includes(
-																subCategory.id
-															)}
-															onTilePressed={() => {
-																const params = setCategory(
-																	subCategory.id,
-																	subCategory?.title?.en
-																);
-																router.push(
-																	`/product-search?${params}`
-																);
-															}}
-														/>
-													</div>
-												);
-											})}
 										</div>
 									</div>
-								</div>
-							)}
-
-						{/*If no any product in the product list - Speed your search up!! RFQ Card  */}
-						{products?.length <= 0 && (
-							<div className="hidden md:block">
-								<RFQCard size="lg" />
+								)}
 							</div>
-						)}
 
-						{/* Product List */}
-						<div className="space-y-4 md:space-y-8">
-							{products?.length > 0 && (
-								<ProductList
-									products={products}
-									onCompareClick={addProductToCompareList}
+							<div className="hidden md:mt-[9px] md:block md:w-[402px] lg:ml-[13px] lg:mt-[35px] lg:mb-[25px] lg:h-[150px] lg:w-[838px]">
+								<TrendingCategorySlider
+									categories={[...selectedCategories]}
+									selectedCategoryIds={selectedCategoryList || []}
+									onTileClick={(categoryId, data) => {
+										const params = setCategory(
+											categoryId,
+											data?.title?.en
+										);
+										router.push(
+											`/product-search?${params}`,
+											undefined,
+											{ shallow: true }
+										);
+									}}
 								/>
-							)}
-						</div>
+							</div>
 
-						{/* If product are available in the product list - Submit RFQ Card */}
-						<div className="mt-4 md:mt-2">
-							{products?.length > 0 && <MiniRFQCard size="xs" />}
+							{/* For small screen only */}
+							<div
+								className="flex h-12 overflow-x-auto bg-[#F5F5F5] px-2 py-4 md:hidden"
+								style={{ width: `${deviceWidth}px` }}
+							>
+								<div ref={ref} className="keen-slider">
+									{selectedCategories?.map((subCategory: any) => {
+										return (
+											<div
+												key={subCategory.id}
+												className="keen-slider__slide"
+											>
+												<SubCategoryTile
+													className="!w-[148px] pb-4"
+													imageUrl={
+														subCategory.image?.url ||
+														'/vehicles/green-tractor.png'
+													}
+													title={getLocaleText(
+														subCategory.title || {},
+														router.locale
+													)}
+													showBorder={selectedCategoryList?.includes(
+														subCategory.id
+													)}
+													onTilePressed={() => {
+														const params = setCategory(
+															subCategory.id,
+															subCategory?.title?.en
+														);
+														router.push(`/product-search?${params}`);
+													}}
+												/>
+											</div>
+										);
+									})}
+								</div>
+							</div>
 						</div>
+					)}
 
-						{/* Pagination */}
-						{/* <div className="col-span-12 hidden justify-center md:flex ">
+					{/*If no any product in the product list - Speed your search up!! RFQ Card  */}
+					{products?.length <= 0 && (
+						<div className="hidden md:block">
+							<RFQCard size="lg" />
+						</div>
+					)}
+
+					{/* Product List */}
+					<div className="space-y-4 md:space-y-8">
+						{products?.length > 0 && (
+							<ProductList
+								products={products}
+								onCompareClick={addProductToCompareList}
+							/>
+						)}
+					</div>
+
+					{/* If product are available in the product list - Submit RFQ Card */}
+					<div className="mt-4 md:mt-2">
+						{products?.length > 0 && <MiniRFQCard size="xs" />}
+					</div>
+
+					{/* Pagination */}
+					{/* <div className="col-span-12 hidden justify-center md:flex ">
 						<div className="flex space-x-3 font-semibold text-gray md:text-[20px] lg:text-[25px]">
 							<p>{`<`}</p>
 							<p>1</p>
@@ -444,17 +437,16 @@ const ProductSearchPage: NextPage<
 							<p>{`>`}</p>
 						</div>
 					</div> */}
-					</div>
-
-					{/* Compare */}
-					{compareProducts.length > 0 && (
-						<CompareProductList
-							products={compareProducts}
-							onClearAllClick={removeAllProductFromCompareList}
-							onRemoveCompareProduct={removeProductFromCompareList}
-						/>
-					)}
 				</div>
+
+				{/* Compare */}
+				{compareProducts.length > 0 && (
+					<CompareProductList
+						products={compareProducts}
+						onClearAllClick={removeAllProductFromCompareList}
+						onRemoveCompareProduct={removeProductFromCompareList}
+					/>
+				)}
 			</div>
 		</div>
 	);
