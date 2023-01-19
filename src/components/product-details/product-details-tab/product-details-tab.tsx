@@ -36,7 +36,8 @@ const ProductDetailsTab: React.FC<{
 				</p>
 
 				{/* Product details body */}
-				{productDetailItems.length > 0 ? (
+				{productDetailItems.length > 0 &&
+				(productDetailItems as any)?.[0]?.key?.en ? (
 					<div
 						className={`flex flex-col p-4 md:flex-row md:justify-between ${productDetailsContainerClassName}`}
 					>
@@ -74,7 +75,8 @@ const ProductDetailsTab: React.FC<{
 				<p className="border-b-2 border-gray/40 text-[15px] font-semibold text-gray md:text-[21px]">
 					{t('common:product_certifications')}
 				</p>
-				{certifications.length > 0 ? (
+				{certifications.length > 0 &&
+				(certifications as any)?.[0]?.name ? (
 					<div className="flex justify-between p-4">
 						<div className="space-y-2">
 							{certifications?.map((certificate: any) => (
