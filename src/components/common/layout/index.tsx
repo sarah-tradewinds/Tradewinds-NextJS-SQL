@@ -29,6 +29,7 @@ import {
 } from 'react-icons/md';
 
 import ProductFilterSlider from 'components/product-search/product-filter-mobile/product-filter-slider';
+import useDeviceSize from 'hooks/use-device-size.hooks';
 import { getAddresses } from 'lib/customer/addres.lib';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -65,11 +66,22 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 
 	const { route } = useRouter();
 	const { routeChangeStart } = useRouteEvent();
+	const { deviceWidth } = useDeviceSize();
+
+	useEffect(() => {
+		const [bodyTag] = Array.from(document.getElementsByTagName('body'));
+		if (bodyTag) {
+			if (deviceWidth >= 744) {
+				(bodyTag.style as any).zoom = '85%';
+			} else {
+				(bodyTag.style as any).zoom = '100%';
+			}
+		}
+	}, [deviceWidth]);
 
 	useEffect(() => {
 		autoLogin();
 	}, []);
-	` `;
 
 	useEffect(() => {
 		if (customerData.buyerId) {
@@ -104,7 +116,7 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 				<NavBar />
 				<SignUpPage />
 				<Login />
-				<main className="bg-bg-main pb-8 dark:bg-bg-eco">
+				<main className="md:scale-[0.85]s md:transforms bg-bg-main pb-8 dark:bg-bg-eco">
 					{children}
 				</main>
 
