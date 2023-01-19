@@ -195,7 +195,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 	const regionsAndCountryList: any[] = [
 		...getRegionsAndCountriesList(topRegionNames),
 		...getRegionsAndCountriesList(middleRegionsNames),
-		...getRegionsAndCountriesList(['australia'])
+		...getRegionsAndCountriesList(['global/rest of the world'])
 	];
 
 	return {

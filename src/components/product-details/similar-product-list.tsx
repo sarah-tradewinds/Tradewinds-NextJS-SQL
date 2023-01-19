@@ -42,24 +42,29 @@ const SimilarProductList: React.FC<SimilarProductListProps> = (
 	});
 
 	return (
-		<div className="mx-4 rounded bg-white p-4">
-			<h3 className="mb-6 text-[25px] font-semibold text-primary-main">
+		<div className="mx-4 h-full rounded-md bg-white p-4">
+			{/* <div className="mx-4s p-4s h-full rounded-md bg-white"> */}
+			<h3
+				className="mb-6 font-semibold text-primary-main"
+				// className="mb-6s font-semibold text-primary-main lg:pl-[22px] lg:pt-[18px] lg:text-[25px] lg:leading-[30px]"
+			>
 				{title}
 			</h3>
 
 			{/* Similar Products */}
-			<div className="navigation-wrapper group relative pl-8">
+			<div className="navigation-wrapper pl-8s group relative">
 				<div ref={sliderRef} className={`keen-slider ${className}`}>
 					{similarProducts.map((similarProduct, index) => (
 						<div
 							key={similarProduct.id}
 							className={`keen-slider__slide cursor-pointer ${
-								index === 3 ? 'hidden xl:block' : ''
+								index === 3 ? 'xl:block hidden' : ''
 							}`}
 							onClick={() => push(`/product/${similarProduct.id}`)}
 						>
 							<div className="h-[274px] w-[298px]">
 								<div className="relative h-[205px] w-[240px]">
+									{/* <div className="relative h-[205px] w-[240px] border lg:h-[205px] lg:w-[298px]"> */}
 									<Image
 										src={
 											similarProduct?.images[0]?.url ||

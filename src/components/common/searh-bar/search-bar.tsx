@@ -60,7 +60,7 @@ const SearchBar: React.FC = () => {
 	}, [searchText]);
 
 	const gotToSearch = (searchTerm: string) => {
-		router.push(`product-search?searchQuery=${searchTerm}`);
+		router.push(`/product-search?searchQuery=${searchTerm}`);
 	};
 
 	const searchHandler = (e: React.FormEvent<HTMLFormElement>) => {

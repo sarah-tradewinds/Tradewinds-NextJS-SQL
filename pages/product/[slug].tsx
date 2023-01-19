@@ -139,6 +139,8 @@ const ProductDetailsPage: NextPage<
 		}
 	}; // End of submitReviewHandler function
 
+	console.log('seller =', seller);
+
 	return (
 		<div className="container mx-auto pb-16 md:space-y-8">
 			<ProductDetailsTile
@@ -213,7 +215,7 @@ const ProductDetailsPage: NextPage<
 
 			{/* Similar Product */}
 			{similarProducts?.length > 0 && (
-				<div className="hidden md:block">
+				<div className="lg:h-[334.09px]s hidden md:block">
 					<SimilarProductList
 						title="Similar Product"
 						similarProducts={similarProducts}

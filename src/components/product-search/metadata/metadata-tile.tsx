@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 
 interface MetadataTileProps {
 	imageUrl?: string;
@@ -30,7 +30,7 @@ const MetadataTile: React.FC<MetadataTileProps> = (props) => {
 				<div
 					className={`relative h-[12px] w-[16px] lg:h-[16px] lg:w-[24px] ${imageContainerClassName}`}
 				>
-					<Image
+					<ImageWithErrorHandler
 						src={imageUrl}
 						alt={alt || ''}
 						fill={true}

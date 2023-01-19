@@ -13,7 +13,7 @@ const Index = ({ hcd, cardAList, cardBData }: Props) => {
 		<section className="relative md:container">
 			<div className="md:h-[343px]s relative h-[600px] w-full overflow-hidden lg:h-[880px]">
 				<HeroCarousel heroCarouselData={hcd} />
-				<div className="absolute bottom-0 z-[2] h-[300px] w-full bg-gradient-to-t from-bg-main to-transparent md:bottom-8 lg:bottom-14 lg:h-[396px]"></div>
+				<div className="absolute bottom-0 z-[2] h-[300px] w-full bg-gradient-to-t from-bg-main to-transparent dark:from-bg-eco md:bottom-8 lg:bottom-14 lg:h-[396px]"></div>
 			</div>
 			{/* <div className="absolute bottom-0 z-[3] w-full md:bottom-16 lg:bottom-32 xl:bottom-16">
 				<div className="container mx-auto">

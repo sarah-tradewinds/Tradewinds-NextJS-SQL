@@ -59,7 +59,7 @@ const ProductList: React.FC<ProductListProps> = ({
 		const buyerId = customerData.buyerId;
 		product.buyer_id = buyerId;
 		const productId = product.id;
-		await addToCart(productId, product);
+		await addToCart(productId, undefined, product);
 		const minimumOrderQuantity =
 			product?.inventory?.minimum_order_quantity || 0;
 
@@ -152,7 +152,8 @@ const ProductList: React.FC<ProductListProps> = ({
 						product_price,
 						is_bulk_pricing,
 						bulk_pricing = [],
-						country_of_region = []
+						country_of_region = [],
+						seller_country = []
 					} = product || {};
 
 					const displayPrice = getDisplayBulkPrice({
@@ -160,6 +161,8 @@ const ProductList: React.FC<ProductListProps> = ({
 						is_bulk_pricing,
 						bulk_pricing
 					});
+
+					const country = seller_country ? seller_country[0] || {} : {};
 
 					return (
 						<>
@@ -181,6 +184,10 @@ const ProductList: React.FC<ProductListProps> = ({
 								countryOfOrigin={
 									country_of_region ? country_of_region[0] : ''
 								}
+								country={{
+									name: getLocaleText(country?.name || '', locale),
+									imageUrl: country?.url || ''
+								}}
 								isEco={product.is_eco}
 								keywords={product.tags || []}
 								productPrice={product_price}

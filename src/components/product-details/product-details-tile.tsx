@@ -52,6 +52,7 @@ const ProductDetailsTile: React.FC<{
 	const {
 		product_name,
 		product_description,
+		is_unlimited_quantity,
 		inventory,
 		product_price,
 		sale_price,
@@ -65,7 +66,8 @@ const ProductDetailsTile: React.FC<{
 		country_of_region,
 		is_live,
 		is_ready_to_ship,
-		is_verified
+		is_verified,
+		seller_country = []
 	} = product || {};
 
 	const [sliderRef] = useKeenSlider<HTMLDivElement>({
@@ -80,15 +82,21 @@ const ProductDetailsTile: React.FC<{
 		bulk_pricing
 	});
 
+	const country = seller_country
+		? {
+				name: getLocaleText(seller_country[0]?.name || '', locale),
+				imageUrl: seller_country[0]?.url || ''
+		  } || {}
+		: {};
 	const minOrderQuantity = inventory?.minimum_order_quantity || 0;
 
 	const metadataTileList = [
 		// country of origin
 		<MetadataTile
-			key={metadataList[0].title}
-			imageUrl={metadataList[0].imageUrl}
-			alt={metadataList[0].title}
-			title={country_of_region}
+			key={country?.name}
+			imageUrl={country?.imageUrl}
+			alt={country?.name}
+			title={country?.name}
 		/>,
 		// isReadyToShip
 		<MetadataTile
@@ -316,11 +324,15 @@ const ProductDetailsTile: React.FC<{
 					</div>
 
 					<p className="text-[21px] font-semibold text-primary-main">
-						{t('common:quantity')}: {inventory?.quantity || 0}
+						{t('common:quantity')}:{' '}
+						{is_unlimited_quantity && inventory?.quantity === 0
+							? t('common:unlimited_quantity')
+							: inventory?.quantity || 0}
 					</p>
 					<p className="text-[21px] text-primary-main">
 						<span className="font-semibold capitalize">
-							{t('common:customization')}:
+							{/* {t('common:customization')}: */}
+							{t('common:customizable')}:
 						</span>{' '}
 						<span>
 							{is_customizable ? t('common:yes') : t('common:no')}
