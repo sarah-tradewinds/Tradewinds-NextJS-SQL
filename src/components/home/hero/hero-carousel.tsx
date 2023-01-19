@@ -44,11 +44,14 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 					</Link>
 
 					{item.title?.en && (
-						<div className="bg-black/60s text-whites absolute left-4 top-16 z-[4] w-[90%] space-y-2 p-4 md:left-16 md:top-40 md:w-auto">
+						<div
+							className="bg-black/60s text-whites absolute left-4 top-16 z-[4] w-[90%] space-y-2 p-4 md:left-16 md:top-40 md:w-auto"
+							style={{ color: item?.carousel_text_color }}
+						>
 							<p className="lg:leading-[ 88px] text-[24px] font-semibold lg:text-[72px]">
 								{getLocaleText(item?.title || {}, locale)}
 							</p>
-							<p className="text-[16px] xl:text-[24px]">
+							<p className="xl:text-[24px] text-[16px]">
 								{getLocaleText(item?.description || {}, locale)}
 							</p>
 							<div className="flex">

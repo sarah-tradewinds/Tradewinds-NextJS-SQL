@@ -11,6 +11,7 @@ type HeroCarouselType = {
 	description?: any;
 	action?: any;
 	btn_text?: string;
+	carousel_text_color?: string;
 };
 
 type EcoCarouselType = {
