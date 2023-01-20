@@ -49,7 +49,7 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 	return (
 		<div
 			// className={`py-4s pl-14s sm:bg-transparents sm:py-0s sm:pl-0s flexs flex-cols relative ${containerClassName}`}
-			className={`relative ${containerClassName}`}
+			className={`relative flex flex-col ${containerClassName}`}
 		>
 			<h2
 				className={`font-montserrat font-semibold text-primary-main dark:text-accent-secondary-eco lg:mb-[11px] lg:text-[25px] lg:leading-[30px] ${titleClassName}`}

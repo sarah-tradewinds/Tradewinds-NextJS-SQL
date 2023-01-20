@@ -9,6 +9,7 @@ interface SubCategoryTileProps {
 	onTilePressed?: () => any;
 	className?: string;
 	imageClassName?: string;
+	titleClassName?: string;
 }
 
 const SubCategoryTile: React.FC<SubCategoryTileProps> = ({
@@ -19,7 +20,8 @@ const SubCategoryTile: React.FC<SubCategoryTileProps> = ({
 	showBorder,
 	onTilePressed,
 	className,
-	imageClassName
+	imageClassName,
+	titleClassName
 }) => {
 	return (
 		<div
@@ -41,7 +43,9 @@ const SubCategoryTile: React.FC<SubCategoryTileProps> = ({
 			)}
 			{icon}
 			<div className="relative">
-				<p className="text-[15px] font-semibold leading-[18px] text-gray md:text-[12px] lg:text-[18px]">
+				<p
+					className={`text-[15px] font-semibold leading-[18px] text-gray md:text-[12px] lg:text-[18px] ${titleClassName}`}
+				>
 					{title}
 				</p>
 				{showBorder && (

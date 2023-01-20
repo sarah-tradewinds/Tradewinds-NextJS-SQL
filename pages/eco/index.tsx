@@ -37,7 +37,8 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 	const {
 		cardAList = [],
 		cardBData = {},
-		ecoHomeMainCategoriesAndCategories = []
+		ecoHomeMainCategoriesAndCategories = [],
+		is_eco
 	} = props;
 
 	// Fetching Hero carousel
@@ -63,11 +64,10 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 
 	// enabling eco mode
 	useEffect(() => {
-		if (!isEco) {
-			setIsEco();
+		if (!isEco || is_eco) {
+			setIsEco(is_eco);
 		}
-		return () => {};
-	}, []);
+	}, [is_eco]);
 
 	const searchCategoriesBanner = (
 		<div className="flex items-center justify-center bg-accent-primary-main p-4 text-white dark:bg-accent-primary-eco md:p-8 lg:p-14">
@@ -197,8 +197,9 @@ export const getServerSideProps: GetServerSideProps = async ({
 				ecoHomeMainCategoriesAndCategories:
 					ecoHomeMainCategoriesAndCategories ?? {
 						cat_section: [],
-						is_custom: false
-					}
+						is_custom: true
+					},
+				is_eco: true
 			}
 		};
 	} catch (error) {
@@ -209,8 +210,9 @@ export const getServerSideProps: GetServerSideProps = async ({
 				cardBData: {},
 				ecoHomeMainCategoriesAndCategories: {
 					cat_section: [],
-					is_custom: false
-				}
+					is_custom: true
+				},
+				is_eco: true
 			}
 		};
 	}

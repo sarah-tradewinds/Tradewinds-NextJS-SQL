@@ -5,7 +5,6 @@ import {
 } from 'next';
 
 // Third party packages
-import { useKeenSlider } from 'keen-slider/react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // components
@@ -20,8 +19,8 @@ import ProductSearchFilterBar from 'components/product-search/product-search-fil
 import ProductSearchTopBanner from 'components/product-search/product-search-top-banner';
 import RFQCard from 'components/product-search/rfq-card.components';
 import MiniRFQCard from 'components/product-search/rfq-mini-card.components';
-import SubCategoryTile from 'components/product-search/sub-category-tile';
 import TrendingCategorySlider from 'components/product-search/trending-category-slider';
+import TrendingCategorySliderMobile from 'components/product-search/trending-category-slider-mobile';
 import TrendingSectionTile from 'components/product-search/trending-section-tile';
 import useDeviceSize from 'hooks/use-device-size.hooks';
 import { getCountryById } from 'lib/common.lib';
@@ -60,7 +59,8 @@ const ProductSearchPage: NextPage<
 	const [
 		selectedCountryBannerImageUrl,
 		setSelectedCountryBannerImageUrl
-	] = useState('');
+	] = useState(props.countryBannerImageUrl || '');
+	console.log(props);
 	const [isInitialFilterSet, setIsInitialFilterSet] = useState(false);
 
 	const { push, query } = useRouter();
@@ -166,26 +166,6 @@ const ProductSearchPage: NextPage<
 		});
 	}, [query]);
 
-	const [options, setOptions] = useState({});
-	const [ref] = useKeenSlider<HTMLDivElement>(options);
-
-	useEffect(() => {
-		if (selectedCategories && selectedCategories?.length > 0) {
-			setOptions({
-				// loop: true,
-				// slides: {
-				// 	perView: 'auto',
-				// 	spacing: 4
-				// }
-
-				loop: false,
-				mode: 'snap',
-				rtl: false,
-				slides: { perView: 'auto' }
-			});
-		}
-	}, [selectedCategories]);
-
 	useEffect(() => {
 		const updatedProductList = products?.map((product: any) => {
 			const isExist = compareProducts.find(
@@ -230,6 +210,7 @@ const ProductSearchPage: NextPage<
 				)}
 			</div>
 
+			{/* ProductSearchFilterBar */}
 			<div className="top-[104px] z-20 md:sticky md:ml-[9px] md:mr-[10px] md:pt-[14.01px] lg:top-[120px] lg:ml-[26px] lg:mr-[23px] lg:pt-[18.14px]">
 				<ProductSearchFilterBar
 					onCountryChange={(id = '', name = '') => {
@@ -370,54 +351,18 @@ const ProductSearchPage: NextPage<
 							</div>
 
 							{/* For small screen only */}
-							<div
-								className="flex overflow-x-auto bg-[#E5E5E5] md:hidden"
-								style={{ width: `${deviceWidth}px` }}
-							>
-								<div ref={ref} className="keen-slider h-[44px]">
-									{selectedCategories?.map((subCategory: any) => {
-										const title = getLocaleText(
-											subCategory.title || {},
-											router.locale
+							<div className="bg-[#E5E5E5] md:hidden">
+								<TrendingCategorySliderMobile
+									categories={selectedCategories || []}
+									selectedCategoryList={selectedCategoryList}
+									onTilePressed={(subCategory) => {
+										const params = setCategory(
+											subCategory.id,
+											subCategory?.title?.en
 										);
-
-										return (
-											<div
-												key={subCategory.id}
-												className="keen-slider__slide bg-error"
-												style={{
-													maxWidth: `${title.length * 20}px`,
-													minWidth: `${title.length * 20}px`
-												}}
-											>
-												<div>
-													<SubCategoryTile
-														className="!w-full pb-4"
-														imageClassName="!w-[51px] !h-[44px]"
-														imageUrl={
-															subCategory.image?.url ||
-															'/vehicles/green-tractor.png'
-														}
-														title={getLocaleText(
-															subCategory.title || {},
-															router.locale
-														)}
-														showBorder={selectedCategoryList?.includes(
-															subCategory.id
-														)}
-														onTilePressed={() => {
-															const params = setCategory(
-																subCategory.id,
-																subCategory?.title?.en
-															);
-															router.push(`/product-search?${params}`);
-														}}
-													/>
-												</div>
-											</div>
-										);
-									})}
-								</div>
+										router.push(`/product-search?${params}`);
+									}}
+								/>
 							</div>
 						</div>
 					)}
@@ -470,17 +415,28 @@ const ProductSearchPage: NextPage<
 }; // End of ProductSearchPage
 
 export const getServerSideProps: GetServerSideProps = async ({
-	locale
+	locale,
+	query
 }) => {
 	console.log('[getServerSideProps] running');
 	const products = await getProducts({
 		price_start: 0
 	});
 
+	let countryBannerImageUrl = '';
+	const [countryIds] = getIdAndName((query.country || '') as string);
+	if (countryIds) {
+		const [countryId] = countryIds?.split(',');
+		getCountryById(countryId).then((data) => {
+			countryBannerImageUrl = data?.banner_image?.url || '';
+		});
+	}
+
 	return {
 		props: {
-			...(await serverSideTranslations(locale || 'en'))
-			// products
+			...(await serverSideTranslations(locale || 'en')),
+			products,
+			countryBannerImageUrl
 		}
 	};
 }; // End of getServerSideProps function

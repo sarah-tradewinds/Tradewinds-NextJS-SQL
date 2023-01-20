@@ -305,6 +305,11 @@ const Header = () => {
 									href="/eco"
 									className="nav-link hidden items-center justify-center gap-2 md:flex"
 									activeClassName="underline font-semibold"
+									onClick={() => {
+										if (!isEco) {
+											setIsEco();
+										}
+									}}
 								>
 									<Image
 										src="/static/images/eco_logo.png"
@@ -319,7 +324,9 @@ const Header = () => {
 									href="/eco"
 									className="nav-link md:hidden"
 									activeClassName="underline font-semibold"
-									onClick={drawerHandler}
+									onClick={() => {
+										drawerHandler();
+									}}
 								>
 									{t('eco_text')}
 								</NavLink>
