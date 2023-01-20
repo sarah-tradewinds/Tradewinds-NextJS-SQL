@@ -24,9 +24,9 @@ const TrendingCategorySlider: React.FC<{
 		className
 	} = props;
 
-	let slideToShow = 3;
-	if (deviceWidth >= 744) {
-		slideToShow = 2;
+	let slideToShow = 2;
+	if (deviceWidth >= 1512) {
+		slideToShow = 3;
 	}
 
 	const settings = {
