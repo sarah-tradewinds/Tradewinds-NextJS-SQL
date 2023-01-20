@@ -366,37 +366,40 @@ const ProductSearchPage: NextPage<
 
 							{/* For small screen only */}
 							<div
-								className="flex h-12 overflow-x-auto bg-[#F5F5F5] px-2 py-4 md:hidden"
+								className="flex overflow-x-auto bg-[#E5E5E5] md:hidden"
 								style={{ width: `${deviceWidth}px` }}
 							>
-								<div ref={ref} className="keen-slider">
+								<div ref={ref} className="keen-slider h-[44px]">
 									{selectedCategories?.map((subCategory: any) => {
 										return (
 											<div
 												key={subCategory.id}
 												className="keen-slider__slide"
 											>
-												<SubCategoryTile
-													className="!w-[148px] pb-4"
-													imageUrl={
-														subCategory.image?.url ||
-														'/vehicles/green-tractor.png'
-													}
-													title={getLocaleText(
-														subCategory.title || {},
-														router.locale
-													)}
-													showBorder={selectedCategoryList?.includes(
-														subCategory.id
-													)}
-													onTilePressed={() => {
-														const params = setCategory(
-															subCategory.id,
-															subCategory?.title?.en
-														);
-														router.push(`/product-search?${params}`);
-													}}
-												/>
+												<div>
+													<SubCategoryTile
+														className="!w-[148px] pb-4"
+														imageClassName="!w-[51px] !h-[44px]"
+														imageUrl={
+															subCategory.image?.url ||
+															'/vehicles/green-tractor.png'
+														}
+														title={getLocaleText(
+															subCategory.title || {},
+															router.locale
+														)}
+														showBorder={selectedCategoryList?.includes(
+															subCategory.id
+														)}
+														onTilePressed={() => {
+															const params = setCategory(
+																subCategory.id,
+																subCategory?.title?.en
+															);
+															router.push(`/product-search?${params}`);
+														}}
+													/>
+												</div>
 											</div>
 										);
 									})}

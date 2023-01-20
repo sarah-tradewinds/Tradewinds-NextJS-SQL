@@ -8,6 +8,7 @@ interface SubCategoryTileProps {
 	showBorder?: boolean;
 	onTilePressed?: () => any;
 	className?: string;
+	imageClassName?: string;
 }
 
 const SubCategoryTile: React.FC<SubCategoryTileProps> = ({
@@ -17,7 +18,8 @@ const SubCategoryTile: React.FC<SubCategoryTileProps> = ({
 	icon,
 	showBorder,
 	onTilePressed,
-	className
+	className,
+	imageClassName
 }) => {
 	return (
 		<div
@@ -26,7 +28,9 @@ const SubCategoryTile: React.FC<SubCategoryTileProps> = ({
 		>
 			{!icon && (
 				<div>
-					<div className="object-covers relative h-[33px] w-[37px] md:h-[60px] md:w-[60px]">
+					<div
+						className={`relative h-[33px] w-[37px] md:h-[60px] md:w-[60px] ${imageClassName}`}
+					>
 						<ImageWithErrorHandler
 							src={imageUrl}
 							alt={alt}
