@@ -14,6 +14,7 @@ import SubCategorySlider from './sub-category-slider';
 
 import useDeviceSize from 'hooks/use-device-size.hooks';
 import { useTranslation } from 'next-i18next';
+import CatSubCatActionCard from './common/cat-sub-cat-action-card';
 
 type CategorySubCategoriesSectionProps = {
 	catSubCat: CatSubCatSectionType;
@@ -229,11 +230,10 @@ const CategorySubCategoriesSection: React.FC<
 							/>
 						</div>
 					) : (
-						// <div className="grid items-end gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-						<div className="">
+						<div className="xl:grid-cols-4 grid items-end gap-4 md:grid-cols-2 lg:grid-cols-4">
 							{/* TODO: Data Slicing to be done based on the screen width with a stat*/}
 							{subCategories}
-							{/* <CatSubCatActionCard /> */}
+							<CatSubCatActionCard />
 						</div>
 					)}
 				</div>
