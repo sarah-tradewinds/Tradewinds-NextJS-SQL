@@ -11,7 +11,7 @@ class MyDocument extends Document {
 						rel="stylesheet"
 					/>
 				</Head>
-				<body className="bg-homepage-bg font-montserrat">
+				<body className="bg-bg-main font-montserrat">
 					<Main />
 					<NextScript />
 				</body>

@@ -79,14 +79,14 @@ const HomePage: NextPage<
 
 	const searchCategoriesAndTrendingBanner = (
 		<div className="grid gap-4 lg:grid-cols-2">
-			<div className="flex items-center bg-accent-primary-main p-3 text-white dark:bg-accent-primary-eco md:space-y-4 md:rounded-md lg:flex-col">
+			<div className="flex h-[78.75px] items-center bg-accent-primary-main p-3 text-white dark:bg-accent-primary-eco md:space-y-4 md:rounded-md lg:flex-col">
 				<h3 className="text-[21px] font-semibold leading-[26px] md:mr-8 md:text-[35px]">
 					{t('home:search_from_6500_categories')}
 				</h3>
 				<Button
 					href="/6500-categories"
 					variant="special"
-					className="whitespace-nowrap !px-4 pc:!rounded-full"
+					className="!min-h-[20px] whitespace-nowrap !px-4 !text-[11px] !leading-[13px] md:h-auto pc:!rounded-full"
 				>
 					{t('common:search_more')}
 					<span className="hidden md:inline-block">{' >'}</span>
@@ -94,7 +94,7 @@ const HomePage: NextPage<
 			</div>
 
 			{/* Trending section */}
-			<div className="flex items-center justify-end bg-[url('/latest-trend-image.png')] bg-left p-3 md:rounded-md">
+			<div className="hidden items-center justify-end bg-[url('/latest-trend-image.png')] bg-left p-3 md:flex md:rounded-md">
 				<div className="flex flex-col items-center space-y-2 ">
 					<h3 className="text-[18px] font-semibold leading-[26px] text-white md:mr-8 md:text-[35px]">
 						{t('Find the latest Trends')}
@@ -128,7 +128,7 @@ const HomePage: NextPage<
 
 			{/* <div className="desktop:mt-[31px]s container mx-auto md:px-4 lg:px-8"> */}
 			<div className="md:container">
-				<div className="mt-12 md:mt-48 lg:-mt-14">
+				<div className="mt-20 md:mt-48 lg:-mt-14">
 					{/* Category and sub categories */}
 					{/* <div className="mt-12 space-y-12 md:mt-0 md:space-y-8"> */}
 					<div className="space-y-[41px] lg:mx-[23px] lg:space-y-[27px]">
@@ -172,14 +172,14 @@ const HomePage: NextPage<
 					</div>
 
 					{/*  Search Categories Banner */}
-					<div className="my-[30px] md:hidden">
+					<div className="mb-[45.25px] mt-[30px] md:my-[30px] md:hidden">
 						{searchCategoriesAndTrendingBanner}
 					</div>
 
 					{/* Shop by country and ads */}
 					<div className="space-y-8 lg:mx-[23px]">
 						{/* Shop by country */}
-						<div className="mt-[30px] h-[78.75px] bg-error md:h-[81px] lg:h-[168px]">
+						<div className="mt-[30px] h-[78.75px] md:h-[81px] lg:h-[168px]">
 							<CountrySlider
 								key={homeCountries?.length}
 								countries={homeCountries}

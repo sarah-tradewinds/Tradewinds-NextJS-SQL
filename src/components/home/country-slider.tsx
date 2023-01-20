@@ -1,9 +1,11 @@
 // Third party packages
 import { useKeenSlider } from 'keen-slider/react'; // import from 'keen-slider/react.es' for to get an ES module
 import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { generateListByCount } from 'utils/common.util';
+import { getLocaleText } from 'utils/get_locale_text';
 import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
 import Button from '../common/form/button';
 
@@ -26,6 +28,7 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 	const [loaded, setLoaded] = useState(false);
 
 	const { t } = useTranslation('home');
+	const { locale } = useRouter();
 
 	const [ref, instanceRef] = useKeenSlider<HTMLDivElement>({
 		slideChanged(slider) {
@@ -36,17 +39,15 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 		},
 		loop: true,
 		slides: {
-			perView: 2
+			perView: 4,
+			spacing: 8
 		},
 		breakpoints: {
-			'(min-width: 640px)': {
-				slides: { perView: 4 }
+			'(min-width: 744px)': {
+				slides: { perView: 7 }
 			},
-			'(min-width: 768px)': {
-				slides: { perView: 6 }
-			},
-			'(min-width: 1024px)': {
-				slides: { perView: 8 }
+			'(min-width: 1512px)': {
+				slides: { perView: 7 }
 			}
 		}
 	});
@@ -65,7 +66,7 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 							onCountryClick(country);
 						}
 					}}
-					className="keen-slider__slide !relative !mx-6 !h-9 !min-w-[36.06px] !max-w-[36.06px] md:!mx-5 md:!h-[30.59px] md:!min-w-[52.04px] md:!max-w-[52.04px] lg:!mx-[41px] lg:!h-[64px] lg:!min-w-[107px] lg:!max-w-[107px]"
+					className="keen-slider__slide !mx-6s !relative !h-9 !min-w-[36.06px] !max-w-[36.06px] md:!mx-5 md:!h-[30.59px] md:!min-w-[52.04px] md:!max-w-[52.04px] lg:!mx-[41px] lg:!h-[64px] lg:!min-w-[107px] lg:!max-w-[107px]"
 				>
 					{/* <div className="w-[107px]s relative h-[64px] w-full"> */}
 					<div className="relative h-[24.44px] !min-w-[36.06px] !max-w-[36.06px] md:!h-full md:!min-w-[52.04px] md:!max-w-[52.04px] lg:!min-w-[107px] lg:!max-w-[107px]">
@@ -76,7 +77,7 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 						/>
 					</div>
 					<p className="mt-[2.56px] text-[10px] font-semibold leading-3 md:hidden">
-						ddddd
+						{getLocaleText(country?.name || '', locale)}
 					</p>
 					{/* </div> */}
 				</Button>
@@ -94,7 +95,7 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 				<div className="w-40 border-2 border-[#FFFFFF] md:w-[236.86px] lg:w-[487px]"></div>
 			</div>
 
-			<div className="navigation-wrapper relative px-8">
+			<div className="navigation-wrapper relative mt-[7px] md:mt-0 md:px-8">
 				<div ref={ref} className="keen-slider">
 					{countriesSlider}
 				</div>
@@ -128,9 +129,8 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 			</div>
 
 			{/* Shading */}
-			<div className="absolute left-0 top-0 h-full w-20 bg-gradient-to-r from-primary-main via-primary-main to-primary-main/80 md:w-32 lg:w-[180px] "></div>
-
-			<div className="absolute right-0 top-0 h-full w-20 bg-gradient-to-l from-primary-main via-primary-main to-primary-main/80 md:w-32 lg:w-[180px] "></div>
+			<div className="absolute left-0 top-0 h-full w-14 bg-gradient-to-r from-[#01243b]/80 md:w-32 lg:w-[180px] "></div>
+			<div className="absolute right-0 top-0 h-full w-14 bg-gradient-to-l from-[#01243b]/80 md:w-32 lg:w-[180px] "></div>
 
 			{/* <div className="absolute top-0 h-full w-[48px] bg-gradient-to-r from-primary-main to-primary-main/80 md:w-[80px]"></div>
 			<div className="absolute top-0 right-0 h-full w-[48px] bg-gradient-to-l from-primary-main to-primary-main/80 md:w-[80px]"></div> */}

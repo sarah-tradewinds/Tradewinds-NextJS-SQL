@@ -92,7 +92,7 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 							href={onClick ? '' : slug}
 							onClick={onClick}
 							// className={`bg-[${bgHexColor}]/70 flex items-center justify-center rounded-md border border-black/20 text-[18px] uppercase text-white`}
-							className={`whitespace-nowrap !px-0 !py-0 font-montserrat capitalize text-white lg:!h-[25.95px] lg:!w-[138.39px] lg:!rounded-lg lg:text-lg lg:!font-normal lg:!leading-[22px]`}
+							className={`whitespace-nowrap !px-0 !py-0 font-montserrat capitalize text-white lg:!min-h-[25.95px] lg:!w-[138.39px] lg:!rounded-lg lg:text-lg lg:!font-normal lg:!leading-[22px]`}
 							style={{
 								backgroundColor: bgDarkHexColor
 							}}

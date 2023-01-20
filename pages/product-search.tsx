@@ -172,11 +172,16 @@ const ProductSearchPage: NextPage<
 	useEffect(() => {
 		if (selectedCategories && selectedCategories?.length > 0) {
 			setOptions({
-				loop: true,
-				slides: {
-					perView: 2,
-					spacing: 4
-				}
+				// loop: true,
+				// slides: {
+				// 	perView: 'auto',
+				// 	spacing: 4
+				// }
+
+				loop: false,
+				mode: 'snap',
+				rtl: false,
+				slides: { perView: 'auto' }
 			});
 		}
 	}, [selectedCategories]);
@@ -371,14 +376,23 @@ const ProductSearchPage: NextPage<
 							>
 								<div ref={ref} className="keen-slider h-[44px]">
 									{selectedCategories?.map((subCategory: any) => {
+										const title = getLocaleText(
+											subCategory.title || {},
+											router.locale
+										);
+
 										return (
 											<div
 												key={subCategory.id}
-												className="keen-slider__slide"
+												className="keen-slider__slide bg-error"
+												style={{
+													maxWidth: `${title.length * 20}px`,
+													minWidth: `${title.length * 20}px`
+												}}
 											>
 												<div>
 													<SubCategoryTile
-														className="!w-[148px] pb-4"
+														className="!w-full pb-4"
 														imageClassName="!w-[51px] !h-[44px]"
 														imageUrl={
 															subCategory.image?.url ||
