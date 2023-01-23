@@ -66,7 +66,7 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 
 	const { route } = useRouter();
 	const { routeChangeStart } = useRouteEvent();
-	const { deviceWidth } = useDeviceSize();
+	const { deviceWidth, deviceType } = useDeviceSize();
 
 	useEffect(() => {
 		const [bodyTag] = Array.from(document.getElementsByTagName('body'));
@@ -112,7 +112,18 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 				onClose={() => setIsProductFilterSliderOpen(false)}
 			/>
 
-			<div className={isEco ? 'dark' : 'light'}>
+			<div
+				className={isEco ? 'dark' : 'light'}
+				style={{
+					width:
+						deviceType === 'desktop'
+							? deviceWidth > 1512
+								? 'auto'
+								: '1512px'
+							: 'auto',
+					overflowX: 'auto'
+				}}
+			>
 				<NavBar />
 				<SignUpPage />
 				<Login />
