@@ -11,17 +11,17 @@ import Hero from 'components/home/hero';
 
 // lib
 import {
-	getCardAList,
-	getCardB,
-	getHeroCarousels,
-	getHomeAdvertisements,
-	getHomeCountries
+  getCardAList,
+  getCardB,
+  getHeroCarousels,
+  getHomeAdvertisements,
+  getHomeCountries
 } from 'lib/home.lib';
 import {
-	GetServerSideProps,
-	GetStaticProps,
-	InferGetStaticPropsType,
-	NextPage
+  GetServerSideProps,
+  GetStaticProps,
+  InferGetStaticPropsType,
+  NextPage
 } from 'next';
 
 import { getEcoHomeMainCategoriesAndCategories } from 'lib/eco/eco-home.lib';
@@ -142,7 +142,7 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 					{/* Shop by country and ads */}
 					<div className="space-y-8 lg:mx-[23px]">
 						{/* Shop by country */}
-						<div className="mt-[30px] h-[78.75px] bg-error md:h-[81px] lg:h-[168px]">
+						<div className="mt-[30px] h-[78.75px] md:h-[81px] lg:h-[168px]">
 							<CountrySlider
 								key={homeCountries?.length}
 								countries={homeCountries}

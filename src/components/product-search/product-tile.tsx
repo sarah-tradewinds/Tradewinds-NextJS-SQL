@@ -9,10 +9,10 @@ import { metadataList } from 'data/product-search/metadata-list';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import {
-	MdBookmark,
-	MdOutlineBookmarkBorder,
-	MdOutlineMessage,
-	MdOutlineShoppingCart
+  MdBookmark,
+  MdOutlineBookmarkBorder,
+  MdOutlineMessage,
+  MdOutlineShoppingCart
 } from 'react-icons/md';
 import { useAuthStore } from 'store/auth';
 import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
@@ -373,7 +373,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 			</div>
 
 			{/*Metadata and Reviews count and rating. For medium screen only */}
-			<div className="bg-errors col-span-12 pb-4 md:col-span-8 md:-mt-20 md:block md:px-2 lg:col-span-3 lg:hidden lg:px-2">
+			<div className="col-span-12 pb-4 md:col-span-8 md:-mt-20 md:block md:px-2 lg:col-span-3 lg:hidden lg:px-2">
 				<div className="grid h-full grid-cols-12">
 					<div className="col-span-12 hidden md:block lg:hidden">
 						{metadataElements}
