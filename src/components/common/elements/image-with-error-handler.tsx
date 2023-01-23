@@ -23,8 +23,8 @@ const ImageWithErrorHandler: React.FC<ImageWithErrorHandlerProps> = (
 		fill,
 		width,
 		height,
-		defaultImageUrl = '/page_not_found.svg',
-		errorImageUrl = '/page_not_found.svg',
+		defaultImageUrl = '/coming-soon.png',
+		errorImageUrl = '/coming-soon.png',
 		className
 	} = props;
 
