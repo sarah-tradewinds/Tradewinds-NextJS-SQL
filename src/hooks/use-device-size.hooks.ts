@@ -49,8 +49,6 @@ const useDeviceSize = () => {
 		}
 	}, []);
 
-	console.log(deviceType, deviceWidth);
-
 	return { deviceSize, deviceWidth, deviceType };
 }; // End of useDeviceSize hook
 

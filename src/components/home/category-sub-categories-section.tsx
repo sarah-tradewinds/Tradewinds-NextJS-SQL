@@ -205,7 +205,7 @@ const CategorySubCategoriesSection: React.FC<
 					contentClassName="!ml-[8.1px]"
 				>
 					<div className="bg-white">
-						<div className="ml-7 mr-[34px] mt-2 pb-[43px]">
+						<div className="ml-7 mr-[34px] mt-2 pb-4">
 							{subCategoriesMobile}
 						</div>
 					</div>

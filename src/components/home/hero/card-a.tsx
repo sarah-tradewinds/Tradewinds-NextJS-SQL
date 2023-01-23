@@ -17,7 +17,7 @@ const CardA: React.FC<CardAProps> = (props) => {
 		<Link
 			href={href}
 			// className="flex w-full flex-1 cursor-pointer flex-col gap-2 rounded-md bg-white p-3 transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg sm:h-[280px] md:h-[240px] md:w-[226px] lg:h-[352px] lg:w-[300px] lg:p-6 xl:w-[416px] pc:h-[300px]"
-			className="flex h-full w-full cursor-pointer flex-col rounded-md bg-white p-3 transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg md:h-[240px] md:w-[226px] md:p-0 lg:h-[352px] lg:w-[466px]"
+			className="flex h-full w-full cursor-pointer flex-col rounded-md bg-white p-2 transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg md:h-[240px] md:w-[226px] md:p-3 md:p-0 lg:h-[352px] lg:w-[466px]"
 		>
 			<h2
 				className="md:t-[3.76px] font-mont text-[15px] font-semibold capitalize leading-[18px] text-primary-main dark:text-accent-secondary-eco md:ml-[10.17px] md:text-[20px] md:leading-6
@@ -25,7 +25,7 @@ const CardA: React.FC<CardAProps> = (props) => {
 			>
 				{title}
 			</h2>
-			<div className="relative h-[86px] w-[180px] overflow-hidden md:ml-[11.14px] md:mr-[11.45px] md:mt-[3.19px] md:block md:h-[109.63px] md:w-[203.41px] lg:mx-[23px] lg:mt-[15px] lg:h-[201px] lg:w-[420px]">
+			<div className="relative mt-1 h-[86px] w-[180px] overflow-hidden md:ml-[11.14px]  md:mr-[11.45px] md:mt-[3.19px] md:block md:h-[109.63px] md:w-[203.41px] lg:mx-[23px] lg:mt-[15px] lg:h-[201px] lg:w-[420px]">
 				<ImageWithErrorHandler
 					src={imageUrl}
 					alt={alt}

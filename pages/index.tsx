@@ -79,29 +79,33 @@ const HomePage: NextPage<
 
 	const searchCategoriesAndTrendingBanner = (
 		<div className="grid gap-4 lg:grid-cols-2">
-			<div className="flex h-[78.75px] items-center bg-accent-primary-main p-3 text-white dark:bg-accent-primary-eco md:space-y-4 md:rounded-md lg:flex-col">
-				<h3 className="text-[21px] font-semibold leading-[26px] md:mr-8 md:text-[35px]">
-					{t('home:search_from_6500_categories')}
+			<div className="flex h-[78.75px] items-center bg-accent-primary-main p-3 text-white dark:bg-accent-primary-eco md:space-y-2 lg:h-[143px] lg:flex-col lg:p-0">
+				<h3 className="text-[21px] font-semibold leading-[26px] md:text-[35px] lg:text-center lg:text-[35px] lg:leading-[43px]">
+					{t('home:search_from')}
+					<span className="inline-block lg:mx-3 lg:text-[60px] lg:leading-[73px]">
+						6500
+					</span>
+					{t('home:categories')}
 				</h3>
 				<Button
 					href="/6500-categories"
 					variant="special"
-					className="!min-h-[20px] whitespace-nowrap !px-4 !text-[11px] !leading-[13px] md:h-auto pc:!rounded-full"
+					className="!min-h-[20px] whitespace-nowrap !px-4 !py-0 !text-[11px] !leading-[13px] md:h-auto lg:!h-[48px] lg:!min-h-[48px] lg:!w-[236px] lg:!text-[21px] lg:!leading-[26px]"
 				>
 					{t('common:search_more')}
-					<span className="hidden md:inline-block">{' >'}</span>
+					<span className="hidden md:inline-block lg:pl-2">{' >'}</span>
 				</Button>
 			</div>
 
 			{/* Trending section */}
-			<div className="hidden items-center justify-end bg-[url('/latest-trend-image.png')] bg-left p-3 md:flex md:rounded-md">
+			<div className="hidden items-center justify-end bg-[url('/latest-trend-image.png')] bg-left p-3 md:flex">
 				<div className="flex flex-col items-center space-y-2 ">
-					<h3 className="text-[18px] font-semibold leading-[26px] text-white md:mr-8 md:text-[35px]">
+					<h3 className="text-[18px] font-semibold leading-[26px] text-white md:mr-8 md:text-[35px] lg:leading-[43px]">
 						{t('Find the latest Trends')}
 					</h3>
 					<Button
 						href={`/product-search?is_trending=${true}`}
-						className="border-2 border-secondary text-[21px] font-bold text-secondary pc:!rounded-full"
+						className="border-2 border-secondary !text-[21px] font-bold text-secondary lg:!h-[48px] lg:!leading-[26px] pc:!rounded-full"
 					>
 						See Trends
 					</Button>

@@ -114,15 +114,15 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 
 			<div
 				className={isEco ? 'dark' : 'light'}
-				style={{
-					width:
-						deviceType === 'desktop'
-							? deviceWidth > 1512
-								? 'auto'
-								: '1512px'
-							: 'auto',
-					overflowX: 'auto'
-				}}
+				// style={{
+				// 	width:
+				// 		deviceType === 'desktop'
+				// 			? deviceWidth > 1512
+				// 				? 'auto'
+				// 				: '1512px'
+				// 			: 'auto',
+				// 	overflowX: 'auto'
+				// }}
 			>
 				<NavBar />
 				<SignUpPage />
