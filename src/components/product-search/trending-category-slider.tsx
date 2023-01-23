@@ -29,6 +29,8 @@ const TrendingCategorySlider: React.FC<{
 		slideToShow = 3;
 	}
 
+	console.log('deviceWidth =', deviceWidth);
+
 	const settings = {
 		slidesToShow: slideToShow,
 		slidesToScroll: 3,

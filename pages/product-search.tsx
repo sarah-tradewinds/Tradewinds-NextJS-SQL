@@ -290,7 +290,9 @@ const ProductSearchPage: NextPage<
 								className="h-[42px] w-full md:h-auto md:w-[122px] lg:w-[266px]"
 								style={{
 									backgroundColor:
-										deviceWidth < 744 ? selectedMainCategory?.color : ''
+										deviceWidth >= 744
+											? ''
+											: selectedMainCategory?.color
 								}}
 							>
 								{isSelectedMainCategoryAndCategoriesLoading ? (

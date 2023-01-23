@@ -19,33 +19,32 @@ const useDeviceSize = () => {
 	};
 
 	const handleResize = () => {
-		window.addEventListener('resize', () => {
-			setDeviceType(detectDeviceType());
+		setDeviceType(detectDeviceType());
 
-			const width = window.innerWidth;
-			setDeviceWidth(width);
-			if (width >= 640) {
-				setDeviceSize('sm');
-			}
-			if (width >= 768) {
-				setDeviceSize('md');
-			}
-			if (width >= 1024) {
-				setDeviceSize('lg');
-			}
-			if (width >= 1280) {
-				setDeviceSize('xl');
-			}
-			if (width >= 1536) {
-				setDeviceSize('2xl');
-			}
-		}); // End of event Listener
+		const width = window.innerWidth;
+		setDeviceWidth(width);
+		if (width >= 640) {
+			setDeviceSize('sm');
+		}
+		if (width >= 768) {
+			setDeviceSize('md');
+		}
+		if (width >= 1024) {
+			setDeviceSize('lg');
+		}
+		if (width >= 1280) {
+			setDeviceSize('xl');
+		}
+		if (width >= 1536) {
+			setDeviceSize('2xl');
+		}
 	}; // End of handleResize
 
 	useEffect(() => {
 		if (typeof window !== 'undefined') {
-			handleResize();
-			return () => window.removeEventListener('resize', handleResize);
+			window.addEventListener('resize', handleResize); // End of event Listener
+
+			return () => window.removeEventListener('resize', () => {});
 		}
 	}, []);
 
