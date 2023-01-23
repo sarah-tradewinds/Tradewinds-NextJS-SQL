@@ -127,14 +127,18 @@ const CategorySubCategoriesSection: React.FC<
 						<div
 							key={subCat.id}
 							className="mb-[9px] flex items-center border-b-[1.5px] border-[#D1D1CF] last:border-none"
+							onClick={() =>
+								onSubCategoryTileClickHandler(
+									categoryData.id,
+									categoryData?.title?.en || ''
+								)
+							}
 						>
 							<div className="mb-[7px]">
 								<div className="relative h-[42px] w-[44px]">
 									<ImageWithErrorHandler
 										src={categoryData?.image?.url || ''}
 										alt=""
-										// width={44}
-										// height={42}
 										fill={true}
 									/>
 								</div>
