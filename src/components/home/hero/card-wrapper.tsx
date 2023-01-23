@@ -13,7 +13,6 @@ const CardWrapper: React.FC<{
 	const [ref] = useKeenSlider<HTMLDivElement>({
 		mode: 'free-snap',
 		// loop: true,
-		initial: 1,
 		slides: {
 			origin: 'center',
 			perView: 2,

@@ -205,7 +205,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 
 	return (
 		<div
-			className={`grid w-full grid-cols-12 overflow-hidden bg-white md:rounded-xl md:shadow-md lg:p-4 ${
+			className={`h-[118px]s grid w-full grid-cols-12 overflow-hidden bg-white md:rounded-xl md:shadow-md lg:p-4 ${
 				isEco ? 'border-2 border-accent-success' : ''
 			}`}
 		>
@@ -353,10 +353,11 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 
 							{/* For small screen only */}
 							<div className="col-span-12 mt-2 space-y-2 md:hidden">
-								<MetadataTile
+								{/* <MetadataTile
 									imageUrl={metadataList[0].imageUrl}
-									title={t('common:country_of_origin')}
-								/>
+									title={metadataList[0].title}
+								/> */}
+								{metadataTileList[0]}
 								{metadataTileList[1]}
 							</div>
 

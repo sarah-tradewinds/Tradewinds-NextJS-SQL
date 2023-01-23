@@ -96,7 +96,7 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 			</div>
 
 			<div className="mt-[7px] md:hidden">
-				<div ref={ref} className="flex overflow-x-auto">
+				<div ref={ref} className="scrollbar-hide flex overflow-x-auto">
 					{countriesSlider}
 				</div>
 			</div>

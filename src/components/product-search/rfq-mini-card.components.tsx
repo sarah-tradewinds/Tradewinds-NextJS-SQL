@@ -36,13 +36,13 @@ const MiniRFQCard: React.FC<RFQCardProps> = (props) => {
 		size === 'xl'
 			? // ? 'space-y-8 lg:rounded-lg bg-gradient-to-r from-[#E7CA00] via-[#E8A30E] to-[#E8A30E] p-4 lg:space-y-12'
 			  'space-y-8 lg:rounded-lg p-4 md:h-[321px] lg:h-[475px] lg:space-y-12'
-			: 'flex items-center space-x-6 md:space-x-16s lg:rounded-md bg-secondary p-4 md:p-8 lg:space-x-24'
+			: 'flex md:items-center md:space-x-6 space-x-4 lg:rounded-md bg-secondary py-2 md:p-8 lg:space-x-24'
 	}`;
 	let imageClassName = '';
 
 	if (size === 'xs') {
 		rfqCardContainerClassName = `${rfqCardContainerClassName} h-[125px] lg:h-[140px] md:h-[180px]`;
-		imageClassName = `${imageClassName} lg:h-[87px] lg:w-[81px] h-[87px] w-[81px] md:h-[107px] md:w-[101px]`;
+		imageClassName = `${imageClassName} ml-2 mt-[22px] md:mt-0 w-[50.05px] h-[53.76px] lg:h-[87px] lg:w-[81px] h-[87px] w-[81px] md:h-[107px] md:w-[101px]`;
 	} else if (size === 'sm') {
 		rfqCardContainerClassName = `${rfqCardContainerClassName} h-[180px]`;
 		imageClassName = `${imageClassName} h-[87px] w-[81px]`;
@@ -70,10 +70,11 @@ const MiniRFQCard: React.FC<RFQCardProps> = (props) => {
 						fill={true}
 					/>
 				</div>
+
 				<div
 					className={` ${
 						size === 'xl'
-							? 'pb-4 text-[16px] font-semibold text-white lg:text-[25px]'
+							? 'pb-4 text-[16px] font-semibold leading-5 text-white lg:text-[25px]'
 							: 'hidden'
 					}`}
 				>
@@ -89,7 +90,7 @@ const MiniRFQCard: React.FC<RFQCardProps> = (props) => {
 				} ${size === 'xl' ? 'grid grid-cols-1 lg:space-y-12' : ''}`}
 			>
 				<div
-					className={`pb-2 text-[16px] font-semibold text-white md:pb-4 lg:text-[25px] ${
+					className={`pb-2 text-[16px] font-semibold leading-5 text-white md:pb-4 lg:text-[25px] ${
 						size === 'lg' ? 'border-b-2' : ''
 					}`}
 				>
@@ -99,7 +100,7 @@ const MiniRFQCard: React.FC<RFQCardProps> = (props) => {
 					<ul
 						className={`list-disc text-[32px] lg:text-[20px] ${
 							size === 'xs'
-								? 'grid grid-cols-1 text-[13px] font-normal md:grid-cols-2'
+								? 'ml-4 grid grid-cols-1 text-[13px] font-normal md:grid-cols-2'
 								: 'ml-8 text-[12px]'
 						} ${
 							size === 'xl'
@@ -136,7 +137,7 @@ const MiniRFQCard: React.FC<RFQCardProps> = (props) => {
 						}}
 						className={`${
 							size === 'xs'
-								? 'flex items-center bg-white !px-2 !text-secondary lg:max-h-6'
+								? 'flex !h-[29.74px] !w-[187px] items-center bg-white !px-2 !text-secondary md:h-auto md:w-auto lg:max-h-6'
 								: 'flex items-center bg-white !px-2 !text-secondary'
 						} ${
 							size === 'xl' ? 'lg:flex lg:w-full lg:justify-center' : ''
