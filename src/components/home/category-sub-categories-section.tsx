@@ -87,7 +87,7 @@ const CategorySubCategoriesSection: React.FC<
 					return (
 						<div
 							key={subCat.id}
-							className={`mb-2 transform transition duration-300 ease-in-out hover:-translate-y-2 md:mb-0 pc:border-b pc:border-gray/40 pc:last:border-b-0`}
+							className={`md:b-0 mb-2 transform border-b border-gray/40 transition duration-300 ease-in-out last:border-b-0 hover:-translate-y-2 md:mb-0`}
 						>
 							<SubCategoryCard
 								subCat={categoryData}
@@ -98,14 +98,51 @@ const CategorySubCategoriesSection: React.FC<
 									)
 								}
 								style={{
-									backgroundColor: main_category.panel_color,
+									backgroundColor: main_category.panel_color
 									// border: !main_category.panel_color
 									// 	? '2px solid gray'
 									// 	: ''
-									border: '2px solid gray'
+									// border: '2px solid gray'
 								}}
 								containerClassName={`min-h-[80px] md:min-h-[124px] lg:min-h-[140px] !bg-[${main_category.color}]`}
 							/>
+						</div>
+					);
+				})
+		: [];
+
+	const subCategoriesMobile = categories
+		? [...categories]
+				.slice(0, deviceSize === 'md' ? 5 : 7)
+				.map((subCat) => {
+					let { categories: category } = subCat as any;
+
+					const categoryData = category || subCat;
+					const subCategoryTitle = getLocaleText(
+						categoryData?.title || {},
+						locale
+					);
+
+					return (
+						<div
+							key={subCat.id}
+							className="mb-[9px] flex items-center border-b-[1.5px] border-[#D1D1CF] last:border-none"
+						>
+							<div className="mb-[7px]">
+								<div className="relative h-[42px] w-[44px]">
+									<ImageWithErrorHandler
+										src={categoryData?.image?.url || ''}
+										alt=""
+										// width={44}
+										// height={42}
+										fill={true}
+									/>
+								</div>
+							</div>
+
+							<p className="ml-[13px] text-[15px] font-semibold leading-[18px] text-primary-main">
+								{subCategoryTitle}
+							</p>
 						</div>
 					);
 				})
@@ -128,29 +165,24 @@ const CategorySubCategoriesSection: React.FC<
 					}}
 					leading={
 						<div
-							className={`mt-1 text-[19.9px] text-primary-main ${
-								isReverse ? 'mr-4' : 'ml-4 '
+							className={`text-[26px] text-primary-main ${
+								isReverse ? 'mr-4' : 'ml-[11px]'
 							}`}
 						>
 							{isOpen ? <HiMinusCircle /> : <HiPlusCircle />}
 						</div>
 					}
 					title={
-						<span className="text-left text-[15px] font-semibold leading-[18px] text-primary-main">
+						<p className="text-left text-[15px] font-semibold leading-[18px] text-primary-main">
 							{mainCategoryTitle}
-						</span>
+						</p>
 					}
 					subtitle={
-						<div>
-							<span className="text-[12px] font-semibold leading-[15px] text-primary-main">
-								Name Here {` `}
-							</span>
-							<span className="text-gray">
-								{mainCategoryDescription.length > 32
-									? `${mainCategoryDescription.substring(0, 24)}...`
-									: mainCategoryDescription}
-							</span>
-						</div>
+						<p className="text-xs leading-[15px] text-gray">
+							{mainCategoryDescription.length > 32
+								? `${mainCategoryDescription.substring(0, 24)}...`
+								: mainCategoryDescription}
+						</p>
 					}
 					trailing={
 						<div className="relative h-[80px] w-[80px]">
@@ -169,9 +201,13 @@ const CategorySubCategoriesSection: React.FC<
 							</div>
 						</div>
 					}
+					containerClassName="pt-[5px] !items-start"
+					contentClassName="!ml-[8.1px]"
 				>
 					<div className="bg-white">
-						<div className="mx-8 pt-8">{subCategories}</div>
+						<div className="ml-7 mr-[34px] mt-2 pb-[43px]">
+							{subCategoriesMobile}
+						</div>
 					</div>
 				</Collapse>
 			</div>

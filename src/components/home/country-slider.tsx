@@ -66,7 +66,7 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 							onCountryClick(country);
 						}
 					}}
-					className="keen-slider__slide !mx-6s !relative !h-9 !min-w-[36.06px] !max-w-[36.06px] md:!mx-5 md:!h-[30.59px] md:!min-w-[52.04px] md:!max-w-[52.04px] lg:!mx-[41px] lg:!h-[64px] lg:!min-w-[107px] lg:!max-w-[107px]"
+					className="keen-slider__slide !relative flex !h-9 !min-w-[36.06px] !max-w-[36.06px] flex-col items-center md:!mx-5 md:!h-[30.59px] md:!min-w-[52.04px] md:!max-w-[52.04px] lg:!mx-[41px] lg:!h-[64px] lg:!min-w-[107px] lg:!max-w-[107px]"
 				>
 					{/* <div className="w-[107px]s relative h-[64px] w-full"> */}
 					<div className="relative h-[24.44px] !min-w-[36.06px] !max-w-[36.06px] md:!h-full md:!min-w-[52.04px] md:!max-w-[52.04px] lg:!min-w-[107px] lg:!max-w-[107px]">
@@ -89,13 +89,19 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 		>
 			<div className="flex items-center justify-center space-x-4 md:mt-[5.72px] lg:mt-[11px] lg:mb-3">
 				<div className="w-40 border-2 border-[#FFFFFF] md:w-[236.86px] lg:w-[487px]"></div>
-				<p className="whitespace-nowrap text-center font-semibold text-white lg:text-[25px] lg:leading-[30px]">
+				<p className="whitespace-nowrap text-center text-[15px] font-semibold leading-[18px]  text-white lg:text-[25px] lg:leading-[30px]">
 					{t('shop_by_country')}
 				</p>
 				<div className="w-40 border-2 border-[#FFFFFF] md:w-[236.86px] lg:w-[487px]"></div>
 			</div>
 
-			<div className="navigation-wrapper relative mt-[7px] md:mt-0 md:px-8">
+			<div className="mt-[7px] md:hidden">
+				<div ref={ref} className="flex overflow-x-auto">
+					{countriesSlider}
+				</div>
+			</div>
+
+			<div className="navigation-wrapper relative mt-[7px] hidden md:mt-0 md:block md:px-8">
 				<div ref={ref} className="keen-slider">
 					{countriesSlider}
 				</div>

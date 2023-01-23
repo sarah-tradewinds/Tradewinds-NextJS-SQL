@@ -6,6 +6,7 @@ interface CollapseProps {
 	title?: any;
 	subtitle?: any;
 	trailing?: any;
+	containerClassName?: string;
 	contentClassName?: string;
 	collapseHeadBgHexColor?: string;
 	isReverse?: boolean;
@@ -25,6 +26,7 @@ const Collapse: React.FC<CollapseProps> = (props) => {
 		children,
 		onLeadingClick,
 		onContentClick,
+		containerClassName,
 		contentClassName
 	} = props;
 
@@ -43,16 +45,12 @@ const Collapse: React.FC<CollapseProps> = (props) => {
 		<div>
 			{/* Header */}
 			<div
-				className={`relative flex h-[67px] cursor-pointer justify-between ${
+				className={`relative flex h-[67px] cursor-pointer items-center justify-between ${containerClassName} ${
 					isReverse ? 'flex-row-reverse' : ''
-				} items-center`}
+				}`}
 				style={{ backgroundColor: collapseHeadBgHexColor }}
 			>
-				<div
-					className={`items-centers flex ${
-						isReverse ? 'flex-row-reverse' : ''
-					}`}
-				>
+				<div className={`flex ${isReverse ? 'flex-row-reverse' : ''}`}>
 					<div
 						onClick={() => {
 							console.log('clicked');
