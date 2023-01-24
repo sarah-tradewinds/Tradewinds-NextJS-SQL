@@ -231,7 +231,7 @@ const ProductList: React.FC<ProductListProps> = ({
 								<MobileProductTile {...productData} />
 							</div>
 
-							<div className="hidden md:block">
+							<div className="md:block">
 								<ProductTile
 									key={product.id}
 									name={getLocaleText(

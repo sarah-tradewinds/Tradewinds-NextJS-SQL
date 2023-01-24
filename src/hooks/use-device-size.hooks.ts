@@ -9,6 +9,17 @@ const useDeviceSize = () => {
 		'mobile' | 'tablet' | 'desktop'
 	>('mobile');
 
+	const hasWindow = typeof window !== 'undefined';
+
+	const getWindowDimensions = () => {
+		const width = hasWindow ? window.innerWidth : 0;
+		const height = hasWindow ? window.innerHeight : 0;
+		return {
+			width,
+			height
+		};
+	}; // End of getWindowDimensions
+
 	//#Source https://bit.ly/2neWfJ2
 	const detectDeviceType = () => {
 		return /Android|webOS|iPhone|iPad|iPod|kindle|BlackBerry|IEMobile|Opera Mini/i.test(
@@ -21,7 +32,7 @@ const useDeviceSize = () => {
 	const handleResize = () => {
 		setDeviceType(detectDeviceType());
 
-		const width = window.innerWidth;
+		const { width } = getWindowDimensions();
 		setDeviceWidth(width);
 		if (width >= 640) {
 			setDeviceSize('sm');
@@ -41,12 +52,17 @@ const useDeviceSize = () => {
 	}; // End of handleResize
 
 	useEffect(() => {
-		if (typeof window !== 'undefined') {
-			window.addEventListener('resize', handleResize); // End of event Listener
-
-			return () => window.removeEventListener('resize', () => {});
+		if (hasWindow) {
+			handleResize();
 		}
 	}, []);
+
+	useEffect(() => {
+		if (hasWindow) {
+			window.addEventListener('resize', handleResize);
+			return () => window.removeEventListener('resize', handleResize);
+		}
+	}, [hasWindow]);
 
 	return { deviceSize, deviceWidth, deviceType };
 }; // End of useDeviceSize hook

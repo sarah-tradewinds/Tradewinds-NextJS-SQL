@@ -21,7 +21,7 @@ export const getDisplayBulkPrice = ({
 			maxPrice = bulkPricingFirst;
 			minPrice = bulkPricingLast;
 		}
-		displayPrice = `$${minPrice}-$${maxPrice}`;
+		displayPrice = `$${minPrice} - $${maxPrice}`;
 	}
 	return displayPrice;
 };

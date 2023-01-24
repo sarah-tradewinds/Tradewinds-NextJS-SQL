@@ -128,7 +128,9 @@ const ProductSearchPage: NextPage<
 		if (countryIds) {
 			const [countryId] = countryIds?.split(',');
 			getCountryById(countryId).then((data) => {
-				setSelectedCountryBannerImageUrl(data?.banner_image?.url || '');
+				setSelectedCountryBannerImageUrl(
+					data?.banner_image?.url || '/coming-soon.png'
+				);
 			});
 		}
 	}, [query.country]);
@@ -186,6 +188,7 @@ const ProductSearchPage: NextPage<
 		<div className="md:container">
 			<Seo title="Product search page" description="" />
 
+			{/* Main Category Banner and Category banner */}
 			<div>
 				{/* Main Category Banner */}
 				{main_category && !countryId && (
@@ -211,7 +214,7 @@ const ProductSearchPage: NextPage<
 			</div>
 
 			{/* ProductSearchFilterBar */}
-			<div className="top-[104px] z-20 md:sticky md:ml-[9px] md:mr-[10px] md:pt-[14.01px] lg:top-[120px] lg:ml-[26px] lg:mr-[23px] lg:pt-[18.14px]">
+			<div className="top-[104px] z-20 md:sticky md:ml-[9px] md:mr-[10px] md:pt-[14.01px] lg:top-[102px] lg:ml-[26px] lg:mr-[23px] lg:pt-[18.14px]">
 				<ProductSearchFilterBar
 					onCountryChange={(id = '', name = '') => {
 						const country = id && name ? `${id}_${name || ''}` : '';
@@ -302,7 +305,7 @@ const ProductSearchPage: NextPage<
 									</div>
 								) : (
 									<div className="md:justify-betweens flex h-full items-center p-2 md:flex-col md:items-start md:space-x-0 md:p-0">
-										<p className="text-[16px] font-semibold leading-5 md:text-[10px] md:leading-3 md:text-gray/80 lg:text-[21px] lg:leading-[26px]">
+										<p className="text-[16px] font-semibold leading-5 text-gray md:text-[10px] md:leading-3 lg:text-[21px] lg:leading-[26px]">
 											{getLocaleText(
 												selectedMainCategory?.title || {},
 												router.locale
@@ -334,6 +337,7 @@ const ProductSearchPage: NextPage<
 								)}
 							</div>
 
+							{/* Category Slider for tablet and desktop  */}
 							<div className="hidden md:mt-[9px] md:block md:w-[402px] lg:ml-[13px] lg:mt-[35px] lg:mb-[25px] lg:h-[150px] lg:w-[838px]">
 								<TrendingCategorySlider
 									categories={[...selectedCategories]}
@@ -353,7 +357,7 @@ const ProductSearchPage: NextPage<
 							</div>
 
 							{/* For small screen only */}
-							<div className="bg-[#E5E5E5] md:hidden">
+							<div className="bg-[#E5E5E5] py-2 md:hidden">
 								<TrendingCategorySliderMobile
 									categories={selectedCategories || []}
 									selectedCategoryList={selectedCategoryList}
@@ -429,9 +433,16 @@ export const getServerSideProps: GetServerSideProps = async ({
 	const [countryIds] = getIdAndName((query.country || '') as string);
 	if (countryIds) {
 		const [countryId] = countryIds?.split(',');
-		getCountryById(countryId).then((data) => {
-			countryBannerImageUrl = data?.banner_image?.url || '';
-		});
+		getCountryById(countryId)
+			.then((data) => {
+				countryBannerImageUrl =
+					data?.banner_image?.url || '/coming-soon.png';
+			})
+			.finally(() => {
+				if (!countryBannerImageUrl) {
+					countryBannerImageUrl = '/coming-soon.png';
+				}
+			});
 	}
 
 	return {

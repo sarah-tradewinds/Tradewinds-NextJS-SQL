@@ -9,10 +9,10 @@ import { metadataList } from 'data/product-search/metadata-list';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import {
-  MdBookmark,
-  MdOutlineBookmarkBorder,
-  MdOutlineMessage,
-  MdOutlineShoppingCart
+	MdBookmark,
+	MdOutlineBookmarkBorder,
+	MdOutlineMessage,
+	MdOutlineShoppingCart
 } from 'react-icons/md';
 import { useAuthStore } from 'store/auth';
 import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
@@ -123,6 +123,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 			imageUrl={country?.imageUrl}
 			alt={country?.name}
 			title={country?.name}
+			imageContainerClassName="!w-[14px] !h-[10px]"
 		/>,
 		// isReadyToShip
 		isReadyToShip && (
@@ -137,7 +138,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 		<MetadataTile
 			key={metadataList[2].title}
 			icon={
-				<div className="text-[24px]">
+				<div className="text-[20px] md:text-[24]">
 					{isInCompareList ? (
 						<MdBookmark className="text-[#FC5267]" />
 					) : (
@@ -180,7 +181,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 				key={t('common:save')}
 				icon={
 					<div
-						className={`text-[24px] ${
+						className={`text-[20px] md:text-[24] ${
 							isLive ? 'text-accent-primary-main' : 'text-gray/40'
 						}`}
 					>
@@ -205,7 +206,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 
 	return (
 		<div
-			className={`h-[118px]s grid w-full grid-cols-12 overflow-hidden bg-white md:rounded-xl md:shadow-md lg:p-4 ${
+			className={`grid w-full grid-cols-12 overflow-hidden bg-white md:rounded-xl md:shadow-md lg:p-4 ${
 				isEco ? 'border-2 border-accent-success' : ''
 			}`}
 		>
@@ -315,7 +316,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 
 											{/* Rating and reviews */}
 											<div className="flex flex-col items-center space-y-2 pl-2 pb-4 md:pl-0">
-												<div className="w-[80px] md:hidden lg:block lg:w-[132px]">
+												<div className="w-[80px] md:hidden md:h-auto lg:block lg:w-[132px]">
 													<RatingStars
 														starNumber={5}
 														className="text-secondary"
@@ -349,8 +350,6 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 								</div>
 							</div>
 
-							{/* TMP */}
-
 							{/* For small screen only */}
 							<div className="col-span-12 mt-2 space-y-2 md:hidden">
 								{/* <MetadataTile
@@ -372,23 +371,23 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 				</div>
 			</div>
 
-			{/*Metadata and Reviews count and rating. For medium screen only */}
-			<div className="col-span-12 pb-4 md:col-span-8 md:-mt-20 md:block md:px-2 lg:col-span-3 lg:hidden lg:px-2">
+			{/* For medium screen only - Metadata and Reviews count and rating.  */}
+			<div className="md:pb- col-span-12 pb-2 md:col-span-8 md:-mt-20 md:block md:px-2 md:pb-4 lg:col-span-3 lg:hidden lg:px-2">
 				<div className="grid h-full grid-cols-12">
 					<div className="col-span-12 hidden md:block lg:hidden">
 						{metadataElements}
 					</div>
 
 					<div className="col-span-12 md:col-span-4 lg:col-span-12">
-						<div className="mt-2 flex h-full items-center md:mt-0 md:flex-col md:justify-end lg:flex lg:space-y-4">
+						<div className="mt-2 flex h-full md:mt-0 md:flex-col md:items-center md:justify-end lg:flex lg:space-y-4">
 							{/* Verified Image */}
 							<div className="relative hidden h-[64px] w-[108px] lg:block">
 								<Image src="/twmp-verified.png" alt="" fill={true} />
 							</div>
 
 							{/* Rating and reviews */}
-							<div className="flex flex-col items-center space-y-2 pl-2 md:hidden md:pl-0">
-								<div className="w-[80px] md:hidden lg:block lg:w-[132px]">
+							{/* <div className="flex h-[10.02px] w-[63px] flex-col pl-2 md:hidden md:items-center md:space-y-2 md:pl-0">
+								<div className=" bg-error md:hidden md:w-[80px] lg:block lg:w-[132px]">
 									<RatingStars
 										starNumber={5}
 										className="text-secondary"
@@ -397,14 +396,24 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 								<p className="hidden text-center text-[13px] text-secondary md:block">
 									{totalReviewCount} {t('common:reviews')}
 								</p>
+							</div> */}
+
+							<div className="flex w-[63px] items-center pl-[14px]">
+								<div className="w-full">
+									<RatingStars
+										starNumber={5}
+										className="!h-[10.02px] text-secondary"
+									/>
+								</div>
 							</div>
 
 							<div className="ml-4 flex space-x-4 md:hidden">
-								<div className="relative h-[32px] w-[48px]">
+								{/* <div className="relative h-[32px] w-[48px]"> */}
+								<div className="relative h-[23px] w-[36px]">
 									<Image src="/twmp-verified.png" alt="" fill={true} />
 								</div>
 
-								<div className="flex items-center space-x-4">
+								<div className="flex items-start space-x-4 md:items-center">
 									{metadataTileList[2]}
 									{metadataTileList[5]}
 								</div>

@@ -189,16 +189,16 @@ const Header = () => {
 
 	return (
 		<header
-			className={`sticky top-0 z-[10000] h-[50.6px] w-full md:h-[111px] lg:h-[119.68px] ${
+			className={`sticky top-0 z-[10000] h-[50.07px] w-full md:h-[111px] lg:h-[119.68px] ${
 				isEco
 					? 'bg-primary-eco'
-					: 'bg-gradient-to-r from-success via-accent-primary-main to-primary-main'
+					: // : 'bg-gradient-to-r from-success via-accent-primary-main to-primary-main'
+					  'bg-primary-main'
 			}`}
 		>
-			{/* <div className="2xl:container 2xl:mx-auto"> */}
 			<div className="h-full">
 				<div
-					className="mx-autos md:px-auto flex h-[50.6px] items-center justify-between px-[21.46px] md:h-[70px] md:px-0 lg:h-[76px]"
+					className="md:px-auto flex h-full items-center justify-between px-[21.46px] md:h-[70px] md:px-0 lg:h-[76px]"
 					onClick={() => setShowLogout(false)}
 				>
 					{/* Menu icon */}
@@ -208,10 +208,16 @@ const Header = () => {
 						onClick={drawerHandler}
 					>
 						{!isOpen ? (
-							<MdMenu className="h-6 w-6 text-white" />
+							<MdMenu className="h-5 w-5 text-white" />
 						) : (
-							<MdClose className="h-6 w-6 text-white" />
+							<MdClose className="h-5 w-5 text-white" />
 						)}
+
+						{/* {!isOpen ? (
+							<MdMenu className="h-[11.86px] w-[15.37px] text-white" />
+						) : (
+							<MdClose className="h-[11.86px] w-[15.37px] text-white" />
+						)} */}
 					</button>
 
 					{/* Tradewinds logo */}
