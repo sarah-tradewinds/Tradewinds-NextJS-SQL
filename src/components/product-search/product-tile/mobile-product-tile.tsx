@@ -5,8 +5,10 @@ import MetadataTile from '../metadata/metadata-tile';
 
 // data
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
+import RatingStars from 'components/product-details/product-details-tab/product-review/rating-stars';
 import { metadataList } from 'data/product-search/metadata-list';
 import { useTranslation } from 'next-i18next';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import {
 	MdBookmark,
@@ -102,7 +104,7 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 				key={`${t('common:live_buy')}/${t('common:ready_to_ship')}`}
 				imageUrl={metadataList[1].imageUrl}
 				alt={`${t('common:live_buy')}/${t('common:ready_to_ship')}`}
-				title={`${t('common:live_buy')}/${t('common:ready_to_ship')}`}
+				title={`${t('common:live_buy')} / ${t('common:ready_to_ship')}`}
 			/>
 		),
 		// compare
@@ -119,6 +121,7 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 			}
 			alt={t('common:compare')}
 			title={t('common:compare')}
+			titleClassName="text-accent-primary-main"
 			onClick={onCompareClick}
 			className="cursor-pointer"
 		/>,
@@ -140,6 +143,7 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 				}
 				alt={t('common:save')}
 				title={t('cart')}
+				titleClassName="text-accent-primary-main"
 				className={isLive ? 'cursor-pointer' : 'cursor-not-allowed'}
 				onClick={isLive ? onCartClick : undefined}
 			/>
@@ -148,79 +152,87 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 
 	return (
 		<div
-			className={`grid h-[118px] w-full grid-cols-12 gap-x-2 bg-white ${
+			className={` h-[118px] w-full bg-white ${
 				isEco ? 'border-2 border-accent-success' : ''
 			}`}
 		>
-			{/* Image Container  */}
-			<div className="relative col-span-4 h-[78px]">
-				<Link href={`/product/${slug}`}>
-					<div className="relative h-full w-full md:mt-5 md:h-[97px] lg:mt-0 lg:h-full">
-						<ImageWithErrorHandler
-							src={imageUrl}
-							alt={alt}
-							fill={true}
-							className="object-contain"
-						/>
-					</div>
-				</Link>
+			<div className="flex space-x-2">
+				{/* Image Container  */}
+				<div className="relative h-[78px] !w-[120px]">
+					<Link href={`/product/${slug}`}>
+						<div className="relative h-full w-full md:mt-5 md:h-[97px] lg:mt-0 lg:h-full">
+							<ImageWithErrorHandler
+								src={imageUrl}
+								alt={alt}
+								fill={true}
+								className="object-contain"
+							/>
+						</div>
+					</Link>
 
-				{isEco && (
-					<div className="absolute top-2 left-2 lg:top-0">
-						<ImageWithErrorHandler
-							src="/static/icons/eco-icon.png"
-							alt="eco-icon"
-							width={32}
-							height={32}
-						/>
-					</div>
-				)}
-			</div>
-
-			<div className="col-span-8">
-				{/* Product Info and keywords*/}
-				<Link
-					href={`/product/${slug}`}
-					className="text-[12px] leading-[15px] text-primary-main"
-				>
-					{'Big Bad Ass Tractor' || name}
-				</Link>
-
-				{/* Product name, description and keywords container */}
-				<div className="-mt-1s">
-					<h3 className="flex items-center text-xs leading-[15px]">
-						{isSaleOn && !isBulkPricing ? (
-							<>
-								<span className="text-accent-error">
-									Sale ${salePrice}/piece
-								</span>
-								<span className="text-gray line-through">
-									${productPrice}/piece
-								</span>
-							</>
-						) : (
-							<span className="font-semibold text-primary-main">
-								{displayPrice} / piece
-							</span>
-						)}
-					</h3>
-
-					{minOrderQuantity > 0 && (
-						<h4 className="text-xs leading-[15px] text-primary-main">
-							{minOrderQuantity} {t('common:piece')} /
-							{t('common:min_order')}
-						</h4>
+					{isEco && (
+						<div className="absolute top-2 left-2 lg:top-0">
+							<ImageWithErrorHandler
+								src="/static/icons/eco-icon.png"
+								alt="eco-icon"
+								width={32}
+								height={32}
+							/>
+						</div>
 					)}
 				</div>
 
-				<div className="mt-[5px]">
-					{metadataTileList[0]}
-					{metadataTileList[1]}
+				<div className="w-auto">
+					{/* Product Info and keywords*/}
+					<Link
+						href={`/product/${slug}`}
+						className="text-[12px] leading-[15px] text-primary-main"
+					>
+						{'Big Bad Ass Tractor' || name}
+					</Link>
+
+					{/* Product name, description and keywords container */}
+					<div className="-mt-1s">
+						<h3 className="flex items-center text-xs font-semibold leading-[15px]">
+							{isSaleOn && !isBulkPricing ? (
+								<>
+									<span className="text-accent-error">
+										Sale ${salePrice}/piece
+									</span>
+									<span className="pl-2 text-gray line-through">
+										${productPrice}/piece
+									</span>
+								</>
+							) : (
+								<span className="text-primary-main">
+									{displayPrice} /piece
+								</span>
+							)}
+						</h3>
+
+						{minOrderQuantity > 0 && (
+							<h4 className="text-xs leading-[15px] text-primary-main">
+								{minOrderQuantity} {t('common:piece')} /
+								{t('common:min_order')}
+							</h4>
+						)}
+					</div>
+
+					<div className="mt-[5px]">
+						{metadataTileList[0]}
+						{metadataTileList[1]}
+					</div>
 				</div>
 			</div>
 
 			{/* Remaining metadata */}
-			<div className="col-span-12 flex">
+			<div className="flex items-center space-x-2">
+				<div className="ml-2 w-[63px]">
+					<RatingStars starNumber={5} className="text-secondary" />
+				</div>
+				<div className="relative h-[23px] w-[36px]">
+					<Image src="/twmp-verified.png" alt="" fill={true} />
+				</div>
 				{metadataTileList[2]}
 				{metadataTileList[3]}
 			</div>

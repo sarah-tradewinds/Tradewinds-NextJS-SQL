@@ -214,7 +214,7 @@ const ProductSearchPage: NextPage<
 			</div>
 
 			{/* ProductSearchFilterBar */}
-			<div className="top-[104px] z-20 md:sticky md:ml-[9px] md:mr-[10px] md:pt-[14.01px] lg:top-[102px] lg:ml-[26px] lg:mr-[23px] lg:pt-[18.14px]">
+			<div className="top-[97px] z-20 hidden md:sticky md:ml-[9px] md:mr-[10px] md:block md:pt-[14.01px] lg:top-[102px] lg:ml-[26px] lg:mr-[23px] lg:pt-[18.14px]">
 				<ProductSearchFilterBar
 					onCountryChange={(id = '', name = '') => {
 						const country = id && name ? `${id}_${name || ''}` : '';
@@ -248,7 +248,68 @@ const ProductSearchPage: NextPage<
 					</div>
 
 					<div className="hidden md:block">
-						<MiniRFQCard size="xl" />
+						<div className="w-full space-y-2 bg-gradient-to-r from-[#E7CA00] via-[#E8A30E] to-[#E8A30E] md:h-[321px] md:rounded-lg md:pt-2">
+							<div className="flex justify-center">
+								<div className="relative md:h-[66.02px] md:w-[61.72px]">
+									<ImageWithErrorHandler
+										src="/static/rfq-box.png"
+										alt="rfq box"
+										fill={true}
+									/>
+								</div>
+							</div>
+
+							<p className="text-white md:px-[6px] md:text-[18px] md:font-bold md:leading-[22px]">
+								Submit an RFQ for anything!
+							</p>
+							<ul className="list-disc text-white md:ml-6 md:text-[15px] md:font-semibold md:leading-[18px]">
+								<li>One request</li>
+								<li>Receive multiple quotes</li>
+								<li>Responed</li>
+								<li>Close the deal</li>
+							</ul>
+
+							<div className="flex justify-center md:pt-[34px]">
+								<button
+									onClick={() => {
+										// if (!isAuth) {
+										// 	setIsLoginOpen();
+										// } else {
+										// 	router.push(
+										// 		`${generateBuyerDashboardUrl({
+										// 			redirect_to: BUYER_DASHBOARD_PAGES.buyer_rfq,
+										// 			action: BUYER_DASHBOARD_ACTIONS.create_rfq,
+										// 			access_key: customerData.access.token,
+										// 			refresh_key: customerData.refresh.token
+										// 		})}`
+										// 	);
+										// }
+									}}
+									// className={`${
+									// 	size === 'xs'
+									// 		? 'flex !h-[29.74px] !w-[187px] items-center bg-white !px-2 !text-secondary md:h-auto md:w-auto lg:max-h-6'
+									// 		: 'flex items-center bg-white !px-2 !text-secondary'
+									// } ${
+									// 	size === 'xl'
+									// 		? 'md:!h-[19.88px] md:!w-[125px] lg:flex lg:w-full lg:justify-center'
+									// 		: ''
+									// }
+
+									className="order-none flex items-center bg-white outline-none md:h-[19.88px] md:w-[125px] md:rounded-md"
+								>
+									<div className="relative h-[15.8px] w-[18.35px]">
+										<ImageWithErrorHandler
+											src="/static/rfq-orange.png"
+											alt="rfq orange icon"
+											fill={true}
+										/>
+									</div>
+									<p className="text-center text-secondary md:ml-[9.69px] md:text-[10.7054px] md:font-semibold md:leading-[13px]">
+										{t('common:submit_rfq')}
+									</p>
+								</button>
+							</div>
+						</div>
 					</div>
 				</section>
 
@@ -299,12 +360,12 @@ const ProductSearchPage: NextPage<
 								}}
 							>
 								{isSelectedMainCategoryAndCategoriesLoading ? (
-									<div>
+									<div className="hidden md:block">
 										<Skeleton />
 										<Skeleton height="84px" />
 									</div>
 								) : (
-									<div className="md:justify-betweens flex h-full items-center p-2 md:flex-col md:items-start md:space-x-0 md:p-0">
+									<div className="md:justify-betweens  flex h-[42px] items-center p-2 md:h-full md:flex-col md:items-start md:space-x-0 md:p-0">
 										<p className="text-[16px] font-semibold leading-5 text-gray md:text-[10px] md:leading-3 lg:text-[21px] lg:leading-[26px]">
 											{getLocaleText(
 												selectedMainCategory?.title || {},
@@ -357,7 +418,7 @@ const ProductSearchPage: NextPage<
 							</div>
 
 							{/* For small screen only */}
-							<div className="bg-[#E5E5E5] py-2 md:hidden">
+							<div className="bg-[#E5E5E5] py-1 md:hidden">
 								<TrendingCategorySliderMobile
 									categories={selectedCategories || []}
 									selectedCategoryList={selectedCategoryList}
@@ -391,7 +452,7 @@ const ProductSearchPage: NextPage<
 					</div>
 
 					{/* If product are available in the product list - Submit RFQ Card */}
-					<div className="mt-4 md:mt-2">
+					<div className="mt-4 md:mt-4">
 						{products?.length > 0 && <MiniRFQCard size="xs" />}
 					</div>
 

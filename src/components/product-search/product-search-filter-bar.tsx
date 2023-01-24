@@ -135,7 +135,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 			<div className="relative flex items-center">
 				<label
 					htmlFor="country"
-					className="mr-2 text-[10px] font-semibold text-gray lg:text-[15px]"
+					className="mr-2 text-[10px] font-semibold leading-[22px] text-gray lg:text-[15px]"
 				>
 					Country
 				</label>
@@ -143,7 +143,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 					countries={countries || []}
 					defaultValue={selectedCountry}
 					onCountryChange={onCountryChange}
-					inputAndButtonContainerClassName={`flex justify-between text-gray-900 lg:h-9 md:w-[115px] border-2 border-gray/20 lg:py-2 pl-1 pr-8 font-semibold outline-none lg:w-[202px]`}
+					inputAndButtonContainerClassName={`flex justify-between md:h-[18px] text-gray-900 lg:h-9 md:w-[115px] border-2 border-gray/20 lg:py-2 pl-1 pr-8 font-semibold outline-none lg:w-[202px]`}
 					buttonClassName="absolute inset-y-0 right-0 flex items-center pr-2 md:hidden lg:block text-center"
 					optionsContainerClassName="w-[202px] sw-full"
 				/>

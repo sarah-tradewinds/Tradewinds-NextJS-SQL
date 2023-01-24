@@ -182,7 +182,16 @@ const ProductList: React.FC<ProductListProps> = ({
 							imageUrl: country?.url || '/coming-soon.png'
 						},
 						isEco: product.is_eco,
-						keywords: product.tags || [],
+						keywords:
+							[
+								'Keyword-1-Keywords',
+								'Keyword 2',
+								'Keyword 3',
+								'Keyword 4',
+								'Keyword 5'
+							] ||
+							product.tags ||
+							[],
 						productPrice: product_price,
 						salePrice: product?.sale_price,
 						isSaleOn: product?.is_on_sale || 0,
@@ -232,65 +241,7 @@ const ProductList: React.FC<ProductListProps> = ({
 							</div>
 
 							<div className="hidden md:block">
-								<ProductTile
-									key={product.id}
-									name={getLocaleText(
-										product.product_name || {},
-										locale
-									)}
-									slug={product?.id}
-									description={getLocaleText(
-										product.product_description,
-										locale
-									)}
-									imageUrl={product.images[0]?.url}
-									countryOfOrigin={
-										country_of_region ? country_of_region[0] : ''
-									}
-									country={{
-										name: getLocaleText(country?.name || '', locale),
-										imageUrl: country?.url || '/coming-soon.png'
-									}}
-									isEco={product.is_eco}
-									keywords={product.tags || []}
-									productPrice={product_price}
-									salePrice={product?.sale_price}
-									isSaleOn={product?.is_on_sale || 0}
-									isBulkPricing={product?.is_bulk_pricing}
-									displayPrice={displayPrice}
-									alt={product.alt || product.name}
-									minOrderQuantity={
-										product?.inventory?.minimum_order_quantity || 0
-									}
-									totalReviewCount={product.totalReviewCount}
-									onCompareClick={() => onCompareClick(product)}
-									onCartClick={async () => {
-										const minimumOrderQuantity =
-											product?.inventory?.minimum_order_quantity || 0;
-
-										if (minimumOrderQuantity > 0) {
-											setMinimumProductOrderQuantity(
-												+minimumOrderQuantity
-											);
-											setSelectedProduct(product);
-										} else {
-											await addToCartHandler(product);
-											setMinimumProductOrderQuantity(0);
-											setSelectedProduct({});
-										}
-									}}
-									isInCompareList={product.isInCompareList}
-									isVerified={product.is_verified}
-									isLive={product.is_live}
-									isReadyToShip={product.is_live}
-									// isReadyToShip={product.is_ready_to_ship}
-									isCustomizable={product.is_customizable}
-									variantCount={product?.variants?.length || 0}
-									onMessageVendorClick={() => {
-										setSelectedSellerId(product?.seller_id?.id);
-										setIsMessageVendorPopupOpen(true);
-									}}
-								/>
+								<ProductTile {...productData} />
 							</div>
 						</>
 					);

@@ -84,7 +84,7 @@ const CountrySearchDropdown: React.FC<CountrySearchDropdownProps> = (
 				<div className="relative mt-1">
 					<div className={inputAndButtonContainerClassName}>
 						<Combobox.Input
-							className={`h-full w-full outline-none lg:!text-[15px] lg:!leading-[41px] ${inputClassName}`}
+							className={`h-full w-full text-center text-[10px] font-semibold leading-[22px] text-gray outline-none lg:!text-[15px] lg:!leading-[41px] ${inputClassName}`}
 							displayValue={(country) =>
 								getLocaleText(
 									(country as any)?.name || '',

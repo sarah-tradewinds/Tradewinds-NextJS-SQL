@@ -17,29 +17,27 @@ const KeywordSlider: React.FC<{ keywords: string[] }> = ({
 		created() {
 			setLoaded(true);
 		},
-		slides: {
-			perView: 6,
-			spacing: 4
-		},
-		breakpoints: {
-			'(min-width: 640px)': {
-				slides: { perView: 4, spacing: 8 }
-			},
-			'(min-width: 768px)': {
-				slides: { perView: 3, spacing: 4 }
-			},
-			'(min-width: 1024px)': {
-				slides: { perView: 8, spacing: 8 }
-			}
-		}
+		loop: false,
+		mode: 'snap',
+		rtl: false,
+		slides: { perView: 'auto' }
 	});
 
 	return (
-		<div className="navigation-wrapper relative px-8">
-			<div ref={sliderRef} className="keen-slider w-full ">
+		<div className="navigation-wrapper relative  pl-4 pr-4">
+			<div ref={sliderRef} className="keen-slider">
 				{keywords.map((keyword) => (
-					<div key={keyword} className="keen-slider__slide">
-						{keyword}ssssssss
+					<div
+						key={keyword}
+						className="keen-slider__slide"
+						style={{
+							maxWidth: keyword.length * 8 + 'px',
+							minWidth: keyword.length * 8 + 'px'
+						}}
+					>
+						<p className="md:text-xs md:font-semibold md:leading-[15px] md:text-primary-main">
+							{keyword}
+						</p>
 					</div>
 				))}
 			</div>
@@ -48,16 +46,16 @@ const KeywordSlider: React.FC<{ keywords: string[] }> = ({
 			{loaded && instanceRef?.current && (
 				<>
 					<Button
-						className={`absolute -left-2 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !p-0 !text-black`}
+						className={`absolute -left-4 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !p-0 !px-0 !text-gray`}
 						onClick={(e: any) =>
 							e.stopPropagation() || instanceRef.current?.prev()
 						}
 					>
-						<MdChevronLeft className="h-[32px] w-[32px]" />
+						<MdChevronLeft className="h-4 w-4" />
 					</Button>
 
 					<Button
-						className={`absolute -right-2 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !p-0 !text-black`}
+						className={`absolute -right-4 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !p-0 !px-0 !text-gray`}
 						onClick={(e: any) =>
 							e.stopPropagation() || instanceRef.current?.next()
 						}
@@ -66,7 +64,7 @@ const KeywordSlider: React.FC<{ keywords: string[] }> = ({
 							instanceRef?.current?.track?.details?.slides?.length - 1
 						}
 					>
-						<MdChevronRight className="h-[32px] w-[32px]" />
+						<MdChevronRight className="h-4 w-4" />
 					</Button>
 				</>
 			)}

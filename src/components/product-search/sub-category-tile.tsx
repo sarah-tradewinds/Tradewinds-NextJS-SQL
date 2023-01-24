@@ -49,7 +49,7 @@ const SubCategoryTile: React.FC<SubCategoryTileProps> = ({
 					{title}
 				</p>
 				{showBorder && (
-					<p className="absolute left-1/2 -bottom-2 w-3/5 -translate-x-1/2 rounded-full border-b-4 border-secondary"></p>
+					<p className="absolute left-1/2 -bottom-2 w-3/5 -translate-x-1/2 rounded-full border-b-2 border-secondary md:border-b-4"></p>
 				)}
 			</div>
 		</div>

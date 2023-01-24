@@ -7,6 +7,7 @@ interface MetadataTileProps {
 	icon?: any;
 	className?: string;
 	imageContainerClassName?: string;
+	titleClassName?: string;
 	onClick?: () => any;
 }
 
@@ -18,7 +19,8 @@ const MetadataTile: React.FC<MetadataTileProps> = (props) => {
 		icon,
 		onClick,
 		className,
-		imageContainerClassName
+		imageContainerClassName,
+		titleClassName
 	} = props;
 
 	return (
@@ -40,7 +42,9 @@ const MetadataTile: React.FC<MetadataTileProps> = (props) => {
 			)}
 			{icon}
 
-			<span className="text-[10px] text-gray md:text-[12px] lg:text-[13px]">
+			<span
+				className={`text-[10px] text-gray md:text-[12px] lg:text-[13px] ${titleClassName}`}
+			>
 				{title}
 			</span>
 		</div>

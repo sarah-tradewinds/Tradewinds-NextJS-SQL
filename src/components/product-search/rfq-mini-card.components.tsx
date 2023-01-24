@@ -41,8 +41,8 @@ const MiniRFQCard: React.FC<RFQCardProps> = (props) => {
 	let imageClassName = '';
 
 	if (size === 'xs') {
-		rfqCardContainerClassName = `${rfqCardContainerClassName} h-[125px] lg:h-[140px] md:h-[180px]`;
-		imageClassName = `${imageClassName} ml-2 mt-[22px] md:mt-0 w-[50.05px] h-[53.76px] lg:h-[87px] lg:w-[81px] h-[87px] w-[81px] md:h-[107px] md:w-[101px]`;
+		rfqCardContainerClassName = `${rfqCardContainerClassName} h-[125px] lg:h-[140px] md:h-[124.52px] md:rounded-lg`;
+		imageClassName = `${imageClassName} ml-2 mt-[22px] md:mt-0 w-[50.05px] h-[53.76px] lg:h-[87px] lg:w-[81px] md:w-[81px] md:h-[87px] h-[87px] w-[81px] md:h-[107px] md:w-[101px]`;
 	} else if (size === 'sm') {
 		rfqCardContainerClassName = `${rfqCardContainerClassName} h-[180px]`;
 		imageClassName = `${imageClassName} h-[87px] w-[81px]`;
@@ -90,7 +90,7 @@ const MiniRFQCard: React.FC<RFQCardProps> = (props) => {
 				} ${size === 'xl' ? 'grid grid-cols-1 lg:space-y-12' : ''}`}
 			>
 				<div
-					className={`pb-2 text-[16px] font-semibold leading-5 text-white md:pb-4 lg:text-[25px] ${
+					className={`pb-2 text-[16px] font-semibold leading-5 text-white md:pt-2 lg:text-[25px] ${
 						size === 'lg' ? 'border-b-2' : ''
 					}`}
 				>
@@ -100,7 +100,7 @@ const MiniRFQCard: React.FC<RFQCardProps> = (props) => {
 					<ul
 						className={`list-disc text-[32px] lg:text-[20px] ${
 							size === 'xs'
-								? 'ml-4 grid grid-cols-1 text-[13px] font-normal md:grid-cols-2'
+								? 'ml-3 grid grid-cols-1 text-[13px] font-normal md:grid-cols-2'
 								: 'ml-8 text-[12px]'
 						} ${
 							size === 'xl'
@@ -110,14 +110,20 @@ const MiniRFQCard: React.FC<RFQCardProps> = (props) => {
 					>
 						<li>One request</li>
 						<li>Receive multiple quotes</li>
-						<li className='md"block hidden'>Responded</li>
-						<li className='md"block hidden'>Close the deal</li>
+						<li>
+							<span className="hidden md:inline-block">Responded</span>
+						</li>
+						<li>
+							<span className="hidden md:inline-block">
+								Close the deal
+							</span>
+						</li>
 					</ul>
 				</div>
 
 				<div
 					className={`flex md:justify-center lg:justify-start ${
-						size === 'lg' ? 'mt-8 ' : ' md:mt-2'
+						size === 'lg' ? 'mt-8 ' : ''
 					}`}
 				>
 					<Button
@@ -137,20 +143,22 @@ const MiniRFQCard: React.FC<RFQCardProps> = (props) => {
 						}}
 						className={`${
 							size === 'xs'
-								? 'flex !h-[29.74px] !w-[187px] items-center bg-white !px-2 !text-secondary md:h-auto md:w-auto lg:max-h-6'
+								? 'flex !h-[29.74px] !w-[187px] items-center bg-white !px-2 !text-secondary md:!min-h-[29.74px] md:!w-[187px] md:!min-w-[187px] md:!px-0 md:!py-0 lg:max-h-6'
 								: 'flex items-center bg-white !px-2 !text-secondary'
 						} ${
 							size === 'xl' ? 'lg:flex lg:w-full lg:justify-center' : ''
 						}`}
 					>
-						<div className="relative h-[31px] w-[36px]">
+						<div className="md: relative h-[31px] w-[36px] md:h-[23.64px] md:w-[27.45px]">
 							<ImageWithErrorHandler
 								src="/static/rfq-orange.png"
 								alt="rfq orange icon"
 								fill={true}
 							/>
 						</div>
-						<span className="px-2">{t('common:submit_rfq')}</span>
+						<span className="px-2 md:pl-[14px] md:text-[16px] md:leading-5">
+							{t('common:submit_rfq')}
+						</span>
 					</Button>
 				</div>
 			</div>

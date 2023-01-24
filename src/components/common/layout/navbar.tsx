@@ -286,7 +286,7 @@ const Header = () => {
 						// className="m-4 flex w-full flex-col justify-between pt-4 sm:mx-auto sm:w-[96%] sm:flex-row sm:pt-0 md:m-0 md:ml-3"
 						className="m-4 flex w-full flex-col justify-between pt-4 md:m-0 md:flex-row md:items-center md:pt-0"
 					>
-						<div className="flex">
+						<div className="flex md:items-center">
 							<div
 								className="group hidden md:inline-block"
 								onMouseEnter={() => setIsMegaMenuOpen(true)}
@@ -306,7 +306,7 @@ const Header = () => {
 								)}
 							</div>
 
-							<nav className="flex cursor-pointer flex-col items-start justify-start md:flex-row md:divide-x">
+							<nav className="flex cursor-pointer flex-col items-start justify-start md:flex-row md:items-center md:divide-x">
 								<NavLink
 									href="/eco"
 									className="nav-link hidden items-center justify-center gap-2 md:flex"

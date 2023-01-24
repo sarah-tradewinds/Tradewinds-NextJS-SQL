@@ -30,7 +30,7 @@ const TrendingCategorySliderMobile: React.FC<
 	return (
 		<div
 			ref={ref}
-			className="keen-sliders scrollbar-hide flex h-[44px] w-screen snap-x space-x-4 overflow-x-auto"
+			className="keen-sliders scrollbar-hide flex h-[36px] w-screen snap-x space-x-4 overflow-x-auto"
 		>
 			{categories?.map((subCategory: any) => {
 				const title = getLocaleText(
@@ -50,8 +50,8 @@ const TrendingCategorySliderMobile: React.FC<
 						// }}
 					>
 						<SubCategoryTile
-							className="!w-full pb-4"
-							imageClassName="!w-[51px] !h-[44px]"
+							className="!w-full"
+							imageClassName="!w-[37px] !h-[33px]"
 							imageUrl={
 								subCategory.image?.url || '/vehicles/green-tractor.png'
 							}
