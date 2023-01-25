@@ -228,7 +228,7 @@ const ProductList: React.FC<ProductListProps> = ({
 								</div>
 							)}
 
-							<div className="md:hidden">
+							<div className="w-full md:hidden">
 								<MobileProductTile {...productData} />
 							</div>
 
