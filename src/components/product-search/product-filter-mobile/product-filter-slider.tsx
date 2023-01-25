@@ -51,7 +51,7 @@ const ProductFilterSlider: React.FC<ProductFilterSliderProps> = (
 		useSWR('/region_country/all', getHomeCountries);
 
 	let containerClassName =
-		'md:hidden fixed bottom-[80px] top-[98px] z-40 w-[211px] overflow-y-auto rounded-tr-md rounded-br-md bg-white py-4 pl-2 pr-4 pb-40 shadow-xl transition-all duration-300';
+		'md:hidden fixed bottom-[80px]s top-[98px] z-40 w-[211px] overflow-y-auto rounded-tr-md rounded-br-md bg-white py-4 pl-2 pr-4 pb-6 h-[443.23px] shadow-xl transition-all duration-300';
 
 	if (isOpen) {
 		containerClassName += ' translate-x-0';
