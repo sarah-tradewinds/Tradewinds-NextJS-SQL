@@ -49,9 +49,9 @@ const nextConfig = (phase) => {
 			// SITE_URL: 'https://tradewindsmpuatshoppingsite.azurewebsites.net',
 
 			BUYER_DASHBOARD_SITE_URL:
-				'https://tradewinds-dev-public.s3.us-east-2.amazonaws.com/index.html#',
-			// #DEV
-			// 'www.tradewindsdev.com',
+				// 'https://tradewinds-dev-public.s3.us-east-2.amazonaws.com/index.html#',
+				// #DEV
+				'www.tradewindsdev.com',
 			// #UAT
 			// 'https://www.tradewindsqa.com/#',
 
