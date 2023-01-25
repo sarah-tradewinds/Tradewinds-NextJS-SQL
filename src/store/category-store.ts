@@ -42,12 +42,10 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 		);
 
 		const filters = query?.filters || '';
-		const parsedFilters = filters ? JSON.parse(filters) || {} : {};
-
-		// console.log({
-		// 	id: mainCategoryId,
-		// 	name: mainCategoryName
-		// });
+		let parsedFilters = {};
+		try {
+			parsedFilters = filters ? JSON.parse(filters) || {} : {};
+		} catch (error) {}
 
 		set({
 			selectedMainCategoryId: {

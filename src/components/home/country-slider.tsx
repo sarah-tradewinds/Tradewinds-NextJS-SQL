@@ -7,7 +7,6 @@ import Skeleton from 'react-loading-skeleton';
 import { generateListByCount } from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
 import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
-import Button from '../common/form/button';
 
 interface CountrySliderProps {
 	countries: {
@@ -59,7 +58,7 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 				</div>
 		  ))
 		: countries?.map((country) => (
-				<Button
+				<button
 					key={country.id}
 					onClick={() => {
 						if (onCountryClick) {
@@ -69,18 +68,19 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 					className="keen-slider__slide !relative flex !h-9 !min-w-[36.06px] !max-w-[36.06px] flex-col items-center md:!mx-5 md:!h-[30.59px] md:!min-w-[52.04px] md:!max-w-[52.04px] lg:!mx-[41px] lg:!h-[64px] lg:!min-w-[107px] lg:!max-w-[107px]"
 				>
 					{/* <div className="w-[107px]s relative h-[64px] w-full"> */}
-					<div className="relative h-[24.44px] !min-w-[36.06px] !max-w-[36.06px] md:!h-full md:!min-w-[52.04px] md:!max-w-[52.04px] lg:!min-w-[107px] lg:!max-w-[107px]">
+					<div className="relative !min-h-[24.44px] !min-w-[36.06px] !max-w-[36.06px] md:!h-full md:!min-w-[52.04px] md:!max-w-[52.04px] lg:!min-w-[107px] lg:!max-w-[107px]">
 						<ImageWithErrorHandler
 							src={country.image?.url}
 							alt={country.name?.toString()}
 							fill={true}
 						/>
 					</div>
-					<p className="mt-[2.56px] text-[10px] font-semibold leading-3 md:hidden">
+
+					<p className="mt-[2.56px] text-[10px] font-semibold leading-3 text-white md:hidden">
 						{getLocaleText(country?.name || '', locale)}
 					</p>
 					{/* </div> */}
-				</Button>
+				</button>
 		  ));
 
 	return (
@@ -95,8 +95,12 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 				<div className="w-40 border-2 border-[#FFFFFF] md:w-[236.86px] lg:w-[487px]"></div>
 			</div>
 
+			{/* For mobile only */}
 			<div className="mt-[7px] md:hidden">
-				<div ref={ref} className="scrollbar-hide flex overflow-x-auto">
+				<div
+					ref={ref}
+					className="scrollbar-hide flex space-x-10 overflow-x-auto"
+				>
 					{countriesSlider}
 				</div>
 			</div>

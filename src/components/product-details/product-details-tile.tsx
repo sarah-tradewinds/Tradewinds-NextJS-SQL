@@ -327,11 +327,15 @@ const ProductDetailsTile: React.FC<{
 						})}
 					</div>
 
-					<p className="text-[21px] font-semibold text-primary-main">
-						{t('common:quantity')}:{' '}
-						{is_unlimited_quantity && inventory?.quantity === 0
-							? t('common:unlimited_quantity')
-							: inventory?.quantity || 0}
+					<p className="text-[21px] text-primary-main">
+						<span className="font-semibold">
+							{t('common:quantity')}:
+						</span>{' '}
+						<span>
+							{is_unlimited_quantity && inventory?.quantity === 0
+								? t('common:unlimited_quantity')
+								: inventory?.quantity || 0}
+						</span>
 					</p>
 					<p className="text-[21px] text-primary-main">
 						<span className="font-semibold capitalize">

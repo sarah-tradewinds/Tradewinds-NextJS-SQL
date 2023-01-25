@@ -63,7 +63,8 @@ const ProductSearchPage: NextPage<
 	console.log(props);
 	const [isInitialFilterSet, setIsInitialFilterSet] = useState(false);
 
-	const { push, query } = useRouter();
+	const router = useRouter();
+	const { push, query } = router;
 
 	const { main_category } = query;
 	const [categoryId] = getIdAndName((query.category || '') as string);
@@ -82,7 +83,6 @@ const ProductSearchPage: NextPage<
 		(state) => state.setInitialIds
 	);
 
-	const router = useRouter();
 	const { t } = useTranslation();
 	const { deviceWidth } = useDeviceSize();
 
@@ -96,6 +96,12 @@ const ProductSearchPage: NextPage<
 		}
 
 		if (query && !isInitialFilterSet) {
+			const [_, urlParams] = router.asPath.split('&filters=');
+
+			// const filters = urlParams.get('filters');
+
+			console.log('router =', urlParams);
+
 			setInitialIds(query);
 			setIsInitialFilterSet(true);
 		}

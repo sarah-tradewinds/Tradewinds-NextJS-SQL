@@ -29,8 +29,6 @@ const TrendingCategorySlider: React.FC<{
 		slideToShow = 3;
 	}
 
-	console.log('deviceWidth =', deviceWidth);
-
 	const settings = {
 		slidesToShow: slideToShow,
 		slidesToScroll: 3,
@@ -84,7 +82,7 @@ const TrendingCategorySlider: React.FC<{
 									</div>
 
 									<p
-										className={`w-[186px]s md:text-[10px] md:leading-3 lg:text-[15px] lg:font-semibold ${
+										className={`md:pb-1 md:text-[10px] md:leading-3 lg:text-[15px] lg:font-semibold ${
 											isSelected ? 'border-b-4 border-secondary' : ''
 										}`}
 									>
