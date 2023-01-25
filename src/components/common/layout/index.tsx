@@ -20,13 +20,8 @@ import {
 import useRouteEvent from 'hooks/use-route-event.hooks';
 import Image from 'next/image';
 import { useEffect } from 'react';
-import { BsSliders } from 'react-icons/bs';
 import { IoSpeedometerOutline } from 'react-icons/io5';
-import {
-	MdOutlineHome,
-	MdOutlineMessage,
-	MdPerson
-} from 'react-icons/md';
+import { MdOutlineMessage, MdPerson } from 'react-icons/md';
 
 import ProductFilterSlider from 'components/product-search/product-filter-mobile/product-filter-slider';
 import useDeviceSize from 'hooks/use-device-size.hooks';
@@ -123,21 +118,36 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 				{/* Bottom navbar for small screen */}
 				<div className="fixed bottom-0 left-0 right-0 z-[1000] h-[51px] bg-primary-main dark:bg-primary-eco md:hidden">
 					<div className="flex items-center justify-between">
-						{/* Home Icon */}
-						<Link href="/" className="ml-4">
-							<MdOutlineHome className="text-[32px] font-semibold text-white" />
-						</Link>
+						<div className="flex items-center space-x-4">
+							{/* Home Icon */}
+							<Link href="/" className="ml-4">
+								<Image
+									src="/static/icons/home-icon.png"
+									alt="home icon"
+									width={29}
+									height={20}
+									onClick={() =>
+										setIsProductFilterSliderOpen(
+											(prevState) => !prevState
+										)
+									}
+								/>
+							</Link>
 
-						{route === '/product-search' && (
-							<BsSliders
-								className="text-[32px] font-semibold text-white"
-								onClick={() =>
-									setIsProductFilterSliderOpen(
-										(prevState) => !prevState
-									)
-								}
-							/>
-						)}
+							{route === '/product-search' && (
+								<Image
+									src="/static/icons/product-filter-icon.png"
+									alt="product filter icon"
+									width={24.72}
+									height={19.47}
+									onClick={() =>
+										setIsProductFilterSliderOpen(
+											(prevState) => !prevState
+										)
+									}
+								/>
+							)}
+						</div>
 
 						{/* Sign-in button */}
 						{!isAuth && (

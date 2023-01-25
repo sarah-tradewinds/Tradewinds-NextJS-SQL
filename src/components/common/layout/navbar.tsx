@@ -212,18 +212,12 @@ const Header = () => {
 						) : (
 							<MdClose className="h-5 w-5 text-white" />
 						)}
-
-						{/* {!isOpen ? (
-							<MdMenu className="h-[11.86px] w-[15.37px] text-white" />
-						) : (
-							<MdClose className="h-[11.86px] w-[15.37px] text-white" />
-						)} */}
 					</button>
 
 					{/* Tradewinds logo */}
 					<div
-						className={`md:mt-[6px] md:mb-[7.44] md:ml-[17px] lg:mr-[112px] lg:h-[56px] lg:w-[202px] ${
-							isAuth ? '' : 'md:mr-[24.51px]'
+						className={`md:mt-[6px] md:mb-[7.44] lg:mr-[112px] lg:h-[56px] lg:w-[202px] ${
+							isAuth ? '' : 'ml-8 md:mr-[24.51px] md:ml-5'
 						}`}
 					>
 						<div

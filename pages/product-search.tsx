@@ -486,7 +486,12 @@ export const getServerSideProps: GetServerSideProps = async ({
 	locale,
 	query
 }) => {
-	console.log('[getServerSideProps] running');
+	const dateS = new Date();
+	console.log(
+		'Product Search page = [getServerSideProps] started data fetching',
+		dateS.toLocaleTimeString()
+	);
+
 	const products = await getProducts({
 		price_start: 0
 	});
@@ -506,6 +511,12 @@ export const getServerSideProps: GetServerSideProps = async ({
 				}
 			});
 	}
+
+	const dateE = new Date();
+	console.log(
+		'Product Search page = [getServerSideProps] data fetching ends',
+		dateE.toLocaleTimeString()
+	);
 
 	return {
 		props: {

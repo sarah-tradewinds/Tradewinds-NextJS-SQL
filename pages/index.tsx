@@ -221,12 +221,24 @@ export default HomePage;
 export const getServerSideProps: GetServerSideProps = async ({
 	locale
 }) => {
+	const dateS = new Date();
+	console.log(
+		'Home page = [getServerSideProps] started data fetching',
+		dateS.toLocaleTimeString()
+	);
+
 	try {
 		const cardAList = await getCardAList();
 		const cardBData = await getCardB();
 
 		const homeMainCategoriesAndCategories =
 			await getHomeMainCategoriesAndCategories();
+
+		const dateE = new Date();
+		console.log(
+			'Home page = [getServerSideProps] data fetching ended',
+			dateE.toLocaleTimeString()
+		);
 
 		return {
 			props: {

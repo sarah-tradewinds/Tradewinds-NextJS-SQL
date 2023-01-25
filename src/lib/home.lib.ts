@@ -50,7 +50,6 @@ export const getHomeMainCategoriesAndCategories = async (): Promise<{
 }> => {
 	try {
 		const { data } = await serviceAxiosInstance.get('/cms_category');
-		console.log(data.data[0].cat_section[0]);
 		return {
 			cat_section: data.data[0].cat_section,
 			is_custom: data.data[0].is_custom
