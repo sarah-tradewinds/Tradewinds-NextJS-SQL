@@ -99,9 +99,31 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 			<div className="mt-[7px] md:hidden">
 				<div
 					ref={ref}
-					className="scrollbar-hide flex space-x-10 overflow-x-auto"
+					className="scrollbar-hide flex space-x-8 overflow-x-auto"
 				>
-					{countriesSlider}
+					{countries?.map((country) => (
+						<button
+							key={country.id}
+							onClick={() => {
+								if (onCountryClick) {
+									onCountryClick(country);
+								}
+							}}
+							className="flex flex-col items-center"
+						>
+							<div className="relative h-[24.44px] w-[36.06px]">
+								<ImageWithErrorHandler
+									src={country.image?.url}
+									alt={country.name?.toString()}
+									fill={true}
+								/>
+							</div>
+
+							<p className="mt-[2.56px] whitespace-nowrap text-[10px] font-semibold leading-3 text-white">
+								{getLocaleText(country?.name || '', locale)}
+							</p>
+						</button>
+					))}
 				</div>
 			</div>
 
