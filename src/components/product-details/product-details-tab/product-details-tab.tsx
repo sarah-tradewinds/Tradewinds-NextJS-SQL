@@ -39,7 +39,7 @@ const ProductDetailsTab: React.FC<{
 				{productDetailItems.length > 0 &&
 				(productDetailItems as any)?.[0]?.key?.en ? (
 					<div
-						className={`flex flex-col p-4 md:flex-row md:justify-between ${productDetailsContainerClassName}`}
+						className={`flex flex-col md:flex-row md:justify-between md:p-4 ${productDetailsContainerClassName}`}
 					>
 						<div className="space-y-2">
 							{productDetailItems?.map((productDetailItem: any) => {
@@ -64,7 +64,7 @@ const ProductDetailsTab: React.FC<{
 						</div>
 					</div>
 				) : (
-					<p className="mt-8 text-xl">
+					<p className="mt-4 text-xl md:mt-8">
 						Product Details is not available
 					</p>
 				)}
@@ -77,7 +77,7 @@ const ProductDetailsTab: React.FC<{
 				</p>
 				{certifications.length > 0 &&
 				(certifications as any)?.[0]?.name ? (
-					<div className="flex justify-between p-4">
+					<div className="flex justify-between md:p-4">
 						<div className="space-y-2">
 							{certifications?.map((certificate: any) => (
 								<p
@@ -101,7 +101,7 @@ const ProductDetailsTab: React.FC<{
 						</div>
 					</div>
 				) : (
-					<p className="mt-8 text-xl">
+					<p className="mt-4 text-xl md:mt-8">
 						Product Certifications is not available
 					</p>
 				)}
@@ -113,7 +113,7 @@ const ProductDetailsTab: React.FC<{
 					{t('common:shipping_details')}
 				</p>
 				{isShippingDetailsAvailable ? (
-					<div className="flex justify-between p-4">
+					<div className="flex justify-between md:p-4">
 						<div className="space-y-2">
 							{shipping?.package_length && (
 								<p className="flex justify-between space-x-8 text-[15px] text-gray md:text-[18px]">
@@ -150,7 +150,7 @@ const ProductDetailsTab: React.FC<{
 						</div>
 					</div>
 				) : (
-					<p className="mt-8 text-xl">
+					<p className="mt-4 text-xl md:mt-8">
 						Shipping Details is not available
 					</p>
 				)}

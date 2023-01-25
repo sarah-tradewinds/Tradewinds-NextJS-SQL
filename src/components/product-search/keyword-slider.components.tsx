@@ -1,4 +1,5 @@
 // Third party packages
+import useDeviceSize from 'hooks/use-device-size.hooks';
 import { useKeenSlider } from 'keen-slider/react';
 import { useState } from 'react';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
@@ -9,6 +10,8 @@ const KeywordSlider: React.FC<{ keywords: string[] }> = ({
 }) => {
 	const [currentSlide, setCurrentSlide] = useState(0);
 	const [loaded, setLoaded] = useState(false);
+
+	const { deviceWidth } = useDeviceSize();
 
 	const [sliderRef, instanceRef] = useKeenSlider({
 		slideChanged(slider) {
@@ -24,18 +27,20 @@ const KeywordSlider: React.FC<{ keywords: string[] }> = ({
 	});
 
 	return (
-		<div className="navigation-wrapper relative  pl-4 pr-4">
+		<div className="navigation-wrapper relative pl-4 pr-4">
 			<div ref={sliderRef} className="keen-slider">
 				{keywords.map((keyword) => (
 					<div
 						key={keyword}
 						className="keen-slider__slide"
 						style={{
-							maxWidth: keyword.length * 8 + 'px',
-							minWidth: keyword.length * 8 + 'px'
+							maxWidth:
+								keyword.length * (deviceWidth >= 1512 ? 9 : 8) + 'px',
+							minWidth:
+								keyword.length * (deviceWidth >= 1512 ? 9 : 8) + 'px'
 						}}
 					>
-						<p className="md:text-xs md:font-semibold md:leading-[15px] md:text-primary-main">
+						<p className="md:text-xs md:font-semibold md:leading-[15px] md:text-primary-main lg:text-[13px] lg:leading-4">
 							{keyword}
 						</p>
 					</div>

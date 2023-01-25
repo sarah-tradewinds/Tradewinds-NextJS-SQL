@@ -12,12 +12,12 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import ProductDetailsTile from 'components/product-details/product-details-tile';
 
 import Button from 'components/common/form/button';
+import CompanyProfileTab from 'components/product-details/product-details-tab/company-profile-tab';
+import ProductReviewsDetailsTab from 'components/product-details/product-details-tab/product-reviews-details-tab';
 import SimilarProductList from 'components/product-details/similar-product-list';
 
 // lib
-import CompanyProfileTab from 'components/product-details/product-details-tab/company-profile-tab';
 import ProductDetailsTabContainer from 'components/product-details/product-details-tab/product-details-tab-container';
-import ProductReviewsDetailsTab from 'components/product-details/product-details-tab/product-reviews-details-tab';
 import {
 	BUYER_DASHBOARD_ACTIONS,
 	BUYER_DASHBOARD_PAGES,
@@ -188,6 +188,7 @@ const ProductDetailsPage: NextPage<
 			{/* Tabs */}
 			<div>
 				<ProductDetailsTabContainer
+					className="md:block"
 					product={productData}
 					reviews={productReviewList || []}
 					reviewAnalytics={productReviewAnalytics || {}}

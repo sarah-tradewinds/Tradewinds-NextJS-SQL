@@ -36,6 +36,7 @@ interface MobileProductTileProps {
 	displayPrice: string;
 	isBulkPricing: boolean;
 	minOrderQuantity: number;
+	totalRateCount?: number;
 	totalReviewCount?: number;
 	onCompareClick?: () => any;
 	onCartClick?: () => any;
@@ -65,6 +66,7 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 		isSaleOn,
 		displayPrice,
 		minOrderQuantity,
+		totalRateCount,
 		totalReviewCount,
 		onCompareClick,
 		isInCompareList,
@@ -228,7 +230,12 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 			{/* Remaining metadata */}
 			<div className="flex items-center space-x-2">
 				<div className="ml-2 w-[63px]">
-					<RatingStars starNumber={5} className="text-secondary" />
+					<RatingStars
+						starNumber={5}
+						rating={totalRateCount}
+						className="text-gray"
+						selectedClassName="text-secondary"
+					/>
 				</div>
 				<div className="relative h-[23px] w-[36px]">
 					<Image src="/twmp-verified.png" alt="" fill={true} />

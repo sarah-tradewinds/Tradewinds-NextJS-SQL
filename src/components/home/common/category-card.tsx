@@ -1,5 +1,4 @@
 // Third party package
-import tinycolor from 'tinycolor2';
 
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import Button from 'components/common/form/button';
@@ -15,6 +14,7 @@ interface CategoryCardProps {
 	hideImage?: boolean;
 	hideButton?: boolean;
 	bgHexColor?: string;
+	actionButtonBgColor?: string;
 	containerClassName?: string;
 	innerContainer?: string;
 	titleClassName?: string;
@@ -34,16 +34,13 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 		buttonText,
 		hideButton,
 		bgHexColor,
+		actionButtonBgColor,
 		containerClassName,
 		titleClassName,
 		innerContainer,
 		nameAndDescriptionClassName,
 		onClick
 	} = props;
-
-	const bgDarkHexColor = bgHexColor
-		? tinycolor(bgHexColor).darken(25).toHexString()
-		: '';
 
 	// console.log('darkBgColor =', darkBgColor);
 	return (
@@ -94,7 +91,7 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 							// className={`bg-[${bgHexColor}]/70 flex items-center justify-center rounded-md border border-black/20 text-[18px] uppercase text-white`}
 							className={`whitespace-nowrap !px-0 !py-0 font-montserrat capitalize text-white lg:!min-h-[25.95px] lg:!w-[138.39px] lg:!rounded-lg lg:text-lg lg:!font-normal lg:!leading-[22px]`}
 							style={{
-								backgroundColor: bgDarkHexColor
+								backgroundColor: actionButtonBgColor
 							}}
 						>
 							{buttonText || 'SOURCE NOW'}

@@ -200,7 +200,8 @@ const ProductList: React.FC<ProductListProps> = ({
 						alt: product.alt || product.name,
 						minOrderQuantity:
 							product?.inventory?.minimum_order_quantity || 0,
-						totalReviewCount: product.totalReviewCount,
+						totalReviewCount: product.total_review_count || 0,
+						totalRateCount: product.total_rate_count || 0,
 						onCompareClick: () => onCompareClick(product),
 						onCartClick: async () => {
 							const minimumOrderQuantity =

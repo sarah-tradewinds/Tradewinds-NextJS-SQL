@@ -28,6 +28,7 @@ type Category = {
 	btnTxt: string;
 	color?: string;
 	panel_color?: string;
+	source_now_text_color?: string;
 };
 
 type subCategories = {

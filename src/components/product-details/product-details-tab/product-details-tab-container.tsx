@@ -38,9 +38,9 @@ const ProductDetailsTabContainer: React.FC<{
 		'rounded-none rounded-t-md mb-2 text-[21px] font-normal text-gray';
 
 	return (
-		<div className={`mx-8 rounded bg-white ${className}`}>
+		<div className={`rounded bg-white md:mx-8 ${className}`}>
 			<Tab.Group>
-				<Tab.List className="flex space-x-4 bg-gray/20">
+				<Tab.List className="hidden space-x-4 bg-gray/20 md:flex">
 					<Tab
 						className={({ selected }) =>
 							`bg-white px-4 py-2 outline-none ${

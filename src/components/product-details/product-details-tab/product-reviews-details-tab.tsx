@@ -104,8 +104,6 @@ const ProductReviewsDetailsTab: React.FC<{
 		</div>
 	);
 
-	console.log('reviewAnalytics =', reviewAnalytics);
-
 	return (
 		<>
 			{/* Review Input  */}
@@ -145,7 +143,7 @@ const ProductReviewsDetailsTab: React.FC<{
 
 				<div className="grid grid-cols-12 ">
 					{/* Reviews stats, Write reviews */}
-					<div className="col-span-12 space-y-6 md:col-span-6 lg:col-span-5 2xl:col-span-3">
+					<div className="2xl:col-span-3 col-span-12 space-y-6 md:col-span-6 lg:col-span-5">
 						{/* Rating bars */}
 						<div className="hidden space-y-6 px-8 md:block">
 							<RatingBar
@@ -190,7 +188,7 @@ const ProductReviewsDetailsTab: React.FC<{
 					</div>
 
 					{/* Rating and reviews list */}
-					<div className="col-span-12 mt-8 space-y-8 md:col-span-6 md:mt-0 lg:col-span-7 2xl:col-span-9">
+					<div className="2xl:col-span-9 col-span-12 mt-8 space-y-8 md:col-span-6 md:mt-0 lg:col-span-7">
 						{/* Write Reviews if reviews list not available */}
 						{reviews.length === 0 && (
 							<div className="flex h-full items-center justify-center ">

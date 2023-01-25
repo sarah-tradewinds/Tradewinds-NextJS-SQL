@@ -13,6 +13,7 @@ import SubCategorySlider from './sub-category-slider';
 
 import useDeviceSize from 'hooks/use-device-size.hooks';
 import { useTranslation } from 'next-i18next';
+import CatSubCatActionCard from './common/cat-sub-cat-action-card';
 import CategoryCard from './common/category-card';
 
 type CategorySubCategoriesSectionProps = {
@@ -246,22 +247,36 @@ const CategorySubCategoriesSection: React.FC<
 				{/* Sub categories */}
 				{/* <div className="hidden md:col-span-8 xl:col-span-9"> */}
 				<div className="lg:mr-[56.01px] lg:h-[279px] lg:w-[1046px] lg:pl-[61px]">
-					<SubCategorySlider
-						categories={[...categories]}
-						className={subCategorySliderClassName}
-						leftButtonClassName={subCategorySliderLeftButtonClassName}
-						rightButtonClassName={subCategorySliderRightButtonClassName}
-						subCategoryStyle={{
-							backgroundColor: main_category.panel_color,
-							border: '2px solid gray'
-						}}
-						onTileClick={(categoryId, data) =>
-							onSubCategoryTileClickHandler(
-								categoryId,
-								data?.title?.en || ''
-							)
-						}
-					/>
+					{isCustom ? (
+						<div className="grid items-end gap-4 md:grid-cols-2 lg:grid-cols-4">
+							{/* TODO: Data Slicing to be done based on the screen width with a stat*/}
+							{subCategories}
+							<CatSubCatActionCard />
+						</div>
+					) : (
+						<div>
+							<SubCategorySlider
+								categories={[...categories]}
+								className={subCategorySliderClassName}
+								leftButtonClassName={
+									subCategorySliderLeftButtonClassName
+								}
+								rightButtonClassName={
+									subCategorySliderRightButtonClassName
+								}
+								subCategoryStyle={{
+									backgroundColor: main_category.panel_color,
+									border: '2px solid gray'
+								}}
+								onTileClick={(categoryId, data) =>
+									onSubCategoryTileClickHandler(
+										categoryId,
+										data?.title?.en || ''
+									)
+								}
+							/>
+						</div>
+					)}
 				</div>
 			</div>
 		</div>

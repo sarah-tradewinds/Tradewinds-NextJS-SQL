@@ -112,18 +112,7 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 				onClose={() => setIsProductFilterSliderOpen(false)}
 			/>
 
-			<div
-				className={isEco ? 'dark' : 'light'}
-				// style={{
-				// 	width:
-				// 		deviceType === 'desktop'
-				// 			? deviceWidth > 1512
-				// 				? 'auto'
-				// 				: '1512px'
-				// 			: 'auto',
-				// 	overflowX: 'auto'
-				// }}
-			>
+			<div className={isEco ? 'dark' : 'light'}>
 				<NavBar />
 				<SignUpPage />
 				<Login />

@@ -191,7 +191,7 @@ const ProductSearchPage: NextPage<
 			{/* Main Category Banner and Category banner */}
 			<div>
 				{/* Main Category Banner */}
-				{main_category && !countryId && (
+				{main_category && (
 					<ProductSearchTopBanner
 						key={selectedMainCategory?.banner_image?.url}
 						imageUrl={selectedMainCategory?.banner_image?.url}
@@ -205,7 +205,7 @@ const ProductSearchPage: NextPage<
 				)}
 
 				{/* Country Banner */}
-				{selectedCountryBannerImageUrl && (
+				{!main_category && selectedCountryBannerImageUrl && (
 					<ProductSearchTopBanner
 						key={selectedCountryBannerImageUrl}
 						imageUrl={selectedCountryBannerImageUrl}
@@ -214,7 +214,7 @@ const ProductSearchPage: NextPage<
 			</div>
 
 			{/* ProductSearchFilterBar */}
-			<div className="top-[97px] z-20 hidden md:sticky md:ml-[9px] md:mr-[10px] md:block md:pt-[14.01px] lg:top-[102px] lg:ml-[26px] lg:mr-[23px] lg:pt-[18.14px]">
+			<div className="top-[97px] z-20 hidden md:sticky md:ml-[9px] md:mr-[10px] md:block md:pt-[14.01px] lg:top-[101px] lg:ml-[26px] lg:mr-[23px] lg:pt-[18.14px]">
 				<ProductSearchFilterBar
 					onCountryChange={(id = '', name = '') => {
 						const country = id && name ? `${id}_${name || ''}` : '';
@@ -247,29 +247,34 @@ const ProductSearchPage: NextPage<
 						<ProductFilter />
 					</div>
 
+					{/* RFQ CARD */}
 					<div className="hidden md:block">
-						<div className="w-full space-y-2 bg-gradient-to-r from-[#E7CA00] via-[#E8A30E] to-[#E8A30E] md:h-[321px] md:rounded-lg md:pt-2">
-							<div className="flex justify-center">
-								<div className="relative md:h-[66.02px] md:w-[61.72px]">
-									<ImageWithErrorHandler
-										src="/static/rfq-box.png"
-										alt="rfq box"
-										fill={true}
-									/>
+						<div className="w-full space-y-2 bg-gradient-to-r from-[#E7CA00] via-[#E8A30E] to-[#E8A30E] md:h-[321px] md:rounded-lg md:pt-2 lg:h-[475px] lg:pl-5 lg:pt-6">
+							{/* Image */}
+							<div className="lg:flex lg:items-center">
+								<div className="flex justify-center">
+									<div className="relative md:h-[66.02px] md:w-[61.72px]">
+										<ImageWithErrorHandler
+											src="/static/rfq-box.png"
+											alt="rfq box"
+											fill={true}
+										/>
+									</div>
 								</div>
+
+								<p className="text-white md:px-[6px] md:text-[18px] md:font-bold md:leading-[22px] lg:text-[25px] lg:leading-[30px]">
+									Submit an RFQ for anything!
+								</p>
 							</div>
 
-							<p className="text-white md:px-[6px] md:text-[18px] md:font-bold md:leading-[22px]">
-								Submit an RFQ for anything!
-							</p>
-							<ul className="list-disc text-white md:ml-6 md:text-[15px] md:font-semibold md:leading-[18px]">
+							<ul className="list-disc text-white md:ml-6 md:text-[15px] md:font-semibold md:leading-[18px] lg:ml-7 lg:pt-[34px] lg:text-[25px] lg:leading-[30px]">
 								<li>One request</li>
 								<li>Receive multiple quotes</li>
 								<li>Responed</li>
 								<li>Close the deal</li>
 							</ul>
 
-							<div className="flex justify-center md:pt-[34px]">
+							<div className="flex justify-center md:pt-[34px] lg:justify-start lg:pl-2">
 								<button
 									onClick={() => {
 										// if (!isAuth) {
@@ -285,26 +290,16 @@ const ProductSearchPage: NextPage<
 										// 	);
 										// }
 									}}
-									// className={`${
-									// 	size === 'xs'
-									// 		? 'flex !h-[29.74px] !w-[187px] items-center bg-white !px-2 !text-secondary md:h-auto md:w-auto lg:max-h-6'
-									// 		: 'flex items-center bg-white !px-2 !text-secondary'
-									// } ${
-									// 	size === 'xl'
-									// 		? 'md:!h-[19.88px] md:!w-[125px] lg:flex lg:w-full lg:justify-center'
-									// 		: ''
-									// }
-
-									className="order-none flex items-center bg-white outline-none md:h-[19.88px] md:w-[125px] md:rounded-md"
+									className="flex items-center border-none bg-white outline-none md:h-[19.88px] md:w-[125px] md:rounded-md lg:h-[39px] lg:w-[245.2px] lg:pl-1"
 								>
-									<div className="relative h-[15.8px] w-[18.35px]">
+									<div className="relative h-[15.8px] w-[18.35px] lg:h-[31px] lg:w-[36px]">
 										<ImageWithErrorHandler
 											src="/static/rfq-orange.png"
 											alt="rfq orange icon"
 											fill={true}
 										/>
 									</div>
-									<p className="text-center text-secondary md:ml-[9.69px] md:text-[10.7054px] md:font-semibold md:leading-[13px]">
+									<p className="text-center text-secondary md:ml-[9.69px] md:text-[10.7054px] md:font-semibold md:leading-[13px] lg:ml-0 lg:w-full lg:text-[21px] lg:leading-[26px]">
 										{t('common:submit_rfq')}
 									</p>
 								</button>

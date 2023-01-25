@@ -13,13 +13,13 @@ import { BiMessageAltDetail } from 'react-icons/bi';
 import { useAuthStore } from 'store/auth';
 import { getDisplayBulkPrice } from 'utils/get-bulk-price';
 import MetadataTile from '../product-search/metadata/metadata-tile';
-import ImageContainer from './product-details-images/image-contaier';
 import RatingStars from './product-details-tab/product-review/rating-stars';
 
 // utils
 import { useKeenSlider } from 'keen-slider/react';
 import { useTranslation } from 'next-i18next';
 import { getLocaleText } from 'utils/get_locale_text';
+import ImageContainer from './product-details-images/image-contaier';
 
 const ProductDetailsTile: React.FC<{
 	totalReviewCount: number;
@@ -138,7 +138,7 @@ const ProductDetailsTile: React.FC<{
 	];
 
 	return (
-		<div className="grid grid-cols-12 gap-8 bg-white">
+		<div className="grid grid-cols-12 gap-y-8 bg-white md:gap-8">
 			{/* Images container */}
 			<ImageContainer
 				className="col-span-12 md:first-letter:p-8 lg:col-span-5"
@@ -148,7 +148,7 @@ const ProductDetailsTile: React.FC<{
 			/>
 
 			{/* Product details */}
-			<div className="col-span-12 space-y-4 px-4 md:py-8 md:px-24 lg:col-span-7 lg:p-8">
+			<div className="col-span-12 space-y-4 px-5 md:py-8 md:px-24 lg:col-span-7 lg:p-8">
 				{/* Product name and sku info */}
 				<div className="flex items-center justify-between">
 					<h1 className="text-[18px] font-semibold text-primary-main lg:text-[30px]">
@@ -158,6 +158,7 @@ const ProductDetailsTile: React.FC<{
 						{inventory?.sku}
 					</p>
 				</div>
+
 				{/* Price and quantity info */}
 				<div className="flex justify-between text-[12px] font-semibold text-primary-main lg:text-[21px]">
 					<h3 className="flex items-center space-x-8">
@@ -181,6 +182,7 @@ const ProductDetailsTile: React.FC<{
 						</h4>
 					)}
 				</div>
+
 				{/* Keywords */}
 				<div className="flex space-x-4 text-[12px] font-semibold text-primary-main md:space-x-16 lg:text-[13px]">
 					{tags.map((tag: any, index: number) => {
@@ -191,10 +193,11 @@ const ProductDetailsTile: React.FC<{
 						return <span key={`${tagName}_${index}`}>{tagName}</span>;
 					})}
 				</div>
+
 				{/* Metadata list */}
 				<div>
 					<div
-						className={`grid grid-cols-3 gap-4 text-[12px] text-gray`}
+						className={`grid grid-cols-2 gap-4 text-[12px] text-gray md:grid-cols-3`}
 					>
 						{/* country of origin */}
 						{metadataTileList[0]}
@@ -232,6 +235,7 @@ const ProductDetailsTile: React.FC<{
 						</div>
 					)}
 				</div>
+
 				{/* Product name and bullet points */}
 				<div className="border-t border-b-0 border-gray/40 py-6 md:border-b">
 					<h2 className="text-[12px] text-gray md:text-[15px]">
