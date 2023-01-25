@@ -190,7 +190,7 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 						href={`/product/${slug}`}
 						className="text-[12px] leading-[15px] text-primary-main"
 					>
-						{'Big Bad Ass Tractor' || name}
+						{name}
 					</Link>
 
 					{/* Product name, description and keywords container */}

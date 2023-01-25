@@ -182,16 +182,7 @@ const ProductList: React.FC<ProductListProps> = ({
 							imageUrl: country?.url || '/coming-soon.png'
 						},
 						isEco: product.is_eco,
-						keywords:
-							[
-								'Keyword-1-Keywords',
-								'Keyword 2',
-								'Keyword 3',
-								'Keyword 4',
-								'Keyword 5'
-							] ||
-							product.tags ||
-							[],
+						keywords: product.tags || [],
 						productPrice: product_price,
 						salePrice: product?.sale_price,
 						isSaleOn: product?.is_on_sale || 0,
