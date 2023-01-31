@@ -139,8 +139,6 @@ const ProductDetailsPage: NextPage<
 		}
 	}; // End of submitReviewHandler function
 
-	console.log('seller =', seller);
-
 	return (
 		<div className="pb-16 md:container md:space-y-8">
 			<ProductDetailsTile
@@ -186,7 +184,7 @@ const ProductDetailsPage: NextPage<
 			/>
 
 			{/* Tabs */}
-			<div>
+			<div className="">
 				<ProductDetailsTabContainer
 					product={productData}
 					reviews={productReviewList || []}

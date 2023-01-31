@@ -180,7 +180,7 @@ const CompanyProfileTab: React.FC<{
 							{/* Seller info */}
 							<Tab.Panel className="outline-none">
 								<div>
-									<div className="mt-8 grid grid-cols-12 gap-8">
+									<div className="mt-8 grid grid-cols-12 md:gap-8">
 										{/* Profile details */}
 										<div className="col-span-12 space-y-4 sm:col-span-8">
 											<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">

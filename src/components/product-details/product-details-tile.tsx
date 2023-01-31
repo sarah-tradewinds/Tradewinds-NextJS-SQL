@@ -18,6 +18,11 @@ import RatingStars from './product-details-tab/product-review/rating-stars';
 // utils
 import { useKeenSlider } from 'keen-slider/react';
 import { useTranslation } from 'next-i18next';
+import {
+	MdBookmark,
+	MdOutlineBookmarkBorder,
+	MdOutlineShoppingCart
+} from 'react-icons/md';
 import { getLocaleText } from 'utils/get_locale_text';
 import ImageContainer from './product-details-images/image-contaier';
 
@@ -63,7 +68,6 @@ const ProductDetailsTile: React.FC<{
 		variants = [],
 		images = [],
 		is_customizable,
-		country_of_region,
 		is_live,
 		is_ready_to_ship,
 		is_verified,
@@ -97,6 +101,7 @@ const ProductDetailsTile: React.FC<{
 			imageUrl={country?.imageUrl}
 			alt={country?.name}
 			title={country?.name}
+			titleClassName="md:text-[13px] md:leading-4"
 		/>,
 		// isReadyToShip
 		<MetadataTile
@@ -104,6 +109,7 @@ const ProductDetailsTile: React.FC<{
 			imageUrl={metadataList[1].imageUrl}
 			alt={`${t('common:live_buy')}/${t('common:ready_to_ship')}`}
 			title={`${t('common:live_buy')}/${t('common:ready_to_ship')}`}
+			titleClassName="md:text-[13px] md:leading-4"
 		/>,
 		// Customizable
 		<MetadataTile
@@ -120,6 +126,7 @@ const ProductDetailsTile: React.FC<{
 					</span>
 				</p>
 			}
+			titleClassName="md:text-[13px] md:leading-4"
 		/>,
 		// variantCount
 		<MetadataTile
@@ -127,6 +134,7 @@ const ProductDetailsTile: React.FC<{
 			imageUrl={metadataList[4].imageUrl}
 			alt={metadataList[4].title}
 			title={`${t('common:variant')} ${variants.length}`}
+			titleClassName="md:text-[13px] md:leading-4"
 		/>,
 		// save
 		<MetadataTile
@@ -134,7 +142,100 @@ const ProductDetailsTile: React.FC<{
 			imageUrl={metadataList[5].imageUrl}
 			alt={t('common:save')}
 			title={t('common:save')}
+			titleClassName="md:text-[13px] md:leading-4"
 		/>
+	];
+
+	const metadataTileLists = [
+		// country of origin
+		<MetadataTile
+			key={country?.name}
+			imageUrl={country?.imageUrl}
+			alt={country?.name}
+			title={country?.name}
+			imageContainerClassName="!w-[14px] !h-[10px] lg:!w-[23px] lg:!h-[14px]"
+			className="!space-x-1 md:!space-x-4"
+			titleClassName="md:text-[13px] md:leading-4"
+		/>,
+		// isReadyToShip
+		<MetadataTile
+			key={`${t('common:live_buy')}/${t('common:ready_to_ship')}`}
+			imageUrl={metadataList[1].imageUrl}
+			alt={`${t('common:live_buy')}/${t('common:ready_to_ship')}`}
+			title={`${t('common:live_buy')}/${t('common:ready_to_ship')}`}
+			className="!space-x-1 md:!space-x-4"
+			imageContainerClassName="lg:!w-[22px] lg:!h-[12.57px]"
+			titleClassName="md:text-[13px] md:leading-4"
+		/>,
+		// compare
+		<MetadataTile
+			key={metadataList[2].title}
+			icon={
+				<div className="text-[20px] md:text-[24] lg:text-[28px]">
+					{/* {isInCompareList ? ( */}
+					{false ? (
+						<MdBookmark className="text-[#FC5267]" />
+					) : (
+						<MdOutlineBookmarkBorder className="text-accent-primary-main" />
+					)}
+				</div>
+			}
+			alt={t('common:compare')}
+			title={t('common:compare')}
+			// onClick={onCompareClick}
+			className="cursor-pointer !space-x-1 md:!space-x-4"
+			titleClassName="md:text-cyan md:text-[13px] md:leading-4"
+		/>,
+		// Customizable
+		<MetadataTile
+			key={t('common:customizable')}
+			className="!space-x-1 md:!space-x-4"
+			imageUrl={metadataList[3].imageUrl}
+			alt={t('common:customizable')}
+			title={
+				<p>
+					{t('common:customizable')}{' '}
+					<span className="text-secondary">
+						{is_customizable ? 'YES' : 'NO'}
+					</span>
+				</p>
+			}
+			titleClassName="md:text-[13px] md:leading-4"
+		/>,
+		// variantCount
+		<MetadataTile
+			key={metadataList[4].title}
+			imageUrl={metadataList[4].imageUrl}
+			alt={metadataList[4].title}
+			title={`${t('common:variants')} ${variants?.length || 0}`}
+			className="!space-x-1 md:!space-x-4"
+			titleClassName="md:text-[13px] md:leading-4"
+		/>,
+		// add to cart
+		<div
+			key={t('common:save')}
+			title={!is_live ? 'Use message vendor' : ''}
+		>
+			<MetadataTile
+				key={t('common:save')}
+				icon={
+					<div
+						className={`text-[20px] md:text-[24] lg:pl-[2px] lg:text-[24px] ${
+							is_live ? 'text-accent-primary-main' : 'text-gray/40'
+						}`}
+					>
+						<MdOutlineShoppingCart />
+					</div>
+				}
+				alt={t('common:save')}
+				title={t('cart')}
+				className={`!space-x-1 md:!space-x-4 ${
+					is_live ? 'cursor-pointer' : 'cursor-not-allowed'
+				}`}
+				// onClick={is_live ? onCartClick : undefined}
+				titleClassName="md:text-cyan md:text-[13px] md:leading-4"
+			/>
+		</div>
 	];
 
 	return (
@@ -148,10 +249,10 @@ const ProductDetailsTile: React.FC<{
 			/>
 
 			{/* Product details */}
-			<div className="col-span-12 space-y-4 px-5 md:py-8 md:px-24 lg:col-span-7 lg:p-8">
+			<div className="col-span-12 px-5 md:py-8 md:pl-20 lg:col-span-7 lg:p-8">
 				{/* Product name and sku info */}
 				<div className="flex items-center justify-between">
-					<h1 className="text-[18px] font-semibold text-primary-main lg:text-[30px]">
+					<h1 className="text-[18px] font-semibold leading-[22px] text-primary-main md:text-[30px] md:leading-[37px]">
 						{productName}
 					</h1>
 					<p className="hidden text-[25px] font-semibold text-gray/40 md:block">
@@ -160,8 +261,8 @@ const ProductDetailsTile: React.FC<{
 				</div>
 
 				{/* Price and quantity info */}
-				<div className="flex justify-between text-[12px] font-semibold text-primary-main lg:text-[21px]">
-					<h3 className="flex items-center space-x-8">
+				<div className="my-2 flex justify-between text-[12px] font-semibold text-primary-main md:mt-[13px]">
+					<h3 className="flex items-center space-x-8 text-xs font-semibold leading-[15px] md:text-[21px] md:leading-[26px]">
 						{is_on_sale && !is_bulk_pricing ? (
 							<>
 								<span className="text-accent-error">
@@ -172,11 +273,12 @@ const ProductDetailsTile: React.FC<{
 								</span>
 							</>
 						) : (
-							<>{displayPrice} / piece</>
+							<>{displayPrice} /piece</>
 						)}
 					</h3>
+
 					{minOrderQuantity > 0 && (
-						<h4 className="-mt-1 font-normal md:font-semibold">
+						<h4 className="text-xs font-semibold leading-[15px] md:text-[21px] md:leading-[26px]">
 							{minOrderQuantity} {t('common:piece')} /
 							{t('common:min_order')}
 						</h4>
@@ -184,33 +286,52 @@ const ProductDetailsTile: React.FC<{
 				</div>
 
 				{/* Keywords */}
-				<div className="flex space-x-4 text-[12px] font-semibold text-primary-main md:space-x-16 lg:text-[13px]">
+				<div className="flex space-x-4 md:space-x-16">
 					{tags.map((tag: any, index: number) => {
 						let tagName = tag;
 						if (typeof tag === 'object') {
 							tagName = getLocaleText(tag || {}, locale);
 						}
-						return <span key={`${tagName}_${index}`}>{tagName}</span>;
+						return (
+							<span
+								key={`${tagName}_${index}`}
+								className="text-xs font-semibold leading-[15px] text-primary-main md:text-[13px] md:leading-4"
+							>
+								{tagName}
+							</span>
+						);
 					})}
 				</div>
 
 				{/* Metadata list */}
-				<div>
-					<div
-						className={`grid grid-cols-2 gap-4 text-[12px] text-gray md:grid-cols-3`}
-					>
-						{/* country of origin */}
-						{metadataTileList[0]}
-						{/* {metadataTileList[1]} */}
-						{/* isReadyToShip */}
-						{!is_ready_to_ship && metadataTileList[1]}
-						{/* Customizable */}
-						{metadataTileList[2]}
-						{/* variantCount */}
-						{metadataTileList[3]}
-						{/* save */}
-						{metadataTileList[4]}
-					</div>
+				<div className="mt-2 grid hidden grid-cols-2 gap-[15px] text-gray md:grid-cols-3">
+					{/* country of origin */}
+					{metadataTileList[0]}
+					{/* isReadyToShip */}
+					{!is_ready_to_ship && metadataTileList[1]}
+					{/* Compare */}
+					{metadataTileList[2]}
+					{/* Customizable */}
+					{metadataTileList[2]}
+					{/* variantCount */}
+					{metadataTileList[3]}
+					{/* save */}
+					{metadataTileList[4]}
+				</div>
+
+				<div className="mt-2 grid grid-cols-2 gap-[15px] text-gray md:grid-cols-3">
+					{/* country of origin */}
+					{metadataTileLists[0]}
+					{/* isReadyToShip */}
+					{!is_ready_to_ship && metadataTileLists[1]}
+					{/* Compare */}
+					{metadataTileLists[2]}
+					{/* Customizable */}
+					{metadataTileLists[3]}
+					{/* variantCount */}
+					{metadataTileLists[4]}
+					{/* Add to cart */}
+					{metadataTileLists[5]}
 				</div>
 
 				{/* Rating, review count and verified Image */}
@@ -237,17 +358,16 @@ const ProductDetailsTile: React.FC<{
 				</div>
 
 				{/* Product name and bullet points */}
-				<div className="border-t border-b-0 border-gray/40 py-6 md:border-b">
-					<h2 className="text-[12px] text-gray md:text-[15px]">
-						<span className="font-semibold">
-							Product name: {productName}
-						</span>{' '}
+				<div className="mt-[15px] border-t-2 border-[#DEDFE0] pt-[13px] md:border-b">
+					<h2 className="text-xs leading-[22px] text-gray md:text-[15px]">
+						<span className="font-semibold">{productName}:</span>{' '}
 						<span>
 							{getLocaleText(product_description || {}, locale)}
 						</span>
 					</h2>
 
-					<div className="mt-4 flex items-center space-x-2">
+					{/* TODO: TMP Hidden */}
+					<div className="mt-4 flex hidden items-center space-x-2">
 						<Button
 							onClick={() => {
 								if (!isAuth) {
