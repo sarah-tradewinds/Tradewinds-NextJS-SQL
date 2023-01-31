@@ -16,11 +16,8 @@ import MetadataTile from '../product-search/metadata/metadata-tile';
 import RatingStars from './product-details-tab/product-review/rating-stars';
 
 // utils
-import { Listbox, Transition } from '@headlessui/react';
-import { ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { useKeenSlider } from 'keen-slider/react';
 import { useTranslation } from 'next-i18next';
-import { Fragment, useState } from 'react';
 import {
 	MdBookmark,
 	MdOutlineBookmarkBorder,
@@ -43,7 +40,7 @@ const ProductDetailsTile: React.FC<{
 		onAddToCart,
 		selectedVariantId
 	} = props;
-	const [selected, setSelected] = useState<any>({});
+
 	const { t } = useTranslation();
 
 	const { isAuth, customerData, setIsLoginOpen } = useAuthStore(
@@ -400,7 +397,7 @@ const ProductDetailsTile: React.FC<{
 				</div>
 
 				{/* Additional info */}
-				<div className="hidden space-y-4 rounded-md bg-gray/20 p-4 md:mt-[21px]">
+				<div className="hidden space-y-4 rounded-md bg-gray/20 p-4 md:mt-[21px] md:block">
 					<div ref={sliderRef} className="keen-slider">
 						{is_bulk_pricing &&
 							bulk_pricing?.map((bulkPrice: any, index: any) => (
@@ -451,171 +448,6 @@ const ProductDetailsTile: React.FC<{
 						</span>
 					</p>
 					<p className="text-[21px] text-primary-main">
-						<span className="font-semibold capitalize">
-							{/* {t('common:customization')}: */}
-							{t('common:customizable')}:
-						</span>{' '}
-						<span>
-							{is_customizable ? t('common:yes') : t('common:no')}
-						</span>
-					</p>
-				</div>
-
-				{/* New-  Additional info */}
-				<div className="hidden space-y-4 md:mt-[21px] md:block">
-					<div ref={sliderRef} className="keen-slider">
-						{is_bulk_pricing &&
-							bulk_pricing?.map((bulkPrice: any, index: any) => (
-								<div
-									key={`${bulkPrice.range}_${bulkPrice.price}_${index}`}
-									className="keen-slider__slide"
-								>
-									<p className="text-primary-main md:text-lg ">
-										<span className="font-semibold">
-											{bulkPrice.range}
-										</span>{' '}
-										{t('common:piece')}= ${bulkPrice.price}
-									</p>
-								</div>
-							))}
-					</div>
-
-					{/* Variants */}
-					<div className="mt-3 space-y-5">
-						<div className="flex items-center space-x-2">
-							<p className="text-[21px] font-semibold leading-[26px] text-primary-main">
-								Variants:
-							</p>
-							<div className="w-full">
-								{variants?.length <= 3 &&
-									variants.map((variant: any) => {
-										const { variant_id } = variant;
-										const isSelected = selectedVariantId === variant_id;
-										return (
-											<div
-												key={variant_id}
-												className="keen-slider__slide"
-											>
-												<Button
-													onClick={() =>
-														onVariantClick(isSelected ? '' : variant_id)
-													}
-													className={`px-0 !text-[21px] ${
-														isSelected ? 'font-semibold' : 'font-normal'
-													} !text-primary-main`}
-												>
-													{variant.variants_option}
-												</Button>
-											</div>
-										);
-									})}
-
-								{variants?.length > 3 && (
-									<Listbox value={selected} onChange={setSelected}>
-										<div className="relative mt-1 w-[235px]">
-											<Listbox.Button className="relative h-10 w-full rounded-md bg-accent-primary-main font-semibold text-white">
-												<span className="block truncate">
-													{selected.variants_option || 'Select Variant'}
-												</span>
-												<span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-													<ChevronUpDownIcon
-														className="h-5 w-5"
-														aria-hidden="true"
-													/>
-												</span>
-											</Listbox.Button>
-
-											<Transition
-												as={Fragment}
-												leave="transition ease-in duration-100"
-												leaveFrom="opacity-100"
-												leaveTo="opacity-0"
-											>
-												<Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-													{variants?.map((variant: any) => (
-														<Listbox.Option
-															key={variant.variant_id}
-															className={({ active }) =>
-																`relative cursor-pointer select-none py-2 px-4 ${
-																	active
-																		? 'bg-amber-100 text-amber-900'
-																		: 'text-gray-900'
-																}`
-															}
-															value={variant}
-														>
-															{({ selected }) => (
-																<div
-																	className="flex items-center space-x-4"
-																	onClick={() =>
-																		onVariantClick(
-																			selected ? '' : variant.variant_id
-																		)
-																	}
-																>
-																	<span
-																		className={`inline-block h-5 w-5 rounded-full ${
-																			selected
-																				? 'bg-accent-primary-main'
-																				: 'bg-[#D9D9D9]'
-																		}`}
-																	></span>
-																	<span
-																		className={`block truncate text-[18px] leading-[22px] ${
-																			selected
-																				? 'font-medium text-accent-primary-main'
-																				: 'font-normal'
-																		}`}
-																	>
-																		{variant.variants_option}
-																	</span>
-																</div>
-															)}
-														</Listbox.Option>
-													))}
-												</Listbox.Options>
-											</Transition>
-										</div>
-									</Listbox>
-								)}
-							</div>
-						</div>
-
-						{/* Size */}
-						<div className="flex items-center space-x-2">
-							<p className="text-[21px] font-semibold leading-[26px] text-primary-main">
-								Sizes:
-							</p>
-							<div>
-								<button className="h-10 rounded-md border-2 px-2">
-									small
-								</button>
-							</div>
-						</div>
-
-						{/* Colors */}
-						<div className="flex items-center space-x-2">
-							<p className="text-[21px] font-semibold leading-[26px] text-primary-main">
-								Colors:
-							</p>
-							<div>
-								<button className="h-10 w-10 rounded-full bg-error"></button>
-							</div>
-						</div>
-					</div>
-
-					<p className="text-[21px] leading-[26px] text-primary-main">
-						<span className="font-semibold">
-							{t('common:quantity')}:
-						</span>{' '}
-						<span>
-							{is_unlimited_quantity && inventory?.quantity === 0
-								? t('common:unlimited_quantity')
-								: inventory?.quantity || 0}
-						</span>
-					</p>
-
-					<p className="text-[21px] leading-[26px] text-primary-main">
 						<span className="font-semibold capitalize">
 							{/* {t('common:customization')}: */}
 							{t('common:customizable')}:

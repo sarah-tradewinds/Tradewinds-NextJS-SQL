@@ -31,7 +31,7 @@ const ProductDetailsTab: React.FC<{
 	return (
 		<div className="space-y-8 bg-white p-4 md:space-y-8 md:p-8">
 			<div>
-				<p className="border-b-2 border-t-2 border-[#C4C4C4] pb-2 text-lg font-semibold leading-[22px] text-primary-main md:border-t-0 md:text-[21px]">
+				<p className="border-b-2 border-t-2 border-[#C4C4C4] pb-2 text-lg font-semibold leading-[22px] text-primary-main md:border-t-0 md:text-xl md:text-[21px] md:uppercase md:leading-6 md:text-gray">
 					{t('common:product_details')}
 				</p>
 
@@ -72,7 +72,7 @@ const ProductDetailsTab: React.FC<{
 
 			{/* Product certification  Details */}
 			<div className={certificationContainerClassName}>
-				<p className="border-b-2 border-[#C4C4C4] pb-1 text-lg font-semibold leading-[22px] text-gray md:text-[21px]">
+				<p className="border-b-2 border-[#C4C4C4] pb-1 text-lg font-semibold leading-[22px] text-gray md:text-[21px] md:uppercase md:leading-6">
 					{t('common:product_certifications')}
 				</p>
 				{certifications.length > 0 &&
@@ -109,7 +109,7 @@ const ProductDetailsTab: React.FC<{
 
 			{/* Shipping Details */}
 			<div className={dimensionContainerClassName}>
-				<p className="border-b-2 border-[#C4C4C4] pb-1 text-lg font-semibold leading-[22px] text-gray md:text-[21px]">
+				<p className="border-b-2 border-[#C4C4C4] pb-1 text-lg font-semibold leading-[22px] text-gray md:text-[21px] md:uppercase md:leading-6">
 					{t('common:shipping_details')}
 				</p>
 				{isShippingDetailsAvailable ? (

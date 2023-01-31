@@ -36,7 +36,7 @@ const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 		<div className={className}>
 			{/* Main Image */}
 			<div className="relative flex items-center justify-center md:p-4">
-				<div className="relative h-[211px] w-[320px] md:h-[323px] md:w-[489px]">
+				<div className="relative h-[211px] w-[320px] md:h-[323px] md:w-[489px] lg:h-[475px] lg:w-[719.26px]">
 					<ImageWithErrorHandler src={imageUrl} alt={alt} fill={true} />
 				</div>
 				<button
@@ -52,7 +52,7 @@ const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 				<div ref={ref} className="keen-slider">
 					{thumbnails.map((thumbnail) => (
 						<div key={thumbnail.url} className="keen-slider__slide">
-							<div className="relative h-[136px] w-full md:!h-[89.64px] md:!w-[136.82px]">
+							<div className="relative h-[136px] w-full md:!h-[89.64px] md:!w-[136.82px] lg:!h-[136px] lg:!w-[206px]">
 								<Image
 									src={
 										thumbnail.url || '/static/images/coming-soon.png'
