@@ -98,7 +98,7 @@ const ProductDetailsTab: React.FC<{
 								return (
 									<p
 										key={key}
-										className="flex justify-between  space-x-8 text-[15px] text-gray md:text-[18px]"
+										className="flex space-x-8  text-[15px] text-gray md:justify-between md:text-[18px]"
 									>
 										<span className="font-semibold">{key}: </span>
 										<span>{value}</span>{' '}
@@ -126,8 +126,8 @@ const ProductDetailsTab: React.FC<{
 				>
 					{/* IS ECO */}
 					{product?.is_eco && (
-						<li className="flex items-center">
-							<span className="w-[200px] text-gray">ECO:</span>
+						<li className="flex items-center space-x-2 md:space-x-0">
+							<span className="text-gray md:w-[200px]">ECO:</span>
 							<Image
 								src="/static/icons/eco-icon.png"
 								alt="eco icon"
@@ -137,28 +137,32 @@ const ProductDetailsTab: React.FC<{
 						</li>
 					)}
 					{/* Main Category */}
-					<li className="flex items-center">
-						<span className="w-[200px] text-gray">Main Category:</span>
+					<li className="flex items-center space-x-2 md:space-x-0">
+						<span className="text-gray md:w-[200px]">
+							Main Category:
+						</span>
 						<span className="text-black">{main_category?.name}</span>
 					</li>
 					{/* Category */}
 					{category?.name && (
-						<li className="flex items-center">
-							<span className="w-[200px] text-gray">Category:</span>
+						<li className="flex items-center space-x-2 md:space-x-0">
+							<span className="text-gray md:w-[200px]">Category:</span>
 							<span className="text-black">{category?.name}</span>
 						</li>
 					)}
 					{/* Sub Category */}
 					{sub_category?.name && (
-						<li className="flex items-center">
-							<span className="w-[200px] text-gray">Sub Category:</span>
+						<li className="flex items-center space-x-2 md:space-x-0">
+							<span className="text-gray md:w-[200px]">
+								Sub Category:
+							</span>
 							<span className="text-black">{sub_category?.name}</span>
 						</li>
 					)}
 					{/* Specific Category */}
 					{specific_category?.name && (
-						<li className="flex items-center">
-							<span className="w-[200px] text-gray">
+						<li className="flex items-center space-x-2 md:space-x-0">
+							<span className="text-gray md:w-[200px]">
 								Specific Category:
 							</span>
 							<span className="text-black">
@@ -169,7 +173,7 @@ const ProductDetailsTab: React.FC<{
 					{/* Certificates */}
 					{(certifications as any)?.[0]?.name && (
 						<li className="flex">
-							<span className="w-[200px] text-gray">
+							<span className="text-gray md:w-[200px]">
 								{t('common:product_certifications')}:
 							</span>
 							{(certifications as any)?.[0]?.name && (
@@ -200,7 +204,7 @@ const ProductDetailsTab: React.FC<{
 
 			{/* PRODUCT DIMENSIONS  */}
 			<div className={dimensionContainerClassName}>
-				<p className="border-b-2 border-[#C4C4C4] pb-1 text-lg font-semibold leading-[22px] text-gray md:text-[21px] md:uppercase md:leading-6">
+				<p className="border-b-2 border-[#C4C4C4] pb-1 text-lg font-semibold leading-[22px] text-primary-main md:text-[21px] md:uppercase md:leading-6 md:text-gray">
 					{t('PRODUCT DIMENSIONS')}
 				</p>
 				{isProductDimensionAvailable ? (
@@ -252,92 +256,6 @@ const ProductDetailsTab: React.FC<{
 					</p>
 				)}
 			</div>
-
-			{/* Product certification  Details */}
-			{/* <div className={certificationContainerClassName}>
-				<p className="border-b-2 border-[#C4C4C4] pb-1 text-lg font-semibold leading-[22px] text-gray md:text-[21px] md:uppercase md:leading-6">
-					{t('common:product_certifications')}
-				</p>
-				{certifications.length > 0 &&
-				(certifications as any)?.[0]?.name ? (
-					<div className="flex justify-between md:p-4">
-						<div className="space-y-2">
-							{certifications?.map((certificate: any) => (
-								<p
-									key={certificate?.name}
-									className="flex items-center justify-between space-x-2 text-[15px] text-gray md:text-[18px]"
-								>
-									<span className="font-semibold capitalize">
-										{certificate?.name}:
-									</span>
-									<span className="text-sm font-semibold text-accent-primary-main hover:underline">
-										<a
-											href={certificate?.certificate?.url}
-											target="_blank"
-											rel="noreferrer"
-										>
-											View
-										</a>
-									</span>
-								</p>
-							))}
-						</div>
-					</div>
-				) : (
-					<p className="mt-4 md:mt-8">
-						Product Certifications is not available
-					</p>
-				)}
-			</div> */}
-
-			{/* Shipping Details */}
-			{/* <div className={dimensionContainerClassName}>
-				<p className="border-b-2 border-[#C4C4C4] pb-1 text-lg font-semibold leading-[22px] text-gray md:text-[21px] md:uppercase md:leading-6">
-					{t('common:shipping_details')}
-				</p>
-				{isShippingDetailsAvailable ? (
-					<div className="flex justify-between md:p-4">
-						<div className="space-y-2">
-							{shipping?.package_length && (
-								<p className="flex justify-between space-x-8 text-[15px] text-gray md:text-[18px]">
-									<span className="font-semibold">
-										{t('common:package')} {t('common:length')}:
-									</span>
-									<span>{shipping?.package_length}</span>
-								</p>
-							)}
-							{shipping?.package_width && (
-								<p className="flex justify-between space-x-8 text-[15px] text-gray md:text-[18px]">
-									<span className="font-semibold">
-										{t('common:package')} {t('common:width')}:
-									</span>
-									<span>{shipping?.package_width}</span>
-								</p>
-							)}
-							{shipping?.package_height && (
-								<p className="flex justify-between space-x-8 text-[15px] text-gray md:text-[18px]">
-									<span className="font-semibold">
-										{t('common:package')} {t('common:height')}:
-									</span>
-									<span>{shipping?.package_height}</span>
-								</p>
-							)}
-							{shipping?.package_weight && (
-								<p className="flex justify-between space-x-8 text-[15px] text-gray md:text-[18px]">
-									<span className="font-semibold">
-										{t('common:package')} {t('common:weight')}:
-									</span>
-									<span>{shipping?.package_weight}</span>
-								</p>
-							)}
-						</div>
-					</div>
-				) : (
-					<p className="mt-4 md:mt-8">
-						Shipping Details is not available
-					</p>
-				)}
-			</div> */}
 		</div>
 	);
 };

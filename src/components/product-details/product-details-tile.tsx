@@ -244,6 +244,8 @@ const ProductDetailsTile: React.FC<{
 		</div>
 	];
 
+	console.log('variants =', variants);
+
 	return (
 		<div className="grid grid-cols-12 gap-y-8 bg-white md:gap-8">
 			{/* Images container */}
@@ -458,150 +460,155 @@ const ProductDetailsTile: React.FC<{
 					</div>
 
 					{/* Variants */}
-					<div className="mt-3 space-y-5">
-						<div className="flex items-center space-x-2">
-							<p className="text-[21px] font-semibold leading-[26px] text-primary-main">
-								Variants:
-							</p>
-							<div className="w-full">
-								<div className="flex items-center space-x-4">
-									<Button
-										onClick={() => onVariantClick('')}
-										className={`!text-[21px] ${
-											selectedVariantId
-												? '!px-0 font-normal '
-												: '!h-10 bg-gradient-to-t from-success to-accent-primary-main !text-[16px] font-semibold !leading-4 !text-white'
-										} !text-primary-main`}
-									>
-										Main
-									</Button>
+					{variants?.length > 0 && (
+						<div className="mt-3 space-y-5">
+							<div className="flex items-center space-x-2">
+								<p className="text-[21px] font-semibold leading-[26px] text-primary-main">
+									Variants:
+								</p>
+								<div className="w-full">
+									<div className="flex items-center space-x-4">
+										<Button
+											onClick={() => onVariantClick('')}
+											className={`!text-[21px] ${
+												selectedVariantId
+													? '!px-0 font-normal '
+													: '!h-10 bg-gradient-to-t from-success to-accent-primary-main !text-[16px] font-semibold !leading-4 !text-white'
+											} !text-primary-main`}
+										>
+											Main
+										</Button>
 
-									{variants?.length <= 3 &&
-										variants.map((variant: any) => {
-											const { variant_id } = variant;
-											const isSelected =
-												selectedVariantId === variant_id;
-											return (
-												<div
-													key={variant_id}
-													className="keen-slider__slide"
-												>
-													<Button
-														onClick={() =>
-															onVariantClick(
-																isSelected ? '' : variant_id
-															)
-														}
-														className={`!text-[21px] ${
-															isSelected
-																? '!h-10 bg-gradient-to-t from-success to-accent-primary-main !text-[16px] font-semibold !leading-4 !text-white'
-																: '!px-0 font-normal'
-														} !text-primary-main`}
+										{variants?.length <= 3 &&
+											variants.map((variant: any) => {
+												const { variant_id } = variant;
+												const isSelected =
+													selectedVariantId === variant_id;
+												return (
+													<div
+														key={variant_id}
+														className="keen-slider__slide"
 													>
-														{variant.variants_option}
-													</Button>
-												</div>
-											);
-										})}
-								</div>
-
-								{variants?.length > 3 && (
-									<Listbox value={selected} onChange={setSelected}>
-										<div className="relative mt-1 w-[235px]">
-											<Listbox.Button className="relative h-10 w-full rounded-md bg-accent-primary-main font-semibold text-white">
-												<span className="block truncate">
-													{selected.variants_option || 'Select Variant'}
-												</span>
-												<span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-													<ChevronUpDownIcon
-														className="h-5 w-5"
-														aria-hidden="true"
-													/>
-												</span>
-											</Listbox.Button>
-
-											<Transition
-												as={Fragment}
-												leave="transition ease-in duration-100"
-												leaveFrom="opacity-100"
-												leaveTo="opacity-0"
-											>
-												<Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-													{variants?.map((variant: any) => (
-														<Listbox.Option
-															key={variant.variant_id}
-															className={({ active }) =>
-																`relative cursor-pointer select-none py-2 px-4 ${
-																	active
-																		? 'bg-amber-100 text-amber-900'
-																		: 'text-gray-900'
-																}`
+														<Button
+															onClick={() =>
+																onVariantClick(
+																	isSelected ? '' : variant_id
+																)
 															}
-															value={variant}
+															className={`!text-[21px] ${
+																isSelected
+																	? '!h-10 bg-gradient-to-t from-success to-accent-primary-main !text-[16px] font-semibold !leading-4 !text-white'
+																	: '!px-0 font-normal'
+															} !text-primary-main`}
 														>
-															{({ selected }) => (
-																<div
-																	className="flex items-center space-x-4"
-																	onClick={() =>
-																		onVariantClick(
-																			selected ? '' : variant.variant_id
-																		)
-																	}
-																>
-																	<span
-																		className={`inline-block h-5 w-5 rounded-full ${
-																			selected
-																				? 'bg-accent-primary-main'
-																				: 'bg-[#D9D9D9]'
-																		}`}
-																	></span>
-																	<span
-																		className={`block truncate text-[18px] leading-[22px] ${
-																			selected
-																				? 'font-medium text-accent-primary-main'
-																				: 'font-normal'
-																		}`}
+															{variant.variants_option}
+														</Button>
+													</div>
+												);
+											})}
+									</div>
+
+									{variants?.length > 3 && (
+										<Listbox value={selected} onChange={setSelected}>
+											<div className="relative mt-1 w-[235px]">
+												<Listbox.Button className="relative h-10 w-full rounded-md bg-accent-primary-main font-semibold text-white">
+													<span className="block truncate">
+														{selected.variants_option ||
+															'Select Variant'}
+													</span>
+													<span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+														<ChevronUpDownIcon
+															className="h-5 w-5"
+															aria-hidden="true"
+														/>
+													</span>
+												</Listbox.Button>
+
+												<Transition
+													as={Fragment}
+													leave="transition ease-in duration-100"
+													leaveFrom="opacity-100"
+													leaveTo="opacity-0"
+												>
+													<Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+														{variants?.map((variant: any) => (
+															<Listbox.Option
+																key={variant.variant_id}
+																className={({ active }) =>
+																	`relative cursor-pointer select-none py-2 px-4 ${
+																		active
+																			? 'bg-amber-100 text-amber-900'
+																			: 'text-gray-900'
+																	}`
+																}
+																value={variant}
+															>
+																{({ selected }) => (
+																	<div
+																		className="flex items-center space-x-4"
+																		onClick={() =>
+																			onVariantClick(
+																				selected
+																					? ''
+																					: variant.variant_id
+																			)
+																		}
 																	>
-																		{variant.variants_option}
-																	</span>
-																</div>
-															)}
-														</Listbox.Option>
-													))}
-												</Listbox.Options>
-											</Transition>
-										</div>
-									</Listbox>
-								)}
+																		<span
+																			className={`inline-block h-5 w-5 rounded-full ${
+																				selected
+																					? 'bg-accent-primary-main'
+																					: 'bg-[#D9D9D9]'
+																			}`}
+																		></span>
+																		<span
+																			className={`block truncate text-[18px] leading-[22px] ${
+																				selected
+																					? 'font-medium text-accent-primary-main'
+																					: 'font-normal'
+																			}`}
+																		>
+																			{variant.variants_option}
+																		</span>
+																	</div>
+																)}
+															</Listbox.Option>
+														))}
+													</Listbox.Options>
+												</Transition>
+											</div>
+										</Listbox>
+									)}
+								</div>
+							</div>
+
+							{/* Size */}
+							<div className="flex items-center space-x-2">
+								<p className="text-[21px] font-semibold leading-[26px] text-primary-main">
+									Sizes:
+								</p>
+								<div className="flex space-x-4">
+									<button className="h-10 rounded border-2 border-success px-2 font-medium">
+										Small
+									</button>
+
+									<button className="h-10 rounded border-2 border-success px-2 font-medium">
+										Med
+									</button>
+								</div>
+							</div>
+
+							{/* Colors */}
+							<div className="flex items-center space-x-2">
+								<p className="text-[21px] font-semibold leading-[26px] text-primary-main">
+									Colors:
+								</p>
+								<div>
+									<button className="h-10 w-10 rounded-full bg-error"></button>
+								</div>
 							</div>
 						</div>
-
-						{/* Size */}
-						<div className="flex items-center space-x-2">
-							<p className="text-[21px] font-semibold leading-[26px] text-primary-main">
-								Sizes:
-							</p>
-							<div className="flex space-x-4">
-								<button className="h-10 rounded border-2 border-success px-2 font-medium">
-									Small
-								</button>
-
-								<button className="h-10 rounded border-2 border-success px-2 font-medium">
-									Med
-								</button>
-							</div>
-						</div>
-
-						{/* Colors */}
-						<div className="flex items-center space-x-2">
-							<p className="text-[21px] font-semibold leading-[26px] text-primary-main">
-								Colors:
-							</p>
-							<div>
-								<button className="h-10 w-10 rounded-full bg-error"></button>
-							</div>
-						</div>
-					</div>
+					)}
 
 					<p className="text-[21px] leading-[26px] text-primary-main">
 						<span className="font-semibold capitalize">
