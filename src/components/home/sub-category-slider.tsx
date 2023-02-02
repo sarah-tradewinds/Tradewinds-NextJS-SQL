@@ -55,11 +55,7 @@ const SubCategorySlider: React.FC<{
 							const { categories: category } = subCat as any;
 							const categoryData = category || subCat;
 							return (
-								<div
-									key={subCat.id}
-									// className="!mt-[24px] !w-[95%] transform transition duration-300 ease-in-out hover:-translate-y-2"
-									// className="!mt-[24px] !w-[95%] transform transition duration-300 ease-in-out hover:-translate-y-2"
-								>
+								<div key={subCat.id}>
 									<SubCategoryCard
 										key={categoryData.id}
 										subCat={categoryData}
@@ -68,7 +64,6 @@ const SubCategorySlider: React.FC<{
 												onTileClick(categoryData?.id, categoryData);
 										}}
 										style={subCategoryStyle}
-										// containerClassName={`min-h-[80px] md:min-h-[124px] lg:min-h-[140px] ${subCategoryContainerClassName}`}
 										containerClassName="lg:!w-[239px] lg:!h-[134px] lg:!border-[2px] lg:!border-[#C4C4C4] lg:!mb-[11px]"
 									/>
 								</div>

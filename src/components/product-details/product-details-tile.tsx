@@ -74,6 +74,7 @@ const ProductDetailsTile: React.FC<{
 		is_live,
 		is_ready_to_ship,
 		is_verified,
+		is_eco,
 		seller_country = [],
 		total_rate_count = 0,
 		total_review_count = 0
@@ -254,7 +255,7 @@ const ProductDetailsTile: React.FC<{
 			/>
 
 			{/* Product details */}
-			<div className="col-span-12 px-5 md:py-8 md:pl-20 lg:col-span-7 lg:p-8">
+			<div className="col-span-12 overflow-y-auto px-5 md:py-8 md:pl-20 lg:col-span-7 lg:h-[786px] lg:p-8">
 				{/* Product name and sku info */}
 				<div className="flex items-center justify-between">
 					<h1 className="text-[18px] font-semibold leading-[22px] text-primary-main md:text-[30px] md:leading-[37px]">
@@ -283,10 +284,13 @@ const ProductDetailsTile: React.FC<{
 					</h3>
 
 					{minOrderQuantity > 0 && (
-						<h4 className="text-xs font-semibold leading-[15px] md:text-[21px] md:leading-[26px]">
-							{minOrderQuantity} {t('common:piece')} /
-							{t('common:min_order')}
-						</h4>
+						<div className="text-xs font-semibold leading-[15px] md:text-[21px] md:leading-[26px]">
+							<h4>
+								{minOrderQuantity} {t('common:piece')} /
+								{t('common:min_order')}
+							</h4>
+							<p>Lead Time: {inventory?.lead_time}</p>
+						</div>
 					)}
 				</div>
 
@@ -340,13 +344,25 @@ const ProductDetailsTile: React.FC<{
 						</p>
 					</div>
 
-					{!is_verified && (
-						<div className="relative h-[30px] w-[162px]">
+					{/* {!is_verified && ( */}
+					<div className="relative h-[30px] w-[162px]">
+						<Image
+							src="/tradewinds-horizontal-logo.png"
+							alt=""
+							fill={true}
+						/>
+					</div>
+					{/* )} */}
+
+					{is_eco && (
+						<div className="ml-20 flex items-center space-x-2">
 							<Image
-								src="/tradewinds-horizontal-logo.png"
-								alt=""
-								fill={true}
+								src="/static/icons/eco-icon.png"
+								alt="Eco icon"
+								width={40}
+								height={40}
 							/>
+							<span className="font-semibold text-green">ECO</span>
 						</div>
 					)}
 				</div>
@@ -360,7 +376,23 @@ const ProductDetailsTile: React.FC<{
 						</span>
 					</h2>
 
+					{/* Actions */}
 					<div className="mt-[25px] hidden items-center space-x-2 md:flex">
+						{/* cart */}
+						<div title={!is_live ? 'Message Vendor' : ''}>
+							<Button
+								variant="product"
+								className={`!flex !items-center !space-x-2 !px-2 !text-[16px] !font-medium ${
+									!is_live ? '!cursor-not-allowed !opacity-60' : ''
+								}`}
+								onClick={is_live ? onAddToCart : undefined}
+							>
+								<MdOutlineShoppingCart className="h-6 w-6" />
+								<span>{t('common:add_to_cart')}</span>
+							</Button>
+						</div>
+
+						{/* RFQ */}
 						<Button
 							onClick={() => {
 								if (!isAuth) {
@@ -376,92 +408,37 @@ const ProductDetailsTile: React.FC<{
 									);
 								}
 							}}
-							className="mt-4s relative !flex h-[22px] items-center !overflow-hidden !rounded-lg border-2 px-0 !text-accent-primary-main md:block"
+							className="!flex !items-center !border-2 !border-success !px-2 !text-[16px] !font-normal !text-success md:block"
 						>
-							<span className="flex h-full items-center bg-accent-primary-main px-1">
-								<BiMessageAltDetail className="text-[24px] text-white" />
-							</span>
+							<BiMessageAltDetail className="h-6 w-6" />
 							<span className="px-2">{t('common:submit_rfq')}</span>
 						</Button>
 
-						{/* cart */}
-						<div title={!is_live ? 'Message Vendor' : ''}>
-							<Button
-								variant="special"
-								className={
-									!is_live ? '!cursor-not-allowed !opacity-60' : ''
+						{/* Message Supplier */}
+						<Button
+							onClick={() => {
+								if (!isAuth) {
+									setIsLoginOpen();
+								} else {
+									router.push(
+										`${generateBuyerDashboardUrl({
+											redirect_to: BUYER_DASHBOARD_PAGES.buyer_rfq,
+											action: BUYER_DASHBOARD_ACTIONS.create_rfq,
+											access_key: customerData.access.token,
+											refresh_key: customerData.refresh.token
+										})}`
+									);
 								}
-								onClick={is_live ? onAddToCart : undefined}
-							>
-								{t('common:add_to_cart')}
-							</Button>
-						</div>
+							}}
+							className="!flex !items-center !border-2 !border-success !px-2 !text-[16px] !font-normal !text-success md:block"
+						>
+							<BiMessageAltDetail className="h-6 w-6" />
+							<span className="px-2">{t('Message supplier')}</span>
+						</Button>
 					</div>
 				</div>
 
 				{/* Additional info */}
-				<div className="hidden space-y-4 rounded-md bg-gray/20 p-4 md:mt-[21px]">
-					<div ref={sliderRef} className="keen-slider">
-						{is_bulk_pricing &&
-							bulk_pricing?.map((bulkPrice: any, index: any) => (
-								<div
-									key={`${bulkPrice.range}_${bulkPrice.price}_${index}`}
-									className="keen-slider__slide"
-								>
-									<p>
-										<span className="font-semibold">
-											{bulkPrice.range}
-										</span>{' '}
-										{t('common:piece')}= ${bulkPrice.price}
-									</p>
-								</div>
-							))}
-					</div>
-
-					{/* Variants */}
-					<div ref={sliderRef} className="keen-slider">
-						{variants.map((variant: any) => {
-							const { variant_id } = variant;
-							const isSelected = selectedVariantId === variant_id;
-							return (
-								<div key={variant_id} className="keen-slider__slide">
-									<Button
-										onClick={() =>
-											onVariantClick(isSelected ? '' : variant_id)
-										}
-										className={`px-0 !text-[21px] ${
-											isSelected ? 'font-semibold' : 'font-normal'
-										} !text-primary-main`}
-									>
-										{variant.variants_option}
-									</Button>
-								</div>
-							);
-						})}
-					</div>
-
-					<p className="text-[21px] text-primary-main">
-						<span className="font-semibold">
-							{t('common:quantity')}:
-						</span>{' '}
-						<span>
-							{is_unlimited_quantity && inventory?.quantity === 0
-								? t('common:unlimited_quantity')
-								: inventory?.quantity || 0}
-						</span>
-					</p>
-					<p className="text-[21px] text-primary-main">
-						<span className="font-semibold capitalize">
-							{/* {t('common:customization')}: */}
-							{t('common:customizable')}:
-						</span>{' '}
-						<span>
-							{is_customizable ? t('common:yes') : t('common:no')}
-						</span>
-					</p>
-				</div>
-
-				{/* New-  Additional info */}
 				<div className="hidden space-y-4 md:mt-[21px] md:block">
 					<div ref={sliderRef} className="keen-slider">
 						{is_bulk_pricing &&
@@ -487,28 +464,46 @@ const ProductDetailsTile: React.FC<{
 								Variants:
 							</p>
 							<div className="w-full">
-								{variants?.length <= 3 &&
-									variants.map((variant: any) => {
-										const { variant_id } = variant;
-										const isSelected = selectedVariantId === variant_id;
-										return (
-											<div
-												key={variant_id}
-												className="keen-slider__slide"
-											>
-												<Button
-													onClick={() =>
-														onVariantClick(isSelected ? '' : variant_id)
-													}
-													className={`px-0 !text-[21px] ${
-														isSelected ? 'font-semibold' : 'font-normal'
-													} !text-primary-main`}
+								<div className="flex items-center space-x-4">
+									<Button
+										onClick={() => onVariantClick('')}
+										className={`!text-[21px] ${
+											selectedVariantId
+												? '!px-0 font-normal '
+												: '!h-10 bg-gradient-to-t from-success to-accent-primary-main !text-[16px] font-semibold !leading-4 !text-white'
+										} !text-primary-main`}
+									>
+										Main
+									</Button>
+
+									{variants?.length <= 3 &&
+										variants.map((variant: any) => {
+											const { variant_id } = variant;
+											const isSelected =
+												selectedVariantId === variant_id;
+											return (
+												<div
+													key={variant_id}
+													className="keen-slider__slide"
 												>
-													{variant.variants_option}
-												</Button>
-											</div>
-										);
-									})}
+													<Button
+														onClick={() =>
+															onVariantClick(
+																isSelected ? '' : variant_id
+															)
+														}
+														className={`!text-[21px] ${
+															isSelected
+																? '!h-10 bg-gradient-to-t from-success to-accent-primary-main !text-[16px] font-semibold !leading-4 !text-white'
+																: '!px-0 font-normal'
+														} !text-primary-main`}
+													>
+														{variant.variants_option}
+													</Button>
+												</div>
+											);
+										})}
+								</div>
 
 								{variants?.length > 3 && (
 									<Listbox value={selected} onChange={setSelected}>
@@ -586,9 +581,13 @@ const ProductDetailsTile: React.FC<{
 							<p className="text-[21px] font-semibold leading-[26px] text-primary-main">
 								Sizes:
 							</p>
-							<div>
-								<button className="h-10 rounded-md border-2 px-2">
-									small
+							<div className="flex space-x-4">
+								<button className="h-10 rounded border-2 border-success px-2 font-medium">
+									Small
+								</button>
+
+								<button className="h-10 rounded border-2 border-success px-2 font-medium">
+									Med
 								</button>
 							</div>
 						</div>
@@ -603,17 +602,6 @@ const ProductDetailsTile: React.FC<{
 							</div>
 						</div>
 					</div>
-
-					<p className="text-[21px] leading-[26px] text-primary-main">
-						<span className="font-semibold">
-							{t('common:quantity')}:
-						</span>{' '}
-						<span>
-							{is_unlimited_quantity && inventory?.quantity === 0
-								? t('common:unlimited_quantity')
-								: inventory?.quantity || 0}
-						</span>
-					</p>
 
 					<p className="text-[21px] leading-[26px] text-primary-main">
 						<span className="font-semibold capitalize">

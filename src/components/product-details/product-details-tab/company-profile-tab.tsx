@@ -20,7 +20,7 @@ import {
 } from 'react-icons/md';
 import { useAuthStore } from 'store/auth';
 import { getLocaleText } from 'utils/get_locale_text';
-import ProductCollectionTile from '../product-collection/product-collection-tile';
+import CollectionSliderOld from '../product-collection/collection-slider-old';
 
 const CompanyProfileTab: React.FC<{
 	seller: any;
@@ -58,10 +58,10 @@ const CompanyProfileTab: React.FC<{
 			setLoaded(true);
 		},
 		breakpoints: {
-			'(min-width: 768px)': {
+			'(min-width: 744px)': {
 				slides: { perView: 4, spacing: 12 }
 			},
-			'(min-width: 1000px)': {
+			'(min-width: 1512px)': {
 				slides: { perView: 5, spacing: 10 }
 			}
 		},
@@ -79,12 +79,20 @@ const CompanyProfileTab: React.FC<{
 			setFeaturedProducts(data || [])
 		);
 
-		getProductsWithCollectionBySellerId(seller.id).then((data) =>
-			setCollectionProducts(data || [])
-		);
+		getProductsWithCollectionBySellerId(seller.id).then((data = []) => {
+			// const otherInventoryIndex = data?.findIndex(
+			// 	(item: any) => item.name === 'other inventory'
+			// );
+			// const products = [data?.otherInventoryIndex, ...data];
+			// console.log('products =', products);
+			// // data.unshift(data?.[otherInventoryIndex]);
+			// // setCollectionProducts(products || []);
+			setCollectionProducts(data || []);
+		});
 	}, [seller.id]);
 
 	const { store_front } = storeFrontDetails;
+	console.log('storeFrontDetails =', storeFrontDetails);
 
 	const messageVendorButton = (
 		<Button
@@ -139,10 +147,6 @@ const CompanyProfileTab: React.FC<{
 							alt=""
 							fill={true}
 						/>
-
-						<p className="absolute top-0 p-8 text-[55px] font-semibold text-white pc:text-[23px]">
-							Thirsty Llama Brewing
-						</p>
 					</div>
 
 					<div className="absolute bottom-4 left-16 h-[94px] w-[121px] overflow-hidden rounded-t-lg p-4 shadow-md">
@@ -157,9 +161,9 @@ const CompanyProfileTab: React.FC<{
 					<div className="absolute left-0 right-0 -bottom-[4px] h-[24px] bg-white md:right-8 md:left-8"></div>
 				</div>
 
-				<div className="bg-white p-8 md:mx-8">
+				<div className="bg-white p-4 md:mx-8">
 					<Tab.Group>
-						<Tab.List className="space-x-16 border-b border-gray/40 text-[18px] text-gray/40 md:border-t-0 md:text-[25px]">
+						<Tab.List className="space-x-16 border-b border-gray/40 text-[18px] text-gray/40 md:border-t-0 md:text-[25px] lg:leading-[30px]">
 							<Tab
 								className={({ selected }: { selected: boolean }) =>
 									`font-semibold ${selected ? 'text-primary-main' : ''}`
@@ -222,7 +226,7 @@ const CompanyProfileTab: React.FC<{
 										</div>
 
 										{/* Tradewinds logo and message vendor button */}
-										<div className="hidden sm:col-span-4 md:block">
+										<div className="hidden sm:col-span-4 md:flex">
 											<div className="flex justify-end ">
 												<div className="relative mr-4 h-[72px] w-[120px] md:m-8">
 													<Image
@@ -232,19 +236,20 @@ const CompanyProfileTab: React.FC<{
 													/>
 												</div>
 											</div>
-											<div className="relative mt-16 h-[22px] w-[138px] lg:hidden">
+											<div className="relative mt-16 hidden h-[22px] lg:block">
 												{messageVendorButton}
 											</div>
 										</div>
 									</div>
 
-									<div className="my-8 md:hidden lg:block">
+									{/* <div className="my-8 md:hidden lg:block"> */}
+									<div className="my-8 lg:hidden">
 										{messageVendorButton}
 									</div>
 								</div>
 
 								{/* About */}
-								<div className="mb-10 mt-4 lg:mt-0">
+								<div className="mb-10 mt-4 lg:mt-16">
 									<h2 className="border-b border-gray/40 text-[18px] font-semibold text-gray/40 md:text-[21px]">
 										{t('common:about')}
 									</h2>
@@ -255,7 +260,7 @@ const CompanyProfileTab: React.FC<{
 
 								{/* Featured Product */}
 								<div>
-									<h2 className="border-b border-gray/40 text-[18px] font-semibold text-gray/40 md:text-[21px]">
+									<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18px] text-gray/40 md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
 										{t('common:featured_product')}
 									</h2>
 									{featuredProducts?.length > 0 && (
@@ -273,8 +278,8 @@ const CompanyProfileTab: React.FC<{
 																push(`/product/${featuredProduct.id}`)
 															}
 														>
-															<div className="h-[185px]">
-																<div className="relative h-[137px] w-[137px]">
+															<div className="md:w-[150px] lg:w-[219px]">
+																<div className="relative h-[137px] w-[137px] md:w-[150px] lg:h-[219px] lg:w-[219px]">
 																	<ImageWithErrorHandler
 																		src={
 																			featuredProduct?.images[0]
@@ -286,9 +291,11 @@ const CompanyProfileTab: React.FC<{
 																		fill={true}
 																	/>
 																</div>
-																<div>
+
+																{/* content */}
+																<div className="mt-1 h-[47.57px]">
 																	{/* Product name */}
-																	<p className="flex justify-between space-x-8 text-[15px] font-bold text-primary-main md:text-[18px]">
+																	<p className="text-[15px] font-bold text-primary-main md:text-[18px] md:leading-[22px]">
 																		{getLocaleText(
 																			featuredProduct.product_name ||
 																				{},
@@ -297,7 +304,7 @@ const CompanyProfileTab: React.FC<{
 																	</p>
 
 																	{/* Product description */}
-																	<p className="text-[15px] text-gray">
+																	<p className="text-[15px] leading-[18px] text-gray">
 																		{getLocaleText(
 																			featuredProduct.product_description ||
 																				{},
@@ -349,13 +356,17 @@ const CompanyProfileTab: React.FC<{
 							<Tab.Panel className="outline-none">
 								{collectionProducts?.map((collectionProduct) => {
 									const { name, product } = collectionProduct || {};
-
 									return (
-										<ProductCollectionTile
+										<div
 											key={name}
-											name={name}
-											products={product}
-										/>
+											className="border-[#C4C4C4] last:border-none md:border-b"
+										>
+											<CollectionSliderOld
+												key={name}
+												name={name}
+												dataList={product}
+											/>
+										</div>
 									);
 								})}
 							</Tab.Panel>

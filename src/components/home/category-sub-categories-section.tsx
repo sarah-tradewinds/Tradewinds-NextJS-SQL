@@ -8,7 +8,6 @@ import { CatSubCatSectionType } from 'types/home';
 import { getLocaleText } from 'utils/get_locale_text';
 import Collapse from '../common/collapse';
 import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
-import SubCategoryCard from './common/sub-category-card';
 import SubCategorySlider from './sub-category-slider';
 
 import useDeviceSize from 'hooks/use-device-size.hooks';
@@ -75,40 +74,6 @@ const CategorySubCategoriesSection: React.FC<
 		const params = setCategory(categoryId, categoryName);
 		router.push(`/product-search?${params}`);
 	};
-
-	const subCategories = categories
-		? [...categories]
-				.slice(0, deviceSize === 'md' ? 5 : 7)
-				.map((subCat) => {
-					let { categories: category } = subCat as any;
-
-					const categoryData = category || subCat;
-					return (
-						<div
-							key={subCat.id}
-							className={`md:b-0 mb-2 transform border-b border-gray/40 transition duration-300 ease-in-out last:border-b-0 hover:-translate-y-2 md:mb-0`}
-						>
-							<SubCategoryCard
-								subCat={categoryData}
-								onClick={() =>
-									onSubCategoryTileClickHandler(
-										categoryData.id,
-										categoryData?.title?.en || ''
-									)
-								}
-								style={{
-									backgroundColor: main_category.panel_color
-									// border: !main_category.panel_color
-									// 	? '2px solid gray'
-									// 	: ''
-									// border: '2px solid gray'
-								}}
-								containerClassName={`min-h-[80px] md:min-h-[124px] lg:min-h-[140px] !bg-[${main_category.color}]`}
-							/>
-						</div>
-					);
-				})
-		: [];
 
 	const subCategoriesMobile = categories
 		? [...categories]
@@ -216,10 +181,8 @@ const CategorySubCategoriesSection: React.FC<
 			</div>
 
 			{/* For Medium and Large screen */}
-			{/* <div className="hidden grid-cols-12 items-end gap-4 p-4 md:grid lg:gap-[30px] 2xl:p-8"> */}
 			<div className="hidden md:flex">
 				{/* Category For medium and large screen */}
-				{/* <div className="md:col-span-4 xl:col-span-3"> */}
 				<CategoryCard
 					title={mainCategoryTitle}
 					name={(main_category as any).name || ''}
@@ -244,7 +207,6 @@ const CategorySubCategoriesSection: React.FC<
 				/>
 
 				{/* Sub categories */}
-				{/* <div className="hidden md:col-span-8 xl:col-span-9"> */}
 				<div className="lg:mr-[56.01px] lg:h-[279px] lg:w-[1046px] lg:pl-[61px]">
 					<SubCategorySlider
 						categories={[...categories]}

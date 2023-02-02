@@ -28,6 +28,7 @@ const ComparePage: NextPage = (props) => {
 	const [isSpecCollapseOpen, setIsSpecCollapseOpen] = useState(true);
 
 	const router = useRouter();
+	const { locale } = router;
 	const { compareProducts, removeProductFromCompareList } =
 		useProductCompareStore();
 
@@ -60,7 +61,8 @@ const ComparePage: NextPage = (props) => {
 				product_price,
 				is_bulk_pricing,
 				bulk_pricing,
-				inventory
+				inventory,
+				seo
 			} = compareProduct;
 
 			const displayPrice = getDisplayBulkPrice({
@@ -79,11 +81,11 @@ const ComparePage: NextPage = (props) => {
 						id={id}
 						name={getLocaleText(
 							compareProduct.product_name || {},
-							router.locale
+							locale
 						)}
 						description={getLocaleText(
 							compareProduct.product_description || {},
-							router.locale
+							locale
 						)}
 						productPrice={product_price}
 						salePrice={compareProduct?.sale_price}
@@ -111,11 +113,17 @@ const ComparePage: NextPage = (props) => {
 							</span>
 						</p>
 						<ProductDetailsTab
+							product={compareProduct || {}}
 							productDetailItems={
 								compareProduct?.product_detail_item || []
 							}
 							certifications={compareProduct?.certification || []}
 							shipping={compareProduct?.product_dimension || {}}
+							seoTitle={getLocaleText(seo?.title || {}, locale)}
+							seoDescription={getLocaleText(
+								seo?.description || {},
+								locale
+							)}
 							productDetailsContainerClassName="h-[280px] overflow-y-auto"
 							certificationContainerClassName="h-[280px] overflow-y-auto"
 							dimensionContainerClassName="h-[280px] overflow-y-auto"
@@ -188,6 +196,7 @@ const ComparePage: NextPage = (props) => {
 								{compareProducts.map((compareProduct) => (
 									<div key={compareProduct.id} className={colSpan}>
 										<ProductDetailsTab
+											product={compareProduct || {}}
 											productDetailItems={
 												compareProduct?.product_detail_item || []
 											}
@@ -195,6 +204,14 @@ const ComparePage: NextPage = (props) => {
 												compareProduct?.certification || []
 											}
 											shipping={compareProduct?.product_dimension || {}}
+											seoTitle={getLocaleText(
+												compareProduct?.seo?.title || {},
+												locale
+											)}
+											seoDescription={getLocaleText(
+												compareProduct?.seo?.description || {},
+												locale
+											)}
 											productDetailsContainerClassName="h-[280px] overflow-y-auto"
 											certificationContainerClassName="h-[280px] overflow-y-auto"
 											dimensionContainerClassName="h-[280px] overflow-y-auto"

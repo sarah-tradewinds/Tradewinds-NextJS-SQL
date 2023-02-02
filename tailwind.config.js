@@ -31,7 +31,8 @@ module.exports = {
 			'accent-error': '#f23030',
 			'accent-success': '#166b22',
 			gray: '#575858',
-			green: '#37B34A',
+			// green: '#37B34A',
+			green: '#35B34A',
 			cyan: '#33A7DF',
 
 			// Onetime Colors

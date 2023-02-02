@@ -9,14 +9,16 @@ import { useState } from 'react';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import { getLocaleText } from 'utils/get_locale_text';
 
-interface CollectionSliderProps {
+interface CollectionSliderOldProps {
 	dataList: any[];
 	onCountryClick?: (country: any) => any;
 	isLoading?: boolean;
 	className?: string;
 }
 
-const CollectionSlider: React.FC<CollectionSliderProps> = (props) => {
+const CollectionSliderOld: React.FC<CollectionSliderOldProps> = (
+	props
+) => {
 	const { dataList, onCountryClick, isLoading, className } = props;
 
 	const [currentSlide, setCurrentSlide] = useState(0);
@@ -51,7 +53,7 @@ const CollectionSlider: React.FC<CollectionSliderProps> = (props) => {
 	});
 
 	const productList =
-		dataList?.map((product) => {
+		dataList?.map((product: any) => {
 			const imageUrl = product?.images[0]
 				? product?.images[0]?.url
 				: '';
@@ -110,15 +112,10 @@ const CollectionSlider: React.FC<CollectionSliderProps> = (props) => {
 
 	const sliderListLength = sliderList?.length || 0;
 
-	return sliderListLength <= 1 ? (
-		<div className="flex h-full items-center lg:ml-12">
-			<div className="grid grid-cols-4">
-				<div>{sliderList}</div>
-			</div>
-		</div>
-	) : (
-		<div className="w-full bg-success">
+	return (
+		<div className="mt-8 w-full">
 			<div className="navigation-wrapper relative lg:px-12">
+				<p className="py-4 text-[18px] leading-[22px]">Name</p>
 				<div ref={ref} className="keen-slider">
 					{sliderList}
 				</div>
@@ -152,9 +149,52 @@ const CollectionSlider: React.FC<CollectionSliderProps> = (props) => {
 			</div>
 		</div>
 	);
+
+	// return sliderListLength <= 1 ? (
+	// 	<div className="flex h-full items-center lg:ml-12">
+	// 		<div className="grid grid-cols-4">
+	// 			<div>{sliderList}</div>
+	// 		</div>
+	// 	</div>
+	// ) : (
+	// 	<div className="w-full">
+	// 		<div className="navigation-wrapper relative lg:px-12">
+	// 			<div ref={ref} className="keen-slider">
+	// 				{sliderList}
+	// 			</div>
+
+	// 			{/* Navigation button */}
+	// 			{!isLoading && loaded && instanceRef?.current && (
+	// 				<>
+	// 					<Button
+	// 						className={`absolute left-0 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full border-2 border-accent-primary-main !p-0 !text-accent-primary-main`}
+	// 						onClick={(e: any) =>
+	// 							e.stopPropagation() || instanceRef.current?.prev()
+	// 						}
+	// 					>
+	// 						<MdChevronLeft className="h-[32px] w-[32px]" />
+	// 					</Button>
+
+	// 					<Button
+	// 						className={`absolute right-0 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full border-2 border-accent-primary-main !p-0 !text-accent-primary-main`}
+	// 						onClick={(e: any) =>
+	// 							e.stopPropagation() || instanceRef.current?.next()
+	// 						}
+	// 						disabled={
+	// 							currentSlide ===
+	// 							instanceRef?.current?.track?.details?.slides?.length - 1
+	// 						}
+	// 					>
+	// 						<MdChevronRight className="h-[32px] w-[32px]" />
+	// 					</Button>
+	// 				</>
+	// 			)}
+	// 		</div>
+	// 	</div>
+	// );
 };
 
-export default CollectionSlider;
+export default CollectionSliderOld;
 
 const generateRows = (payload: {
 	rowCount: number;
