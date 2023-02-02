@@ -78,10 +78,16 @@ const ProductDetailsPage: NextPage<
 	}, [slug]);
 
 	useEffect(() => {
+		console.log(
+			'selectedVariantId selectedVariantId =',
+			selectedVariantId,
+			productData.has_variants,
+			productData.variants
+		);
 		if (selectedVariantId) {
 			const updatedProductData = { ...productData };
 
-			if (updatedProductData.has_variants) {
+			if (!updatedProductData.has_variants) {
 				const productVariant = updatedProductData.variants?.find(
 					(variant: any) => variant.variant_id === selectedVariantId
 				);
@@ -145,7 +151,13 @@ const ProductDetailsPage: NextPage<
 		<div className="pb-16 md:container md:space-y-8">
 			<ProductDetailsTile
 				product={productData}
-				onVariantClick={setSelectedVariantId}
+				onVariantClick={(v) => {
+					console.log(
+						'[setSelectedVariantId] = [setSelectedVariantId]',
+						v
+					);
+					setSelectedVariantId(v);
+				}}
 				selectedVariantId={selectedVariantId}
 				totalReviewCount={productReviewList.length}
 				onAddToCart={async () => {

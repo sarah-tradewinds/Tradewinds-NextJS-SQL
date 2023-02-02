@@ -76,10 +76,12 @@ const ProductDetailsTile: React.FC<{
 		is_verified,
 		is_eco,
 		seller_country = [],
+		color: colors = [],
 		total_rate_count = 0,
 		total_review_count = 0
 	} = product || {};
 
+	const [selectedColor, setSelectedColor] = useState('');
 	const [sliderRef] = useKeenSlider<HTMLDivElement>({
 		slides: { perView: 4, spacing: 16 }
 	});
@@ -244,7 +246,13 @@ const ProductDetailsTile: React.FC<{
 		</div>
 	];
 
-	console.log('variants =', variants);
+	const productVariants = variants?.filter((variant: any) => {
+		if (selectedColor) {
+			return variant?.color === selectedColor;
+		}
+
+		return true;
+	});
 
 	return (
 		<div className="grid grid-cols-12 gap-y-8 bg-white md:gap-8">
@@ -460,7 +468,7 @@ const ProductDetailsTile: React.FC<{
 					</div>
 
 					{/* Variants */}
-					{variants?.length > 0 && (
+					{productVariants?.length >= 0 && (
 						<div className="mt-3 space-y-5">
 							<div className="flex items-center space-x-2">
 								<p className="text-[21px] font-semibold leading-[26px] text-primary-main">
@@ -468,53 +476,56 @@ const ProductDetailsTile: React.FC<{
 								</p>
 								<div className="w-full">
 									<div className="flex items-center space-x-4">
-										<Button
-											onClick={() => onVariantClick('')}
-											className={`!text-[21px] ${
-												selectedVariantId
-													? '!px-0 font-normal '
-													: '!h-10 bg-gradient-to-t from-success to-accent-primary-main !text-[16px] font-semibold !leading-4 !text-white'
-											} !text-primary-main`}
-										>
-											Main
-										</Button>
+										{productVariants?.length <= 3 && (
+											<>
+												<Button
+													onClick={() => onVariantClick('')}
+													className={`!text-[21px] ${
+														selectedVariantId
+															? '!px-0 font-normal '
+															: '!h-10 bg-gradient-to-t from-success to-accent-primary-main !text-[16px] font-semibold !leading-4 !text-white'
+													} !text-primary-main`}
+												>
+													Main
+												</Button>
 
-										{variants?.length <= 3 &&
-											variants.map((variant: any) => {
-												const { variant_id } = variant;
-												const isSelected =
-													selectedVariantId === variant_id;
-												return (
-													<div
-														key={variant_id}
-														className="keen-slider__slide"
-													>
-														<Button
-															onClick={() =>
-																onVariantClick(
-																	isSelected ? '' : variant_id
-																)
-															}
-															className={`!text-[21px] ${
-																isSelected
-																	? '!h-10 bg-gradient-to-t from-success to-accent-primary-main !text-[16px] font-semibold !leading-4 !text-white'
-																	: '!px-0 font-normal'
-															} !text-primary-main`}
+												{productVariants?.map((variant: any) => {
+													const { variant_id } = variant;
+													const isSelected =
+														selectedVariantId === variant_id;
+													return (
+														<div
+															key={variant_id}
+															className="keen-slider__slide"
 														>
-															{variant.variants_option}
-														</Button>
-													</div>
-												);
-											})}
+															<Button
+																onClick={() =>
+																	onVariantClick(
+																		isSelected ? '' : variant_id
+																	)
+																}
+																className={`!text-[21px] ${
+																	isSelected
+																		? '!h-10 bg-gradient-to-t from-success to-accent-primary-main !text-[16px] font-semibold !leading-4 !text-white'
+																		: '!px-0 font-normal'
+																} !text-primary-main`}
+															>
+																{variant.variants_option}
+															</Button>
+														</div>
+													);
+												})}
+											</>
+										)}
 									</div>
 
-									{variants?.length > 3 && (
+									{productVariants?.length > 3 && (
 										<Listbox value={selected} onChange={setSelected}>
 											<div className="relative mt-1 w-[235px]">
 												<Listbox.Button className="relative h-10 w-full rounded-md bg-accent-primary-main font-semibold text-white">
 													<span className="block truncate">
 														{selected.variants_option ||
-															'Select Variant'}
+															`Variants (${productVariants?.length})`}
 													</span>
 													<span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
 														<ChevronUpDownIcon
@@ -531,7 +542,40 @@ const ProductDetailsTile: React.FC<{
 													leaveTo="opacity-0"
 												>
 													<Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-														{variants?.map((variant: any) => (
+														{/* Main */}
+														<Listbox.Option
+															key="main"
+															className={`relative cursor-pointer select-none py-2 px-4 ${
+																!selectedVariantId
+																	? 'bg-amber-100 text-amber-900'
+																	: 'text-gray-900'
+															}`}
+															value={{ variants_option: 'Main' }}
+														>
+															<div
+																className="flex items-center space-x-4"
+																onClick={() => onVariantClick('')}
+															>
+																<span
+																	className={`inline-block h-5 w-5 rounded-full ${
+																		!selectedVariantId
+																			? 'bg-accent-primary-main'
+																			: 'bg-[#D9D9D9]'
+																	}`}
+																></span>
+																<span
+																	className={`block truncate text-[18px] leading-[22px] ${
+																		!selectedVariantId
+																			? 'font-medium text-accent-primary-main'
+																			: 'font-normal'
+																	}`}
+																>
+																	Main
+																</span>
+															</div>
+														</Listbox.Option>
+
+														{productVariants?.map((variant: any) => (
 															<Listbox.Option
 																key={variant.variant_id}
 																className={({ active }) =>
@@ -542,6 +586,15 @@ const ProductDetailsTile: React.FC<{
 																	}`
 																}
 																value={variant}
+																onClick={() => {
+																	console.log(variant.variant_id);
+																	onVariantClick(
+																		selectedVariantId ===
+																			variant.variant_id
+																			? ''
+																			: variant.variant_id
+																	);
+																}}
 															>
 																{({ selected }) => (
 																	<div
@@ -588,13 +641,16 @@ const ProductDetailsTile: React.FC<{
 									Sizes:
 								</p>
 								<div className="flex space-x-4">
-									<button className="h-10 rounded border-2 border-success px-2 font-medium">
-										Small
-									</button>
-
-									<button className="h-10 rounded border-2 border-success px-2 font-medium">
-										Med
-									</button>
+									{productVariants?.map((variant: any) =>
+										variant?.product_size ? (
+											<button
+												key={variant?.variant_id}
+												className="h-10 rounded border-2 border-success px-2 font-medium"
+											>
+												{variant?.product_size}
+											</button>
+										) : null
+									)}
 								</div>
 							</div>
 
@@ -603,8 +659,39 @@ const ProductDetailsTile: React.FC<{
 								<p className="text-[21px] font-semibold leading-[26px] text-primary-main">
 									Colors:
 								</p>
-								<div>
-									<button className="h-10 w-10 rounded-full bg-error"></button>
+								<div className="space-x-4">
+									{colors?.map((color: string) => (
+										<button
+											key={color}
+											className={`h-10 w-10 rounded-full ${
+												selectedColor === color
+													? 'ring-2 ring-offset-4'
+													: ''
+											}`}
+											style={{
+												backgroundColor: color
+											}}
+											onClick={() => {
+												setSelectedColor((prevColor) => {
+													if (prevColor === color) {
+														return '';
+													}
+													return color;
+												});
+
+												const variant = variants?.find(
+													(variant: any) => variant.color === color
+												);
+
+												if (variant) {
+													const variantId = variant.variant_id;
+													const isSelected =
+														selectedVariantId === variantId;
+													onVariantClick(isSelected ? '' : variantId);
+												}
+											}}
+										></button>
+									))}
 								</div>
 							</div>
 						</div>
