@@ -81,7 +81,7 @@ const ProductDetailsPage: NextPage<
 		if (selectedVariantId) {
 			const updatedProductData = { ...productData };
 
-			if (updatedProductData.has_variants) {
+			if (updatedProductData?.variants?.length > 0) {
 				const productVariant = updatedProductData.variants?.find(
 					(variant: any) => variant.variant_id === selectedVariantId
 				);
