@@ -663,7 +663,7 @@ const ProductDetailsTile: React.FC<{
 										{productSizes?.map((size: any) => (
 											<button
 												key={size}
-												className="h-10 rounded border-2 border-success px-2 font-medium"
+												className="h-10 px-2 font-bold"
 											>
 												{size}
 											</button>
@@ -682,7 +682,7 @@ const ProductDetailsTile: React.FC<{
 										{materials?.map((material: any) => (
 											<button
 												key={material}
-												className="h-10 rounded border-2 border-success px-2 font-medium"
+												className="h-10 px-2 font-bold"
 											>
 												{material}
 											</button>
@@ -701,7 +701,7 @@ const ProductDetailsTile: React.FC<{
 										{styles?.map((style: any) => (
 											<button
 												key={style}
-												className="h-10 rounded border-2 border-success px-2 font-medium"
+												className="h-10 px-2 font-bold"
 											>
 												{style}
 											</button>
@@ -720,7 +720,7 @@ const ProductDetailsTile: React.FC<{
 										{titles?.map((title: any) => (
 											<button
 												key={title}
-												className="h-10 rounded border-2 border-success px-2 font-medium"
+												className="h-10 px-2 font-bold"
 											>
 												{title}
 											</button>
