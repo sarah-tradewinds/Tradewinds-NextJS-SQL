@@ -77,6 +77,10 @@ const ProductDetailsTile: React.FC<{
 		is_eco,
 		seller_country = [],
 		color: colors = [],
+		size: sizes = [],
+		material: materials = [],
+		style: styles = [],
+		title: titles = [],
 		total_rate_count = 0,
 		total_review_count = 0
 	} = product || {};
@@ -247,16 +251,26 @@ const ProductDetailsTile: React.FC<{
 	];
 
 	const productVariants = variants?.filter((variant: any) => {
+		const getColorWithoutHexValue = (color: string) =>
+			color?.replace('#', '')?.toLowerCase();
+
 		if (selectedColor) {
-			return variant?.color === selectedColor;
+			return (
+				getColorWithoutHexValue(variant?.color) ===
+				getColorWithoutHexValue(selectedColor)
+			);
 		}
 
 		return true;
 	});
 
-	const productSizes = productVariants?.map(
-		(variant: any) => variant?.product_size
-	);
+	const productSizes: string[] = [
+		...new Set<string>(
+			productVariants?.map((variant: any) =>
+				variant?.size?.toLowerCase()
+			) || []
+		)
+	];
 
 	return (
 		<div className="grid grid-cols-12 gap-y-8 bg-white md:gap-8">
@@ -309,7 +323,7 @@ const ProductDetailsTile: React.FC<{
 				</div>
 
 				{/* Keywords */}
-				<div className="flex space-x-4 md:space-x-16">
+				{/* <div className="flex space-x-4 md:space-x-16">
 					{tags.map((tag: any, index: number) => {
 						let tagName = tag;
 						if (typeof tag === 'object') {
@@ -324,7 +338,7 @@ const ProductDetailsTile: React.FC<{
 							</span>
 						);
 					})}
-				</div>
+				</div> */}
 
 				{/* Metadata list */}
 				<div className="mt-2 grid grid-cols-2 gap-[15px] text-gray md:grid-cols-3">
@@ -658,6 +672,63 @@ const ProductDetailsTile: React.FC<{
 								</div>
 							)}
 
+							{/* Materials */}
+							{materials?.length > 0 && (
+								<div className="flex items-center space-x-2">
+									<p className="text-[21px] font-semibold leading-[26px] text-primary-main">
+										Materials:
+									</p>
+									<div className="flex space-x-4">
+										{materials?.map((material: any) => (
+											<button
+												key={material}
+												className="h-10 rounded border-2 border-success px-2 font-medium"
+											>
+												{material}
+											</button>
+										))}
+									</div>
+								</div>
+							)}
+
+							{/* Styles */}
+							{styles?.length > 0 && (
+								<div className="flex items-center space-x-2">
+									<p className="text-[21px] font-semibold leading-[26px] text-primary-main">
+										Styles:
+									</p>
+									<div className="flex space-x-4">
+										{styles?.map((style: any) => (
+											<button
+												key={style}
+												className="h-10 rounded border-2 border-success px-2 font-medium"
+											>
+												{style}
+											</button>
+										))}
+									</div>
+								</div>
+							)}
+
+							{/* Titles */}
+							{titles?.length > 0 && (
+								<div className="flex items-center space-x-2">
+									<p className="text-[21px] font-semibold leading-[26px] text-primary-main">
+										Titles:
+									</p>
+									<div className="flex space-x-4">
+										{titles?.map((title: any) => (
+											<button
+												key={title}
+												className="h-10 rounded border-2 border-success px-2 font-medium"
+											>
+												{title}
+											</button>
+										))}
+									</div>
+								</div>
+							)}
+
 							{/* Colors */}
 							{colors?.length > 0 && (
 								<div className="flex items-center space-x-2">
@@ -665,38 +736,42 @@ const ProductDetailsTile: React.FC<{
 										Colors:
 									</p>
 									<div className="space-x-4">
-										{colors?.map((color: string) => (
-											<button
-												key={color}
-												className={`h-10 w-10 rounded-full ${
-													selectedColor === color
-														? 'ring-2 ring-offset-4'
-														: ''
-												}`}
-												style={{
-													backgroundColor: color
-												}}
-												onClick={() => {
-													setSelectedColor((prevColor) => {
-														if (prevColor === color) {
-															return '';
+										{colors?.map((color: string) => {
+											return (
+												<button
+													key={color}
+													className={`h-10 w-10 rounded-full ${
+														selectedColor === color
+															? 'ring-2 ring-offset-4'
+															: ''
+													}`}
+													style={{
+														backgroundColor: color
+													}}
+													onClick={() => {
+														setSelectedColor((prevColor) => {
+															if (prevColor === color) {
+																return '';
+															}
+															return color;
+														});
+
+														const variant = variants?.find(
+															(variant: any) => variant.color === color
+														);
+
+														if (variant) {
+															const variantId = variant.variant_id;
+															const isSelected =
+																selectedVariantId === variantId;
+															onVariantClick(
+																isSelected ? '' : variantId
+															);
 														}
-														return color;
-													});
-
-													const variant = variants?.find(
-														(variant: any) => variant.color === color
-													);
-
-													if (variant) {
-														const variantId = variant.variant_id;
-														const isSelected =
-															selectedVariantId === variantId;
-														onVariantClick(isSelected ? '' : variantId);
-													}
-												}}
-											></button>
-										))}
+													}}
+												></button>
+											);
+										})}
 									</div>
 								</div>
 							)}
