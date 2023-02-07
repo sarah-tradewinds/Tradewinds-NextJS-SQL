@@ -1,8 +1,8 @@
-import { serviceAxiosInstance } from 'utils/axios-instance.utils';
+import { axiosInstance } from 'utils/axios-instance.utils';
 
 export const getEcoHomeMainCategoriesAndCategories = async () => {
 	try {
-		const { data } = await serviceAxiosInstance.get(
+		const { data } = await axiosInstance.get(
 			'/cms_category/home?is_eco=true'
 			// '/cms_category?is_eco=true'
 		);
@@ -36,7 +36,7 @@ export const getEcoCategoriesByMainCategoryId = async (
 	mainCategoryId: string
 ) => {
 	try {
-		const { data } = await serviceAxiosInstance.get(
+		const { data } = await axiosInstance.get(
 			`/category/categories/${mainCategoryId}?is_eco=${true}`
 		);
 		return data.data || [];

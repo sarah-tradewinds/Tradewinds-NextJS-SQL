@@ -1,8 +1,8 @@
 import { NextApiHandler } from 'next';
 
 // Third party packages
-import axios from 'axios';
 import { serialize } from 'cookie';
+import { axiosInstance } from 'utils/axios-instance.utils';
 
 const handler: NextApiHandler = async (req, res) => {
 	const { slug } = req.query;
@@ -11,8 +11,8 @@ const handler: NextApiHandler = async (req, res) => {
 	const authorization = req.headers.authorization;
 
 	try {
-		const { data } = await axios.post(
-			`${process.env.API_BASE_URL}/services/api/v1/auth/${slug}`,
+		const { data } = await axiosInstance.post(
+			`/auth/${slug}`,
 			req.body,
 			{
 				headers: {
@@ -22,7 +22,6 @@ const handler: NextApiHandler = async (req, res) => {
 				}
 			}
 		);
-
 		const {
 			access_token: loginAccessToken,
 			refresh_token: loginRefreshToken

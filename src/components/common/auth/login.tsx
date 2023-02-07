@@ -15,12 +15,7 @@ import { Modal } from '../modal/modal';
 import { buttonSpinner } from '../spinners/custom-spinners';
 
 // libs
-import { addProductToCart } from 'lib/cart.lib';
-import {
-	getCustomerBuyerDetails,
-	getCustomerDetails,
-	userLogin
-} from 'lib/customer/auth.lib';
+import { getCustomerDetails, userLogin } from 'lib/customer/auth.lib';
 import { useTranslation } from 'next-i18next';
 import { useCartStore } from 'store/cart-store';
 
@@ -64,22 +59,19 @@ const Login: React.FC = () => {
 				data.access_token.token
 			);
 
-			const buyerData = await getCustomerBuyerDetails(
-				customerDetails.id
-			);
+			const buyerId = customerDetails?.id;
 
-			const buyerId = buyerData?.id;
-
-			if (cartProducts.length) {
-				await addProductToCart(
-					buyerId,
-					null,
-					cartProducts.map((cartProduct) => ({
-						product_id: cartProduct.product?.id,
-						quantity: cartProduct.quantity
-					}))
-				);
-			}
+			// TODO: Have to work on this
+			// if (cartProducts.length) {
+			// 	await addProductToCart(
+			// 		buyerId,
+			// 		null,
+			// 		cartProducts.map((cartProduct) => ({
+			// 			product_id: cartProduct.product?.id,
+			// 			quantity: cartProduct.quantity
+			// 		}))
+			// 	);
+			// }
 
 			setCustomerData({
 				id: customerDetails.id,
@@ -87,7 +79,7 @@ const Login: React.FC = () => {
 				name: customerDetails.name,
 				phone: customerDetails.phone,
 				email: customerDetails.email,
-				tradewinds_email: buyerData?.user_id?.trade_winds_email,
+				tradewinds_email: customerDetails?.tradewinds_email,
 				access: {
 					token: data.access_token.token,
 					expireIn: ''
@@ -117,7 +109,9 @@ const Login: React.FC = () => {
 	return (
 		<Modal
 			open={isLoginOpen}
-			className="top-10 mx-4 transform md:top-40 md:mx-20 lg:left-1/2 lg:top-1/2 lg:mx-0 lg:-translate-x-1/2 lg:-translate-y-1/2"
+			// className="top-10 mx-4 transform md:top-40 md:mx-20 lg:left-1/2 lg:top-1/2 lg:mx-0 lg:-translate-x-1/2 lg:-translate-y-1/2"
+			className="top-14 !z-[51000] mx-4 transform md:top-40 md:mx-20 lg:left-1/2 lg:top-1/2 lg:mx-0 lg:-translate-x-1/2 lg:-translate-y-1/2"
+			overlayClassName="!z-[51000]"
 			onClose={setIsLoginOpen}
 		>
 			<div className="flex items-center justify-center">

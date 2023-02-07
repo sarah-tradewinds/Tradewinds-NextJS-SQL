@@ -1,4 +1,4 @@
-import { serviceAxiosInstance } from 'utils/axios-instance.utils';
+import { axiosInstance } from 'utils/axios-instance.utils';
 import { generateQueryString } from 'utils/generate_query_string.utils';
 
 export const getProducts = async (params: {
@@ -27,7 +27,7 @@ export const getProducts = async (params: {
 	const queryString = generateQueryString(params);
 
 	try {
-		const { data } = await serviceAxiosInstance.get(
+		const { data } = await axiosInstance.get(
 			`/product/search?${queryString}`
 		);
 
@@ -48,7 +48,7 @@ export const getSelectedMainCategoryAndCategories = async (
 	mainCategoryId: string
 ) => {
 	try {
-		const { data } = await serviceAxiosInstance.get(
+		const { data } = await axiosInstance.get(
 			`/category/trending_category/${mainCategoryId}`
 		);
 

@@ -1,8 +1,8 @@
-import { serviceAxiosInstance } from 'utils/axios-instance.utils';
+import { axiosInstance } from 'utils/axios-instance.utils';
 
 export const getTrendingProducts = async (isEco?: boolean) => {
 	try {
-		const { data } = await serviceAxiosInstance.get(
+		const { data } = await axiosInstance.get(
 			`/product/trending?is_eco=${isEco}`
 		);
 

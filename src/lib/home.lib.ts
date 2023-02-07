@@ -1,8 +1,8 @@
-import { serviceAxiosInstance } from 'utils/axios-instance.utils';
+import { axiosInstance } from 'utils/axios-instance.utils';
 
 export const getHeroCarousels = async () => {
 	try {
-		const { data } = await serviceAxiosInstance.get(
+		const { data } = await axiosInstance.get(
 			'/carousel/getallcarousel'
 		);
 		return data.data || [];
@@ -16,9 +16,7 @@ export const getHeroCarousels = async () => {
 
 export const getCardAList = async () => {
 	try {
-		const { data } = await serviceAxiosInstance.get(
-			'/cardA/getallcardA'
-		);
+		const { data } = await axiosInstance.get('/cardA/getallcardA');
 
 		return data.data || [];
 	} catch (error) {
@@ -31,9 +29,7 @@ export const getCardAList = async () => {
 
 export const getCardB = async () => {
 	try {
-		const { data } = await serviceAxiosInstance.get(
-			'/cardB/getallcardB'
-		);
+		const { data } = await axiosInstance.get('/cardB/getallcardB');
 
 		return data.data ? data.data[0] : {};
 	} catch (error) {
@@ -49,7 +45,7 @@ export const getHomeMainCategoriesAndCategories = async (): Promise<{
 	is_custom: boolean;
 }> => {
 	try {
-		const { data } = await serviceAxiosInstance.get('/cms_category');
+		const { data } = await axiosInstance.get('/cms_category');
 		return {
 			cat_section: data.data[0].cat_section,
 			is_custom: data.data[0].is_custom
@@ -67,9 +63,7 @@ export const getHomeMainCategoriesAndCategories = async (): Promise<{
 
 export const getHomeCountries = async () => {
 	try {
-		const { data } = await serviceAxiosInstance.get(
-			'/region_country/all'
-		);
+		const { data } = await axiosInstance.get('/region_country/all');
 
 		return data.data || [];
 	} catch (error) {
@@ -82,7 +76,7 @@ export const getHomeCountries = async () => {
 
 export const getHomeAdvertisements = async () => {
 	try {
-		const { data } = await serviceAxiosInstance.get(
+		const { data } = await axiosInstance.get(
 			'/advertisement/getalladvertisement'
 		);
 

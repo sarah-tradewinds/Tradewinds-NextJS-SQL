@@ -1,8 +1,8 @@
-import { serviceAxiosInstance } from 'utils/axios-instance.utils';
+import { axiosInstance } from 'utils/axios-instance.utils';
 
 export const getMainCategories = async (isEco?: boolean) => {
 	try {
-		const { data } = await serviceAxiosInstance.get(
+		const { data } = await axiosInstance.get(
 			`/main_category?is_eco=${isEco}`
 		);
 		return data.data || [];
@@ -17,7 +17,7 @@ export const getCategoriesByMainCategoryId = async (
 	mainCategoryId: string
 ) => {
 	try {
-		const { data } = await serviceAxiosInstance.get(
+		const { data } = await axiosInstance.get(
 			`/category/categories/${mainCategoryId}`
 		);
 		return data.data || [];
@@ -33,7 +33,7 @@ export const getSubCategoriesByCategoryId = async (
 	categoryId: string
 ) => {
 	try {
-		const { data } = await serviceAxiosInstance.get(
+		const { data } = await axiosInstance.get(
 			`/sub_category/sub_categories/${categoryId}`
 		);
 		return data.data || [];
@@ -49,7 +49,7 @@ export const getSpecificCategoriesBySubCategoryId = async (
 	subCategoryId: string
 ) => {
 	try {
-		const { data } = await serviceAxiosInstance.get(
+		const { data } = await axiosInstance.get(
 			`/specific_category/sub_sub_categories/${subCategoryId}`
 		);
 		return data.data || [];
@@ -63,9 +63,7 @@ export const getSpecificCategoriesBySubCategoryId = async (
 
 export const getCountries = async () => {
 	try {
-		const { data } = await serviceAxiosInstance.get(
-			'/region_country/all'
-		);
+		const { data } = await axiosInstance.get('/region_country/all');
 
 		return data.data || [];
 	} catch (error) {
@@ -78,7 +76,7 @@ export const getCountries = async () => {
 
 export const getCountryById = async (countryId: string) => {
 	try {
-		const { data } = await serviceAxiosInstance.get(
+		const { data } = await axiosInstance.get(
 			`/region_country/${countryId}`
 		);
 
@@ -91,7 +89,7 @@ export const getCountryById = async (countryId: string) => {
 
 export const getSearchSuggestions = async (searchText: string) => {
 	try {
-		const { data } = await serviceAxiosInstance.get(
+		const { data } = await axiosInstance.get(
 			`/product/global/search?query=${searchText}`
 		);
 
@@ -113,7 +111,7 @@ export const sendMessageToSeller = async (payload: {
 	const { buyerEmail, sellerEmail, subject, message } = payload;
 
 	try {
-		const { data } = await serviceAxiosInstance.post('/message', {
+		const { data } = await axiosInstance.post('/message', {
 			from: buyerEmail,
 			to: [sellerEmail],
 			cc: [],

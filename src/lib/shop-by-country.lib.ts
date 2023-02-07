@@ -1,8 +1,8 @@
-import { serviceAxiosInstance } from 'utils/axios-instance.utils';
+import { axiosInstance } from 'utils/axios-instance.utils';
 
 export const getRegionsAndCountries = async (isEco?: boolean) => {
 	try {
-		const { data } = await serviceAxiosInstance.get('/region/all');
+		const { data } = await axiosInstance.get('/region/all');
 
 		return data.data || [];
 	} catch (error) {

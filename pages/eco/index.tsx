@@ -11,17 +11,17 @@ import Hero from 'components/home/hero';
 
 // lib
 import {
-  getCardAList,
-  getCardB,
-  getHeroCarousels,
-  getHomeAdvertisements,
-  getHomeCountries
+	getCardAList,
+	getCardB,
+	getHeroCarousels,
+	getHomeAdvertisements,
+	getHomeCountries
 } from 'lib/home.lib';
 import {
-  GetServerSideProps,
-  GetStaticProps,
-  InferGetStaticPropsType,
-  NextPage
+	GetServerSideProps,
+	GetStaticProps,
+	InferGetStaticPropsType,
+	NextPage
 } from 'next';
 
 import { getEcoHomeMainCategoriesAndCategories } from 'lib/eco/eco-home.lib';

@@ -1,6 +1,5 @@
 import {
 	autoLoginCustomer,
-	getCustomerBuyerDetails,
 	logoutCustomer
 } from 'lib/customer/auth.lib';
 import create from 'zustand';
@@ -64,17 +63,12 @@ export const useAuthStore = create<AuthState>((set) => ({
 			isAuthenticating: true
 		});
 		try {
-			const data = await autoLoginCustomer();
-			const userId = data?.customerData?.id;
-			data.customerData.buyerId = '';
-			if (userId) {
-				const { id, user_id } = await getCustomerBuyerDetails(userId);
-				data.customerData.buyerId = id;
-				data.customerData.tradewinds_email = user_id?.trade_winds_email;
-			}
+			const { customerData, isLoggedIn } =
+				(await autoLoginCustomer()) || {};
+
 			set({
-				isAuth: data.isLoggedIn,
-				customerData: data.customerData,
+				isAuth: isLoggedIn || false,
+				customerData: customerData,
 				isAuthenticating: false
 			});
 		} catch (error) {

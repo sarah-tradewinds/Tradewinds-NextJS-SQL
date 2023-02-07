@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 import Image from 'next/image';
 
@@ -15,8 +15,16 @@ import { useRouter } from 'next/router';
 import { Modal } from '../modal/modal';
 import { buttonSpinner } from '../spinners/custom-spinners';
 // import { userSignup } from './auth-services';
+import { Combobox, Listbox, Transition } from '@headlessui/react';
+import {
+	CheckIcon,
+	ChevronDownIcon,
+	ChevronUpDownIcon
+} from '@heroicons/react/20/solid';
+import { useGetCountries } from 'hooks/data-fetching/use-countries.hooks';
 import { userSignup } from 'lib/customer/auth.lib';
 import { useTranslation } from 'next-i18next';
+import { getLocaleText } from 'utils/get_locale_text';
 
 const SignUp: React.FC = () => {
 	const BUTTON_SPINNER = buttonSpinner();
@@ -61,45 +69,8 @@ const SignUp: React.FC = () => {
 	const onChange = (field: string, value: string) => {
 		setSignupData({
 			...signupData,
-			[field]: field === 'phone_number' ? Number(value || 0) : value
+			[field]: value
 		});
-	};
-
-	const createUser = async (e: React.MouseEvent<HTMLElement>) => {
-		e.preventDefault();
-
-		setError({});
-		setSignupResult({
-			message: '',
-			result: false,
-			signupDone: false
-		});
-		await validateData();
-
-		if (!validatePassword()) return;
-
-		if ((error as any)?.hasError || Object.keys(error).length > 0) {
-			return false;
-		}
-
-		setLoading(true);
-
-		try {
-			const data = await userSignup(signupData);
-			setSignupResult({
-				message: 'User created',
-				result: true,
-				signupDone: true
-			});
-			setLoading(false);
-		} catch (error) {
-			setSignupResult({
-				message: `Error: ${(error as any)?.message}`,
-				result: false,
-				signupDone: true
-			});
-			setLoading(false);
-		}
 	};
 
 	const validateData = () => {
@@ -137,23 +108,6 @@ const SignUp: React.FC = () => {
 			password: ''
 		});
 
-		if (!(signupData?.password && signupData?.confirm_password)) {
-			if (!signupData?.password)
-				setError({
-					...error,
-					password: t('auth:please_enter_both_password')
-				});
-			if (!signupData?.confirm_password)
-				setError({
-					...error,
-					confirm_password: t('auth:please_enter_both_password')
-				});
-			return false;
-		}
-		if (signupData?.password !== signupData?.confirm_password) {
-			setError({ ...error, password: t('auth:password_do_not_match') });
-			return false;
-		}
 		if (signupData?.password?.length < 8) {
 			setError({
 				...error,
@@ -164,12 +118,41 @@ const SignUp: React.FC = () => {
 			return false;
 		}
 
+		// if (!signupData?.password) {
+		// 	setError({
+		// 		...error,
+		// 		password: t('auth:please_enter_both_password')
+		// 	});
+		// }
+
+		if (!signupData?.confirm_password) {
+			setError({
+				...error,
+				confirm_password: t('auth:please_enter_both_password')
+			});
+			return false;
+		}
+
+		if (signupData?.password !== signupData?.confirm_password) {
+			setError({ ...error, password: t('auth:password_do_not_match') });
+			return false;
+		}
+
+		// if (signupData?.password?.length < 8) {
+		// 	setError({
+		// 		...error,
+		// 		password: t(
+		// 			'auth:password_should_be_at_least_8_characters_long'
+		// 		)
+		// 	});
+		// 	return false;
+		// }
+
 		if (!regPassword.test(signupData?.password)) {
 			setError({
 				...error,
 				password: t('auth:password_policy_is_not_followed')
 			});
-
 			return false;
 		}
 
@@ -178,19 +161,61 @@ const SignUp: React.FC = () => {
 				...error,
 				confirm_password: t('auth:password_policy_is_not_followed')
 			});
-
 			return false;
 		}
 
 		return true;
 	};
 
+	const createUser = async (e: React.MouseEvent<HTMLElement>) => {
+		e.preventDefault();
+
+		setError({});
+		setSignupResult({
+			message: '',
+			result: false,
+			signupDone: false
+		});
+		await validateData();
+
+		if (!validatePassword()) return;
+
+		if ((error as any)?.hasError || Object.keys(error).length > 0) {
+			console.log('error =', error);
+			setSignupResult({
+				message: 'Error occurred',
+				result: false,
+				signupDone: false
+			});
+			return false;
+		}
+
+		setLoading(true);
+
+		try {
+			const data = await userSignup(signupData);
+			setSignupResult({
+				message: 'User created',
+				result: true,
+				signupDone: true
+			});
+			setLoading(false);
+		} catch (error) {
+			setSignupResult({
+				message: `Error: ${(error as any)?.message}`,
+				result: false,
+				signupDone: true
+			});
+			setLoading(false);
+		}
+	};
+
 	return (
 		<Modal
 			open={isSignUpOpen}
-			// className="top-4 transform md:top-1/2 md:left-1/2 md:-translate-y-1/2 md:-translate-x-1/2 lg:-top-10 lg:-translate-y-0"
-			className="top-14 mx-4 transform md:top-40 md:mx-20 lg:left-1/2 lg:top-1/2 lg:mx-0 lg:-translate-x-1/2 lg:-translate-y-1/2"
+			className="top-14 !z-[51000] mx-4 transform md:top-40 md:mx-20 lg:left-1/2 lg:top-1/2 lg:mx-0 lg:-translate-x-1/2 lg:-translate-y-1/2"
 			onClose={setIsSignUpOpen}
+			overlayClassName="!z-[51000]"
 		>
 			<div className="ml-2 flex  items-center justify-center">
 				{!signupResult.result ? (
@@ -242,7 +267,7 @@ const SignUp: React.FC = () => {
 											{t('auth:please_enter_last_name')}
 										</span>
 									)}
-									<Input
+									{/* <Input
 										name="country"
 										placeholder={t('auth:country')}
 										icon={<HiSparkles />}
@@ -255,6 +280,11 @@ const SignUp: React.FC = () => {
 												e.currentTarget.name,
 												e.currentTarget.value
 											)
+										}
+									/> */}
+									<CountryDropdown
+										onSelect={(country) =>
+											onChange('country', country?.id)
 										}
 									/>
 									{error?.country && (
@@ -283,22 +313,32 @@ const SignUp: React.FC = () => {
 											{t('auth:please_enter_email')}
 										</span>
 									)}
-									<Input
-										name="phone_number"
-										type="number"
-										placeholder={t('auth:phone_number')}
-										icon={<HiSparkles />}
-										isSmall={true}
-										required={true}
-										className="w-full"
-										invalid={error?.phone_number}
-										onChange={(e: React.FormEvent<HTMLInputElement>) =>
-											onChange(
-												e.currentTarget.name,
-												e.currentTarget.value
-											)
-										}
-									/>
+									<div className="flex">
+										<CountryCodeDropdown />
+										{/* <PhoneInput
+											defaultCountry="RU"
+											// value={value}
+											onChange={console.log}
+										/> */}
+										<Input
+											name="phone_number"
+											type="number"
+											placeholder={t('auth:phone_number')}
+											isSmall={true}
+											required={true}
+											className="w-full !rounded-l-none !border-l-0 !pl-1"
+											containerClassName="w-full"
+											invalid={error?.phone_number}
+											onChange={(
+												e: React.FormEvent<HTMLInputElement>
+											) =>
+												onChange(
+													e.currentTarget.name,
+													e.currentTarget.value
+												)
+											}
+										/>
+									</div>
 									{error?.phone_number && (
 										<span className={`text-[12px] text-[red]`}>
 											{t('auth:please_enter_phone_number')}
@@ -351,7 +391,7 @@ const SignUp: React.FC = () => {
 									<div className="mx-2  text-gray">
 										<div className="flex space-x-2">
 											<Input
-												name="isSubscribeToEmail"
+												name="is_subscribe_to_email"
 												type="checkbox"
 												onChange={(e: any) =>
 													onChange(
@@ -361,7 +401,7 @@ const SignUp: React.FC = () => {
 												}
 											/>
 											<label
-												htmlFor="isSubscribeToEmail"
+												htmlFor="is_subscribe_to_email"
 												className="text-sm"
 											>
 												{t('auth:send_me_occasional_emails_about_twm')}
@@ -369,7 +409,7 @@ const SignUp: React.FC = () => {
 										</div>
 										<div className="flex space-x-2">
 											<Input
-												name="isAcceptToTerms"
+												name="is_accept_to_terms"
 												type="checkbox"
 												onChange={(e: any) =>
 													onChange(
@@ -379,7 +419,7 @@ const SignUp: React.FC = () => {
 												}
 											/>
 											<label
-												htmlFor="isAcceptToTerms"
+												htmlFor="is_accept_to_terms"
 												className="text-sm"
 											>
 												{t('auth:i_agree_to_the_terms_of_use')}
@@ -497,3 +537,175 @@ const SignUp: React.FC = () => {
 };
 
 export default SignUp;
+
+const CountryDropdown = (props: { onSelect?: (data: any) => void }) => {
+	const { onSelect } = props;
+
+	const [selected, setSelected] = useState([]);
+	const [query, setQuery] = useState('');
+
+	const { locale } = useRouter();
+
+	const { countries = [] } = useGetCountries();
+
+	const getFilteredCountries = () => {
+		if (!query) {
+			return countries || [];
+		}
+
+		return (
+			countries?.filter((country: any) =>
+				getLocaleText(country.name || {}, locale)
+					.toLowerCase()
+					.replace(/\s+/g, '')
+					.includes(query.toLowerCase().replace(/\s+/g, ''))
+			) || []
+		);
+	}; // End of getFilteredCountries
+
+	const filteredCountries = getFilteredCountries();
+
+	return (
+		<Combobox
+			value={selected}
+			onChange={(country) => {
+				setSelected(country);
+				onSelect?.(country);
+			}}
+		>
+			<div className="relative mt-1">
+				<div className="relative flex w-full items-center overflow-hidden rounded-md border-2 border-accent-primary-main pl-2">
+					<HiSparkles className="h-5 w-5" />
+					<Combobox.Input
+						placeholder="Country"
+						className="w-full py-1 pl-2 pr-4 outline-none focus:outline-none"
+						displayValue={(country: any) =>
+							getLocaleText(country.name || {}, locale)
+						}
+						onChange={(event) => setQuery(event.target.value)}
+					/>
+					<Combobox.Button className="w-10">
+						<ChevronUpDownIcon
+							className="text-gray-400 h-5 w-5"
+							aria-hidden="true"
+						/>
+					</Combobox.Button>
+				</div>
+				<Transition
+					as={Fragment}
+					leave="transition ease-in duration-100"
+					leaveFrom="opacity-100"
+					leaveTo="opacity-0"
+					afterLeave={() => setQuery('')}
+				>
+					<Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+						{filteredCountries.length === 0 && query ? (
+							<div className="text-gray-700 relative cursor-default select-none py-2 px-4">
+								Nothing found.
+							</div>
+						) : (
+							filteredCountries.map((country: any) => (
+								<Combobox.Option
+									key={country.id}
+									className={({ active }) =>
+										`relative cursor-default select-none p-2 ${
+											active ? 'font-semibold' : ''
+										}`
+									}
+									value={country}
+								>
+									{({ selected }) => (
+										<span
+											className={`block truncate ${
+												selected ? 'font-medium' : 'font-normal'
+											}`}
+										>
+											{getLocaleText(country.name || {}, locale)}
+										</span>
+									)}
+								</Combobox.Option>
+							))
+						)}
+					</Combobox.Options>
+				</Transition>
+			</div>
+		</Combobox>
+	);
+};
+
+const CountryCodeDropdown = (props: {
+	onSelect?: (data: any) => void;
+}) => {
+	const { onSelect } = props;
+	const [selected, setSelected] = useState<any>({});
+	const { locale } = useRouter();
+
+	const { countries = [] } = useGetCountries();
+
+	useEffect(() => {
+		if (countries?.length > 0) {
+			setSelected(countries[0]);
+		}
+	}, [countries]);
+
+	return (
+		<Listbox value={selected} onChange={setSelected}>
+			<div className="relative">
+				<Listbox.Button className="relative flex h-full w-14 items-center rounded-l-md border border-r-0 border-accent-primary-main">
+					<span className="block truncate pl-1">
+						{getLocaleText(selected?.iso2 || '', locale)}
+					</span>
+					<span className="pointer-events-none absolute inset-y-0 right-0 flex items-center">
+						<ChevronDownIcon
+							className="h-5 w-5 text-gray"
+							aria-hidden="true"
+						/>
+					</span>
+				</Listbox.Button>
+
+				<Transition
+					as={Fragment}
+					leave="transition ease-in duration-100"
+					leaveFrom="opacity-100"
+					leaveTo="opacity-0"
+				>
+					<Listbox.Options className="absolute z-10 mt-1 max-h-60 w-60 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+						{countries?.map((country: any) => (
+							<Listbox.Option
+								key={country?.id}
+								className={({ active }) =>
+									`relative cursor-default select-none py-2 pl-10 pr-4 ${
+										active
+											? 'bg-amber-100 text-amber-900'
+											: 'text-gray-900'
+									}`
+								}
+								value={country}
+							>
+								{({ selected }) => (
+									<>
+										<span
+											className={`block truncate ${
+												selected ? 'font-medium' : 'font-normal'
+											}`}
+										>
+											{getLocaleText(country?.name || {}, locale)}
+										</span>
+										{selected ? (
+											<span className="text-amber-600 absolute inset-y-0 left-0 flex items-center pl-3">
+												<CheckIcon
+													className="h-5 w-5"
+													aria-hidden="true"
+												/>
+											</span>
+										) : null}
+									</>
+								)}
+							</Listbox.Option>
+						))}
+					</Listbox.Options>
+				</Transition>
+			</div>
+		</Listbox>
+	);
+}; // End of CountryCodeDropdown

@@ -1,12 +1,12 @@
 import {
-	proxyAxiosInstance,
-	proxyServiceAxiosInstance
+	axiosInstance,
+	proxyAxiosInstance
 } from 'utils/axios-instance.utils';
 
 export const userSignup = async (customerData: any) => {
 	try {
 		const { data } = await proxyAxiosInstance.post(
-			'/auth/buyer_signup',
+			'/v1/auth/buyer-signup',
 			customerData
 		);
 		return {
@@ -50,20 +50,18 @@ export const autoLoginCustomer = async () => {
 
 export const getCustomerDetails = async (token?: string) => {
 	try {
-		const { data } = await proxyServiceAxiosInstance.get(
-			'/auth/user/me',
-			{
-				headers: {
-					Authorization: token ? `Bearer ${token}` : ''
-				}
+		const { data } = await axiosInstance.get('/auth/get-current-user', {
+			headers: {
+				Authorization: token ? `Bearer ${token}` : ''
 			}
-		);
+		});
 
 		return {
 			id: data?.data?.id,
 			name: `${data?.data?.first_name} ${data?.data?.last_name}`,
 			phone: data?.data?.phone || '',
-			email: data?.data?.email || ''
+			email: data?.data?.email || '',
+			tradewinds_email: data?.data?.tradewinds_email || ''
 		};
 	} catch (error) {
 		console.log('[getCustomerDetails] =', error);
@@ -74,7 +72,7 @@ export const getCustomerDetails = async (token?: string) => {
 
 export const getCustomerBuyerDetails = async (userId: string) => {
 	try {
-		const { data } = await proxyServiceAxiosInstance.get(
+		const { data } = await proxyAxiosInstance.get(
 			`/buyer/user/${userId}`
 		);
 
@@ -91,7 +89,7 @@ export const getCustomerBuyerDetails = async (userId: string) => {
 export const forgetPasswordGenerateLink = async (email: string) => {
 	try {
 		const { data } = await proxyAxiosInstance.post(
-			'/auth/forgot_password',
+			'/v1/auth/forgot_password',
 			{
 				email
 			}

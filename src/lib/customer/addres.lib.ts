@@ -1,11 +1,11 @@
-import { proxyServiceAxiosInstance } from 'utils/axios-instance.utils';
+import { proxyAxiosInstance } from 'utils/axios-instance.utils';
 
 export const getAddresses = async (
 	buyerId: string,
 	addressType?: 'shipping' | 'billing'
 ) => {
 	try {
-		const { data } = await proxyServiceAxiosInstance.get(
+		const { data } = await proxyAxiosInstance.get(
 			`address?user_id=${buyerId}&type=""`
 		);
 

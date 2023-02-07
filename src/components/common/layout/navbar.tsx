@@ -91,7 +91,7 @@ const Header = () => {
 			<div
 				className={`${
 					isAuth
-						? 'md:mx-4 md:mt-5 lg:mr-[58px] lg:ml-[111.1px]'
+						? 'md:mx-4 md:mt-5 lg:mr-[58px] lg:ml-[90px]'
 						: 'md:mx-[38px] md:mt-5 lg:ml-[111.43px]'
 				}`}
 			>
@@ -106,9 +106,9 @@ const Header = () => {
 
 				{/* Name and logout button */}
 				{isAuth && (
-					<div className="group relative cursor-pointer">
+					<div className="group relative cursor-pointer md:mr-10">
 						<p
-							className="overflow-ellipsis whitespace-nowrap text-white md:w-[64px] md:text-xs md:leading-[15px] lg:!text-lg lg:leading-[22px]"
+							className="overflow-ellipsis whitespace-nowrap text-xs text-white md:w-[64px] md:text-xs md:leading-[15px] lg:!text-lg lg:leading-[22px]"
 							onMouseEnter={() => setShowLogout(true)}
 						>
 							{`Hi, ${customerData.name.substring(0, 10)}`}

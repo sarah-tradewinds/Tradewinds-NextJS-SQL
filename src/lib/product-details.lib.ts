@@ -1,13 +1,11 @@
 import {
-	proxyServiceAxiosInstance,
-	serviceAxiosInstance
+	axiosInstance,
+	proxyAxiosInstance
 } from 'utils/axios-instance.utils';
 
 export const getProductById = async (productId: string) => {
 	try {
-		const { data } = await serviceAxiosInstance.get(
-			`/product/${productId}`
-		);
+		const { data } = await axiosInstance.get(`/product/${productId}`);
 
 		if (data?.data) {
 			data.data.tags = data.data.seo?.keyword || [];
@@ -26,7 +24,7 @@ export const getProductReviewsByProductId = async (
 	productId: string
 ) => {
 	try {
-		const { data } = await serviceAxiosInstance.get(
+		const { data } = await axiosInstance.get(
 			`/order_review/product/${productId}`
 		);
 
@@ -42,7 +40,7 @@ export const getProductReviewAnalyticsByProductId = async (
 	productId: string
 ) => {
 	try {
-		const { data } = await serviceAxiosInstance.get(
+		const { data } = await axiosInstance.get(
 			`/order_review/analytical/${productId}`
 		);
 
@@ -56,7 +54,7 @@ export const getProductReviewAnalyticsByProductId = async (
 
 export const getSellerDetailsBySellerId = async (sellerId: string) => {
 	try {
-		const { data } = await serviceAxiosInstance.get(
+		const { data } = await axiosInstance.get(
 			`/seller/profile/${sellerId}`
 		);
 		return data.data || {};
@@ -71,9 +69,7 @@ export const getSellerStorefrontDetailsSellerId = async (
 	sellerId: string
 ) => {
 	try {
-		const { data } = await serviceAxiosInstance.get(
-			`/seller/${sellerId}`
-		);
+		const { data } = await axiosInstance.get(`/seller/${sellerId}`);
 		return data.data || {};
 	} catch (error) {
 		console.log('[getSellerStorefrontDetailsSellerId] =', error);
@@ -96,7 +92,7 @@ export const canCustomerGiveReviewOnThisProduct = async (
 	}
 
 	try {
-		const { data } = await proxyServiceAxiosInstance.post(
+		const { data } = await proxyAxiosInstance.post(
 			'/order_review/is-review-allowed',
 			{ buyer_id: customerId, product_id: productId }
 		);
@@ -129,9 +125,10 @@ export const submitProductRatingAndReview = async (
 			? `/order_review/update/${reviewId}`
 			: '/order_review';
 
-		const { data } = await serviceAxiosInstance[
-			reviewId ? 'put' : 'post'
-		](url, ratingData);
+		const { data } = await axiosInstance[reviewId ? 'put' : 'post'](
+			url,
+			ratingData
+		);
 		return {
 			message: data.message
 		};
@@ -145,7 +142,7 @@ export const submitProductRatingAndReview = async (
 
 export const getSimilarProducts = async (productId: string) => {
 	try {
-		const { data } = await serviceAxiosInstance.get(
+		const { data } = await axiosInstance.get(
 			`/product/similar/${productId}`
 		);
 		return data.data || [];
@@ -160,7 +157,7 @@ export const getFeaturedProductsBySellerId = async (
 	sellerId: string
 ) => {
 	try {
-		const { data } = await serviceAxiosInstance.get(
+		const { data } = await axiosInstance.get(
 			`/product/is_featured_product?seller_id=${sellerId}`
 		);
 		return data.data || [];
@@ -175,7 +172,7 @@ export const getProductsWithCollectionBySellerId = async (
 	sellerId: string
 ) => {
 	try {
-		const { data } = await serviceAxiosInstance.get(
+		const { data } = await axiosInstance.get(
 			`/seller_collection/collection_and_products?seller_id=${sellerId}`
 		);
 		return data.data || [];
