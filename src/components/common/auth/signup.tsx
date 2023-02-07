@@ -46,7 +46,7 @@ const SignUp: React.FC = () => {
 	const mandatoryFields = [
 		'first_name',
 		'last_name',
-		'country',
+		'country_id',
 		'email',
 		'phone_number'
 	];
@@ -284,7 +284,7 @@ const SignUp: React.FC = () => {
 									/> */}
 									<CountryDropdown
 										onSelect={(country) =>
-											onChange('country', country?.id)
+											onChange('country_id', country?.id)
 										}
 									/>
 									{error?.country && (
