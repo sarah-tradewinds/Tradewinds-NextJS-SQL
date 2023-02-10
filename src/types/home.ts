@@ -3,9 +3,7 @@ import { LocalesType } from './common.types';
 type HeroCarouselType = {
 	id?: string;
 	order: number;
-	image: {
-		url: string;
-	};
+	image: string;
 	link?: string;
 	title?: any;
 	description?: any;
@@ -23,7 +21,8 @@ type Category = {
 	id?: string;
 	title: LocalesType;
 	slug: { en: string };
-	image: { url: string };
+	// image: { url: string };
+	image: string;
 	description: LocalesType;
 	btnTxt: string;
 	color?: string;

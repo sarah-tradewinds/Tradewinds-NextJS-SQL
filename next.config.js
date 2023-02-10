@@ -31,7 +31,8 @@ const nextConfig = (phase) => {
 					'wmarketplacestgact.blob.core.windows.net',
 					'm.media-amazon.com',
 					'undefined',
-					'https'
+					'https',
+					'picsum.photos'
 				]
 			}
 		};
@@ -68,7 +69,8 @@ const nextConfig = (phase) => {
 				'images.unsplash.com',
 				'wmarketplacestgact.blob.core.windows.net',
 				'm.media-amazon.com',
-				'https'
+				'https',
+				'picsum.photos'
 			]
 		}
 	};

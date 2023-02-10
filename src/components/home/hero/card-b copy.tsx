@@ -41,14 +41,14 @@ const CardB: React.FC<CardBProps> = (props) => {
 					</div>
 				</div>
 
-				<div className="flex flex-col lg:ml-2">
+				<div className="flex flex-col">
 					<p className="font-mont text-[12px] text-white md:text-[13px] md:leading-4 lg:text-[21px] lg:leading-[26px]">
 						{subtitle}
 					</p>
 					<Button
 						href={href}
 						variant="buyer"
-						className="!mt-2 !flex !min-h-[25.95px] !items-center !justify-center whitespace-nowrap !px-0 !py-0 shadow-lg transition-colors duration-300 ease-in-out hover:bg-accent-secondary-main/70 lg:!mt-3 lg:block lg:h-[25.95px] lg:!w-[138.39px] lg:!text-[18px] lg:!leading-[22px]"
+						className="!mt-2 !min-h-[25.95px] whitespace-nowrap !px-0 !py-0 shadow-lg transition-colors duration-300 ease-in-out hover:bg-accent-secondary-main/70 lg:!mt-3 lg:block lg:h-[25.95px] lg:!w-[138.39px] lg:!text-[18px] lg:!leading-[22px]"
 					>
 						{buttonText || 'Learn More'}
 					</Button>

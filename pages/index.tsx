@@ -44,12 +44,14 @@ const HomePage: NextPage<
 	} = props;
 
 	// Fetching Hero carousel
-	const { data: heroCarousels = [], error: heroCarouselsError } =
-		useSWR('/carousel/getallcarousel', getHeroCarousels);
+	const { data: heroCarousels = [] } = useSWR(
+		'/cms/carousel',
+		getHeroCarousels
+	);
 
 	// Fetching Countries
 	const { data: homeCountries, isValidating: isCountriesValidating } =
-		useSWR('/region_country/all', getHomeCountries);
+		useSWR('/region/all/region-countries', getHomeCountries);
 
 	// Fetching Advertisement
 	const { data: homeAdvertisements = [], error } = useSWR(
@@ -130,11 +132,9 @@ const HomePage: NextPage<
 				cardBData={cardBData}
 			/>
 
-			{/* <div className="desktop:mt-[31px]s container mx-auto md:px-4 lg:px-8"> */}
 			<div className="md:container">
 				<div className="mt-20 md:mt-48 lg:-mt-14">
 					{/* Category and sub categories */}
-					{/* <div className="mt-12 space-y-12 md:mt-0 md:space-y-8"> */}
 					<div className="space-y-[41px] lg:mx-[23px] lg:space-y-[27px]">
 						{homeMainCategoriesAndCategories?.cat_section &&
 							homeMainCategoriesAndCategories?.cat_section?.map(
@@ -189,8 +189,8 @@ const HomePage: NextPage<
 								countries={homeCountries}
 								onCountryClick={(country) => {
 									router.push(
-										`/product-search?region=${country?.region?.id}_${
-											country?.region?.name
+										`/product-search?region=${country?.region_id}_${
+											country?.edges?.region?.name?.en
 										}&country=${country?.id}_${country?.name?.en || ''}`
 									);
 								}}

@@ -3,7 +3,7 @@ import { axiosInstance } from 'utils/axios-instance.utils';
 export const getMainCategories = async (isEco?: boolean) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/main_category?is_eco=${isEco}`
+			`/cms/main-category?is_eco=${isEco}`
 		);
 		return data.data || [];
 	} catch (error) {
@@ -18,7 +18,7 @@ export const getCategoriesByMainCategoryId = async (
 ) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/category/categories/${mainCategoryId}`
+			`/cms/category?mainCategoryId=${mainCategoryId}`
 		);
 		return data.data || [];
 	} catch (error) {
@@ -34,7 +34,7 @@ export const getSubCategoriesByCategoryId = async (
 ) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/sub_category/sub_categories/${categoryId}`
+			`/cms/sub-category?categoryId=${categoryId}`
 		);
 		return data.data || [];
 	} catch (error) {
@@ -50,7 +50,7 @@ export const getSpecificCategoriesBySubCategoryId = async (
 ) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/specific_category/sub_sub_categories/${subCategoryId}`
+			`/cms/specific-category?subCategoryId=${subCategoryId}`
 		);
 		return data.data || [];
 	} catch (error) {

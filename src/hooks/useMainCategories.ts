@@ -10,7 +10,7 @@ import useSWR from 'swr';
 export const useMainCategories = () => {
 	// Fetching all main-categories
 	const { data, error, isValidating } = useSWR(
-		`main_category?is_eco${false}`,
+		`cms/main-category?is_eco${false}`,
 		() => getMainCategories(false)
 	);
 
@@ -29,7 +29,7 @@ export const useCategoriesByMainCategoryId = (
 ) => {
 	// Fetching categories based on selectedMainCategory
 	const { data, error, isValidating } = useSWR(
-		`/category/categories/${mainCategoryId}`,
+		`/cms/category?mainCategoryId=${mainCategoryId}`,
 		mainCategoryId
 			? () => getCategoriesByMainCategoryId(mainCategoryId)
 			: null
@@ -48,7 +48,7 @@ export const useCategoriesByMainCategoryId = (
 export const useSubCategoriesByCategoryId = (categoryId: string) => {
 	// Fetching sub-categories based on category_id
 	const { data, error, isValidating } = useSWR(
-		`/sub_category/sub_categories/${categoryId}`,
+		`/cms/sub-category?categoryId=${categoryId}`,
 		categoryId ? () => getSubCategoriesByCategoryId(categoryId) : null
 	);
 
@@ -67,7 +67,7 @@ export const useSpecificCategoriesBySubCategoryId = (
 ) => {
 	// Fetching specific-categories based on sub_category_id
 	const { data, error, isValidating } = useSWR(
-		`/specific_category/sub_sub_categories/${subCategoryId}`,
+		`/cms/specific-category?subCategoryId=${subCategoryId}`,
 		subCategoryId
 			? () => getSpecificCategoriesBySubCategoryId(subCategoryId)
 			: null

@@ -103,10 +103,7 @@ const SignUp: React.FC = () => {
 	};
 
 	const validatePassword = () => {
-		setError({
-			...error,
-			password: ''
-		});
+		setError({ ...error });
 
 		if (signupData?.password?.length < 8) {
 			setError({
@@ -117,13 +114,6 @@ const SignUp: React.FC = () => {
 			});
 			return false;
 		}
-
-		// if (!signupData?.password) {
-		// 	setError({
-		// 		...error,
-		// 		password: t('auth:please_enter_both_password')
-		// 	});
-		// }
 
 		if (!signupData?.confirm_password) {
 			setError({
@@ -180,8 +170,8 @@ const SignUp: React.FC = () => {
 
 		if (!validatePassword()) return;
 
+		console.log('error =', error);
 		if ((error as any)?.hasError || Object.keys(error).length > 0) {
-			console.log('error =', error);
 			setSignupResult({
 				message: 'Error occurred',
 				result: false,
@@ -193,6 +183,8 @@ const SignUp: React.FC = () => {
 		setLoading(true);
 
 		try {
+			delete signupData.country;
+			delete signupData.countryCode;
 			const data = await userSignup(signupData);
 			setSignupResult({
 				message: 'User created',

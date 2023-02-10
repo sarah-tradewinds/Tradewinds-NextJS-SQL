@@ -27,18 +27,15 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 		<Slider {...settings}>
 			{heroCarouselData.map((item, index) => (
 				<div
-					// className="relative h-[75vh] w-full"
 					className="relative h-[329px] w-full md:h-[343px] lg:h-[688px]"
 					key={item.id || index}
 				>
 					<Link href={item.link ?? '/'}>
-						{/* <div className="relative h-[75vh] w-full"> */}
 						<div className="relative h-full w-full">
 							<Image
-								src={item.image?.url}
-								alt={String(item.order)}
+								src={item.image}
+								alt={item.order?.toString()}
 								fill={true}
-								// objectFit="cover"
 							/>
 						</div>
 					</Link>

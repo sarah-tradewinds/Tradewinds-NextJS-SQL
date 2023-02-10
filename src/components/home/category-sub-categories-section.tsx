@@ -101,7 +101,8 @@ const CategorySubCategoriesSection: React.FC<
 							<div className="mb-[7px]">
 								<div className="relative h-[42px] w-[44px]">
 									<ImageWithErrorHandler
-										src={categoryData?.image?.url || ''}
+										// src={categoryData?.image?.url || ''}
+										src={categoryData?.image || ''}
 										alt=""
 										fill={true}
 									/>
@@ -160,7 +161,8 @@ const CategorySubCategoriesSection: React.FC<
 								} z-10`}
 							>
 								<ImageWithErrorHandler
-									src={main_category?.image?.url}
+									// src={main_category?.image?.url}
+									src={main_category?.image}
 									alt=""
 									width={96}
 									height={96}
@@ -198,11 +200,11 @@ const CategorySubCategoriesSection: React.FC<
 						main_category.btnTxt || t('source_now'),
 						locale
 					)}
-					imageUrl={main_category?.image?.url}
+					// imageUrl={main_category?.image?.url}
+					imageUrl={main_category?.image}
 					alt={main_category.title?.en || ''}
 					bgHexColor={main_category?.color}
 					actionButtonBgColor={main_category?.source_now_text_color}
-					// containerClassName="md:h-[340px] lg:h-[380px] xl:h-[340px]"
 					containerClassName="lg:!h-[278px] lg:w-[349.08px] md:w-[349.08px] md:!h-full"
 				/>
 

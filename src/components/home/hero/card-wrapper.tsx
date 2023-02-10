@@ -35,7 +35,7 @@ const CardWrapper: React.FC<{
 								cardAData?.description || {},
 								locale
 							)}
-							imageUrl={cardAData.image?.url}
+							imageUrl={cardAData.image}
 							href="/why-sell-on-tradewinds"
 						/>
 					</div>
@@ -44,17 +44,17 @@ const CardWrapper: React.FC<{
 				<div className="md:ml-4 lg:ml-[34px]">
 					<CardB
 						title={getLocaleText(cardBData.title || {}, locale)}
-						imageUrl={cardBData?.image?.url}
+						imageUrl={cardBData?.image}
 						subtitle={getLocaleText(
-							cardBData.description_1 || {},
+							cardBData.description || {},
 							locale
 						)}
 						description={getLocaleText(
-							cardBData.description_2 || {},
+							cardBData.description2 || {},
 							locale
 						)}
-						buttonText={cardBData.btn_text}
-						href={cardBData.action?.slug}
+						buttonText={getLocaleText(cardBData.btn_text || {}, locale)}
+						href={cardBData.slug?.en}
 						name=""
 						alt={cardBData.title?.en}
 					/>
@@ -76,7 +76,7 @@ const CardWrapper: React.FC<{
 									cardAData?.description || {},
 									locale
 								)}
-								imageUrl={cardAData.image?.url}
+								imageUrl={cardAData.image}
 								href="/why-sell-on-tradewinds"
 							/>
 						</div>
@@ -85,17 +85,20 @@ const CardWrapper: React.FC<{
 					<div className="keen-slider__slide h-[153px] !min-w-[203px] !max-w-[203px]">
 						<CardB
 							title={getLocaleText(cardBData.title || {}, locale)}
-							imageUrl={cardBData?.image?.url}
+							imageUrl={cardBData?.image}
 							subtitle={getLocaleText(
-								cardBData.description_1 || {},
+								cardBData.description || {},
 								locale
 							)}
 							description={getLocaleText(
-								cardBData.description_2 || {},
+								cardBData.description2 || {},
 								locale
 							)}
-							buttonText={cardBData.btn_text}
-							href={cardBData.action?.slug}
+							buttonText={getLocaleText(
+								cardBData.btn_text || {},
+								locale
+							)}
+							href={cardBData.slug?.en}
 							name=""
 							alt={cardBData.title?.en}
 						/>

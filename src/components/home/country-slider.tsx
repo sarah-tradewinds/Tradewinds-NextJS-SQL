@@ -13,7 +13,7 @@ interface CountrySliderProps {
 		id: string;
 		name: any;
 		slug: any;
-		image: { url: string };
+		image: string;
 	}[];
 	onCountryClick?: (country: any) => any;
 	isLoading?: boolean;
@@ -70,7 +70,7 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 					{/* <div className="w-[107px]s relative h-[64px] w-full"> */}
 					<div className="relative !min-h-[24.44px] !min-w-[36.06px] !max-w-[36.06px] md:!h-full md:!min-w-[52.04px] md:!max-w-[52.04px] lg:!min-w-[107px] lg:!max-w-[107px]">
 						<ImageWithErrorHandler
-							src={country.image?.url}
+							src={country.image}
 							alt={country.name?.toString()}
 							fill={true}
 						/>
@@ -113,7 +113,7 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 						>
 							<div className="relative h-[24.44px] w-[36.06px]">
 								<ImageWithErrorHandler
-									src={country.image?.url}
+									src={country.image}
 									alt={country.name?.toString()}
 									fill={true}
 								/>
@@ -131,41 +131,11 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 				<div ref={ref} className="keen-slider">
 					{countriesSlider}
 				</div>
-
-				{/* Navigation button */}
-				{/* {!isLoading && loaded && instanceRef?.current && (
-					<>
-						<Button
-							className={`absolute left-3 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full border-2 border-white !p-0 !text-white`}
-							onClick={(e: any) =>
-								e.stopPropagation() || instanceRef.current?.prev()
-							}
-						>
-							<MdChevronLeft className="h-[32px] w-[32px]" />
-						</Button>
-
-						<Button
-							className={`absolute right-3 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full border-2 border-white !p-0 !text-white`}
-							onClick={(e: any) =>
-								e.stopPropagation() || instanceRef.current?.next()
-							}
-							disabled={
-								currentSlide ===
-								instanceRef?.current?.track?.details?.slides?.length - 1
-							}
-						>
-							<MdChevronRight className="h-[32px] w-[32px]" />
-						</Button>
-					</>
-				)} */}
 			</div>
 
 			{/* Shading */}
 			<div className="absolute left-0 top-0 h-full w-14 bg-gradient-to-r from-[#01243b]/80 md:w-32 lg:w-[180px] "></div>
 			<div className="absolute right-0 top-0 h-full w-14 bg-gradient-to-l from-[#01243b]/80 md:w-32 lg:w-[180px] "></div>
-
-			{/* <div className="absolute top-0 h-full w-[48px] bg-gradient-to-r from-primary-main to-primary-main/80 md:w-[80px]"></div>
-			<div className="absolute top-0 right-0 h-full w-[48px] bg-gradient-to-l from-primary-main to-primary-main/80 md:w-[80px]"></div> */}
 		</div>
 	);
 };
