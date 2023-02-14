@@ -7,7 +7,6 @@ import MetadataTile from './metadata/metadata-tile';
 // data
 import { metadataList } from 'data/product-search/metadata-list';
 import { useTranslation } from 'next-i18next';
-import { useRouter } from 'next/router';
 import {
 	MdBookmark,
 	MdOutlineBookmarkBorder,
@@ -59,7 +58,6 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 		description,
 		imageUrl,
 		alt,
-		countryOfOrigin,
 		country,
 		productPrice,
 		salePrice,
@@ -71,7 +69,6 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 		totalReviewCount,
 		onCompareClick,
 		isInCompareList,
-		isVerified,
 		isLive,
 		isReadyToShip,
 		isCustomizable,
@@ -80,7 +77,6 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 		onMessageVendorClick
 	} = props;
 
-	const router = useRouter();
 	const { t } = useTranslation();
 
 	const { isAuth, setIsLoginOpen, customerData } = useAuthStore(
@@ -218,6 +214,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 					<Link href={`/product/${slug}`}>
 						<div className="relative h-full w-full">
 							<ImageWithErrorHandler
+								key={imageUrl}
 								src={imageUrl}
 								alt={alt}
 								fill={true}

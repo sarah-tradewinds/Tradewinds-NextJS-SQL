@@ -30,7 +30,7 @@ const ProductFilter: React.FC<ProductFilterProps> = (props) => {
 					</Button>
 
 					<button
-						onClick={() => getProductSearchURL(router, {})}
+						onClick={() => getProductSearchURL(router, {}, true)}
 						className="w-full items-center bg-transparent !px-2 text-center text-[10px] leading-[22px] !text-cyan"
 					>
 						Reset Filters

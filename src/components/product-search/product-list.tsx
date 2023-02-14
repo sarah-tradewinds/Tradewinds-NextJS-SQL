@@ -149,13 +149,25 @@ const ProductList: React.FC<ProductListProps> = ({
 
 			<div className="grid grid-cols-1 gap-y-1 md:gap-y-[15px] lg:gap-[27px]">
 				{products.map((product, index) => {
+					const [firstVariantData = {}] =
+						product?.edges?.product_variants || [];
+
 					const {
-						product_price,
-						is_bulk_pricing,
-						bulk_pricing = [],
+						// product_price,
+						// is_bulk_pricing,
+						// bulk_pricing = [],
 						country_of_region = [],
 						seller_country = []
 					} = product || {};
+
+					const {
+						retail_price: product_price = 0,
+						sales_price = 0,
+						is_on_sale,
+						is_bulk_pricing,
+						bulk_pricing = [],
+						inventory = {}
+					} = firstVariantData || {};
 
 					const displayPrice = getDisplayBulkPrice({
 						product_price,
@@ -164,13 +176,15 @@ const ProductList: React.FC<ProductListProps> = ({
 					});
 
 					const country = seller_country ? seller_country[0] || {} : {};
+					const productVariantLength =
+						product?.product_variants?.length;
 
 					const productData = {
 						key: product.id,
 						name: getLocaleText(product.name || {}, locale),
 						slug: product?.id,
 						description: getLocaleText(product.description, locale),
-						imageUrl: product.images?.[0]?.url,
+						imageUrl: firstVariantData?.images?.[0],
 						countryOfOrigin: country_of_region
 							? country_of_region[0]
 							: '',
@@ -181,13 +195,12 @@ const ProductList: React.FC<ProductListProps> = ({
 						isEco: product.is_eco,
 						keywords: product.tags || [],
 						productPrice: product_price,
-						salePrice: product?.sale_price,
-						isSaleOn: product?.is_on_sale || 0,
-						isBulkPricing: product?.is_bulk_pricing,
+						salePrice: sales_price,
+						isSaleOn: is_on_sale || 0,
+						isBulkPricing: is_bulk_pricing,
 						displayPrice: displayPrice,
 						alt: product.alt || product.name,
-						minOrderQuantity:
-							product?.inventory?.minimum_order_quantity || 0,
+						minOrderQuantity: inventory?.minimum_order_quantity || 0,
 						totalReviewCount: product.total_review_count || 0,
 						totalRateCount: product.total_rate_count || 0,
 						onCompareClick: () => onCompareClick(product),
@@ -210,7 +223,8 @@ const ProductList: React.FC<ProductListProps> = ({
 						isReadyToShip: product.is_live,
 						// isReadyToShip: product.is_ready_to_ship,
 						isCustomizable: product.is_customizable,
-						variantCount: product?.variants?.length || 0,
+						variantCount:
+							productVariantLength > 1 ? productVariantLength : 0,
 						onMessageVendorClick: () => {
 							setSelectedSellerId(product?.seller_id?.id);
 							setIsMessageVendorPopupOpen(true);

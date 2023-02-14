@@ -1,6 +1,9 @@
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+
 import { generateListByCount } from 'utils/common.util';
 import { getDisplayBulkPrice } from 'utils/get-bulk-price';
+import { getLocaleText } from 'utils/get_locale_text';
 import Button from '../../common/form/button';
 import CompareProductTile from './compare-overlay-product-tile';
 import CompareProductBottomOverlay from './compare-product-bootom-overlay';
@@ -15,6 +18,7 @@ const CompareProductList: React.FC<CompareProductListProps> = (
 	props
 ) => {
 	const [isOpen, setIsOpen] = useState(false);
+	const { locale } = useRouter();
 
 	const { products, onClearAllClick, onRemoveCompareProduct } = props;
 
@@ -30,10 +34,24 @@ const CompareProductList: React.FC<CompareProductListProps> = (
 				isOpen={isOpen}
 				onClose={() => setIsOpen((prevState) => !prevState)}
 			>
-				<div className="flex flex-wrap items-center justify-center space-x-6 py-4 px-4 md:flex-nowrap 2xl:px-16">
+				<div className="2xl:px-16 flex flex-wrap items-center justify-center space-x-6 py-4 px-4 md:flex-nowrap">
 					{products?.map((product) => {
-						const { id, product_price, is_bulk_pricing, bulk_pricing } =
-							product;
+						const [firstVariantData = {}] =
+							product?.edges?.product_variants || [];
+
+						// const { id, product_price, is_bulk_pricing, bulk_pricing } =
+						//   product;
+
+						const { id } = product;
+
+						const {
+							retail_price: product_price = 0,
+							sales_price = 0,
+							is_on_sale,
+							is_bulk_pricing,
+							bulk_pricing = [],
+							inventory = {}
+						} = firstVariantData || {};
 
 						const displayPrice = getDisplayBulkPrice({
 							product_price,
@@ -44,11 +62,9 @@ const CompareProductList: React.FC<CompareProductListProps> = (
 						return (
 							<CompareProductTile
 								key={id}
-								imageUrl={
-									product?.images ? product?.images[0]?.url : ''
-								}
+								imageUrl={firstVariantData?.images?.[0] || ''}
 								displayPrice={displayPrice}
-								title={product.name}
+								title={getLocaleText(product.name || {}, locale)}
 								onRemoveCompareProduct={() => {
 									if (onRemoveCompareProduct) {
 										onRemoveCompareProduct(product.id);
@@ -63,7 +79,7 @@ const CompareProductList: React.FC<CompareProductListProps> = (
 						(placeHolder) => (
 							<div
 								key={placeHolder}
-								className="h-[65px] w-[65px]  overflow-hidden bg-black lg:h-[108px] lg:w-[180px] xl:h-[80px] xl:w-[240px] 2xl:h-[76px] 2xl:w-[240px]"
+								className="xl:h-[80px] xl:w-[240px]  2xl:h-[76px] 2xl:w-[240px] h-[65px] w-[65px] overflow-hidden bg-black lg:h-[108px] lg:w-[180px]"
 							></div>
 						)
 					)}
