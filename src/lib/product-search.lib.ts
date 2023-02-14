@@ -7,9 +7,13 @@ export const getProducts = async (params: {
 	categories?: string;
 	all?: string;
 	main_category?: string;
+	main_category_id?: string;
 	category?: string;
+	category_id?: string;
 	sub_category?: string;
+	sub_category_id?: string;
 	sub_sub_category?: string;
+	specific_category_id?: string;
 	country_of_region?: string;
 	is_eco?: boolean;
 	is_all_trending?: boolean;
@@ -33,7 +37,7 @@ export const getProducts = async (params: {
 
 		return {
 			categories: data.categories || {},
-			data: data?.response || []
+			data: data?.data || []
 		};
 	} catch (error) {
 		console.log('[getProducts] =', error);

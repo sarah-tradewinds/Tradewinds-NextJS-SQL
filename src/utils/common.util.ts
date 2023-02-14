@@ -63,18 +63,20 @@ export const getAlignmentClassName = (
 };
 
 export const getFilterValueFromQuery = (query: any) => {
-	const [_, main_category] = getIdAndName(
+	const [main_category_id, main_category] = getIdAndName(
 		(query.main_category || '') as string,
 		'_'
 	);
 
-	const [__, category] = getIdAndName((query.category || '') as string);
+	const [category_id, category] = getIdAndName(
+		(query.category || '') as string
+	);
 
-	const [___, sub_category] = getIdAndName(
+	const [sub_category_id, sub_category] = getIdAndName(
 		(query.sub_category || '') as string
 	);
 
-	const [____, sub_sub_category] = getIdAndName(
+	const [specific_category_id, sub_sub_category] = getIdAndName(
 		(query.sub_sub_category || '') as string
 	);
 
@@ -93,9 +95,13 @@ export const getFilterValueFromQuery = (query: any) => {
 	} = query;
 
 	return {
+		main_category_id,
 		main_category,
+		category_id,
 		category,
+		sub_category_id,
 		sub_category,
+		specific_category_id,
 		sub_sub_category,
 		countryId,
 		country_of_region: countryName,

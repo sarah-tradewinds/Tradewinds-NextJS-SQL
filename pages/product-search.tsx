@@ -49,6 +49,8 @@ const ProductSearchPage: NextPage<
 	const [maxPrice, setMaxPrice] = useState('0');
 	const [filterBuyEco, setFilterBuyEco] = useState(false);
 
+	console.log('products =', products);
+
 	const [
 		isSelectedMainCategoryAndCategoriesLoading,
 		setIsSelectedMainCategoryAndCategoriesLoading
@@ -144,16 +146,10 @@ const ProductSearchPage: NextPage<
 	// Fetching products
 	useEffect(() => {
 		const filterValue = getFilterValueFromQuery(query);
-		console.log('filterValue =', filterValue);
 
 		getProducts({
 			...filterValue,
 			is_eco: isEco || main_category ? false : filterBuyEco
-			// is_customizable: isCustomizable,
-			// is_ready_to_ship: isReadyToShip,
-			// is_live: isLive,
-			// minimum_order: minOrder,
-			// maximum_order: maxOrder
 		}).then((data: any) => {
 			const productList = data.data || [];
 			setProducts(productList);

@@ -167,13 +167,10 @@ const ProductList: React.FC<ProductListProps> = ({
 
 					const productData = {
 						key: product.id,
-						name: getLocaleText(product.product_name || {}, locale),
+						name: getLocaleText(product.name || {}, locale),
 						slug: product?.id,
-						description: getLocaleText(
-							product.product_description,
-							locale
-						),
-						imageUrl: product.images[0]?.url,
+						description: getLocaleText(product.description, locale),
+						imageUrl: product.images?.[0]?.url,
 						countryOfOrigin: country_of_region
 							? country_of_region[0]
 							: '',
