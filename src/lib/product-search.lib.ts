@@ -53,10 +53,18 @@ export const getSelectedMainCategoryAndCategories = async (
 ) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/category/trending_category/${mainCategoryId}`
+			// `/category/trending_category/${mainCategoryId}`
+			`cms/category?mainCategoryId=${mainCategoryId}&limit=50000&sortByTrending=true`
 		);
 
-		return data.data || {};
+		console.log('data.data', data.data);
+
+		return (
+			{
+				main_category: data.data?.[0]?.edges?.main_category || {},
+				categories: data.data || {}
+			} || {}
+		);
 	} catch (error) {
 		console.log('[getProducts] =', error);
 		const { data, status } = (error as any).response || {};

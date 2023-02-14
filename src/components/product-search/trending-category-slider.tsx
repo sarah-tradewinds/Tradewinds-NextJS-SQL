@@ -74,7 +74,7 @@ const TrendingCategorySlider: React.FC<{
 								<div className="flex items-center">
 									<div className="relative h-[30px] w-[30px] md:mr-[6px] lg:mr-[7px] lg:h-[60px] lg:w-[60px] lg:leading-[18px]">
 										<ImageWithErrorHandler
-											src={categoryData.image?.url}
+											src={categoryData.image}
 											alt="bean"
 											fill={true}
 											className="object-contain"
