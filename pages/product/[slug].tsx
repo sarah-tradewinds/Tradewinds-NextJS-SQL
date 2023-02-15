@@ -42,10 +42,10 @@ const ProductDetailsPage: NextPage<
 > = ({
 	slug,
 	product,
-	productReviews,
+	productReviews = [],
 	reviewAnalytics,
-	seller,
-	similarProducts
+	seller = {},
+	similarProducts = []
 }) => {
 	const [productData, setProductData] = useState(product);
 	const [productReviewList, setProductReviewList] =
@@ -223,7 +223,7 @@ const ProductDetailsPage: NextPage<
 				<div className="lg:h-[334.09px]s hidden md:block">
 					<SimilarProductList
 						title="Similar Product"
-						similarProducts={similarProducts}
+						similarProducts={similarProducts || []}
 						className="px-8"
 					/>
 				</div>
@@ -269,6 +269,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 		props: {},
 		notFound: true
 	};
+
 	try {
 		const productId = (params as any).slug;
 		const product = (await getProductById(productId)) || {};
@@ -278,36 +279,41 @@ export const getServerSideProps: GetServerSideProps = async ({
 		}
 
 		// Fetch product reviews
-		const productReviews =
-			(await getProductReviewsByProductId(productId)) || [];
-		const reviewAnalytics =
-			(await getProductReviewAnalyticsByProductId(productId)) || {};
+		// const productReviews =
+		// 	(await getProductReviewsByProductId(productId)) || [];
+		// const reviewAnalytics =
+		// 	(await getProductReviewAnalyticsByProductId(productId)) || {};
 
-		// Fetch seller company Data
-		const sellerId = product.seller_id.id;
+		// // Fetch seller company Data
+		const sellerId =
+			product?.seller_id?.id || 'bd4264a6-7a2f-40e4-8db1-9ad2a91c2a50';
 		const seller = (await getSellerDetailsBySellerId(sellerId)) || {};
 		seller.id = sellerId;
+		console.log('seller =', seller);
 
-		const similarProducts = await getSimilarProducts(productId);
+		const similarProducts = (await getSimilarProducts(productId)) || [];
 
-		const seo = product.seo;
+		const seo = product.product_seo || {};
 
 		return {
 			props: {
 				product,
-				productReviews,
-				reviewAnalytics,
+				// productReviews,
+				// reviewAnalytics,
 				seller,
 				similarProducts,
 				slug: productId,
-				seo: {
-					title: getLocaleText(seo.title || {}),
-					description: getLocaleText(seo.description || {})
-				},
+				seo: seo,
+
+				// seo: {
+				// 	title: getLocaleText(seo?.title || {}),
+				// 	description: getLocaleText(seo?.description || {})
+				// },
 				...(await serverSideTranslations(locale || 'en'))
 			}
 		};
 	} catch (error) {
+		console.log('Error occurred', error);
 		return notFound;
 	}
 }; //End og getServerSideProps

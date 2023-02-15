@@ -80,19 +80,12 @@ const CompanyProfileTab: React.FC<{
 		);
 
 		getProductsWithCollectionBySellerId(seller.id).then((data = []) => {
-			// const otherInventoryIndex = data?.findIndex(
-			// 	(item: any) => item.name === 'other inventory'
-			// );
-			// const products = [data?.otherInventoryIndex, ...data];
-			// console.log('products =', products);
-			// // data.unshift(data?.[otherInventoryIndex]);
-			// // setCollectionProducts(products || []);
 			setCollectionProducts(data || []);
 		});
 	}, [seller.id]);
 
-	const { store_front } = storeFrontDetails;
-	console.log('storeFrontDetails =', storeFrontDetails);
+	const { store_front, edges } = seller || {};
+	console.log('seller =', seller);
 
 	const messageVendorButton = (
 		<Button
@@ -142,8 +135,8 @@ const CompanyProfileTab: React.FC<{
 				<div className="relative">
 					<div className="relative h-[426px] w-full">
 						<ImageWithErrorHandler
-							key={store_front?.store_banner?.url}
-							src={store_front?.store_banner?.url}
+							key={store_front?.store_banner}
+							src={store_front?.store_banner}
 							alt=""
 							fill={true}
 						/>
@@ -151,8 +144,8 @@ const CompanyProfileTab: React.FC<{
 
 					<div className="absolute bottom-4 left-16 h-[94px] w-[121px] overflow-hidden rounded-t-lg p-4 shadow-md">
 						<ImageWithErrorHandler
-							key={store_front?.store_logo?.url}
-							src={store_front?.store_logo?.url}
+							key={store_front?.store_logo}
+							src={store_front?.store_logo}
 							alt=""
 							fill={true}
 							className="h-[94px] w-[121px]"
@@ -191,7 +184,12 @@ const CompanyProfileTab: React.FC<{
 												<span className="font-semibold md:min-w-[148px]">
 													{t('common:country')}:
 												</span>
-												<span>{seller?.country}</span>
+												<span>
+													{getLocaleText(
+														edges?.country?.name || {},
+														locale
+													)}
+												</span>
 											</p>
 											<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
 												<span className="font-semibold md:min-w-[148px]">

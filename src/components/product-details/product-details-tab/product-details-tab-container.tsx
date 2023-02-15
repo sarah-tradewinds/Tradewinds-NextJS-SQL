@@ -29,7 +29,7 @@ const ProductDetailsTabContainer: React.FC<{
 	const { locale } = useRouter();
 	const { t } = useTranslation();
 
-	const { product_detail_item, certification, shipping, seo } =
+	const { product_detail_items, certification, shipping, product_seo } =
 		(product as any) || {};
 
 	const selectedClassName =
@@ -45,7 +45,7 @@ const ProductDetailsTabContainer: React.FC<{
 				<Tab.List className="hidden space-x-4 bg-bg-main md:flex">
 					<Tab
 						className={({ selected }) =>
-							`bg-white px-4 outline-none md:text-[14px] md:leading-[17px] ${
+							`bg-white px-4 outline-none md:text-[14px] md:leading-[17px] lg:text-[21px] lg:leading-[26px] ${
 								selected ? selectedClassName : unSelectedClassName
 							}`
 						}
@@ -54,7 +54,7 @@ const ProductDetailsTabContainer: React.FC<{
 					</Tab>
 					<Tab
 						className={({ selected }) =>
-							`bg-white px-4 outline-none md:text-[14px] md:leading-[17px] ${
+							`bg-white px-4 outline-none md:text-[14px] md:leading-[17px] lg:text-[21px] lg:leading-[26px] ${
 								selected ? selectedClassName : unSelectedClassName
 							}`
 						}
@@ -63,7 +63,7 @@ const ProductDetailsTabContainer: React.FC<{
 					</Tab>
 					<Tab
 						className={({ selected }) =>
-							`bg-white px-4 outline-none md:text-[14px] md:leading-[17px] ${
+							`bg-white px-4 outline-none md:text-[14px] md:leading-[17px] lg:text-[21px] lg:leading-[26px] ${
 								selected ? selectedClassName : unSelectedClassName
 							}`
 						}
@@ -77,12 +77,12 @@ const ProductDetailsTabContainer: React.FC<{
 					<Tab.Panel className="outline-none">
 						<ProductDetailsTab
 							product={product || {}}
-							productDetailItems={product_detail_item || []}
+							productDetailItems={product_detail_items || []}
 							certifications={certification || []}
 							shipping={shipping}
-							seoTitle={getLocaleText(seo?.title || {}, locale)}
+							seoTitle={getLocaleText(product_seo?.title || {}, locale)}
 							seoDescription={getLocaleText(
-								seo?.description || {},
+								product_seo?.description || {},
 								locale
 							)}
 						/>

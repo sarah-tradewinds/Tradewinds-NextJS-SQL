@@ -31,6 +31,7 @@ import { useState } from 'react';
 import { useAuthStore } from 'store/auth';
 import { useCartStore } from 'store/cart-store';
 import { useHomeStore } from 'store/home';
+import { getLocaleText } from 'utils/get_locale_text';
 import Loader from '../elements/loader/loader';
 import Button from '../form/button';
 import Seo from '../seo';
@@ -42,6 +43,7 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 		useState(false);
 
 	const isEco = useHomeStore((state) => state.isEco);
+	const { locale } = useRouter();
 
 	const {
 		isAuthenticating,
@@ -95,7 +97,10 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 
 	return (
 		<>
-			<Seo title={seo?.title} description={seo?.description} />
+			<Seo
+				title={getLocaleText(seo?.title || {}, locale)}
+				description={getLocaleText(seo?.description || {}, locale)}
+			/>
 
 			<Loader
 				isOpen={routeChangeStart || isAuthenticating}

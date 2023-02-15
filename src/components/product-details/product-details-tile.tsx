@@ -44,6 +44,11 @@ const ProductDetailsTile: React.FC<{
 		selectedVariantId
 	} = props;
 	const [selected, setSelected] = useState<any>({});
+	const [selectedColor, setSelectedColor] = useState('');
+	const [sliderRef] = useKeenSlider<HTMLDivElement>({
+		slides: { perView: 4, spacing: 16 }
+	});
+
 	const { t } = useTranslation();
 
 	const { isAuth, customerData, setIsLoginOpen } = useAuthStore(
@@ -58,18 +63,13 @@ const ProductDetailsTile: React.FC<{
 	const { locale } = router;
 
 	const {
-		product_name,
-		product_description,
+		name,
+		description,
 		is_unlimited_quantity,
-		inventory,
-		product_price,
 		sale_price,
 		is_on_sale,
-		is_bulk_pricing,
-		bulk_pricing = [],
 		tags = [],
 		variants = [],
-		images = [],
 		is_customizable,
 		is_live,
 		is_ready_to_ship,
@@ -85,12 +85,17 @@ const ProductDetailsTile: React.FC<{
 		total_review_count = 0
 	} = product || {};
 
-	const [selectedColor, setSelectedColor] = useState('');
-	const [sliderRef] = useKeenSlider<HTMLDivElement>({
-		slides: { perView: 4, spacing: 16 }
-	});
+	const productVariantList = product?.edges?.product_variants || [];
+	const [firstVariant] = product?.edges?.product_variants || [];
 
-	const productName = getLocaleText(product_name || {}, locale);
+	const {
+		retail_price: product_price,
+		is_bulk_pricing,
+		bulk_pricing = [],
+		inventory = {}
+	} = firstVariant || {};
+
+	const productName = getLocaleText(name || {}, locale);
 
 	const displayPrice = getDisplayBulkPrice({
 		product_price,
@@ -105,58 +110,6 @@ const ProductDetailsTile: React.FC<{
 		  } || {}
 		: {};
 	const minOrderQuantity = inventory?.minimum_order_quantity || 0;
-
-	const metadataTileList = [
-		// country of origin
-		<MetadataTile
-			key={country?.name}
-			imageUrl={country?.imageUrl}
-			alt={country?.name}
-			title={country?.name}
-			titleClassName="md:text-[13px] md:leading-4"
-		/>,
-		// isReadyToShip
-		<MetadataTile
-			key={`${t('common:live_buy')}/${t('common:ready_to_ship')}`}
-			imageUrl={metadataList[1].imageUrl}
-			alt={`${t('common:live_buy')}/${t('common:ready_to_ship')}`}
-			title={`${t('common:live_buy')}/${t('common:ready_to_ship')}`}
-			titleClassName="md:text-[13px] md:leading-4"
-		/>,
-		// Customizable
-		<MetadataTile
-			key={t('common:customizable')}
-			imageUrl={metadataList[3].imageUrl}
-			alt={t('common:customizable')}
-			title={
-				<p>
-					<span className="capitalize">
-						{t('common:customizable')}{' '}
-					</span>
-					<span className="text-secondary">
-						{is_customizable ? t('common:yes') : t('common:no')}
-					</span>
-				</p>
-			}
-			titleClassName="md:text-[13px] md:leading-4"
-		/>,
-		// variantCount
-		<MetadataTile
-			key={metadataList[4].title}
-			imageUrl={metadataList[4].imageUrl}
-			alt={metadataList[4].title}
-			title={`${t('common:variant')} ${variants.length}`}
-			titleClassName="md:text-[13px] md:leading-4"
-		/>,
-		// save
-		<MetadataTile
-			key={t('common:save')}
-			imageUrl={metadataList[5].imageUrl}
-			alt={t('common:save')}
-			title={t('common:save')}
-			titleClassName="md:text-[13px] md:leading-4"
-		/>
-	];
 
 	const metadataTileLists = [
 		// country of origin
@@ -272,14 +225,16 @@ const ProductDetailsTile: React.FC<{
 		)
 	];
 
+	const images = firstVariant?.images || [];
+
 	return (
 		<div className="grid grid-cols-12 gap-y-8 bg-white md:gap-8">
 			{/* Images container */}
 			<ImageContainer
 				className="col-span-12 md:first-letter:p-8 lg:col-span-5"
-				imageUrl={images[0]?.url}
+				imageUrl={images?.[0]}
 				alt=""
-				thumbnails={images}
+				thumbnails={images || []}
 			/>
 
 			{/* Product details */}
@@ -300,7 +255,7 @@ const ProductDetailsTile: React.FC<{
 						{is_on_sale && !is_bulk_pricing ? (
 							<>
 								<span className="text-accent-error">
-									Sale {sale_price}/piece
+									Sale {firstVariant?.sales_price}/piece
 								</span>
 								<span className="text-gray line-through">
 									${product_price}/piece
@@ -321,24 +276,6 @@ const ProductDetailsTile: React.FC<{
 						</div>
 					)}
 				</div>
-
-				{/* Keywords */}
-				{/* <div className="flex space-x-4 md:space-x-16">
-					{tags.map((tag: any, index: number) => {
-						let tagName = tag;
-						if (typeof tag === 'object') {
-							tagName = getLocaleText(tag || {}, locale);
-						}
-						return (
-							<span
-								key={`${tagName}_${index}`}
-								className="text-xs font-semibold leading-[15px] text-primary-main md:text-[13px] md:leading-4"
-							>
-								{tagName}
-							</span>
-						);
-					})}
-				</div> */}
 
 				{/* Metadata list */}
 				<div className="mt-2 grid grid-cols-2 gap-[15px] text-gray md:grid-cols-3">
@@ -367,7 +304,6 @@ const ProductDetailsTile: React.FC<{
 							selectedClassName="text-secondary"
 						/>
 						<p className="text-center text-[13px] leading-4 text-secondary md:ml-[7px]">
-							{/* {totalReviewCount} {t('common:reviews')} */}
 							{total_review_count} {t('common:reviews')}
 						</p>
 					</div>
@@ -399,9 +335,7 @@ const ProductDetailsTile: React.FC<{
 				<div className="mt-[15px] border-t-2 border-[#DEDFE0] pt-[13px] md:border-b-2 md:pt-[19px] md:pb-[25.64px]">
 					<h2 className="text-xs leading-[22px] text-gray md:text-[15px]">
 						<span className="font-semibold">{productName}:</span>{' '}
-						<span>
-							{getLocaleText(product_description || {}, locale)}
-						</span>
+						<span>{getLocaleText(description || {}, locale)}</span>
 					</h2>
 
 					{/* Actions */}
@@ -780,7 +714,6 @@ const ProductDetailsTile: React.FC<{
 
 					<p className="text-[21px] leading-[26px] text-primary-main">
 						<span className="font-semibold capitalize">
-							{/* {t('common:customization')}: */}
 							{t('common:customizable')}:
 						</span>{' '}
 						<span>

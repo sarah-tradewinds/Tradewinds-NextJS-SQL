@@ -43,11 +43,7 @@ const SimilarProductList: React.FC<SimilarProductListProps> = (
 
 	return (
 		<div className="mx-4 h-full rounded-md bg-white p-4">
-			{/* <div className="mx-4s p-4s h-full rounded-md bg-white"> */}
-			<h3
-				className="mb-6 font-semibold text-primary-main"
-				// className="mb-6s font-semibold text-primary-main lg:pl-[22px] lg:pt-[18px] lg:text-[25px] lg:leading-[30px]"
-			>
+			<h3 className="mb-6 font-semibold text-primary-main lg:text-[25px] lg:leading-[30px]">
 				{title}
 			</h3>
 
@@ -64,25 +60,21 @@ const SimilarProductList: React.FC<SimilarProductListProps> = (
 						>
 							<div className="h-[274px] w-[298px]">
 								<div className="relative h-[205px] w-[240px]">
-									{/* <div className="relative h-[205px] w-[240px] border lg:h-[205px] lg:w-[298px]"> */}
 									<Image
 										src={
-											similarProduct?.images[0]?.url ||
-											'/loading-circle-50.png'
+											similarProduct?.edges?.product_variants
+												?.images?.[0] || '/loading-circle-50.png'
 										}
 										alt=""
 										fill={true}
 									/>
 								</div>
 								<p className="mt-1 flex justify-between space-x-8 text-[18px] font-bold text-primary-main">
-									{getLocaleText(
-										similarProduct.product_name || {},
-										locale
-									)}
+									{getLocaleText(similarProduct.name || {}, locale)}
 								</p>
 								<p className="text-[15px] text-gray">
 									{getLocaleText(
-										similarProduct.product_description || {},
+										similarProduct.description || {},
 										locale
 									)}
 								</p>

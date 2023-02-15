@@ -55,7 +55,8 @@ export const getProductReviewAnalyticsByProductId = async (
 export const getSellerDetailsBySellerId = async (sellerId: string) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/seller/profile/${sellerId}`
+			// `/seller/profile/${sellerId}`
+			`/seller/${sellerId}`
 		);
 		return data.data || {};
 	} catch (error) {

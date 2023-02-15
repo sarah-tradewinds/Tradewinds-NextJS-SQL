@@ -28,12 +28,15 @@ const ProductDetailsTab: React.FC<{
 	const { t } = useTranslation();
 
 	const {
-		main_category,
-		category,
-		sub_category,
-		specific_category,
-		product_dimension
-	} = product || {};
+		main_categories,
+		categories,
+		sub_categories,
+		specific_categories,
+		product_variants
+	} = product?.edges || {};
+
+	const product_dimension =
+		product_variants?.[0]?.product_dimension || {};
 
 	const isProductDimensionAvailable =
 		!product_dimension?.product_length &&
@@ -42,14 +45,6 @@ const ProductDetailsTab: React.FC<{
 		!product_dimension?.product_weight
 			? false
 			: true;
-
-	// const isShippingDetailsAvailable =
-	// 	!shipping?.package_length &&
-	// 	!shipping?.package_width &&
-	// 	!shipping?.package_height &&
-	// 	!shipping?.package_weight
-	// 		? false
-	// 		: true;
 
 	return (
 		<div className="space-y-8 bg-white p-4 md:space-y-8 md:p-8">
@@ -63,10 +58,6 @@ const ProductDetailsTab: React.FC<{
 				<div
 					className={`space-y-8 md:p-4 ${productDetailsContainerClassName}`}
 				>
-					{/* <p className="mt-4 text-xl font-semibold text-gray">
-						{seoTitle}
-					</p> */}
-
 					<p className="flex justify-between  space-x-8 text-[15px] text-gray md:text-[18px]">
 						{seoDescription}
 					</p>
@@ -98,7 +89,7 @@ const ProductDetailsTab: React.FC<{
 								return (
 									<p
 										key={key}
-										className="flex space-x-8  text-[15px] text-gray md:justify-between md:text-[18px]"
+										className="flex space-x-8 text-[15px] text-gray md:justify-between md:text-[18px]"
 									>
 										<span className="font-semibold">{key}: </span>
 										<span>{value}</span>{' '}
@@ -122,12 +113,14 @@ const ProductDetailsTab: React.FC<{
 
 				{/* Product information body */}
 				<ul
-					className={`space-y-8 md:p-4 ${productDetailsContainerClassName}`}
+					className={`space-y-2 md:p-4 md:text-[18px] md:leading-[38px] ${productDetailsContainerClassName}`}
 				>
 					{/* IS ECO */}
 					{product?.is_eco && (
 						<li className="flex items-center space-x-2 md:space-x-0">
-							<span className="text-gray md:w-[200px]">ECO:</span>
+							<span className="text-gray md:w-[200px] md:font-semibold">
+								ECO:
+							</span>
 							<Image
 								src="/static/icons/eco-icon.png"
 								alt="eco icon"
@@ -138,42 +131,53 @@ const ProductDetailsTab: React.FC<{
 					)}
 					{/* Main Category */}
 					<li className="flex items-center space-x-2 md:space-x-0">
-						<span className="text-gray md:w-[200px]">
+						<span className="text-gray md:w-[200px] md:font-semibold">
 							Main Category:
 						</span>
-						<span className="text-black">{main_category?.name}</span>
+						<span className="text-black">
+							{getLocaleText(main_categories?.title || {}, locale)}
+						</span>
 					</li>
 					{/* Category */}
-					{category?.name && (
+					{categories?.title && (
 						<li className="flex items-center space-x-2 md:space-x-0">
-							<span className="text-gray md:w-[200px]">Category:</span>
-							<span className="text-black">{category?.name}</span>
+							<span className="text-gray md:w-[200px] md:font-semibold">
+								Category:
+							</span>
+							<span className="text-black">
+								{getLocaleText(categories?.title || {}, locale)}
+							</span>
 						</li>
 					)}
 					{/* Sub Category */}
-					{sub_category?.name && (
+					{sub_categories?.title && (
 						<li className="flex items-center space-x-2 md:space-x-0">
-							<span className="text-gray md:w-[200px]">
+							<span className="text-gray md:w-[200px] md:font-semibold">
 								Sub Category:
 							</span>
-							<span className="text-black">{sub_category?.name}</span>
+							<span className="text-black">
+								{getLocaleText(sub_categories?.title || {}, locale)}
+							</span>
 						</li>
 					)}
 					{/* Specific Category */}
-					{specific_category?.name && (
+					{specific_categories?.title && (
 						<li className="flex items-center space-x-2 md:space-x-0">
-							<span className="text-gray md:w-[200px]">
+							<span className="text-gray md:w-[200px] md:font-semibold">
 								Specific Category:
 							</span>
 							<span className="text-black">
-								{specific_category?.name}
+								{getLocaleText(
+									specific_categories?.title || {},
+									locale
+								)}
 							</span>
 						</li>
 					)}
 					{/* Certificates */}
 					{(certifications as any)?.[0]?.name && (
 						<li className="flex">
-							<span className="text-gray md:w-[200px]">
+							<span className="text-gray md:w-[200px] md:font-semibold">
 								{t('common:product_certifications')}:
 							</span>
 							{(certifications as any)?.[0]?.name && (

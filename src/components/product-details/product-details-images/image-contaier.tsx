@@ -11,11 +11,7 @@ import { useRouter } from 'next/dist/client/router';
 interface ImageContainerProps {
 	imageUrl: string;
 	alt: string;
-	thumbnails: {
-		id?: string;
-		url: string;
-		alt: string;
-	}[];
+	thumbnails: string[];
 	className?: string;
 }
 
@@ -37,7 +33,12 @@ const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 			{/* Main Image */}
 			<div className="relative flex items-center justify-center md:p-4">
 				<div className="relative h-[211px] w-[320px] md:h-[323px] md:w-[489px] lg:h-[475px] lg:w-[719.26px]">
-					<ImageWithErrorHandler src={imageUrl} alt={alt} fill={true} />
+					<ImageWithErrorHandler
+						key={imageUrl}
+						src={imageUrl}
+						alt={alt}
+						fill={true}
+					/>
 				</div>
 				<button
 					onClick={back}
@@ -50,14 +51,15 @@ const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 			{/* Thumbnails Slider only for small and medium screen */}
 			<div className="relative hidden md:block lg:hidden">
 				<div ref={ref} className="keen-slider">
-					{thumbnails.map((thumbnail) => (
-						<div key={thumbnail.url} className="keen-slider__slide">
+					{thumbnails.map((thumbnailImageUrl) => (
+						<div key={thumbnailImageUrl} className="keen-slider__slide">
 							<div className="relative h-[136px] w-full md:!h-[89.64px] md:!w-[136.82px] lg:!h-[136px] lg:!w-[206px]">
 								<Image
 									src={
-										thumbnail.url || '/static/images/coming-soon.png'
+										thumbnailImageUrl ||
+										'/static/images/coming-soon.png'
 									}
-									alt={thumbnail.alt}
+									alt={thumbnailImageUrl}
 									fill={true}
 								/>
 							</div>

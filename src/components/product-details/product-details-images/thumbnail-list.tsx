@@ -2,11 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 
 interface ThumbnailListProps {
-	thumbnails: {
-		id?: string;
-		url: string;
-		alt: string;
-	}[];
+	thumbnails: string[];
 	className?: string;
 }
 
@@ -15,11 +11,14 @@ const ThumbnailList: React.FC<ThumbnailListProps> = (props) => {
 
 	return (
 		<>
-			{thumbnails.map((thumbnail) => (
-				<div key={thumbnail.url} className="relative h-[136px] w-full">
+			{thumbnails.map((thumbnailImageUrl) => (
+				<div
+					key={thumbnailImageUrl}
+					className="relative h-[136px] w-full"
+				>
 					<Image
-						src={thumbnail.url || '/loading-circle-50.png'}
-						alt={thumbnail.alt}
+						src={thumbnailImageUrl || '/loading-circle-50.png'}
+						alt={thumbnailImageUrl}
 						fill={true}
 					/>
 				</div>
