@@ -58,9 +58,9 @@ const nextConfig = (phase) => {
 
 			API_BASE_URL:
 				// #DEV
-				// 'http://twsqlvm.eastus.cloudapp.azure.com:8080',
-				// #UAT
-				'https://tradewinds-uat-api.azure-api.net',
+				'http://twsqlvm.eastus.cloudapp.azure.com:8080',
+			// #UAT
+			// 'https://tradewinds-uat-api.azure-api.net',
 			STRIPE_PUBLISHABLE_KEY:
 				'pk_test_51JAhKFCQTcpcYTusSG85R25JWHRXIbw9mg6bn2mJAIncKhAhXpxvAemulgavKUw0iv4J1ygM6zSWGbthNAMWGftk00Jzzmiqcs'
 		},
