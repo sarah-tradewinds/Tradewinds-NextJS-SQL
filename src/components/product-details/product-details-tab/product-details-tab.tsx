@@ -113,7 +113,7 @@ const ProductDetailsTab: React.FC<{
 
 				{/* Product information body */}
 				<ul
-					className={`space-y-2 md:p-4 md:text-[18px] md:leading-[38px] ${productDetailsContainerClassName}`}
+					className={`space-y-2 md:p-4 lg:text-[18px] lg:leading-[38px] ${productDetailsContainerClassName}`}
 				>
 					{/* IS ECO */}
 					{product?.is_eco && (
