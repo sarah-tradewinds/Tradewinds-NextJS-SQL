@@ -10,30 +10,35 @@ import { getProductPrice } from 'utils/pricing.utils';
 
 interface CartListProps {
 	carts: CartProduct[];
-	updateQuantityByProductId: (
+	updateQuantityByProductVariantId: (
+		productVariantId: string,
 		quantity: number,
-		productId: string,
 		payload?: any
 	) => any;
-	removeProductByIdFromCart: (productId: string) => any;
+	removeProductByProductVariantIdFromCart: (
+		productVariantId: string
+	) => any;
 }
 
 const CartList: React.FC<CartListProps> = (props) => {
 	const {
 		carts,
-		updateQuantityByProductId,
-		removeProductByIdFromCart
+		updateQuantityByProductVariantId,
+		removeProductByProductVariantIdFromCart
 	} = props;
 
 	const { locale } = useRouter();
+	console.log('carts =', carts);
 
 	return (
 		<div className="grid grid-cols-1 gap-4">
-			{carts?.map((cartProduct: any) => {
-				const { id, product } = cartProduct;
+			{carts?.map((cartProduct) => {
+				const { product } = cartProduct;
 
 				const {
-					product_price,
+					retail_price: product_price = 0,
+					sales_price = 0,
+					is_on_sale,
 					is_bulk_pricing,
 					bulk_pricing = []
 				} = product || {};
@@ -45,16 +50,16 @@ const CartList: React.FC<CartListProps> = (props) => {
 				});
 
 				return (
-					<div key={id} className="border-b-gray/40 pb-4 odd:border-b">
+					<div
+						key={cartProduct.productVariantId}
+						className="border-b-gray/40 pb-4 odd:border-b"
+					>
 						<CartItem
 							id={product.id}
 							slug={product.id}
-							productName={getLocaleText(
-								product.product_name || {},
-								locale
-							)}
+							productName={getLocaleText(product?.name || {}, locale)}
 							description={getLocaleText(
-								product.product_description || {},
+								product?.description || {},
 								locale
 							)}
 							productPrice={getProductPrice({
@@ -66,10 +71,10 @@ const CartList: React.FC<CartListProps> = (props) => {
 								price: product?.product_price,
 								quantity: cartProduct?.quantity
 							})}
-							salePrice={product?.sale_price}
-							isSaleOn={product?.is_on_sale || 0}
+							salePrice={sales_price}
+							isSaleOn={is_on_sale}
 							isBulkPricing={product?.is_bulk_pricing}
-							imageUrl={product?.images[0] ? product.images[0].url : ''}
+							imageUrl={product?.images?.[0]}
 							quantity={cartProduct.quantity}
 							total={cartProduct.total}
 							displayPrice={displayPrice}
@@ -77,15 +82,21 @@ const CartList: React.FC<CartListProps> = (props) => {
 								product?.inventory?.minimum_order_quantity
 							}
 							totalReviewCount={product?.totalReviewCount || 0}
-							variantCount={product?.variants?.length || 0}
+							variantCount={
+								product?.edges?.product_variants?.length - 1 || 0
+							}
 							onUpdate={(quantity, productId) =>
-								updateQuantityByProductId(
+								updateQuantityByProductVariantId(
+									cartProduct.productVariantId,
 									quantity,
-									productId,
 									cartProduct
 								)
 							}
-							onRemove={() => removeProductByIdFromCart(product.id)}
+							onRemove={() =>
+								removeProductByProductVariantIdFromCart(
+									cartProduct.productVariantId
+								)
+							}
 						/>
 					</div>
 				);

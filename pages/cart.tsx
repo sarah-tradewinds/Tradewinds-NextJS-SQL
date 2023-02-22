@@ -36,8 +36,8 @@ const CartPage: NextPage = () => {
 	const {
 		subtotal,
 		cartProducts,
-		updateQuantityByProductId,
-		removeProductByIdFromCart
+		updateQuantityByProductVariantId,
+		removeProductByProductVariantIdFromCart
 	} = useCartStore();
 	console.log('[cart] cartProducts =', cartProducts);
 	console.log('[cart] subtotal =', subtotal);
@@ -212,9 +212,9 @@ const CartPage: NextPage = () => {
 					<div>
 						<CartList
 							carts={cartProducts}
-							updateQuantityByProductId={(
+							updateQuantityByProductVariantId={(
+								productVariantId,
 								inputQuantity,
-								productId,
 								payload
 							) => {
 								const { product } = payload || {};
@@ -231,17 +231,13 @@ const CartPage: NextPage = () => {
 
 								setMinimumQuantityErrorMessage('');
 
-								updateQuantityByProductId(
-									inputQuantity,
-									productId,
-									customerData.buyerId
+								updateQuantityByProductVariantId(
+									productVariantId,
+									inputQuantity
 								);
 							}}
-							removeProductByIdFromCart={(productId) =>
-								removeProductByIdFromCart(
-									productId,
-									customerData.buyerId
-								)
+							removeProductByProductVariantIdFromCart={
+								removeProductByProductVariantIdFromCart
 							}
 						/>
 					</div>

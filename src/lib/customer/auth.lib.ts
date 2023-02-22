@@ -6,7 +6,7 @@ import {
 export const userSignup = async (customerData: any) => {
 	try {
 		const { data } = await proxyAxiosInstance.post(
-			'/v1/auth/buyer-signup',
+			'/auth/buyer-signup',
 			customerData
 		);
 		return {

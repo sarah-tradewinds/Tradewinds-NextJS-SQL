@@ -81,8 +81,8 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 	}, []);
 
 	useEffect(() => {
+		fetchCart();
 		if (customerData.buyerId) {
-			fetchCart(customerData.buyerId);
 			getAddresses(customerData.buyerId).then((addresses) => {
 				for (const address of addresses) {
 					if (address.is_billing_address) {

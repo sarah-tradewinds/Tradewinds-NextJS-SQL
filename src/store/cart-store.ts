@@ -1,11 +1,12 @@
-import { getCart, updateCart } from 'lib/cart.lib';
+import { getCart } from 'lib/cart.lib';
 import { getProductPrice } from 'utils/pricing.utils';
 import create from 'zustand';
 
 export interface CartProduct {
-	product: any;
+	productVariantId: string;
 	total: number;
 	quantity: number;
+	product: any;
 }
 
 interface CartState {
@@ -13,21 +14,24 @@ interface CartState {
 	cartProducts: CartProduct[];
 	totalCartProductQuantity: number;
 	subtotal: number;
-	fetchCart: (buyerId: string) => any;
+	fetchCart: () => any;
 	setCartId: (cartId: string) => any;
 	addToCart: (
-		productId: string,
-		variantId?: string,
+		productVariantId: string,
+		quantity: number,
 		product?: any
 	) => any;
-	updateQuantityByProductId: (
-		quantity: number,
-		productId: string,
-		buyerId: string
+	// addToCart: (
+	// 	productId: string,
+	// 	variantId?: string,
+	// 	product?: any
+	// ) => any;
+	updateQuantityByProductVariantId: (
+		productVariantId: string,
+		quantity: number
 	) => any;
-	removeProductByIdFromCart: (
-		productId: string,
-		buyerId: string
+	removeProductByProductVariantIdFromCart: (
+		productVariantId: string
 	) => any;
 	resetCartState: () => any;
 }
@@ -45,111 +49,141 @@ export const useCartStore = create<CartState>((set) => ({
 		set(initialState);
 	},
 
-	fetchCart: async (buyerId) => {
-		const cart = await getCart(buyerId);
-		const cartProducts = cart.item;
+	fetchCart: async () => {
+		const rawCart = localStorage.getItem('cart');
+		if (rawCart) {
+			const cartData = JSON.parse(rawCart);
+			set({ ...cartData });
+		}
 
-		const { totalQuantity } = getTotalAmountAndQuantity(cartProducts);
+		const cart = await getCart();
+		if (cart?.item) {
+			const cartProducts = cart.item;
 
-		set({
-			id: cart.id,
-			cartProducts,
-			totalCartProductQuantity: totalQuantity,
-			subtotal: cart.subtotal || 0
-		});
+			const { totalQuantity } = getTotalAmountAndQuantity(cartProducts);
+
+			set({
+				id: cart.id,
+				cartProducts,
+				totalCartProductQuantity: totalQuantity,
+				subtotal: cart.subtotal || 0
+			});
+		}
 	},
 	setCartId: (cartId: string) => set({ id: cartId }),
+
 	addToCart: async (
-		productId: string,
-		variantId?: string,
+		productVariantId: string,
+		quantity,
 		product?: any
 	) => {
 		let cartList: CartProduct[] = [];
-		set(({ id, totalCartProductQuantity, cartProducts }) => {
+		set(({ cartProducts }) => {
 			cartList = [...(cartProducts || [])];
-			const productIndex = cartList.findIndex((cartProduct) => {
-				if (variantId) {
-					return (
-						cartProduct.product?.id === productId &&
-						cartProduct.product.variant_id === variantId
-					);
-				}
-				return cartProduct.product?.id === productId;
-			});
 
-			const { inventory } = product;
-			const minimumOrderQuantity =
-				inventory?.minimum_order_quantity || 0;
+			const productIndex = cartList.findIndex((cartProduct) => {
+				return cartProduct.productVariantId === productVariantId;
+			});
 
 			// Adding new product in cart if product is not available in the cart list
 			if (productIndex < 0) {
-				const quantity = minimumOrderQuantity || 1;
+				const productVariant =
+					product?.edges?.product_variants?.[0] || {};
+
+				const quantity =
+					productVariant?.inventory?.minimum_order_quantity || 1;
+
 				const productPrice = getProductPrice({
-					bulkPrices: product?.bulk_pricing || [],
-					price: product.product_price,
-					quantity,
-					salePrice: product.sale_price
+					bulkPrices: productVariant?.bulk_pricing || [],
+					price: productVariant?.retail_price || 0,
+					salePrice: productVariant?.sales_price || 0,
+					quantity
 				});
 
+				const productData = {
+					...productVariant,
+					...product,
+					product_variant_id: productVariantId
+				};
+
 				cartList.push({
+					productVariantId,
 					quantity,
-					product: product || {},
+					product: productData || {},
 					total: productPrice * quantity
 				});
 			} else {
 				// Updating product quantity by 1 in cart because product is available in the cart list
 				const cartProduct = cartList[productIndex];
-
 				const updatedQuantity = cartProduct.quantity + 1;
 				const product = cartProduct.product;
+				const productVariant =
+					product?.edges?.product_variants?.find(
+						(productVariant: any) =>
+							productVariant.id === productVariantId
+					) || {};
 
 				const productPrice = getProductPrice({
-					bulkPrices: product?.bulk_pricing || [],
-					price: product.product_price,
-					salePrice: product.sale_price,
+					bulkPrices: productVariant?.bulk_pricing || [],
+					price: productVariant?.retail_price || 0,
+					salePrice: productVariant?.sales_price || 0,
 					quantity: updatedQuantity
 				});
 
 				const total = productPrice * updatedQuantity;
 
+				const productData = {
+					...productVariant,
+					...product,
+					product_variant_id: productVariantId
+				};
 				const updatedCartProduct = {
 					...cartProduct,
-					...product,
+					...productData,
 					quantity: updatedQuantity,
 					total
 				};
 
 				cartList[productIndex] = updatedCartProduct;
 			}
-
 			const { totalQuantity, subtotal } =
 				getTotalAmountAndQuantity(cartList);
 
-			return {
+			const cartData = {
 				cartProducts: cartList,
 				totalCartProductQuantity: totalQuantity,
 				subtotal
 			};
-		});
 
+			localStorage.setItem('cart', JSON.stringify(cartData));
+
+			return cartData;
+		});
 		return cartList;
 	},
-	updateQuantityByProductId: (quantity, productId, buyerId) => {
+	updateQuantityByProductVariantId: (productVariantId, quantity) => {
 		set(({ id, cartProducts }) => {
 			const updatedCart: CartProduct[] = cartProducts.map(
 				(cartProduct) => {
-					if (cartProduct.product.id === productId) {
+					if (cartProduct.productVariantId === productVariantId) {
 						const product = cartProduct.product;
+						const productVariant =
+							product?.edges?.product_variants?.find(
+								(productVariant: any) =>
+									productVariant.id === productVariantId
+							) || {};
+
 						const productPrice = getProductPrice({
-							bulkPrices: product?.bulk_pricing || [],
-							price: product.product_price,
-							quantity,
-							salePrice: product.sale_price
+							bulkPrices: productVariant?.bulk_pricing || [],
+							price: productVariant?.retail_price || 0,
+							salePrice: productVariant?.sales_price || 0,
+							quantity: quantity
 						});
 
 						cartProduct.quantity = quantity;
 						cartProduct.total = productPrice * quantity;
 					}
+
 					return cartProduct;
 				}
 			);
@@ -157,45 +191,54 @@ export const useCartStore = create<CartState>((set) => ({
 			const { totalQuantity, subtotal } =
 				getTotalAmountAndQuantity(updatedCart);
 
-			updateCart(
-				id,
-				buyerId,
-				updatedCart.map((cartProduct) => ({
-					product_id: cartProduct.product?.id,
-					quantity: cartProduct.quantity
-				}))
-			);
+			// updateCart(
+			// 	id,
+			// 	buyerId,
+			// 	updatedCart.map((cartProduct) => ({
+			// 		product_id: cartProduct.product?.id,
+			// 		quantity: cartProduct.quantity
+			// 	}))
+			// );
 
-			return {
+			const cartData = {
 				cartProducts: updatedCart,
 				totalCartProductQuantity: totalQuantity,
 				subtotal
 			};
+
+			localStorage.setItem('cart', JSON.stringify(cartData));
+
+			return cartData;
 		});
 	},
-	removeProductByIdFromCart: (productId, buyerId) => {
+	removeProductByProductVariantIdFromCart: (productVariantId) => {
 		set(({ id, cartProducts }) => {
 			const updatedCarts = cartProducts.filter(
-				(cartProduct) => cartProduct.product.id !== productId
+				(cartProduct) =>
+					cartProduct.productVariantId !== productVariantId
 			);
 
 			const { totalQuantity, subtotal } =
 				getTotalAmountAndQuantity(updatedCarts);
 
-			updateCart(
-				id,
-				buyerId,
-				updatedCarts.map((cartProduct) => ({
-					product_id: cartProduct.product?.id,
-					quantity: cartProduct.quantity
-				}))
-			);
+			// updateCart(
+			// 	id,
+			// 	buyerId,
+			// 	updatedCarts.map((cartProduct) => ({
+			// 		product_id: cartProduct.product?.id,
+			// 		quantity: cartProduct.quantity
+			// 	}))
+			// );
 
-			return {
+			const cartData = {
 				cartProducts: updatedCarts,
 				totalCartProductQuantity: totalQuantity,
 				subtotal
 			};
+
+			localStorage.setItem('cart', JSON.stringify(cartData));
+
+			return cartData;
 		});
 	}
 }));

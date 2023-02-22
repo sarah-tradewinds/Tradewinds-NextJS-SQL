@@ -228,8 +228,8 @@ export const getServerSideProps: GetServerSideProps = async ({
 	);
 
 	try {
-		const cardAList = await getCardAList();
-		const cardBData = await getCardB();
+		const cardAList = (await getCardAList()) || [];
+		const cardBData = (await getCardB()) || {};
 
 		const homeMainCategoriesAndCategories =
 			await getHomeMainCategoriesAndCategories();

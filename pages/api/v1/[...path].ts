@@ -1,9 +1,9 @@
 import { NextApiHandler } from 'next';
 
 // Third party packages
-import axios from 'axios';
 
 // utils
+import { axiosInstance } from 'utils/axios-instance.utils';
 import { generateQueryString } from 'utils/generate_query_string.utils';
 import { getHttpMethod } from 'utils/get_method.utils';
 
@@ -20,11 +20,12 @@ const handler: NextApiHandler = async (req, res) => {
 	}
 
 	const endpoints = (path as [])?.join('/');
-	const url = `${process.env.API_BASE_URL}/${endpoints}?${queryString}`;
+	// const url = `${process.env.API_BASE_URL}/${endpoints}?${queryString}`;
+	const url = `/${endpoints}?${queryString}`;
 	const authorization = req.headers.authorization;
 
 	try {
-		const { data } = await axios.request({
+		const { data } = await axiosInstance.request({
 			url,
 			method: httpMethod,
 			data: req.body,

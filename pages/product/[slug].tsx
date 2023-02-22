@@ -55,7 +55,10 @@ const ProductDetailsPage: NextPage<
 	const [isReviewLoading, setIsReviewLoading] = useState(false);
 	const [selectedVariantId, setSelectedVariantId] = useState('');
 
-	const customerData = useAuthStore((state) => state.customerData);
+	const { customerData, isAuth } = useAuthStore((state) => ({
+		isAuth: state.isAuth,
+		customerData: state.customerData
+	}));
 
 	const {
 		cartId,
@@ -139,8 +142,6 @@ const ProductDetailsPage: NextPage<
 		}
 	}; // End of submitReviewHandler function
 
-	console.log('seller =', seller);
-
 	return (
 		<div className="pb-16 md:container md:space-y-8">
 			<ProductDetailsTile
@@ -156,34 +157,34 @@ const ProductDetailsPage: NextPage<
 				totalReviewCount={productReviewList.length}
 				onAddToCart={async () => {
 					const productId = productData.id;
+					const productVariantId =
+						product?.edges?.product_variants?.[0]?.id;
 					productData.variant_id = selectedVariantId;
 					const buyerId = customerData.buyerId;
 					productData.buyerId = buyerId;
 					const updatedCartList = await addToCart(
-						productId,
-						selectedVariantId,
+						productVariantId,
+						1,
 						productData
 					);
-					console.log('updatedCartList =', updatedCartList);
 
 					// Sending request when buyer Id is available
 					if (!totalCartProductQuantity) {
 						const minimumOrderQuantity =
 							product?.inventory?.minimum_order_quantity || 0;
 
-						const cartId = await addProductToCart(buyerId, {
-							product_id: productId,
-							variant_id: product?.variant_id,
-							quantity: minimumOrderQuantity || 1
-						});
-						setCartId(cartId);
+						if (isAuth) {
+							const cartId = await addProductToCart(
+								productVariantId,
+								minimumOrderQuantity || 1
+							);
+							setCartId(cartId);
+						}
 					} else {
 						updateCart(
 							cartId,
-							buyerId,
-							updatedCartList.map((cartProduct: any) => ({
-								product_id: cartProduct.product?.id,
-								variant_id: cartProduct.product?.variant_id,
+							cartProducts.map((cartProduct) => ({
+								productVariantId: productVariantId,
 								quantity: cartProduct.quantity
 							}))
 						);
