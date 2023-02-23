@@ -1,5 +1,5 @@
 export const getHttpMethod = (method: string) => {
-	let httpMethod: 'get' | 'post' | 'put' | 'delete' = 'get';
+	let httpMethod: 'get' | 'post' | 'patch' | 'put' | 'delete' = 'get';
 
 	switch (method.toUpperCase()) {
 		case 'GET':
