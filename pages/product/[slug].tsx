@@ -182,7 +182,6 @@ const ProductDetailsPage: NextPage<
 						}
 					} else {
 						updateCart(
-							cartId,
 							cartProducts.map((cartProduct) => ({
 								productVariantId: productVariantId,
 								quantity: cartProduct.quantity
