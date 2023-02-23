@@ -6,6 +6,8 @@ export const getHttpMethod = (method: string) => {
 			return (httpMethod = 'get');
 		case 'POST':
 			return (httpMethod = 'post');
+		case 'PATCH':
+			return (httpMethod = 'patch');
 		case 'PUT':
 			return (httpMethod = 'put');
 		case 'DELETE':

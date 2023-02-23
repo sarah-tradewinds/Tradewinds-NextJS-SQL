@@ -1,4 +1,4 @@
-import { getCart } from 'lib/cart.lib';
+import { getCart, updateCart } from 'lib/cart.lib';
 import { getProductPrice } from 'utils/pricing.utils';
 import create from 'zustand';
 
@@ -50,15 +50,10 @@ export const useCartStore = create<CartState>((set) => ({
 	},
 
 	fetchCart: async () => {
-		const rawCart = localStorage.getItem('cart');
-		if (rawCart) {
-			const cartData = JSON.parse(rawCart);
-			set({ ...cartData });
-		}
-
 		const cart = await getCart();
 		if (cart?.item) {
 			const cartProducts = cart.item;
+			localStorage.setItem('cart', JSON.stringify(cartProducts));
 
 			const { totalQuantity } = getTotalAmountAndQuantity(cartProducts);
 
@@ -68,6 +63,10 @@ export const useCartStore = create<CartState>((set) => ({
 				totalCartProductQuantity: totalQuantity,
 				subtotal: cart.subtotal || 0
 			});
+		} else {
+			const rawCart = localStorage.getItem('cart');
+			const cartData = JSON.parse(rawCart || '{}');
+			set({ ...cartData });
 		}
 	},
 	setCartId: (cartId: string) => set({ id: cartId }),
@@ -191,14 +190,12 @@ export const useCartStore = create<CartState>((set) => ({
 			const { totalQuantity, subtotal } =
 				getTotalAmountAndQuantity(updatedCart);
 
-			// updateCart(
-			// 	id,
-			// 	buyerId,
-			// 	updatedCart.map((cartProduct) => ({
-			// 		product_id: cartProduct.product?.id,
-			// 		quantity: cartProduct.quantity
-			// 	}))
-			// );
+			updateCart(
+				updatedCart.map((cartProduct) => ({
+					product_variant_id: productVariantId,
+					quantity: cartProduct.quantity
+				}))
+			);
 
 			const cartData = {
 				cartProducts: updatedCart,
@@ -221,14 +218,12 @@ export const useCartStore = create<CartState>((set) => ({
 			const { totalQuantity, subtotal } =
 				getTotalAmountAndQuantity(updatedCarts);
 
-			// updateCart(
-			// 	id,
-			// 	buyerId,
-			// 	updatedCarts.map((cartProduct) => ({
-			// 		product_id: cartProduct.product?.id,
-			// 		quantity: cartProduct.quantity
-			// 	}))
-			// );
+			updateCart(
+				updatedCarts.map((cartProduct) => ({
+					product_variant_id: productVariantId,
+					quantity: cartProduct.quantity
+				}))
+			);
 
 			const cartData = {
 				cartProducts: updatedCarts,

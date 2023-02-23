@@ -28,6 +28,8 @@ const handler: NextApiHandler = async (req, res) => {
 			refresh_token: loginRefreshToken
 		} = data?.data || {};
 
+		console.log('loginRefreshToken =', loginRefreshToken);
+
 		if (!loginAccessToken || !loginRefreshToken) {
 			return res.json(data);
 		}
@@ -42,15 +44,30 @@ const handler: NextApiHandler = async (req, res) => {
 		/**
 		 * Access token
 		 */
+		// const accessTokenExpireAt = loginAccessToken?.expires_at - 2;
 		const accessTokenExpireAt = loginAccessToken?.expires_at;
 		const accessTokenCookie = serialize(
 			'access_token',
 			loginAccessToken?.token,
 			{
 				...cookieOptions,
+				// maxAge: 60 * accessTokenExpireAt
 				expires: new Date(accessTokenExpireAt)
 			}
 		);
+		// const accessTokenExpireDate = new Date();
+		// accessTokenExpireDate.setMinutes(
+		// 	accessTokenExpireDate.getMinutes() + accessTokenExpireAt
+		// );
+		// const accessTokenExpireInCookie = serialize(
+		// 	'access_token_expire_in',
+		// 	accessTokenExpireDate.toJSON(),
+		// 	{
+		// 		...cookieOptions,
+		// 		// maxAge: 60 * accessTokenExpireAt
+		// 		expires: new Date(accessTokenExpireAt)
+		// 	}
+		// );
 
 		/**
 		 * Refresh Token
@@ -61,13 +78,28 @@ const handler: NextApiHandler = async (req, res) => {
 			loginRefreshToken?.token,
 			{
 				...cookieOptions,
+				// maxAge: 60 * refreshTokenExpireAt
 				expires: new Date(refreshTokenExpireAt)
 			}
 		);
+		// const refreshTokenExpireDate = new Date();
+		// refreshTokenExpireDate.setMinutes(
+		// 	refreshTokenExpireDate.getMinutes() + refreshTokenExpireAt
+		// );
+		// const refreshTokenExpireInCookie = serialize(
+		// 	'refresh_token_expire_in',
+		// 	refreshTokenExpireDate.toJSON(),
+		// 	{
+		// 		...cookieOptions,
+		// 		maxAge: 60 * refreshTokenExpireAt
+		// 	}
+		// );
 
 		res.setHeader('Set-Cookie', [
 			accessTokenCookie,
+			// accessTokenExpireInCookie,
 			refreshTokenCookie
+			// refreshTokenExpireInCookie
 		]);
 
 		res.json(data);

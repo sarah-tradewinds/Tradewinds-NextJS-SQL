@@ -217,6 +217,10 @@ const CartPage: NextPage = () => {
 								inputQuantity,
 								payload
 							) => {
+								console.log('productVariantId =', productVariantId);
+								console.log('inputQuantity =', inputQuantity);
+								console.log('payload =', payload);
+
 								const { product } = payload || {};
 								const minimumOrderQuantity =
 									product?.inventory?.minimum_order_quantity;

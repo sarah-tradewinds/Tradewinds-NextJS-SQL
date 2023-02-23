@@ -28,7 +28,6 @@ const CartList: React.FC<CartListProps> = (props) => {
 	} = props;
 
 	const { locale } = useRouter();
-	console.log('carts =', carts);
 
 	return (
 		<div className="grid grid-cols-1 gap-4">
@@ -49,6 +48,13 @@ const CartList: React.FC<CartListProps> = (props) => {
 					bulk_pricing
 				});
 
+				const productDescription = getLocaleText(
+					product?.description || {},
+					locale
+				);
+
+				console.log('cartProduct', cartProduct);
+
 				return (
 					<div
 						key={cartProduct.productVariantId}
@@ -58,10 +64,11 @@ const CartList: React.FC<CartListProps> = (props) => {
 							id={product.id}
 							slug={product.id}
 							productName={getLocaleText(product?.name || {}, locale)}
-							description={getLocaleText(
-								product?.description || {},
-								locale
-							)}
+							description={
+								productDescription?.length > 180
+									? productDescription?.substring(0, 180) + ' ...'
+									: productDescription
+							}
 							productPrice={getProductPrice({
 								bulkPrices:
 									product?.bulk_pricing?.length < 1
@@ -85,7 +92,7 @@ const CartList: React.FC<CartListProps> = (props) => {
 							variantCount={
 								product?.edges?.product_variants?.length - 1 || 0
 							}
-							onUpdate={(quantity, productId) =>
+							onUpdate={(quantity) =>
 								updateQuantityByProductVariantId(
 									cartProduct.productVariantId,
 									quantity,

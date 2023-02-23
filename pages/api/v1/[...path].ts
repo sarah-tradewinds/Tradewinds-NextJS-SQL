@@ -20,7 +20,6 @@ const handler: NextApiHandler = async (req, res) => {
 	}
 
 	const endpoints = (path as [])?.join('/');
-	// const url = `${process.env.API_BASE_URL}/${endpoints}?${queryString}`;
 	const url = `/${endpoints}?${queryString}`;
 	const authorization = req.headers.authorization;
 

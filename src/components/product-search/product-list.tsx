@@ -79,9 +79,8 @@ const ProductList: React.FC<ProductListProps> = ({
 			}
 		} else {
 			updateCart(
-				cartId,
 				cartProducts.map((cartProduct) => ({
-					productVariantId: productVariantId,
+					product_variant_id: productVariantId,
 					quantity: cartProduct.quantity
 				}))
 			);
@@ -177,7 +176,7 @@ const ProductList: React.FC<ProductListProps> = ({
 
 					const country = seller_country ? seller_country[0] || {} : {};
 					const productVariantLength =
-						product?.product_variants?.length;
+						product?.edges?.product_variants?.length;
 
 					const productData = {
 						key: product.id,
@@ -224,7 +223,7 @@ const ProductList: React.FC<ProductListProps> = ({
 						// isReadyToShip: product.is_ready_to_ship,
 						isCustomizable: product.is_customizable,
 						variantCount:
-							productVariantLength > 1 ? productVariantLength : 0,
+							productVariantLength > 1 ? productVariantLength - 1 : 0,
 						onMessageVendorClick: () => {
 							setSelectedSellerId(product?.seller_id?.id);
 							setIsMessageVendorPopupOpen(true);

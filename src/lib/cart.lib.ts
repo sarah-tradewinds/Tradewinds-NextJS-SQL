@@ -1,4 +1,5 @@
 import { proxyAxiosInstance } from 'utils/axios-instance.utils';
+import { getProductPrice } from 'utils/pricing.utils';
 
 interface CartProduct {
 	product_variant_id?: string;
@@ -10,7 +11,7 @@ export const addProductToCart = async (
 	quantity: number
 ): Promise<string> => {
 	try {
-		const { data } = await proxyAxiosInstance.post('/cart', [
+		const { data } = await proxyAxiosInstance.patch('/cart', [
 			{
 				product_variant_id: productVariantId,
 				quantity
@@ -35,11 +36,35 @@ export const getCart = async () => {
 		const { data } = await proxyAxiosInstance.get('cart');
 
 		const cartItem =
-			data?.data?.item?.map((item: any) => ({
-				product: item.product_id,
-				quantity: item.quantity,
-				total: item.total
-			})) || [];
+			data?.data?.edges?.cart_items?.map((item: any) => {
+				const quantity = item.quantity;
+				const productVariant = item?.edges?.product_variant?.[0] || {};
+				console.log('itemitemitem', productVariant);
+
+				const productPrice =
+					getProductPrice({
+						bulkPrices: productVariant?.bulk_pricing || [],
+						price: productVariant?.retail_price || 0,
+						salePrice: productVariant?.sales_price || 0,
+						quantity
+					}) || 0;
+
+				const productVariantId = productVariant?.id;
+				const productData = {
+					...productVariant?.edges?.product,
+					...productVariant,
+					product_variant_id: productVariantId
+				};
+
+				return {
+					product: productData,
+					productVariantId,
+					quantity,
+					total: productPrice * quantity
+				};
+			}) || [];
+
+		console.log('cartItem =', cartItem);
 
 		data.data.item = cartItem || [];
 		console.log('data.data =', data.data);
@@ -52,13 +77,11 @@ export const getCart = async () => {
 	}
 }; // End of getCart function
 
-export const updateCart = async (
-	cartId: string,
-	products: CartProduct[]
-) => {
+export const updateCart = async (products: CartProduct[]) => {
 	try {
 		const { data } = await proxyAxiosInstance.patch(
-			`cart/${cartId}`,
+			// `cart/${cartId}`,
+			'cart',
 			products
 		);
 		console.log(data);
