@@ -37,7 +37,7 @@ export const createOrder = async (orderPayload: CreateOrder) => {
 export const getOrderById = async (orderId: string) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/order/checkout/${orderId}`
+			`/order/search?id=${orderId}`
 		);
 
 		let orderData = data.data || {};
@@ -45,8 +45,8 @@ export const getOrderById = async (orderId: string) => {
 		const invoice = orderData?.edges?.invoice || {};
 		orderData = {
 			order_number: orderData?.order_number,
-			shipping_address: orderData?.shipping_address,
-			billing_address: orderData?.billing_address,
+			shipping_address: orderData?.edges?.shipping_address,
+			billing_address: orderData?.edges?.billing_address,
 			order_items: invoice?.items || [],
 
 			// charges

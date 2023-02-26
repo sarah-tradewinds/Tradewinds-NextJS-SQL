@@ -159,7 +159,7 @@ const CartReviewPage: NextPage = () => {
 							</p>
 							<p className="text-[15px] text-gray md:ml-16 md:text-[18px]">
 								{getLocaleText(
-									billing_address?.address_line_1 || {},
+									billing_address?.address_line1 || {},
 									router.locale
 								)}
 							</p>
@@ -193,7 +193,7 @@ const CartReviewPage: NextPage = () => {
 							</p>
 							<p className="text-[15px] text-gray md:ml-16 md:text-[18px]">
 								{getLocaleText(
-									shipping_address?.address_line_1 || {},
+									shipping_address?.address_line1 || {},
 									router.locale
 								)}
 							</p>

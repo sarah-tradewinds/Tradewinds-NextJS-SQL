@@ -99,6 +99,8 @@ export const useCartStore = create<CartState>((set) => ({
 					quantity
 				});
 
+				console.log('[addToCart] productPrice', productPrice);
+
 				const productData = {
 					...productVariant,
 					...product,
@@ -128,6 +130,8 @@ export const useCartStore = create<CartState>((set) => ({
 					salePrice: productVariant?.sales_price || 0,
 					quantity: updatedQuantity
 				});
+
+				console.log('[addToCart] update productPrice', productPrice);
 
 				const total = productPrice * updatedQuantity;
 
@@ -161,7 +165,7 @@ export const useCartStore = create<CartState>((set) => ({
 		return cartList;
 	},
 	updateQuantityByProductVariantId: (productVariantId, quantity) => {
-		set(({ id, cartProducts }) => {
+		set(({ cartProducts }) => {
 			const updatedCart: CartProduct[] = cartProducts.map(
 				(cartProduct) => {
 					if (cartProduct.productVariantId === productVariantId) {
@@ -178,6 +182,22 @@ export const useCartStore = create<CartState>((set) => ({
 							salePrice: productVariant?.sales_price || 0,
 							quantity: quantity
 						});
+						console.log(
+							productVariantId,
+							'productVariant =',
+							cartProduct,
+							productVariant
+						);
+						console.log(
+							{
+								bulkPrices: productVariant?.bulk_pricing || [],
+								price: productVariant?.retail_price || 0,
+								salePrice: productVariant?.sales_price || 0,
+								quantity: quantity
+							},
+							'[updateQuantityByProductVariantId] productPrice',
+							productPrice
+						);
 
 						cartProduct.quantity = quantity;
 						cartProduct.total = productPrice * quantity;
@@ -242,6 +262,7 @@ const getTotalAmountAndQuantity = (cartList: CartProduct[]) => {
 	let totalQuantity = 0;
 	let subtotal = 0;
 	if (cartList) {
+		console.log('cartListcartListcartListcartList =', cartList);
 		for (const cart of cartList) {
 			const { quantity } = cart;
 			totalQuantity += +quantity;

@@ -38,6 +38,7 @@ export const getCart = async () => {
 	try {
 		const { data } = await axiosInstance.get('cart');
 
+		let subtotal = 0;
 		const cartItem =
 			data?.data?.edges?.cart_items?.map((item: any) => {
 				const quantity = item.quantity;
@@ -58,18 +59,20 @@ export const getCart = async () => {
 					product_variant_id: productVariantId
 				};
 
+				const total = productPrice * quantity || 0;
+				subtotal += total;
 				return {
 					product: productData,
 					productVariantId,
 					quantity,
-					total: productPrice * quantity
+					total
 				};
 			}) || [];
 
 		console.log('cartItem =', cartItem);
 
 		data.data.item = cartItem || [];
-		console.log('data.data =', data.data);
+		data.data.subtotal = subtotal;
 		return data.data || {};
 	} catch (error) {
 		console.log('[getCart] =', error);
