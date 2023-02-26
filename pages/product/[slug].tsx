@@ -124,7 +124,7 @@ const ProductDetailsPage: NextPage<
 				// order_id: '6287507801163604d44c74b6',
 				// TODO: Have to ask is this required
 				order_id: '',
-				user_id: customerData.id
+				user_id: customerData.userId
 			};
 
 			await submitProductRatingAndReview(ratingAndReviewData, reviewId);

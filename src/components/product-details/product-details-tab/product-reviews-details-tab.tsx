@@ -60,7 +60,7 @@ const ProductReviewsDetailsTab: React.FC<{
 		}
 
 		const reviewData = reviews?.find(
-			(review: any) => review.user_id === customerData.id
+			(review: any) => review.user_id === customerData.userId
 		);
 
 		if (reviewData) {
