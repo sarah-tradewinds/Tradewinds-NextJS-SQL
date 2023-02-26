@@ -56,12 +56,15 @@ export const getCustomerDetails = async (token?: string) => {
 			}
 		});
 
+		const customerData = data?.data || {};
+
 		return {
-			id: data?.data?.id,
-			name: `${data?.data?.first_name} ${data?.data?.last_name}`,
-			phone: data?.data?.phone || '',
-			email: data?.data?.email || '',
-			tradewinds_email: data?.data?.tradewinds_email || ''
+			userId: customerData?.id,
+			buyerId: customerData?.edges?.buyer?.id,
+			name: `${customerData?.first_name} ${customerData?.last_name}`,
+			phone: customerData?.phone || '',
+			email: customerData?.email || '',
+			tradewinds_email: customerData?.tradewinds_email || ''
 		};
 	} catch (error) {
 		console.log('[getCustomerDetails] =', error);

@@ -13,25 +13,37 @@ const AddressList: React.FC<AddressListProps> = (props) => {
 	const router = useRouter();
 
 	return (
-		<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+		<div className="xl:grid-cols-4 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
 			{addresses?.map((address) => {
-				const { isSelected, zip, country } = address;
+				const { isSelected, zip } = address;
 
 				return (
 					<AddressTile
 						key={address.id}
 						id={address.id}
 						type="address"
-						name={address?.first_name}
+						name={getLocaleText(
+							address?.first_name || {},
+							router.locale
+						)}
 						streetAddress={getLocaleText(
-							address?.address_line_1 || {},
+							address?.address_line1 || {},
 							router.locale
 						)}
 						locality=""
-						city={getLocaleText(address?.city || {}, router.locale)}
-						state={getLocaleText(address?.state || {}, router.locale)}
+						city={getLocaleText(
+							address?.edges?.city?.name || {},
+							router.locale
+						)}
+						state={getLocaleText(
+							address?.edges?.state?.name || {},
+							router.locale
+						)}
 						zipCode={zip}
-						country={getLocaleText(country?.name || {}, router.locale)}
+						country={getLocaleText(
+							address?.edges?.country?.name || {},
+							router.locale
+						)}
 						phoneNumber={address?.phone}
 						isSelected={isSelected}
 						onChange={(currentState) =>

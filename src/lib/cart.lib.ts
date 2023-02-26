@@ -1,4 +1,7 @@
-import { proxyAxiosInstance } from 'utils/axios-instance.utils';
+import {
+	axiosInstance,
+	proxyAxiosInstance
+} from 'utils/axios-instance.utils';
 import { getProductPrice } from 'utils/pricing.utils';
 
 interface CartProduct {
@@ -33,13 +36,12 @@ export const addProductToCart = async (
 
 export const getCart = async () => {
 	try {
-		const { data } = await proxyAxiosInstance.get('cart');
+		const { data } = await axiosInstance.get('cart');
 
 		const cartItem =
 			data?.data?.edges?.cart_items?.map((item: any) => {
 				const quantity = item.quantity;
 				const productVariant = item?.edges?.product_variant?.[0] || {};
-				console.log('itemitemitem', productVariant);
 
 				const productPrice =
 					getProductPrice({
@@ -79,11 +81,7 @@ export const getCart = async () => {
 
 export const updateCart = async (products: CartProduct[]) => {
 	try {
-		const { data } = await proxyAxiosInstance.patch(
-			// `cart/${cartId}`,
-			'cart',
-			products
-		);
+		const { data } = await axiosInstance.patch('cart', products);
 		console.log(data);
 
 		return '';

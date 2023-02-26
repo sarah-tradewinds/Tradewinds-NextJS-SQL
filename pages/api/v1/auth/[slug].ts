@@ -28,6 +28,8 @@ const handler: NextApiHandler = async (req, res) => {
 			refresh_token: loginRefreshToken
 		} = data?.data || {};
 
+		console.log('data?.data =', data?.data);
+
 		if (!loginAccessToken || !loginRefreshToken) {
 			return res.json(data);
 		}
@@ -45,11 +47,16 @@ const handler: NextApiHandler = async (req, res) => {
 		const accessTokenExpireAt = loginAccessToken?.expires_at;
 		const accessTokenCookie = serialize(
 			'access_token',
-			loginAccessToken?.token,
+			loginAccessToken?.token || '',
 			{
 				...cookieOptions,
 				expires: new Date(accessTokenExpireAt)
 			}
+		);
+		const accessTokenExpireInCookie = serialize(
+			'access_token_expire_at',
+			accessTokenExpireAt.toString(),
+			cookieOptions
 		);
 
 		/**
@@ -63,6 +70,11 @@ const handler: NextApiHandler = async (req, res) => {
 				...cookieOptions,
 				expires: new Date(refreshTokenExpireAt)
 			}
+		);
+		const refreshTokenExpireInCookie = serialize(
+			'refresh_token_expire_at',
+			refreshTokenExpireAt.toString(),
+			cookieOptions
 		);
 
 		res.setHeader('Set-Cookie', [

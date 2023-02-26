@@ -5,7 +5,7 @@ import {
 import create from 'zustand';
 
 export interface CustomerDataProps {
-	id: string;
+	userId: string;
 	buyerId: string;
 	name: string;
 	phone?: string;
@@ -36,7 +36,7 @@ interface AuthState {
 }
 
 const initialCustomerData = {
-	id: '',
+	userId: '',
 	buyerId: '',
 	name: 'Guest',
 	phone: '',
@@ -66,6 +66,10 @@ export const useAuthStore = create<AuthState>((set) => ({
 			const { customerData, isLoggedIn } =
 				(await autoLoginCustomer()) || {};
 
+			if (typeof window !== 'undefined') {
+				localStorage.setItem('access_token', customerData.access.token);
+			}
+
 			set({
 				isAuth: isLoggedIn || false,
 				customerData: customerData,
@@ -78,6 +82,10 @@ export const useAuthStore = create<AuthState>((set) => ({
 		}
 	},
 	setCustomerData: (customerData) => {
+		if (typeof window !== 'undefined') {
+			localStorage.setItem('access_token', customerData.access.token);
+		}
+
 		set({
 			isAuth: true,
 			customerData

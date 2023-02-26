@@ -15,6 +15,7 @@ import { Modal } from '../modal/modal';
 import { buttonSpinner } from '../spinners/custom-spinners';
 
 // libs
+import { updateCart } from 'lib/cart.lib';
 import { getCustomerDetails, userLogin } from 'lib/customer/auth.lib';
 import { useTranslation } from 'next-i18next';
 import { useCartStore } from 'store/cart-store';
@@ -59,23 +60,20 @@ const Login: React.FC = () => {
 				data.access_token.token
 			);
 
-			const buyerId = customerDetails?.id;
+			console.log('customerDetails =', customerDetails);
 
-			// TODO: Have to work on this
-			// if (cartProducts.length) {
-			// 	await addProductToCart(
-			// 		buyerId,
-			// 		null,
-			// 		cartProducts.map((cartProduct) => ({
-			// 			product_id: cartProduct.product?.id,
-			// 			quantity: cartProduct.quantity
-			// 		}))
-			// 	);
-			// }
+			if (cartProducts.length) {
+				await updateCart(
+					cartProducts.map((cartProduct) => ({
+						product_variant_id: cartProduct.product?.id,
+						quantity: cartProduct.quantity
+					}))
+				);
+			}
 
 			setCustomerData({
-				id: customerDetails.id,
-				buyerId,
+				userId: customerDetails.userId,
+				buyerId: customerDetails.buyerId,
 				name: customerDetails.name,
 				phone: customerDetails.phone,
 				email: customerDetails.email,

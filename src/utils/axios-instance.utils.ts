@@ -16,3 +16,14 @@ export const proxyAxiosInstance = axios.create({
 export const axiosInstance = axios.create({
 	baseURL: `${API_BASE_URL}/v1`
 });
+
+axiosInstance.interceptors.request.use((request) => {
+	if (typeof window !== 'undefined') {
+		const accessToken = localStorage.getItem('access_token');
+		if (accessToken) {
+			(request.headers as any).Authorization = `Bearer ${accessToken}`;
+		}
+	}
+
+	return request;
+});

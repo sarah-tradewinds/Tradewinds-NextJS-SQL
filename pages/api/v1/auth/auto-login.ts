@@ -11,8 +11,11 @@ const autoLoginHandler: NextApiHandler = async (req, res) => {
 		refresh_token_expire_in
 	} = req.cookies;
 
+	// return;
+
 	const initialCustomerData = {
-		id: '',
+		userId: '',
+		buyerId: '',
 		name: '',
 		email: '',
 		tradewinds_email: '',
@@ -55,6 +58,7 @@ const autoLoginHandler: NextApiHandler = async (req, res) => {
 		}
 
 		const customerDetails = await getCustomerDetails(access_token);
+		console.log('customerDetails=customerDetails', customerDetails);
 
 		// Setting access token
 		initialCustomerData.access.token = access_token;
@@ -68,7 +72,7 @@ const autoLoginHandler: NextApiHandler = async (req, res) => {
 			.getMinutes()
 			.toString();
 
-		res.json({
+		res.status(200).json({
 			isLoggedIn: true,
 			customerData: { ...initialCustomerData, ...customerDetails }
 		});

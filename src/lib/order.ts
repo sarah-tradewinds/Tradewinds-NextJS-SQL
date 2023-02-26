@@ -1,18 +1,16 @@
-import { proxyAxiosInstance } from 'utils/axios-instance.utils';
+import {
+	axiosInstance,
+	proxyAxiosInstance
+} from 'utils/axios-instance.utils';
 
 interface CreateOrder {
-	buyer_id: string;
 	order_items: any[];
-	type?: 'live_buy';
 	shipping_address?: string | null;
 	billing_address?: string | null;
 }
 
 export const createOrder = async (orderPayload: CreateOrder) => {
 	try {
-		orderPayload.type = 'live_buy';
-
-		// TODO: Temporary
 		if (!orderPayload.billing_address) {
 			orderPayload.billing_address = orderPayload.shipping_address;
 		}
@@ -21,11 +19,11 @@ export const createOrder = async (orderPayload: CreateOrder) => {
 		}
 
 		const { data } = await proxyAxiosInstance.post(
-			'/order',
+			'/order/live-buy',
 			orderPayload
 		);
 
-		return data.data?.InsertedID || '';
+		return data.data?.id || '';
 	} catch (error) {
 		console.log('[createOrder] =', error);
 		const { data, status } = (error as any).response || {};
@@ -38,14 +36,18 @@ export const createOrder = async (orderPayload: CreateOrder) => {
 
 export const getOrderById = async (orderId: string) => {
 	try {
-		const { data } = await proxyAxiosInstance.get(`/order/${orderId}`);
+		const { data } = await axiosInstance.get(
+			`/order/checkout/${orderId}`
+		);
 
 		let orderData = data.data || {};
+
+		const invoice = orderData?.edges?.invoice || {};
 		orderData = {
 			order_number: orderData?.order_number,
 			shipping_address: orderData?.shipping_address,
 			billing_address: orderData?.billing_address,
-			order_items: orderData?.order_items || [],
+			order_items: invoice?.items || [],
 
 			// charges
 			shipping_charge: orderData?.shipping_charge,

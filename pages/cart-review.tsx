@@ -38,6 +38,7 @@ const CartReviewPage: NextPage = () => {
 
 	useEffect(() => {
 		const orderId = (router.query.order_id || '') as string;
+		console.log('orderId =', orderId, router.query);
 		getOrderById(orderId).then((orderData) =>
 			setOrderReview(orderData)
 		);
@@ -66,6 +67,8 @@ const CartReviewPage: NextPage = () => {
 		grand_total = 0,
 		amount_to_pay = 0
 	} = orderReview as any;
+
+	console.log('order_items =', order_items);
 
 	const totalCartItemCount = cartProducts?.length || 0;
 
@@ -237,7 +240,7 @@ const CartReviewPage: NextPage = () => {
 									>
 										<td className="text-center">
 											{getLocaleText(
-												orderItem?.name || {},
+												orderItem?.item || {},
 												router.locale
 											)}
 										</td>
@@ -247,9 +250,7 @@ const CartReviewPage: NextPage = () => {
 										<td className="text-center">
 											${orderItem?.unit_cost}
 										</td>
-										<td className="text-center">
-											${orderItem?.sub_total}
-										</td>
+										<td className="text-center">${orderItem?.total}</td>
 									</tr>
 								);
 							})}

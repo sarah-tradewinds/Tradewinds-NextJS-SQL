@@ -86,7 +86,7 @@ const CartPage: NextPage = () => {
 			const { product } = cartProduct;
 
 			const orderItem = {
-				product_id: product.id,
+				product_variant_id: cartProduct.productVariantId,
 				quantity: cartProduct.quantity,
 				discount: 0
 			};
@@ -94,7 +94,6 @@ const CartPage: NextPage = () => {
 		});
 
 		const orderId = await createOrder({
-			buyer_id: customerData.buyerId,
 			order_items: orderItems,
 			shipping_address: localStorage.getItem('shipping_address_id'),
 			billing_address: localStorage.getItem('billing_address_id')

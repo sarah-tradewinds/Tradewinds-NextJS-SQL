@@ -35,7 +35,7 @@ const handler: NextApiHandler = async (req, res) => {
 			}
 		});
 
-		res.json(data);
+		res.status(data?.status || 200).json(data);
 	} catch (error) {
 		console.log('Error in handler = ', error);
 		const { data, status } = (error as any).response || {};
