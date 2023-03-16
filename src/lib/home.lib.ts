@@ -29,7 +29,7 @@ export const getCardB = async () => {
 	try {
 		const { data } = await axiosInstance.get('/cms/cardB');
 
-		return data.data ? data.data[0] : {};
+		return data?.data?.[0] || {};
 	} catch (error) {
 		console.log('[getCardB] =', error);
 		const { data } = (error as any).response || {};

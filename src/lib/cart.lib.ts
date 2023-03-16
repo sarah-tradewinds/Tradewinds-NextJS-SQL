@@ -1,7 +1,4 @@
-import {
-	axiosInstance,
-	proxyAxiosInstance
-} from 'utils/axios-instance.utils';
+import { axiosInstance } from 'utils/axios-instance.utils';
 import { getProductPrice } from 'utils/pricing.utils';
 
 interface CartProduct {
@@ -14,7 +11,14 @@ export const addProductToCart = async (
 	quantity: number
 ): Promise<string> => {
 	try {
-		const { data } = await proxyAxiosInstance.patch('/cart', [
+		// const { data } = await proxyAxiosInstance.patch('/cart', [
+		// 	{
+		// 		product_variant_id: productVariantId,
+		// 		quantity
+		// 	}
+		// ]);
+
+		const { data } = await axiosInstance.patch('/cart', [
 			{
 				product_variant_id: productVariantId,
 				quantity

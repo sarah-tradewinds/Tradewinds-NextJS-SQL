@@ -74,7 +74,8 @@ const ShopByCountryPage: NextPage<
 					<div className="absolute top-[140px] left-1/2 w-5/6 -translate-x-1/2 transform rounded-t-[40px] bg-white  pt-8 md:hidden">
 						<div className="space-y-2 px-4">
 							{regionsAndCountries.map((regionAndCountries: any) => {
-								const { countries = [] } = regionAndCountries || {};
+								const countries =
+									regionAndCountries?.edges?.region_country || [];
 								const regionId = regionAndCountries.id;
 
 								return (

@@ -15,7 +15,8 @@ const RegionsAndCountriesList: React.FC<{
 	return (
 		<>
 			{regionsAndCountries?.map((regionAndCountries: any) => {
-				const { countries = [] } = regionAndCountries || {};
+				const countries =
+					regionAndCountries?.edges?.region_country || [];
 
 				return (
 					<RegionAndCountriesTile
@@ -26,7 +27,7 @@ const RegionsAndCountriesList: React.FC<{
 							locale
 						)}
 						regionImageUrl={
-							regionAndCountries?.image?.url ||
+							regionAndCountries?.image ||
 							'/static/images/search-by-country-images/shape.png'
 						}
 						regionColor={regionAndCountries?.color}

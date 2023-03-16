@@ -1,16 +1,19 @@
-import { proxyAxiosInstance } from 'utils/axios-instance.utils';
+import { axiosInstance } from 'utils/axios-instance.utils';
 
 export const getAddresses = async (
 	buyerId: string,
 	addressType?: 'shipping' | 'billing'
 ) => {
+	if (!buyerId) return [];
+
 	let url = `buyer/${buyerId}/address?isShippingAddress=${true}`;
 	if (addressType === 'billing') {
 		url = `buyer/${buyerId}/address?isBillingAddress=${true}`;
 	}
 
 	try {
-		const { data } = await proxyAxiosInstance.get(url);
+		// const { data } = await proxyAxiosInstance.get(url);
+		const { data } = await axiosInstance.get(url);
 
 		return data.data || [];
 	} catch (error) {

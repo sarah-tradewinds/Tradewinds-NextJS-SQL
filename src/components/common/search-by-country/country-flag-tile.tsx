@@ -15,6 +15,7 @@ const CountryFlagTile: React.FC<CountryFlagTileProps> = (props) => {
 			<div className="flex">
 				<div className="relative h-[27px] w-[43px]">
 					<ImageWithErrorHandler
+						key={imageUrl}
 						src={imageUrl}
 						alt={title}
 						fill={true}

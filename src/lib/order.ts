@@ -1,7 +1,4 @@
-import {
-	axiosInstance,
-	proxyAxiosInstance
-} from 'utils/axios-instance.utils';
+import { axiosInstance } from 'utils/axios-instance.utils';
 
 interface CreateOrder {
 	order_items: any[];
@@ -18,7 +15,12 @@ export const createOrder = async (orderPayload: CreateOrder) => {
 			orderPayload.shipping_address = orderPayload.billing_address;
 		}
 
-		const { data } = await proxyAxiosInstance.post(
+		// const { data } = await proxyAxiosInstance.post(
+		// 	'/order/live-buy',
+		// 	orderPayload
+		// );
+
+		const { data } = await axiosInstance.post(
 			'/order/live-buy',
 			orderPayload
 		);
@@ -73,11 +75,18 @@ export const getOrderById = async (orderId: string) => {
 
 export const getPaymentIntentByOrderId = async (orderId: string) => {
 	try {
-		const { data } = await proxyAxiosInstance.get(
+		const { data } = await axiosInstance.patch(
 			`/order/checkout/${orderId}`
 		);
+		// const { data } = await axiosInstance.get(
+		// 	`/order/search?id=${orderId}`
+		// );
 
-		const clientSecret = data.response?.client_secret || '';
+		// const clientSecret =
+		// 	data?.data?.edges?.payments?.[0]?.client_secret || '';
+
+		const clientSecret = data?.data?.client_secret || '';
+
 		return clientSecret;
 	} catch (error) {
 		console.log('[getPaymentIntentByOrderId] =', error);
