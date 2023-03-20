@@ -207,7 +207,14 @@ const CompanyProfileTab: React.FC<{
 												<span className="font-semibold md:min-w-[148px]">
 													{t('common:certification')}:
 												</span>
-												<span>{seller?.certificates?.toString()}</span>
+												<span>
+													{seller?.certification
+														?.map(
+															(certificate: any) =>
+																certificate?.name || ''
+														)
+														?.join(', ')}
+												</span>
 											</p>
 											<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
 												<span className="font-semibold md:min-w-[148px]">

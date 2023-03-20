@@ -69,24 +69,78 @@ const ProductDetailsTile: React.FC<{
 		sale_price,
 		is_on_sale,
 		tags = [],
-		variants = [],
+		product_variants = [],
 		is_customizable,
 		is_live,
 		is_ready_to_ship,
 		is_verified,
 		is_eco,
 		seller_country = [],
-		color: colors = [],
 		size: sizes = [],
-		material: materials = [],
-		style: styles = [],
-		title: titles = [],
+		// material: materials = [],
+		// style: styles = [],
+		// title: titles = [],
 		total_rate_count = 0,
 		total_review_count = 0
 	} = product || {};
 
-	const productVariantList = product?.edges?.product_variants || [];
-	const [firstVariant] = product?.edges?.product_variants || [];
+	let firstVariant: any = {};
+
+	const productVariants: any[] = [];
+	const productSizes: string[] = [];
+	const materials: string[] = [];
+	const styles: string[] = [];
+	const titles: string[] = [];
+	const colors: string[] = [];
+	product?.edges?.product_variants?.forEach(
+		(variant: any, index: number) => {
+			if (index === 0) {
+				firstVariant = variant?.edges;
+				return;
+			}
+
+			const { product_attribute_options = [] } = variant?.edges || {};
+			product_attribute_options?.forEach((attributeOption: any) => {
+				const attributeName =
+					attributeOption?.edges?.product_attribute?.name
+						?.trim()
+						?.toLowerCase();
+				const attributeValue = attributeOption?.value
+					?.trim()
+					?.toLowerCase();
+
+				switch (attributeName) {
+					case 'size':
+						variant.size = attributeValue;
+						productSizes.push(attributeValue);
+						break;
+					case 'material':
+						materials.push(attributeValue);
+						break;
+					case '':
+						variant.style = attributeValue;
+						styles.push(attributeValue);
+						break;
+					case 'title':
+						variant.title = attributeValue;
+						titles.push(attributeValue);
+						break;
+					case 'color':
+						variant.color = attributeValue;
+						colors.push(attributeValue);
+						break;
+				}
+
+				// Creating variant name
+				variant.name = `${variant?.size || ''} ${variant?.color || ''}`;
+			}); // End of inner forEach loop
+
+			// Pushing variant to list
+			productVariants.push(variant);
+		}
+	); // End of forEach loop
+
+	console.log('colors =', colors);
 
 	const {
 		retail_price: product_price,
@@ -172,7 +226,7 @@ const ProductDetailsTile: React.FC<{
 			key={metadataList[4].title}
 			imageUrl={metadataList[4].imageUrl}
 			alt={metadataList[4].title}
-			title={`${t('common:variants')} ${variants?.length || 0}`}
+			title={`${t('common:variants')} ${productVariants?.length || 0}`}
 			className="!space-x-1 md:!space-x-4"
 			titleClassName="md:text-[13px] md:leading-4"
 		/>,
@@ -203,27 +257,29 @@ const ProductDetailsTile: React.FC<{
 		</div>
 	];
 
-	const productVariants = variants?.filter((variant: any) => {
-		const getColorWithoutHexValue = (color: string) =>
-			color?.replace('#', '')?.toLowerCase();
+	// const productVariants = variants?.filter((variant: any) => {
+	// 	const getColorWithoutHexValue = (color: string) =>
+	// 		color?.replace('#', '')?.toLowerCase();
 
-		if (selectedColor) {
-			return (
-				getColorWithoutHexValue(variant?.color) ===
-				getColorWithoutHexValue(selectedColor)
-			);
-		}
+	// 	if (selectedColor) {
+	// 		return (
+	// 			getColorWithoutHexValue(variant?.color) ===
+	// 			getColorWithoutHexValue(selectedColor)
+	// 		);
+	// 	}
 
-		return true;
-	});
+	// 	return true;
+	// });
 
-	const productSizes: string[] = [
-		...new Set<string>(
-			productVariants?.map((variant: any) =>
-				variant?.size?.toLowerCase()
-			) || []
-		)
-	];
+	// const productSizes: string[] = [
+	// 	...new Set<string>(
+	// 		productVariants?.map((variant: any) =>
+	// 			variant?.size?.toLowerCase()
+	// 		) || []
+	// 	)
+	// ];
+
+	const getUniqueList = (list: string[]) => [...new Set<string>(list)];
 
 	const images = firstVariant?.images || [];
 
@@ -422,6 +478,7 @@ const ProductDetailsTile: React.FC<{
 					{/* Variants */}
 					{productVariants?.length >= 0 && (
 						<div className="mt-3 space-y-5">
+							{/* Variants Dropdown */}
 							<div className="flex items-center space-x-2">
 								<p className="text-[21px] font-semibold leading-[26px] text-primary-main">
 									Variants:
@@ -442,19 +499,17 @@ const ProductDetailsTile: React.FC<{
 												</Button>
 
 												{productVariants?.map((variant: any) => {
-													const { variant_id } = variant;
-													const isSelected =
-														selectedVariantId === variant_id;
+													console.log('variant', variant);
+													const { id } = variant;
+													const isSelected = selectedVariantId === id;
 													return (
 														<div
-															key={variant_id}
+															key={id}
 															className="keen-slider__slide"
 														>
 															<Button
 																onClick={() =>
-																	onVariantClick(
-																		isSelected ? '' : variant_id
-																	)
+																	onVariantClick(isSelected ? '' : id)
 																}
 																className={`!text-[21px] ${
 																	isSelected
@@ -462,7 +517,7 @@ const ProductDetailsTile: React.FC<{
 																		: '!px-0 font-normal'
 																} !text-primary-main`}
 															>
-																{variant.variants_option}
+																{variant.name}
 															</Button>
 														</div>
 													);
@@ -476,7 +531,7 @@ const ProductDetailsTile: React.FC<{
 											<div className="relative mt-1 w-[235px]">
 												<Listbox.Button className="relative h-10 w-full rounded-md bg-accent-primary-main font-semibold text-white">
 													<span className="block truncate">
-														{selected.variants_option ||
+														{selected.name ||
 															`Variants (${productVariants?.length})`}
 													</span>
 													<span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
@@ -529,7 +584,7 @@ const ProductDetailsTile: React.FC<{
 
 														{productVariants?.map((variant: any) => (
 															<Listbox.Option
-																key={variant.variant_id}
+																key={variant.id}
 																className={({ active }) =>
 																	`relative cursor-pointer select-none py-2 px-4 ${
 																		active
@@ -539,12 +594,11 @@ const ProductDetailsTile: React.FC<{
 																}
 																value={variant}
 																onClick={() => {
-																	console.log(variant.variant_id);
+																	console.log(variant.id);
 																	onVariantClick(
-																		selectedVariantId ===
-																			variant.variant_id
+																		selectedVariantId === variant.id
 																			? ''
-																			: variant.variant_id
+																			: variant.id
 																	);
 																}}
 															>
@@ -553,9 +607,7 @@ const ProductDetailsTile: React.FC<{
 																		className="flex items-center space-x-4"
 																		onClick={() =>
 																			onVariantClick(
-																				selected
-																					? ''
-																					: variant.variant_id
+																				selected ? '' : variant.id
 																			)
 																		}
 																	>
@@ -573,7 +625,7 @@ const ProductDetailsTile: React.FC<{
 																					: 'font-normal'
 																			}`}
 																		>
-																			{variant.variants_option}
+																			{variant.name}
 																		</span>
 																	</div>
 																)}
@@ -588,13 +640,13 @@ const ProductDetailsTile: React.FC<{
 							</div>
 
 							{/* Size */}
-							{productSizes?.length > 0 && (
+							{getUniqueList(productSizes)?.length > 0 && (
 								<div className="flex items-center space-x-2">
 									<p className="text-[21px] font-semibold leading-[26px] text-primary-main">
 										Sizes:
 									</p>
 									<div className="flex space-x-4">
-										{productSizes?.map((size: any) => (
+										{getUniqueList(productSizes)?.map((size: any) => (
 											<button
 												key={size}
 												className="h-10 px-2 font-bold"
@@ -607,13 +659,13 @@ const ProductDetailsTile: React.FC<{
 							)}
 
 							{/* Materials */}
-							{materials?.length > 0 && (
+							{getUniqueList(materials)?.length > 0 && (
 								<div className="flex items-center space-x-2">
 									<p className="text-[21px] font-semibold leading-[26px] text-primary-main">
 										Materials:
 									</p>
 									<div className="flex space-x-4">
-										{materials?.map((material: any) => (
+										{getUniqueList(materials)?.map((material: any) => (
 											<button
 												key={material}
 												className="h-10 px-2 font-bold"
@@ -626,13 +678,13 @@ const ProductDetailsTile: React.FC<{
 							)}
 
 							{/* Styles */}
-							{styles?.length > 0 && (
+							{getUniqueList(styles)?.length > 0 && (
 								<div className="flex items-center space-x-2">
 									<p className="text-[21px] font-semibold leading-[26px] text-primary-main">
 										Styles:
 									</p>
 									<div className="flex space-x-4">
-										{styles?.map((style: any) => (
+										{getUniqueList(styles)?.map((style: any) => (
 											<button
 												key={style}
 												className="h-10 px-2 font-bold"
@@ -645,13 +697,13 @@ const ProductDetailsTile: React.FC<{
 							)}
 
 							{/* Titles */}
-							{titles?.length > 0 && (
+							{getUniqueList(titles)?.length > 0 && (
 								<div className="flex items-center space-x-2">
 									<p className="text-[21px] font-semibold leading-[26px] text-primary-main">
 										Titles:
 									</p>
 									<div className="flex space-x-4">
-										{titles?.map((title: any) => (
+										{getUniqueList(titles)?.map((title: any) => (
 											<button
 												key={title}
 												className="h-10 px-2 font-bold"
@@ -664,13 +716,13 @@ const ProductDetailsTile: React.FC<{
 							)}
 
 							{/* Colors */}
-							{colors?.length > 0 && (
+							{getUniqueList(colors)?.length > 0 && (
 								<div className="flex items-center space-x-2">
 									<p className="text-[21px] font-semibold leading-[26px] text-primary-main">
 										Colors:
 									</p>
 									<div className="space-x-4">
-										{colors?.map((color: string) => {
+										{getUniqueList(colors)?.map((color: string) => {
 											return (
 												<button
 													key={color}
@@ -690,12 +742,12 @@ const ProductDetailsTile: React.FC<{
 															return color;
 														});
 
-														const variant = variants?.find(
+														const variant = productVariants?.find(
 															(variant: any) => variant.color === color
 														);
 
 														if (variant) {
-															const variantId = variant.variant_id;
+															const variantId = variant.id;
 															const isSelected =
 																selectedVariantId === variantId;
 															onVariantClick(

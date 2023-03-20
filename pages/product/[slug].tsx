@@ -83,25 +83,28 @@ const ProductDetailsPage: NextPage<
 	useEffect(() => {
 		if (selectedVariantId) {
 			const updatedProductData = { ...productData };
+			console.log('updatedProductData', updatedProductData);
 
-			if (updatedProductData?.variants?.length > 0) {
-				const productVariant = updatedProductData.variants?.find(
-					(variant: any) => variant.variant_id === selectedVariantId
+			const productVariants =
+				updatedProductData?.edges?.product_variants || [];
+
+			if (productVariants?.length > 0) {
+				const productVariant = productVariants?.find(
+					(variant: any) => variant.id === selectedVariantId
 				);
 				if (!productVariant) {
 					return;
 				}
 
-				updatedProductData.variant_id = productVariant?.variant_id;
-				updatedProductData.product_name =
-					productVariant?.variants_option;
-				updatedProductData.images = productVariant?.variants_images;
-				updatedProductData.product_price =
-					productVariant?.variants_price;
+				updatedProductData.variant_id = productVariant?.id;
+				updatedProductData.name = productVariant?.name;
+				updatedProductData.images = productVariant?.images || [];
+				updatedProductData.product_price = productVariant?.retail_price;
 				updatedProductData.inventory = productVariant?.inventory;
 				updatedProductData.is_bulk_pricing =
-					productVariant?.is_bulk_pricing || true;
+					productVariant?.is_bulk_pricing || false;
 				updatedProductData.bulk_pricing = productVariant?.bulk_pricing;
+				console.log('updatedProductData', updatedProductData);
 				setProductData(updatedProductData);
 			}
 		} else {
@@ -146,12 +149,12 @@ const ProductDetailsPage: NextPage<
 		<div className="pb-16 md:container md:space-y-8">
 			<ProductDetailsTile
 				product={productData}
-				onVariantClick={(v) => {
+				onVariantClick={(variantId) => {
 					console.log(
 						'[setSelectedVariantId] = [setSelectedVariantId]',
-						v
+						variantId
 					);
-					setSelectedVariantId(v);
+					setSelectedVariantId(variantId);
 				}}
 				selectedVariantId={selectedVariantId}
 				totalReviewCount={productReviewList.length}
@@ -285,11 +288,9 @@ export const getServerSideProps: GetServerSideProps = async ({
 		// 	(await getProductReviewAnalyticsByProductId(productId)) || {};
 
 		// // Fetch seller company Data
-		const sellerId =
-			product?.seller_id?.id || 'bd4264a6-7a2f-40e4-8db1-9ad2a91c2a50';
+		const sellerId = product?.seller_id || '';
 		const seller = (await getSellerDetailsBySellerId(sellerId)) || {};
 		seller.id = sellerId;
-		console.log('seller =', seller);
 
 		const similarProducts = (await getSimilarProducts(productId)) || [];
 
