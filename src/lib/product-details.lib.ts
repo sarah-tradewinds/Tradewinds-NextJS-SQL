@@ -174,7 +174,7 @@ export const getProductsWithCollectionBySellerId = async (
 ) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/seller_collection/collection_and_products?seller_id=${sellerId}`
+			`/seller/collection?seller_id=${sellerId}`
 		);
 		return data.data || [];
 	} catch (error) {

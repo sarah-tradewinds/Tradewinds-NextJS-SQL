@@ -360,16 +360,24 @@ const CompanyProfileTab: React.FC<{
 							{/* Collection Products Panel */}
 							<Tab.Panel className="outline-none">
 								{collectionProducts?.map((collectionProduct) => {
-									const { name, product } = collectionProduct || {};
+									const { id, name } = collectionProduct || {};
+
+									const collectionName = getLocaleText(
+										name || {},
+										locale
+									);
+
 									return (
 										<div
-											key={name}
+											key={id}
 											className="border-[#C4C4C4] last:border-none md:border-b"
 										>
 											<CollectionSliderOld
-												key={name}
-												name={name}
-												dataList={product}
+												key={id}
+												name={collectionName}
+												dataList={
+													collectionProduct?.edges?.products || []
+												}
 											/>
 										</div>
 									);

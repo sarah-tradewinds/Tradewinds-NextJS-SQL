@@ -63,9 +63,9 @@ const CollectionSliderOld: React.FC<CollectionSliderOldProps> = (
 
 	const productList =
 		dataList?.map((product: any) => {
-			const imageUrl = product?.images[0]
-				? product?.images[0]?.url
-				: '';
+			const imageUrl =
+				product?.edges?.product_variants?.[0]?.images?.[0] || '';
+
 			return (
 				<div
 					key={product?.id}
@@ -73,10 +73,7 @@ const CollectionSliderOld: React.FC<CollectionSliderOldProps> = (
 				>
 					<div className="flex h-full w-full flex-col justify-between p-2">
 						<p className="text-xs leading-[15px]">
-							{getLocaleText(
-								product?.product_name || {},
-								router.locale
-							)}{' '}
+							{getLocaleText(product?.name || {}, router.locale)}{' '}
 						</p>
 
 						{/* Icon or Image */}
