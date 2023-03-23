@@ -3,7 +3,7 @@ import { axiosInstance } from 'utils/axios-instance.utils';
 export const getMainCategories = async (isEco?: boolean) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/cms/main-category?is_eco=${isEco}`
+			`/cms/main-category?limit=100000&is_eco=${isEco}`
 		);
 		return data.data || [];
 	} catch (error) {
@@ -18,7 +18,7 @@ export const getCategoriesByMainCategoryId = async (
 ) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/cms/category?mainCategoryId=${mainCategoryId}`
+			`/cms/category?limit=100000&mainCategoryId=${mainCategoryId}`
 		);
 		return data.data || [];
 	} catch (error) {
@@ -34,7 +34,7 @@ export const getSubCategoriesByCategoryId = async (
 ) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/cms/sub-category?categoryId=${categoryId}`
+			`/cms/sub-category?limit=100000&categoryId=${categoryId}`
 		);
 		return data.data || [];
 	} catch (error) {
@@ -50,7 +50,7 @@ export const getSpecificCategoriesBySubCategoryId = async (
 ) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/cms/specific-category?subCategoryId=${subCategoryId}`
+			`/cms/specific-category?limit=100000&subCategoryId=${subCategoryId}`
 		);
 		return data.data || [];
 	} catch (error) {
@@ -63,7 +63,9 @@ export const getSpecificCategoriesBySubCategoryId = async (
 
 export const getCountries = async () => {
 	try {
-		const { data } = await axiosInstance.get('/region_country/all');
+		const { data } = await axiosInstance.get(
+			'/region_country/all?limit=100000'
+		);
 
 		return data.data || [];
 	} catch (error) {
@@ -77,7 +79,7 @@ export const getCountries = async () => {
 export const getCountryById = async (countryId: string) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/region_country/${countryId}`
+			`/region_country/${countryId}?limit=100000`
 		);
 
 		return data?.data || {};
@@ -102,26 +104,20 @@ export const getSearchSuggestions = async (searchText: string) => {
 	}
 }; // End of getSearchSuggestions function
 
-export const sendMessageToSeller = async (payload: {
-	buyerEmail: string;
-	sellerEmail: string;
-	subject: string;
-	message: string;
-}) => {
-	const { buyerEmail, sellerEmail, subject, message } = payload;
+export const sendMessageToSeller = async (
+	conversationId: string,
+	messageText: string
+) => {
+	const messageData = {
+		conversation_id: conversationId,
+		message: {
+			en: messageText
+		}
+	};
 
 	try {
-		const { data } = await axiosInstance.post('/message', {
-			from: buyerEmail,
-			to: [sellerEmail],
-			cc: [],
-			subject,
-			message,
-			type: 'enquiry',
-			created_by: buyerEmail
-		});
-
-		return data.data || [];
+		await axiosInstance.post('conversation/message', messageData);
+		// return data.data || [];
 	} catch (error) {
 		console.log('[sendMessageToSeller] =', error);
 		const { data } = (error as any).response || {};
@@ -129,3 +125,36 @@ export const sendMessageToSeller = async (payload: {
 		return [];
 	}
 }; // End of sendMessageToSeller function
+
+export const createConversation = async (sellerId: string) => {
+	const payload = {
+		type: 'common',
+		user_two_id: sellerId
+	};
+
+	try {
+		const { data } = await axiosInstance.post('conversation', payload);
+		return data?.data?.id || '';
+	} catch (error) {
+		console.log(error);
+		return null;
+	}
+}; // End of createConversation
+
+export const sendMessage = async (
+	conversationId: string,
+	messageText: string
+) => {
+	const messageData = {
+		conversation_id: conversationId,
+		message: {
+			en: messageText
+		}
+	};
+
+	try {
+		await axiosInstance.post('conversation/message', messageData);
+	} catch (error) {
+		console.log(error);
+	}
+}; // End of sendMessage

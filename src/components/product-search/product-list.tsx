@@ -1,6 +1,8 @@
 import { addProductToCart, updateCart } from 'lib/cart.lib';
-import { sendMessageToSeller } from 'lib/common.lib';
-import { getSellerStorefrontDetailsSellerId } from 'lib/product-details.lib';
+import {
+	createConversation,
+	sendMessageToSeller
+} from 'lib/common.lib';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useAuthStore } from 'store/auth';
@@ -97,16 +99,15 @@ const ProductList: React.FC<ProductListProps> = ({
 						return;
 					}
 
-					const { user_id } = await getSellerStorefrontDetailsSellerId(
+					const conversationId = await createConversation(
 						selectedSellerId
 					);
+					if (!conversationId) {
+						return;
+					}
 
-					await sendMessageToSeller({
-						buyerEmail: customerData.tradewinds_email || '',
-						sellerEmail: user_id?.trade_winds_email || '',
-						message,
-						subject: `Message from ${customerData.name}`
-					});
+					await sendMessageToSeller(conversationId, message);
+					setIsMessageVendorPopupOpen(false);
 
 					setSelectedSellerId('');
 					setIsMessageVendorPopupOpen(false);

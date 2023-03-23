@@ -4,7 +4,7 @@ import { axiosInstance } from 'utils/axios-instance.utils';
 
 export const useGetCountries = () => {
 	const { data, isLoading, isValidating, error } = useSWR(
-		'/cms/country',
+		'/cms/country?limit=100000',
 		axiosInstance.get
 	);
 
