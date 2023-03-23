@@ -6,9 +6,9 @@ export const getAddresses = async (
 ) => {
 	if (!buyerId) return [];
 
-	let url = `buyer/${buyerId}/address?isShippingAddress=${true}`;
+	let url = `buyer/address/${buyerId}?isShippingAddress=${true}`;
 	if (addressType === 'billing') {
-		url = `buyer/${buyerId}/address?isBillingAddress=${true}`;
+		url = `buyer/address/${buyerId}?isBillingAddress=${true}`;
 	}
 
 	try {

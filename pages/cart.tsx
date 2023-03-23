@@ -8,6 +8,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // store
 import AddressModal from 'components/address/address-modal';
+import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import ErrorPopup from 'components/common/popup/error-popup';
 import { createOrder } from 'lib/order';
 import { useTranslation } from 'next-i18next';
@@ -108,6 +109,24 @@ const CartPage: NextPage = () => {
 	}; // End of cartReviewHandler function
 
 	const totalCartItemCount = cartProducts?.length || 0;
+
+	if (totalCartItemCount === 0) {
+		return (
+			<div className="flex h-screen flex-col items-center justify-center">
+				<div>
+					<ImageWithErrorHandler
+						src="/images/empty-cart.png"
+						alt="Empty Cart"
+						width={350}
+						height={350}
+					/>
+				</div>
+				<Button variant="buyer" href="/">
+					Continue Shopping
+				</Button>
+			</div>
+		);
+	}
 
 	return (
 		<>

@@ -56,11 +56,12 @@ const Login: React.FC = () => {
 
 		try {
 			const data = await userLogin(loginData);
-			const customerDetails = await getCustomerDetails(
-				data.access_token.token
-			);
+			const accessToken = data?.access_token?.token || '';
+			if (typeof window !== 'undefined') {
+				localStorage.setItem('access_token', accessToken);
+			}
 
-			console.log('customerDetails =', customerDetails);
+			const customerDetails = await getCustomerDetails(accessToken);
 
 			if (cartProducts.length) {
 				await updateCart(
@@ -71,7 +72,7 @@ const Login: React.FC = () => {
 				);
 			}
 
-			setCustomerData({
+			const customerData = {
 				userId: customerDetails.userId,
 				buyerId: customerDetails.buyerId,
 				name: customerDetails.name,
@@ -79,18 +80,26 @@ const Login: React.FC = () => {
 				email: customerDetails.email,
 				tradewinds_email: customerDetails?.tradewinds_email,
 				access: {
-					token: data.access_token.token,
+					token: accessToken,
 					expireIn: ''
 				},
 				refresh: {
 					token: data.refresh_token.token,
 					expireIn: ''
 				}
-			});
+			};
+
+			localStorage.setItem(
+				'customerData',
+				JSON.stringify(customerData)
+			);
+
+			setCustomerData(customerData);
 
 			setLoading(false);
 			setIsLoginOpen();
 		} catch (error) {
+			console.log('[loginUser] error =', error);
 			setLoginResult({
 				isDone: true,
 				message: (error as any)?.message,

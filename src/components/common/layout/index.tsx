@@ -81,8 +81,8 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 	}, []);
 
 	useEffect(() => {
-		fetchCart();
 		if (customerData.buyerId) {
+			fetchCart();
 			getAddresses(customerData.buyerId).then((addresses) => {
 				for (const address of addresses) {
 					if (address.is_billing_address) {
@@ -93,7 +93,7 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 				}
 			});
 		}
-	}, [customerData.buyerId]);
+	}, [customerData.buyerId, isAuth]);
 
 	return (
 		<>

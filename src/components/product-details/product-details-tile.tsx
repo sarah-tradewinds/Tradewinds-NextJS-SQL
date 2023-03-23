@@ -4,9 +4,9 @@ import { useRouter } from 'next/router';
 // components
 import Button from 'components/common/form/button';
 import {
-	BUYER_DASHBOARD_ACTIONS,
-	BUYER_DASHBOARD_PAGES,
-	generateBuyerDashboardUrl
+  BUYER_DASHBOARD_ACTIONS,
+  BUYER_DASHBOARD_PAGES,
+  generateBuyerDashboardUrl
 } from 'data/buyer/buyer-actions';
 import { metadataList } from 'data/product-search/metadata-list';
 import { BiMessageAltDetail } from 'react-icons/bi';
@@ -22,9 +22,9 @@ import { useKeenSlider } from 'keen-slider/react';
 import { useTranslation } from 'next-i18next';
 import { Fragment, useState } from 'react';
 import {
-	MdBookmark,
-	MdOutlineBookmarkBorder,
-	MdOutlineShoppingCart
+  MdBookmark,
+  MdOutlineBookmarkBorder,
+  MdOutlineShoppingCart
 } from 'react-icons/md';
 import { getLocaleText } from 'utils/get_locale_text';
 import ImageContainer from './product-details-images/image-contaier';
@@ -43,6 +43,7 @@ const ProductDetailsTile: React.FC<{
 		onAddToCart,
 		selectedVariantId
 	} = props;
+
 	const [selected, setSelected] = useState<any>({});
 	const [selectedColor, setSelectedColor] = useState('');
 	const [sliderRef] = useKeenSlider<HTMLDivElement>({
@@ -65,21 +66,11 @@ const ProductDetailsTile: React.FC<{
 	const {
 		name,
 		description,
-		is_unlimited_quantity,
-		sale_price,
-		is_on_sale,
-		tags = [],
-		product_variants = [],
 		is_customizable,
 		is_live,
 		is_ready_to_ship,
-		is_verified,
 		is_eco,
 		seller_country = [],
-		size: sizes = [],
-		// material: materials = [],
-		// style: styles = [],
-		// title: titles = [],
 		total_rate_count = 0,
 		total_review_count = 0
 	} = product || {};
@@ -95,7 +86,7 @@ const ProductDetailsTile: React.FC<{
 	product?.edges?.product_variants?.forEach(
 		(variant: any, index: number) => {
 			if (index === 0) {
-				firstVariant = variant?.edges;
+				firstVariant = variant;
 				return;
 			}
 
@@ -148,6 +139,8 @@ const ProductDetailsTile: React.FC<{
 		bulk_pricing = [],
 		inventory = {}
 	} = firstVariant || {};
+
+	console.log('firstVariant ', firstVariant);
 
 	const productName = getLocaleText(name || {}, locale);
 
@@ -251,7 +244,7 @@ const ProductDetailsTile: React.FC<{
 				className={`!space-x-1 md:!space-x-4 ${
 					is_live ? 'cursor-pointer' : 'cursor-not-allowed'
 				}`}
-				// onClick={is_live ? onCartClick : undefined}
+				onClick={is_live ? onAddToCart : undefined}
 				titleClassName="md:text-cyan md:text-[13px] md:leading-4"
 			/>
 		</div>
@@ -308,7 +301,7 @@ const ProductDetailsTile: React.FC<{
 				{/* Price and quantity info */}
 				<div className="my-2 flex justify-between text-[12px] font-semibold text-primary-main md:mt-[13px]">
 					<h3 className="flex items-center space-x-8 text-xs font-semibold leading-[15px] md:text-[21px] md:leading-[26px]">
-						{is_on_sale && !is_bulk_pricing ? (
+						{firstVariant?.is_on_sale && !is_bulk_pricing ? (
 							<>
 								<span className="text-accent-error">
 									Sale {firstVariant?.sales_price}/piece

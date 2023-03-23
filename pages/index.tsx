@@ -234,18 +234,13 @@ export const getServerSideProps: GetServerSideProps = async ({
 		const homeMainCategoriesAndCategories =
 			await getHomeMainCategoriesAndCategories();
 
-		const dateE = new Date();
-		console.log(
-			'Home page = [getServerSideProps] data fetching ended',
-			dateE.toLocaleTimeString()
-		);
-
 		return {
 			props: {
 				...(await serverSideTranslations(locale || 'en')),
 
 				cardAList,
 				cardBData,
+				// homeMainCategoriesAndCategories: []
 				homeMainCategoriesAndCategories:
 					homeMainCategoriesAndCategories ?? {
 						cat_section: [],

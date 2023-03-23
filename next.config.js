@@ -18,7 +18,12 @@ const nextConfig = (phase) => {
 
 				API_BASE_URL:
 					// #DEV
-					'http://twsqlvm.eastus.cloudapp.azure.com:8080',
+					// 'http://twsqlvm.eastus.cloudapp.azure.com:8080',
+
+					// Pre-prod
+					// 'https://tradewinds-preprod-api.azure-api.net',
+					'https://tradewinds-sql-preprod-as.azurewebsites.net',
+
 				// #UAT
 				// 'https://tradewinds-uat-api.azure-api.net',
 
@@ -59,7 +64,11 @@ const nextConfig = (phase) => {
 			API_BASE_URL:
 				// #DEV
 				// 'http://twsqlvm.eastus.cloudapp.azure.com:8080',
+
+				// Pre-prod
+				// 'https://tradewinds-preprod-api.azure-api.net',
 				'https://tradewinds-sql-preprod-as.azurewebsites.net',
+
 			// #UAT
 			// 'https://tradewinds-uat-api.azure-api.net',
 			STRIPE_PUBLISHABLE_KEY:

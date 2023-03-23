@@ -62,6 +62,18 @@ export const useAuthStore = create<AuthState>((set) => ({
 		set({
 			isAuthenticating: true
 		});
+
+		const rawCustomerInfo = localStorage.getItem('customerData');
+
+		if (rawCustomerInfo) {
+			set({
+				isAuth: true,
+				customerData: JSON.parse(rawCustomerInfo),
+				isAuthenticating: false
+			});
+			return;
+		}
+
 		try {
 			const { customerData, isLoggedIn } =
 				(await autoLoginCustomer()) || {};
@@ -98,6 +110,8 @@ export const useAuthStore = create<AuthState>((set) => ({
 	},
 	logout: async () => {
 		await logoutCustomer();
+		localStorage.removeItem('customerData');
+		localStorage.removeItem('access_token');
 		set({
 			isAuth: false,
 			customerData: initialCustomerData

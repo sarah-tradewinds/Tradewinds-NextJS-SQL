@@ -53,11 +53,13 @@ const CartList: React.FC<CartListProps> = (props) => {
 					locale
 				);
 
-				console.log('cartProduct', cartProduct);
+				const productVariantId = cartProduct.productVariantId;
+
+				console.log('cartProduct', productVariantId, cartProduct);
 
 				return (
 					<div
-						key={cartProduct.productVariantId}
+						key={productVariantId}
 						className="border-b-gray/40 pb-4 odd:border-b"
 					>
 						<CartItem
@@ -94,14 +96,14 @@ const CartList: React.FC<CartListProps> = (props) => {
 							}
 							onUpdate={(quantity) =>
 								updateQuantityByProductVariantId(
-									cartProduct.productVariantId,
+									productVariantId,
 									quantity,
 									cartProduct
 								)
 							}
 							onRemove={() =>
 								removeProductByProductVariantIdFromCart(
-									cartProduct.productVariantId
+									productVariantId
 								)
 							}
 						/>

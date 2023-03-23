@@ -59,8 +59,6 @@ const ProductList: React.FC<ProductListProps> = ({
 	const addToCartHandler = async (product: any) => {
 		const productVariantId = product?.edges?.product_variants?.[0]?.id;
 		await addToCart(productVariantId, 1, product);
-		const minimumOrderQuantity =
-			product?.inventory?.minimum_order_quantity || 0;
 
 		// Sending request when buyer Id is available
 		if (!totalCartProductQuantity) {

@@ -99,7 +99,12 @@ export const useCartStore = create<CartState>((set) => ({
 					quantity
 				});
 
-				console.log('[addToCart] productPrice', productPrice);
+				console.log('[addToCart] productPrice', productPrice, {
+					bulkPrices: productVariant?.bulk_pricing || [],
+					price: productVariant?.retail_price || 0,
+					salePrice: productVariant?.sales_price || 0,
+					quantity
+				});
 
 				const productData = {
 					...productVariant,
@@ -182,22 +187,6 @@ export const useCartStore = create<CartState>((set) => ({
 							salePrice: productVariant?.sales_price || 0,
 							quantity: quantity
 						});
-						console.log(
-							productVariantId,
-							'productVariant =',
-							cartProduct,
-							productVariant
-						);
-						console.log(
-							{
-								bulkPrices: productVariant?.bulk_pricing || [],
-								price: productVariant?.retail_price || 0,
-								salePrice: productVariant?.sales_price || 0,
-								quantity: quantity
-							},
-							'[updateQuantityByProductVariantId] productPrice',
-							productPrice
-						);
 
 						cartProduct.quantity = quantity;
 						cartProduct.total = productPrice * quantity;
@@ -205,6 +194,11 @@ export const useCartStore = create<CartState>((set) => ({
 
 					return cartProduct;
 				}
+			);
+
+			console.log(
+				'[updateQuantityByProductVariantId] updatedCart =',
+				updatedCart
 			);
 
 			const { totalQuantity, subtotal } =
