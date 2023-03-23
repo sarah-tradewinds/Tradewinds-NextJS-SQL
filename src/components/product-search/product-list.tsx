@@ -224,7 +224,7 @@ const ProductList: React.FC<ProductListProps> = ({
 						variantCount:
 							productVariantLength > 1 ? productVariantLength - 1 : 0,
 						onMessageVendorClick: () => {
-							setSelectedSellerId(product?.seller_id?.id);
+							setSelectedSellerId(product?.seller_id);
 							setIsMessageVendorPopupOpen(true);
 						}
 					};
