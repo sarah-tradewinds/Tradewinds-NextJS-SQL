@@ -3,7 +3,10 @@ import ImageWithErrorHandler from 'components/common/elements/image-with-error-h
 import Button from 'components/common/form/button';
 import MessageVendorPopup from 'components/common/popup/message-vendor.popup';
 import { useKeenSlider } from 'keen-slider/react';
-import { sendMessageToSeller } from 'lib/common.lib';
+import {
+	createConversation,
+	sendMessageToSeller
+} from 'lib/common.lib';
 import {
 	getFeaturedProductsBySellerId,
 	getProductsWithCollectionBySellerId,
@@ -115,16 +118,12 @@ const CompanyProfileTab: React.FC<{
 						return;
 					}
 
-					const { user_id } = await getSellerStorefrontDetailsSellerId(
-						seller?.id
-					);
+					const conversationId = await createConversation(seller?.id);
+					if (!conversationId) {
+						return;
+					}
 
-					await sendMessageToSeller({
-						buyerEmail: customerData.tradewinds_email || '',
-						sellerEmail: user_id?.trade_winds_email || '',
-						message,
-						subject: `Message from ${customerData.name}`
-					});
+					await sendMessageToSeller(conversationId, message);
 
 					setIsMessageVendorPopupOpen(false);
 				}}
