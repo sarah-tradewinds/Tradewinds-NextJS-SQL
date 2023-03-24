@@ -110,6 +110,68 @@ const CartPage: NextPage = () => {
 
 	const totalCartItemCount = cartProducts?.length || 0;
 
+	// return (
+	// 	<Modal
+	// 		open={false}
+	// 		onClose={() => {}}
+	// 		overlayClassName="!bg-white top-[80px]"
+	// 		className={`${
+	// 			// isLoginOpen || isSignUpOpen ? '!z-[5]' : ''
+	// 			''
+	// 		} !top-[128px] w-full`}
+	// 	>
+	// 		<div className="mt-16 flex h-full items-center justify-center">
+	// 			<div className="space-y-4 md:w-1/3">
+	// 				<div className="grid grid-cols-12 ">
+	// 					<label className="col-span-4">Address Line 1</label>
+	// 					<Input />
+	// 				</div>
+
+	// 				<div className="grid grid-cols-12">
+	// 					<label className="col-span-4">Address Line 2</label>
+	// 					<Input />
+	// 				</div>
+	// 				<div className="grid grid-cols-12">
+	// 					<label className="col-span-4">Address Line 3</label>
+	// 					<Input />
+	// 				</div>
+	// 				<div className="grid grid-cols-12">
+	// 					<label className="col-span-4">Zipcode</label>
+	// 					<Input />
+	// 				</div>
+	// 				<div className="grid grid-cols-12">
+	// 					<label className="col-span-4">Country</label>
+	// 					<Input />
+	// 				</div>
+	// 				<div className="grid grid-cols-12">
+	// 					<label className="col-span-4">State</label>
+	// 					<Input />
+	// 				</div>
+	// 				<div className="grid grid-cols-12">
+	// 					<label className="col-span-4">City</label>
+	// 					<Input />
+	// 				</div>
+	// 				<div className="grid grid-cols-12">
+	// 					<div className="col-span-4">
+	// 						<Input type="checkbox" className="h-5 w-5" />
+	// 					</div>
+	// 					<label className="col-span-8">
+	// 						Is the Entered Address your Billing Address?
+	// 					</label>
+	// 				</div>
+	// 				<div className="grid grid-cols-12">
+	// 					<div className="col-span-4">
+	// 						<Input type="checkbox" className="h-5 w-5" />
+	// 					</div>
+	// 					<label className="col-span-8">
+	// 						Set Entered Address as Default Address?
+	// 					</label>
+	// 				</div>
+	// 			</div>
+	// 		</div>
+	// 	</Modal>
+	// );
+
 	if (totalCartItemCount === 0) {
 		return (
 			<div className="flex h-screen flex-col items-center justify-center">
