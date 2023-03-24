@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import ImageWithErrorHandler from '../elements/image-with-error-handler';
 
 interface LocationHolderProps {
@@ -23,7 +22,7 @@ const LocationHolder: React.FC<LocationHolderProps> = (props) => {
 				<div className="absolute left-1/2 -top-12 -translate-x-1/2 transform lg:-top-24">
 					{/* Inner box */}
 					<div className="relative h-[200px] w-[156px] md:h-[196px] md:w-[140px] lg:h-[300px] lg:w-[225px]">
-						<Image
+						<ImageWithErrorHandler
 							src="/static/images/search-by-country-images/shape.png"
 							alt={title}
 							fill={true}

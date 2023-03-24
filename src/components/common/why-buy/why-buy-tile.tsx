@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import ImageWithErrorHandler from '../elements/image-with-error-handler';
 
 interface WhyBuyTileProps {
 	imageUrl: string;
@@ -26,7 +26,11 @@ const WhyBuyTile: React.FC<WhyBuyTileProps> = (props) => {
 			className={`flex flex-col items-center text-white ${containerClassName}`}
 		>
 			<div className={`relative h-[110px] w-[110px] ${imageClassName}`}>
-				<Image src={imageUrl} alt={alt || title} fill={true} />
+				<ImageWithErrorHandler
+					src={imageUrl}
+					alt={alt || title}
+					fill={true}
+				/>
 			</div>
 			<div
 				className={`mt-3 space-y-1 text-center ${contentContainerClassName}`}

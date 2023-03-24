@@ -1,11 +1,11 @@
 import { GetStaticProps, NextPage } from 'next';
-import Image from 'next/image';
 
 // Third party packages
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // components
+import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import Button from 'components/common/form/button';
 import WhyUseRFQTile from 'components/common/rfq/why-use-rfq-tile';
 import Seo from 'components/common/seo';
@@ -21,14 +21,14 @@ const WhatIsRFQPage: NextPage = () => {
 				{/* Header */}
 				<div className="relative bg-[url('/static/images/RfqPageImages/rfq-header.png')]">
 					<div className="relative h-[300px] w-full md:h-[400px] lg:h-[673px]">
-						<Image
+						<ImageWithErrorHandler
 							src="/static/images/RfqPageImages/rfq-header.png"
 							alt=""
 							fill={true}
 						/>
 					</div>
 
-					<div className="absolute top-4 left-4 space-y-8 text-white md:top-8 md:left-8 md:w-4/6 lg:top-16 lg:left-16 lg:w-3/4 4k:left-1/2 4k:-translate-x-1/2">
+					<div className="4k:left-1/2 4k:-translate-x-1/2 absolute top-4 left-4 space-y-8 text-white md:top-8 md:left-8 md:w-4/6 lg:top-16 lg:left-16 lg:w-3/4">
 						<div>
 							<h1 className="text-[25px] font-semibold text-secondary md:text-[40px] lg:text-[96px] lg:leading-[117px]">
 								{t('one_request_multiple_quotes')}
@@ -129,7 +129,7 @@ const WhatIsRFQPage: NextPage = () => {
 					{/* RFQ Sending Process */}
 					<div className="flex bg-[url('/static/images/RfqPageImages/rfq-bg.png')]">
 						<div className="relative hidden lg:block lg:h-[600px] lg:w-[850px]">
-							<Image
+							<ImageWithErrorHandler
 								src="/static/images/RfqPageImages/rfq-main.png"
 								alt=""
 								fill={true}
@@ -138,7 +138,7 @@ const WhatIsRFQPage: NextPage = () => {
 						</div>
 
 						<div className="relative hidden md:block md:h-[824px] md:w-[100vw] lg:hidden">
-							<Image
+							<ImageWithErrorHandler
 								src="/static/images/RfqPageImages/rfq-main-tablet.png"
 								alt=""
 								fill={true}
@@ -226,7 +226,7 @@ const WhatIsRFQPage: NextPage = () => {
 					{/* Bottom section */}
 					<div className="flex flex-col bg-white bg-cover bg-no-repeat md:h-[480px] md:flex-row md:bg-[url('/static/images/RfqPageImages/stock.png')] lg:items-end">
 						<div className="relative h-[244px] md:hidden">
-							<Image
+							<ImageWithErrorHandler
 								src="/static/images/RfqPageImages/stock.png"
 								alt=""
 								fill={true}

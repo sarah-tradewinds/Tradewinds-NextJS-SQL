@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 // Third party packages
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import Button from 'components/common/form/button';
@@ -73,14 +71,14 @@ const CollectionSliderOld: React.FC<CollectionSliderOldProps> = (
 						{/* Icon or Image */}
 						<div className="flex space-x-2">
 							<div className="relative h-5 w-5">
-								<Image
+								<ImageWithErrorHandler
 									src="/static/images/TWSafety.png"
 									alt="Logo"
 									fill={true}
 								/>
 							</div>
 							<div className="relative h-5 w-5">
-								<Image
+								<ImageWithErrorHandler
 									src="/static/images/TWEco.png"
 									alt="Logo"
 									fill={true}

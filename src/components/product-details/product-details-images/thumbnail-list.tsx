@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import React from 'react';
 
 interface ThumbnailListProps {
@@ -16,7 +16,7 @@ const ThumbnailList: React.FC<ThumbnailListProps> = (props) => {
 					key={thumbnailImageUrl}
 					className="relative h-[136px] w-full"
 				>
-					<Image
+					<ImageWithErrorHandler
 						src={thumbnailImageUrl || '/loading-circle-50.png'}
 						alt={thumbnailImageUrl}
 						fill={true}

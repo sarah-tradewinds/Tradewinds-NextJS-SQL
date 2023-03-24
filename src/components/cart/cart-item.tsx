@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 import { metadataList } from 'data/product-search/metadata-list';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
@@ -156,14 +154,22 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 						<div className="mt-2 flex items-center justify-between p-2">
 							<div>
 								<div className="relative h-[10px] w-[63px]">
-									<Image src="/rating.png" alt="" fill={true} />
+									<ImageWithErrorHandler
+										src="/rating.png"
+										alt=""
+										fill={true}
+									/>
 								</div>
 								<p className="hidden text-center text-[13px] text-secondary md:block">
 									{totalReviewCount} {t('common:reviews')}
 								</p>
 							</div>
 							<div className="relative h-[19px] w-[30px]">
-								<Image src="/twmp-verified.png" alt="" fill={true} />
+								<ImageWithErrorHandler
+									src="/twmp-verified.png"
+									alt=""
+									fill={true}
+								/>
 							</div>
 						</div>
 					</div>
@@ -284,14 +290,22 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 				<div className="hidden items-center space-x-32 md:flex">
 					<div>
 						<div className="relative h-[13px] w-[80px] lg:h-[32px] lg:w-[132px]">
-							<Image src="/rating.png" alt="" fill={true} />
+							<ImageWithErrorHandler
+								src="/rating.png"
+								alt=""
+								fill={true}
+							/>
 						</div>
 						<p className="text-center text-[13px] text-secondary">
 							{totalReviewCount} {t('common:reviews')}
 						</p>
 					</div>
 					<div className="relative h-[55px] w-[85px]">
-						<Image src="/twmp-verified.png" alt="" fill={true} />
+						<ImageWithErrorHandler
+							src="/twmp-verified.png"
+							alt=""
+							fill={true}
+						/>
 					</div>
 				</div>
 			</div>

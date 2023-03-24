@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import ImageWithErrorHandler from '../elements/image-with-error-handler';
 
 interface WhyUseRFQTileProps {
 	imageUrl: string;
@@ -32,7 +32,11 @@ const WhyUseRFQTile: React.FC<WhyUseRFQTileProps> = (props) => {
 						: 'bg-accent-primary-main'
 				} p-4`}
 			>
-				<Image src={imageUrl} alt={alt || title} fill={true} />
+				<ImageWithErrorHandler
+					src={imageUrl}
+					alt={alt || title}
+					fill={true}
+				/>
 			</div>
 			<p
 				className={`mx-4 text-[18px] font-semibold ${

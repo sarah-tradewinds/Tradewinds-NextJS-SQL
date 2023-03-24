@@ -1,7 +1,5 @@
 import { Fragment, useEffect, useState } from 'react';
 
-import Image from 'next/image';
-
 // Third party packages
 import { HiSparkles } from 'react-icons/hi';
 
@@ -25,6 +23,7 @@ import { useGetCountries } from 'hooks/data-fetching/use-countries.hooks';
 import { userSignup } from 'lib/customer/auth.lib';
 import { useTranslation } from 'next-i18next';
 import { getLocaleText } from 'utils/get_locale_text';
+import ImageWithErrorHandler from '../elements/image-with-error-handler';
 
 const SignUp: React.FC = () => {
 	const BUTTON_SPINNER = buttonSpinner();
@@ -461,7 +460,7 @@ const SignUp: React.FC = () => {
 						{/* Logos */}
 						<div className="hidden w-full flex-col items-center justify-center lg:flex">
 							<div className="relative h-[260px] w-[260px]">
-								<Image
+								<ImageWithErrorHandler
 									src="/TW-Create an account page-02.png"
 									alt=""
 									fill={true}
@@ -470,7 +469,7 @@ const SignUp: React.FC = () => {
 							</div>
 
 							<div className="relative h-[260px] w-[260px]">
-								<Image
+								<ImageWithErrorHandler
 									src="/TW-Create an account page-03.png"
 									alt=""
 									fill={true}

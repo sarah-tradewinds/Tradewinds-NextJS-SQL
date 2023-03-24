@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 
 // components
@@ -218,7 +217,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 							<div className="relative h-full w-full md:mt-5 md:h-[97px] lg:mt-0 lg:h-full">
 								<ImageWithErrorHandler
 									src={imageUrl}
-									alt={alt}
+									alt={alt || ''}
 									fill={true}
 									className="object-contain"
 								/>
@@ -307,7 +306,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 										<div className="mt-2 flex h-full items-center md:mt-0 md:flex-col md:justify-end lg:flex lg:space-y-4">
 											{/* Verified Image */}
 											<div className="relative hidden h-[64px] w-[108px] md:block">
-												<Image
+												<ImageWithErrorHandler
 													src="/twmp-verified.png"
 													alt=""
 													fill={true}
@@ -333,7 +332,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 
 											<div className="ml-4 flex space-x-4 md:hidden">
 												<div className="relative h-[32px] w-[48px]">
-													<Image
+													<ImageWithErrorHandler
 														src="/twmp-verified.png"
 														alt=""
 														fill={true}
@@ -363,7 +362,11 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 							{/* Verified image container */}
 							<div className="hidden justify-self-end md:col-span-4 md:hidden lg:col-span-3">
 								<div className="relative h-[64px] w-[88px]">
-									<Image src="/twmp-verified.png" alt="" fill={true} />
+									<ImageWithErrorHandler
+										src="/twmp-verified.png"
+										alt=""
+										fill={true}
+									/>
 								</div>
 							</div>
 						</div>
@@ -382,7 +385,11 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 						<div className="mt-2 flex h-full md:mt-0 md:flex-col md:items-center md:justify-end lg:flex lg:space-y-4">
 							{/* Verified Image */}
 							<div className="relative hidden h-[64px] w-[108px] lg:block">
-								<Image src="/twmp-verified.png" alt="" fill={true} />
+								<ImageWithErrorHandler
+									src="/twmp-verified.png"
+									alt=""
+									fill={true}
+								/>
 							</div>
 
 							{/* Rating and reviews */}
@@ -410,7 +417,11 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 							<div className="ml-4 flex space-x-4 md:hidden">
 								{/* <div className="relative h-[32px] w-[48px]"> */}
 								<div className="relative h-[23px] w-[36px]">
-									<Image src="/twmp-verified.png" alt="" fill={true} />
+									<ImageWithErrorHandler
+										src="/twmp-verified.png"
+										alt=""
+										fill={true}
+									/>
 								</div>
 
 								<div className="flex items-start space-x-4 md:items-center">

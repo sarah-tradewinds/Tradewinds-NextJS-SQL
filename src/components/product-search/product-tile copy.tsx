@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 
 // components
@@ -251,12 +250,11 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 									</span>
 								</h2>
 							</Link>
-              {/* keywords */}
+							{/* keywords */}
 							<div className="flex justify-between font-semibold text-primary-main md:text-[12px] lg:text-[16px]">
-
-							<KeywordSlider keywords={keywords || []} />
+								<KeywordSlider keywords={keywords || []} />
 							</div>
-                <div className="flex justify-between font-semibold text-primary-main md:text-[12px] lg:text-[16px]">
+							<div className="flex justify-between font-semibold text-primary-main md:text-[12px] lg:text-[16px]">
 								{keywords.map((keyword) => (
 									<span key={keyword}>{keyword}</span>
 								))}
@@ -302,7 +300,11 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 							{/* Verified image container */}
 							<div className="hidden justify-self-end md:col-span-4 md:hidden lg:col-span-3">
 								<div className="relative h-[64px] w-[88px]">
-									<Image src="/twmp-verified.png" alt="" fill={true} />
+									<ImageWithErrorHandler
+										src="/twmp-verified.png"
+										alt=""
+										fill={true}
+									/>
 								</div>
 							</div>
 						</div>
@@ -313,7 +315,11 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 
 					<div className=" col-span-4 mt-4 hidden flex-col items-center justify-end md:flex lg:hidden">
 						<div className="relative h-[64px] w-[88px]">
-							<Image src="/twmp-verified.png" alt="" fill={true} />
+							<ImageWithErrorHandler
+								src="/twmp-verified.png"
+								alt=""
+								fill={true}
+							/>
 						</div>
 						<div className="w-[80px] lg:w-[132px]">
 							<RatingStars starNumber={5} className="text-secondary" />
@@ -333,7 +339,11 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 						<div className="mt-2 flex h-full items-center md:mt-0 md:flex-col md:justify-end lg:flex lg:space-y-4">
 							{/* Verified Image */}
 							<div className="relative hidden h-[64px] w-[108px] lg:block">
-								<Image src="/twmp-verified.png" alt="" fill={true} />
+								<ImageWithErrorHandler
+									src="/twmp-verified.png"
+									alt=""
+									fill={true}
+								/>
 							</div>
 
 							{/* Rating and reviews */}
@@ -355,7 +365,11 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 
 							<div className="ml-4 flex space-x-4 md:hidden">
 								<div className="relative h-[32px] w-[48px]">
-									<Image src="/twmp-verified.png" alt="" fill={true} />
+									<ImageWithErrorHandler
+										src="/twmp-verified.png"
+										alt=""
+										fill={true}
+									/>
 								</div>
 
 								<div className="flex space-x-4">

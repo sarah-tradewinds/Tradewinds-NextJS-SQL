@@ -1,11 +1,11 @@
 import { GetStaticProps, NextPage } from 'next';
-import Image from 'next/image';
 
 // Third party packages
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // components
+import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import Button from 'components/common/form/button';
 import Seo from 'components/common/seo';
 import {
@@ -28,7 +28,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 					<div className="absolute inset-0 z-[1] bg-black opacity-40"></div>
 
 					{/* content */}
-					<div className="absolute left-20 top-8 z-[50] text-white lg:top-32 lg:w-1/2 4k:left-1/2 4k:-translate-x-1/2">
+					<div className="4k:left-1/2 4k:-translate-x-1/2 absolute left-20 top-8 z-[50] text-white lg:top-32 lg:w-1/2">
 						<h1 className="text-[35px] font-semibold md:text-[40px] lg:text-[50px] ">
 							{t('why_sell_on_tradewinds_marketplace')}
 						</h1>
@@ -97,7 +97,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 									<div className="flex justify-between">
 										<div className="space-y-2 text-primary-main">
 											<div className="relative h-[95px] w-[119px]">
-												<Image
+												<ImageWithErrorHandler
 													src="/static/images/why-sell-on-tradewinds-images/non-member.png"
 													alt=""
 													fill={true}
@@ -109,7 +109,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 										</div>
 										<div className="space-y-2">
 											<div className="relative h-[95px] w-[119px]">
-												<Image
+												<ImageWithErrorHandler
 													src="/static/images/why-sell-on-tradewinds-images/twmp-member.png"
 													alt=""
 													fill={true}
@@ -129,7 +129,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 									<div className="flex justify-between">
 										<div className="space-y-2 text-primary-main">
 											<div className="relative h-[95px] w-[119px]">
-												<Image
+												<ImageWithErrorHandler
 													src="/static/images/why-sell-on-tradewinds-images/cart-non-member.png"
 													alt=""
 													fill={true}
@@ -141,7 +141,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 										</div>
 										<div className="space-y-2 text-primary-main">
 											<div className="relative h-[95px] w-[119px]">
-												<Image
+												<ImageWithErrorHandler
 													src="/static/images/why-sell-on-tradewinds-images/cart-twmp-member.png"
 													alt=""
 													fill={true}
@@ -165,7 +165,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 									<div className="flex justify-between">
 										<div className="space-y-2 text-primary-main">
 											<div className="relative h-[95px] w-[119px]">
-												<Image
+												<ImageWithErrorHandler
 													src="/static/images/why-sell-on-tradewinds-images/dollar-non-member.png"
 													alt=""
 													fill={true}
@@ -177,7 +177,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 										</div>
 										<div className="space-y-2 text-primary-main">
 											<div className="relative h-[95px] w-[119px]">
-												<Image
+												<ImageWithErrorHandler
 													src="/static/images/why-sell-on-tradewinds-images/dollar-twmp-member.png"
 													alt=""
 													fill={true}
@@ -193,7 +193,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 							{/* Images for medium and large screen */}
 							<div className="hidden flex-col items-center space-y-4 md:flex">
 								<div className="relative h-[174px] md:w-[431px] lg:w-[812px]">
-									<Image
+									<ImageWithErrorHandler
 										src="/static/images/why-sell-on-tradewinds-images/5x-traffic.png"
 										alt=""
 										fill={true}
@@ -201,14 +201,14 @@ const WhySellOnTradewindsPage: NextPage = () => {
 								</div>
 								<div className="flex space-x-4">
 									<div className="relative h-[174px] md:w-[361px] lg:w-[690px]">
-										<Image
+										<ImageWithErrorHandler
 											src="/static/images/why-sell-on-tradewinds-images/6x-purchasing-exposure.png"
 											alt=""
 											fill={true}
 										/>
 									</div>
 									<div className="relative h-[174px]  md:w-[361px] lg:w-[690px]">
-										<Image
+										<ImageWithErrorHandler
 											src="/static/images/why-sell-on-tradewinds-images/website-cost.png"
 											alt=""
 											fill={true}
@@ -244,7 +244,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 									</div>
 									<div className="flex flex-col items-center text-center">
 										<div className="relative h-[95px] w-[147px] md:h-[55px] md:w-[85px] lg:h-[95px] lg:w-[147px]">
-											<Image
+											<ImageWithErrorHandler
 												src="/static/images/why-sell-on-tradewinds-images/diversity.png"
 												alt=""
 												fill={true}
@@ -261,7 +261,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 									</div>
 									<div className="flex flex-col items-center text-center">
 										<div className="relative h-[107px] w-[107px] md:h-[52px] md:w-[52px] lg:h-[107px] lg:w-[107px]">
-											<Image
+											<ImageWithErrorHandler
 												src="/static/images/why-sell-on-tradewinds-images/free-trade.png"
 												alt=""
 												fill={true}

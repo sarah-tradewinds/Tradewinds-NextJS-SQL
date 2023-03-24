@@ -8,7 +8,6 @@ import ImageWithErrorHandler from 'components/common/elements/image-with-error-h
 import RatingStars from 'components/product-details/product-details-tab/product-review/rating-stars';
 import { metadataList } from 'data/product-search/metadata-list';
 import { useTranslation } from 'next-i18next';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import {
 	MdBookmark,
@@ -238,7 +237,11 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 					/>
 				</div>
 				<div className="relative h-[23px] w-[36px]">
-					<Image src="/twmp-verified.png" alt="" fill={true} />
+					<ImageWithErrorHandler
+						src="/twmp-verified.png"
+						alt=""
+						fill={true}
+					/>
 				</div>
 				{metadataTileList[2]}
 				{metadataTileList[3]}

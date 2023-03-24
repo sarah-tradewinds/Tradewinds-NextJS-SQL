@@ -13,7 +13,6 @@ import {
 	getSellerStorefrontDetailsSellerId
 } from 'lib/product-details.lib';
 import { useTranslation } from 'next-i18next';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import {
@@ -233,7 +232,7 @@ const CompanyProfileTab: React.FC<{
 										<div className="hidden sm:col-span-4 md:flex">
 											<div className="flex justify-end ">
 												<div className="relative mr-4 h-[72px] w-[120px] md:m-8">
-													<Image
+													<ImageWithErrorHandler
 														src="/twmp-verified.png"
 														alt=""
 														fill={true}

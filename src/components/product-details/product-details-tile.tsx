@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 // components
@@ -18,6 +17,7 @@ import RatingStars from './product-details-tab/product-review/rating-stars';
 // utils
 import { Listbox, Transition } from '@headlessui/react';
 import { ChevronUpDownIcon } from '@heroicons/react/20/solid';
+import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import MessageVendorPopup from 'components/common/popup/message-vendor.popup';
 import { useKeenSlider } from 'keen-slider/react';
 import {
@@ -388,7 +388,7 @@ const ProductDetailsTile: React.FC<{
 
 						{/* {!is_verified && ( */}
 						<div className="relative h-[30px] w-[162px]">
-							<Image
+							<ImageWithErrorHandler
 								src="/tradewinds-horizontal-logo.png"
 								alt=""
 								fill={true}
@@ -398,7 +398,7 @@ const ProductDetailsTile: React.FC<{
 
 						{is_eco && (
 							<div className="ml-20 flex items-center space-x-2">
-								<Image
+								<ImageWithErrorHandler
 									src="/static/icons/eco-icon.png"
 									alt="Eco icon"
 									width={40}

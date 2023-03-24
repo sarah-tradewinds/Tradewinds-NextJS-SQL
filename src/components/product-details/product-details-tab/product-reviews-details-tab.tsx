@@ -1,7 +1,7 @@
+import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import Button from 'components/common/form/button';
 import { canCustomerGiveReviewOnThisProduct } from 'lib/product-details.lib';
 import { useTranslation } from 'next-i18next';
-import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { useAuthStore } from 'store/auth';
 import { Modal } from '../../common/modal/modal';
@@ -138,7 +138,11 @@ const ProductReviewsDetailsTab: React.FC<{
 						{t('common:reviews')}
 					</h2>
 					<div className="relative hidden h-[24px] w-[124px] md:block">
-						<Image src="/rating.png" alt="" fill={true} />
+						<ImageWithErrorHandler
+							src="/rating.png"
+							alt=""
+							fill={true}
+						/>
 					</div>
 					<p className="hidden text-[13px] text-secondary md:block">
 						{reviewAnalytics.total_review} {t('common:reviews')}

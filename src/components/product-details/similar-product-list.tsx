@@ -1,5 +1,5 @@
+import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import { useKeenSlider } from 'keen-slider/react';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
@@ -60,7 +60,7 @@ const SimilarProductList: React.FC<SimilarProductListProps> = (
 						>
 							<div className="h-[274px] w-[298px]">
 								<div className="relative h-[205px] w-[240px]">
-									<Image
+									<ImageWithErrorHandler
 										src={
 											similarProduct?.edges?.product_variants
 												?.images?.[0] || '/loading-circle-50.png'

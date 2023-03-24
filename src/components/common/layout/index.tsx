@@ -18,7 +18,6 @@ import {
 	generateBuyerDashboardUrl
 } from 'data/buyer/buyer-actions';
 import useRouteEvent from 'hooks/use-route-event.hooks';
-import Image from 'next/image';
 import { useEffect } from 'react';
 import { IoSpeedometerOutline } from 'react-icons/io5';
 import { MdOutlineMessage, MdPerson } from 'react-icons/md';
@@ -32,6 +31,7 @@ import { useAuthStore } from 'store/auth';
 import { useCartStore } from 'store/cart-store';
 import { useHomeStore } from 'store/home';
 import { getLocaleText } from 'utils/get_locale_text';
+import ImageWithErrorHandler from '../elements/image-with-error-handler';
 import Loader from '../elements/loader/loader';
 import Button from '../form/button';
 import Seo from '../seo';
@@ -126,7 +126,7 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 						<div className="flex items-center space-x-4">
 							{/* Home Icon */}
 							<Link href="/" className="ml-4">
-								<Image
+								<ImageWithErrorHandler
 									src="/static/icons/home-icon.png"
 									alt="home icon"
 									width={29}
@@ -140,7 +140,7 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 							</Link>
 
 							{route === '/product-search' && (
-								<Image
+								<ImageWithErrorHandler
 									src="/static/icons/product-filter-icon.png"
 									alt="product filter icon"
 									width={24.72}
@@ -180,7 +180,7 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 									className="mr-2 h-[51px] w-[58px] flex-col rounded-none !p-0 !text-white"
 								>
 									<div className="relative hidden h-[48px] w-[35px]">
-										<Image
+										<ImageWithErrorHandler
 											src="/static/icons/dashboard-icon.png"
 											alt=""
 											width={32}

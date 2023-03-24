@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 
 interface VerifiedAndRatingProps {
 	isVerified?: boolean;
@@ -14,11 +14,19 @@ const VerifiedAndRating: React.FC<VerifiedAndRatingProps> = (props) => {
 		<div>
 			<div className="mt-6 flex flex-col items-center justify-center space-y-4">
 				<div className="relative h-[88px] w-[132px]">
-					<Image src="/twmp-verified.png" alt="" fill={true} />
+					<ImageWithErrorHandler
+						src="/twmp-verified.png"
+						alt=""
+						fill={true}
+					/>
 				</div>
 				<div>
 					<div className="relative h-[32px] w-[132px]">
-						<Image src="/rating.png" alt="" fill={true} />
+						<ImageWithErrorHandler
+							src="/rating.png"
+							alt=""
+							fill={true}
+						/>
 					</div>
 					<p className="text-center text-[13px] text-secondary">
 						{totalReviewCount} Reviews

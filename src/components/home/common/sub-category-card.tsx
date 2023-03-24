@@ -1,5 +1,4 @@
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { SubCategoryType } from 'types/home';
 import { getLocaleText } from 'utils/get_locale_text';
@@ -61,7 +60,7 @@ const SubCategoryCard = ({
 				{/* Icon or Image */}
 				<div className="hidden gap-2 md:flex">
 					<div className="relative h-5 w-5 lg:h-[22px] lg:w-[21.08px]">
-						<Image
+						<ImageWithErrorHandler
 							src="/static/images/TWSafety.png"
 							alt="Logo"
 							fill={true}
@@ -69,7 +68,7 @@ const SubCategoryCard = ({
 					</div>
 					{subCat.is_eco && (
 						<div className="relative h-5 w-5 lg:h-[22px] lg:w-[23px]">
-							<Image
+							<ImageWithErrorHandler
 								src="/static/images/TWEco.png"
 								alt="Logo"
 								fill={true}

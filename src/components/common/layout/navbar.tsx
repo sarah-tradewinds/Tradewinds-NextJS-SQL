@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -36,6 +35,7 @@ import { useCartStore } from 'store/cart-store';
 import { useCountriesStore } from 'store/countries-store';
 import { useCategoryStore } from 'store/eco/category-store';
 import { useHomeStore } from 'store/home';
+import ImageWithErrorHandler from '../elements/image-with-error-handler';
 
 const Header = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -227,7 +227,7 @@ const Header = () => {
 							<Link href="/">
 								{/* For mobile and medium*/}
 								<div className="relative hidden h-full w-full md:block lg:hidden">
-									<Image
+									<ImageWithErrorHandler
 										src="/tradewind-logo.png"
 										alt="Logo"
 										fill={true}
@@ -242,7 +242,7 @@ const Header = () => {
 
 								{/* For desktop */}
 								<div className="md:hidden lg:block">
-									<Image
+									<ImageWithErrorHandler
 										src="/static/images/tradewinds_logo.png"
 										alt="Logo"
 										fill={true}
@@ -311,7 +311,7 @@ const Header = () => {
 										}
 									}}
 								>
-									<Image
+									<ImageWithErrorHandler
 										src="/static/images/eco_logo.png"
 										alt="EcoLogo"
 										width={20}

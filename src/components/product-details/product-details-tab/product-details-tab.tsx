@@ -1,5 +1,5 @@
+import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import { useTranslation } from 'next-i18next';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { getLocaleText } from 'utils/get_locale_text';
 
@@ -121,7 +121,7 @@ const ProductDetailsTab: React.FC<{
 							<span className="text-gray md:w-[200px] md:font-semibold">
 								ECO:
 							</span>
-							<Image
+							<ImageWithErrorHandler
 								src="/static/icons/eco-icon.png"
 								alt="eco icon"
 								width={40}
@@ -191,7 +191,7 @@ const ProductDetailsTab: React.FC<{
 												{certificate?.name}:
 											</span>
 											<div className="relative h-[30px] w-[162px]">
-												<Image
+												<ImageWithErrorHandler
 													src="/tradewinds-horizontal-logo.png"
 													alt=""
 													fill={true}

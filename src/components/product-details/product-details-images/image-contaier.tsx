@@ -1,5 +1,4 @@
 import { useKeenSlider } from 'keen-slider/react';
-import Image from 'next/image';
 import { MdOutlineClose } from 'react-icons/md';
 import ThumbnailList from './thumbnail-list';
 
@@ -54,7 +53,7 @@ const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 					{thumbnails.map((thumbnailImageUrl) => (
 						<div key={thumbnailImageUrl} className="keen-slider__slide">
 							<div className="relative h-[136px] w-full md:!h-[89.64px] md:!w-[136.82px] lg:!h-[136px] lg:!w-[206px]">
-								<Image
+								<ImageWithErrorHandler
 									src={
 										thumbnailImageUrl ||
 										'/static/images/coming-soon.png'

@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import ImageWithErrorHandler from '../elements/image-with-error-handler';
 
 interface WhyBuyOperationProps {
 	imageUrl: string;
@@ -31,7 +31,11 @@ export const WhyBuyOperationTile: React.FC<WhyBuyOperationProps> = ({
 					<div
 						className={`relative md:h-[400px] md:w-[300px] lg:h-[380px] lg:w-[601px] ${imageClassName}`}
 					>
-						<Image src={imageUrl} alt={alt || title} fill={true} />
+						<ImageWithErrorHandler
+							src={imageUrl}
+							alt={alt || title}
+							fill={true}
+						/>
 					</div>
 				</div>
 
@@ -81,7 +85,7 @@ export const WhyBuyOperationSubTile: React.FC<{
 				<div
 					className={`relative mr-8 h-[30px] w-[34px] ${imgClassName}`}
 				>
-					<Image
+					<ImageWithErrorHandler
 						src={imageUrl}
 						alt={alt || title}
 						fill={true}

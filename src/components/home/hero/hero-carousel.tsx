@@ -1,5 +1,5 @@
+import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import Button from 'components/common/form/button';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Slider from 'react-slick';
@@ -32,9 +32,9 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 				>
 					<Link href={item.link ?? '/'}>
 						<div className="relative h-full w-full">
-							<Image
+							<ImageWithErrorHandler
 								src={item.image}
-								alt={item.order?.toString()}
+								alt={item.title?.en || item.order?.toString()}
 								fill={true}
 							/>
 						</div>
