@@ -35,7 +35,7 @@ const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 					<ImageWithErrorHandler
 						key={imageUrl}
 						src={imageUrl}
-						alt={alt}
+						alt={alt || ''}
 						fill={true}
 					/>
 				</div>

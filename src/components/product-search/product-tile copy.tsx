@@ -211,7 +211,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 							<div className="relative h-full w-full">
 								<ImageWithErrorHandler
 									src={imageUrl}
-									alt={alt}
+									alt={alt || ''}
 									fill={true}
 									className="object-contain"
 								/>

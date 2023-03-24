@@ -35,7 +35,7 @@ const SubCategoryTile: React.FC<SubCategoryTileProps> = ({
 					>
 						<ImageWithErrorHandler
 							src={imageUrl}
-							alt={alt}
+							alt={alt || ''}
 							fill={true}
 						/>
 					</div>

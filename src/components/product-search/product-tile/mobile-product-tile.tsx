@@ -164,7 +164,7 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 						<div className="relative h-full w-full md:mt-5 md:h-[97px] lg:mt-0 lg:h-full">
 							<ImageWithErrorHandler
 								src={imageUrl}
-								alt={alt}
+								alt={alt || ''}
 								fill={true}
 								className="object-contain"
 							/>

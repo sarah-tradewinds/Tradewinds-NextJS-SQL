@@ -77,7 +77,7 @@ const CompareProductTile: React.FC<CompareProductTileProps> = (
 							<div className="relative h-[202px] w-[240px]">
 								<ImageWithErrorHandler
 									src={image.url || ''}
-									alt={alt}
+									alt={alt || ''}
 									fill={true}
 								/>
 							</div>
@@ -85,7 +85,11 @@ const CompareProductTile: React.FC<CompareProductTileProps> = (
 					))}
 					{(!images || images?.length === 0) && (
 						<div className="relative h-[202px] w-[240px]">
-							<ImageWithErrorHandler src={''} alt={alt} fill={true} />
+							<ImageWithErrorHandler
+								src={''}
+								alt={alt || ''}
+								fill={true}
+							/>
 						</div>
 					)}
 				</div>

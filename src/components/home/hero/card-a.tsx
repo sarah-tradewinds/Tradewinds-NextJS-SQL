@@ -28,7 +28,7 @@ const CardA: React.FC<CardAProps> = (props) => {
 			<div className="relative mt-1 h-[86px] w-[180px] overflow-hidden md:ml-[11.14px]  md:mr-[11.45px] md:mt-[3.19px] md:block md:h-[109.63px] md:w-[203.41px] lg:mx-[23px] lg:mt-[15px] lg:h-[201px] lg:w-[420px]">
 				<ImageWithErrorHandler
 					src={imageUrl}
-					alt={alt}
+					alt={alt || ''}
 					fill={true}
 					// className="object-cover"
 				/>

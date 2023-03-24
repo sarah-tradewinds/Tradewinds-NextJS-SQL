@@ -35,7 +35,7 @@ const CardB: React.FC<CardBProps> = (props) => {
 					<div className="relative md:ml-[9.48px] md:h-[52.66px] md:w-[60px] lg:mt-[10px] lg:ml-[21px] lg:h-[129.2px] lg:w-[147.2px] ">
 						<ImageWithErrorHandler
 							src={imageUrl}
-							alt={alt}
+							alt={alt || ''}
 							fill={true}
 						/>
 					</div>

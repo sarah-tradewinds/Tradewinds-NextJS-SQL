@@ -25,10 +25,14 @@ const CompareProductTile: React.FC<CompareProductTileProps> = (
 
 	return (
 		<div
-			className={`relative flex items-center space-x-2  bg-white md:p-2 lg:w-[180px] xl:w-[240px] 2xl:w-[250px] ${className}`}
+			className={`xl:w-[240px] 2xl:w-[250px] relative flex  items-center space-x-2 bg-white md:p-2 lg:w-[180px] ${className}`}
 		>
 			<div className="relative h-[65px] w-[65px] lg:h-[44px] lg:w-[65px]">
-				<ImageWithErrorHandler src={imageUrl} alt={alt} fill={true} />
+				<ImageWithErrorHandler
+					src={imageUrl}
+					alt={alt || ''}
+					fill={true}
+				/>
 			</div>
 
 			{/* Content */}
