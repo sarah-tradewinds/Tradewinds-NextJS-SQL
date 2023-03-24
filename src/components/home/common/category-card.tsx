@@ -75,7 +75,7 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 						<div className="relative h-[60px] w-[60px] md:h-[100px] md:w-[100px] lg:h-[250px] lg:w-[250px]">
 							<ImageWithErrorHandler
 								src={imageUrl}
-								alt={alt || slug}
+								alt={alt || slug || ''}
 								fill={true}
 							/>
 						</div>

@@ -15,7 +15,8 @@ const AddressList: React.FC<AddressListProps> = (props) => {
 	return (
 		<div className="xl:grid-cols-4 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
 			{addresses?.map((address) => {
-				const { isSelected, zip } = address;
+				const { isSelected } = address;
+				console.log('address', address);
 
 				return (
 					<AddressTile
@@ -39,7 +40,7 @@ const AddressList: React.FC<AddressListProps> = (props) => {
 							address?.edges?.state?.name || {},
 							router.locale
 						)}
-						zipCode={zip}
+						zipCode={address?.postal_code?.toString() || ''}
 						country={getLocaleText(
 							address?.edges?.country?.name || {},
 							router.locale

@@ -35,7 +35,7 @@ const AddressModal: React.FC<ModalProps> = (props) => {
 	}, [open]);
 
 	useEffect(() => {
-		getAddresses(buyerId, 'shipping').then((addresses) =>
+		getAddresses(buyerId).then((addresses) =>
 			setShippingAddresses(addresses)
 		);
 

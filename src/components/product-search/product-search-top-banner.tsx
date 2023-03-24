@@ -30,7 +30,7 @@ const ProductSearchTopBanner: React.FC<ProductSearchTopBannerProps> = (
 			<ImageWithErrorHandler
 				key={imageUrl}
 				src={imageUrl}
-				alt={text}
+				alt={text || ''}
 				fill={true}
 				className={`${
 					imageUrl === '/coming-soon.png' ? 'object-contain' : ''
