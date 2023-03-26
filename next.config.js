@@ -15,7 +15,7 @@ const nextConfig = (phase) => {
 					// 'https://tradewinds-dev-public.s3.us-east-2.amazonaws.com/index.html#',
 
 					// Pre-prod
-					'https://tradewindsmppreprodshoppingsite.azurewebsites.net',
+					'https://white-ocean-019fe600f.2.azurestaticapps.net/#',
 
 				// API_BASE_URL:
 				//  'https://tradewinds-dev.eastus.cloudapp.azure.com',
@@ -64,7 +64,7 @@ const nextConfig = (phase) => {
 				// 'www.tradewindsdev.com',
 
 				// Pre-prod
-				'https://tradewindsmppreprodshoppingsite.azurewebsites.net',
+				'https://white-ocean-019fe600f.2.azurestaticapps.net/#',
 
 			// #UAT
 			// 'https://www.tradewindsqa.com/#',
