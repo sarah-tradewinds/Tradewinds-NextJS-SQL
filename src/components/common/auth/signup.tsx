@@ -274,9 +274,10 @@ const SignUp: React.FC = () => {
 										}
 									/> */}
 									<CountryDropdown
-										onSelect={(country) =>
-											onChange('country_id', country?.id)
-										}
+										onSelect={(country) => {
+											onChange('country_id', country?.id);
+											onChange('phone_code', country?.phone_code);
+										}}
 									/>
 									{error?.country && (
 										<span className={`text-[12px] text-[red]`}>
@@ -305,12 +306,12 @@ const SignUp: React.FC = () => {
 										</span>
 									)}
 									<div className="flex">
-										<CountryCodeDropdown />
-										{/* <PhoneInput
-											defaultCountry="RU"
-											// value={value}
-											onChange={console.log}
-										/> */}
+										<CountryCodeDropdown
+											selectedCountryId={signupData?.country_id}
+											onSelect={(country) =>
+												onChange('phone_code', country?.phone_code)
+											}
+										/>
 										<Input
 											name="phone_number"
 											type="number"
@@ -625,22 +626,34 @@ const CountryDropdown = (props: { onSelect?: (data: any) => void }) => {
 };
 
 const CountryCodeDropdown = (props: {
+	selectedCountryId?: string;
 	onSelect?: (data: any) => void;
 }) => {
-	const { onSelect } = props;
+	const { onSelect, selectedCountryId } = props;
 	const [selected, setSelected] = useState<any>({});
 	const { locale } = useRouter();
 
 	const { countries = [] } = useGetCountries();
+	console.log('countriesCode', selected);
 
 	useEffect(() => {
 		if (countries?.length > 0) {
-			setSelected(countries[0]);
+			setSelected(
+				countries?.find(
+					(country: any) => country?.id === selectedCountryId
+				) || countries?.[0]
+			);
 		}
-	}, [countries]);
+	}, [countries, selectedCountryId]);
 
 	return (
-		<Listbox value={selected} onChange={setSelected}>
+		<Listbox
+			value={selected}
+			onChange={(country) => {
+				setSelected(country);
+				onSelect?.(country);
+			}}
+		>
 			<div className="relative">
 				<Listbox.Button className="relative flex h-full w-14 items-center rounded-l-md border border-r-0 border-accent-primary-main">
 					<span className="block truncate pl-1">

@@ -34,13 +34,10 @@ const CardA: React.FC<CardAProps> = (props) => {
 				/>
 			</div>
 			<p className="font-mont text-xs capitalize leading-[15px] text-gray md:ml-[10.17px] md:mr-[14.36px] md:mt-[9.09px] md:text-[16px]  md:leading-5 lg:mx-[21px] lg:mt-[15px] lg:text-lg lg:leading-[22px]">
-				<span className="font-mont font-bold text-primary-main dark:text-accent-secondary-eco">
-					{/* {name} */}
-					Name Here
-				</span>
-				Lorem ipsum dolor sit amet, consecamet Lorem ipsum dolor sit
-				amet,
-				{/* &nbsp; {subtitle}, */}
+				{/* <span className="font-mont font-bold text-primary-main dark:text-accent-secondary-eco">
+					{name}
+				</span> */}
+				&nbsp; {subtitle},
 			</p>
 		</Link>
 	);
