@@ -15,3 +15,27 @@ export const useGetCountries = () => {
 		error
 	};
 };
+
+export const useGetStateByCountryId = (countryId: string) => {
+	const endpoint = `cms/state/country/${countryId}?limit=100000`;
+	return useSWR(endpoint, async () => {
+		try {
+			const { data } = await axiosInstance.get(endpoint);
+			return data?.data || [];
+		} catch (error) {
+			return [];
+		}
+	});
+}; // End of useGetStateByCountryId
+
+export const useGetCityByStateId = (stateId: string) => {
+	const endpoint = `cms/city/state/${stateId}?limit=100000`;
+	return useSWR(endpoint, async () => {
+		try {
+			const { data } = await axiosInstance.get(endpoint);
+			return data?.data || [];
+		} catch (error) {
+			return [];
+		}
+	});
+}; // End of useGetCityByStateId
