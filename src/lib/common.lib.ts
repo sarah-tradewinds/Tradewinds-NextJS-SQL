@@ -92,14 +92,13 @@ export const getCountryById = async (countryId: string) => {
 export const getSearchSuggestions = async (searchText: string) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/product/global/search?query=${searchText}`
+			`/product/global-search?search_query=${searchText}&lang=en`
 		);
 
 		return data.data || [];
 	} catch (error) {
 		console.log('[getSearchSuggestions] =', error);
 		const { data } = (error as any).response || {};
-		// throw Error(data || 'Error occurred getSearchSuggestions');
 		return [];
 	}
 }; // End of getSearchSuggestions function
