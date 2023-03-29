@@ -43,7 +43,9 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 
 	// Fetching Hero carousel
 	const { data: heroCarousels = [], error: heroCarouselsError } =
-		useSWR('/carousel/getallcarousel', getHeroCarousels);
+		useSWR(`/carousel/getallcarousel?is_eco=${true}`, () =>
+			getHeroCarousels(true)
+		);
 
 	// Fetching Advertisement
 	const { data: homeAdvertisements = [], error } = useSWR(
@@ -184,8 +186,8 @@ export const getServerSideProps: GetServerSideProps = async ({
 	locale
 }) => {
 	try {
-		const cardAList = await getCardAList();
-		const cardBData = await getCardB();
+		const cardAList = await getCardAList(true);
+		const cardBData = await getCardB(true);
 		const ecoHomeMainCategoriesAndCategories =
 			await getEcoHomeMainCategoriesAndCategories();
 

@@ -36,7 +36,8 @@ module.exports = {
 			cyan: '#33A7DF',
 
 			// Onetime Colors
-			'agri-main': '#C4CE7F'
+			'agri-main': '#C4CE7F',
+			'eco-header-bar': '#EDD3A9'
 		},
 		screens: {
 			// sm: '640px',

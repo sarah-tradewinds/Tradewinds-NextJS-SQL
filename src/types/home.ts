@@ -9,7 +9,9 @@ type HeroCarouselType = {
 	description?: any;
 	action?: any;
 	btn_text?: string;
-	carousel_text_color?: string;
+	color?: string;
+	horizonatal_alignment?: string;
+	vertical_alignment?: string;
 };
 
 type EcoCarouselType = {
@@ -51,8 +53,8 @@ type testTType = {
 };
 
 export type {
-	HeroCarouselType,
-	EcoCarouselType,
 	CatSubCatSectionType,
+	EcoCarouselType,
+	HeroCarouselType,
 	subCategories as SubCategoryType
 };

@@ -1,8 +1,10 @@
 import { axiosInstance } from 'utils/axios-instance.utils';
 
-export const getHeroCarousels = async () => {
+export const getHeroCarousels = async (isEco?: boolean) => {
 	try {
-		const { data } = await axiosInstance.get('/cms/carousel');
+		const { data } = await axiosInstance.get(
+			`/cms/carousel?is_eco=${isEco || false}`
+		);
 		return data.data || [];
 	} catch (error) {
 		console.log('[getHeroCarousels] =', error);
@@ -12,9 +14,11 @@ export const getHeroCarousels = async () => {
 	}
 }; // End of getHeroCarousels function
 
-export const getCardAList = async () => {
+export const getCardAList = async (isEco?: boolean) => {
 	try {
-		const { data } = await axiosInstance.get('/cms/cardA');
+		const { data } = await axiosInstance.get(
+			`/cms/cardA?is_eco=${isEco || false}`
+		);
 
 		return data.data || [];
 	} catch (error) {
@@ -25,9 +29,11 @@ export const getCardAList = async () => {
 	}
 }; // End of getCardAList function
 
-export const getCardB = async () => {
+export const getCardB = async (isEco?: boolean) => {
 	try {
-		const { data } = await axiosInstance.get('/cms/cardB');
+		const { data } = await axiosInstance.get(
+			`/cms/cardB?is_eco=${isEco || false}`
+		);
 
 		return data?.data?.[0] || {};
 	} catch (error) {
