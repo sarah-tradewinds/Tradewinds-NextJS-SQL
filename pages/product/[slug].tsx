@@ -195,7 +195,7 @@ const ProductDetailsPage: NextPage<
 			/>
 
 			{/* Tabs */}
-			<div className="">
+			<div className="-ml-[33px]">
 				<ProductDetailsTabContainer
 					product={productData}
 					reviews={productReviewList || []}
