@@ -56,7 +56,9 @@
     "yes": "OUI",
     "featured_product": "Produit en vedette",
     "or": "ou",
-    "product_certifications": "Certificats de produit"
+    "product_certifications": "Certificats de produit",
+    "company_images": "Images de l'entreprise",
+    "company_video": "vidéo d'entreprise"
 
 
 }
