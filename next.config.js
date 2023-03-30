@@ -11,25 +11,12 @@ const nextConfig = (phase) => {
 			reactStrictMode: true,
 			env: {
 				SITE_URL: 'http://localhost:3000',
-				BUYER_DASHBOARD_SITE_URL:
-					// 'https://tradewinds-dev-public.s3.us-east-2.amazonaws.com/index.html#',
 
-					// Pre-prod
+				BUYER_DASHBOARD_SITE_URL:
 					'https://white-ocean-019fe600f.2.azurestaticapps.net/#',
 
-				// API_BASE_URL:
-				//  'https://tradewinds-dev.eastus.cloudapp.azure.com',
-
 				API_BASE_URL:
-					// #DEV
-					// 'http://twsqlvm.eastus.cloudapp.azure.com:8080',
-
-					// Pre-prod
-					// 'https://tradewinds-preprod-api.azure-api.net',
 					'https://tradewinds-sql-preprod-as.azurewebsites.net',
-
-				// #UAT
-				// 'https://tradewinds-uat-api.azure-api.net',
 
 				STRIPE_PUBLISHABLE_KEY:
 					'pk_test_51JAhKFCQTcpcYTusSG85R25JWHRXIbw9mg6bn2mJAIncKhAhXpxvAemulgavKUw0iv4J1ygM6zSWGbthNAMWGftk00Jzzmiqcs'
@@ -52,33 +39,14 @@ const nextConfig = (phase) => {
 		i18n,
 		reactStrictMode: true,
 		env: {
-			// SITE_URL: 'https://dev-tradewinds.vercel.app',
-			// #DEV
-			// SITE_URL: 'https://tradewindsmpshoppingsite.azurewebsites.net',
-			// #UAT
-			SITE_URL: 'https://tradewindsmpuatshoppingsite.azurewebsites.net',
+			SITE_URL: 'https://white-ocean-019fe600f.2.azurestaticapps.net/#',
 
 			BUYER_DASHBOARD_SITE_URL:
-				// 'https://tradewinds-dev-public.s3.us-east-2.amazonaws.com/index.html#',
-				// #DEV
-				// 'www.tradewindsdev.com',
-
-				// Pre-prod
 				'https://white-ocean-019fe600f.2.azurestaticapps.net/#',
 
-			// #UAT
-			// 'https://www.tradewindsqa.com/#',
-
 			API_BASE_URL:
-				// #DEV
-				// 'http://twsqlvm.eastus.cloudapp.azure.com:8080',
-
-				// Pre-prod
-				// 'https://tradewinds-preprod-api.azure-api.net',
 				'https://tradewinds-sql-preprod-as.azurewebsites.net',
 
-			// #UAT
-			// 'https://tradewinds-uat-api.azure-api.net',
 			STRIPE_PUBLISHABLE_KEY:
 				'pk_test_51JAhKFCQTcpcYTusSG85R25JWHRXIbw9mg6bn2mJAIncKhAhXpxvAemulgavKUw0iv4J1ygM6zSWGbthNAMWGftk00Jzzmiqcs'
 		},
