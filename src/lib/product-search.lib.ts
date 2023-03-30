@@ -1,4 +1,5 @@
 import { axiosInstance } from 'utils/axios-instance.utils';
+import { getDefaultProductAndProductVariants } from 'utils/common.util';
 import { generateQueryString } from 'utils/generate_query_string.utils';
 
 export const getProducts = async (params: {
@@ -35,9 +36,19 @@ export const getProducts = async (params: {
 			`/product/search?${queryString}`
 		);
 
+		const products = data?.data?.map((product: any) => {
+			const { defaultVariant, variants } =
+				getDefaultProductAndProductVariants(
+					product?.edges?.product_variants || []
+				);
+
+			product.product_variants = [defaultVariant, ...variants];
+			return product;
+		});
+
 		return {
 			categories: data.categories || {},
-			data: data?.data || []
+			data: products || []
 		};
 	} catch (error) {
 		console.log('[getProducts] =', error);

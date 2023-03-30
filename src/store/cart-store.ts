@@ -87,7 +87,9 @@ export const useCartStore = create<CartState>((set) => ({
 			// Adding new product in cart if product is not available in the cart list
 			if (productIndex < 0) {
 				const productVariant =
-					product?.edges?.product_variants?.[0] || {};
+					product?.edges?.product_variants?.find(
+						(variant: any) => variant?.id === productVariantId
+					) || {};
 
 				const quantity =
 					productVariant?.inventory?.minimum_order_quantity || 1;
@@ -111,6 +113,8 @@ export const useCartStore = create<CartState>((set) => ({
 					...product,
 					product_variant_id: productVariantId
 				};
+
+				console.log('productData =productData', productData);
 
 				cartList.push({
 					productVariantId,

@@ -94,13 +94,19 @@ const CartList: React.FC<CartListProps> = (props) => {
 							variantCount={
 								product?.edges?.product_variants?.length - 1 || 0
 							}
-							onUpdate={(quantity) =>
+							onUpdate={(quantity) => {
+								console.log(
+									'carrrrrrt',
+									productVariantId,
+									quantity,
+									cartProduct
+								);
 								updateQuantityByProductVariantId(
 									productVariantId,
 									quantity,
 									cartProduct
-								)
-							}
+								);
+							}}
 							onRemove={() =>
 								removeProductByProductVariantIdFromCart(
 									productVariantId

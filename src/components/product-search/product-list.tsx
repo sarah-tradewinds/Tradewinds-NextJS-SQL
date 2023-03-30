@@ -59,8 +59,13 @@ const ProductList: React.FC<ProductListProps> = ({
 		useState<number>(0);
 	const [selectedProduct, setSelectedProduct] = useState<any>({});
 
-	const addToCartHandler = async (product: any) => {
-		const productVariantId = product?.edges?.product_variants?.[0]?.id;
+	const addToCartDefaultProductVariantHandler = async (
+		product: any
+	) => {
+		const { defaultVariant } = getDefaultProductAndProductVariants(
+			product?.edges?.product_variants || []
+		);
+		const productVariantId = defaultVariant?.id;
 		await addToCart(productVariantId, 1, product);
 
 		// Sending request when buyer Id is available
@@ -70,7 +75,6 @@ const ProductList: React.FC<ProductListProps> = ({
 			console.log(product);
 
 			// Taking first variant, because first variant is always created for main product.
-
 			if (isAuth) {
 				const cartId = await addProductToCart(
 					productVariantId,
@@ -86,7 +90,7 @@ const ProductList: React.FC<ProductListProps> = ({
 				}))
 			);
 		}
-	}; // End of addToCartHandler
+	}; // End of addToCartDefaultProductVariantHandler
 
 	return (
 		<>
@@ -128,7 +132,9 @@ const ProductList: React.FC<ProductListProps> = ({
 							key="okay-button"
 							variant="buyer"
 							onClick={async () => {
-								await addToCartHandler(selectedProduct);
+								await addToCartDefaultProductVariantHandler(
+									selectedProduct
+								);
 								setMinimumProductOrderQuantity(0);
 								setSelectedProduct({});
 							}}
@@ -214,7 +220,7 @@ const ProductList: React.FC<ProductListProps> = ({
 								setMinimumProductOrderQuantity(+minimumOrderQuantity);
 								setSelectedProduct(product);
 							} else {
-								await addToCartHandler(product);
+								await addToCartDefaultProductVariantHandler(product);
 								setMinimumProductOrderQuantity(0);
 								setSelectedProduct({});
 							}
