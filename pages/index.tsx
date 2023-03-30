@@ -45,9 +45,11 @@ const HomePage: NextPage<
 
 	// Fetching Hero carousel
 	const { data: heroCarousels = [] } = useSWR(
-		'/cms/carousel',
-		getHeroCarousels
+		'/cms/carousel?isEco=false',
+		() => getHeroCarousels(false)
 	);
+
+	console.log('[heroCarousels] =', heroCarousels);
 
 	// Fetching Countries
 	const { data: homeCountries, isValidating: isCountriesValidating } =

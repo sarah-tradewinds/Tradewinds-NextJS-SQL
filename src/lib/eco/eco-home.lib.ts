@@ -23,7 +23,8 @@ export const getEcoHomeMainCategoriesAndCategories = async () => {
 		// };
 
 		const { data } = await axiosInstance.get(
-			'/cms/category-cms/home?eco=true'
+			// '/cms/category-cms/home?eco=true'
+			'/cms/category-cms?eco=true'
 		);
 		return {
 			cat_section: data.data[0].cat_section,

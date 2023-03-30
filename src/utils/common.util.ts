@@ -184,3 +184,23 @@ export const getTailwind = (
 
 	return classNames.join(' ') || '';
 }; // End of getTailwind
+
+export const getDefaultProductAndProductVariants = (
+	productVariant: any[]
+) => {
+	let defaultVariant = {};
+	const variants = [];
+	for (const variant of productVariant) {
+		if (variant.is_default) {
+			defaultVariant = variant;
+		} else {
+			variants.push(variant);
+		}
+	} // End of for loop
+
+	return {
+		defaultVariant,
+		variants,
+		totalVariantCount: variants?.length || 0
+	};
+}; // End of getDefaultProductAndProductVariants

@@ -37,7 +37,7 @@ const SubCategoryCard = ({
 			{showImageInFront && (
 				<div className="relative h-[60px] w-[60px] overflow-hidden md:h-[80px] md:w-[80px] lg:h-[104px] lg:w-[104px]">
 					<ImageWithErrorHandler
-						src={subCat.image?.url}
+						src={subCat.image}
 						alt="sub-cat-image"
 						fill={true}
 					/>
@@ -82,7 +82,7 @@ const SubCategoryCard = ({
 				<div className="absolute bottom-0 right-0">
 					<div className="relative h-[60px] w-[60px] md:h-[120px] md:w-[120px]">
 						<ImageWithErrorHandler
-							src={subCat?.image?.url}
+							src={subCat?.image}
 							alt="sub-cat-image"
 							fill={true}
 							className="h-full w-full"

@@ -3,7 +3,7 @@ import { axiosInstance } from 'utils/axios-instance.utils';
 export const getHeroCarousels = async (isEco?: boolean) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/cms/carousel?is_eco=${isEco || false}`
+			`/cms/carousel?isEco=${isEco || false}`
 		);
 		return data.data || [];
 	} catch (error) {
@@ -17,7 +17,7 @@ export const getHeroCarousels = async (isEco?: boolean) => {
 export const getCardAList = async (isEco?: boolean) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/cms/cardA?is_eco=${isEco || false}`
+			`/cms/cardA?isEco=${isEco || false}`
 		);
 
 		return data.data || [];
@@ -32,7 +32,7 @@ export const getCardAList = async (isEco?: boolean) => {
 export const getCardB = async (isEco?: boolean) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/cms/cardB?is_eco=${isEco || false}`
+			`/cms/cardB?isEco=${isEco || false}`
 		);
 
 		return data?.data?.[0] || {};

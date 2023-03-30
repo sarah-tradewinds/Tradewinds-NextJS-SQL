@@ -131,7 +131,7 @@ const ProductDetailsTile: React.FC<{
 				}
 
 				// Creating variant name
-				variant.name = `${variant?.size || ''} ${variant?.color || ''}`;
+				// variant.name = `${variant?.size || ''} ${variant?.color || ''}`;
 			}); // End of inner forEach loop
 
 			// Pushing variant to list
@@ -540,7 +540,7 @@ const ProductDetailsTile: React.FC<{
 																			: '!px-0 font-normal'
 																	} !text-primary-main`}
 																>
-																	{variant.name}
+																	{getLocaleText(variant.name, locale)}
 																</Button>
 															</div>
 														);

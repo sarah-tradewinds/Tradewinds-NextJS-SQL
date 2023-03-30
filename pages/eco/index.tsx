@@ -43,7 +43,7 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 
 	// Fetching Hero carousel
 	const { data: heroCarousels = [], error: heroCarouselsError } =
-		useSWR(`/carousel/getallcarousel?is_eco=${true}`, () =>
+		useSWR(`//cms/carousel?isEco=${true}`, () =>
 			getHeroCarousels(true)
 		);
 

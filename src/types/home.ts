@@ -36,7 +36,7 @@ type subCategories = {
 	id: string | number;
 	title: string | { en: string };
 	slug: { en: string };
-	image: { url: string };
+	image: string;
 	clr: string;
 	is_eco?: boolean;
 };

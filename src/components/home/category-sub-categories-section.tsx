@@ -47,7 +47,8 @@ const CategorySubCategoriesSection: React.FC<
 	const router = useRouter();
 	const { locale } = router;
 
-	const { main_category, categories } = catSubCat;
+	const { main_category, categories = [] } = catSubCat;
+	console.log('categoriescategories =', categories || []);
 
 	const mainCategoryTitle = getLocaleText(main_category.title, locale);
 	const mainCategoryDescription = getLocaleText(
@@ -200,7 +201,6 @@ const CategorySubCategoriesSection: React.FC<
 						main_category.btnTxt || t('source_now'),
 						locale
 					)}
-					// imageUrl={main_category?.image?.url}
 					imageUrl={main_category?.image}
 					alt={main_category.title?.en || ''}
 					bgHexColor={main_category?.color}
@@ -211,7 +211,7 @@ const CategorySubCategoriesSection: React.FC<
 				{/* Sub categories */}
 				<div className="lg:mr-[56.01px] lg:h-[279px] lg:w-[1046px] lg:pl-[61px]">
 					<SubCategorySlider
-						categories={[...categories]}
+						categories={categories || []}
 						className={subCategorySliderClassName}
 						leftButtonClassName={subCategorySliderLeftButtonClassName}
 						rightButtonClassName={subCategorySliderRightButtonClassName}

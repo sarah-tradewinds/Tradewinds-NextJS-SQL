@@ -41,7 +41,6 @@ const SubCategorySlider: React.FC<{
 	return (
 		<div className={`relative w-full ${subCategoryContainerClassName}`}>
 			<Button
-				// className={`absolute -left-2 top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full border-2 border-primary-main !p-0 !text-primary-main ${leftButtonClassName}`}
 				onClick={() => (slider?.current as any)?.slickPrev()}
 				className={`absolute -left-[40px] top-1/2 flex -translate-y-1/2 transform items-center justify-center !rounded-full !px-0 !py-0 lg:!h-[33px] lg:!w-[33px] lg:border lg:!border-[#575858] ${leftButtonClassName}`}
 			>
