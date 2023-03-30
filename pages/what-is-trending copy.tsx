@@ -85,7 +85,7 @@ const WhatIsTrendingPage: NextPage<
 									id: '1',
 									title: { en: 'Animal & Veterinary' },
 									slug: { en: 'animal-and-veterinary' },
-									image: { url: '/vehicles/green-tractor.png' },
+									image: '/vehicles/green-tractor.png',
 									clr: ''
 								}}
 								showImageInFront={true}
@@ -97,7 +97,7 @@ const WhatIsTrendingPage: NextPage<
 									id: '1',
 									title: { en: 'Animal & Veterinary' },
 									slug: { en: 'animal-and-veterinary' },
-									image: { url: '/vehicles/green-tractor.png' },
+									image: '/vehicles/green-tractor.png',
 									clr: ''
 								}}
 								showImageInFront={true}
@@ -109,7 +109,7 @@ const WhatIsTrendingPage: NextPage<
 									id: '1',
 									title: { en: 'Animal & Veterinary' },
 									slug: { en: 'animal-and-veterinary' },
-									image: { url: '/vehicles/green-tractor.png' },
+									image: '/vehicles/green-tractor.png',
 									clr: ''
 								}}
 								showImageInFront={true}
@@ -152,7 +152,7 @@ const WhatIsTrendingPage: NextPage<
 									id: '1',
 									title: { en: 'Animal & Veterinary' },
 									slug: { en: 'animal-and-veterinary' },
-									image: { url: '/vehicles/green-tractor.png' },
+									image: '/vehicles/green-tractor.png',
 									clr: ''
 								}}
 								showImageInFront={true}
@@ -165,7 +165,7 @@ const WhatIsTrendingPage: NextPage<
 									id: '1',
 									title: { en: 'Animal & Veterinary' },
 									slug: { en: 'animal-and-veterinary' },
-									image: { url: '/vehicles/green-tractor.png' },
+									image: '/vehicles/green-tractor.png',
 									clr: ''
 								}}
 								showImageInFront={true}
@@ -178,7 +178,7 @@ const WhatIsTrendingPage: NextPage<
 									id: '1',
 									title: { en: 'Animal & Veterinary' },
 									slug: { en: 'animal-and-veterinary' },
-									image: { url: '/vehicles/green-tractor.png' },
+									image: '/vehicles/green-tractor.png',
 									clr: ''
 								}}
 								showImageInFront={true}

@@ -58,7 +58,7 @@ const CategoriesSlider: React.FC<{ dataList?: [] }> = ({
 								id: '1',
 								title: { en: id + ' - Animal & Veterinary' },
 								slug: { en: 'animal-and-veterinary' },
-								image: { url: '/vehicles/green-tractor.png' },
+								image: '/vehicles/green-tractor.png',
 								clr: ''
 							}}
 							containerClassName="h-[140px]"
