@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useAuthStore } from 'store/auth';
 import { useCartStore } from 'store/cart-store';
+import { getDefaultProductAndProductVariants } from 'utils/common.util';
 import { getDisplayBulkPrice } from 'utils/get-bulk-price';
 import { getLocaleText } from 'utils/get_locale_text';
 import Button from '../common/form/button';
@@ -147,8 +148,13 @@ const ProductList: React.FC<ProductListProps> = ({
 
 			<div className="grid grid-cols-1 gap-y-1 md:gap-y-[15px] lg:gap-[27px]">
 				{products.map((product, index) => {
-					const [firstVariantData = {}] =
-						product?.edges?.product_variants || [];
+					// const [firstVariantData = {}] =
+					//   product?.edges?.product_variants || [];
+
+					const { defaultVariant, totalVariantCount } =
+						getDefaultProductAndProductVariants(
+							product?.edges?.product_variants || []
+						);
 
 					const {
 						// product_price,
@@ -165,7 +171,7 @@ const ProductList: React.FC<ProductListProps> = ({
 						is_bulk_pricing,
 						bulk_pricing = [],
 						inventory = {}
-					} = firstVariantData || {};
+					} = defaultVariant || {};
 
 					const displayPrice = getDisplayBulkPrice({
 						product_price,
@@ -174,15 +180,13 @@ const ProductList: React.FC<ProductListProps> = ({
 					});
 
 					const country = seller_country ? seller_country[0] || {} : {};
-					const productVariantLength =
-						product?.edges?.product_variants?.length;
 
 					const productData = {
 						key: product.id,
 						name: getLocaleText(product.name || {}, locale),
 						slug: product?.id,
 						description: getLocaleText(product.description, locale),
-						imageUrl: firstVariantData?.images?.[0],
+						imageUrl: defaultVariant?.images?.[0],
 						countryOfOrigin: country_of_region
 							? country_of_region[0]
 							: '',
@@ -221,8 +225,7 @@ const ProductList: React.FC<ProductListProps> = ({
 						isReadyToShip: product.is_live,
 						// isReadyToShip: product.is_ready_to_ship,
 						isCustomizable: product.is_customizable,
-						variantCount:
-							productVariantLength > 1 ? productVariantLength - 1 : 0,
+						variantCount: totalVariantCount || 0,
 						onMessageVendorClick: () => {
 							setSelectedSellerId(product?.seller_id);
 							setIsMessageVendorPopupOpen(true);

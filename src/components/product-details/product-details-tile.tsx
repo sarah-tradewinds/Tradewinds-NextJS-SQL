@@ -31,6 +31,7 @@ import {
 	MdOutlineBookmarkBorder,
 	MdOutlineShoppingCart
 } from 'react-icons/md';
+import { getDefaultProductAndProductVariants } from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
 import ImageContainer from './product-details-images/image-contaier';
 
@@ -83,7 +84,12 @@ const ProductDetailsTile: React.FC<{
 		total_review_count = 0
 	} = product || {};
 
-	let firstVariant: any = {};
+	const { defaultVariant, variants, totalVariantCount } =
+		getDefaultProductAndProductVariants(
+			product?.edges?.product_variants || []
+		);
+
+	// let firstVariant: any = {};
 
 	const productVariants: any[] = [];
 	const productSizes: string[] = [];
@@ -91,60 +97,58 @@ const ProductDetailsTile: React.FC<{
 	const styles: string[] = [];
 	const titles: string[] = [];
 	const colors: string[] = [];
-	product?.edges?.product_variants?.forEach(
-		(variant: any, index: number) => {
-			if (index === 0) {
-				firstVariant = variant;
-				return;
-			}
+	variants?.forEach((variant: any, index: number) => {
+		const { product_attribute_options = [] } = variant?.edges || {};
 
-			const { product_attribute_options = [] } = variant?.edges || {};
-			product_attribute_options?.forEach((attributeOption: any) => {
-				const attributeName =
-					attributeOption?.edges?.product_attribute?.name
-						?.trim()
-						?.toLowerCase();
-				const attributeValue = attributeOption?.value
+		product_attribute_options?.forEach((attributeOption: any) => {
+			const attributeName =
+				attributeOption?.edges?.product_attribute?.name
 					?.trim()
 					?.toLowerCase();
 
-				switch (attributeName) {
-					case 'size':
-						variant.size = attributeValue;
-						productSizes.push(attributeValue);
-						break;
-					case 'material':
-						materials.push(attributeValue);
-						break;
-					case '':
-						variant.style = attributeValue;
-						styles.push(attributeValue);
-						break;
-					case 'title':
-						variant.title = attributeValue;
-						titles.push(attributeValue);
-						break;
-					case 'color':
-						variant.color = attributeValue;
-						colors.push(attributeValue);
-						break;
-				}
+			const attributeValue = attributeOption?.value
+				?.trim()
+				?.toLowerCase();
 
-				// Creating variant name
-				// variant.name = `${variant?.size || ''} ${variant?.color || ''}`;
-			}); // End of inner forEach loop
+			switch (attributeName) {
+				case 'size':
+					variant.size = attributeValue;
+					productSizes.push(attributeValue);
+					break;
+				case 'material':
+					materials.push(attributeValue);
+					break;
+				case '':
+					variant.style = attributeValue;
+					styles.push(attributeValue);
+					break;
+				case 'title':
+					variant.title = attributeValue;
+					titles.push(attributeValue);
+					break;
+				case 'color':
+					variant.color = attributeValue;
+					colors.push(attributeValue);
+					break;
+				case 'colour':
+					variant.color = attributeValue;
+					colors.push(attributeValue);
+					break;
+			}
+		}); // End of inner forEach loop
 
-			// Pushing variant to list
-			productVariants.push(variant);
-		}
-	); // End of forEach loop
+		// Pushing variant to list
+		productVariants.push(variant);
+	}); // End of forEach loop
+
+	console.log('[colors] = ', { colors, productVariants });
 
 	const {
 		retail_price: product_price,
 		is_bulk_pricing,
 		bulk_pricing = [],
 		inventory = {}
-	} = firstVariant || {};
+	} = defaultVariant || {};
 
 	const productName = getLocaleText(name || {}, locale);
 
@@ -254,33 +258,9 @@ const ProductDetailsTile: React.FC<{
 		</div>
 	];
 
-	// const productVariants = variants?.filter((variant: any) => {
-	// 	const getColorWithoutHexValue = (color: string) =>
-	// 		color?.replace('#', '')?.toLowerCase();
-
-	// 	if (selectedColor) {
-	// 		return (
-	// 			getColorWithoutHexValue(variant?.color) ===
-	// 			getColorWithoutHexValue(selectedColor)
-	// 		);
-	// 	}
-
-	// 	return true;
-	// });
-
-	// const productSizes: string[] = [
-	// 	...new Set<string>(
-	// 		productVariants?.map((variant: any) =>
-	// 			variant?.size?.toLowerCase()
-	// 		) || []
-	// 	)
-	// ];
-
 	const getUniqueList = (list: string[]) => [...new Set<string>(list)];
 
-	const images = firstVariant?.images || [];
-
-	console.log('productproductproductproductproductproduct', product);
+	const images = defaultVariant?.images || [];
 
 	return (
 		<>
@@ -330,10 +310,10 @@ const ProductDetailsTile: React.FC<{
 					{/* Price and quantity info */}
 					<div className="my-2 flex justify-between text-[12px] font-semibold text-primary-main md:mt-[13px]">
 						<h3 className="flex items-center space-x-8 text-xs font-semibold leading-[15px] md:text-[21px] md:leading-[26px]">
-							{firstVariant?.is_on_sale && !is_bulk_pricing ? (
+							{defaultVariant?.is_on_sale && !is_bulk_pricing ? (
 								<>
 									<span className="text-accent-error">
-										Sale {firstVariant?.sales_price}/piece
+										Sale {defaultVariant?.sales_price}/piece
 									</span>
 									<span className="text-gray line-through">
 										${product_price}/piece
@@ -460,14 +440,6 @@ const ProductDetailsTile: React.FC<{
 									if (!isAuth) {
 										setIsLoginOpen();
 									} else {
-										// router.push(
-										// 	`${generateBuyerDashboardUrl({
-										// 		redirect_to: BUYER_DASHBOARD_PAGES.buyer_rfq,
-										// 		action: BUYER_DASHBOARD_ACTIONS.create_rfq,
-										// 		access_key: customerData.access.token,
-										// 		refresh_key: customerData.refresh.token
-										// 	})}`
-										// );
 										setIsMessageVendorPopupOpen(true);
 									}
 								}}
@@ -507,6 +479,7 @@ const ProductDetailsTile: React.FC<{
 										Variants:
 									</p>
 									<div className="w-full">
+										{/* Variant Button */}
 										<div className="flex items-center space-x-4">
 											{productVariants?.length <= 3 && (
 												<>
@@ -549,6 +522,7 @@ const ProductDetailsTile: React.FC<{
 											)}
 										</div>
 
+										{/* Variant dropdown */}
 										{productVariants?.length > 3 && (
 											<Listbox value={selected} onChange={setSelected}>
 												<div className="relative mt-1 w-[235px]">

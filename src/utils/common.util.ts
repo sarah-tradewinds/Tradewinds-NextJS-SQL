@@ -188,7 +188,7 @@ export const getTailwind = (
 export const getDefaultProductAndProductVariants = (
 	productVariant: any[]
 ) => {
-	let defaultVariant = {};
+	let defaultVariant: any = {};
 	const variants = [];
 	for (const variant of productVariant) {
 		if (variant.is_default) {

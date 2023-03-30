@@ -6,6 +6,7 @@ import ThumbnailList from './thumbnail-list';
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import 'keen-slider/keen-slider.min.css';
 import { useRouter } from 'next/dist/client/router';
+import { useState } from 'react';
 
 interface ImageContainerProps {
 	imageUrl: string;
@@ -16,6 +17,8 @@ interface ImageContainerProps {
 
 const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 	const { imageUrl, alt, thumbnails, className } = props;
+
+	const [selectedImageUrl, setSelectedImageUrl] = useState(imageUrl);
 
 	const { back } = useRouter();
 
@@ -33,8 +36,8 @@ const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 			<div className="relative flex items-center justify-center md:p-4">
 				<div className="relative h-[211px] w-[320px] md:h-[323px] md:w-[489px] lg:h-[475px] lg:w-[719.26px]">
 					<ImageWithErrorHandler
-						key={imageUrl}
-						src={imageUrl}
+						key={selectedImageUrl}
+						src={selectedImageUrl || imageUrl}
 						alt={alt || ''}
 						fill={true}
 					/>
@@ -52,7 +55,12 @@ const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 				<div ref={ref} className="keen-slider">
 					{thumbnails.map((thumbnailImageUrl) => (
 						<div key={thumbnailImageUrl} className="keen-slider__slide">
-							<div className="relative h-[136px] w-full md:!h-[89.64px] md:!w-[136.82px] lg:!h-[136px] lg:!w-[206px]">
+							<div
+								onClick={() =>
+									setSelectedImageUrl(thumbnailImageUrl || imageUrl)
+								}
+								className="relative h-[136px] w-full cursor-pointer md:!h-[89.64px] md:!w-[136.82px] lg:!h-[136px] lg:!w-[206px]"
+							>
 								<ImageWithErrorHandler
 									src={
 										thumbnailImageUrl ||
@@ -71,7 +79,12 @@ const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 
 			{/* Thumbnails Slider only large screen */}
 			<div className="hidden grid-cols-3 gap-4 lg:grid">
-				<ThumbnailList thumbnails={thumbnails} />
+				<ThumbnailList
+					thumbnails={thumbnails}
+					onImageSelect={(thumbnailImageUrl) =>
+						setSelectedImageUrl(thumbnailImageUrl || imageUrl)
+					}
+				/>
 			</div>
 		</div>
 	);
