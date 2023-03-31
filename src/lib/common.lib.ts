@@ -3,7 +3,7 @@ import { axiosInstance } from 'utils/axios-instance.utils';
 export const getMainCategories = async (isEco?: boolean) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/cms/main-category?limit=100000&is_eco=${isEco}`
+			`/cms/main-category?limit=100000&alpha_sort=${true}&isEco=${isEco}`
 		);
 		return data.data || [];
 	} catch (error) {
@@ -18,7 +18,7 @@ export const getCategoriesByMainCategoryId = async (
 ) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/cms/category?limit=100000&mainCategoryId=${mainCategoryId}`
+			`/cms/category?limit=100000&alpha_sort=${true}&mainCategoryId=${mainCategoryId}`
 		);
 		return data.data || [];
 	} catch (error) {
@@ -34,7 +34,7 @@ export const getSubCategoriesByCategoryId = async (
 ) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/cms/sub-category?limit=100000&categoryId=${categoryId}`
+			`/cms/sub-category?limit=100000&alpha_sort=${true}&categoryId=${categoryId}`
 		);
 		return data.data || [];
 	} catch (error) {
@@ -50,7 +50,7 @@ export const getSpecificCategoriesBySubCategoryId = async (
 ) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/cms/specific-category?limit=100000&subCategoryId=${subCategoryId}`
+			`/cms/specific-category?limit=100000&alpha_sort=${true}&subCategoryId=${subCategoryId}`
 		);
 		return data.data || [];
 	} catch (error) {
@@ -79,7 +79,7 @@ export const getCountries = async () => {
 export const getCountryById = async (countryId: string) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/region_country/${countryId}?limit=100000`
+			`/region/region-country/${countryId}`
 		);
 
 		return data?.data || {};

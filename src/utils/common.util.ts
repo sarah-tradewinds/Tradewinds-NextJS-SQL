@@ -107,7 +107,7 @@ export const getFilterValueFromQuery = (query: any) => {
 		country_of_region: countryName,
 		price_start,
 		price_end,
-		all: (searchQuery || '') as string,
+		query: (searchQuery || '') as string,
 		// is_eco: isEco || main_category ? false : filterBuyEco,
 		is_customizable: isCustomizable === 'true' ? true : false,
 		is_ready_to_ship: isReadyToShip === 'true' ? true : false,

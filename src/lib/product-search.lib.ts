@@ -6,7 +6,7 @@ export const getProducts = async (params: {
 	price_start?: string | number;
 	price_end?: string | number;
 	categories?: string;
-	all?: string;
+	query?: string;
 	main_category?: string;
 	main_category_id?: string;
 	category?: string;

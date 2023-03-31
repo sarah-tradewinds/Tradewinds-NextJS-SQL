@@ -63,7 +63,7 @@ const ShopByCountryPage: NextPage<
 			<div className="relative mb-[2080px] bg-white md:m-auto ">
 				{/* Headers */}
 				<div className="relative bg-secondary">
-					<div className="relative h-[480px] bg-[url('/static/images/search-by-country-images/search-by-country-header.png')]"></div>
+					<div className="relative h-[480px] bg-[url('/static/images/search-by-country-images/search-by-country-header.png')] bg-cover bg-no-repeat"></div>
 					<h1 className="absolute inset-0 top-16 text-center text-[35px] font-semibold text-white md:top-24 md:text-[40px] lg:top-16 lg:text-[96px]">
 						{t('shop_by_country')}
 					</h1>

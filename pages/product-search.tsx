@@ -137,7 +137,7 @@ const ProductSearchPage: NextPage<
 			const [countryId] = countryIds?.split(',');
 			getCountryById(countryId).then((data) => {
 				setSelectedCountryBannerImageUrl(
-					data?.banner_image?.url || '/coming-soon.png'
+					data?.banner_image || '/coming-soon.png'
 				);
 			});
 		}
@@ -491,8 +491,10 @@ export const getServerSideProps: GetServerSideProps = async ({
 		dateS.toLocaleTimeString()
 	);
 
+	const filterValue = getFilterValueFromQuery(query);
+
 	const products = await getProducts({
-		price_start: 0
+		...filterValue
 	});
 
 	let countryBannerImageUrl = '';
