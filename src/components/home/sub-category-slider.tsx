@@ -13,6 +13,7 @@ const SubCategorySlider: React.FC<{
 	leftButtonClassName?: string;
 	rightButtonClassName?: string;
 	slidesToShow?: number;
+	slidesToScroll?: number;
 	rows?: number;
 }> = (props) => {
 	const {
@@ -24,6 +25,7 @@ const SubCategorySlider: React.FC<{
 		leftButtonClassName,
 		rightButtonClassName,
 		slidesToShow = 4,
+		slidesToScroll = 4,
 		rows = 2
 	} = props;
 
@@ -31,7 +33,7 @@ const SubCategorySlider: React.FC<{
 
 	const settings = {
 		slidesToShow: slidesToShow || 4,
-		slidesToScroll: 4,
+		slidesToScroll: slidesToScroll || 4,
 		speed: 500,
 		rows: rows || 2,
 		arrows: false,
@@ -42,7 +44,7 @@ const SubCategorySlider: React.FC<{
 		<div className={`relative w-full ${subCategoryContainerClassName}`}>
 			<Button
 				onClick={() => (slider?.current as any)?.slickPrev()}
-				className={`absolute -left-[40px] top-1/2 flex -translate-y-1/2 transform items-center justify-center !rounded-full !px-0 !py-0 lg:!h-[33px] lg:!w-[33px] lg:border lg:!border-[#575858] ${leftButtonClassName}`}
+				className={`absolute -left-[40px] top-1/2 hidden -translate-y-1/2 transform items-center justify-center !rounded-full !px-0 !py-0 lg:flex lg:!h-[33px] lg:!w-[33px] lg:border lg:!border-[#575858] ${leftButtonClassName}`}
 			>
 				<MdChevronLeft className="w-full text-[#575858] lg:h-full" />
 			</Button>
@@ -63,7 +65,7 @@ const SubCategorySlider: React.FC<{
 												onTileClick(categoryData?.id, categoryData);
 										}}
 										style={subCategoryStyle}
-										containerClassName="lg:!w-[239px] lg:!h-[134px] lg:!border-[2px] lg:!border-[#C4C4C4] lg:!mb-[11px]"
+										containerClassName="md:!w-[220px] md:!h-[134px] lg:!w-[239px] lg:!h-[134px] lg:!border-[2px] lg:!border-[#C4C4C4] lg:!mb-[11px] md:!mb-[11px]"
 									/>
 								</div>
 							);
@@ -73,7 +75,7 @@ const SubCategorySlider: React.FC<{
 			</div>
 
 			<Button
-				className={`absolute -right-[34px] top-1/2 flex !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full !px-0 !py-0 lg:!h-[33px] lg:!w-[33px] lg:border lg:!border-[#575858] ${rightButtonClassName}`}
+				className={`absolute -right-[34px] top-1/2 hidden !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full !px-0 !py-0 lg:flex lg:!h-[33px] lg:!w-[33px] lg:border lg:!border-[#575858] ${rightButtonClassName}`}
 				onClick={() => (slider?.current as any)?.slickNext()}
 			>
 				<MdChevronRight className="w-full text-[#575858] lg:h-full" />

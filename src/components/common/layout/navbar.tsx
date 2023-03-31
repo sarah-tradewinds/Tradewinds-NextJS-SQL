@@ -306,6 +306,10 @@ const Header = () => {
 									className="nav-link hidden items-center justify-center gap-2 md:flex"
 									activeClassName="underline font-semibold"
 									onClick={() => {
+										router.push(`/eco?is_eco=${true}`, undefined, {
+											shallow: true
+										});
+
 										if (!isEco) {
 											setIsEco();
 										}

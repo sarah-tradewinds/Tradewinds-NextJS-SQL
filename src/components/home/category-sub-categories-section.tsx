@@ -8,11 +8,11 @@ import { CatSubCatSectionType } from 'types/home';
 import { getLocaleText } from 'utils/get_locale_text';
 import Collapse from '../common/collapse';
 import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
-import SubCategorySlider from './sub-category-slider';
 
 import useDeviceSize from 'hooks/use-device-size.hooks';
 import { useTranslation } from 'next-i18next';
 import CategoryCard from './common/category-card';
+import SubCategorySlider from './sub-category-slider';
 
 type CategorySubCategoriesSectionProps = {
 	catSubCat: CatSubCatSectionType;
@@ -119,7 +119,7 @@ const CategorySubCategoriesSection: React.FC<
 		: [];
 
 	return (
-		<div className="bg-white md:h-auto md:w-[698px] md:rounded-md lg:h-[334.09px] lg:w-[1466.01px] lg:pl-[22px] lg:pt-[25px] lg:pr-[10px]">
+		<div className="bg-white md:h-[334.09px] md:w-full md:rounded-md md:pt-[25px] md:pl-[22px] md:pr-[10px] lg:w-[1466.01px] lg:pl-[22px] lg:pt-[25px] lg:pr-[10px]">
 			{/* For Small Screen- Collapse */}
 			<div className="md:hidden">
 				<Collapse
@@ -205,16 +205,18 @@ const CategorySubCategoriesSection: React.FC<
 					alt={main_category.title?.en || ''}
 					bgHexColor={main_category?.color}
 					actionButtonBgColor={main_category?.source_now_text_color}
-					containerClassName="lg:!h-[278px] lg:w-[349.08px] md:w-[349.08px] md:!h-full"
+					containerClassName="lg:!h-[278px] lg:w-[349.08px] md:w-[250px] md:!h-[278px]"
 				/>
 
 				{/* Sub categories */}
-				<div className="lg:mr-[56.01px] lg:h-[279px] lg:w-[1046px] lg:pl-[61px]">
+				<div className="md:w-[500px] md:pl-[40px] lg:mr-[56.01px] lg:h-[279px] lg:w-[1046px] lg:pl-[61px]">
 					<SubCategorySlider
 						categories={categories || []}
 						className={subCategorySliderClassName}
 						leftButtonClassName={subCategorySliderLeftButtonClassName}
 						rightButtonClassName={subCategorySliderRightButtonClassName}
+						slidesToScroll={deviceWidth <= 1024 ? 2 : 4}
+						slidesToShow={deviceWidth <= 1024 ? 2 : 4}
 						subCategoryStyle={{
 							backgroundColor: main_category.panel_color,
 							border: '2px solid gray'

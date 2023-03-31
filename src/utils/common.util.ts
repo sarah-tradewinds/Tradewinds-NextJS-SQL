@@ -87,8 +87,8 @@ export const getFilterValueFromQuery = (query: any) => {
 	const {
 		price_start,
 		price_end,
-		isCustomizable,
-		isReadyToShip,
+		isCustomizable = undefined,
+		isReadyToShip = undefined,
 		minOrder,
 		maxOrder,
 		searchQuery

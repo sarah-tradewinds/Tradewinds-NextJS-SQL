@@ -206,7 +206,11 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 	);
 
 	return (
-		<div className="relative bg-white md:h-[230px] md:w-full md:rounded-md lg:h-[312px]">
+		<div
+			className={`relative bg-white md:h-[230px] md:w-full md:rounded-md lg:h-[312px] ${
+				isEco ? 'border-2 border-accent-success' : ''
+			}`}
+		>
 			<div className="flex md:ml-4 md:pt-3 md:pr-[14px] lg:space-x-2">
 				{/* Image container */}
 				<div className="relative md:h-[97px] md:min-w-[137px] lg:h-[189px] lg:min-w-[286px]">

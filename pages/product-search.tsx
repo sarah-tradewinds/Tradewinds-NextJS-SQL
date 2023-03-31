@@ -57,6 +57,7 @@ const ProductSearchPage: NextPage<
 	] = useState(false);
 	const [selectedMainCategory, setSelectedMainCategory] =
 		useState<any>();
+	console.log('selectedMainCategory', selectedMainCategory);
 	const [selectedCategories, setSelectedCategories] = useState([]);
 	const [
 		selectedCountryBannerImageUrl,
@@ -146,6 +147,7 @@ const ProductSearchPage: NextPage<
 	// Fetching products
 	useEffect(() => {
 		const filterValue = getFilterValueFromQuery(query);
+		console.log('isEcoisEcoisEcoisEco =', isEco);
 
 		getProducts({
 			...filterValue,
@@ -168,7 +170,7 @@ const ProductSearchPage: NextPage<
 				});
 			}
 		});
-	}, [query]);
+	}, [query, isEco]);
 
 	useEffect(() => {
 		const updatedProductList = products?.map((product: any) => {
@@ -202,6 +204,7 @@ const ProductSearchPage: NextPage<
 							selectedMainCategory?.banner_text || {},
 							router.locale
 						)}
+						textColor={selectedMainCategory?.banner_text_color}
 						horizontal={selectedMainCategory?.horizontal}
 						vertical={selectedMainCategory?.vertical}
 					/>

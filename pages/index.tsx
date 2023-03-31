@@ -135,7 +135,7 @@ const HomePage: NextPage<
 			/>
 
 			<div className="md:container">
-				<div className="mt-20 md:mt-48 lg:-mt-14">
+				<div className="mt-20 md:-mt-14 lg:-mt-14">
 					{/* Category and sub categories */}
 					<div className="space-y-[41px] lg:mx-[23px] lg:space-y-[27px]">
 						{homeMainCategoriesAndCategories?.cat_section &&

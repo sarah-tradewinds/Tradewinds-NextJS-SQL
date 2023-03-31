@@ -30,6 +30,7 @@ export const getProducts = async (params: {
 	}
 
 	const queryString = generateQueryString(params);
+	console.log('paramsparamsparamsparams', params, queryString);
 
 	try {
 		const { data } = await axiosInstance.get(

@@ -137,6 +137,12 @@ const ProductDetailsTile: React.FC<{
 			}
 		}); // End of inner forEach loop
 
+		console.log('variant?.name', variant?.name);
+		if (!variant?.name?.en) {
+			variant.name = {
+				en: `${variant.color || ''} ${variant.size || ''}`
+			};
+		}
 		// Pushing variant to list
 		productVariants.push(variant);
 	}); // End of forEach loop
@@ -260,7 +266,10 @@ const ProductDetailsTile: React.FC<{
 
 	const getUniqueList = (list: string[]) => [...new Set<string>(list)];
 
-	const images = defaultVariant?.images || [];
+	const images = product?.images?.length
+		? product?.images
+		: defaultVariant?.images || [];
+	const masterImageUrl = images?.[0];
 
 	return (
 		<>
@@ -289,8 +298,9 @@ const ProductDetailsTile: React.FC<{
 			<div className="grid grid-cols-12 gap-y-8 bg-white md:gap-8">
 				{/* Images container */}
 				<ImageContainer
+					key={masterImageUrl}
 					className="col-span-12 md:first-letter:p-8 lg:col-span-5"
-					imageUrl={images?.[0]}
+					imageUrl={masterImageUrl}
 					alt=""
 					thumbnails={images || []}
 				/>
@@ -728,7 +738,7 @@ const ProductDetailsTile: React.FC<{
 														className={`h-10 w-10 rounded-full ${
 															selectedColor === color
 																? 'ring-2 ring-offset-4'
-																: ''
+																: 'ring-1'
 														}`}
 														style={{
 															backgroundColor: color

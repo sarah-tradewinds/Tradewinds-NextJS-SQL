@@ -42,36 +42,27 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 		onClick
 	} = props;
 
-	// console.log('darkBgColor =', darkBgColor);
 	return (
-		<div
-			// className={`py-4s pl-14s sm:bg-transparents sm:py-0s sm:pl-0s flexs flex-cols relative ${containerClassName}`}
-			className={`relative flex flex-col ${containerClassName}`}
-		>
+		<div className={`relative flex flex-col ${containerClassName}`}>
 			<h2
-				className={`font-montserrat font-semibold text-primary-main dark:text-accent-secondary-eco lg:mb-[11px] lg:text-[25px] lg:leading-[30px] ${titleClassName}`}
+				className={`font-montserrat font-semibold text-primary-main dark:text-accent-secondary-eco md:mb-[11px] md:p-4 lg:mb-[11px] lg:p-0 lg:text-[25px] lg:leading-[30px] ${titleClassName}`}
 			>
 				{title}
 			</h2>
 
 			{/* Container */}
 			<div
-				// className={`lg:h-fulls flexs flex-cols justify-betweens space-y-4s relative overflow-hidden rounded-lg bg-agri-main p-4 font-montserrat ${innerContainer}`}
-				className={`relative bg-agri-main p-4 font-montserrat lg:h-full ${innerContainer}`}
+				className={`relative bg-agri-main p-4 font-montserrat md:h-full lg:h-full ${innerContainer}`}
 				style={{ backgroundColor: bgHexColor }}
 			>
 				<p
 					className={`lg:h-[162px] lg:w-[183px] lg:text-[18px] lg:leading-[22px] ${nameAndDescriptionClassName}`}
 				>
-					{/* <span className="font-semibold text-primary-main dark:text-accent-secondary-eco">
-						{name} {` `}
-					</span> */}
 					<span className="text-gray">{description}</span>
 				</p>
 
 				{!hideImage && (
 					<div className="absolute bottom-0 right-0">
-						{/* <div className="relative h-[60px] w-[60px] md:h-[100px] md:w-[100px] lg:h-[120px] lg:w-[120px]"> */}
 						<div className="relative h-[60px] w-[60px] md:h-[100px] md:w-[100px] lg:h-[250px] lg:w-[250px]">
 							<ImageWithErrorHandler
 								src={imageUrl}
@@ -84,11 +75,10 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 
 				{/* Action button */}
 				{!hideButton && (
-					<div className="absolute lg:left-[27px] lg:bottom-[21.12px]">
+					<div className="absolute md:bottom-[21.12px] md:left-[27px] lg:left-[27px] lg:bottom-[21.12px]">
 						<Button
 							href={onClick ? '' : slug}
 							onClick={onClick}
-							// className={`bg-[${bgHexColor}]/70 flex items-center justify-center rounded-md border border-black/20 text-[18px] uppercase text-white`}
 							className={`whitespace-nowrap !px-0 !py-0 font-montserrat capitalize text-white lg:!min-h-[25.95px] lg:!w-[138.39px] lg:!rounded-lg lg:text-lg lg:!font-normal lg:!leading-[22px]`}
 							style={{
 								backgroundColor: actionButtonBgColor
