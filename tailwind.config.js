@@ -21,6 +21,7 @@ module.exports = {
 			'bg-eco': '#F9ECD7',
 			'primary-main': '#044E86',
 			'primary-eco': '#49590F',
+
 			error: '#f23030',
 			success: '#166b22',
 			secondary: '#F6AB33',
@@ -37,7 +38,7 @@ module.exports = {
 
 			// Onetime Colors
 			'agri-main': '#C4CE7F',
-			'eco-header-bar': '#EDD3A9'
+			'header-bar': '#EDD3A9'
 		},
 		screens: {
 			// sm: '640px',

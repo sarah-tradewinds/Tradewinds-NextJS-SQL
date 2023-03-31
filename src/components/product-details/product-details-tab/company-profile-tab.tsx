@@ -261,6 +261,48 @@ const CompanyProfileTab: React.FC<{
 									</p>
 								</div>
 
+								{/* Company Photos */}
+								<div className="mb-10">
+									<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18px] text-gray/40 md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
+										{t('common:company_images')} 
+									</h2>
+									<div className=" mt-4 flex h-[200px] w-[700px] justify-between">
+										<div className="relative h-[200px] w-[219px] border-[2px]">
+											<ImageWithErrorHandler
+												src="/vehicles/red-tractor.png"
+												alt=""
+												fill={true}
+											/>
+										</div>
+										<div className="relative h-[200px] w-[219px] border-[2px]">
+											<ImageWithErrorHandler
+												src="/vehicles/yellow-tractor.png"
+												alt=""
+												fill={true}
+											/>
+										</div>
+										<div className="relative h-[200px] w-[219px] border-[2px]">
+											<ImageWithErrorHandler
+												src="/vehicles/green-tractor.png"
+												alt=""
+												fill={true}
+											/>
+										</div>
+									</div>
+								</div>
+
+								{/* Company Video */}
+								<div className="mb-10">
+									<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18px] text-gray/40 md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
+										{t('common:company_video')}
+									</h2>
+									<div className=" mt-4 h-[200px] w-[219px] bg-agri-main">
+										<video>
+											<source src=""></source>
+										</video>
+									</div>
+								</div>
+
 								{/* Featured Product */}
 								<div>
 									<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18px] text-gray/40 md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">

@@ -11,7 +11,7 @@ const ThumbnailList: React.FC<ThumbnailListProps> = (props) => {
 	const { thumbnails, className, onImageSelect } = props;
 
 	return (
-		<>
+		<div className="grid h-[292px] w-[670px] grid-flow-row grid-cols-3 gap-[10px] overflow-y-auto">
 			{thumbnails.map((thumbnailImageUrl) => (
 				<div
 					key={thumbnailImageUrl}
@@ -25,7 +25,7 @@ const ThumbnailList: React.FC<ThumbnailListProps> = (props) => {
 					/>
 				</div>
 			))}
-		</>
+		</div>
 	);
 }; // End of ProductDetailsPage
 

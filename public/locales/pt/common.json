@@ -99,5 +99,7 @@
     "taxes": "Impostos",
     "transaction_fees": "Taxas de transação",
     "unit_price": "Preço unitário",
-    "wechat_pay": "WeChat Pay"
+    "wechat_pay": "WeChat Pay",
+    "company_images": "Imagens da empresa",
+    "company_video": "vídeo da empresa"
 }

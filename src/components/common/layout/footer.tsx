@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
 	};
 
 	return (
-		<footer className=" dark:bg-bg-ec bg-accent-primary-main font-montserrat md:bg-eco-header-bar lg:sm:bg-accent-primary-main">
+		<footer className=" dark:bg-bg-ec bg-accent-primary-main font-montserrat md:bg-header-bar lg:sm:bg-accent-primary-main">
 			<div className="relative flex h-[80px] flex-col items-center justify-center md:items-center md:justify-center">
 				<button
 					onClick={goToTop}
@@ -25,7 +25,7 @@ const Footer: React.FC = () => {
 				>
 					{t('back_to_top')}
 				</button>
-				<div className="absolute -bottom-7 rounded-full bg-accent-primary-main p-2 dark:bg-bg-eco md:bg-eco-header-bar lg:bg-accent-primary-main">
+				<div className="absolute -bottom-7 rounded-full bg-accent-primary-main p-2 dark:bg-bg-eco md:bg-header-bar lg:bg-accent-primary-main">
 					<img
 						alt="..."
 						src={
@@ -75,7 +75,7 @@ const Footer: React.FC = () => {
 						</p>
 					</div>
 				</div>
-				<div className=" mb-12 ml-7 mr-[20px] flex flex-col space-y-6 text-left text-lg md:-mt-10 md:mr-[30px] md:text-center lg:-mt-[30px] lg:h-[200px] lg:text-center">
+				<div className=" ml-7 mr-[20px] mb-12 flex flex-col space-y-6 text-left text-lg md:mr-[30px] md:-mt-10 md:text-center lg:-mt-[30px] lg:h-[200px] lg:text-center">
 					<div>
 						<p>
 							<span className=" text-xl font-bold">
