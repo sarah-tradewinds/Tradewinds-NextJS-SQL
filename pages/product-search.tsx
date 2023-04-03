@@ -147,11 +147,10 @@ const ProductSearchPage: NextPage<
 	// Fetching products
 	useEffect(() => {
 		const filterValue = getFilterValueFromQuery(query);
-		console.log('isEcoisEcoisEcoisEco =', isEco);
 
 		getProducts({
 			...filterValue,
-			is_eco: isEco || main_category ? false : filterBuyEco
+			is_eco: isEco || (main_category ? false : filterBuyEco)
 		}).then((data: any) => {
 			const productList = data.data || [];
 			setProducts(productList);
@@ -220,6 +219,7 @@ const ProductSearchPage: NextPage<
 			</div>
 
 			{/* ProductSearchFilterBar */}
+			{isEco?.toString()}
 			<div className="top-[97px] z-20 hidden md:sticky md:ml-[9px] md:mr-[10px] md:block md:pt-[14.01px] lg:top-[101px] lg:ml-[26px] lg:mr-[23px] lg:pt-[18.14px]">
 				<ProductSearchFilterBar
 					onCountryChange={(id = '', name = '') => {
