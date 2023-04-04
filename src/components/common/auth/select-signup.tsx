@@ -7,12 +7,11 @@ import Button from 'components/common/form/button';
 import { useAuthStore } from 'store/auth';
 
 // stores
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
+import ImageWithErrorHandler from '../elements/image-with-error-handler';
 import { Modal } from '../modal/modal';
 import { buttonSpinner } from '../spinners/custom-spinners';
-// import { userSignup } from './auth-services';
-import { useTranslation } from 'next-i18next';
-import ImageWithErrorHandler from '../elements/image-with-error-handler';
 
 const SelectSignUp: React.FC = () => {
 	const BUTTON_SPINNER = buttonSpinner();
@@ -24,17 +23,13 @@ const SelectSignUp: React.FC = () => {
 	const router = useRouter();
 	const { t } = useTranslation();
 	const [selectedOption, setSelectedOption] = useState('');
-	// const [signUp, setSignUp] = useState(false);
 
 	const [open, setOpen] = useState(false);
 	const [closeModal, setCloseModal] = useState(false);
 	function handleRadioChange(event: any) {
 		setSelectedOption(event.target.value);
 	}
-	// console.log('Selectsignup', signUp);
-	// useEffect(() => {
-	// 	setOpen(false);
-	// }, [open]);
+
 	return (
 		<Modal
 			open={isSelectSignUpOpen}
@@ -98,26 +93,10 @@ const SelectSignUp: React.FC = () => {
 											);
 										}
 									}}
-									// onClick={setIsSignUpOpen}
 								>
 									{loading ? BUTTON_SPINNER : null}{' '}
 									<>{t('auth:create_my_account')}</>
 								</Button>
-
-								{/* {
-									open && selectedOption === 'Buyer' && setIsSignUpOpen
-									// setSignUp(!signUp)
-								}
-								{open &&
-									selectedOption === 'Seller' &&
-									window.open(
-										'https://www.tradewindsqa.com/#/seller-registration'
-									)}
-								{open &&
-									selectedOption === 'BDM' &&
-									window.open(
-										'https://www.tradewindsqa.com/#/bdm-registration'
-									)} */}
 							</form>
 						</div>
 						<div className=" mt-[55px]">
