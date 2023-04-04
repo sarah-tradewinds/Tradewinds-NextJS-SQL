@@ -385,6 +385,9 @@ const ProductSearchPage: NextPage<
 											<div className="md:absolute md:bottom-0 md:right-0">
 												<div className="relative h-[38px] w-[38px] md:h-[30px] md:w-[30px] lg:h-[60px] lg:w-[60px]">
 													<ImageWithErrorHandler
+														key={
+															selectedMainCategory?.category_search_image
+														}
 														src={
 															selectedMainCategory?.category_search_image
 														}
