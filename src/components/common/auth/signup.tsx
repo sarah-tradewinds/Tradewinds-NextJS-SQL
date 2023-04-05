@@ -66,10 +66,15 @@ const SignUp: React.FC = () => {
 	}, [signupData]);
 
 	const onChange = (field: string, value: string) => {
-		setSignupData({
-			...signupData,
+		// setSignupData({
+		// 	...signupData,
+		// 	[field]: value
+		// });
+
+		setSignupData((prevState: any) => ({
+			...prevState,
 			[field]: value
-		});
+		}));
 	};
 
 	const validateData = () => {
