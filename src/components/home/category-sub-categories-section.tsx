@@ -204,7 +204,7 @@ const CategorySubCategoriesSection: React.FC<
 					imageUrl={main_category?.image}
 					alt={main_category.title?.en || ''}
 					bgHexColor={main_category?.color}
-					actionButtonBgColor={main_category?.source_now_text_color}
+					actionButtonBgColor={main_category?.source_now_button_color}
 					containerClassName="lg:!h-[278px] lg:w-[349.08px] md:w-[250px] md:!h-[278px]"
 				/>
 
