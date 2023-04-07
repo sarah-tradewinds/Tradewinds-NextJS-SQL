@@ -136,6 +136,7 @@ const AddressModal: React.FC<ModalProps> = (props) => {
 		<>
 			<AddAddressModal
 				isOpen={isAddAddressModalOpen}
+				onCancel={() => setIsAddAddressModalOpen(false)}
 				onAddressAdded={() => {
 					setIsAddAddressModalOpen(false);
 					getBuyerShippingAndBillingAddresses();
@@ -150,18 +151,15 @@ const AddressModal: React.FC<ModalProps> = (props) => {
 				} !top-[128px] w-full`}
 			>
 				<div className="mx-4 pr-4 lg:mx-8">
-					<div className="mb-6 flex items-center justify-between">
+					<div className="mb-6 items-center justify-between md:flex">
 						<h1 className="xl:text-[40px] text-lg font-semibold md:text-[24px] lg:text-[32px]">
 							Select Shipping and Billing Address
 						</h1>
 						<Button
 							onClick={() => setIsAddAddressModalOpen(true)}
-							className="!h-10 !w-10 rounded-full border border-accent-primary-main !py-0 !px-2 !text-accent-primary-main md:!h-[40px] md:!w-[240px] md:rounded-none"
+							className="mt-4 !h-10 !w-full border border-accent-primary-main !py-0 !px-2 !text-accent-primary-main md:mt-0 md:!h-[40px] md:!w-[240px] md:rounded-none"
 						>
-							+
-							<span className="xl:inline-block hidden px-2">
-								ADD NEW ADDRESS
-							</span>
+							+<span className="px-2">ADD NEW ADDRESS</span>
 						</Button>
 					</div>
 
