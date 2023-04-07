@@ -37,6 +37,22 @@ export const userLogin = async (params: any) => {
 	}
 }; // End of userLogin function
 
+export const resendMail = async (email: string) => {
+	try {
+		const { data } = await axiosInstance.get(
+			`/auth/email-resend/${email}`
+		);
+		return {
+			message: data.message,
+			...(data.data || {})
+		};
+	} catch (error) {
+		console.log('[resendMail] =', error);
+		const { data } = (error as any).response || {};
+		throw Error(data?.message || 'Error occurred resendMail');
+	}
+}; // End of resendMail function
+
 export const autoLoginCustomer = async () => {
 	try {
 		const { data } = await proxyAxiosInstance.get('/auth/auto-login');

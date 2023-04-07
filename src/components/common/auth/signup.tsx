@@ -20,7 +20,7 @@ import {
 	ChevronUpDownIcon
 } from '@heroicons/react/20/solid';
 import { useGetCountries } from 'hooks/data-fetching/use-countries.hooks';
-import { userSignup } from 'lib/customer/auth.lib';
+import { resendMail, userSignup } from 'lib/customer/auth.lib';
 import { useTranslation } from 'next-i18next';
 import { getLocaleText } from 'utils/get_locale_text';
 import ImageWithErrorHandler from '../elements/image-with-error-handler';
@@ -200,7 +200,7 @@ const SignUp: React.FC = () => {
 			setSignupResult({
 				message: `Error: ${(error as any)?.message}`,
 				result: false,
-				signupDone: true
+				signupDone: false
 			});
 			setLoading(false);
 		}
@@ -509,16 +509,14 @@ const SignUp: React.FC = () => {
 							Still cannot find the email?
 						</h4>
 
-						<form>
-							<div className="mt-3 flex items-center justify-center">
-								<button
-									className={`rounded border border-[green] bg-[green] py-2 px-4 text-sm text-[white] hover:bg-opacity-75 focus:outline-none`}
-									// onClick={openLogin}
-								>
-									Resend Email
-								</button>
-							</div>
-						</form>
+						<div className="mt-3 flex items-center justify-center">
+							<button
+								className={`rounded border border-[green] bg-[green] py-2 px-4 text-sm text-[white] hover:bg-opacity-75 focus:outline-none`}
+								onClick={() => resendMail(signupData?.email)}
+							>
+								Resend Email
+							</button>
+						</div>
 
 						<h4 className="font-small mt-8 text-center  text-primary-main">
 							Need help?{' '}
