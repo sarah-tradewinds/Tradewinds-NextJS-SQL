@@ -23,6 +23,8 @@ interface CartItemProps {
 	isBulkPricing: boolean;
 	minOrderQuantity: number;
 	imageUrl: string;
+	countryName: string;
+	countryImageUrl: string;
 	totalReviewCount: number;
 	variantCount: number;
 	onUpdate: (quantity: number, productId: string) => any;
@@ -44,6 +46,8 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 		minOrderQuantity,
 		isBulkPricing,
 		imageUrl,
+		countryName,
+		countryImageUrl,
 		totalReviewCount,
 		variantCount,
 		onUpdate,
@@ -57,10 +61,10 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 	const metadataTileList = [
 		// country of origin
 		<MetadataTile
-			key={metadataList[0].title}
-			imageUrl={metadataList[0].imageUrl}
-			alt={metadataList[0].title}
-			title={'countryOfOrigin'}
+			key={countryName}
+			imageUrl={countryImageUrl}
+			alt={countryName}
+			title={countryName}
 		/>,
 		// isReadyToShip
 		id && (

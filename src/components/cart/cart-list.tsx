@@ -55,7 +55,9 @@ const CartList: React.FC<CartListProps> = (props) => {
 
 				const productVariantId = cartProduct.productVariantId;
 
-				console.log('cartProduct', productVariantId, cartProduct);
+				const sellerCountry =
+					product?.edges?.product?.edges?.sellers?.edges?.country?.edges
+						?.region_country?.[0] || {};
 
 				return (
 					<div
@@ -84,6 +86,10 @@ const CartList: React.FC<CartListProps> = (props) => {
 							isSaleOn={is_on_sale}
 							isBulkPricing={product?.is_bulk_pricing}
 							imageUrl={product?.images?.[0]}
+							countryName={
+								getLocaleText(sellerCountry?.name || {}, locale) || ''
+							}
+							countryImageUrl={sellerCountry?.image || ''}
 							quantity={cartProduct.quantity}
 							total={cartProduct.total}
 							displayPrice={displayPrice}

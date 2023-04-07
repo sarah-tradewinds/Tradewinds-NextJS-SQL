@@ -170,15 +170,20 @@ const ProductDetailsTile: React.FC<{
 				imageUrl: seller_country[0]?.url || ''
 		  } || {}
 		: {};
+
+	const sellerCountry =
+		product?.edges?.sellers?.edges?.country?.edges
+			?.region_country?.[0] || {};
+
 	const minOrderQuantity = inventory?.minimum_order_quantity || 0;
 
 	const metadataTileLists = [
 		// country of origin
 		<MetadataTile
-			key={country?.name}
-			imageUrl={country?.imageUrl}
-			alt={country?.name}
-			title={country?.name}
+			key={sellerCountry?.name}
+			imageUrl={sellerCountry?.image}
+			alt={sellerCountry?.name}
+			title={sellerCountry?.name}
 			imageContainerClassName="!w-[14px] !h-[10px] lg:!w-[23px] lg:!h-[14px]"
 			className="!space-x-1 md:!space-x-4"
 			titleClassName="md:text-[13px] md:leading-4"

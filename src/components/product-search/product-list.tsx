@@ -154,6 +154,7 @@ const ProductList: React.FC<ProductListProps> = ({
 
 			<div className="grid grid-cols-1 gap-y-1 md:gap-y-[15px] lg:gap-[27px]">
 				{products.map((product, index) => {
+					console.log('product-product-product = ', product);
 					// const [firstVariantData = {}] =
 					//   product?.edges?.product_variants || [];
 
@@ -161,6 +162,10 @@ const ProductList: React.FC<ProductListProps> = ({
 						getDefaultProductAndProductVariants(
 							product?.edges?.product_variants || []
 						);
+
+					const sellerCountry =
+						product?.edges?.sellers?.edges?.country?.edges
+							?.region_country?.[0] || {};
 
 					const {
 						// product_price,
@@ -185,8 +190,6 @@ const ProductList: React.FC<ProductListProps> = ({
 						bulk_pricing
 					});
 
-					const country = seller_country ? seller_country[0] || {} : {};
-
 					const productData = {
 						key: product.id,
 						name: getLocaleText(product.name || {}, locale),
@@ -197,8 +200,8 @@ const ProductList: React.FC<ProductListProps> = ({
 							? country_of_region[0]
 							: '',
 						country: {
-							name: getLocaleText(country?.name || '', locale),
-							imageUrl: country?.url || '/coming-soon.png'
+							name: getLocaleText(sellerCountry?.name || '', locale),
+							imageUrl: sellerCountry?.image || '/coming-soon.png'
 						},
 						isEco: product.is_eco,
 						keywords: product.tags || [],
