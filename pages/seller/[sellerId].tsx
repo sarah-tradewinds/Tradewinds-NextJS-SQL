@@ -1,3 +1,12 @@
+// Third party packages
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
+import {
+	GetServerSideProps,
+	InferGetServerSidePropsType,
+	NextPage
+} from 'next';
+
 import { Tab } from '@headlessui/react';
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import Button from 'components/common/form/button';
@@ -10,10 +19,10 @@ import {
 import {
 	getFeaturedProductsBySellerId,
 	getProductsWithCollectionBySellerId,
+	getSellerDetailsBySellerId,
 	getSellerStorefrontDetailsSellerId
 } from 'lib/product-details.lib';
 import { useTranslation } from 'next-i18next';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import {
@@ -23,11 +32,10 @@ import {
 } from 'react-icons/md';
 import { useAuthStore } from 'store/auth';
 import { getLocaleText } from 'utils/get_locale_text';
-import CollectionSliderOld from '../product-collection/collection-slider-old';
-
-const CompanyProfileTab: React.FC<{
-	seller: any;
-}> = ({ seller }) => {
+import CollectionSliderOld from '../../src/components/product-details/product-collection/collection-slider-old';
+const SellerProfileTab: NextPage<
+	InferGetServerSidePropsType<GetServerSideProps>
+> = ({ seller = {} }) => {
 	const { t } = useTranslation();
 
 	const [storeFrontDetails, setStoreFrontDetails] = useState<any>({});
@@ -72,20 +80,22 @@ const CompanyProfileTab: React.FC<{
 	});
 
 	useEffect(() => {
-		if (!seller.id) return;
+		if (!seller?.id) return;
 
-		getSellerStorefrontDetailsSellerId(seller.id).then((data) =>
+		getSellerStorefrontDetailsSellerId(seller?.id).then((data) =>
 			setStoreFrontDetails(data || {})
 		);
 
-		getFeaturedProductsBySellerId(seller.id).then((data) =>
+		getFeaturedProductsBySellerId(seller?.id).then((data) =>
 			setFeaturedProducts(data || [])
 		);
 
-		getProductsWithCollectionBySellerId(seller.id).then((data = []) => {
-			setCollectionProducts(data || []);
-		});
-	}, [seller.id]);
+		getProductsWithCollectionBySellerId(seller?.id).then(
+			(data = []) => {
+				setCollectionProducts(data || []);
+			}
+		);
+	}, [seller?.id]);
 
 	const { store_front, edges } = seller || {};
 	console.log('seller =', seller);
@@ -101,7 +111,7 @@ const CompanyProfileTab: React.FC<{
 			}}
 			className="flex items-center border border-accent-primary-main !p-0 !pr-2 !text-accent-primary-main lg:px-2"
 		>
-			<MdOutlineMessage className="mr-1 block h-[40px] bg-accent-primary-main text-[24px] text-white lg:mr-2" />
+			<MdOutlineMessage className="mr-1 block h-[40px]  bg-accent-primary-main text-[24px] text-white lg:mr-2" />
 			Message Vendor
 		</Button>
 	);
@@ -178,30 +188,27 @@ const CompanyProfileTab: React.FC<{
 								<div>
 									<div className="mt-8 grid grid-cols-12 md:gap-8">
 										{/* Profile details */}
-										<div className="col-span-12 space-y-4 sm:col-span-8">
+										<div className=" grid grid-cols-2 grid-rows-3 space-y-4 text-lg sm:col-span-8">
 											<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
-												<span className="font-semibold md:min-w-[148px]">
+												<span className="mt-4 font-semibold md:min-w-[148px]">
 													{t('common:country')}:
 												</span>
-												<span>
+												<span className="mt-4">
 													{getLocaleText(
 														edges?.country?.name || {},
 														locale
 													)}
 												</span>
 											</p>
-
 											<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
 												<span className="font-semibold md:min-w-[148px]">
 													{t('common:tw_page')}:
 												</span>
-												<Link href={`/seller/${seller?.id}`}>
-													<span className="cursor-pointer text-primary-main">
-														https://tradewindsmppreprodshoppingsite.azurewebsites.net/seller/
-														{seller?.id}
-														{/* {seller?.tw_page} */}
-													</span>
-												</Link>
+												<span className=" text-primary-main">
+													https://tradewindsmppreprodshoppingsite.azurewebsites.net/seller/
+													{seller?.id}
+													{/* {seller?.tw_page} */}
+												</span>
 											</p>
 											<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
 												<span className="font-semibold md:min-w-[148px]">
@@ -237,17 +244,16 @@ const CompanyProfileTab: React.FC<{
 										</div>
 
 										{/* Tradewinds logo and message vendor button */}
+										<div className="relative h-[76px] w-[120px] md:m-8">
+											<ImageWithErrorHandler
+												className=" ml-[430px] -mt-[30px]"
+												src="/twmp-verified.png"
+												alt=""
+												fill={true}
+											/>
+										</div>
 										<div className="hidden sm:col-span-4 md:flex">
-											<div className="flex justify-end ">
-												<div className="relative mr-4 h-[72px] w-[120px] md:m-8">
-													<ImageWithErrorHandler
-														src="/twmp-verified.png"
-														alt=""
-														fill={true}
-													/>
-												</div>
-											</div>
-											<div className="relative mt-16 hidden h-[22px] lg:block">
+											<div className="relative  hidden h-[33px] w-[220px] lg:block">
 												{messageVendorButton}
 											</div>
 										</div>
@@ -437,6 +443,33 @@ const CompanyProfileTab: React.FC<{
 			</div>
 		</>
 	);
-}; // End of CompanyProfileTab component
+}; // End of SellerProfileTab component
 
-export default CompanyProfileTab;
+export default SellerProfileTab;
+
+export const getServerSideProps: GetServerSideProps = async ({
+	params,
+	locale
+}) => {
+	const notFound = {
+		props: {},
+		notFound: true
+	};
+
+	try {
+		const sellerId = (params as any).sellerId;
+		const seller = (await getSellerDetailsBySellerId(sellerId)) || {};
+		seller.id = sellerId;
+		return {
+			props: {
+				seller,
+				...(await serverSideTranslations(locale || 'en'))
+			}
+		};
+	} catch (error) {
+		console.log('Error occurred', error);
+		return notFound;
+	}
+};
+
+//End og getServerSideProps
