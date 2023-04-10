@@ -58,12 +58,13 @@ const SimilarProductList: React.FC<SimilarProductListProps> = (
 							}`}
 							onClick={() => push(`/product/${similarProduct.id}`)}
 						>
+							{console.log('similarProduct', similarProduct)}
 							<div className="h-[274px] w-[298px]">
 								<div className="relative h-[205px] w-[240px]">
 									<ImageWithErrorHandler
 										src={
-											similarProduct?.edges?.product_variants
-												?.images?.[0] || '/loading-circle-50.png'
+											similarProduct?.edges?.product_variants?.[0]
+												?.images?.[0] || ''
 										}
 										alt=""
 										fill={true}
