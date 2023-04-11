@@ -276,12 +276,12 @@ const CompanyProfileTab: React.FC<{
 									<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18px] text-gray/40 md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
 										{t('common:company_images')} 
 									</h2>
-									<div className=" mt-4 flex h-[200px] w-[700px] justify-between">
+									<div className=" mt-4 flex space-x-4">
 										{storeFrontDetails?.company_photos?.map(
 											(companyPhoto: string) => (
 												<div
 													key={companyPhoto}
-													className="relative h-[200px] w-[219px] border-[2px]"
+													className="relative h-[200px] w-[219px] rounded-md"
 												>
 													<ImageWithErrorHandler
 														key={companyPhoto}
@@ -300,12 +300,12 @@ const CompanyProfileTab: React.FC<{
 									<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18px] text-gray/40 md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
 										{t('common:company_video')}
 									</h2>
-									<div className="mt-4 h-[200px] w-[219px] ">
+									<div className="mt-4 flex space-x-4">
 										{storeFrontDetails?.company_videos?.map(
 											(companyVideoUrl: string) => (
 												<div
 													key={companyVideoUrl}
-													className="relative h-full w-full"
+													className="relative h-[200px] w-[219px]"
 												>
 													<video
 														autoPlay={false}
