@@ -31,12 +31,12 @@ export const generateBuyerDashboardUrl = (paramsData: object) => {
 
 export const generateSellerDashboardUrl = (paramsData: object) => {
 	const queryString = generateQueryStringSeller(paramsData);
-	const url = `${process.env.SELLER_DASHBOARD_SITE_URL}/app/sellers?role=seller&${queryString}`;
+	const url = `${process.env.SELLER_DASHBOARD_SITE_URL}/app/profile?role=seller&${queryString}`;
 	return url;
 };
 
 export const generateBdmDashboardUrl = (paramsData: object) => {
 	const queryString = generateQueryStringBDM(paramsData);
-	const url = `${process.env.BDM_DASHBOARD_SITE_URL}/app/bdms?role=bdm&${queryString}`;
+	const url = `${process.env.BDM_DASHBOARD_SITE_URL}/app/profile?role=bdm&${queryString}`;
 	return url;
 };

@@ -22,7 +22,9 @@ import ImageWithErrorHandler from '../elements/image-with-error-handler';
 
 import {
 	BDM_DASHBOARD_PAGES,
-	generateBdmDashboardUrl
+	SELLER_DASHBOARD_PAGES,
+	generateBdmDashboardUrl,
+	generateSellerDashboardUrl
 } from 'data/buyer/buyer-actions';
 
 interface ILoginData {
@@ -63,10 +65,30 @@ const Login: React.FC = () => {
 		try {
 			const data = await userLogin(loginData);
 			const accessToken = data?.access_token?.token || '';
+			if (selectedOption === 'Seller') {
+				window.open(
+					generateSellerDashboardUrl({
+						redirect_to: SELLER_DASHBOARD_PAGES.sellers,
+						access_key: accessToken,
+						refresh_key: data.refresh_token.token
+					})
+				);
+				setLoading(false);
+				return;
+			} else if (selectedOption === 'BDM') {
+				window.open(
+					generateBdmDashboardUrl({
+						redirect_to: BDM_DASHBOARD_PAGES.bdms,
+						access_key: accessToken,
+						refresh_key: data.refresh_token.token
+					})
+				);
+				setLoading(false);
+				return;
+			}
 			if (typeof window !== 'undefined') {
 				localStorage.setItem('access_token', accessToken);
 			}
-			console.log('access', accessToken);
 
 			const customerDetails = await getCustomerDetails(accessToken);
 
@@ -119,8 +141,6 @@ const Login: React.FC = () => {
 	const onChange = (field: string, value: string) => {
 		setLoginData({ ...loginData, [field]: value });
 	};
-
-	const customerData = useAuthStore((state) => state.customerData);
 
 	function handleRadioChange(event: any) {
 		setSelectedOption(event.target.value);
@@ -198,36 +218,9 @@ const Login: React.FC = () => {
 									className="w-full"
 									onClick={(e: any) => {
 										if (selectedOption === 'Buyer') loginUser(e);
-										else if (selectedOption === 'Seller') {
-											loginUser(e);
-											// window.open(
-											// 	generateSellerDashboardUrl({
-											// 		redirect_to: SELLER_DASHBOARD_PAGES.sellers,
-											// 		access_key: customerData.access.token,
-											// 		refresh_key: customerData.refresh.token
-											// 	})
-											// );
-											// 	 href={generateSellerDashboardUrl({
-											// 	redirect_to: SELLER_DASHBOARD_PAGES.seller,
-											// 	access_key: customerData.access.token,
-											// 	refresh_key: customerData.refresh.token
-											// })}
-										} else if (selectedOption === 'BDM') {
-											window.open(
-												generateBdmDashboardUrl({
-													redirect_to: BDM_DASHBOARD_PAGES.bdms,
-													access_key: customerData.access.token,
-													refresh_key: customerData.refresh.token
-												})
-											);
-											// 	href={generateBdmDashboardUrl({
-											// 	redirect_to: BDM_DASHBOARD_PAGES.bdm,
-											// 	access_key: customerData.access.token,
-											// 	refresh_key: customerData.refresh.token
-											// })}
-										}
+										else if (selectedOption === 'Seller') loginUser(e);
+										else if (selectedOption === 'BDM') loginUser(e);
 									}}
-									// onClick={(e: any) => loginUser(e)}
 									disabled={loading}
 								>
 									{loading ? BUTTON_SPINNER : null} {t('auth:signin')}
@@ -256,15 +249,6 @@ const Login: React.FC = () => {
 							<p className="mt-8 text-center text-lg font-semibold opacity-80">
 								{t('auth:dont_have_an_account')}
 							</p>
-							<Button
-								className="mt-2 border border-accent-secondary-main text-accent-secondary-main hover:bg-accent-secondary-main hover:text-white"
-								onClick={() => {
-									setIsSignUpOpen();
-									setIsLoginOpen();
-								}}
-							>
-								{t('auth:become_a_member_today')}
-							</Button>
 						</div>
 
 						{loginResult.isDone && !loginResult.result && (
