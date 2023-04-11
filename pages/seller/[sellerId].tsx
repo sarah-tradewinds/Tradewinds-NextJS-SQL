@@ -1,5 +1,13 @@
+// Third party packages
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
+import {
+	GetServerSideProps,
+	InferGetServerSidePropsType,
+	NextPage
+} from 'next';
+
 import { Tab } from '@headlessui/react';
-import { PlayCircleIcon } from '@heroicons/react/20/solid';
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import Button from 'components/common/form/button';
 import MessageVendorPopup from 'components/common/popup/message-vendor.popup';
@@ -11,10 +19,10 @@ import {
 import {
 	getFeaturedProductsBySellerId,
 	getProductsWithCollectionBySellerId,
+	getSellerDetailsBySellerId,
 	getSellerStorefrontDetailsSellerId
 } from 'lib/product-details.lib';
 import { useTranslation } from 'next-i18next';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import {
@@ -24,12 +32,10 @@ import {
 } from 'react-icons/md';
 import { useAuthStore } from 'store/auth';
 import { getLocaleText } from 'utils/get_locale_text';
-import CollectionSliderOld from '../product-collection/collection-slider-old';
-import VideoPreviewModal from './video-preivew-modal';
-
-const CompanyProfileTab: React.FC<{
-	seller: any;
-}> = ({ seller }) => {
+import CollectionSliderOld from '../../src/components/product-details/product-collection/collection-slider-old';
+const SellerProfileTab: NextPage<
+	InferGetServerSidePropsType<GetServerSideProps>
+> = ({ seller = {} }) => {
 	const { t } = useTranslation();
 
 	const [storeFrontDetails, setStoreFrontDetails] = useState<any>({});
@@ -37,8 +43,6 @@ const CompanyProfileTab: React.FC<{
 	const [collectionProducts, setCollectionProducts] = useState<any[]>(
 		[]
 	);
-	const [selectedCompanyVideoUrl, setSelectedCompanyVideoUrl] =
-		useState('');
 
 	const [currentSlide, setCurrentSlide] = useState(0);
 	const [loaded, setLoaded] = useState(false);
@@ -76,20 +80,22 @@ const CompanyProfileTab: React.FC<{
 	});
 
 	useEffect(() => {
-		if (!seller.id) return;
+		if (!seller?.id) return;
 
-		getSellerStorefrontDetailsSellerId(seller.id).then((data) =>
-			setStoreFrontDetails(data?.store_front || {})
+		getSellerStorefrontDetailsSellerId(seller?.id).then((data) =>
+			setStoreFrontDetails(data || {})
 		);
 
-		getFeaturedProductsBySellerId(seller.id).then((data) =>
+		getFeaturedProductsBySellerId(seller?.id).then((data) =>
 			setFeaturedProducts(data || [])
 		);
 
-		getProductsWithCollectionBySellerId(seller.id).then((data = []) => {
-			setCollectionProducts(data || []);
-		});
-	}, [seller.id]);
+		getProductsWithCollectionBySellerId(seller?.id).then(
+			(data = []) => {
+				setCollectionProducts(data || []);
+			}
+		);
+	}, [seller?.id]);
 
 	const { store_front, edges } = seller || {};
 	console.log('seller =', seller);
@@ -105,7 +111,7 @@ const CompanyProfileTab: React.FC<{
 			}}
 			className="flex items-center border border-accent-primary-main !p-0 !pr-2 !text-accent-primary-main lg:px-2"
 		>
-			<MdOutlineMessage className="mr-1 block h-[40px] bg-accent-primary-main text-[24px] text-white lg:mr-2" />
+			<MdOutlineMessage className="mr-1 block h-[40px]  bg-accent-primary-main text-[24px] text-white lg:mr-2" />
 			Message Vendor
 		</Button>
 	);
@@ -131,12 +137,6 @@ const CompanyProfileTab: React.FC<{
 
 					setIsMessageVendorPopupOpen(false);
 				}}
-			/>
-
-			<VideoPreviewModal
-				videoUrl={selectedCompanyVideoUrl}
-				isOpen={selectedCompanyVideoUrl != ''}
-				onClose={() => setSelectedCompanyVideoUrl('')}
 			/>
 
 			<div className="bg-bg-main">
@@ -188,30 +188,27 @@ const CompanyProfileTab: React.FC<{
 								<div>
 									<div className="mt-8 grid grid-cols-12 md:gap-8">
 										{/* Profile details */}
-										<div className="col-span-12 space-y-4 sm:col-span-8">
+										<div className=" grid grid-cols-2 grid-rows-3 space-y-4 text-lg sm:col-span-8">
 											<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
-												<span className="font-semibold md:min-w-[148px]">
+												<span className="mt-4 font-semibold md:min-w-[148px]">
 													{t('common:country')}:
 												</span>
-												<span>
+												<span className="mt-4">
 													{getLocaleText(
 														edges?.country?.name || {},
 														locale
 													)}
 												</span>
 											</p>
-
 											<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
 												<span className="font-semibold md:min-w-[148px]">
 													{t('common:tw_page')}:
 												</span>
-												<Link href={`/seller/${seller?.id}`}>
-													<span className="cursor-pointer text-primary-main">
-														https://tradewindsmppreprodshoppingsite.azurewebsites.net/seller/
-														{seller?.id}
-														{/* {seller?.tw_page} */}
-													</span>
-												</Link>
+												<span className=" text-primary-main">
+													https://tradewindsmppreprodshoppingsite.azurewebsites.net/seller/
+													{seller?.id}
+													{/* {seller?.tw_page} */}
+												</span>
 											</p>
 											<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
 												<span className="font-semibold md:min-w-[148px]">
@@ -247,17 +244,16 @@ const CompanyProfileTab: React.FC<{
 										</div>
 
 										{/* Tradewinds logo and message vendor button */}
+										<div className="relative h-[76px] w-[120px] md:m-8">
+											<ImageWithErrorHandler
+												className=" ml-[430px] -mt-[30px]"
+												src="/twmp-verified.png"
+												alt=""
+												fill={true}
+											/>
+										</div>
 										<div className="hidden sm:col-span-4 md:flex">
-											<div className="flex justify-end ">
-												<div className="relative mr-4 h-[72px] w-[120px] md:m-8">
-													<ImageWithErrorHandler
-														src="/twmp-verified.png"
-														alt=""
-														fill={true}
-													/>
-												</div>
-											</div>
-											<div className="relative mt-16 hidden h-[22px] lg:block">
+											<div className="relative  hidden h-[33px] w-[220px] lg:block">
 												{messageVendorButton}
 											</div>
 										</div>
@@ -284,22 +280,28 @@ const CompanyProfileTab: React.FC<{
 									<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18px] text-gray/40 md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
 										{t('common:company_images')} 
 									</h2>
-									<div className=" mt-4 flex space-x-4">
-										{storeFrontDetails?.company_photos?.map(
-											(companyPhoto: string) => (
-												<div
-													key={companyPhoto}
-													className="relative h-[200px] w-[219px] rounded-md"
-												>
-													<ImageWithErrorHandler
-														key={companyPhoto}
-														src={companyPhoto}
-														alt=""
-														fill={true}
-													/>
-												</div>
-											)
-										)}
+									<div className=" mt-4 flex h-[200px] w-[700px] justify-between">
+										<div className="relative h-[200px] w-[219px] border-[2px]">
+											<ImageWithErrorHandler
+												src="/vehicles/red-tractor.png"
+												alt=""
+												fill={true}
+											/>
+										</div>
+										<div className="relative h-[200px] w-[219px] border-[2px]">
+											<ImageWithErrorHandler
+												src="/vehicles/yellow-tractor.png"
+												alt=""
+												fill={true}
+											/>
+										</div>
+										<div className="relative h-[200px] w-[219px] border-[2px]">
+											<ImageWithErrorHandler
+												src="/vehicles/green-tractor.png"
+												alt=""
+												fill={true}
+											/>
+										</div>
 									</div>
 								</div>
 
@@ -308,33 +310,10 @@ const CompanyProfileTab: React.FC<{
 									<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18px] text-gray/40 md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
 										{t('common:company_video')}
 									</h2>
-									<div className="mt-4 flex space-x-4">
-										{storeFrontDetails?.company_videos?.map(
-											(companyVideoUrl: string) => (
-												<div
-													key={companyVideoUrl}
-													className="relative h-[200px] w-[219px]"
-												>
-													<video
-														autoPlay={false}
-														className="h-full w-full rounded-md object-cover"
-													>
-														<source src={companyVideoUrl}></source>
-													</video>
-
-													<span className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 transform">
-														<PlayCircleIcon
-															className="h-20 w-20 cursor-pointer text-white"
-															onClick={() =>
-																setSelectedCompanyVideoUrl(
-																	companyVideoUrl
-																)
-															}
-														/>
-													</span>
-												</div>
-											)
-										)}
+									<div className=" mt-4 h-[200px] w-[219px] bg-agri-main">
+										<video>
+											<source src=""></source>
+										</video>
 									</div>
 								</div>
 
@@ -464,6 +443,33 @@ const CompanyProfileTab: React.FC<{
 			</div>
 		</>
 	);
-}; // End of CompanyProfileTab component
+}; // End of SellerProfileTab component
 
-export default CompanyProfileTab;
+export default SellerProfileTab;
+
+export const getServerSideProps: GetServerSideProps = async ({
+	params,
+	locale
+}) => {
+	const notFound = {
+		props: {},
+		notFound: true
+	};
+
+	try {
+		const sellerId = (params as any).sellerId;
+		const seller = (await getSellerDetailsBySellerId(sellerId)) || {};
+		seller.id = sellerId;
+		return {
+			props: {
+				seller,
+				...(await serverSideTranslations(locale || 'en'))
+			}
+		};
+	} catch (error) {
+		console.log('Error occurred', error);
+		return notFound;
+	}
+};
+
+//End og getServerSideProps

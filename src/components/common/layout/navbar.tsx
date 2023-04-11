@@ -45,7 +45,7 @@ const Header = () => {
 
 	const {
 		setIsLoginOpen,
-		setIsSignUpOpen,
+		setIsSelectSignUpOpen,
 		isAuth,
 		customerData,
 		logout
@@ -171,7 +171,7 @@ const Header = () => {
 						type="button"
 						// className="rounded-sm border-[1px] bg-transparent px-5 py-2 text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary"
 						className="flex flex-col items-center justify-center rounded-sm border bg-transparent text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary md:mr-[5.56px] md:!h-[42px] md:!w-[73px] md:!font-normal lg:!mr-[9px] lg:!w-[94px] lg:!border-2 lg:!border-secondary lg:!text-lg lg:leading-[22px]"
-						onClick={setIsSignUpOpen}
+						onClick={setIsSelectSignUpOpen}
 					>
 						{t('sign_up_text')}
 					</button>

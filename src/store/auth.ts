@@ -27,10 +27,12 @@ interface AuthState {
 	isAuth: boolean;
 	customerData: CustomerDataProps;
 	isSignUpOpen: boolean;
+	isSelectSignUpOpen: boolean;
 	isLoginOpen: boolean;
 	autoLogin: () => any;
 	setCustomerData: (customerData: CustomerDataProps) => any;
 	setIsSignUpOpen: () => any;
+	setIsSelectSignUpOpen: () => any;
 	setIsLoginOpen: () => any;
 	logout: () => any;
 }
@@ -57,6 +59,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 	isAuth: false,
 	customerData: initialCustomerData,
 	isSignUpOpen: false,
+	isSelectSignUpOpen: false,
 	isLoginOpen: false,
 	autoLogin: async () => {
 		set({
@@ -103,8 +106,12 @@ export const useAuthStore = create<AuthState>((set) => ({
 			customerData
 		});
 	},
-	setIsSignUpOpen: () =>
-		set((state) => ({ isSignUpOpen: !state.isSignUpOpen })),
+	setIsSignUpOpen: () => {
+		set((state) => ({ isSignUpOpen: !state.isSignUpOpen }));
+	},
+	setIsSelectSignUpOpen: () => {
+		set((state) => ({ isSelectSignUpOpen: !state.isSelectSignUpOpen }));
+	},
 	setIsLoginOpen: () => {
 		set((state) => ({ isLoginOpen: !state.isLoginOpen }));
 	},

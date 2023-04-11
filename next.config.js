@@ -15,6 +15,12 @@ const nextConfig = (phase) => {
 				BUYER_DASHBOARD_SITE_URL:
 					'https://white-ocean-019fe600f.2.azurestaticapps.net/#',
 
+				BDM_DASHBOARD_SITE_URL:
+					'https://white-ocean-019fe600f.2.azurestaticapps.net/#',
+
+				SELLER_DASHBOARD_SITE_URL:
+					'https://white-ocean-019fe600f.2.azurestaticapps.net/#',
+
 				API_BASE_URL:
 					'https://tradewinds-sql-preprod-as.azurewebsites.net',
 
@@ -42,6 +48,12 @@ const nextConfig = (phase) => {
 			SITE_URL: 'https://white-ocean-019fe600f.2.azurestaticapps.net/#',
 
 			BUYER_DASHBOARD_SITE_URL:
+				'https://white-ocean-019fe600f.2.azurestaticapps.net/#',
+
+			BDM_DASHBOARD_SITE_URL:
+				'https://white-ocean-019fe600f.2.azurestaticapps.net/#',
+
+			SELLER_DASHBOARD_SITE_URL:
 				'https://white-ocean-019fe600f.2.azurestaticapps.net/#',
 
 			API_BASE_URL:

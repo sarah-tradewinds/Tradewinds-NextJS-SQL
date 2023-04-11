@@ -6,6 +6,7 @@ import Link from 'next/link';
 // components
 const Login = dynamic(() => import('../auth/login'));
 const SignUpPage = dynamic(() => import('../auth/signup'));
+const SelectSignUpPage = dynamic(() => import('../auth/select-signup'));
 // import Login from '../auth/login';
 // import SignUpPage from '../auth/signup';
 import Footer from './footer';
@@ -132,6 +133,7 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 
 			<div className={isEco ? 'dark' : 'light'}>
 				<NavBar />
+				<SelectSignUpPage />
 				<SignUpPage />
 				<Login />
 				<main className="md:scale-[0.85]s md:transforms bg-bg-main pb-8 dark:bg-bg-eco">

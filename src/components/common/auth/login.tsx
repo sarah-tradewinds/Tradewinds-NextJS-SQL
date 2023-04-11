@@ -20,6 +20,13 @@ import { useTranslation } from 'next-i18next';
 import { useCartStore } from 'store/cart-store-v2';
 import ImageWithErrorHandler from '../elements/image-with-error-handler';
 
+import {
+	BDM_DASHBOARD_PAGES,
+	SELLER_DASHBOARD_PAGES,
+	generateBdmDashboardUrl,
+	generateSellerDashboardUrl
+} from 'data/buyer/buyer-actions';
+
 interface ILoginData {
 	email: string;
 	password: string;
@@ -34,6 +41,7 @@ const Login: React.FC = () => {
 		setCustomerData
 	} = useAuthStore();
 	const [loading, setLoading] = useState(false);
+	const [selectedOption, setSelectedOption] = useState('');
 	const [loginData, setLoginData] = useState<ILoginData>({
 		email: '',
 		password: ''
@@ -60,6 +68,27 @@ const Login: React.FC = () => {
 		try {
 			const data = await userLogin(loginData);
 			const accessToken = data?.access_token?.token || '';
+			if (selectedOption === 'Seller') {
+				window.open(
+					generateSellerDashboardUrl({
+						redirect_to: SELLER_DASHBOARD_PAGES.sellers,
+						access_key: accessToken,
+						refresh_key: data.refresh_token.token
+					})
+				);
+				setLoading(false);
+				return;
+			} else if (selectedOption === 'BDM') {
+				window.open(
+					generateBdmDashboardUrl({
+						redirect_to: BDM_DASHBOARD_PAGES.bdms,
+						access_key: accessToken,
+						refresh_key: data.refresh_token.token
+					})
+				);
+				setLoading(false);
+				return;
+			}
 			if (typeof window !== 'undefined') {
 				localStorage.setItem('access_token', accessToken);
 			}
@@ -111,6 +140,9 @@ const Login: React.FC = () => {
 		setLoginData({ ...loginData, [field]: value });
 	};
 
+	function handleRadioChange(event: any) {
+		setSelectedOption(event.target.value);
+	}
 	return (
 		<Modal
 			open={isLoginOpen}
@@ -119,15 +151,45 @@ const Login: React.FC = () => {
 			overlayClassName="!z-[51000]"
 			onClose={setIsLoginOpen}
 		>
-			<div className="flex items-center justify-center">
-				<div className="mt-16 flex w-full justify-center rounded-md bg-white p-8 shadow-md md:w-[740px] lg:w-[1000px] lg:justify-start lg:p-16">
-					<div className="flex flex-col items-center border-gray/40 lg:border-r lg:pr-24">
-						<h2 className="mb-8 border-b border-gray/40  pb-4 text-2xl font-semibold text-black md:text-3xl">
-							{t('auth:login_to_your_account')}
+			<div className="ml-2 flex  items-center justify-center">
+				<div className="flex justify-center rounded-md bg-white shadow-md md:mt-12 md:w-[740px] md:py-4 lg:h-[905px] lg:w-[1204px] lg:justify-start lg:px-16">
+					<div className="overflow-hiden flex h-[640px] flex-col items-center border-gray/40 py-8 md:h-auto lg:w-full lg:border-r lg:py-0 lg:pr-24">
+						<h2 className=" mb-8 mt-[220px] h-[67] w-[471px] border-b border-gray/40 pb-4 text-center font-semibold text-black md:text-4xl lg:text-5xl">
+							{t('auth:welcome_back')}
 						</h2>
 
 						<div className="flex w-full justify-center border-b border-gray/40 pb-8">
 							<form className="w-full space-y-4 md:w-[360px]">
+								<div className=" mt-[41px] mb-[27px] space-x-5 text-center text-lg">
+									<label>I am a...</label>
+									<label>
+										<input
+											type="radio"
+											name="myRadio"
+											value="Buyer"
+											onChange={handleRadioChange}
+										/>
+										Buyer
+									</label>
+									<label>
+										<input
+											type="radio"
+											name="myRadio"
+											value="Seller"
+											onChange={handleRadioChange}
+										/>
+										Seller
+									</label>
+									<label>
+										<input
+											type="radio"
+											name="myRadio"
+											value="BDM"
+											onChange={handleRadioChange}
+										/>
+										BDM
+									</label>
+								</div>
 								<Input
 									name="email"
 									type="email"
@@ -152,11 +214,24 @@ const Login: React.FC = () => {
 								<Button
 									variant="product"
 									className="w-full"
+									onClick={(e: any) => {
+										if (selectedOption === 'Buyer') loginUser(e);
+										else if (selectedOption === 'Seller') loginUser(e);
+										else if (selectedOption === 'BDM') loginUser(e);
+									}}
+									disabled={loading}
+								>
+									{loading ? BUTTON_SPINNER : null} {t('auth:signin')}
+								</Button>
+
+								{/* <Button
+									variant="product"
+									className="w-full"
 									onClick={(e: any) => loginUser(e)}
 									disabled={loading}
 								>
-									{loading ? BUTTON_SPINNER : null} {t('auth:login')}
-								</Button>
+									{loading ? BUTTON_SPINNER : null} {t('auth:signin')}
+								</Button> */}
 								<p
 									className="mt-8 cursor-pointer text-center text-sm text-accent-primary-main underline"
 									onClick={() => {
@@ -172,15 +247,6 @@ const Login: React.FC = () => {
 							<p className="mt-8 text-center text-lg font-semibold opacity-80">
 								{t('auth:dont_have_an_account')}
 							</p>
-							<Button
-								className="mt-2 border border-accent-secondary-main text-accent-secondary-main hover:bg-accent-secondary-main hover:text-white"
-								onClick={() => {
-									setIsSignUpOpen();
-									setIsLoginOpen();
-								}}
-							>
-								{t('auth:become_a_member_today')}
-							</Button>
 						</div>
 
 						{loginResult.isDone && !loginResult.result && (
