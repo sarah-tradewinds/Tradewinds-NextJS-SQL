@@ -24,11 +24,12 @@ import { MdOutlineMessage, MdPerson } from 'react-icons/md';
 
 import ProductFilterSlider from 'components/product-search/product-filter-mobile/product-filter-slider';
 import useDeviceSize from 'hooks/use-device-size.hooks';
+import { getCart } from 'lib/cart.lib';
 import { getAddresses } from 'lib/customer/addres.lib';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useAuthStore } from 'store/auth';
-import { useCartStore } from 'store/cart-store';
+import { useCartStore } from 'store/cart-store-v2';
 import { useHomeStore } from 'store/home';
 import { getLocaleText } from 'utils/get_locale_text';
 import ImageWithErrorHandler from '../elements/image-with-error-handler';
@@ -59,7 +60,8 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 		isAuthenticating: state.isAuthenticating
 	}));
 
-	const fetchCart = useCartStore((state) => state.fetchCart);
+	// const fetchCart = useCartStore((state) => state.fetchCart);
+	const setCart = useCartStore((state) => state.setCart);
 
 	const { route } = useRouter();
 	const { routeChangeStart } = useRouteEvent();
@@ -82,7 +84,23 @@ const Layout: React.FC<{ seo: any }> = (props) => {
 
 	useEffect(() => {
 		if (customerData.buyerId) {
-			fetchCart();
+			getCart().then((cart) => {
+				console.log('[getCart] =', cart);
+				const cartId = cart?.id;
+				if (!cartId) {
+					return;
+				}
+				console.log('[getCart] =', cart.item);
+
+				const cartItems = cart.item || [];
+				setCart(
+					cartId,
+					cartItems,
+					cart.subtotal || 0,
+					cartItems.length
+				);
+			});
+
 			getAddresses(customerData.buyerId).then((addresses) => {
 				for (const address of addresses) {
 					if (address.is_billing_address) {

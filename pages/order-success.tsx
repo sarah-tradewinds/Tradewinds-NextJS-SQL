@@ -11,13 +11,13 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useAuthStore } from 'store/auth';
-import { useCartStore } from 'store/cart-store';
+import { useCartStore } from 'store/cart-store-v2';
 
 const CheckoutPage: NextPage = () => {
 	const customerData = useAuthStore((state) => state.customerData);
-	const { resetCartState, cartProducts } = useCartStore((state) => ({
-		resetCartState: state.resetCartState,
-		cartProducts: state.cartProducts
+	const { cartItems, resetCart } = useCartStore((state) => ({
+		resetCart: state.resetCart,
+		cartItems: state.cartItems
 	}));
 
 	const { query } = useRouter();
@@ -34,11 +34,11 @@ const CheckoutPage: NextPage = () => {
 			payment_intent &&
 			payment_intent_client_secret &&
 			redirect_status &&
-			cartProducts?.length > 0
+			cartItems?.length > 0
 		) {
-			resetCartState();
+			resetCart();
 		}
-	}, [query, cartProducts?.length]);
+	}, [query, cartItems?.length]);
 
 	return (
 		<div className="container mx-auto flex flex-col items-center p-4 md:p-8">

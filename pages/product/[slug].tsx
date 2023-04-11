@@ -23,7 +23,6 @@ import {
 	BUYER_DASHBOARD_PAGES,
 	generateBuyerDashboardUrl
 } from 'data/buyer/buyer-actions';
-import { addProductToCart, updateCart } from 'lib/cart.lib';
 import {
 	getProductById,
 	getProductReviewAnalyticsByProductId,
@@ -34,7 +33,9 @@ import {
 } from 'lib/product-details.lib';
 import { useRouter } from 'next/router';
 import { useAuthStore } from 'store/auth';
-import { useCartStore } from 'store/cart-store';
+// import { useCartStore } from 'store/cart-store';
+import { useCartStore } from 'store/cart-store-v2';
+import { getDefaultProductAndProductVariants } from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
 
 const ProductDetailsPage: NextPage<
@@ -60,18 +61,22 @@ const ProductDetailsPage: NextPage<
 		customerData: state.customerData
 	}));
 
-	const {
-		cartId,
-		addToCart,
-		setCartId,
-		totalCartProductQuantity,
-		cartProducts
-	} = useCartStore((state) => ({
-		cartId: state.id,
-		addToCart: state.addToCart,
-		setCartId: state.setCartId,
-		totalCartProductQuantity: state.totalCartProductQuantity,
-		cartProducts: state.cartProducts
+	// const {
+	// 	cartId,
+	// 	addToCart,
+	// 	setCartId,
+	// 	totalCartProductQuantity,
+	// 	cartProducts
+	// } = useCartStore((state) => ({
+	// 	cartId: state.id,
+	// 	addToCart: state.addToCart,
+	// 	setCartId: state.setCartId,
+	// 	totalCartProductQuantity: state.totalCartProductQuantity,
+	// 	cartProducts: state.cartProducts
+	// }));
+
+	const { addProductVariantToCart } = useCartStore((state) => ({
+		addProductVariantToCart: state.addProductVariantToCart
 	}));
 
 	const { locale } = useRouter();
@@ -159,38 +164,49 @@ const ProductDetailsPage: NextPage<
 				selectedVariantId={selectedVariantId}
 				totalReviewCount={productReviewList.length}
 				onAddToCart={async () => {
-					const productId = productData.id;
-					const productVariantId =
-						product?.edges?.product_variants?.[0]?.id;
-					productData.variant_id = selectedVariantId;
-					const buyerId = customerData.buyerId;
-					productData.buyerId = buyerId;
-					const updatedCartList = await addToCart(
-						productVariantId,
-						1,
-						productData
-					);
+					// const productId = productData.id;
+					// const productVariantId =
+					//   product?.edges?.product_variants?.[0]?.id;
+
+					// productData.variant_id = selectedVariantId;
+					// const buyerId = customerData.buyerId;
+					// productData.buyerId = buyerId;
+					// const updatedCartList = await addToCart(
+					// 	productVariantId,
+					// 	1,
+					// 	productData
+					// );
 
 					// Sending request when buyer Id is available
-					if (!totalCartProductQuantity) {
-						const minimumOrderQuantity =
-							product?.inventory?.minimum_order_quantity || 0;
+					// if (!totalCartProductQuantity) {
+					// 	const minimumOrderQuantity =
+					// 		product?.inventory?.minimum_order_quantity || 0;
 
-						if (isAuth) {
-							const cartId = await addProductToCart(
-								productVariantId,
-								minimumOrderQuantity || 1
-							);
-							setCartId(cartId);
-						}
-					} else {
-						updateCart(
-							cartProducts.map((cartProduct) => ({
-								productVariantId: productVariantId,
-								quantity: cartProduct.quantity
-							}))
+					// 	if (isAuth) {
+					// 		const cartId = await addProductToCart(
+					// 			productVariantId,
+					// 			minimumOrderQuantity || 1
+					// 		);
+					// 		setCartId(cartId);
+					// 	}
+					// } else {
+					// 	updateCart(
+					// 		cartProducts.map((cartProduct) => ({
+					// 			productVariantId: productVariantId,
+					// 			quantity: cartProduct.quantity
+					// 		}))
+					// 	);
+					// }
+
+					const { defaultVariant } =
+						getDefaultProductAndProductVariants(
+							productData?.edges?.product_variants || []
 						);
-					}
+					console.log(
+						'productDataproductDataproductData =',
+						productData
+					);
+					addProductVariantToCart(defaultVariant.id, productData);
 				}}
 			/>
 

@@ -1,3 +1,4 @@
+import { ICartItem } from 'store/cart-store-v2';
 import { axiosInstance } from 'utils/axios-instance.utils';
 import { getProductPrice } from 'utils/pricing.utils';
 
@@ -6,37 +7,37 @@ interface CartProduct {
 	quantity: number;
 }
 
-export const addProductToCart = async (
-	productVariantId: string,
-	quantity: number
-): Promise<string> => {
-	try {
-		// const { data } = await proxyAxiosInstance.patch('/cart', [
-		// 	{
-		// 		product_variant_id: productVariantId,
-		// 		quantity
-		// 	}
-		// ]);
+// export const addProductToCart = async (
+// 	productVariantId: string,
+// 	quantity: number
+// ): Promise<string> => {
+// 	try {
+// 		// const { data } = await proxyAxiosInstance.patch('/cart', [
+// 		// 	{
+// 		// 		product_variant_id: productVariantId,
+// 		// 		quantity
+// 		// 	}
+// 		// ]);
 
-		const { data } = await axiosInstance.patch('/cart', [
-			{
-				product_variant_id: productVariantId,
-				quantity
-			}
-		]);
+// 		const { data } = await axiosInstance.patch('/cart', [
+// 			{
+// 				product_variant_id: productVariantId,
+// 				quantity
+// 			}
+// 		]);
 
-		console.log('data =', data);
-		console.log('data?.data =', data?.data);
+// 		console.log('data =', data);
+// 		console.log('data?.data =', data?.data);
 
-		// Returning cartId
-		return data?.data?.InsertedID;
-	} catch (error) {
-		console.log('[addProductToCart] =', error);
-		const { data } = (error as any).response || {};
-		// throw Error(data || 'Error occurred addProductToCart');
-		return '';
-	}
-}; // End of addProductToCart function
+// 		// Returning cartId
+// 		return data?.data?.InsertedID;
+// 	} catch (error) {
+// 		console.log('[addProductToCart] =', error);
+// 		const { data } = (error as any).response || {};
+// 		// throw Error(data || 'Error occurred addProductToCart');
+// 		return '';
+// 	}
+// }; // End of addProductToCart function
 
 export const getCart = async () => {
 	try {
@@ -73,8 +74,6 @@ export const getCart = async () => {
 				};
 			}) || [];
 
-		console.log('cartItem =', cartItem);
-
 		data.data.item = cartItem || [];
 		data.data.subtotal = subtotal;
 		return data.data || {};
@@ -86,10 +85,15 @@ export const getCart = async () => {
 	}
 }; // End of getCart function
 
-export const updateCart = async (products: CartProduct[]) => {
+export const updateCart = async (products: ICartItem[]) => {
 	try {
-		const { data } = await axiosInstance.patch('cart', products);
-		console.log(data);
+		const { data } = await axiosInstance.patch(
+			'cart',
+			products?.map((cartItem) => ({
+				product_variant_id: cartItem.productVariantId,
+				quantity: cartItem.quantity
+			}))
+		);
 
 		return '';
 	} catch (error) {

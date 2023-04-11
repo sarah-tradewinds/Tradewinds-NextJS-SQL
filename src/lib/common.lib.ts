@@ -125,10 +125,10 @@ export const sendMessageToSeller = async (
 	}
 }; // End of sendMessageToSeller function
 
-export const createConversation = async (sellerId: string) => {
+export const createConversation = async (sellerUserId: string) => {
 	const payload = {
 		type: 'common',
-		user_two_id: sellerId
+		user_two_id: sellerUserId
 	};
 
 	try {

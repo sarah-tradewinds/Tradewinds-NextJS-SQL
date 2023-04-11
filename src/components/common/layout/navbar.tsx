@@ -31,7 +31,8 @@ import {
 import { useMainCategories } from 'hooks/useMainCategories';
 import { MdClose, MdMenu } from 'react-icons/md';
 import { useAuthStore } from 'store/auth';
-import { useCartStore } from 'store/cart-store';
+// import { useCartStore } from 'store/cart-store';
+import { useCartStore } from 'store/cart-store-v2';
 import { useCountriesStore } from 'store/countries-store';
 import { useCategoryStore } from 'store/eco/category-store';
 import { useHomeStore } from 'store/home';
@@ -62,9 +63,9 @@ const Header = () => {
 		(state) => state.removeSelectedCountries
 	);
 
-	const { cartProducts, resetCartState } = useCartStore((state) => ({
-		cartProducts: state.cartProducts,
-		resetCartState: state.resetCartState
+	const { totalItemCartItem, resetCart } = useCartStore((state) => ({
+		totalItemCartItem: state.totalItem,
+		resetCart: state.resetCart
 	}));
 
 	const { t } = useTranslation('navigation');
@@ -96,7 +97,7 @@ const Header = () => {
 				}`}
 			>
 				<CartIcon
-					count={cartProducts?.length || 0}
+					count={totalItemCartItem}
 					onClick={() => router.push('/cart')}
 					iconClassName="text-[11.74px] md:text-[19px] lg:text-[25.16px]"
 					countClassName={`hidden md:block ${
@@ -118,7 +119,7 @@ const Header = () => {
 							<div
 								className="flex cursor-pointer"
 								onClick={() => {
-									resetCartState();
+									resetCart();
 									logout();
 									setShowLogout(false);
 								}}
@@ -392,7 +393,7 @@ const Header = () => {
 										activeClassName="capitalize underline font-semibold"
 										onClick={() => {
 											logout();
-											resetCartState();
+											resetCart();
 											drawerHandler();
 										}}
 									>

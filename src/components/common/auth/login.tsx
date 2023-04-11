@@ -17,7 +17,7 @@ import { buttonSpinner } from '../spinners/custom-spinners';
 import { updateCart } from 'lib/cart.lib';
 import { getCustomerDetails, userLogin } from 'lib/customer/auth.lib';
 import { useTranslation } from 'next-i18next';
-import { useCartStore } from 'store/cart-store';
+import { useCartStore } from 'store/cart-store-v2';
 import ImageWithErrorHandler from '../elements/image-with-error-handler';
 
 interface ILoginData {
@@ -46,7 +46,10 @@ const Login: React.FC = () => {
 	const router = useRouter();
 	const { t } = useTranslation();
 
-	const cartProducts = useCartStore((state) => state.cartProducts);
+	const { totalCartItems, cartItems } = useCartStore((state) => ({
+		cartItems: state.cartItems,
+		totalCartItems: state.totalItem
+	}));
 
 	const loginUser = async (e: React.MouseEvent<HTMLElement>) => {
 		e.preventDefault();
@@ -63,13 +66,8 @@ const Login: React.FC = () => {
 
 			const customerDetails = await getCustomerDetails(accessToken);
 
-			if (cartProducts.length) {
-				await updateCart(
-					cartProducts.map((cartProduct) => ({
-						product_variant_id: cartProduct.product?.id,
-						quantity: cartProduct.quantity
-					}))
-				);
+			if (totalCartItems) {
+				await updateCart(cartItems);
 			}
 
 			const customerData = {

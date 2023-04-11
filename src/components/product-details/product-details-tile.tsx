@@ -291,7 +291,7 @@ const ProductDetailsTile: React.FC<{
 					}
 
 					const conversationId = await createConversation(
-						product?.seller_id
+						product?.edges?.sellers?.edges?.user?.id
 					);
 					if (!conversationId) {
 						return;

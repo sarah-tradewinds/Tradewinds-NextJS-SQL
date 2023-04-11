@@ -1,4 +1,3 @@
-import { addProductToCart, updateCart } from 'lib/cart.lib';
 import {
 	createConversation,
 	sendMessageToSeller
@@ -6,7 +5,9 @@ import {
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useAuthStore } from 'store/auth';
-import { useCartStore } from 'store/cart-store';
+// import { useCartStore } from 'store/cart-store';
+import { useCartStore } from 'store/cart-store-v2';
+
 import { getDefaultProductAndProductVariants } from 'utils/common.util';
 import { getDisplayBulkPrice } from 'utils/get-bulk-price';
 import { getLocaleText } from 'utils/get_locale_text';
@@ -29,18 +30,26 @@ const ProductList: React.FC<ProductListProps> = ({
 	const { locale } = useRouter();
 
 	const {
-		cartId,
-		addToCart,
-		setCartId,
-		totalCartProductQuantity,
-		cartProducts
+		// cartId,
+		// addToCart,
+		// setCartId,
+		// totalCartProductQuantity,
+		// cartProducts
+		addProductVariantToCart,
+		cartItems
 	} = useCartStore((state) => ({
-		cartId: state.id,
-		addToCart: state.addToCart,
-		setCartId: state.setCartId,
-		totalCartProductQuantity: state.totalCartProductQuantity,
-		cartProducts: state.cartProducts
+		// cartId: state.id,
+		// addToCart: state.addToCart,
+		// setCartId: state.setCartId,
+		// totalCartProductQuantity: state.totalCartProductQuantity,
+		// cartProducts: state.cartProducts
+
+		addProductVariantToCart: state.addProductVariantToCart,
+		cartItems: state.cartItems
 	}));
+
+	const c = useCartStore();
+	console.log('cartItems-cartItems =', c);
 
 	const { isAuth, setIsLoginOpen, customerData } = useAuthStore(
 		(state) => ({
@@ -54,7 +63,7 @@ const ProductList: React.FC<ProductListProps> = ({
 	const [isMessageVendorPopupOpen, setIsMessageVendorPopupOpen] =
 		useState(false);
 
-	const [selectedSellerId, setSelectedSellerId] = useState('');
+	const [selectedSellerUserId, setSelectedSellerUserId] = useState('');
 	const [minimumProductOrderQuantity, setMinimumProductOrderQuantity] =
 		useState<number>(0);
 	const [selectedProduct, setSelectedProduct] = useState<any>({});
@@ -66,30 +75,32 @@ const ProductList: React.FC<ProductListProps> = ({
 			product?.edges?.product_variants || []
 		);
 		const productVariantId = defaultVariant?.id;
-		await addToCart(productVariantId, 1, product);
+		addProductVariantToCart(productVariantId, product);
 
-		// Sending request when buyer Id is available
-		if (!totalCartProductQuantity) {
-			const minimumOrderQuantity =
-				product?.inventory?.minimum_order_quantity || 0;
-			console.log(product);
+		// await addToCart(productVariantId, 1, product);
 
-			// Taking first variant, because first variant is always created for main product.
-			if (isAuth) {
-				const cartId = await addProductToCart(
-					productVariantId,
-					minimumOrderQuantity || 1
-				);
-				setCartId(cartId);
-			}
-		} else {
-			updateCart(
-				cartProducts.map((cartProduct) => ({
-					product_variant_id: productVariantId,
-					quantity: cartProduct.quantity
-				}))
-			);
-		}
+		// // Sending request when buyer Id is available
+		// if (!totalCartProductQuantity) {
+		// 	const minimumOrderQuantity =
+		// 		product?.inventory?.minimum_order_quantity || 0;
+		// 	console.log(product);
+
+		// 	// Taking first variant, because first variant is always created for main product.
+		// 	if (isAuth) {
+		// 		const cartId = await addProductToCart(
+		// 			productVariantId,
+		// 			minimumOrderQuantity || 1
+		// 		);
+		// 		setCartId(cartId);
+		// 	}
+		// } else {
+		// 	updateCart(
+		// 		cartProducts.map((cartProduct) => ({
+		// 			product_variant_id: productVariantId,
+		// 			quantity: cartProduct.quantity
+		// 		}))
+		// 	);
+		// }
 	}; // End of addToCartDefaultProductVariantHandler
 
 	return (
@@ -105,7 +116,7 @@ const ProductList: React.FC<ProductListProps> = ({
 					}
 
 					const conversationId = await createConversation(
-						selectedSellerId
+						selectedSellerUserId
 					);
 					if (!conversationId) {
 						return;
@@ -114,7 +125,7 @@ const ProductList: React.FC<ProductListProps> = ({
 					await sendMessageToSeller(conversationId, message);
 					setIsMessageVendorPopupOpen(false);
 
-					setSelectedSellerId('');
+					setSelectedSellerUserId('');
 					setIsMessageVendorPopupOpen(false);
 				}}
 			/>
@@ -155,8 +166,6 @@ const ProductList: React.FC<ProductListProps> = ({
 			<div className="grid grid-cols-1 gap-y-1 md:gap-y-[15px] lg:gap-[27px]">
 				{products.map((product, index) => {
 					console.log('product-product-product = ', product);
-					// const [firstVariantData = {}] =
-					//   product?.edges?.product_variants || [];
 
 					const { defaultVariant, totalVariantCount } =
 						getDefaultProductAndProductVariants(
@@ -167,13 +176,8 @@ const ProductList: React.FC<ProductListProps> = ({
 						product?.edges?.sellers?.edges?.country?.edges
 							?.region_country?.[0] || {};
 
-					const {
-						// product_price,
-						// is_bulk_pricing,
-						// bulk_pricing = [],
-						country_of_region = [],
-						seller_country = []
-					} = product || {};
+					const { country_of_region = [], seller_country = [] } =
+						product || {};
 
 					const {
 						retail_price: product_price = 0,
@@ -236,7 +240,10 @@ const ProductList: React.FC<ProductListProps> = ({
 						isCustomizable: product.is_customizable,
 						variantCount: totalVariantCount || 0,
 						onMessageVendorClick: () => {
-							setSelectedSellerId(product?.seller_id);
+							console.log('product---product', product);
+							setSelectedSellerUserId(
+								product?.edges?.sellers?.edges?.user?.id
+							);
 							setIsMessageVendorPopupOpen(true);
 						}
 					};

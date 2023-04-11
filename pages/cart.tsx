@@ -15,7 +15,8 @@ import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAuthStore } from 'store/auth';
-import { useCartStore } from 'store/cart-store';
+// import { useCartStore } from 'store/cart-store';
+import { useCartStore } from 'store/cart-store-v2';
 
 const CartPage: NextPage = () => {
 	const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
@@ -35,13 +36,18 @@ const CartPage: NextPage = () => {
 	);
 
 	const {
-		subtotal,
-		cartProducts,
-		updateQuantityByProductVariantId,
-		removeProductByProductVariantIdFromCart
+		// subtotal,
+		// updateQuantityByProductVariantId,
+		// removeProductByProductVariantIdFromCart,
+
+		totalAmount,
+		totalItem: totalCartItem,
+		cartItems,
+		updateProductVariantInCart,
+		removeProductVariantByProductVariantIdFromCart
 	} = useCartStore();
-	console.log('[cart] cartProducts =', cartProducts);
-	console.log('[cart] subtotal =', subtotal);
+	console.log('[cart] cartItems =', cartItems);
+	console.log('[cart] subtotal =', totalAmount);
 
 	const router = useRouter();
 
@@ -58,9 +64,6 @@ const CartPage: NextPage = () => {
 			isAddressSelected =
 				!localStorage.getItem('shipping_address_id') ||
 				!localStorage.getItem('billing_address_id');
-		}
-		if (isAuth && !isAddressSelected) {
-			return setIsAddressModalOpen(true);
 		}
 	}, [isAuth]);
 
@@ -83,7 +86,7 @@ const CartPage: NextPage = () => {
 			return;
 		}
 
-		const orderItems = cartProducts.map((cartProduct) => {
+		const orderItems = cartItems.map((cartProduct) => {
 			const { product } = cartProduct;
 
 			const orderItem = {
@@ -108,7 +111,7 @@ const CartPage: NextPage = () => {
 		router.push(`/cart-review?order_id=${orderId}`);
 	}; // End of cartReviewHandler function
 
-	const totalCartItemCount = cartProducts?.length || 0;
+	const totalCartItemCount = cartItems?.length || 0;
 
 	if (totalCartItemCount === 0) {
 		return (
@@ -164,21 +167,21 @@ const CartPage: NextPage = () => {
 								<div className="flex flex-col items-end">
 									<p className="text-[14px] font-semibold text-gray">
 										{t('cart:total_number_of_items_in_cart')}
-										<span>: {totalCartItemCount}</span>
+										<span>: {totalCartItem}</span>
 									</p>
 									<p className="text-[14px] font-semibold text-gray">
 										{t('cart:total_number_of_skus')}
-										<span>: {totalCartItemCount}</span>
+										<span>: {totalCartItem}</span>
 									</p>
 								</div>
 								<div className="flex flex-col items-end space-y-2">
 									<div className="text-[14px] font-semibold">
 										<p className="text-gray">
-											{t('cart:subtotal')} ({totalCartItemCount}{' '}
+											{t('cart:subtotal')} ({totalCartItem}{' '}
 											{t('cart:items')})
 										</p>
 										<p className="text-right text-primary-main">
-											${subtotal}
+											${totalAmount}
 										</p>
 									</div>
 									<Button onClick={cartReviewHandler} variant="special">
@@ -203,11 +206,11 @@ const CartPage: NextPage = () => {
 						<div className="hidden flex-col items-center space-y-4 rounded-md bg-white p-2 pb-8 shadow-md md:flex">
 							<div className="text-[35px] font-semibold">
 								<p className="text-gray">
-									{t('cart:subtotal')} ({totalCartItemCount}{' '}
+									{t('cart:subtotal')} ({totalCartItem}{' '}
 									{t('cart:items')}):
 								</p>
 								<p className="text-center text-primary-main">
-									${subtotal}
+									${totalAmount}
 								</p>
 							</div>
 							<Button
@@ -229,7 +232,7 @@ const CartPage: NextPage = () => {
 
 					<div>
 						<CartList
-							carts={cartProducts}
+							carts={cartItems}
 							updateQuantityByProductVariantId={(
 								productVariantId,
 								inputQuantity,
@@ -246,20 +249,20 @@ const CartPage: NextPage = () => {
 								if (inputQuantity < minimumOrderQuantity) {
 									setIsMinimumQuantityModalOpen(true);
 									setMinimumQuantityErrorMessage(
-										`You have add altleast ${minimumOrderQuantity} quantity`
+										`You have add atleast ${minimumOrderQuantity} quantity`
 									);
 									return;
 								}
 
 								setMinimumQuantityErrorMessage('');
 
-								updateQuantityByProductVariantId(
+								updateProductVariantInCart(
 									productVariantId,
 									inputQuantity
 								);
 							}}
 							removeProductByProductVariantIdFromCart={
-								removeProductByProductVariantIdFromCart
+								removeProductVariantByProductVariantIdFromCart
 							}
 						/>
 					</div>
@@ -274,7 +277,7 @@ const CartPage: NextPage = () => {
 								{t('cart:items')}):
 							</p>
 							<p className="text-center text-primary-main">
-								${subtotal}
+								${totalAmount}
 							</p>
 						</div>
 						<Button

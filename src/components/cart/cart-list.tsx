@@ -1,15 +1,15 @@
 // components
-import CartItem from './cart-item';
 
 // store
 import { useRouter } from 'next/router';
-import { CartProduct } from 'store/cart-store';
+import { ICartItem } from 'store/cart-store-v2';
 import { getDisplayBulkPrice } from 'utils/get-bulk-price';
 import { getLocaleText } from 'utils/get_locale_text';
 import { getProductPrice } from 'utils/pricing.utils';
+import CartItem from './cart-item';
 
 interface CartListProps {
-	carts: CartProduct[];
+	carts: ICartItem[];
 	updateQuantityByProductVariantId: (
 		productVariantId: string,
 		quantity: number,

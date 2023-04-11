@@ -52,28 +52,38 @@ const AddAddressModal = (props: {
 	const onChangeHandler = (
 		event: React.FormEvent<HTMLInputElement>
 	) => {
-		const { name, value } = event?.currentTarget;
-		setBuyerAddress((prevAddressInfo) => ({
-			...prevAddressInfo,
-			[name]: value
-		}));
+		const { name, value, type } = event?.currentTarget;
+
+		setBuyerAddress((prevAddressInfo: any) => {
+			let inputValue: any = value;
+			if (type === 'checkbox') {
+				const prevState = prevAddressInfo[name];
+				inputValue = !prevState;
+			}
+			console.log({ type, name, inputValue });
+
+			return {
+				...prevAddressInfo,
+				[name]: inputValue
+			};
+		});
 	}; // End of onChangeHandler
 
 	const onSaveClick = async (e: React.FormEvent) => {
 		e.preventDefault();
 
 		try {
-			if (buyerAddress.is_default?.toString() === 'true') {
-				buyerAddress.is_default = true;
-			} else {
-				buyerAddress.is_default = false;
-			}
+			// if (buyerAddress.is_default?.toString() === 'true') {
+			// 	buyerAddress.is_default = true;
+			// } else {
+			// 	buyerAddress.is_default = false;
+			// }
 
-			if (buyerAddress.is_billing_address?.toString() === 'true') {
-				buyerAddress.is_billing_address = true;
-			} else {
-				buyerAddress.is_billing_address = false;
-			}
+			// if (buyerAddress.is_billing_address?.toString() === 'true') {
+			// 	buyerAddress.is_billing_address = true;
+			// } else {
+			// 	buyerAddress.is_billing_address = false;
+			// }
 
 			await addAddress(buyerAddress);
 			onAddressAdded();
@@ -85,7 +95,7 @@ const AddAddressModal = (props: {
 			open={isOpen}
 			onClose={() => {}}
 			overlayClassName="!bg-white top-[80px] z-[4000]"
-			className="!top-[128px] z-[4002] w-full"
+			className="!top-[128px] z-[4005] w-full"
 		>
 			<div className="flex h-full items-center justify-center md:mt-16">
 				<form

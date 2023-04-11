@@ -1,4 +1,5 @@
 import { Tab } from '@headlessui/react';
+import { PlayCircleIcon } from '@heroicons/react/20/solid';
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import Button from 'components/common/form/button';
 import MessageVendorPopup from 'components/common/popup/message-vendor.popup';
@@ -23,6 +24,7 @@ import {
 import { useAuthStore } from 'store/auth';
 import { getLocaleText } from 'utils/get_locale_text';
 import CollectionSliderOld from '../product-collection/collection-slider-old';
+import VideoPreviewModal from './video-preivew-modal';
 
 const CompanyProfileTab: React.FC<{
 	seller: any;
@@ -34,6 +36,8 @@ const CompanyProfileTab: React.FC<{
 	const [collectionProducts, setCollectionProducts] = useState<any[]>(
 		[]
 	);
+	const [selectedCompanyVideoUrl, setSelectedCompanyVideoUrl] =
+		useState('');
 
 	const [currentSlide, setCurrentSlide] = useState(0);
 	const [loaded, setLoaded] = useState(false);
@@ -74,7 +78,7 @@ const CompanyProfileTab: React.FC<{
 		if (!seller.id) return;
 
 		getSellerStorefrontDetailsSellerId(seller.id).then((data) =>
-			setStoreFrontDetails(data || {})
+			setStoreFrontDetails(data?.store_front || {})
 		);
 
 		getFeaturedProductsBySellerId(seller.id).then((data) =>
@@ -126,6 +130,12 @@ const CompanyProfileTab: React.FC<{
 
 					setIsMessageVendorPopupOpen(false);
 				}}
+			/>
+
+			<VideoPreviewModal
+				videoUrl={selectedCompanyVideoUrl}
+				isOpen={selectedCompanyVideoUrl != ''}
+				onClose={() => setSelectedCompanyVideoUrl('')}
 			/>
 
 			<div className="bg-bg-main">
@@ -267,27 +277,21 @@ const CompanyProfileTab: React.FC<{
 										{t('common:company_images')} 
 									</h2>
 									<div className=" mt-4 flex h-[200px] w-[700px] justify-between">
-										<div className="relative h-[200px] w-[219px] border-[2px]">
-											<ImageWithErrorHandler
-												src="/vehicles/red-tractor.png"
-												alt=""
-												fill={true}
-											/>
-										</div>
-										<div className="relative h-[200px] w-[219px] border-[2px]">
-											<ImageWithErrorHandler
-												src="/vehicles/yellow-tractor.png"
-												alt=""
-												fill={true}
-											/>
-										</div>
-										<div className="relative h-[200px] w-[219px] border-[2px]">
-											<ImageWithErrorHandler
-												src="/vehicles/green-tractor.png"
-												alt=""
-												fill={true}
-											/>
-										</div>
+										{storeFrontDetails?.company_photos?.map(
+											(companyPhoto: string) => (
+												<div
+													key={companyPhoto}
+													className="relative h-[200px] w-[219px] border-[2px]"
+												>
+													<ImageWithErrorHandler
+														key={companyPhoto}
+														src={companyPhoto}
+														alt=""
+														fill={true}
+													/>
+												</div>
+											)
+										)}
 									</div>
 								</div>
 
@@ -296,10 +300,33 @@ const CompanyProfileTab: React.FC<{
 									<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18px] text-gray/40 md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
 										{t('common:company_video')}
 									</h2>
-									<div className=" mt-4 h-[200px] w-[219px] bg-agri-main">
-										<video>
-											<source src=""></source>
-										</video>
+									<div className="mt-4 h-[200px] w-[219px] ">
+										{storeFrontDetails?.company_videos?.map(
+											(companyVideoUrl: string) => (
+												<div
+													key={companyVideoUrl}
+													className="relative h-full w-full"
+												>
+													<video
+														autoPlay={false}
+														className="h-full w-full rounded-md object-cover"
+													>
+														<source src={companyVideoUrl}></source>
+													</video>
+
+													<span className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 transform">
+														<PlayCircleIcon
+															className="h-20 w-20 cursor-pointer text-white"
+															onClick={() =>
+																setSelectedCompanyVideoUrl(
+																	companyVideoUrl
+																)
+															}
+														/>
+													</span>
+												</div>
+											)
+										)}
 									</div>
 								</div>
 
