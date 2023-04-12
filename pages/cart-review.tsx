@@ -26,7 +26,6 @@ const CartReviewPage: NextPage = () => {
 	const [isLoading, setIsLoading] = useState(false);
 
 	const { t } = useTranslation();
-	// const cartProducts = useCartStore((state) => state.cartProducts);
 
 	const router = useRouter();
 

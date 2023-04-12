@@ -33,7 +33,6 @@ import {
 } from 'lib/product-details.lib';
 import { useRouter } from 'next/router';
 import { useAuthStore } from 'store/auth';
-// import { useCartStore } from 'store/cart-store';
 import { useCartStore } from 'store/cart-store-v2';
 import { getDefaultProductAndProductVariants } from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
@@ -60,20 +59,6 @@ const ProductDetailsPage: NextPage<
 		isAuth: state.isAuth,
 		customerData: state.customerData
 	}));
-
-	// const {
-	// 	cartId,
-	// 	addToCart,
-	// 	setCartId,
-	// 	totalCartProductQuantity,
-	// 	cartProducts
-	// } = useCartStore((state) => ({
-	// 	cartId: state.id,
-	// 	addToCart: state.addToCart,
-	// 	setCartId: state.setCartId,
-	// 	totalCartProductQuantity: state.totalCartProductQuantity,
-	// 	cartProducts: state.cartProducts
-	// }));
 
 	const { addProductVariantToCart } = useCartStore((state) => ({
 		addProductVariantToCart: state.addProductVariantToCart

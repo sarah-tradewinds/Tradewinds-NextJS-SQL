@@ -31,7 +31,6 @@ import {
 import { useMainCategories } from 'hooks/useMainCategories';
 import { MdClose, MdMenu } from 'react-icons/md';
 import { useAuthStore } from 'store/auth';
-// import { useCartStore } from 'store/cart-store';
 import { useCartStore } from 'store/cart-store-v2';
 import { useCountriesStore } from 'store/countries-store';
 import { useCategoryStore } from 'store/eco/category-store';
@@ -72,10 +71,6 @@ const Header = () => {
 
 	const router = useRouter();
 	useMainCategories();
-
-	// let classes = `bg-white dark:bg-accent-primary-eco md:bg-bg-main sm:h-[40px] h-[100vh] w-[60%] sm:w-full sm:grid sm:place-items-center sm:relative absolute opacity-100 transition-all ease-in-out duration-300 md:h-[41px] ${
-	//  !isOpen ? 'pc:w-0 pc:opacity-0 pc:overflow-hidden' : ''
-	// }`;
 
 	let classes = `bg-white dark:bg-accent-primary-eco md:bg-[#DCDBDB] w-[180.97px] md:w-full md:h-[41px] lg:h-[43.68px] md:pl-5 md:pr-4 lg:px-[35px] md:flex items-center ${
 		!isOpen

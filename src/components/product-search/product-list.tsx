@@ -5,10 +5,12 @@ import {
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useAuthStore } from 'store/auth';
-// import { useCartStore } from 'store/cart-store';
 import { useCartStore } from 'store/cart-store-v2';
 
-import { getDefaultProductAndProductVariants } from 'utils/common.util';
+import {
+	generateListByCount,
+	getDefaultProductAndProductVariants
+} from 'utils/common.util';
 import { getDisplayBulkPrice } from 'utils/get-bulk-price';
 import { getLocaleText } from 'utils/get_locale_text';
 import Button from '../common/form/button';
@@ -17,39 +19,27 @@ import MessageVendorPopup from '../common/popup/message-vendor.popup';
 import ProductTile from './product-tile';
 import MobileProductTile from './product-tile/mobile-product-tile';
 import RFQCard from './rfq-card.components';
+import SkeletonProductTile from './skeleton-product-tile';
 
 interface ProductListProps {
+	isLoading?: boolean;
 	products: any[];
 	onCompareClick: (payload: any) => any;
 }
 
 const ProductList: React.FC<ProductListProps> = ({
+	isLoading,
 	products,
 	onCompareClick
 }) => {
 	const { locale } = useRouter();
 
-	const {
-		// cartId,
-		// addToCart,
-		// setCartId,
-		// totalCartProductQuantity,
-		// cartProducts
-		addProductVariantToCart,
-		cartItems
-	} = useCartStore((state) => ({
-		// cartId: state.id,
-		// addToCart: state.addToCart,
-		// setCartId: state.setCartId,
-		// totalCartProductQuantity: state.totalCartProductQuantity,
-		// cartProducts: state.cartProducts
-
-		addProductVariantToCart: state.addProductVariantToCart,
-		cartItems: state.cartItems
-	}));
-
-	const c = useCartStore();
-	console.log('cartItems-cartItems =', c);
+	const { addProductVariantToCart, cartItems } = useCartStore(
+		(state) => ({
+			addProductVariantToCart: state.addProductVariantToCart,
+			cartItems: state.cartItems
+		})
+	);
 
 	const { isAuth, setIsLoginOpen, customerData } = useAuthStore(
 		(state) => ({
@@ -76,32 +66,20 @@ const ProductList: React.FC<ProductListProps> = ({
 		);
 		const productVariantId = defaultVariant?.id;
 		addProductVariantToCart(productVariantId, product);
-
-		// await addToCart(productVariantId, 1, product);
-
-		// // Sending request when buyer Id is available
-		// if (!totalCartProductQuantity) {
-		// 	const minimumOrderQuantity =
-		// 		product?.inventory?.minimum_order_quantity || 0;
-		// 	console.log(product);
-
-		// 	// Taking first variant, because first variant is always created for main product.
-		// 	if (isAuth) {
-		// 		const cartId = await addProductToCart(
-		// 			productVariantId,
-		// 			minimumOrderQuantity || 1
-		// 		);
-		// 		setCartId(cartId);
-		// 	}
-		// } else {
-		// 	updateCart(
-		// 		cartProducts.map((cartProduct) => ({
-		// 			product_variant_id: productVariantId,
-		// 			quantity: cartProduct.quantity
-		// 		}))
-		// 	);
-		// }
 	}; // End of addToCartDefaultProductVariantHandler
+
+	if (isLoading) {
+		return (
+			<>
+				{generateListByCount(
+					10,
+					undefined,
+					undefined,
+					<SkeletonProductTile />
+				)}
+			</>
+		);
+	}
 
 	return (
 		<>

@@ -29,11 +29,12 @@ export const getObjectKeys = (givenObject: any) => {
 export const generateListByCount = (
 	count: number,
 	startCount?: number,
-	endCount?: number
+	endCount?: number,
+	child?: any
 ) => {
 	const list = [];
 	for (let i = startCount || 0; i <= (endCount || count); i++) {
-		list.push(i);
+		list.push(child || i);
 	}
 	return list;
 }; // End of generateListByCount
