@@ -24,8 +24,8 @@ import TrendingCategorySliderMobile from 'components/product-search/trending-cat
 import TrendingSectionTile from 'components/product-search/trending-section-tile';
 import useDeviceSize from 'hooks/use-device-size.hooks';
 import {
-	getCategoriesByMainCategoryId,
-	getCountryById
+	getCountryById,
+	getTrendingCategoriesByCountry
 } from 'lib/common.lib';
 import {
 	getProducts,
@@ -62,10 +62,6 @@ const ProductSearchPage: NextPage<
 		useState<any>();
 	console.log('selectedMainCategory', selectedMainCategory);
 	const [selectedCategories, setSelectedCategories] = useState([]);
-	const [
-		selectedCountryBannerImageUrl,
-		setSelectedCountryBannerImageUrl
-	] = useState(props.countryBannerImageUrl || '');
 
 	const [selectedCountry, setSelectedCountry] = useState<any>({
 		banner_image: props.countryBannerImageUrl || ''
@@ -147,12 +143,10 @@ const ProductSearchPage: NextPage<
 			getCountryById(countryId).then(async (data) => {
 				console.log('data-data = data', data);
 				setSelectedCountry(data);
-				const { data: categories } =
-					await getCategoriesByMainCategoryId('', data?.name?.en);
-				console.log('data-data = data categories', categories);
-				setSelectedCountryBannerImageUrl(
-					data?.banner_image || '/coming-soon.png'
+				const categories = await getTrendingCategoriesByCountry(
+					data?.name?.en
 				);
+				setSelectedCategories(categories || []);
 			});
 		}
 	}, [query.country]);
@@ -232,7 +226,6 @@ const ProductSearchPage: NextPage<
 			</div>
 
 			{/* ProductSearchFilterBar */}
-			{isEco?.toString()}
 			<div className="top-[97px] z-20 hidden md:sticky md:ml-[9px] md:mr-[10px] md:block md:pt-[14.01px] lg:top-[101px] lg:ml-[26px] lg:mr-[23px] lg:pt-[18.14px]">
 				<ProductSearchFilterBar
 					onCountryChange={(id = '', name = '') => {

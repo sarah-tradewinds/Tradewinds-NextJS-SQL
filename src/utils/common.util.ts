@@ -106,6 +106,7 @@ export const getFilterValueFromQuery = (query: any) => {
 		sub_sub_category,
 		countryId,
 		country_of_region: countryName,
+		country: countryName,
 		price_start,
 		price_end,
 		query: (searchQuery || '') as string,

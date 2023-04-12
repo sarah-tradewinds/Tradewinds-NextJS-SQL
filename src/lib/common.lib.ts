@@ -64,6 +64,21 @@ export const getSpecificCategoriesBySubCategoryId = async (
 	}
 }; // End of getSpecificCategoriesBySubCategoryId function
 
+export const getTrendingCategoriesByCountry = async (
+	countryName?: string
+) => {
+	try {
+		const { data } = await axiosInstance.get(
+			`/cms/category/trending?limit=100000&country=${countryName || ''}`
+		);
+		return data?.data || [];
+	} catch (error) {
+		console.log('[getTrendingCategoriesByCountry] =', error);
+		const { data } = (error as any).response || {};
+		return [];
+	}
+}; // End of getTrendingCategoriesByCountry function
+
 export const getCountries = async () => {
 	try {
 		const { data } = await axiosInstance.get(

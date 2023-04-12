@@ -16,6 +16,7 @@ export const getProducts = async (params: {
 	sub_sub_category?: string;
 	specific_category_id?: string;
 	country_of_region?: string;
+	country?: string;
 	is_eco?: boolean;
 	is_all_trending?: boolean;
 	is_customizable?: boolean;
