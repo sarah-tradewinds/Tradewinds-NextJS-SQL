@@ -23,7 +23,10 @@ import TrendingCategorySlider from 'components/product-search/trending-category-
 import TrendingCategorySliderMobile from 'components/product-search/trending-category-slider-mobile';
 import TrendingSectionTile from 'components/product-search/trending-section-tile';
 import useDeviceSize from 'hooks/use-device-size.hooks';
-import { getCountryById } from 'lib/common.lib';
+import {
+	getCategoriesByMainCategoryId,
+	getCountryById
+} from 'lib/common.lib';
 import {
 	getProducts,
 	getSelectedMainCategoryAndCategories
@@ -63,6 +66,11 @@ const ProductSearchPage: NextPage<
 		selectedCountryBannerImageUrl,
 		setSelectedCountryBannerImageUrl
 	] = useState(props.countryBannerImageUrl || '');
+
+	const [selectedCountry, setSelectedCountry] = useState<any>({
+		banner_image: props.countryBannerImageUrl || ''
+	});
+
 	console.log(props);
 	const [isInitialFilterSet, setIsInitialFilterSet] = useState(false);
 
@@ -136,7 +144,12 @@ const ProductSearchPage: NextPage<
 
 		if (countryIds) {
 			const [countryId] = countryIds?.split(',');
-			getCountryById(countryId).then((data) => {
+			getCountryById(countryId).then(async (data) => {
+				console.log('data-data = data', data);
+				setSelectedCountry(data);
+				const { data: categories } =
+					await getCategoriesByMainCategoryId('', data?.name?.en);
+				console.log('data-data = data categories', categories);
 				setSelectedCountryBannerImageUrl(
 					data?.banner_image || '/coming-soon.png'
 				);
@@ -210,10 +223,10 @@ const ProductSearchPage: NextPage<
 				)}
 
 				{/* Country Banner */}
-				{!main_category && selectedCountryBannerImageUrl && (
+				{!main_category && selectedCountry?.banner_image && (
 					<ProductSearchTopBanner
-						key={selectedCountryBannerImageUrl}
-						imageUrl={selectedCountryBannerImageUrl}
+						key={selectedCountry?.banner_image}
+						imageUrl={selectedCountry?.banner_image}
 					/>
 				)}
 			</div>
@@ -348,7 +361,9 @@ const ProductSearchPage: NextPage<
 					)}
 
 					{/* MainCategory and categories list */}
-					{!router.query.is_trending && selectedCategories.length > 0 && (
+					{((!router.query.is_trending &&
+						selectedCategories.length > 0) ||
+						selectedCountry?.banner_image) && (
 						<div className="rounded-md bg-white md:mb-[10.87px] md:flex md:h-[101.13px] md:py-2 md:pl-[8.06px] lg:mb-[23px] lg:h-[209px] lg:py-[17px] lg:pl-[17px]">
 							{/* Main category Card */}
 							<div
@@ -366,62 +381,89 @@ const ProductSearchPage: NextPage<
 										<Skeleton height="84px" />
 									</div>
 								) : (
-									<div className="md:justify-betweens  flex h-[42px] items-center p-2 md:h-full md:flex-col md:items-start md:space-x-0 md:p-0">
+									<div className="flex h-[42px] items-center p-2 md:h-full md:flex-col md:items-start md:space-x-0 md:p-0">
 										<p className="text-[16px] font-semibold leading-5 text-gray md:text-[10px] md:leading-3 lg:text-[21px] lg:leading-[26px]">
 											{getLocaleText(
-												selectedMainCategory?.title || {},
+												selectedMainCategory?.title ||
+													selectedCountry?.name ||
+													{},
 												router.locale
 											)}
 										</p>
-										<div
-											className="relative hidden h-[38px] w-[38px] md:mt-1 md:block md:h-[70px] md:w-[99px] lg:mt-2 lg:h-full lg:w-[266px]"
-											style={{
-												backgroundColor: selectedMainCategory?.color,
-												border: selectedMainCategory?.color
-													? ''
-													: '2px solid gray'
-											}}
-										>
-											<div className="md:absolute md:bottom-0 md:right-0">
-												<div className="relative h-[38px] w-[38px] md:h-[30px] md:w-[30px] lg:h-[60px] lg:w-[60px]">
-													<ImageWithErrorHandler
-														key={
-															selectedMainCategory?.category_search_image
-														}
-														src={
-															selectedMainCategory?.category_search_image
-														}
-														alt={getLocaleText(
-															selectedMainCategory?.title || {},
-															router.locale
-														)}
-														fill={true}
-													/>
+
+										{/* Country Image */}
+										{selectedCountry?.id && !selectedMainCategory?.id && (
+											<div className="relative h-full w-full">
+												<ImageWithErrorHandler
+													key={selectedCountry?.image}
+													src={selectedCountry?.image}
+													alt={getLocaleText(
+														selectedCountry?.name || {},
+														router.locale
+													)}
+													fill={true}
+													className="object-cover"
+												/>
+											</div>
+										)}
+
+										{selectedMainCategory?.id && (
+											<div
+												className="relative hidden h-[38px] w-[38px] md:mt-1 md:block md:h-[70px] md:w-[99px] lg:mt-2 lg:h-full lg:w-[266px]"
+												style={{
+													backgroundColor: selectedMainCategory?.color,
+													border: selectedMainCategory?.color
+														? ''
+														: '2px solid gray'
+												}}
+											>
+												<div className="md:absolute md:bottom-0 md:right-0">
+													<div className="relative h-[38px] w-[38px] md:h-[30px] md:w-[30px] lg:h-[60px] lg:w-[60px]">
+														<ImageWithErrorHandler
+															key={
+																selectedMainCategory?.category_search_image
+															}
+															src={
+																selectedMainCategory?.category_search_image
+															}
+															alt={getLocaleText(
+																selectedMainCategory?.title || {},
+																router.locale
+															)}
+															fill={true}
+														/>
+													</div>
 												</div>
 											</div>
-										</div>
+										)}
 									</div>
 								)}
 							</div>
 
 							{/* Category Slider for tablet and desktop  */}
-							<div className="hidden md:mt-[9px] md:block md:w-[402px] lg:ml-[13px] lg:mt-[35px] lg:mb-[25px] lg:h-[150px] lg:w-[838px]">
-								<TrendingCategorySlider
-									categories={[...selectedCategories]}
-									selectedCategoryIds={selectedCategoryList || []}
-									onTileClick={(categoryId, data) => {
-										const params = setCategory(
-											categoryId,
-											data?.title?.en
-										);
-										router.push(
-											`/product-search?${params}`,
-											undefined,
-											{ shallow: true }
-										);
-									}}
-								/>
-							</div>
+							{selectedCategories?.length > 0 ? (
+								<div className="hidden md:mt-[9px] md:block md:w-[402px] lg:ml-[13px] lg:mt-[35px] lg:mb-[25px] lg:h-[150px] lg:w-[838px]">
+									<TrendingCategorySlider
+										categories={[...selectedCategories]}
+										selectedCategoryIds={selectedCategoryList || []}
+										onTileClick={(categoryId, data) => {
+											const params = setCategory(
+												categoryId,
+												data?.title?.en
+											);
+											router.push(
+												`/product-search?${params}`,
+												undefined,
+												{ shallow: true }
+											);
+										}}
+									/>
+								</div>
+							) : (
+								<p className="flex w-full items-center justify-center text-lg">
+									No categories available
+								</p>
+							)}
 
 							{/* For small screen only */}
 							<div className="bg-[#E5E5E5] py-1 md:hidden">

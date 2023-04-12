@@ -14,11 +14,14 @@ export const getMainCategories = async (isEco?: boolean) => {
 }; // End of getMainCategories function
 
 export const getCategoriesByMainCategoryId = async (
-	mainCategoryId: string
+	mainCategoryId: string,
+	countryName?: string
 ) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/cms/category?limit=100000&alpha_sort=${true}&mainCategoryId=${mainCategoryId}`
+			`/cms/category?limit=100000&alpha_sort=${true}&mainCategoryId=${mainCategoryId}&country=${
+				countryName || ''
+			}`
 		);
 		return data.data || [];
 	} catch (error) {
