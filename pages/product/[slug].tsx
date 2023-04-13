@@ -87,6 +87,8 @@ const ProductDetailsPage: NextPage<
 				}
 
 				updatedProductData.variant_id = productVariant?.id;
+				updatedProductData.product_dimension =
+					productVariant?.product_dimension || {};
 				updatedProductData.name = productVariant?.name;
 				updatedProductData.images = productVariant?.images || [];
 				updatedProductData.product_price = productVariant?.retail_price;
@@ -98,6 +100,11 @@ const ProductDetailsPage: NextPage<
 				setProductData(updatedProductData);
 			}
 		} else {
+			const { defaultVariant } = getDefaultProductAndProductVariants(
+				product?.edges?.product_variants || []
+			);
+
+			product.product_dimension = defaultVariant?.product_dimension;
 			setProductData(product);
 		}
 	}, [selectedVariantId]);

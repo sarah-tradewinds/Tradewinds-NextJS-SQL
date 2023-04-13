@@ -347,7 +347,7 @@ const ProductDetailsTile: React.FC<{
 									{minOrderQuantity} {t('common:piece')} /
 									{t('common:min_order')}
 								</h4>
-								<p>Lead Time: {inventory?.lead_time}</p>
+								<p>Lead Time: {product?.lead_time}</p>
 							</div>
 						)}
 					</div>
@@ -409,8 +409,10 @@ const ProductDetailsTile: React.FC<{
 					{/* Product name and bullet points */}
 					<div className="mt-[15px] border-t-2 border-[#DEDFE0] pt-[13px] md:border-b-2 md:pt-[19px] md:pb-[25.64px]">
 						<h2 className="text-xs leading-[22px] text-gray md:text-[15px]">
-							<span className="font-semibold">{productName}:</span>{' '}
-							<span>{getLocaleText(description || {}, locale)}</span>
+							{/* <span className="font-semibold">{productName}:</span>{' '} */}
+							<span className="whitespace-pre-line">
+								{getLocaleText(description || {}, locale)}
+							</span>
 						</h2>
 
 						{/* Actions */}
@@ -470,6 +472,7 @@ const ProductDetailsTile: React.FC<{
 
 					{/* Additional info */}
 					<div className="hidden space-y-4 md:mt-[21px] md:block">
+						{/* Bulk Pricing */}
 						<div ref={sliderRef} className="keen-slider">
 							{is_bulk_pricing &&
 								bulk_pricing?.map((bulkPrice: any, index: any) => (
@@ -479,7 +482,8 @@ const ProductDetailsTile: React.FC<{
 									>
 										<p className="text-primary-main md:text-lg ">
 											<span className="font-semibold">
-												{bulkPrice.range}
+												{bulkPrice.start_range}-{bulkPrice.end_range}
+												{/* {bulkPrice.range} */}
 											</span>{' '}
 											{t('common:piece')}= ${bulkPrice.price}
 										</p>
