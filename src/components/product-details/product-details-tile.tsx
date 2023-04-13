@@ -545,7 +545,10 @@ const ProductDetailsTile: React.FC<{
 												<div className="relative mt-1 w-[235px]">
 													<Listbox.Button className="relative h-10 w-full rounded-md bg-accent-primary-main font-semibold text-white">
 														<span className="block truncate">
-															{selected.name ||
+															{getLocaleText(
+																selected.name || {},
+																locale
+															) ||
 																`Variants (${productVariants?.length})`}
 														</span>
 														<span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
@@ -639,7 +642,10 @@ const ProductDetailsTile: React.FC<{
 																						: 'font-normal'
 																				}`}
 																			>
-																				{variant.name}
+																				{getLocaleText(
+																					variant.name,
+																					locale
+																				)}
 																			</span>
 																		</div>
 																	)}
