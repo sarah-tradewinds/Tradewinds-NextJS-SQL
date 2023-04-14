@@ -14,11 +14,14 @@ export const getMainCategories = async (isEco?: boolean) => {
 }; // End of getMainCategories function
 
 export const getCategoriesByMainCategoryId = async (
-	mainCategoryId: string
+	mainCategoryId: string,
+	countryName?: string
 ) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/cms/category?limit=100000&alpha_sort=${true}&mainCategoryId=${mainCategoryId}`
+			`/cms/category?limit=100000&alpha_sort=${true}&mainCategoryId=${mainCategoryId}&country=${
+				countryName || ''
+			}`
 		);
 		return data.data || [];
 	} catch (error) {
@@ -60,6 +63,21 @@ export const getSpecificCategoriesBySubCategoryId = async (
 		return [];
 	}
 }; // End of getSpecificCategoriesBySubCategoryId function
+
+export const getTrendingCategoriesByCountry = async (
+	countryName?: string
+) => {
+	try {
+		const { data } = await axiosInstance.get(
+			`/cms/category/trending?limit=100000&country=${countryName || ''}`
+		);
+		return data?.data || [];
+	} catch (error) {
+		console.log('[getTrendingCategoriesByCountry] =', error);
+		const { data } = (error as any).response || {};
+		return [];
+	}
+}; // End of getTrendingCategoriesByCountry function
 
 export const getCountries = async () => {
 	try {

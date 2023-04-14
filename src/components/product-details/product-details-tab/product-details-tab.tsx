@@ -1,6 +1,7 @@
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
+import { getDefaultProductAndProductVariants } from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
 
 const ProductDetailsTab: React.FC<{
@@ -31,12 +32,16 @@ const ProductDetailsTab: React.FC<{
 		main_categories,
 		categories,
 		sub_categories,
-		specific_categories,
-		product_variants
+		specific_categories
 	} = product?.edges || {};
 
+	const { defaultVariant } = getDefaultProductAndProductVariants(
+		product?.edges?.product_variants || []
+	);
 	const product_dimension =
-		product_variants?.[0]?.product_dimension || {};
+		product?.product_dimension ||
+		defaultVariant?.product_dimension ||
+		{};
 
 	const isProductDimensionAvailable =
 		!product_dimension?.product_length &&
@@ -138,6 +143,7 @@ const ProductDetailsTab: React.FC<{
 							{getLocaleText(main_categories?.title || {}, locale)}
 						</span>
 					</li>
+
 					{/* Category */}
 					{categories?.title && (
 						<li className="flex items-center space-x-2 md:space-x-0">
@@ -149,6 +155,7 @@ const ProductDetailsTab: React.FC<{
 							</span>
 						</li>
 					)}
+
 					{/* Sub Category */}
 					{sub_categories?.title && (
 						<li className="flex items-center space-x-2 md:space-x-0">
@@ -160,6 +167,7 @@ const ProductDetailsTab: React.FC<{
 							</span>
 						</li>
 					)}
+
 					{/* Specific Category */}
 					{specific_categories?.title && (
 						<li className="flex items-center space-x-2 md:space-x-0">
@@ -174,6 +182,7 @@ const ProductDetailsTab: React.FC<{
 							</span>
 						</li>
 					)}
+
 					{/* Certificates */}
 					{(certifications as any)?.[0]?.name && (
 						<li className="flex">
@@ -219,7 +228,10 @@ const ProductDetailsTab: React.FC<{
 									<span className="font-semibold">
 										{t('common:product')} {t('common:length')}:
 									</span>
-									<span>{product_dimension?.product_length}</span>
+									<span>
+										{product_dimension?.product_length}{' '}
+										{product_dimension?.length_unit}
+									</span>
 								</p>
 							)}
 							{product_dimension?.product_width && (
@@ -227,7 +239,10 @@ const ProductDetailsTab: React.FC<{
 									<span className="font-semibold">
 										{t('common:product')} {t('common:width')}:
 									</span>
-									<span>{product_dimension?.product_width}</span>
+									<span>
+										{product_dimension?.product_width}{' '}
+										{product_dimension?.width_unit}
+									</span>
 								</p>
 							)}
 							{product_dimension?.product_height && (
@@ -235,7 +250,10 @@ const ProductDetailsTab: React.FC<{
 									<span className="font-semibold">
 										{t('common:product')} {t('common:height')}:
 									</span>
-									<span>{product_dimension?.product_height}</span>
+									<span>
+										{product_dimension?.product_height}{' '}
+										{product_dimension?.height_unit}
+									</span>
 								</p>
 							)}
 							{product_dimension?.product_weight && (
@@ -243,7 +261,10 @@ const ProductDetailsTab: React.FC<{
 									<span className="font-semibold">
 										{t('common:product')} {t('common:weight')}:
 									</span>
-									<span>{product_dimension?.product_weight}</span>
+									<span>
+										{product_dimension?.product_weight}{' '}
+										{product_dimension?.weight_unit}
+									</span>
 								</p>
 							)}
 							{product_dimension?.notes && (

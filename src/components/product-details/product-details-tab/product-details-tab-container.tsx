@@ -2,6 +2,7 @@
 import { Tab } from '@headlessui/react';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
+import { getDefaultProductAndProductVariants } from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
 import CompanyProfileTab from './company-profile-tab';
 import ProductDetailsTab from './product-details-tab';
@@ -31,6 +32,10 @@ const ProductDetailsTabContainer: React.FC<{
 
 	const { product_detail_items, certification, shipping, product_seo } =
 		(product as any) || {};
+
+	const {} = getDefaultProductAndProductVariants(
+		product?.edges?.product_variants || []
+	);
 
 	const selectedClassName =
 		'font-semibold text-primary-main rounded-b-none rounded-t-md md:h-[47px] mt-1';

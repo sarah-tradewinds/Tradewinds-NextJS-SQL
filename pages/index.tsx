@@ -53,7 +53,10 @@ const HomePage: NextPage<
 
 	// Fetching Countries
 	const { data: homeCountries, isValidating: isCountriesValidating } =
-		useSWR('/region/all/region-countries', getHomeCountries);
+		useSWR(
+			'/region/all/region-countries?limit=100000',
+			getHomeCountries
+		);
 
 	// Fetching Advertisement
 	const { data: homeAdvertisements = [], error } = useSWR(

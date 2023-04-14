@@ -15,7 +15,6 @@ import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAuthStore } from 'store/auth';
-// import { useCartStore } from 'store/cart-store';
 import { useCartStore } from 'store/cart-store-v2';
 
 const CartPage: NextPage = () => {
@@ -36,10 +35,6 @@ const CartPage: NextPage = () => {
 	);
 
 	const {
-		// subtotal,
-		// updateQuantityByProductVariantId,
-		// removeProductByProductVariantIdFromCart,
-
 		totalAmount,
 		totalItem: totalCartItem,
 		cartItems,
