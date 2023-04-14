@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 // Third party packages
-import { HiSparkles } from 'react-icons/hi';
 
 // components
 import Button from 'components/common/form/button';
@@ -152,41 +151,51 @@ const Login: React.FC = () => {
 			onClose={setIsLoginOpen}
 		>
 			<div className="ml-2 flex  items-center justify-center">
-				<div className="flex justify-center rounded-md bg-white shadow-md md:mt-12 md:w-[740px] md:py-4 lg:h-[905px] lg:w-[1204px] lg:justify-start lg:px-16">
-					<div className="overflow-hiden flex h-[640px] flex-col items-center border-gray/40 py-8 md:h-auto lg:w-full lg:border-r lg:py-0 lg:pr-24">
-						<h2 className=" mb-8 mt-[220px] h-[67] w-[471px] border-b border-gray/40 pb-4 text-center font-semibold text-black md:text-4xl lg:text-5xl">
+				<div className="flex justify-center rounded-md bg-white shadow-md md:mt-12 md:w-[740px] md:py-4 lg:mr-[43px] lg:h-[905px] lg:w-[1204px] lg:justify-start lg:pl-[66px]">
+					<div className="overflow-hiden flex h-[640px] flex-col items-center border-gray/40 py-8 md:h-auto lg:w-full lg:border-r lg:py-0 lg:pr-[24px]">
+						<h2 className="  mt-[188px] h-[67] w-full border-b border-gray/40 pb-4 text-center font-semibold text-black md:text-4xl lg:text-5xl">
 							{t('auth:welcome_back')}
 						</h2>
 
-						<div className="flex w-full justify-center border-b border-gray/40 pb-8">
-							<form className="w-full space-y-4 md:w-[360px]">
-								<div className=" mt-[41px] mb-[27px] space-x-5 text-center text-lg">
+						<div className="flex w-full justify-center border-b border-gray/40 pb-[7px] text-lg">
+							<form className="w-full md:w-[346px]">
+								<div className=" mt-[41px] mb-[27px] space-x-[10px] text-center text-label_gray">
 									<label>I am a...</label>
 									<label>
-										<input
-											type="radio"
-											name="myRadio"
-											value="Buyer"
-											onChange={handleRadioChange}
-										/>
+										<span className=" mr-[7px]">
+											<input
+												className=" inline-block h-[20px] w-[20px] border align-text-top "
+												type="radio"
+												name="myRadio"
+												value="Buyer"
+												onChange={handleRadioChange}
+											/>
+										</span>
 										Buyer
 									</label>
 									<label>
-										<input
-											type="radio"
-											name="myRadio"
-											value="Seller"
-											onChange={handleRadioChange}
-										/>
+										<span className=" mr-[7px]">
+											<input
+												className=" inline-block h-[20px] w-[20px] align-text-top"
+												type="radio"
+												name="myRadio"
+												value="Seller"
+												onChange={handleRadioChange}
+											/>
+										</span>
 										Seller
 									</label>
+
 									<label>
-										<input
-											type="radio"
-											name="myRadio"
-											value="BDM"
-											onChange={handleRadioChange}
-										/>
+										<span className=" mr-[7px]">
+											<input
+												className=" inline-block h-[20px] w-[20px] align-text-top"
+												type="radio"
+												name="myRadio"
+												value="BDM"
+												onChange={handleRadioChange}
+											/>
+										</span>
 										BDM
 									</label>
 								</div>
@@ -194,8 +203,14 @@ const Login: React.FC = () => {
 									name="email"
 									type="email"
 									placeholder={t('auth:email')}
-									icon={<HiSparkles />}
-									className="w-full"
+									icon={
+										<img
+											className=" mb-[13px]"
+											src="/login_icon/contact-icon-one.png"
+											alt="image"
+										></img>
+									}
+									className="mb-[18px] w-full pl-[61px]"
 									onChange={(e: React.FormEvent<HTMLInputElement>) =>
 										onChange('email', e.currentTarget.value)
 									}
@@ -204,8 +219,14 @@ const Login: React.FC = () => {
 									name="password"
 									type="password"
 									placeholder={t('auth:password')}
-									icon={<HiSparkles />}
-									className="w-full"
+									icon={
+										<img
+											className=" mb-[13px]"
+											src="/login_icon/contact-icon-three.png"
+											alt="image"
+										></img>
+									}
+									className="mb-[22px] w-full pl-[61px]"
 									onChange={(e: React.FormEvent<HTMLInputElement>) =>
 										onChange('password', e.currentTarget.value)
 									}
@@ -213,7 +234,7 @@ const Login: React.FC = () => {
 
 								<Button
 									variant="product"
-									className="w-full"
+									className="w-full text-lg"
 									onClick={(e: any) => {
 										if (selectedOption === 'Buyer') loginUser(e);
 										else if (selectedOption === 'Seller') loginUser(e);
@@ -233,7 +254,7 @@ const Login: React.FC = () => {
 									{loading ? BUTTON_SPINNER : null} {t('auth:signin')}
 								</Button> */}
 								<p
-									className="mt-8 cursor-pointer text-center text-sm text-accent-primary-main underline"
+									className=" mt-[15px] cursor-pointer text-center text-base  text-accent-primary-main"
 									onClick={() => {
 										// setIsLoginOpen();
 										router.push('/forgot-password');
@@ -243,15 +264,15 @@ const Login: React.FC = () => {
 								</p>
 							</form>
 						</div>
-						<div>
-							<p className="mt-8 text-center text-lg font-semibold opacity-80">
+						<div className=" mt-8">
+							<p className=" w-[346px] rounded-lg border-2 border-solid border-accent-primary-main py-[6px]  text-center text-base  font-normal text-accent-primary-main opacity-80">
 								{t('auth:dont_have_an_account')}
 							</p>
 						</div>
 
 						{loginResult.isDone && !loginResult.result && (
 							<span
-								className={`mt-3 flex items-center justify-center text-center text-[14px] text-[red]`}
+								className={`mt-[19px] flex items-center justify-center text-center text-[14px] text-[red]`}
 							>
 								{loginResult?.message}
 							</span>
@@ -260,7 +281,12 @@ const Login: React.FC = () => {
 
 					{/* Logos */}
 					<div className="hidden w-full flex-col items-center justify-center lg:flex">
-						<div className="relative h-[260px] w-[260px]">
+						<div>
+							<p className=" text-sm text-label_gray">
+								TW Create an account page-02 1
+							</p>
+						</div>
+						<div className="relative h-[266px] w-[202px]">
 							<ImageWithErrorHandler
 								src="/TW-Create an account page-02.png"
 								alt=""
@@ -269,7 +295,7 @@ const Login: React.FC = () => {
 							/>
 						</div>
 
-						<div className="relative h-[260px] w-[260px]">
+						<div className="relative mt-[20px] h-[280px] w-[495px]">
 							<ImageWithErrorHandler
 								src="/TW-Create an account page-03.png"
 								alt=""

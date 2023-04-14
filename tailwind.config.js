@@ -30,6 +30,8 @@ module.exports = {
 			'accent-secondary-eco': '#712A10',
 			'accent-secondary-main': '#30B34A',
 			'accent-error': '#f23030',
+			button_blue: '#32A9E0',
+			label_gray: '#C4C4C4',
 			'accent-success': '#166b22',
 			gray: '#575858',
 			// green: '#37B34A',
