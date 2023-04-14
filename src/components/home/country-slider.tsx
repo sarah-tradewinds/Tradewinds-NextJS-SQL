@@ -67,9 +67,9 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 					}}
 					className="keen-slider__slide !relative flex !h-9 !min-w-[36.06px] !max-w-[36.06px] flex-col items-center md:!mx-5 md:!h-[30.59px] md:!min-w-[52.04px] md:!max-w-[52.04px] lg:!mx-[41px] lg:!h-[64px] lg:!min-w-[107px] lg:!max-w-[107px]"
 				>
-					{/* <div className="w-[107px]s relative h-[64px] w-full"> */}
 					<div className="relative !min-h-[24.44px] !min-w-[36.06px] !max-w-[36.06px] md:!h-full md:!min-w-[52.04px] md:!max-w-[52.04px] lg:!min-w-[107px] lg:!max-w-[107px]">
 						<ImageWithErrorHandler
+							key={country.image + country.id}
 							src={country.image}
 							alt={country.name?.toString()}
 							fill={true}
@@ -113,6 +113,7 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 						>
 							<div className="relative h-[24.44px] w-[36.06px]">
 								<ImageWithErrorHandler
+									key={country.image + country.id}
 									src={country.image}
 									alt={country.name?.toString()}
 									fill={true}
