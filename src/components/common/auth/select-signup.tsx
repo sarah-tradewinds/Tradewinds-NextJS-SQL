@@ -49,9 +49,9 @@ const SelectSignUp: React.FC = () => {
 								<div className=" mt-[41px] mb-[27px] space-x-[10px] text-center text-lg font-normal text-label_gray  ">
 									<label>I am a...</label>
 									<label>
-										<span className=" mr-[7px] border-button_blue">
+										<span className=" mr-[7px]">
 											<input
-												className=" inline-block h-[20px] w-[20px] align-text-top "
+												className=" inline-block h-[20px] w-[20px]  align-text-top"
 												type="radio"
 												name="myRadio"
 												value="Buyer"
