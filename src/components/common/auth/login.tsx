@@ -157,9 +157,9 @@ const Login: React.FC = () => {
 							{t('auth:welcome_back')}
 						</h2>
 
-						<div className="flex w-full justify-center border-b border-gray/40 pb-[7px] text-lg">
+						<div className="flex w-full justify-center border-b border-gray/40 pb-[7px] text-lg ">
 							<form className="w-full md:w-[346px]">
-								<div className=" mt-[41px] mb-[27px] space-x-[10px] text-center text-label_gray">
+								<div className=" mt-[41px] mb-[27px] space-x-[10px] text-center font-normal text-label_gray">
 									<label>I am a...</label>
 									<label>
 										<span className=" mr-[7px]">
