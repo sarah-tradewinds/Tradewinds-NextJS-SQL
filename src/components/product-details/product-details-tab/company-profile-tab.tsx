@@ -280,63 +280,68 @@ const CompanyProfileTab: React.FC<{
 								</div>
 
 								{/* Company Photos */}
-								<div className="mb-10">
-									<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18px] text-gray/40 md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
-										{t('common:company_images')} 
-									</h2>
-									<div className=" mt-4 flex space-x-4">
-										{storeFrontDetails?.company_photos?.map(
-											(companyPhoto: string) => (
-												<div
-													key={companyPhoto}
-													className="relative h-[200px] w-[219px] rounded-md"
-												>
-													<ImageWithErrorHandler
+								{storeFrontDetails?.company_photos?.length !== 0 && (
+									<div className="mb-10">
+										<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18px] text-gray/40 md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
+											{t('common:company_images')} 
+										</h2>
+										<div className=" mt-4 flex space-x-4">
+											{storeFrontDetails?.company_photos?.map(
+												(companyPhoto: string) => (
+													<div
 														key={companyPhoto}
-														src={companyPhoto}
-														alt=""
-														fill={true}
-													/>
-												</div>
-											)
-										)}
+														className="relative h-[200px] w-[219px] rounded-md"
+													>
+														<ImageWithErrorHandler
+															key={companyPhoto}
+															src={companyPhoto}
+															alt=""
+															fill={true}
+														/>
+													</div>
+												)
+											)}
+										</div>
 									</div>
-								</div>
+								)}
 
 								{/* Company Video */}
-								<div className="mb-10">
-									<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18px] text-gray/40 md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
-										{t('common:company_video')}
-									</h2>
-									<div className="mt-4 flex space-x-4">
-										{storeFrontDetails?.company_videos?.map(
-											(companyVideoUrl: string) => (
-												<div
-													key={companyVideoUrl}
-													className="relative h-[200px] w-[219px]"
-												>
-													<video
-														autoPlay={false}
-														className="h-full w-full rounded-md object-cover"
+								{storeFrontDetails?.company_videos?.[0] !==
+									'Error occurred' && (
+									<div className="mb-10">
+										<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18px] text-gray/40 md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
+											{t('common:company_video')}
+										</h2>
+										<div className="mt-4 flex space-x-4">
+											{storeFrontDetails?.company_videos?.map(
+												(companyVideoUrl: string) => (
+													<div
+														key={companyVideoUrl}
+														className="relative h-[200px] w-[219px]"
 													>
-														<source src={companyVideoUrl}></source>
-													</video>
+														<video
+															autoPlay={false}
+															className="h-full w-full rounded-md object-cover"
+														>
+															<source src={companyVideoUrl}></source>
+														</video>
 
-													<span className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 transform">
-														<PlayCircleIcon
-															className="h-20 w-20 cursor-pointer text-white"
-															onClick={() =>
-																setSelectedCompanyVideoUrl(
-																	companyVideoUrl
-																)
-															}
-														/>
-													</span>
-												</div>
-											)
-										)}
+														<span className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 transform">
+															<PlayCircleIcon
+																className="h-20 w-20 cursor-pointer text-white"
+																onClick={() =>
+																	setSelectedCompanyVideoUrl(
+																		companyVideoUrl
+																	)
+																}
+															/>
+														</span>
+													</div>
+												)
+											)}
+										</div>
 									</div>
-								</div>
+								)}
 
 								{/* Featured Product */}
 								<div>
