@@ -2,33 +2,16 @@ import { axiosInstance } from 'utils/axios-instance.utils';
 
 export const getEcoHomeMainCategoriesAndCategories = async () => {
 	try {
-		// const { data } = await axiosInstance.get(
-		// 	'/cms_category/home?is_eco=true'
-		// 	// '/cms_category?is_eco=true'
-		// );
-
-		// return {
-		// 	// cat_section: data.data[0].cat_section || [],
-		// 	// is_custom: data.data[0].is_custom || false
-
-		// 	cat_section: data?.data?.map((mainCategories: any) => {
-		// 		return {
-		// 			main_category: {
-		// 				...mainCategories
-		// 			},
-		// 			categories: mainCategories?.categories || []
-		// 		};
-		// 	}),
-		// 	is_custom: true
-		// };
-
 		const { data } = await axiosInstance.get(
 			// '/cms/category-cms/home?eco=true'
-			'/cms/category-cms?eco=true'
+			// '/cms/category-cms?eco=true'
+			'cms/cms-category-eco'
 		);
+
+		const categoryCMSData = data?.data?.[0] || {};
 		return {
-			cat_section: data.data[0].cat_section,
-			is_custom: data.data[0].is_custom
+			cat_section: categoryCMSData.cat_section || [],
+			is_custom: categoryCMSData.is_custom
 		};
 	} catch (error) {
 		console.log('[getHomeMainCategoriesAndCategories] =', error);

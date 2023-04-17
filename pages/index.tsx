@@ -234,6 +234,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
 	try {
 		const cardAList = (await getCardAList()) || [];
+		console.log('cardAList', cardAList);
 		const cardBData = (await getCardB()) || {};
 
 		const homeMainCategoriesAndCategories =

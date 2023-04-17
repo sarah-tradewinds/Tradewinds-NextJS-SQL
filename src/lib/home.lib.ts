@@ -20,7 +20,7 @@ export const getCardAList = async (isEco?: boolean) => {
 			`/cms/cardA?isEco=${isEco || false}`
 		);
 
-		return data.data || [];
+		return data?.data || [];
 	} catch (error) {
 		console.log('[getCardAList] =', error);
 		const { data } = (error as any).response || {};
@@ -49,7 +49,9 @@ export const getHomeMainCategoriesAndCategories = async (): Promise<{
 	is_custom: boolean;
 }> => {
 	try {
+		// const { data } = await axiosInstance.get('/cms/category-cms');
 		const { data } = await axiosInstance.get('/cms/category-cms');
+
 		return {
 			cat_section: data.data[0].cat_section,
 			is_custom: data.data[0].is_custom
