@@ -285,7 +285,7 @@ const TrendingCatagories: React.FC<{}> = ({}) => {
 			</div>
 
 			{/* medium device */}
-			<div className=" ml-[7px] mr-[6px] mt-[17px]  hidden grid-cols-2 grid-rows-5 space-x-[12px] md:grid lg:hidden">
+			<div className=" ml-[7px] mr-[6px] mt-[17px] grid hidden grid-cols-2 grid-rows-5 space-x-[12px] md:grid lg:hidden">
 				<div className=" h-[295px] w-[350px] rounded-[10px] bg-white pt-[20px]">
 					<div className=" ml-[14px] h-[27px] w-[44px] bg-light_yellow  ">
 						<span className=" ml-[9px] h-[51px] w-[16px] text-[21px] font-semibold text-gray">
