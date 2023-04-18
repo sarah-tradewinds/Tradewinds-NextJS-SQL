@@ -47,9 +47,8 @@ const Trending_page: NextPage<
 	InferGetServerSidePropsType<GetServerSideProps>
 > = (props) => {
 	const [products, setProducts] = useState(props.products?.data || []);
-	const trendingCategories = useState(props.categories?.data || []);
-	console.log('categories', trendingCategories);
-
+	const trendingCategories = props.categories;
+	console.log('props.categories', props.categories);
 	const [minPrice, setMinPrice] = useState('0');
 	const [maxPrice, setMaxPrice] = useState('0');
 	const [filterBuyEco, setFilterBuyEco] = useState(false);
@@ -304,7 +303,9 @@ const Trending_page: NextPage<
 					</div>
 				</div>
 
-				{isExpanded1 && <TrendingCatagories />}
+				{isExpanded1 && (
+					<TrendingCatagories categories={trendingCategories || []} />
+				)}
 
 				{/* This is Trending Products */}
 				<div className=" mt-[9px] flex h-[99px] w-full bg-green pt-[12px] pl-[16px] not-italic text-white">
@@ -454,7 +455,9 @@ const Trending_page: NextPage<
 										</div>
 									</div>
 								</div>
-								<TrendingCatagories />
+								<TrendingCatagories
+									categories={trendingCategories || []}
+								/>
 							</Tab.Panel>
 							<Tab.Panel>
 								<div className="rounded-md bg-white md:mb-[10.87px] md:flex md:h-[101.13px] md:py-2 md:pl-[8.06px] lg:mb-[23px] lg:h-[209px] lg:py-[17px] lg:pl-[17px]">
@@ -521,9 +524,7 @@ const Trending_page: NextPage<
 export const getServerSideProps: GetServerSideProps = async ({
 	locale
 }) => {
-	// const categories = getTrendingCategories();
 	const categories = await getTrendingCategories();
-
 	return {
 		props: {
 			...(await serverSideTranslations(locale || 'en')),
