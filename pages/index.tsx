@@ -111,7 +111,8 @@ const HomePage: NextPage<
 						{t('Find the latest Trends')}
 					</h3>
 					<Button
-						href={`/product-search?is_trending=${true}`}
+						// href={`/product-search?is_trending=${true}`}
+						href="/whats-trending"
 						className="border-2 border-secondary !text-[21px] font-bold text-secondary lg:!h-[48px] lg:!leading-[26px] pc:!rounded-full"
 					>
 						See Trends
