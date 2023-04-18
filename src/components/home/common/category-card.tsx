@@ -1,6 +1,5 @@
 // Third party package
 
-import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import Button from 'components/common/form/button';
 
 interface CategoryCardProps {
@@ -61,7 +60,7 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 					<span className="text-gray">{description}</span>
 				</p>
 
-				{!hideImage && (
+				{/* {!hideImage && (
 					<div className="absolute bottom-0 right-0">
 						<div className="relative h-[60px] w-[60px] md:h-[100px] md:w-[100px] lg:h-[250px] lg:w-[250px]">
 							<ImageWithErrorHandler
@@ -69,6 +68,20 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 								alt={alt || slug || ''}
 								fill={true}
 							/>
+						</div>
+					</div>
+				)} */}
+
+				{!hideImage && (
+					<div className="absolute bottom-0 right-0">
+						<div className="relative h-[60px] w-[60px] overflow-hidden md:h-[100px] md:w-[100px] lg:h-[250px] lg:w-[250px]">
+							<div className="absolute bottom-0 right-0">
+								<img
+									src={imageUrl}
+									alt={alt || slug || ''}
+									className="h-auto w-auto object-contain"
+								/>
+							</div>
 						</div>
 					</div>
 				)}

@@ -34,7 +34,8 @@ const nextConfig = (phase) => {
 					'm.media-amazon.com',
 					'undefined',
 					'https',
-					'picsum.photos'
+					'picsum.photos',
+					'localhost'
 				]
 			}
 		};
