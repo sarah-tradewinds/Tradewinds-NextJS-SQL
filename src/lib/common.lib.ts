@@ -79,6 +79,17 @@ export const getTrendingCategoriesByCountry = async (
 	}
 }; // End of getTrendingCategoriesByCountry function
 
+export const getTrendingCategories = async () => {
+	try {
+		const { data } = await axiosInstance.get(`/cms/category/trending`);
+		return data?.data || [];
+	} catch (error) {
+		console.log('[getTrendingCategories] =', error);
+		const { data } = (error as any).response || {};
+		return [];
+	}
+}; // End of getTrendingCategories function
+
 export const getCountries = async () => {
 	try {
 		const { data } = await axiosInstance.get(
