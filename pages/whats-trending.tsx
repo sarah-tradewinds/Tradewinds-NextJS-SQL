@@ -22,6 +22,7 @@ import ProductSearchTopBanner from 'components/product-search/product-search-top
 import useDeviceSize from 'hooks/use-device-size.hooks';
 import {
 	getCountryById,
+	getTrendingCategories,
 	getTrendingCategoriesByCountry
 } from 'lib/common.lib';
 import {
@@ -44,6 +45,9 @@ const Trending_page: NextPage<
 	InferGetServerSidePropsType<GetServerSideProps>
 > = (props) => {
 	const [products, setProducts] = useState(props.products?.data || []);
+	const trendingCategories = useState(props.categories?.data || []);
+	console.log('categories', trendingCategories);
+
 	const [minPrice, setMinPrice] = useState('0');
 	const [maxPrice, setMaxPrice] = useState('0');
 	const [filterBuyEco, setFilterBuyEco] = useState(false);
@@ -144,6 +148,7 @@ const Trending_page: NextPage<
 				const categories = await getTrendingCategoriesByCountry(
 					data?.name?.en
 				);
+				console.log('catagories', categories);
 				setSelectedCategories(categories || []);
 			});
 		}
@@ -189,6 +194,8 @@ const Trending_page: NextPage<
 	}, [compareProducts.length]);
 
 	const selectedCategoryList = categoryId?.split(',') || [];
+	const trendingcategories = getTrendingCategories();
+	console.log('trendingcategories', trendingcategories);
 
 	const [countryId] = getIdAndName((query.country || '') as string);
 	console.log('selectedMainCategory =', selectedMainCategory);
@@ -321,7 +328,7 @@ const Trending_page: NextPage<
 				{isExpanded2 && <TrendingProduct />}
 			</div>
 
-			<div className="relative flex hidden md:mt-[9px] md:mr-[10px] md:flex md:pl-[9px] lg:mt-[19px] lg:flex lg:pl-6">
+			<div className="relative  hidden md:mt-[9px] md:mr-[10px] md:flex md:pl-[9px] lg:mt-[19px] lg:flex lg:pl-6">
 				{/* Side container */}
 				<section className=" md:mr-[13px] md:hidden  md:w-[159px] lg:mr-[25px] lg:block lg:w-[297px]">
 					{/* filters */}
@@ -436,9 +443,13 @@ const Trending_page: NextPage<
 export const getServerSideProps: GetServerSideProps = async ({
 	locale
 }) => {
+	// const categories = getTrendingCategories();
+	const categories = await getTrendingCategories();
+
 	return {
 		props: {
-			...(await serverSideTranslations(locale || 'en'))
+			...(await serverSideTranslations(locale || 'en')),
+			categories
 		}
 	};
 }; // End of getServerSideProps function
