@@ -38,41 +38,50 @@ const SelectSignUp: React.FC = () => {
 			overlayClassName="!z-[51000]"
 		>
 			<div className="ml-2 flex  items-center justify-center">
-				<div className="flex justify-center rounded-md bg-white shadow-md md:mt-12 md:w-[740px] md:py-4 lg:h-[905px] lg:w-[1204px] lg:justify-start lg:px-16">
-					<div className="overflow-hiden flex h-[640px] flex-col items-center border-gray/40 py-8 md:h-auto lg:w-full lg:border-r lg:py-0 lg:pr-24">
-						<h2 className=" mb-8 mt-[220px] h-[67] w-[471px] border-b border-gray/40 pb-4 text-center font-semibold text-black md:text-4xl lg:text-5xl">
+				<div className="flex justify-center rounded-md bg-white shadow-md md:mt-12 md:w-[740px] md:py-4 lg:mr-[43px] lg:h-[905px] lg:w-[1204px] lg:justify-start lg:pl-[66px]">
+					<div className="overflow-hiden flex h-[640px] flex-col items-center border-gray/40 py-8 md:h-auto lg:w-full lg:border-r lg:py-0 lg:pr-[24px]">
+						<h2 className="  mt-[220px] h-[61px] w-[511px] border-b border-gray/40 pb-4 text-center font-semibold text-black md:text-4xl lg:text-5xl">
 							{t('auth:create_an_account')}
 						</h2>
 
-						<div className="flex w-full justify-center border-b border-gray/40 pb-[71px]">
-							<form className="space-y-4 px-8 lg:w-[360px] lg:px-0">
-								<div className=" mt-[47px] mb-[41px] space-x-5 text-center text-lg">
+						<div className="flex w-[511px] justify-center border-b border-gray/40 pb-[71px] not-italic">
+							<form className=" px-8 lg:w-[346px] lg:px-0">
+								<div className=" mt-[41px] mb-[27px] space-x-[10px] text-center text-lg font-normal text-label_gray  ">
 									<label>I am a...</label>
 									<label>
-										<input
-											type="radio"
-											name="myRadio"
-											value="Buyer"
-											onChange={handleRadioChange}
-										/>
+										<span className=" mr-[7px]">
+											<input
+												className=" inline-block h-[20px] w-[20px]  align-text-top"
+												type="radio"
+												name="myRadio"
+												value="Buyer"
+												onChange={handleRadioChange}
+											/>
+										</span>
 										Buyer
 									</label>
 									<label>
-										<input
-											type="radio"
-											name="myRadio"
-											value="Seller"
-											onChange={handleRadioChange}
-										/>
+										<span className=" mr-[7px]">
+											<input
+												className=" inline-block h-[20px] w-[20px] align-text-top "
+												type="radio"
+												name="myRadio"
+												value="Seller"
+												onChange={handleRadioChange}
+											/>
+										</span>
 										Seller
 									</label>
 									<label>
-										<input
-											type="radio"
-											name="myRadio"
-											value="BDM"
-											onChange={handleRadioChange}
-										/>
+										<span className=" mr-[7px]">
+											<input
+												className=" inline-block h-[20px] w-[20px]   align-text-top"
+												type="radio"
+												name="myRadio"
+												value="BDM"
+												onChange={handleRadioChange}
+											/>
+										</span>
 										BDM
 									</label>
 								</div>
@@ -110,7 +119,7 @@ const SelectSignUp: React.FC = () => {
 								{t('auth:already_have_an_account_log_in')}
 							</Button>
 							<p
-								className="mt-[24px] cursor-pointer text-center text-sm text-accent-primary-main underline"
+								className="mt-[24px] cursor-pointer text-center text-sm text-accent-primary-main "
 								// onClick={() => {
 								// 	// setIsLoginOpen();
 								// 	router.push('/forgot-password');
@@ -123,7 +132,7 @@ const SelectSignUp: React.FC = () => {
 
 					{/* Logos */}
 					<div className="hidden w-full flex-col items-center justify-center lg:flex">
-						<div className="relative h-[260px] w-[260px]">
+						<div className="relative h-[266px] w-[202px]">
 							<ImageWithErrorHandler
 								src="/TW-Create an account page-02.png"
 								alt=""
@@ -132,7 +141,7 @@ const SelectSignUp: React.FC = () => {
 							/>
 						</div>
 
-						<div className="relative h-[260px] w-[260px]">
+						<div className="relative mt-[20px] h-[280px] w-[495px]">
 							<ImageWithErrorHandler
 								src="/TW-Create an account page-03.png"
 								alt=""

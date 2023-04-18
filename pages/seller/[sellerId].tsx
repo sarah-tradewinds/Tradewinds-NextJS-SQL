@@ -198,12 +198,12 @@ const SellerProfileTab: NextPage<
 								<div>
 									<div className="mt-8 grid grid-cols-12 md:gap-8">
 										{/* Profile details */}
-										<div className=" grid grid-cols-2 grid-rows-3 space-y-4 text-lg sm:col-span-8">
+										<div className=" ml-[23px] grid h-[157px] w-[880px] grid-cols-2 grid-rows-3  text-lg sm:col-span-8">
 											<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
-												<span className="mt-4 font-semibold md:min-w-[148px]">
+												<span className=" font-semibold md:min-w-[148px]">
 													{t('common:country')}:
 												</span>
-												<span className="mt-4">
+												<span>
 													{getLocaleText(
 														edges?.country?.name || {},
 														locale
@@ -256,14 +256,14 @@ const SellerProfileTab: NextPage<
 										{/* Tradewinds logo and message vendor button */}
 										<div className="relative h-[76px] w-[120px] md:m-8">
 											<ImageWithErrorHandler
-												className=" ml-[430px] -mt-[30px]"
+												className=" -mt-[30px] lg:ml-[375px]"
 												src="/twmp-verified.png"
 												alt=""
 												fill={true}
 											/>
 										</div>
 										<div className="hidden sm:col-span-4 md:flex">
-											<div className="relative  hidden h-[33px] w-[220px] lg:block">
+											<div className="relative  ml-[23px] hidden h-[33px] w-[220px] lg:block">
 												{messageVendorButton}
 											</div>
 										</div>
@@ -286,63 +286,68 @@ const SellerProfileTab: NextPage<
 								</div>
 
 								{/* Company Photos */}
-								<div className="mb-10">
-									<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18px] text-gray/40 md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
-										{t('common:company_images')} 
-									</h2>
-									<div className=" mt-4 flex space-x-4">
-										{storeFrontDetails?.company_photos?.map(
-											(companyPhoto: string) => (
-												<div
-													key={companyPhoto}
-													className="relative h-[200px] w-[219px] rounded-md"
-												>
-													<ImageWithErrorHandler
+								{storeFrontDetails?.company_photos?.length !== 0 && (
+									<div className="mb-10">
+										<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18px] text-gray/40 md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
+											{t('common:company_images')} 
+										</h2>
+										<div className=" mt-4 ml-[23px] flex space-x-4">
+											{storeFrontDetails?.company_photos?.map(
+												(companyPhoto: string) => (
+													<div
 														key={companyPhoto}
-														src={companyPhoto}
-														alt=""
-														fill={true}
-													/>
-												</div>
-											)
-										)}
+														className="relative h-[200px] w-[219px] rounded-md"
+													>
+														<ImageWithErrorHandler
+															key={companyPhoto}
+															src={companyPhoto}
+															alt=""
+															fill={true}
+														/>
+													</div>
+												)
+											)}
+										</div>
 									</div>
-								</div>
+								)}
 
 								{/* Company Video */}
-								<div className="mb-10">
-									<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18px] text-gray/40 md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
-										{t('common:company_video')}
-									</h2>
-									<div className="mt-4 flex space-x-4">
-										{storeFrontDetails?.company_videos?.map(
-											(companyVideoUrl: string) => (
-												<div
-													key={companyVideoUrl}
-													className="relative h-[200px] w-[219px]"
-												>
-													<video
-														autoPlay={false}
-														className="h-full w-full rounded-md object-cover"
+								{storeFrontDetails?.company_videos?.[0] !==
+									'Error occurred' && (
+									<div className="mb-10">
+										<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18px] text-gray/40 md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
+											{t('common:company_video')}
+										</h2>
+										<div className="mt-4 ml-[23px] flex space-x-4">
+											{storeFrontDetails?.company_videos?.map(
+												(companyVideoUrl: string) => (
+													<div
+														key={companyVideoUrl}
+														className="relative h-[200px] w-[219px]"
 													>
-														<source src={companyVideoUrl}></source>
-													</video>
+														<video
+															autoPlay={false}
+															className="h-full w-full rounded-md object-cover"
+														>
+															<source src={companyVideoUrl}></source>
+														</video>
 
-													<span className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 transform">
-														<PlayCircleIcon
-															className="h-20 w-20 cursor-pointer text-white"
-															onClick={() =>
-																setSelectedCompanyVideoUrl(
-																	companyVideoUrl
-																)
-															}
-														/>
-													</span>
-												</div>
-											)
-										)}
+														<span className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 transform">
+															<PlayCircleIcon
+																className="h-20 w-20 cursor-pointer text-white"
+																onClick={() =>
+																	setSelectedCompanyVideoUrl(
+																		companyVideoUrl
+																	)
+																}
+															/>
+														</span>
+													</div>
+												)
+											)}
+										</div>
 									</div>
-								</div>
+								)}
 
 								{/* Featured Product */}
 								<div>
