@@ -11,17 +11,19 @@ const TrendingCategorySlider: React.FC<{
 	selectedCategoryIds?: string[];
 	onTileClick?: (categoryId: string, data: any) => any;
 	className?: string;
+	selectedTitleClassName?: string;
 }> = (props) => {
 	const slider = useRef(null);
 	const router = useRouter();
 
-	const { deviceSize, deviceWidth } = useDeviceSize();
+	const { deviceWidth } = useDeviceSize();
 
 	const {
 		categories = [],
 		onTileClick,
 		selectedCategoryIds,
-		className
+		className,
+		selectedTitleClassName = ''
 	} = props;
 
 	let slideToShow = 2;
@@ -65,7 +67,6 @@ const TrendingCategorySlider: React.FC<{
 						return (
 							<div
 								key={subCat.id}
-								// className="!mt-[24px] !w-[95%] transform cursor-pointer transition duration-300 ease-in-out hover:-translate-y-2"
 								className="transform cursor-pointer transition duration-300 ease-in-out hover:-translate-y-2"
 								onClick={() =>
 									onTileClick?.(categoryData?.id, categoryData)
@@ -83,7 +84,10 @@ const TrendingCategorySlider: React.FC<{
 
 									<p
 										className={`md:pb-1 md:text-[10px] md:leading-3 lg:text-[15px] lg:font-semibold ${
-											isSelected ? 'border-b-4 border-secondary' : ''
+											isSelected
+												? 'border-b-4 border-secondary ' +
+												  selectedTitleClassName
+												: ''
 										}`}
 									>
 										{subCategoryTitle}

@@ -64,7 +64,7 @@ const CategoriesFilter: React.FC = (props) => {
 								mainCategoryTitle
 							);
 							push(
-								`/product-search?${params}&${generateQueryString({
+								`?${params}&${generateQueryString({
 									region: query.region,
 									country: query.region
 								})}`,
@@ -132,7 +132,7 @@ const CategoryList: React.FC<{
 			onClick={() => {
 				const params = setCategory(id, categoryName);
 				push(
-					`/product-search?${params}&${generateQueryString({
+					`?${params}&${generateQueryString({
 						region: query.region,
 						country: query.region
 					})}`,
@@ -217,7 +217,7 @@ const SubCategoryList: React.FC<{
 					subCategoryName
 				);
 				push(
-					`/product-search?${params}&${generateQueryString({
+					`?${params}&${generateQueryString({
 						region: query.region,
 						country: query.region
 					})}`,
@@ -265,7 +265,7 @@ const SubCategoryList: React.FC<{
 							);
 
 							push(
-								`/product-search?${params}&${generateQueryString({
+								`?${params}&${generateQueryString({
 									region: query.region,
 									country: query.region
 								})}`,

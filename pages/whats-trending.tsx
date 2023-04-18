@@ -17,8 +17,10 @@ import TrendingProduct from '../src/components/common/trending_page/trending-pro
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import Seo from 'components/common/seo';
 import ProductFilter from 'components/product-search/product-filter/product-filter';
+import ProductList from 'components/product-search/product-list';
 import ProductSearchFilterBar from 'components/product-search/product-search-filter-bar';
 import ProductSearchTopBanner from 'components/product-search/product-search-top-banner';
+import TrendingCategorySlider from 'components/product-search/trending-category-slider';
 import useDeviceSize from 'hooks/use-device-size.hooks';
 import {
 	getCountryById,
@@ -90,6 +92,12 @@ const Trending_page: NextPage<
 
 	const { t } = useTranslation();
 	const { deviceWidth } = useDeviceSize();
+
+	useEffect(() => {
+		getTrendingCategoriesByCountry('').then((categories) =>
+			setSelectedCategories(categories || [])
+		);
+	}, []);
 
 	useEffect(() => {
 		const [mainCategoryId] =
@@ -198,7 +206,7 @@ const Trending_page: NextPage<
 			<Seo title="Product search page" description="" />
 
 			{/* Main Category Banner and Category banner */}
-			<div>
+			<div style={{ display: 'none' }}>
 				{/* Main Category Banner */}
 				{main_category && (
 					<ProductSearchTopBanner
@@ -390,43 +398,113 @@ const Trending_page: NextPage<
 					</div>
 				</section>
 
-				<div className=" md:w-[727px] lg:w-[1142px]">
+				<div className="md:w-[727px] lg:w-[1142px]">
 					<div>
 						<Tab.Group>
-							<Tab.List className=" flex text-[25px]  font-semibold text-gray md:leading-[30px] lg:leading-[30px]">
-								<Tab className=" h-[41px] w-[150px] rounded-[9px] bg-white md:ml-[14px] lg:ml-[27px] ">
-									Catagories
+							{/* <Tab.List className="flex text-[25px] font-semibold md:leading-[30px] lg:leading-[30px]"> */}
+							<Tab.List className="ml-4 space-x-4 text-[25px] font-semibold">
+								<Tab className="w-[150px]s h-[41px] rounded-t-xl bg-white px-2 text-center outline-none">
+									{({ selected }: { selected: boolean }) => (
+										<p
+											className={`${
+												selected ? 'text-[#575858]' : 'text-[#DCDBDB]'
+											}`}
+										>
+											Catagories
+										</p>
+									)}
 								</Tab>
-								<Tab className=" ml-[13px] h-[41px] w-[150px] rounded-[9px] bg-white ">
-									Products
+								<Tab className="h-[41px] w-[150px] rounded-t-xl bg-white text-center outline-none">
+									{({ selected }: { selected: boolean }) => (
+										<span
+											className={`${
+												selected ? 'text-[#575858]' : 'text-[#DCDBDB]'
+											}`}
+										>
+											Products
+										</span>
+									)}
 								</Tab>
 							</Tab.List>
-							<Tab.Panel></Tab.Panel>
-							<Tab.Panel></Tab.Panel>
+							<Tab.Panel>
+								<div className=" -mt-[5px] flex w-full rounded-[10px] bg-white md:h-[238px] md:-space-x-[10px] lg:h-[209px] lg:space-x-[16px]">
+									<div className="  md:ml-[18px] md:pt-[7px] lg:ml-[25px] lg:pt-[19px]">
+										<div className=" text-[21px] font-semibold text-gray md:h-[35px] md:w-[190px] md:leading-[24px] lg:h-[32px] lg:w-[266px]">
+											<p>Trending Catagories</p>
+										</div>
+										<div className=" md:ml[18px]  bg-primary-main md:mt-[21px] md:h-[158px] md:w-[169px] lg:mt-[0px] lg:h-[144px] lg:w-[266px]"></div>
+									</div>
+									<div className=" md:mt-[65px] md:h-[57px] md:w-[303px] lg:mt-[19px] lg:h-[175px] lg:w-[810px] lg:border lg:border-border">
+										<div className=" relative  md:h-[156px] md:w-[518px] lg:h-[175px] lg:w-[810px]">
+											<p className=" ml-[17px] text-[21px] font-bold text-primary-main">
+												Undiscovered and rising
+											</p>
+											<ImageWithErrorHandler
+												src="/static/images/trending_images/camera.png"
+												alt="camera"
+												fill={true}
+											/>
+										</div>
+									</div>
+								</div>
+								<TrendingCatagories />
+							</Tab.Panel>
+							<Tab.Panel>
+								<div className="rounded-md bg-white md:mb-[10.87px] md:flex md:h-[101.13px] md:py-2 md:pl-[8.06px] lg:mb-[23px] lg:h-[209px] lg:py-[17px] lg:pl-[17px]">
+									<div className="flex h-[42px] items-center p-2 md:h-full md:flex-col md:items-start md:space-x-0 md:p-0">
+										<p className="text-[16px] font-semibold leading-5 text-gray md:text-[10px] md:leading-3 lg:text-[21px] lg:leading-[26px]">
+											{getLocaleText(
+												selectedMainCategory?.title ||
+													selectedCountry?.name ||
+													{},
+												router.locale
+											)}
+										</p>
+										<div className="relative h-[144px] w-[266px] bg-success">
+											{/* <ImageWithErrorHandler
+												key={selectedCountry?.image}
+												src={selectedCountry?.image}
+												alt={getLocaleText(
+													selectedCountry?.name || {},
+													router.locale
+												)}
+												fill={true}
+												className="object-cover"
+											/> */}
+										</div>
+									</div>
+
+									{/* Category Slider for tablet and desktop  */}
+									{selectedCategories?.length > 0 ? (
+										<div className="hidden md:mt-[9px] md:block md:w-[402px] lg:ml-[13px] lg:mt-[35px] lg:mb-[25px] lg:h-[150px] lg:w-[838px]">
+											<TrendingCategorySlider
+												categories={[...selectedCategories]}
+												selectedCategoryIds={selectedCategoryList || []}
+												selectedTitleClassName="!border-success"
+												onTileClick={(categoryId, data) => {
+													const params = setCategory(
+														categoryId,
+														data?.title?.en
+													);
+													router.push(`?${params}`, undefined, {
+														shallow: true
+													});
+												}}
+											/>
+										</div>
+									) : (
+										<p className="flex w-full items-center justify-center text-lg">
+											No categories available
+										</p>
+									)}
+								</div>
+								<ProductList
+									products={products || []}
+									onCompareClick={() => {}}
+								/>
+							</Tab.Panel>
 						</Tab.Group>
 					</div>
-
-					<div className=" -mt-[5px] flex w-full rounded-[10px] bg-white md:h-[238px] md:-space-x-[10px] lg:h-[209px] lg:space-x-[16px]">
-						<div className="  md:ml-[18px] md:pt-[7px] lg:ml-[25px] lg:pt-[19px]">
-							<div className=" text-[21px] font-semibold text-gray md:h-[35px] md:w-[190px] md:leading-[24px] lg:h-[32px] lg:w-[266px]">
-								<p>Trending Catagories</p>
-							</div>
-							<div className=" md:ml[18px]  bg-primary-main md:mt-[21px] md:h-[158px] md:w-[169px] lg:mt-[0px] lg:h-[144px] lg:w-[266px]"></div>
-						</div>
-						<div className=" md:mt-[65px] md:h-[57px] md:w-[303px] lg:mt-[19px] lg:h-[175px] lg:w-[810px] lg:border lg:border-border">
-							<div className=" relative  md:h-[156px] md:w-[518px] lg:h-[175px] lg:w-[810px]">
-								<p className=" ml-[17px] text-[21px] font-bold text-primary-main">
-									Undiscovered and rising
-								</p>
-								<ImageWithErrorHandler
-									src="/static/images/trending_images/camera.png"
-									alt="camera"
-									fill={true}
-								/>
-							</div>
-						</div>
-					</div>
-					<TrendingCatagories />
 				</div>
 			</div>
 		</div>
