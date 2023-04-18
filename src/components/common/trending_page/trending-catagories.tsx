@@ -3,8 +3,8 @@ import ImageWithErrorHandler from '../elements/image-with-error-handler';
 const TrendingCatagories: React.FC<{}> = ({}) => {
 	return (
 		<>
-			<div className="mt-[20px] flex hidden md:hidden lg:flex ">
-				<div className="  h-[636px] w-[370px] rounded-[10px] bg-white pt-[20px]">
+			<div className="mt-[20px]  hidden grid-flow-row grid-cols-3 space-x-[5px] md:hidden lg:grid ">
+				<div className="  row-span-2 h-[636px] w-[370px] rounded-[10px] bg-white pt-[20px]">
 					<div className=" ml-[14px] h-[51px] w-[61px] bg-light_yellow  ">
 						<span className=" ml-[8px] h-[51px] w-[16px] text-[42px] font-semibold text-gray">
 							1
@@ -56,7 +56,7 @@ const TrendingCatagories: React.FC<{}> = ({}) => {
 						</p>
 					</div>
 				</div>
-				<div className=" ml-[15px] grid grid-cols-2 grid-rows-2 gap-x-[14px] gap-y-[12px]">
+				<div className=" ml-[15px] grid grid-cols-2 grid-rows-2 gap-x-[386px] gap-y-[12px]">
 					<div className=" h-[312px] w-[370px] rounded-[10px] bg-white pt-[20px]">
 						<div className=" ml-[14px] h-[27px] w-[44px] bg-light_yellow  ">
 							<span className=" ml-[9px] h-[51px] w-[16px] text-[21px] font-semibold text-gray">

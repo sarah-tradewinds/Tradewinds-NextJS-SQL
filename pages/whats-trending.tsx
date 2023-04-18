@@ -13,7 +13,6 @@ import { HiMinusCircle, HiPlusCircle } from 'react-icons/hi';
 import TrendingCatagories from '../src/components/common/trending_page/trending-catagories';
 import TrendingProduct from '../src/components/common/trending_page/trending-products';
 
-
 // stores
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import Seo from 'components/common/seo';
@@ -258,9 +257,10 @@ const Trending_page: NextPage<
 					}}
 				/>
 			</div>
-			
+
 			{/* For mobiles only */}
 			<div className=" md:hidden lg:hidden">
+				{/* This is Trending Catagories */}
 				<div className=" mt-[9px] flex h-[99px] w-full bg-primary-main pt-[12px] pl-[16px] not-italic text-white">
 					<div>
 						<p className=" h-[24px] w-[216px] text-[20px] font-semibold leading-[24px]">
@@ -289,10 +289,9 @@ const Trending_page: NextPage<
 					</div>
 				</div>
 
-				{/* This is Trending Catagories */}
 				{isExpanded1 && <TrendingCatagories />}
 
-				{/* This is Trending Catagories */}
+				{/* This is Trending Products */}
 				<div className=" mt-[9px] flex h-[99px] w-full bg-green pt-[12px] pl-[16px] not-italic text-white">
 					<div>
 						<p className=" h-[24px] w-[216px] text-[20px] font-semibold leading-[24px]">
@@ -319,7 +318,7 @@ const Trending_page: NextPage<
 						)}
 					</div>
 				</div>
-				{isExpanded2 && <TrendingProduct/>}
+				{isExpanded2 && <TrendingProduct />}
 			</div>
 
 			<div className="relative flex hidden md:mt-[9px] md:mr-[10px] md:flex md:pl-[9px] lg:mt-[19px] lg:flex lg:pl-6">
