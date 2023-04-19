@@ -48,7 +48,6 @@ const CategorySubCategoriesSection: React.FC<
 	const { locale } = router;
 
 	const { main_category, categories = [] } = catSubCat;
-	console.log('categoriescategories =', categories || []);
 
 	const mainCategoryTitle = getLocaleText(main_category.title, locale);
 	const mainCategoryDescription = getLocaleText(
@@ -78,7 +77,7 @@ const CategorySubCategoriesSection: React.FC<
 
 	const subCategoriesMobile = categories
 		? [...categories]
-				.slice(0, deviceSize === 'md' ? 5 : 7)
+				// .slice(0, deviceSize === 'md' ? 5 : 7)
 				.map((subCat) => {
 					let { categories: category } = subCat as any;
 
@@ -155,21 +154,18 @@ const CategorySubCategoriesSection: React.FC<
 						</p>
 					}
 					trailing={
-						<div className="relative h-[80px] w-[80px]">
-							<div
-								className={`absolute -top-8 ${
-									isReverse ? 'left-0' : 'right-0'
-								} z-10`}
-							>
-								<ImageWithErrorHandler
-									// src={main_category?.image?.url}
-									src={main_category?.image}
-									alt=""
-									width={96}
-									height={96}
-									className="h-full w-full"
-								/>
-							</div>
+						<div
+							className={`absolute -top-8 ${
+								isReverse ? 'left-0' : 'right-0'
+							} z-10`}
+						>
+							<ImageWithErrorHandler
+								src={main_category?.image}
+								alt=""
+								width={80}
+								height={80}
+								className="h-20 w-20"
+							/>
 						</div>
 					}
 					containerClassName="pt-[5px] !items-start"

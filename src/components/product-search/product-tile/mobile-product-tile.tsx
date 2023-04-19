@@ -161,7 +161,7 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 				{/* Image Container  */}
 				<div className="relative h-[78px] !w-[120px]">
 					<Link href={`/product/${slug}`}>
-						<div className="relative h-full w-full md:mt-5 md:h-[97px] lg:mt-0 lg:h-full">
+						<div className="relative h-full w-[120px] md:mt-5 md:h-[97px] lg:mt-0 lg:h-full">
 							<ImageWithErrorHandler
 								src={imageUrl}
 								alt={alt || ''}
@@ -187,7 +187,7 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 					{/* Product Info and keywords*/}
 					<Link
 						href={`/product/${slug}`}
-						className="text-[12px] leading-[15px] text-primary-main"
+						className="text-[12px] leading-[15px] text-primary-main line-clamp-1"
 					>
 						{name}
 					</Link>

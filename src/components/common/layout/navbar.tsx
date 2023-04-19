@@ -94,9 +94,11 @@ const Header = () => {
 				<CartIcon
 					count={totalItemCartItem}
 					onClick={() => router.push('/cart')}
-					iconClassName="text-[11.74px] md:text-[19px] lg:text-[25.16px]"
-					countClassName={`hidden md:block ${
-						isAuth ? 'md:!-top-3 !lg:-top-0 !right-2' : ''
+					iconClassName="!text-[20px] md:text-[19px] lg:text-[25.16px]"
+					countClassName={`block ${
+						isAuth
+							? '!-top-1 !right-4 md:!-top-3 !lg:-top-0 md:!right-2'
+							: ''
 					}`}
 				/>
 

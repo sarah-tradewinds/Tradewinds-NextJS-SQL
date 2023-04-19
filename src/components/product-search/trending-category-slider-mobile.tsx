@@ -39,22 +39,11 @@ const TrendingCategorySliderMobile: React.FC<
 				);
 
 				return (
-					<div
-						key={subCategory.id}
-						className="snap-center"
-						// className={'keen-slider__slide ' + title.length}
-						// style={{
-						// 	maxWidth: `${title.length * 20}px !important`,
-						// 	minWidth: `${title.length * 20}px !important`,
-						// 	width: `${title.length * 20}px !important`
-						// }}
-					>
+					<div key={subCategory.id} className="snap-center">
 						<SubCategoryTile
 							className="!w-full"
 							imageClassName="!w-[37px] !h-[33px]"
-							imageUrl={
-								subCategory.image?.url || '/vehicles/green-tractor.png'
-							}
+							imageUrl={subCategory.image}
 							title={title}
 							titleClassName="!whitespace-nowrap"
 							showBorder={selectedCategoryList?.includes(
