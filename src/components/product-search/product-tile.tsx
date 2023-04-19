@@ -213,9 +213,10 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 		>
 			<div className="flex md:ml-4 md:pt-3 md:pr-[14px] lg:space-x-2">
 				{/* Image container */}
-				<div className="relative md:h-[97px] md:min-w-[137px] lg:h-[189px] lg:min-w-[286px]">
+				{/* <div className="relative md:h-[97px] md:min-w-[137px] lg:h-[189px] lg:min-w-[286px]"> */}
+				<div className="relative md:h-[97px] md:min-w-[137px] lg:h-[255px] lg:w-[255px]">
 					<Link href={`/product/${slug}`}>
-						<div className="relative h-full w-full">
+						{/* <div className="relative h-full w-full">
 							<ImageWithErrorHandler
 								key={imageUrl}
 								src={imageUrl}
@@ -223,7 +224,8 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 								fill={true}
 								className="object-contain"
 							/>
-						</div>
+						</div> */}
+						<img key={imageUrl} src={imageUrl} alt={alt || ''} />
 					</Link>
 
 					{isEco && (
