@@ -46,7 +46,8 @@ const nextConfig = (phase) => {
 		i18n,
 		reactStrictMode: true,
 		env: {
-			SITE_URL: 'https://white-ocean-019fe600f.2.azurestaticapps.net/#',
+			SITE_URL:
+				'https://tradewindsmppreprodshoppingsite.azurewebsites.net',
 
 			BUYER_DASHBOARD_SITE_URL:
 				'https://white-ocean-019fe600f.2.azurestaticapps.net/#',
