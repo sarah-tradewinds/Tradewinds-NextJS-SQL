@@ -94,7 +94,7 @@ const ProductDetailsTab: React.FC<{
 								return (
 									<p
 										key={key}
-										className="flex space-x-8 text-[15px] text-gray md:justify-between md:text-[18px]"
+										className="flex flex-col text-[15px] text-gray md:flex-row md:justify-between md:space-x-8 md:text-[18px]"
 									>
 										<span className="font-semibold">{key}: </span>
 										<span>{value}</span>{' '}
@@ -135,7 +135,7 @@ const ProductDetailsTab: React.FC<{
 						</li>
 					)}
 					{/* Main Category */}
-					<li className="flex items-center space-x-2 md:space-x-0">
+					<li className="flex flex-col md:flex-row md:items-center md:space-x-0">
 						<span className="text-gray md:w-[200px] md:font-semibold">
 							Main Category:
 						</span>
@@ -146,7 +146,7 @@ const ProductDetailsTab: React.FC<{
 
 					{/* Category */}
 					{categories?.title && (
-						<li className="flex items-center space-x-2 md:space-x-0">
+						<li className="flex flex-col md:flex-row md:items-center md:space-x-0">
 							<span className="text-gray md:w-[200px] md:font-semibold">
 								Category:
 							</span>
@@ -158,7 +158,7 @@ const ProductDetailsTab: React.FC<{
 
 					{/* Sub Category */}
 					{sub_categories?.title && (
-						<li className="flex items-center space-x-2 md:space-x-0">
+						<li className="flex flex-col md:flex-row md:items-center md:space-x-0">
 							<span className="text-gray md:w-[200px] md:font-semibold">
 								Sub Category:
 							</span>
@@ -170,7 +170,7 @@ const ProductDetailsTab: React.FC<{
 
 					{/* Specific Category */}
 					{specific_categories?.title && (
-						<li className="flex items-center space-x-2 md:space-x-0">
+						<li className="flex flex-col md:flex-row md:items-center md:space-x-0">
 							<span className="text-gray md:w-[200px] md:font-semibold">
 								Specific Category:
 							</span>

@@ -28,7 +28,8 @@ const WhySellOnTradewindsPage: NextPage = () => {
 					<div className="absolute inset-0 z-[1] bg-black opacity-40"></div>
 
 					{/* content */}
-					<div className="4k:left-1/2 4k:-translate-x-1/2 absolute left-20 top-8 z-[50] text-white lg:top-32 lg:w-1/2">
+					{/* <div className="4k:left-1/2 4k:-translate-x-1/2 absolute left-20 top-8 z-[50] text-white lg:top-32 lg:w-1/2"> */}
+					<div className="absolute left-5 top-8 z-[50] text-white lg:top-32 lg:w-1/2">
 						<h1 className="text-[35px] font-semibold md:text-[40px] lg:text-[50px] ">
 							{t('why_sell_on_tradewinds_marketplace')}
 						</h1>
@@ -58,7 +59,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 							<h2 className="text-[24px] font-semibold text-primary-main md:text-[40px] lg:text-[50px]">
 								{t('power_is_in_the_number')}
 							</h2>
-							<p className="-mt-4 text-[18px] font-semibold text-accent-primary-main md:text-[20px] lg:text-[25px]">
+							<p className="text-[18px] font-semibold text-accent-primary-main md:text-[20px] lg:text-[25px]">
 								{t('let_the_sellers_come_to_you')}
 							</p>
 							<p className="text-[12px] text-gray md:text-[15px]">
@@ -221,7 +222,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 
 					{/* Why Sell in the  Western Hemisphere?
 					 */}
-					<div className="relative h-[1080px] bg-[url('/static/images/why-sell-on-tradewinds-images/why-buy.png')] bg-cover bg-center bg-no-repeat md:h-[900px] lg:h-[780px]">
+					<div className="relative h-[1240px] bg-[url('/static/images/why-sell-on-tradewinds-images/why-buy.png')] bg-cover bg-center bg-no-repeat md:h-[900px] lg:h-[780px]">
 						<div className="absolute inset-0 bg-primary-main opacity-50"></div>
 						<div className="z-2 absolute inset-0">
 							<div className="space-y-8 py-8 px-8 md:px-24">
@@ -259,6 +260,19 @@ const WhySellOnTradewindsPage: NextPage = () => {
 											)}
 										</p>
 									</div>
+									<div className="text-center">
+										<h3 className="text-[50px] font-semibold text-secondary md:text-[55px] lg:text-[99px]">
+											{t('1_point_9_trillion')}
+										</h3>
+										<p className="-mt-4 text-[18px]  font-semibold text-white md:text-[20px] lg:text-[25px]">
+											{t('active_buyers')}
+										</p>
+										<p className="text-[12px] text-white md:text-[16px] lg:text-[18px]">
+											{t(
+												'the_us_has_an_active_internet_user_base_of_284_million'
+											)}
+										</p>
+									</div>
 									<div className="flex flex-col items-center text-center">
 										<div className="relative h-[107px] w-[107px] md:h-[52px] md:w-[52px] lg:h-[107px] lg:w-[107px]">
 											<ImageWithErrorHandler
@@ -276,7 +290,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 											)}
 										</p>
 									</div>
-									<div className="text-center">
+									{/* <div className="text-center">
 										<h3 className="text-[50px] font-semibold text-secondary md:text-[55px] lg:text-[99px]">
 											{t('1_point_9_trillion')}
 										</h3>
@@ -288,9 +302,9 @@ const WhySellOnTradewindsPage: NextPage = () => {
 												'the_us_has_an_active_internet_user_base_of_284_million'
 											)}
 										</p>
-									</div>
+									</div> */}
 								</div>
-								<div className="flex justify-center">
+								<div className="hidden justify-center md:flex">
 									<Button variant="special">
 										{t('common:join_now')}
 									</Button>

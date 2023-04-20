@@ -201,16 +201,15 @@ const CompanyProfileTab: React.FC<{
 												</span>
 											</p>
 
-											<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
+											<p className="flex flex-col whitespace-pre-wrap text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
 												<span className="font-semibold md:min-w-[148px]">
 													{t('common:tw_page')}:
 												</span>
-												<Link href={`/seller/${seller?.id}`}>
-													<span className="cursor-pointer text-primary-main">
-														https://tradewindsmppreprodshoppingsite.azurewebsites.net/seller/
-														{seller?.id}
-														{/* {seller?.tw_page} */}
-													</span>
+												<Link
+													href={`/seller/${seller?.id}`}
+													className="cursor-pointer overflow-auto text-primary-main"
+												>
+													{`${process.env.SITE_URL}/seller/${seller?.id}`}
 												</Link>
 											</p>
 											<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
@@ -317,7 +316,7 @@ const CompanyProfileTab: React.FC<{
 												(companyVideoUrl: string) => (
 													<div
 														key={companyVideoUrl}
-														className="relative h-[200px] w-[219px]"
+														className="relative h-[140px] w-[140px] md:h-[200px] md:w-[219px]"
 													>
 														<video
 															autoPlay={false}

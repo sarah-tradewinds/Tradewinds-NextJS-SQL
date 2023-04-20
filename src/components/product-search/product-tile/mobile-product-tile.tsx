@@ -153,7 +153,7 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 
 	return (
 		<div
-			className={`h-[118px] w-screen bg-white ${
+			className={`h-[118px] w-screen bg-white pt-2 ${
 				isEco ? 'border-2 border-accent-success' : ''
 			}`}
 		>

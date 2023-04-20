@@ -40,7 +40,7 @@ const Login: React.FC = () => {
 		setCustomerData
 	} = useAuthStore();
 	const [loading, setLoading] = useState(false);
-	const [selectedOption, setSelectedOption] = useState('');
+	const [selectedOption, setSelectedOption] = useState('Buyer');
 	const [loginData, setLoginData] = useState<ILoginData>({
 		email: '',
 		password: ''
@@ -145,21 +145,21 @@ const Login: React.FC = () => {
 	return (
 		<Modal
 			open={isLoginOpen}
-			// className="top-10 mx-4 transform md:top-40 md:mx-20 lg:left-1/2 lg:top-1/2 lg:mx-0 lg:-translate-x-1/2 lg:-translate-y-1/2"
-			className="top-14 !z-[51000] mx-4 transform md:top-40 md:mx-20 lg:left-1/2 lg:top-1/2 lg:mx-0 lg:-translate-x-1/2 lg:-translate-y-1/2"
+			className="top-14  !z-[51000] transform md:top-40 md:mx-4 md:mx-20 lg:left-1/2 lg:top-1/2 lg:mx-0 lg:-translate-x-1/2 lg:-translate-y-1/2"
 			overlayClassName="!z-[51000]"
 			onClose={setIsLoginOpen}
 		>
 			<div className="ml-2 flex  items-center justify-center">
 				<div className="flex justify-center rounded-md bg-white shadow-md md:mt-12 md:w-[740px] md:py-4 lg:mr-[43px] lg:h-[905px] lg:w-[1204px] lg:justify-start lg:pl-[66px]">
-					<div className="overflow-hiden flex h-[640px] flex-col items-center border-gray/40 py-8 md:h-auto lg:w-full lg:border-r lg:py-0 lg:pr-[24px]">
-						<h2 className="  mt-[188px] h-[67] w-full border-b border-gray/40 pb-4 text-center font-semibold text-black md:text-4xl lg:text-5xl">
+					{/* <div className="flex h-[640px] flex-col items-center border-gray/40 py-8 md:h-auto lg:w-full lg:border-r lg:py-0 lg:pr-[24px]"> */}
+					<div className="flex h-[640px] w-[300px] flex-col items-center border-gray/40 py-8 md:h-auto lg:w-full lg:border-r lg:py-0 lg:pr-[24px]">
+						<h2 className="h-[67] w-full border-b border-gray/40 pb-4 text-center font-semibold text-black md:mt-[188px] md:text-4xl lg:text-5xl">
 							{t('auth:welcome_back')}
 						</h2>
 
-						<div className="flex w-full justify-center border-b border-gray/40 pb-[7px] text-lg ">
-							<form className="w-full md:w-[346px]">
-								<div className=" mt-[41px] mb-[27px] space-x-[10px] text-center font-normal text-label_gray">
+						<div className="flex w-full justify-center border-b border-gray/40 pb-[7px] text-lg">
+							<form className="w-full px-4 md:w-[346px] md:px-0">
+								<div className="mt-[41px] mb-[27px] space-x-[10px] text-center font-normal text-label_gray">
 									<label>I am a...</label>
 									<label>
 										<span className=" mr-[7px]">
@@ -264,8 +264,15 @@ const Login: React.FC = () => {
 								</p>
 							</form>
 						</div>
-						<div className=" mt-8">
-							<p className=" w-[346px] rounded-lg border-2 border-solid border-accent-primary-main py-[6px]  text-center text-base  font-normal text-accent-primary-main opacity-80">
+
+						<div className="mt-8">
+							<p
+								onClick={() => {
+									setIsLoginOpen();
+									setIsSignUpOpen();
+								}}
+								className="rounded-lg border-2 border-solid border-accent-primary-main px-4 py-[6px] text-center  text-base font-normal  text-accent-primary-main opacity-80 md:w-[346px]"
+							>
 								{t('auth:dont_have_an_account')}
 							</p>
 						</div>
