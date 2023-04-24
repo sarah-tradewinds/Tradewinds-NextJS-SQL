@@ -44,6 +44,7 @@ const CartReviewPage: NextPage = () => {
 			setIsLoading(true);
 			const orderId = (router.query.order_id || '') as string;
 			const orderData = await getOrderById(orderId);
+			console.log('orderDataorderData =', orderData);
 			setOrderReview(orderData);
 		} finally {
 			setIsLoading(false);
@@ -248,7 +249,7 @@ const CartReviewPage: NextPage = () => {
 										>
 											<td className="text-center">
 												{getLocaleText(
-													orderItem?.item || {},
+													orderItem?.product_name || {},
 													router.locale
 												)}
 											</td>
@@ -259,7 +260,7 @@ const CartReviewPage: NextPage = () => {
 												${orderItem?.unit_cost}
 											</td>
 											<td className="text-center">
-												${orderItem?.total}
+												${orderItem?.sub_total}
 											</td>
 										</tr>
 									);
