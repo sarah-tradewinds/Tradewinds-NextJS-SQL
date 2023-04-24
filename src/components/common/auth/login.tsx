@@ -37,6 +37,7 @@ const Login: React.FC = () => {
 		isLoginOpen,
 		setIsLoginOpen,
 		setIsSignUpOpen,
+		setIsSelectSignUpOpen,
 		setCustomerData
 	} = useAuthStore();
 	const [loading, setLoading] = useState(false);
@@ -269,9 +270,9 @@ const Login: React.FC = () => {
 							<p
 								onClick={() => {
 									setIsLoginOpen();
-									setIsSignUpOpen();
+									setIsSelectSignUpOpen();
 								}}
-								className="rounded-lg border-2 border-solid border-accent-primary-main px-4 py-[6px] text-center  text-base font-normal  text-accent-primary-main opacity-80 md:w-[346px]"
+								className="cursor-pointer rounded-lg border-2 border-solid border-accent-primary-main px-4 py-[6px] text-center  text-base font-normal  text-accent-primary-main opacity-80 md:w-[346px]"
 							>
 								{t('auth:dont_have_an_account')}
 							</p>

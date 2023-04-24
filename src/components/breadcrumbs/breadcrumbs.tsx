@@ -11,17 +11,18 @@ const Breadcrumbs = (props: any) => {
 	const mainId = value.main_category_id;
 	const mainName = value.main_category;
 
-	console.log('mainmain', mainId, mainName);
-
 	return (
 		<nav aria-label="breadcrumbs">
-			<div className=" flex space-x-3">
+			<div className=" flex space-x-[5px]">
 				<div className=" font-semibold">
 					<Link href="/" shallow={true}>
 						Categories
 					</Link>
 				</div>
 				<div>
+					<span className=" mr-[5px]">
+						{query.main_category !== undefined && '>'}
+					</span>
 					<Link
 						href={`/product-search?main_category=${query.main_category}`}
 						shallow={true}
@@ -31,6 +32,9 @@ const Breadcrumbs = (props: any) => {
 					</Link>
 				</div>
 				<div>
+					<span className=" mr-[5px]">
+						{query.category !== undefined && '>'}
+					</span>
 					<Link
 						href={`/product-search?main_category=${query.main_category}&category=${query.category}&filters=${query.filters}`}
 						shallow={true}
@@ -38,7 +42,12 @@ const Breadcrumbs = (props: any) => {
 						{value.category}
 					</Link>
 				</div>
-				<div>{props.productname}</div>
+				<div>
+					<span className=" mr-[5px]">
+						{props.productname !== undefined && '>'}
+					</span>
+					{props.productname}
+				</div>
 			</div>
 		</nav>
 	);

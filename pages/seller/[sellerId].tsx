@@ -231,12 +231,21 @@ const SellerProfileTab: NextPage<
 													{t('common:certification')}:
 												</span>
 												<span>
-													{seller?.certification
+													{seller?.certificates
 														?.map(
 															(certificate: any) =>
 																certificate?.name || ''
 														)
 														?.join(', ')}
+												</span>
+												<span className="relative h-[30px] w-[162px] ">
+													{seller?.certificates !== undefined && (
+														<ImageWithErrorHandler
+															src="/tradewinds-horizontal-logo.png"
+															alt=""
+															fill={true}
+														/>
+													)}
 												</span>
 											</p>
 											<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
@@ -244,9 +253,9 @@ const SellerProfileTab: NextPage<
 													{t('common:member_since')}:
 												</span>
 												<span>
-													{seller?.member_since
+													{seller?.created_at
 														? new Date(
-																seller?.member_since
+																seller?.created_at
 														  ).toLocaleDateString()
 														: ''}
 												</span>

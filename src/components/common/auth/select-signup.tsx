@@ -54,7 +54,7 @@ const SelectSignUp: React.FC = () => {
 												className=" inline-block h-[20px] w-[20px]  align-text-top"
 												type="radio"
 												name="myRadio"
-												value={selectedOption}
+												value="Buyer"
 												checked={selectedOption === 'Buyer'}
 												onChange={handleRadioChange}
 											/>
@@ -115,7 +115,7 @@ const SelectSignUp: React.FC = () => {
 							<Button
 								className=" rounded-lg border border-accent-primary-main !text-accent-primary-main"
 								onClick={() => {
-									authStore.setIsSignUpOpen();
+									authStore.setIsSelectSignUpOpen();
 									authStore.setIsLoginOpen();
 								}}
 							>
