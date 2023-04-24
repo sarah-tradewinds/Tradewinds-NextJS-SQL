@@ -22,7 +22,7 @@ const SelectSignUp: React.FC = () => {
 	const { isSignUpOpen, setIsSignUpOpen } = useAuthStore();
 	const router = useRouter();
 	const { t } = useTranslation();
-	const [selectedOption, setSelectedOption] = useState('');
+	const [selectedOption, setSelectedOption] = useState('Buyer');
 
 	const [open, setOpen] = useState(false);
 	const [closeModal, setCloseModal] = useState(false);
@@ -54,7 +54,8 @@ const SelectSignUp: React.FC = () => {
 												className=" inline-block h-[20px] w-[20px]  align-text-top"
 												type="radio"
 												name="myRadio"
-												value="Buyer"
+												value={selectedOption}
+												checked={selectedOption === 'Buyer'}
 												onChange={handleRadioChange}
 											/>
 										</span>
@@ -67,6 +68,7 @@ const SelectSignUp: React.FC = () => {
 												type="radio"
 												name="myRadio"
 												value="Seller"
+												checked={selectedOption === 'Seller'}
 												onChange={handleRadioChange}
 											/>
 										</span>
@@ -79,6 +81,7 @@ const SelectSignUp: React.FC = () => {
 												type="radio"
 												name="myRadio"
 												value="BDM"
+												checked={selectedOption === 'BDM'}
 												onChange={handleRadioChange}
 											/>
 										</span>

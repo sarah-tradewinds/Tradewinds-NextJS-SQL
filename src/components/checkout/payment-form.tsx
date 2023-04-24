@@ -24,14 +24,17 @@ const PaymentForm: React.FC = () => {
 
 		setIsLoading(true);
 		try {
-			const data = await stripe.confirmPayment({
+			const { error } = await stripe.confirmPayment({
 				elements,
 				confirmParams: {
 					return_url: `${process.env.SITE_URL}/order-success`
 				}
 			});
+			console.log('[paymentHandler] =', error);
+			if (error?.code === 'payment_intent_unexpected_state') {
+			}
 		} catch (error) {
-			console.log(error);
+			console.log('[paymentHandler] =', error);
 		}
 		setIsLoading(false);
 	}; // End of paymentHandler function

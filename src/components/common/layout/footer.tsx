@@ -78,7 +78,7 @@ const Footer: React.FC = () => {
 				<div className=" ml-7 mr-[20px] mb-12 flex flex-col space-y-6 text-left text-lg md:mr-[30px] md:-mt-10 md:text-center lg:-mt-[30px] lg:h-[200px] lg:text-center">
 					<div>
 						<p>
-							<span className=" text-xl font-bold">
+							<span className="text-[18px] font-semibold md:text-xl md:font-bold">
 								Tradewindsmarketplace Site:
 							</span>{' '}
 							International - Español - Português - Deutsch - Français -
@@ -89,7 +89,7 @@ const Footer: React.FC = () => {
 					</div>
 					<div>
 						<p>
-							<span className=" text-xl font-bold">
+							<span className="text-[18px] font-semibold md:text-xl md:font-bold">
 								Product Listing Policy -
 							</span>{' '}
 							Intellectual Property Protection - Privacy Policy - Terms
@@ -97,7 +97,7 @@ const Footer: React.FC = () => {
 						</p>
 					</div>
 					<div>
-						<p className=" text-xl font-bold">
+						<p className="text-[18px] font-semibold md:text-xl md:font-bold">
 							© 2020-2023 Tradewindsmarketplace.com. All rights
 							reserved.
 						</p>

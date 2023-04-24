@@ -374,7 +374,7 @@ const ProductSearchPage: NextPage<
 										<Skeleton height="84px" />
 									</div>
 								) : (
-									<div className="flex h-[42px] items-center p-2 md:h-full md:flex-col md:items-start md:space-x-0 md:p-0">
+									<div className="flex h-[42px] items-center justify-between p-2 md:h-full md:flex-col md:items-start md:space-x-0 md:p-0">
 										<p className="text-[16px] font-semibold leading-5 text-gray md:text-[10px] md:leading-3 lg:text-[21px] lg:leading-[26px]">
 											{getLocaleText(
 												selectedMainCategory?.title ||
@@ -386,7 +386,7 @@ const ProductSearchPage: NextPage<
 
 										{/* Country Image */}
 										{selectedCountry?.id && !selectedMainCategory?.id && (
-											<div className="relative h-full w-full">
+											<div className="relative h-[38px] w-[38px] md:h-full md:w-full">
 												<ImageWithErrorHandler
 													key={selectedCountry?.image}
 													src={selectedCountry?.image}
@@ -402,7 +402,7 @@ const ProductSearchPage: NextPage<
 
 										{selectedMainCategory?.id && (
 											<div
-												className="relative hidden h-[38px] w-[38px] md:mt-1 md:block md:h-[70px] md:w-[99px] lg:mt-2 lg:h-full lg:w-[266px]"
+												className="relative h-[38px] w-[38px] md:mt-1 md:block md:h-[70px] md:w-[99px] lg:mt-2 lg:h-full lg:w-[266px]"
 												style={{
 													backgroundColor: selectedMainCategory?.color,
 													border: selectedMainCategory?.color

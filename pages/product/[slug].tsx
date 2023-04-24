@@ -159,40 +159,6 @@ const ProductDetailsPage: NextPage<
 				selectedVariantId={selectedVariantId}
 				totalReviewCount={productReviewList.length}
 				onAddToCart={async () => {
-					// const productId = productData.id;
-					// const productVariantId =
-					//   product?.edges?.product_variants?.[0]?.id;
-
-					// productData.variant_id = selectedVariantId;
-					// const buyerId = customerData.buyerId;
-					// productData.buyerId = buyerId;
-					// const updatedCartList = await addToCart(
-					// 	productVariantId,
-					// 	1,
-					// 	productData
-					// );
-
-					// Sending request when buyer Id is available
-					// if (!totalCartProductQuantity) {
-					// 	const minimumOrderQuantity =
-					// 		product?.inventory?.minimum_order_quantity || 0;
-
-					// 	if (isAuth) {
-					// 		const cartId = await addProductToCart(
-					// 			productVariantId,
-					// 			minimumOrderQuantity || 1
-					// 		);
-					// 		setCartId(cartId);
-					// 	}
-					// } else {
-					// 	updateCart(
-					// 		cartProducts.map((cartProduct) => ({
-					// 			productVariantId: productVariantId,
-					// 			quantity: cartProduct.quantity
-					// 		}))
-					// 	);
-					// }
-
 					const { defaultVariant } =
 						getDefaultProductAndProductVariants(
 							productData?.edges?.product_variants || []
@@ -206,7 +172,7 @@ const ProductDetailsPage: NextPage<
 			/>
 
 			{/* Tabs */}
-			<div className="-ml-[33px]">
+			<div className="md:-ml-[33px]">
 				<ProductDetailsTabContainer
 					product={productData}
 					reviews={productReviewList || []}

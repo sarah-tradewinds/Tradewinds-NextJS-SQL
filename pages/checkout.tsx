@@ -20,8 +20,24 @@ const stripePromise = loadStripe(
 const CheckoutPage: NextPage = () => {
 	const [clientSecret, setClientSecret] = useState('');
 
-	const { query } = useRouter();
+	const router = useRouter();
 	const { t } = useTranslation();
+	const { query, asPath } = router;
+	console.log('[router] =', router);
+
+	useEffect(() => {
+		router.beforePopState((a) => {
+			console.log('[beforePopState] = ', a);
+			return false;
+		});
+
+		return () => {
+			router.beforePopState((a) => {
+				console.log('[beforePopState] = ', a);
+				return false;
+			});
+		};
+	}, [router]);
 
 	useEffect(() => {
 		const clientSecret = (query.client_secret || '') as string;

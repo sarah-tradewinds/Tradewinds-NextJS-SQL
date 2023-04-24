@@ -22,8 +22,8 @@ const WhyBuyPage: NextPage = () => {
 
 			{/* Header section */}
 			<div className="h-[263px] bg-[url('/static/images/WhyBuyImages/why-buy-header.png')] bg-cover bg-no-repeat md:h-[318px] lg:h-[680px]">
-				<div className="container mx-auto flex justify-end p-16 4k:py-16">
-					<div className="md:w-1/2 4k:w-auto">
+				<div className="4k:py-16 container mx-auto flex justify-end p-16">
+					<div className="4k:w-auto md:w-1/2">
 						<h1 className="text-[35px] font-semibold text-white md:text-[40px] lg:w-3/4 lg:text-[50px] lg:leading-[51px] lg:text-gray">
 							{t('why_buy_on_tradewinds_marketplace')}
 						</h1>
@@ -179,7 +179,7 @@ const WhyBuyPage: NextPage = () => {
 					</div>
 
 					{/* Utilize Resourceful Tools Sections*/}
-					<div className="space-y-4 bg-white px-8 py-8 md:space-y-8 md:px-16">
+					<div className="space-y-4 bg-white px-4 py-8 md:space-y-8 md:px-16">
 						<h2 className="text-[18px] font-semibold text-primary-main md:text-center">
 							{t('utilize_resourceful_tools')}
 						</h2>
@@ -190,7 +190,7 @@ const WhyBuyPage: NextPage = () => {
 								'the_most_valuable_tool_for_global_expansion_is_the_automatic_translation_of_storefronts_and_private_messages'
 							)}
 							imgClassName="hidden md:block"
-							className="-ml-8 md:ml-0"
+							className="md:ml-0"
 						/>
 						<WhyBuyOperationSubTile
 							imageUrl="/static/images/WhyBuyImages/currency-conversions.png"
@@ -199,7 +199,7 @@ const WhyBuyPage: NextPage = () => {
 								'you_can_see_listings_in_your_preferred_currency'
 							)}
 							imgClassName="hidden md:block"
-							className="-ml-8 md:ml-0"
+							className="md:ml-0"
 						/>
 						<div className="hidden justify-center md:flex">
 							<Button variant="product">{t('common:join_now')}</Button>
@@ -207,7 +207,7 @@ const WhyBuyPage: NextPage = () => {
 					</div>
 
 					{/* Manage every step in one place */}
-					<div className="space-y-8 bg-accent-primary-main p-8">
+					<div className="space-y-8 bg-[#00B2C7] p-4 md:p-8">
 						<h2 className="text-[18px] font-semibold text-white md:text-center">
 							{t('manage_every_step_in_one_place')}
 						</h2>
@@ -218,7 +218,7 @@ const WhyBuyPage: NextPage = () => {
 								subtitle={t('initiate_secure_payments_through_twmp')}
 								contentClassName="!text-white"
 								imgClassName="hidden md:block w-[33px] h-[39px]"
-								className="-ml-8 md:-ml-0"
+								className="md:-ml-0"
 							/>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/WhyBuyImages/dollar.png"
@@ -226,7 +226,7 @@ const WhyBuyPage: NextPage = () => {
 								subtitle={t('initiate_secure_payments_through_twmp')}
 								contentClassName="!text-white"
 								imgClassName="hidden md:block w-[33px] h-[39px]"
-								className="-ml-8 md:-ml-0"
+								className="md:-ml-0"
 							/>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/WhyBuyImages/invoice.png"
@@ -236,7 +236,7 @@ const WhyBuyPage: NextPage = () => {
 								)}
 								contentClassName="!text-white"
 								imgClassName="hidden md:block w-[33px] h-[39px]"
-								className="-ml-8 md:-ml-0"
+								className="md:-ml-0"
 							/>
 							<WhyBuyOperationSubTile
 								imageUrl="/static/images/WhyBuyImages/flight.png"
@@ -244,7 +244,7 @@ const WhyBuyPage: NextPage = () => {
 								subtitle={t('enjoy_flexible_and_cost')}
 								contentClassName="!text-white"
 								imgClassName="hidden md:block w-[33px] h-[39px]"
-								className="-ml-8 md:-ml-0"
+								className="md:-ml-0"
 							/>
 						</div>
 						<div className="hidden justify-center md:flex">
