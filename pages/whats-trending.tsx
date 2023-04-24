@@ -209,7 +209,7 @@ const Trending_page: NextPage<
 
 	return (
 		<div className="md:container">
-			<Seo title="Product search page" description="" />
+			<Seo title="What's trending" description="" />
 
 			{/* Main Category Banner and Category banner */}
 			<div style={{ display: 'none' }}>

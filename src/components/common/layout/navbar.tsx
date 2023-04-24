@@ -11,6 +11,7 @@ import { FiLogOut } from 'react-icons/fi';
 import { HiOutlineSearch } from 'react-icons/hi';
 
 // components
+import Breadcrumbs from 'components/breadcrumbs/breadcrumbs';
 import CartIcon from '../elements/cart-icon';
 import LanguageDropdown from '../elements/lang-menu';
 import NavLink from '../elements/nav-link';
@@ -37,7 +38,7 @@ import { useCategoryStore } from 'store/eco/category-store';
 import { useHomeStore } from 'store/home';
 import ImageWithErrorHandler from '../elements/image-with-error-handler';
 
-const Header = () => {
+const Header = (props: any) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [showLogout, setShowLogout] = useState(false);
 	const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
@@ -72,7 +73,7 @@ const Header = () => {
 	const router = useRouter();
 	useMainCategories();
 
-	let classes = `bg-white dark:bg-accent-primary-eco md:bg-[#DCDBDB] w-[180.97px] md:w-full md:h-[41px] lg:h-[43.68px] md:pl-5 md:pr-4 lg:px-[35px] md:flex items-center ${
+	let classes = ` leading-[22px] pt-[11px] bg-white dark:bg-accent-primary-eco md:bg-[#DCDBDB] w-[180.97px] md:w-full md:h-[41px] lg:h-[54px] md:pl-5 md:pr-4 lg:px-[35px]  items-center ${
 		!isOpen
 			? 'pc:w-0 pc:opacity-0 pc:overflow-hidden'
 			: 'fixed bottom-[51px] top-[50.6px] md:relative md:bottom-0 md:top-0'
@@ -274,7 +275,7 @@ const Header = () => {
 				<div className={classes}>
 					<div
 						// className="m-4 flex w-full flex-col justify-between pt-4 sm:mx-auto sm:w-[96%] sm:flex-row sm:pt-0 md:m-0 md:ml-3"
-						className="m-4 flex w-full flex-col justify-between pt-4 md:m-0 md:flex-row md:items-center md:pt-0"
+						className="m-4  flex w-full flex-col justify-between pt-4 md:m-0 md:flex-row md:items-center md:pt-0"
 					>
 						<div className="flex md:items-center">
 							<div
@@ -401,6 +402,10 @@ const Header = () => {
 						<div className="relative">
 							<LanguageDropdown />
 						</div>
+					</div>
+
+					<div className=" ml-[35px] text-[16px] leading-[16px] text-gray">
+						<Breadcrumbs productname={props.productname} />
 					</div>
 				</div>
 			</div>

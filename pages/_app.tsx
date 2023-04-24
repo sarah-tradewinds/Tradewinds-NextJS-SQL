@@ -30,7 +30,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 			router.pathname === '/forgot-password' ? (
 				<Component {...pageProps} />
 			) : (
-				<Layout seo={pageProps.seo}>
+				<Layout seo={pageProps.seo} product={pageProps?.productname}>
 					<Component {...pageProps} />
 				</Layout>
 			)}

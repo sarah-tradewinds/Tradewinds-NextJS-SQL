@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 // components
 import MetadataTile from './metadata/metadata-tile';
@@ -75,6 +76,11 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 		onCartClick,
 		onMessageVendorClick
 	} = props;
+	const router = useRouter();
+	const { pathname, query } = router;
+	const main_category = query?.main_category;
+	const category = query?.category;
+	const filters = query?.filters;
 
 	const { t } = useTranslation();
 
@@ -215,7 +221,9 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 				{/* Image container */}
 				{/* <div className="relative md:h-[97px] md:min-w-[137px] lg:h-[189px] lg:min-w-[286px]"> */}
 				<div className="relative md:h-[97px] md:min-w-[137px] lg:h-[255px] lg:w-[255px]">
-					<Link href={`/product/${slug}`}>
+					<Link
+						href={`/product/${slug}?main_category=${main_category}&category=${category}&filters=${filters}`}
+					>
 						{/* <div className="relative h-full w-full">
 							<ImageWithErrorHandler
 								key={imageUrl}
@@ -242,7 +250,9 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 
 				{/* Name, descriptions and keywords */}
 				<div className="w-full">
-					<Link href={`/product/${slug}`}>
+					<Link
+						href={`/product/${slug}?main_category=${main_category}&category=${category}&filters=${filters}`}
+					>
 						<h2 className="min-h-[59px] line-clamp-3 md:text-[16px] md:leading-5 lg:text-[15px] lg:leading-[18px]">
 							<span className="font-semibold">{name}: </span>
 							<span className="text-gray">{description}</span>

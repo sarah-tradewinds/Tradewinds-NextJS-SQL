@@ -47,6 +47,9 @@ const ProductDetailsPage: NextPage<
 	seller = {},
 	similarProducts = []
 }) => {
+	const router = useRouter();
+	const { pathname, query } = router;
+
 	const [productData, setProductData] = useState(product);
 	const [productReviewList, setProductReviewList] =
 		useState(productReviews);
@@ -303,10 +306,12 @@ export const getServerSideProps: GetServerSideProps = async ({
 		const similarProducts = (await getSimilarProducts(productId)) || [];
 
 		const seo = product.product_seo || {};
+		const productName = product?.name?.en;
 
 		return {
 			props: {
 				product,
+				productname: productName,
 				// productReviews,
 				// reviewAnalytics,
 				seller,
