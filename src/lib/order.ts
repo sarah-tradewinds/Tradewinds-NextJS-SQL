@@ -44,12 +44,23 @@ export const getOrderById = async (orderId: string) => {
 
 		let orderData = data.data || {};
 
-		const invoice = orderData?.edges?.invoice || {};
+		const orderItems = orderData?.edges?.order_items || {};
 		orderData = {
 			order_number: orderData?.order_number,
 			shipping_address: orderData?.edges?.shipping_address,
 			billing_address: orderData?.edges?.billing_address,
-			order_items: invoice?.items || [],
+			order_items:
+				orderItems?.map((orderItem: any) => {
+					const productVariant = orderItem?.edges?.product_variant;
+
+					const productVariantName = productVariant?.name;
+					const productName = productVariant?.edges?.product?.name;
+					orderItem.product_name = productVariantName?.en
+						? productVariantName
+						: productName;
+
+					return orderItem;
+				}) || [],
 
 			// charges
 			shipping_charge: orderData?.shipping_charge,
