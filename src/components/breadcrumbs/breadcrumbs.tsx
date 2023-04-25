@@ -19,50 +19,54 @@ const Breadcrumbs = (props: any) => {
 						Categories
 					</Link>
 				</div>
-				<div>
-					<span className=" mr-[5px]">
-						{query.main_category !== undefined && '>'}
-					</span>
-					<Link
-						href={`/product-search?main_category=${query.main_category}`}
-						shallow={true}
-					>
-						{value.main_category}
-					</Link>
-				</div>
-				<div>
-					<span className=" mr-[5px]">
-						{query.category !== undefined && '>'}
-					</span>
-					<Link
-						href={`/product-search?main_category=${query.main_category}&category=${query.category}&filters=${query.filters}`}
-						shallow={true}
-					>
-						{value.category}
-					</Link>
-				</div>
-				<div>
-					<span className=" mr-[5px]">
-						{query.sub_category !== undefined && '>'}
-					</span>
-					<Link
-						href={`/product-search?main_category=${query.main_category}&category=${query.category}&filters=${query.filters}`}
-						shallow={true}
-					>
-						{value.sub_category}
-					</Link>
-				</div>
-				<div>
-					<span className=" mr-[5px]">
-						{query.sub_sub_category !== undefined && '>'}
-					</span>
-					<Link
-						href={`/product-search?main_category=${query.main_category}&category=${query.category}&filters=${query.filters}`}
-						shallow={true}
-					>
-						{value.sub_sub_category}
-					</Link>
-				</div>
+				{query.main_category !== undefined && (
+					<div>
+						<span className=" mr-[5px]">{'>'}</span>
+						<Link
+							href={`/product-search?main_category=${query.main_category}`}
+							shallow={true}
+						>
+							{value.main_category}
+						</Link>
+					</div>
+				)}
+
+				{query.category !== undefined && (
+					<div>
+						<span className=" mr-[5px]">{'>'}</span>
+						<Link
+							href={`/product-search?main_category=${query.main_category}&category=${query.category}&filters=${query.filters}`}
+							shallow={true}
+						>
+							{value.category}
+						</Link>
+					</div>
+				)}
+
+				{query.sub_category !== undefined && (
+					<div>
+						<span className=" mr-[5px]">{'>'}</span>
+
+						<Link
+							href={`/product-search?main_category=${query.main_category}&category=${query.category}&sub_category=${query.sub_category}&filters=${query.filters}`}
+							shallow={true}
+						>
+							{value.sub_category}
+						</Link>
+					</div>
+				)}
+				{query.sub_sub_category !== undefined && (
+					<div>
+						<span className=" mr-[5px]">{'>'}</span>
+						<Link
+							href={`/product-search?main_category=${query.main_category}&category=${query.category}&sub_category=${query.sub_category}&sub_sub_category=${query.sub_sub_category}&filters=${query.filters}`}
+							shallow={true}
+						>
+							{value.sub_sub_category}
+						</Link>
+					</div>
+				)}
+
 				<div>
 					<span className=" mr-[5px]">
 						{props.productname !== undefined && '>'}

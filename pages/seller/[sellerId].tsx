@@ -198,7 +198,7 @@ const SellerProfileTab: NextPage<
 								<div>
 									<div className="mt-8 grid grid-cols-12 md:gap-8">
 										{/* Profile details */}
-										<div className=" ml-[23px] grid h-[157px] w-[880px] grid-cols-2 grid-rows-3  text-lg sm:col-span-8">
+										<div className=" ml-[23px] grid h-[157px] w-[1250px] grid-cols-2 grid-rows-3  text-lg sm:col-span-8">
 											<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
 												<span className=" font-semibold md:min-w-[148px]">
 													{t('common:country')}:

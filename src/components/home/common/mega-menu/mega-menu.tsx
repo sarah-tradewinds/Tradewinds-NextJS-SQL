@@ -315,11 +315,6 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 							}}
 						>
 							<span>{getLocaleText(title || {}, locale)}</span>
-							<span className="hover: text-2xl hover:text-primary-main">
-								{isSelected && (
-									<MdPlayArrow className="font-semibold" />
-								)}
-							</span>
 						</li>
 					);
 				})}
