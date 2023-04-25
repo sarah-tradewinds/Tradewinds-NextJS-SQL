@@ -27,7 +27,6 @@ const Breadcrumbs = (props: any) => {
 						href={`/product-search?main_category=${query.main_category}`}
 						shallow={true}
 					>
-						{/* &gt; */}
 						{value.main_category}
 					</Link>
 				</div>
@@ -40,6 +39,28 @@ const Breadcrumbs = (props: any) => {
 						shallow={true}
 					>
 						{value.category}
+					</Link>
+				</div>
+				<div>
+					<span className=" mr-[5px]">
+						{query.sub_category !== undefined && '>'}
+					</span>
+					<Link
+						href={`/product-search?main_category=${query.main_category}&category=${query.category}&filters=${query.filters}`}
+						shallow={true}
+					>
+						{value.sub_category}
+					</Link>
+				</div>
+				<div>
+					<span className=" mr-[5px]">
+						{query.sub_sub_category !== undefined && '>'}
+					</span>
+					<Link
+						href={`/product-search?main_category=${query.main_category}&category=${query.category}&filters=${query.filters}`}
+						shallow={true}
+					>
+						{value.sub_sub_category}
 					</Link>
 				</div>
 				<div>
