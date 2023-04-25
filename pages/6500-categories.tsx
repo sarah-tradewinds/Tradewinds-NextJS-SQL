@@ -34,27 +34,28 @@ const CategoriesPage: NextPage<
 	const alphabetList = showAll ? alphabets : [...alphabets].slice(0, 3);
 
 	return (
-		<div className="relative bg-cyan">
-			<div className="relative">
-				<div className="absolutes h-[320px] w-full bg-[url(/trending.png)] lg:h-[420px]">
+		<div className="relative ">
+			<div className="relative ">
+				<div className="absolutes h-[320px] w-full bg-[url(/hero-image-6500-banner.png)] lg:h-[360px]">
 					{/* <Image src="/trending.png" alt="trending" fill={true} /> */}
 				</div>
 
-				<div className="absolute top-1/2 -translate-y-1/2 transform pl-4">
-					<h2 className="bg-gradient-to-r from-green to-primary-main bg-clip-text font-semibold  text-transparent md:text-[43px] lg:text-[75px]">
+				<div className="absolute ml-[114px] lg:-mt-[360px]">
+					<h2 className="bg-gradient-to-r  to-primary-main bg-clip-text font-semibold text-white   md:text-[43px] lg:text-[59px]">
 						Over 6,500 products
 					</h2>
-					<p className="bg-gradient-to-r from-green to-primary-main bg-clip-text font-semibold text-transparent md:text-[18px] lg:text-[37px] ">
+					<p className="bg-gradient-to-r to-primary-main bg-clip-text font-semibold text-white  md:text-[18px] lg:text-[30px] ">
 						Source from around the world in one place
 					</p>
 				</div>
 			</div>
 
-			<div className="md:p-4">
+			<div className="-mt-[60px] md:p-4 lg:w-[1469px] ">
 				<Tab.Group>
-					<Tab.List className="mx-2 justify-center md:ml-16 pc:flex">
-						<Tab className="mr-4 rounded-t-lg bg-white px-4 text-[25px] font-semibold">
+					<Tab.List className="  md:ml-16 pc:flex">
+						<Tab className=" z-50 rounded-t-lg bg-white text-[25px] font-semibold lg:h-[41px] lg:w-[446px]">
 							Catagories
+							<input type="text" />
 						</Tab>
 					</Tab.List>
 
