@@ -154,7 +154,7 @@ const Login: React.FC = () => {
 				<div className="flex justify-center rounded-md bg-white shadow-md md:mt-12 md:w-[740px] md:py-4 lg:mr-[43px] lg:h-[905px] lg:w-[1204px] lg:justify-start lg:pl-[66px]">
 					{/* <div className="flex h-[640px] flex-col items-center border-gray/40 py-8 md:h-auto lg:w-full lg:border-r lg:py-0 lg:pr-[24px]"> */}
 					<div className="flex h-[640px] w-[300px] flex-col items-center border-gray/40 py-8 md:h-auto lg:w-full lg:border-r lg:py-0 lg:pr-[24px]">
-						<h2 className="h-[67] w-full border-b border-gray/40 pb-4 text-center font-semibold text-black md:mt-[188px] md:text-4xl lg:text-5xl">
+						<h2 className="h-[67] w-full border-b border-gray/40 pb-4 text-center font-semibold text-gray md:mt-[188px] md:text-4xl lg:text-5xl">
 							{t('auth:welcome_back')}
 						</h2>
 
@@ -165,11 +165,12 @@ const Login: React.FC = () => {
 									<label>
 										<span className=" mr-[7px]">
 											<input
-												className=" inline-block h-[20px] w-[20px] border align-text-top "
+												className=" inline-block h-[23px] w-[23px] border align-text-top "
 												type="radio"
 												name="myRadio"
 												value="Buyer"
 												onChange={handleRadioChange}
+												defaultChecked
 											/>
 										</span>
 										Buyer
@@ -177,7 +178,7 @@ const Login: React.FC = () => {
 									<label>
 										<span className=" mr-[7px]">
 											<input
-												className=" inline-block h-[20px] w-[20px] align-text-top"
+												className=" inline-block h-[23px] w-[23px] align-text-top"
 												type="radio"
 												name="myRadio"
 												value="Seller"
@@ -190,7 +191,7 @@ const Login: React.FC = () => {
 									<label>
 										<span className=" mr-[7px]">
 											<input
-												className=" inline-block h-[20px] w-[20px] align-text-top"
+												className=" inline-block h-[23px] w-[23px] align-text-top"
 												type="radio"
 												name="myRadio"
 												value="BDM"
