@@ -40,7 +40,7 @@ const SelectSignUp: React.FC = () => {
 			<div className="ml-2 flex  items-center justify-center">
 				<div className="flex justify-center rounded-md bg-white shadow-md md:mt-12 md:w-[740px] md:py-4 lg:mr-[43px] lg:h-[905px] lg:w-[1204px] lg:justify-start lg:pl-[66px]">
 					<div className="overflow-hiden flex h-[640px] flex-col items-center border-gray/40 py-8 md:h-auto lg:w-full lg:border-r lg:py-0 lg:pr-[24px]">
-						<h2 className="  mt-[220px] h-[61px] w-[511px] border-b border-gray/40 pb-4 text-center font-semibold text-black md:text-4xl lg:text-5xl">
+						<h2 className="  mt-[220px] h-[61px] w-[511px] border-b border-gray/40 pb-4 text-center font-semibold text-gray md:text-4xl lg:text-5xl">
 							{t('auth:create_an_account')}
 						</h2>
 
@@ -51,12 +51,12 @@ const SelectSignUp: React.FC = () => {
 									<label>
 										<span className=" mr-[7px]">
 											<input
-												className=" inline-block h-[20px] w-[20px]  align-text-top"
+												className=" inline-block h-[23px] w-[23px] border align-text-top "
 												type="radio"
 												name="myRadio"
 												value="Buyer"
-												checked={selectedOption === 'Buyer'}
 												onChange={handleRadioChange}
+												defaultChecked
 											/>
 										</span>
 										Buyer
@@ -64,24 +64,23 @@ const SelectSignUp: React.FC = () => {
 									<label>
 										<span className=" mr-[7px]">
 											<input
-												className=" inline-block h-[20px] w-[20px] align-text-top "
+												className=" inline-block h-[23px] w-[23px] align-text-top"
 												type="radio"
 												name="myRadio"
 												value="Seller"
-												checked={selectedOption === 'Seller'}
 												onChange={handleRadioChange}
 											/>
 										</span>
 										Seller
 									</label>
+
 									<label>
 										<span className=" mr-[7px]">
 											<input
-												className=" inline-block h-[20px] w-[20px]   align-text-top"
+												className=" inline-block h-[23px] w-[23px] align-text-top"
 												type="radio"
 												name="myRadio"
 												value="BDM"
-												checked={selectedOption === 'BDM'}
 												onChange={handleRadioChange}
 											/>
 										</span>
