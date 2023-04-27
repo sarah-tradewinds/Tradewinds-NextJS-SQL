@@ -7,6 +7,7 @@ import { useCountriesStore } from 'store/countries-store';
 import { useCategoryStore } from 'store/eco/category-store';
 
 // components
+import { useTranslation } from 'next-i18next';
 import Button from '../form/button';
 import Overlay from '../modal/modal';
 
@@ -17,6 +18,7 @@ const SearchBar: React.FC = () => {
 	const searchInputRef = useRef(null);
 
 	const router = useRouter();
+	const { t } = useTranslation();
 
 	const removeCategoryFilter = useCategoryStore(
 		(state) => state.removeCategoryFilter
@@ -60,7 +62,14 @@ const SearchBar: React.FC = () => {
 	}, [searchText]);
 
 	const gotToSearch = (searchTerm: string) => {
-		router.push(`/product-search?searchQuery=${searchTerm}`);
+		// router.push(`/product-search?searchQuery=${searchTerm}`);
+
+		router.push({
+			pathname: '/product-search',
+			query: {
+				searchQuery: searchTerm
+			}
+		});
 	};
 
 	const searchHandler = (e: React.FormEvent<HTMLFormElement>) => {
@@ -108,11 +117,26 @@ const SearchBar: React.FC = () => {
 		setShowSuggestion(false);
 	}; // End of resetAllState function
 
+	const highlighter = (text: string) => {
+		const searchWords = searchText?.toLowerCase()?.split(' ');
+		const words = text?.split(' ');
+
+		const highlighted = [];
+		for (const word of words) {
+			if (searchWords.includes(word?.toLowerCase())) {
+				highlighted.push(<strong>{` ${word} `}</strong>);
+			} else {
+				highlighted.push(<>{` ${word} `}</>);
+			}
+		}
+
+		return <p>{highlighted}</p>;
+	};
+
 	return (
 		<div>
 			<form className="relative" onSubmit={searchHandler}>
 				<label
-					// className="hidden h-[40px] w-[40vw] items-center overflow-hidden rounded-full bg-accent-primary-main transition duration-300 ease-in-out hover:ring-1 hover:ring-accent-primary-main hover:ring-opacity-90 sm:flex xl:w-[48vw] 2xl:w-[32vw]"
 					className="hidden items-center overflow-hidden rounded-full transition duration-300 ease-in-out hover:ring-1 hover:ring-accent-primary-main hover:ring-opacity-90 sm:flex md:h-[31px] md:w-[383px] lg:w-[746.9px]"
 					htmlFor="searchBar"
 				>
@@ -122,17 +146,17 @@ const SearchBar: React.FC = () => {
 						ref={searchInputRef}
 						name="searchBar"
 						value={searchText}
-						// placeholder={t('search_product')}
 						onChange={onSearchTextChange}
 						onFocus={onFocusHandler}
 						onBlur={onBlurHandler}
 						aria-label="Search"
-						// className="h-full w-[82%] border-none pl-2 pr-2 outline-none lg:w-[95%] lg:pl-4"
 						className="h-full border-none pl-2 outline-none md:w-[350px] lg:w-[714.66px]"
+						autoComplete="off"
+						// placeholder={t('search_product')}
+						placeholder="Search product"
 					/>
 					<Button
 						type="submit"
-						// className="flex h-6 w-[16%] cursor-pointer justify-center px-0 md:!w-[33px] lg:w-[4vw] xl:w-[3vw]"
 						className="flex cursor-pointer items-center justify-center !rounded-r-full bg-accent-primary-main !px-0 !py-0 md:!w-[33px] lg:!w-[32.24px]"
 					>
 						<HiOutlineSearch className="md:h-[15.72px] md:w-[15.72px]" />
@@ -142,7 +166,7 @@ const SearchBar: React.FC = () => {
 				{/* suggestion list */}
 				{showSuggestion && suggestions.length > 0 && (
 					<div className="absolute left-4 z-[9000000000000000] w-[78%] rounded-b border-t border-gray/40 bg-white lg:w-[93%]">
-						<div className="px-4 pb-2">
+						<div className="space-y-3 px-4 pb-2">
 							{suggestions.map((suggestion) => {
 								if (!suggestion) {
 									return null;
@@ -153,9 +177,9 @@ const SearchBar: React.FC = () => {
 										onClick={() =>
 											onSuggestionSelectHandler(suggestion)
 										}
-										className="block min-h-[32px] !py-0 px-0 font-normal !text-gray"
+										className="block min-h-[32px] !py-0 px-0 !text-left font-normal !text-gray"
 									>
-										{suggestion}
+										{highlighter(suggestion)}
 									</Button>
 								);
 							})}
