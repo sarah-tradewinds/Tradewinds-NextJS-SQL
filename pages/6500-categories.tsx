@@ -15,6 +15,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { HiMinusCircle, HiPlusCircle } from 'react-icons/hi';
+// import { HiOutlineSearch } from 'react-icons/hi';
 
 // lib
 import { useCategoryStore } from 'store/category-store';
@@ -34,33 +35,61 @@ const CategoriesPage: NextPage<
 	const alphabetList = showAll ? alphabets : [...alphabets].slice(0, 3);
 
 	return (
-		<div className="relative w-full items-center align-middle">
+		<div className="relative mx-auto md:w-[744px] lg:w-[1512px]">
 			<div className="relative ">
-				<div className="absolutes h-[320px] w-full bg-[url(/hero-image-6500-banner.png)] lg:h-[400px]">
+				<div className="absolutes w-full bg-[url(/hero-image-6500-banner.png)] md:h-[300px] lg:h-[400px]">
 					{/* <Image src="/trending.png" alt="trending" fill={true} /> */}
 				</div>
+				<div className="absolute md:ml-[26px] md:-mt-[242px] lg:ml-[114px] lg:-mt-[290px] ">
+					<p className="  to-primary-main  bg-clip-text font-semibold text-white md:text-[43px] lg:text-[59px]  lg:leading-[71px]">
+						Over 6,500 products
+					</p>
+
+					<p className=" to-primary-main bg-clip-text font-semibold text-white  md:text-[18px] lg:text-[30px] ">
+						Source from around the world in one place
+					</p>
+				</div>
 			</div>
-			<div className=" relative z-[3] mx-[23px] -mt-[40px] mb-32 ">
+			<div className=" relative z-[3] mx-auto -mt-[40px] mb-32 md:w-[702px]  lg:w-[1469px] ">
 				<Tab.Group>
-					<Tab.List className=" font-semibold text-gray lg:ml-[16px]">
-						<Tab className=" rounded-t-lg bg-white text-[25px] lg:h-[41px] lg:w-[446px]">
+					<Tab.List className=" font-semibold text-gray md:ml-[17px] lg:ml-[16px]">
+						<Tab className=" h-[41px] rounded-t-lg bg-white text-[25px] md:w-[322px] lg:w-[446px]">
 							Catagories
 							<input
 								type="search"
 								id="gsearch"
 								name="gsearch"
 								placeholder="Search....."
-								className=" ml-[13px] h-[26px] w-[283px] border border-gray pl-[9px] text-[15px] text-gray"
+								className=" ml-[13px] border border-gray pl-[9px] text-[15px] font-normal text-gray md:h-[20px] md:w-[162px] lg:h-[26px] lg:w-[283px]"
 							/>
+							{/* <label
+								// className="hidden h-[40px] w-[40vw] items-center overflow-hidden rounded-full bg-accent-primary-main transition duration-300 ease-in-out hover:ring-1 hover:ring-accent-primary-main hover:ring-opacity-90 sm:flex xl:w-[48vw] 2xl:w-[32vw]"
+
+								htmlFor="searchBar"
+							>
+								<input
+									type="search"
+									id="searchBar"
+									placeholder="Search....."
+									className=" ml-[13px] h-[26px] w-[283px] border border-gray pl-[9px] text-[15px] font-normal text-gray"
+								/>
+								<Button
+									type="submit"
+									// className="flex h-6 w-[16%] cursor-pointer justify-center px-0 md:!w-[33px] lg:w-[4vw] xl:w-[3vw]"
+									// className="flex cursor-pointer items-center justify-center !rounded-r-full !px-0 !py-0 md:!w-[33px] lg:!w-[32.24px]"
+								>
+									<HiOutlineSearch className="text-gray md:h-[15.72px] md:w-[15.72px]" />
+								</Button>
+							</label> */}
 						</Tab>
-						<Tab className=" ml-[13px] rounded-t-lg bg-white text-[25px] lg:h-[41px] lg:w-[446px]">
+						<Tab className=" lg:ml[13px] h-[41px] rounded-t-lg bg-white text-[25px] md:ml-[9px] md:w-[322px] lg:w-[446px]">
 							Products
 							<input
 								type="search"
 								id="gsearch"
 								name="gsearch"
 								placeholder="Search....."
-								className=" ml-[13px] h-[26px] w-[283px] border border-gray pl-[9px] text-[15px] text-gray"
+								className=" ml-[13px] border border-gray pl-[9px] text-[15px] font-normal text-gray md:h-[20px] md:w-[162px] lg:h-[26px] lg:w-[283px]"
 							/>
 						</Tab>
 					</Tab.List>
@@ -69,12 +98,13 @@ const CategoriesPage: NextPage<
 						<Tab.Panel>
 							<div className="rounded-md bg-white">
 								{/* List of alphabets */}
-								<div className="flex items-center justify-between p-4 lg:space-x-16 lg:p-8">
+								<div className="flex items-center justify-between p-4 md:mx-[20px] lg:space-x-16 lg:p-8">
 									{/* Line */}
 									<div className="hidden h-[2px] w-[17px] rounded-full bg-gray md:block lg:w-full"></div>
 
 									{/* List of alphabets */}
-									<div className="flex flex-wrap md:flex-nowrap lg:space-x-4">
+									{/* <div className="flex md:w-[555px] md:flex-wrap md:space-x-2 lg:flex-nowrap lg:space-x-2"> */}
+									<div className="flex flex-wrap md:flex-wrap md:space-x-2  md:text-[18px] lg:flex-nowrap lg:space-x-4 lg:text-[24px]">
 										{alphabets.map((alphabet, index) => {
 											return (
 												<Link
@@ -85,7 +115,7 @@ const CategoriesPage: NextPage<
 															setShowAll(true);
 														}
 													}}
-													className="mx-2 cursor-pointer border-b-2 border-gray  to-primary-eco bg-clip-text  text-gray lg:text-[24px]"
+													className="mx-2 cursor-pointer border-b-2 border-gray  to-primary-eco bg-clip-text  text-gray md:text-[18px] lg:text-[24px]"
 												>
 													{alphabet}
 												</Link>
@@ -98,7 +128,7 @@ const CategoriesPage: NextPage<
 								</div>
 
 								{/* List of all categories by alphabets */}
-								<div className=" ml-[27px]">
+								<div className=" ml-[27px] text-[15px]">
 									<p>A</p>
 									<p>Abrasives</p>
 								</div>
@@ -151,16 +181,16 @@ const CategoriesPage: NextPage<
 								</div>
 
 								{/* actions */}
-								<div className="flex justify-end">
+								<div className=" flex justify-end">
 									<Button
 										onClick={() =>
 											setShowAll((prevState) => !prevState)
 										}
 									>
 										{showAll ? (
-											<HiMinusCircle className="text-[32px] text-cyan" />
+											<HiMinusCircle className="text-[50px] text-cyan" />
 										) : (
-											<HiPlusCircle className="text-[32px] text-cyan" />
+											<HiPlusCircle className="text-[50px] text-cyan" />
 										)}
 									</Button>
 								</div>
@@ -169,6 +199,20 @@ const CategoriesPage: NextPage<
 					</Tab.Panels>
 				</Tab.Group>
 			</div>
+			{/* <div className="border-teal-500 flex items-center border py-2 lg:h-[26px] lg:w-[283px]">
+				<input
+					className="text-gray-700 mr-3 w-full appearance-none border-none bg-transparent py-1 px-2 leading-tight focus:outline-none"
+					type="text"
+					placeholder="Search"
+				/>
+				<Button
+					type="submit"
+					// className="flex h-6 w-[16%] cursor-pointer justify-center px-0 md:!w-[33px] lg:w-[4vw] xl:w-[3vw]"
+					// className="flex cursor-pointer items-center justify-center !rounded-r-full !px-0 !py-0 md:!w-[33px] lg:!w-[32.24px]"
+				>
+					<HiOutlineSearch className="text-gray md:h-[15.72px] md:w-[15.72px]" />
+				</Button>
+			</div> */}
 		</div>
 		// <div className="relative ">
 		// 	<div className="relative ">
