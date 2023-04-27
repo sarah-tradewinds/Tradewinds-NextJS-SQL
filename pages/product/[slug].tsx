@@ -272,12 +272,12 @@ export const getServerSideProps: GetServerSideProps = async ({
 		const similarProducts = (await getSimilarProducts(productId)) || [];
 
 		const seo = product.product_seo || {};
-		const productName = product?.name?.en;
+		const productName = product?.name?.[locale || 'en'] || '';
 
 		return {
 			props: {
 				product,
-				productname: productName,
+				productName,
 				// productReviews,
 				// reviewAnalytics,
 				seller,

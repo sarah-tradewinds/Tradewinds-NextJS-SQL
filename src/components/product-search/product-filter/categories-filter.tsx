@@ -12,7 +12,6 @@ import {
 	useSubCategoriesByCategoryId
 } from 'hooks/useMainCategories';
 import { getIdAndName, useCategoryStore } from 'store/category-store';
-import { generateQueryString } from 'utils/generate_query_string.utils';
 import { getLocaleText } from 'utils/get_locale_text';
 
 const CategoriesFilter: React.FC = (props) => {
@@ -59,20 +58,36 @@ const CategoriesFilter: React.FC = (props) => {
 						isOpen={isMainCategorySelected}
 						title={mainCategoryTitle}
 						onClick={() => {
-							const params = setMainCategory(
+							const { value } = setMainCategory(
 								mainCategoryId,
 								mainCategoryTitle
 							);
+
 							push(
-								`?${params}&${generateQueryString({
-									region: query.region,
-									country: query.region
-								})}`,
+								{
+									pathname: '/product-search',
+									query: {
+										main_category: value,
+										region: query.region,
+										country: query.region
+									}
+								},
 								undefined,
 								{
 									shallow: true
 								}
 							);
+
+							// push(
+							// 	`?${params}&${generateQueryString({
+							// 		region: query.region,
+							// 		country: query.region
+							// 	})}`,
+							// 	undefined,
+							// 	{
+							// 		shallow: true
+							// 	}
+							// );
 						}}
 					>
 						<ContentSkeleton
@@ -132,15 +147,26 @@ const CategoryList: React.FC<{
 			onClick={() => {
 				const params = setCategory(id, categoryName);
 				push(
-					`?${params}&${generateQueryString({
-						region: query.region,
-						country: query.region
-					})}`,
+					{
+						pathname: '/product-search',
+						query: params?.payload
+					},
 					undefined,
 					{
 						shallow: true
 					}
 				);
+
+				// push(
+				// 	`?${params}&${generateQueryString({
+				// 		region: query.region,
+				// 		country: query.region
+				// 	})}`,
+				// 	undefined,
+				// 	{
+				// 		shallow: true
+				// 	}
+				// );
 			}}
 			className="ml-4"
 		>
@@ -217,15 +243,26 @@ const SubCategoryList: React.FC<{
 					subCategoryName
 				);
 				push(
-					`?${params}&${generateQueryString({
-						region: query.region,
-						country: query.region
-					})}`,
+					{
+						pathname: '/product-search',
+						query: params?.payload
+					},
 					undefined,
 					{
 						shallow: true
 					}
 				);
+
+				// push(
+				// 	`?${params}&${generateQueryString({
+				// 		region: query.region,
+				// 		country: query.region
+				// 	})}`,
+				// 	undefined,
+				// 	{
+				// 		shallow: true
+				// 	}
+				// );
 			}}
 			className="ml-4"
 		>
@@ -265,15 +302,26 @@ const SubCategoryList: React.FC<{
 							);
 
 							push(
-								`?${params}&${generateQueryString({
-									region: query.region,
-									country: query.region
-								})}`,
+								{
+									pathname: '/product-search',
+									query: params?.payload
+								},
 								undefined,
 								{
 									shallow: true
 								}
 							);
+
+							// push(
+							// 	`?${params}&${generateQueryString({
+							// 		region: query.region,
+							// 		country: query.region
+							// 	})}`,
+							// 	undefined,
+							// 	{
+							// 		shallow: true
+							// 	}
+							// );
 						}}
 					>
 						{specificCategoryTitle}

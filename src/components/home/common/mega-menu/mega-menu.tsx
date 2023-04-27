@@ -16,7 +16,6 @@ import {
 } from 'hooks/useMainCategories';
 import { useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';
-import { generateQueryString } from 'utils/generate_query_string.utils';
 import { getLocaleText } from 'utils/get_locale_text';
 import styles from './mega-menu.module.css';
 
@@ -69,8 +68,12 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 
 	const megaMenuClassName = `relative grid grid-cols-12 border bg-white text-sm text-gray shadow-lg overflow-y-autos ${className}`;
 
-	const navigateWithShallow = (path: string) => {
-		router.push(path, undefined, { shallow: true });
+	const navigateWithShallow = (query: { [key: string]: any }) => {
+		// router.push(path, undefined, { shallow: true });
+
+		router.push({ pathname: '/product-search', query }, undefined, {
+			shallow: true
+		});
 	}; // End of navigateWithShallow function
 
 	const loadingSkeleton = (
@@ -123,16 +126,22 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 										: null
 								}
 								onClick={() => {
-									const params = setMainCategory(
+									const { value } = setMainCategory(
 										id,
 										mainCategory.title?.en || ''
 									);
-									navigateWithShallow(
-										`/product-search?${params}&${generateQueryString({
-											region: router.query.region,
-											country: router.query.region
-										})}`
-									);
+									// navigateWithShallow(
+									// 	`/product-search?${params}&${generateQueryString({
+									// 		region: router.query.region,
+									// 		country: router.query.region
+									// 	})}`
+									// );
+
+									navigateWithShallow({
+										main_category: value,
+										region: router.query.region,
+										country: router.query.region
+									});
 								}}
 							>
 								<span className="hover: text-2xl hover:text-primary-main">
@@ -183,12 +192,15 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 									selectedMainCategory?.name || ''
 								);
 								const params = setCategory(id, title?.en || '');
-								navigateWithShallow(
-									`/product-search?${params}&${generateQueryString({
-										region: router.query.region,
-										country: router.query.region
-									})}`
-								);
+								console.log('paramsparams', params);
+								// navigateWithShallow(
+								// 	`/product-search?${params}&${generateQueryString({
+								// 		region: router.query.region,
+								// 		country: router.query.region
+								// 	})}`
+								// );
+
+								navigateWithShallow(params?.payload);
 							}}
 						>
 							<span>{getLocaleText(title || {}, locale)}</span>
@@ -241,12 +253,14 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 									id,
 									title?.en
 								);
-								navigateWithShallow(
-									`/product-search?${params}&${generateQueryString({
-										region: router.query.region,
-										country: router.query.region
-									})}`
-								);
+								console.log('[sub-categ] =', params);
+								navigateWithShallow(params?.payload);
+								// navigateWithShallow(
+								// 	`/product-search?${params}&${generateQueryString({
+								// 		region: router.query.region,
+								// 		country: router.query.region
+								// 	})}`
+								// );
 							}}
 						>
 							<span>{getLocaleText(title || {}, locale)}</span>
@@ -306,12 +320,15 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 									id,
 									title?.en
 								);
-								navigateWithShallow(
-									`/product-search?${params}&${generateQueryString({
-										region: router.query.region,
-										country: router.query.region
-									})}`
-								);
+
+								navigateWithShallow(params?.payload);
+
+								// navigateWithShallow(
+								// 	`/product-search?${params}&${generateQueryString({
+								// 		region: router.query.region,
+								// 		country: router.query.region
+								// 	})}`
+								// );
 							}}
 						>
 							<span>{getLocaleText(title || {}, locale)}</span>

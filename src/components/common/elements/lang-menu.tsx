@@ -43,7 +43,7 @@ const LanguageDropdown: React.FC = () => {
 	return (
 		<Menu as="div" className="relative inline-block text-left">
 			<div>
-				<Menu.Button className="flex items-center space-x-1 font-semibold text-gray md:text-xs md:leading-[15px] lg:text-lg lg:leading-[22px]">
+				<Menu.Button className="flex items-center space-x-1 font-semibold text-primary-main md:text-xs md:leading-[15px] lg:text-lg lg:leading-[22px]">
 					<span className="capitalize">{t(selectedLocale.name)}</span>
 					<span className="uppercase">{t(selectedLocale.code)}</span>
 					<span className="hidden md:inline">&gt;</span>
