@@ -9,7 +9,8 @@ module.exports = {
 	theme: {
 		fontFamily: {
 			montserrat: ['Montserrat', 'Regular'],
-			mont: ['Montserrat', 'SemiBold']
+			mont: ['Montserrat', 'SemiBold'],
+			inter: ['Inter']
 		},
 		colors: {
 			transparent: 'transparent',
