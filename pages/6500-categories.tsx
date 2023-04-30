@@ -109,6 +109,7 @@ const CategoriesPage: NextPage<
 					<Tab.Panels>
 						<Tab.Panel>
 							<div className="-mt-[6px] rounded-md bg-white  pt-[9px]">
+								{/* This only for mobile */}
 								<div className=" ml-[11px] h-[29px] w-[288px] rounded-sm border border-gray md:hidden lg:hidden">
 									<Button
 										type="submit"
@@ -131,7 +132,7 @@ const CategoriesPage: NextPage<
 
 									{/* List of alphabets */}
 
-									<div className="float-left flex flex-wrap space-x-[10px] md:flex-wrap md:space-x-2  md:text-[18px] lg:flex-nowrap lg:space-x-4 lg:text-[24px]">
+									<div className="float-left flex flex-wrap space-x-[11px] md:flex-wrap md:space-x-2  md:text-[18px] lg:flex-nowrap lg:space-x-4 lg:text-[24px]">
 										{alphabets.map((alphabet, index) => {
 											return (
 												<Link
@@ -158,14 +159,14 @@ const CategoriesPage: NextPage<
 									{alphabetList.map((alphabet, index) => {
 										const categories = namesByLetter[alphabet] || [];
 
-										if (categories.length <= 0) return null;
+										if (categories.length <= 2) return null;
 
 										const slicedAnUnslicedCategories = showAll
 											? categories
 											: [...categories].slice(0, 29);
 
 										return (
-											<div key={alphabet} className="mb-[20px">
+											<div key={alphabet} className="mb-[20px]">
 												<p
 													id={alphabet}
 													className="inline-block border-b-2 text-[15px] font-semibold"
