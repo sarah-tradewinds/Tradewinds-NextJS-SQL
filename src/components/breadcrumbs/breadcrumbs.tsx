@@ -5,7 +5,7 @@ const Breadcrumbs = (props: any) => {
 	const router = useRouter();
 	const { pathname, query } = router;
 	const { keyword } = router.query;
-	console.log('query', { keyword });
+	console.log('query', query);
 	const value = getFilterValueFromQuery(query);
 
 	const mainId = value.main_category_id;
@@ -13,7 +13,7 @@ const Breadcrumbs = (props: any) => {
 
 	return (
 		<nav aria-label="breadcrumbs">
-			<div className=" flex space-x-[5px]">
+			<div className=" hidden space-x-[5px] md:hidden lg:flex">
 				<div className=" font-semibold">
 					<Link href="/" shallow={true}>
 						Categories
