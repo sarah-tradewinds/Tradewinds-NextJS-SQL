@@ -19,5 +19,8 @@ export const applyFiltersByUrl = (filterParams: {
 	is_eco?: boolean;
 	is_all_trending?: boolean;
 }) => {
-	return generateQueryString(filterParams);
+	return {
+		url: generateQueryString(filterParams),
+		payload: filterParams
+	};
 };

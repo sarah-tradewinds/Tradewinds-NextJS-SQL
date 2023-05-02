@@ -8,9 +8,7 @@
   .nav-link {
     cursor: pointer;
     position: relative;
-    /* @apply md:text-primary-main md:dark:text-accent-secondary-eco md:px-2 md:border-b-0 text-[15px] md:font-normal md:w-auto md:py-0 md:my-0 font-semibold w-10/12 py-2 my-2 border-b-2 border-gray/40 */
-
-    @apply text-primary-main md:text-[#575858] md:dark:text-accent-secondary-eco md:px-2 md:border-b-0 text-[15px] md:text-xs lg:text-[18px] lg:leading-[22px] md:leading-[15px] md:font-normal md:w-auto md:py-0 md:my-0 font-semibold w-10/12 py-2 my-2 border-b-[0.5px] border-[#D1D1CF] leading-[18px]
+    @apply text-primary-main md:dark:text-accent-secondary-eco md:px-2 md:border-b-0 text-[15px] md:text-xs lg:text-[18px] lg:leading-[22px] md:leading-[15px] md:font-normal md:w-auto md:py-0 md:my-0 font-semibold w-10/12 py-2 my-2 border-b-[0.5px] border-[#D1D1CF] leading-[18px]
   }
 
   .nav-link::after {

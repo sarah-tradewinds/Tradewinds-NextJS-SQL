@@ -38,8 +38,12 @@ import Loader from '../elements/loader/loader';
 import Button from '../form/button';
 import Seo from '../seo';
 
-const Layout: React.FC<{ product: any; seo: any }> = (props) => {
-	const { children, seo, product } = props;
+const Layout: React.FC<{ productName?: string; seo: any }> = (
+	props
+) => {
+	const { children, seo, productName } = props;
+
+	console.log('[[props]]', props);
 
 	const [isProductFilterSliderOpen, setIsProductFilterSliderOpen] =
 		useState(false);
@@ -132,7 +136,7 @@ const Layout: React.FC<{ product: any; seo: any }> = (props) => {
 			/>
 
 			<div className={isEco ? 'dark' : 'light'}>
-				<NavBar productname={props.product} />
+				<NavBar productName={productName} />
 				<SelectSignUpPage />
 				<SignUpPage />
 				<Login />

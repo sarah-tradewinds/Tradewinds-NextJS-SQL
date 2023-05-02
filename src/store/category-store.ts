@@ -71,7 +71,11 @@ export const useCategoryStore = create<CategoryState>((set) => ({
 			selectedCategoryAndSubCategoryAndSpecificCategoryIds: {}
 		});
 
-		return `main_category=${selectedMainCategoryId?.id}_${selectedMainCategoryId.name}`;
+		const value = `${selectedMainCategoryId?.id}_${selectedMainCategoryId.name}`;
+		return {
+			url: `main_category=${selectedMainCategoryId?.id}_${selectedMainCategoryId.name}`,
+			value
+		};
 	},
 	setCategory: (categoryId, categoryName) => {
 		if (!categoryId) return;
@@ -304,7 +308,7 @@ export const getIdsInString = (
 	main_category_id: string,
 	main_category: string,
 	selectedCategoryAndSubCategoryAndSpecificCategoryIds: any
-): string => {
+): { url: string; payload: { [key: string]: any } } => {
 	const categoryIdList: string[] = [];
 	const categoryNameList: string[] = [];
 	const subCategoryIdList: string[] = [];
@@ -328,12 +332,29 @@ export const getIdsInString = (
 		}
 	}
 
-	return `${applyFiltersByUrl({
+	const data = applyFiltersByUrl({
 		main_category: `${main_category_id}_${main_category}`,
 		category: categoryIdList?.toString(),
 		sub_category: subCategoryIdList?.toString(),
 		sub_sub_category: specificCategoryIdList?.toString()
-	})}&filters=${JSON.stringify(
-		selectedCategoryAndSubCategoryAndSpecificCategoryIds
-	)}`;
+	});
+
+	return {
+		url: `${data?.url}&filters=${JSON.stringify(
+			selectedCategoryAndSubCategoryAndSpecificCategoryIds
+		)}`,
+		payload: {
+			...data?.payload,
+			...selectedCategoryAndSubCategoryAndSpecificCategoryIds
+		}
+	};
+
+	// return `${applyFiltersByUrl({
+	// 	main_category: `${main_category_id}_${main_category}`,
+	// 	category: categoryIdList?.toString(),
+	// 	sub_category: subCategoryIdList?.toString(),
+	// 	sub_sub_category: specificCategoryIdList?.toString()
+	// })}&filters=${JSON.stringify(
+	// 	selectedCategoryAndSubCategoryAndSpecificCategoryIds
+	// )}`;
 };

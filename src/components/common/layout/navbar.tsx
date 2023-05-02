@@ -39,6 +39,7 @@ import { useHomeStore } from 'store/home';
 import ImageWithErrorHandler from '../elements/image-with-error-handler';
 
 const Header = (props: any) => {
+	console.log('propspropspropspropspropspropsprops =', props);
 	const [isOpen, setIsOpen] = useState(false);
 	const [showLogout, setShowLogout] = useState(false);
 	const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
@@ -59,6 +60,7 @@ const Header = (props: any) => {
 	const removeCategoryFilter = useCategoryStore(
 		(state) => state.removeCategoryFilter
 	);
+
 	const removeSelectedCountries = useCountriesStore(
 		(state) => state.removeSelectedCountries
 	);
@@ -73,7 +75,7 @@ const Header = (props: any) => {
 	const router = useRouter();
 	useMainCategories();
 
-	let classes = ` leading-[22px] pt-[11px] bg-white dark:bg-accent-primary-eco md:bg-[#DCDBDB] w-[180.97px] md:w-full md:h-[41px] lg:h-[54px] md:pl-5 md:pr-4 lg:px-[35px]  items-center ${
+	let classes = `leading-[22px] pt-[11px] bg-white dark:bg-accent-primary-eco md:bg-[#DCDBDB] w-[180.97px] md:w-full md:h-[41px] lg:h-[59px] md:pl-5 md:pr-4 lg:px-[35px]  items-center ${
 		!isOpen
 			? 'pc:w-0 pc:opacity-0 pc:overflow-hidden'
 			: 'fixed bottom-[51px] top-[50.6px] md:relative md:bottom-0 md:top-0'
@@ -275,17 +277,14 @@ const Header = (props: any) => {
 
 				{/* Bottom nav */}
 				<div className={classes}>
-					<div
-						// className="m-4 flex w-full flex-col justify-between pt-4 sm:mx-auto sm:w-[96%] sm:flex-row sm:pt-0 md:m-0 md:ml-3"
-						className="m-4  flex w-full flex-col justify-between pt-4 md:m-0 md:flex-row md:items-center md:pt-0"
-					>
+					<div className="m-4  flex w-full flex-col justify-between pt-4 md:m-0 md:flex-row md:items-center md:pt-0">
 						<div className="flex md:items-center">
 							<div
 								className="group hidden md:inline-block"
 								onMouseEnter={() => setIsMegaMenuOpen(true)}
 								onMouseLeave={() => setIsMegaMenuOpen(false)}
 							>
-								<div className="cursor-pointer font-semibold text-primary-main outline-none dark:text-accent-secondary-eco md:text-xs md:leading-[15px] md:text-[#575858] lg:text-[18px] lg:leading-[22px]">
+								<div className="cursor-pointer font-semibold text-primary-main outline-none dark:text-accent-secondary-eco md:text-xs md:leading-[15px] lg:text-[18px] lg:leading-[22px]">
 									{t('categories_text')}{' '}
 									<span className="hidden md:inline">&gt;</span>
 								</div>
@@ -406,8 +405,8 @@ const Header = (props: any) => {
 						</div>
 					</div>
 
-					<div className=" ml-[35px] text-[16px] leading-[16px] text-gray">
-						<Breadcrumbs productname={props.productname} />
+					<div className="ml-[35px]">
+						<Breadcrumbs productName={props.productName} />
 					</div>
 				</div>
 			</div>

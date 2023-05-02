@@ -192,8 +192,11 @@ const ProductSearchPage: NextPage<
 
 	const selectedCategoryList = categoryId?.split(',') || [];
 
-	const [countryId] = getIdAndName((query.country || '') as string);
-	console.log('selectedMainCategory =', selectedMainCategory);
+	const navigateWithShallow = (query: { [key: string]: any }) => {
+		router.push({ pathname: '/product-search', query }, undefined, {
+			shallow: true
+		});
+	}; // End of navigateWithShallow function
 
 	return (
 		<div className="md:container">
@@ -444,11 +447,13 @@ const ProductSearchPage: NextPage<
 												categoryId,
 												data?.title?.en
 											);
-											router.push(
-												`/product-search?${params}`,
-												undefined,
-												{ shallow: true }
-											);
+											navigateWithShallow(params?.payload);
+
+											// router.push(
+											// 	`/product-search?${params}`,
+											// 	undefined,
+											// 	{ shallow: true }
+											// );
 										}}
 									/>
 								</div>
@@ -468,7 +473,8 @@ const ProductSearchPage: NextPage<
 											subCategory.id,
 											subCategory?.title?.en
 										);
-										router.push(`/product-search?${params}`);
+										navigateWithShallow(params?.payload);
+										// router.push(`/product-search?${params}`);
 									}}
 								/>
 							</div>

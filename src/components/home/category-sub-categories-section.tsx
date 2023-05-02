@@ -72,7 +72,18 @@ const CategorySubCategoriesSection: React.FC<
 		setMainCategory(mainCategoryId, main_category.title?.en || '');
 
 		const params = setCategory(categoryId, categoryName);
-		router.push(`/product-search?${params}`);
+		// router.push(`/product-search?${params}`);
+
+		router.push(
+			{
+				pathname: '/product-search',
+				query: params?.payload
+			},
+			undefined,
+			{
+				shallow: true
+			}
+		);
 	};
 
 	const subCategoriesMobile = categories
@@ -126,11 +137,25 @@ const CategorySubCategoriesSection: React.FC<
 					isReverse={isReverse}
 					onLeadingClick={() => setIsOpen((preState) => !preState)}
 					onContentClick={() => {
-						const params = setMainCategory(
+						const { value } = setMainCategory(
 							main_category.id!,
 							main_category.title.en || ''
 						);
-						router.push(`/product-search?${params}`);
+
+						// router.push(`/product-search?${params}`);
+
+						router.push(
+							{
+								pathname: '/product-search',
+								query: {
+									main_category: value
+								}
+							},
+							undefined,
+							{
+								shallow: true
+							}
+						);
 					}}
 					leading={
 						<div
@@ -186,11 +211,25 @@ const CategorySubCategoriesSection: React.FC<
 					title={mainCategoryTitle}
 					name={(main_category as any).name || ''}
 					onClick={() => {
-						const params = setMainCategory(
+						const { value } = setMainCategory(
 							main_category.id!,
 							main_category.title.en || ''
 						);
-						router.push(`/product-search?${params}`);
+
+						router.push(
+							{
+								pathname: '/product-search',
+								query: {
+									main_category: value
+								}
+							},
+							undefined,
+							{
+								shallow: true
+							}
+						);
+
+						// router.push(`/product-search?${params}`);
 					}}
 					description={mainCategoryDescription}
 					buttonText={getLocaleText(
