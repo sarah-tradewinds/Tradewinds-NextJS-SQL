@@ -173,10 +173,10 @@ const CategoriesPage: NextPage<
 								: [...categories].slice(0, 29);
 
 							return (
-								<div key={alphabet} className="mb-[20px]">
+								<div key={alphabet} className="mb-[20px] text-[15px]">
 									<p
 										id={alphabet}
-										className="inline-block border-b-2 text-[15px] font-semibold"
+										className="inline-block border-b-2  font-semibold"
 									>
 										{alphabet}
 									</p>
@@ -228,9 +228,12 @@ const CategoriesPage: NextPage<
 }; // End of CategoriesPage
 
 export const getServerSideProps: GetServerSideProps = async ({
-	locale
+	locale,
+	query
 }) => {
-	const allCategoryByAlphabets = await getAllCategoryByAlphabets();
+	const allCategoryByAlphabets = await getAllCategoryByAlphabets(
+		Boolean(query.is_eco)
+	);
 
 	return {
 		props: {

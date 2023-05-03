@@ -71,18 +71,58 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 		}
 	}, [is_eco]);
 
-	const searchCategoriesBanner = (
-		<div className="flex items-center justify-center bg-accent-primary-main p-4 text-white dark:bg-accent-primary-eco md:p-8 lg:p-14">
-			<h3 className="text-[21px] leading-[26px] md:mr-8 md:text-[48px] md:leading-[44px] lg:whitespace-nowrap lg:text-[72px]">
-				Search from 6,500 categories
-			</h3>
-			<Button variant="special" className="whitespace-nowrap !px-4">
-				Search More
-				{' >'}
-			</Button>
+	// const searchCategoriesBanner = (
+	// 	<div className="flex items-center justify-center bg-accent-primary-main p-4 text-white dark:bg-accent-primary-eco md:p-8 lg:p-14">
+	// 		<h3 className="text-[21px] leading-[26px] md:mr-8 md:text-[48px] md:leading-[44px] lg:whitespace-nowrap lg:text-[72px]">
+	// 			Search from 6,500 categories
+	// 		</h3>
+	// 		<Button
+	// 			href={`/6500-categories?is_eco=${true}`}
+	// 			variant="special"
+	// 			className="whitespace-nowrap !px-4"
+	// 		>
+	// 			Search More
+	// 			{' >'}
+	// 		</Button>
+	// 	</div>
+	// );
+	const searchCategoriesAndTrendingBanner = (
+		<div className="grid gap-4 lg:grid-cols-2">
+			<div className="flex h-[78.75px] items-center bg-accent-primary-main p-3 text-white dark:bg-header-bar md:space-y-2 lg:h-[143px] lg:flex-col lg:p-0">
+				<h3 className="text-[21px] font-semibold leading-[26px] md:text-[35px] lg:text-center lg:text-[35px] lg:leading-[43px]">
+					{'search_from'}
+					<span className="inline-block lg:mx-3 lg:text-[60px] lg:leading-[73px]">
+						6,500
+					</span>
+					{'categories'}
+				</h3>
+				<Button
+					href={`/6500-categories?is_eco=${true}`}
+					variant="special"
+					className="!min-h-[20px] whitespace-nowrap !px-4 !py-0 !text-[11px] !leading-[13px] md:h-auto lg:!h-[48px] lg:!min-h-[48px] lg:!w-[236px] lg:!text-[21px] lg:!leading-[26px]"
+				>
+					{'search_more'}
+					<span className="hidden md:inline-block lg:pl-2">{' >'}</span>
+				</Button>
+			</div>
+
+			{/* Trending section */}
+			<div className="hidden items-center justify-end bg-[url('/latest-trend-image.png')] bg-left p-3 md:flex">
+				<div className="flex flex-col items-center space-y-2 ">
+					<h3 className="text-[18px] font-semibold leading-[26px] text-white md:mr-8 md:text-[35px] lg:leading-[43px]">
+						{'Find the latest Trends'}
+					</h3>
+					<Button
+						// href={`/product-search?is_trending=${true}`}
+						href="/whats-trending"
+						className="border-2 border-secondary !text-[21px] font-bold text-secondary lg:!h-[48px] lg:!leading-[26px] pc:!rounded-full"
+					>
+						See Trends
+					</Button>
+				</div>
+			</div>
 		</div>
 	);
-
 	const router = useRouter();
 
 	let isReverse = false;
@@ -126,7 +166,7 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 											{/*  Search Categories Banner */}
 											{canIDisplayFlags === index && (
 												<div className="my-8 hidden md:block">
-													{searchCategoriesBanner}
+													{searchCategoriesAndTrendingBanner}
 												</div>
 											)}
 										</>
@@ -138,7 +178,7 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 					{/*  Search Categories Banner */}
 					{/* <div className="my-8 md:hidden"> */}
 					<div className="my-[30px] md:hidden">
-						{searchCategoriesBanner}
+						{searchCategoriesAndTrendingBanner}
 					</div>
 
 					{/* Shop by country and ads */}
