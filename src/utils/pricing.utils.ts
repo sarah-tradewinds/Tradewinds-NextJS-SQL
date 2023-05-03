@@ -1,4 +1,6 @@
 interface BulkPrice {
+	start_range: number;
+	end_range: number;
 	range: string;
 	price: number;
 }
@@ -28,11 +30,15 @@ const getProductPriceBuyQuantityRange = (
 	let filteredPrice = 0;
 
 	for (const bulkPrice of bulkPrices) {
-		const { range, price } = bulkPrice;
+		const { start_range, end_range, price } = bulkPrice;
 
-		const [startQuantity, endQuantity] = range?.split('-') || [];
+		const startQuantityRange = start_range;
+		const endQuantityRange = end_range;
 
-		if (quantity >= +startQuantity && quantity <= +endQuantity) {
+		if (
+			quantity >= startQuantityRange &&
+			quantity <= endQuantityRange
+		) {
 			filteredPrice = price;
 			break;
 		}
@@ -52,6 +58,7 @@ const getProductPriceBuyQuantityRange = (
 		const lastRange = bulkPrices[bulkPrices.length - 1];
 		filteredPrice = lastRange?.price;
 	}
+	console.log('filteredPrice', { filteredPrice, bulkPrices, quantity });
 
 	return filteredPrice || 0;
 }; // End of getProductPriceBuyQuantityRange
