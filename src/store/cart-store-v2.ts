@@ -60,12 +60,6 @@ export const useCartStore = create<CartState>((set) => ({
 			product?.edges?.product_variants || []
 		);
 
-		const productPrice = getProductPrice({
-			bulkPrices: defaultVariant?.bulk_pricing || [],
-			price: defaultVariant?.retail_price || 0,
-			salePrice: defaultVariant?.sales_price || 0
-		});
-
 		set(({ cartItems, totalAmount }) => {
 			const cartItem = cartItems?.find((cartItem) => {
 				return cartItem.productVariantId === productVariantId;
@@ -81,6 +75,12 @@ export const useCartStore = create<CartState>((set) => ({
 					product_variant_id: productVariantId
 				};
 
+				const productPrice = getProductPrice({
+					bulkPrices: defaultVariant?.bulk_pricing || [],
+					price: defaultVariant?.retail_price || 0,
+					salePrice: defaultVariant?.sales_price || 0,
+					quantity: 1
+				});
 				const cartItemPrice = productPrice * minimumOrderQuantity;
 				const newCartItem = {
 					productVariantId,
@@ -107,6 +107,12 @@ export const useCartStore = create<CartState>((set) => ({
 					const updatedQuantity = cartItem.quantity + 1;
 					cartItem.quantity = updatedQuantity;
 
+					const productPrice = getProductPrice({
+						bulkPrices: defaultVariant?.bulk_pricing || [],
+						price: defaultVariant?.retail_price || 0,
+						salePrice: defaultVariant?.sales_price || 0,
+						quantity: updatedQuantity
+					});
 					const cartItemPrice = productPrice * updatedQuantity;
 					cartItem.total = cartItemPrice;
 				}
@@ -130,19 +136,29 @@ export const useCartStore = create<CartState>((set) => ({
 		set(({ cartItems }) => {
 			let updatedTotalAmount = 0;
 			const updatedCartItems = cartItems?.map((cartItem) => {
-				const productVariants =
-					cartItem.product?.edges?.product_variants || [];
-
-				const productVariant = productVariants?.find(
-					(productVariant: any) =>
-						productVariant.id === productVariantId
-				);
-
 				if (cartItem.productVariantId === productVariantId) {
+					const productVariants =
+						cartItem.product?.edges?.product_variants ||
+						cartItem.product?.edges?.product?.edges?.product_variants ||
+						[];
+
+					const productVariant = productVariants?.find(
+						(productVariant: any) =>
+							productVariant.id === productVariantId
+					);
+
+					console.log('[updateProductVariantInCart] =', {
+						productVariant,
+						cartItems,
+						productVariants,
+						productVariantId
+					});
+
 					const productPrice = getProductPrice({
 						bulkPrices: productVariant?.bulk_pricing || [],
 						price: productVariant?.retail_price || 0,
-						salePrice: productVariant?.sales_price || 0
+						salePrice: productVariant?.sales_price || 0,
+						quantity
 					});
 
 					cartItem.quantity = quantity;
