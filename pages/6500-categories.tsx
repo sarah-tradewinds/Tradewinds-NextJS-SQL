@@ -46,7 +46,7 @@ const CategoriesPage: NextPage<
 			namesByLetter[firstLetter] = [];
 		}
 
-		namesByLetter[firstLetter].push(name?.title?.en);
+		namesByLetter[firstLetter].push(name);
 	}
 	const [value, setValue] = useState('');
 	const gotToSearch = (searchTerm: string) => {
@@ -61,6 +61,82 @@ const CategoriesPage: NextPage<
 		setValue(searchTerm);
 		gotToSearch(searchTerm);
 	};
+
+	const {
+		setMainCategory,
+		setCategory,
+		setSubCategory,
+		setSpecificCategory
+	} = useCategoryStore();
+
+	const navigateWithShallow = (query: { [key: string]: any }) => {
+		router.push({ pathname: '/product-search', query }, undefined, {
+			shallow: true
+		});
+	}; // End of navigateWithShallow function
+
+	const generateUrl = (category: any) => {
+		console.log('pavan', category);
+		//maincat
+		if (category?.IsMainCat === true) {
+			const { value } = setMainCategory(
+				category?.id,
+				category?.title?.en || ''
+			);
+
+			navigateWithShallow({
+				main_category: value
+			});
+		}
+
+		// cat
+
+		if (category?.IsCat === true) {
+			setMainCategory(
+				category?.MainCatId || category?.main_category_id,
+				category?.MainCatName || ''
+			);
+			const params = setCategory(category.id, category.title.en || '');
+			console.log('paramsparams', params);
+			navigateWithShallow(params?.payload);
+		}
+
+		//subCat
+
+		if (category?.IsSubCat === true) {
+			setMainCategory(
+				category?.MainCatId || category?.main_category_id,
+				category?.MainCatName || ''
+			);
+			const params = setSubCategory(
+				category.category_id || '',
+				category.CatName || '',
+				category.id,
+				category.title.en || ''
+			);
+			console.log('[sub-categ] =', params);
+			navigateWithShallow(params?.payload);
+		}
+
+		// specific cat
+
+		if (category?.IsSpecCat === true) {
+			setMainCategory(
+				category?.MainCatId || category?.main_category_id,
+				category?.MainCatName || ''
+			);
+			const params = setSpecificCategory(
+				category.category_id || '',
+				category.CatName || '',
+				category.sub_category_id || '',
+				category.SubCatName || '',
+				category.id,
+				category.title.en || ''
+			);
+			navigateWithShallow(params?.payload);
+		}
+	};
+
 	return (
 		<div className="relative mx-auto w-[322px] font-inter md:w-[744px] lg:w-[1512px]">
 			<div className="relative ">
@@ -90,18 +166,7 @@ const CategoriesPage: NextPage<
 									placeholder="Search....."
 									className="w-[250px] pl-2 font-semibold text-gray outline-none md:w-[140px]  lg:w-[250px] "
 								/>
-								<HiOutlineSearch
-									onClick={() => {
-										removeCategoryFilter();
-										value &&
-											router.push(
-												`/product-search?categories=${encodeURIComponent(
-													value
-												)}`
-											);
-									}}
-									className=" mt-2 cursor-pointer text-gray md:mt-[3px] md:text-[13px]  lg:ml-[10px] lg:text-[16px]"
-								/>
+								<HiOutlineSearch className=" mt-2 cursor-pointer text-gray md:mt-[3px] md:text-[13px]  lg:ml-[10px] lg:text-[16px]" />
 							</div>
 							<div className=" bg-white text-gray ">
 								{allCategoryByAlphabets
@@ -183,26 +248,19 @@ const CategoriesPage: NextPage<
 
 									{/* Categories */}
 									<div>
-										{slicedAnUnslicedCategories.map(
-											(category: string) => {
-												return (
-													<p
-														key={category}
-														className="cursor-pointer hover:font-semibold hover:text-cyan hover:underline"
-														onClick={() => {
-															removeCategoryFilter();
-															router.push(
-																`/product-search?categories=${encodeURIComponent(
-																	category
-																)}`
-															);
-														}}
-													>
-														{category}
-													</p>
-												);
-											}
-										)}
+										{slicedAnUnslicedCategories.map((category: any) => {
+											return (
+												<p
+													key={category.title.en}
+													className="cursor-pointer hover:font-semibold hover:text-cyan hover:underline"
+													onClick={() => {
+														generateUrl(category);
+													}}
+												>
+													{category.title.en}
+												</p>
+											);
+										})}
 									</div>
 								</div>
 							);
