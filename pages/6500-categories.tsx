@@ -49,19 +49,9 @@ const CategoriesPage: NextPage<
 		namesByLetter[firstLetter].push(name);
 	}
 	const [value, setValue] = useState('');
-	const gotToSearch = (searchTerm: string) => {
-		router.push(
-			`/product-search?categories=${encodeURIComponent(searchTerm)}`
-		);
-	};
 	const Searchvalue = (event: any) => {
 		setValue(event.target.value);
 	};
-	const onSearch = (searchTerm: any) => {
-		setValue(searchTerm);
-		gotToSearch(searchTerm);
-	};
-
 	const {
 		setMainCategory,
 		setCategory,
@@ -76,7 +66,6 @@ const CategoriesPage: NextPage<
 	}; // End of navigateWithShallow function
 
 	const generateUrl = (category: any) => {
-		console.log('pavan', category);
 		//maincat
 		if (category?.IsMainCat === true) {
 			const { value } = setMainCategory(
@@ -97,7 +86,6 @@ const CategoriesPage: NextPage<
 				category?.MainCatName || ''
 			);
 			const params = setCategory(category.id, category.title.en || '');
-			console.log('paramsparams', params);
 			navigateWithShallow(params?.payload);
 		}
 
@@ -114,7 +102,6 @@ const CategoriesPage: NextPage<
 				category.id,
 				category.title.en || ''
 			);
-			console.log('[sub-categ] =', params);
 			navigateWithShallow(params?.payload);
 		}
 
@@ -126,7 +113,7 @@ const CategoriesPage: NextPage<
 				category?.MainCatName || ''
 			);
 			const params = setSpecificCategory(
-				category.category_id || '',
+				category.category_id || category.CatId,
 				category.CatName || '',
 				category.sub_category_id || '',
 				category.SubCatName || '',
@@ -182,7 +169,9 @@ const CategoriesPage: NextPage<
 										return value ? (
 											<div
 												className="cursor-pointer text-[15px] lg:pl-4"
-												onClick={() => onSearch(name.title.en)}
+												onClick={() => {
+													generateUrl(name);
+												}}
 												key={name.title.en}
 											>
 												{name.title.en}

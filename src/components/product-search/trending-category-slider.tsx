@@ -40,6 +40,29 @@ const TrendingCategorySlider: React.FC<{
 		infinite: false
 	};
 
+	const selectedCategories: any = [];
+	const nonSelectedCategories: any = [];
+	{
+		categories?.map((subCat: any) => {
+			const { categories: category } = subCat as any;
+			const categoryData = category || subCat;
+			const subCategoryTitle = getLocaleText(
+				subCat?.title || {},
+				router.locale
+			);
+
+			if (categoryData.id == selectedCategoryIds) {
+				selectedCategories.push(categoryData);
+			} else {
+				nonSelectedCategories.push(categoryData);
+			}
+		});
+	}
+	const updatedCategories: any = [
+		...selectedCategories,
+		...nonSelectedCategories
+	];
+
 	return (
 		<div className="relative w-full">
 			<button
@@ -51,7 +74,7 @@ const TrendingCategorySlider: React.FC<{
 
 			<div className={`md:ml-6 lg:ml-14 ${className}`}>
 				<Slider ref={slider} {...settings}>
-					{categories?.map((subCat: any) => {
+					{updatedCategories?.map((subCat: any) => {
 						const { categories: category } = subCat as any;
 						const categoryData = category || subCat;
 
