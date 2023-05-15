@@ -24,6 +24,7 @@ import {
 	generateBuyerDashboardUrl
 } from 'data/buyer/buyer-actions';
 import {
+	getOrderIdByProductId,
 	getProductById,
 	getProductReviewAnalyticsByProductId,
 	getProductReviewsByProductId,
@@ -45,8 +46,11 @@ const ProductDetailsPage: NextPage<
 	productReviews = [],
 	reviewAnalytics,
 	seller = {},
-	similarProducts = []
+	similarProducts = [],
+	orderedId
 }) => {
+	console.log('orderId', orderedId);
+	// console.log('dervalue', product);
 	const router = useRouter();
 	const { pathname, query } = router;
 
@@ -257,6 +261,8 @@ export const getServerSideProps: GetServerSideProps = async ({
 		if (!product || !product?.id) {
 			return notFound;
 		}
+		const orderedId = (await getOrderIdByProductId(productId)) || {};
+		console.log('updatevalue', orderedId);
 
 		// Fetch product reviews
 		// const productReviews =
@@ -284,6 +290,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 				similarProducts,
 				slug: productId,
 				seo: seo,
+				orderedId,
 
 				// seo: {
 				// 	title: getLocaleText(seo?.title || {}),
