@@ -58,6 +58,11 @@ const ProductDetailsPage: NextPage<
 	const [isReviewLoading, setIsReviewLoading] = useState(false);
 	const [selectedVariantId, setSelectedVariantId] = useState('');
 
+	console.log('[productReviewList-productReviews] =', {
+		productReviews,
+		productReviewAnalytics
+	});
+
 	const { customerData, isAuth } = useAuthStore((state) => ({
 		isAuth: state.isAuth,
 		customerData: state.customerData
@@ -123,14 +128,10 @@ const ProductDetailsPage: NextPage<
 			const ratingAndReviewData = {
 				rating,
 				comments: review,
-				product_id: productId,
-				// order_id: '6287507801163604d44c74b6',
-				// TODO: Have to ask is this required
-				order_id: '',
-				user_id: customerData.userId
+				product_id: productId
 			};
 
-			await submitProductRatingAndReview(ratingAndReviewData, reviewId);
+			await submitProductRatingAndReview(ratingAndReviewData);
 			const productReviews = await getProductReviewsByProductId(
 				productData.id
 			);
@@ -259,12 +260,13 @@ export const getServerSideProps: GetServerSideProps = async ({
 		}
 
 		// Fetch product reviews
-		// const productReviews =
-		// 	(await getProductReviewsByProductId(productId)) || [];
-		// const reviewAnalytics =
-		// 	(await getProductReviewAnalyticsByProductId(productId)) || {};
+		const productReviews =
+			(await getProductReviewsByProductId(productId)) || [];
 
-		// // Fetch seller company Data
+		const reviewAnalytics =
+			(await getProductReviewAnalyticsByProductId(productId)) || {};
+
+		// Fetch seller company Data
 		const sellerId = product?.seller_id || '';
 		const seller = (await getSellerDetailsBySellerId(sellerId)) || {};
 		seller.id = sellerId;
@@ -278,8 +280,8 @@ export const getServerSideProps: GetServerSideProps = async ({
 			props: {
 				product,
 				productName,
-				// productReviews,
-				// reviewAnalytics,
+				productReviews,
+				reviewAnalytics,
 				seller,
 				similarProducts,
 				slug: productId,

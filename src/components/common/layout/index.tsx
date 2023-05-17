@@ -43,8 +43,6 @@ const Layout: React.FC<{ productName?: string; seo: any }> = (
 ) => {
 	const { children, seo, productName } = props;
 
-	console.log('[[props]]', props);
-
 	const [isProductFilterSliderOpen, setIsProductFilterSliderOpen] =
 		useState(false);
 

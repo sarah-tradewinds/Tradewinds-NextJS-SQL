@@ -1,4 +1,3 @@
-import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import Button from 'components/common/form/button';
 import { canCustomerGiveReviewOnThisProduct } from 'lib/product-details.lib';
 import { useTranslation } from 'next-i18next';
@@ -71,21 +70,19 @@ const ProductReviewsDetailsTab: React.FC<{
 	}, [showReview]);
 
 	useEffect(() => {
-		canCustomerGiveReviewOnThisProduct(
-			customerData.buyerId,
-			productId
-		).then((data: any) => {
+		canCustomerGiveReviewOnThisProduct(productId).then((data: any) => {
+			console.log('[setCanCustomerWriteReviewForThisProduct] =', data);
 			setCanCustomerWriteReviewForThisProduct(
 				data.canCustomerWiteReviewForThisProduct
 			);
 		});
-	}, [customerData.buyerId]);
+	}, [productId]);
 
 	const onReviewSubmitHandler = () => {
 		onReviewSubmit(rating, review, reviewId);
 	};
 
-	const writeReview = !canCustomerWriteReviewForThisProduct && (
+	const writeReview = canCustomerWriteReviewForThisProduct && (
 		<div className="md:px-8">
 			<h3 className="border-b-2 border-[#C4C4C4] pb-2 text-lg font-semibold leading-[22px] text-gray md:text-[21px]">
 				Review this Product
@@ -107,6 +104,10 @@ const ProductReviewsDetailsTab: React.FC<{
 			</div>
 		</div>
 	);
+
+	console.log('[[canCustomerWriteReviewForThisProduct]]', {
+		canCustomerWriteReviewForThisProduct
+	});
 
 	return (
 		<>
@@ -137,11 +138,11 @@ const ProductReviewsDetailsTab: React.FC<{
 					<h2 className="text-lg font-semibold leading-[22px] text-primary-main md:hidden">
 						{t('common:reviews')}
 					</h2>
-					<div className="relative hidden h-[24px] w-[124px] md:block">
-						<ImageWithErrorHandler
-							src="/rating.png"
-							alt=""
-							fill={true}
+					<div className="relative hidden w-[124px] md:block">
+						<RatingStars
+							starNumber={5}
+							rating={reviewAnalytics?.average_rating}
+							selectedClassName="text-secondary"
 						/>
 					</div>
 					<p className="hidden text-[13px] text-secondary md:block">
@@ -213,20 +214,21 @@ const ProductReviewsDetailsTab: React.FC<{
 					{/* Rating and reviews list */}
 					<div className="2xl:col-span-9 col-span-12 mt-8 space-y-8 md:col-span-6 md:mt-0 lg:col-span-7">
 						{/* Write Reviews if reviews list not available */}
-						{/* {reviews.length === 0 && (
-							<div className="flex h-full items-center justify-center ">
-								{writeReview}
-							</div>
-						)} */}
+						{reviews?.map((review) => {
+							const { first_name = '', last_name = '' } =
+								review?.edges?.user || {};
 
-						{reviews?.map((review) => (
-							<UserReviewAndRatingTile
-								key={review.id}
-								customerName={review.name}
-								rating={review.rating}
-								review={review.comments}
-							/>
-						))}
+							const userFullName = `${first_name} ${last_name}`;
+
+							return (
+								<UserReviewAndRatingTile
+									key={review.id}
+									customerName={userFullName}
+									rating={review.rating}
+									review={review.comment || ''}
+								/>
+							);
+						})}
 
 						{reviews?.length > 3 && (
 							<div className="flex justify-center md:hidden">

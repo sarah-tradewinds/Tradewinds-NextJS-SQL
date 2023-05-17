@@ -1,7 +1,4 @@
-import {
-	axiosInstance,
-	proxyAxiosInstance
-} from 'utils/axios-instance.utils';
+import { axiosInstance } from 'utils/axios-instance.utils';
 
 export const getProductById = async (productId: string) => {
 	try {
@@ -25,7 +22,7 @@ export const getProductReviewsByProductId = async (
 ) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/order_review/product/${productId}`
+			`/product/reviews/${productId}`
 		);
 
 		return data.data || [];
@@ -41,7 +38,7 @@ export const getProductReviewAnalyticsByProductId = async (
 ) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/order_review/analytical/${productId}`
+			`/product/analytical-reviews/${productId}`
 		);
 
 		return data.data || {};
@@ -80,7 +77,6 @@ export const getSellerStorefrontDetailsSellerId = async (
 }; // End of getSellerStorefrontDetailsSellerId
 
 export const canCustomerGiveReviewOnThisProduct = async (
-	customerId: string,
 	productId: string
 ) => {
 	const defaultResponse = {
@@ -88,19 +84,16 @@ export const canCustomerGiveReviewOnThisProduct = async (
 		canCustomerWiteReviewForThisProduct: false
 	};
 
-	if (!customerId) {
-		return defaultResponse;
-	}
-
 	try {
-		const { data } = await proxyAxiosInstance.post(
-			'/order_review/is-review-allowed',
-			{ buyer_id: customerId, product_id: productId }
+		const { data } = await axiosInstance.get(
+			`product-review/validate-product-review/${productId}`
 		);
+		console.log('[canCustomerGiveReviewOnThisProduct] =', data?.data);
+		const isEligible = data?.data?.IsEligible || false;
 
 		return {
-			message: data.message,
-			canCustomerWiteReviewForThisProduct: data.data
+			message: data?.message || '',
+			canCustomerWiteReviewForThisProduct: isEligible
 		};
 	} catch (error) {
 		console.log('[canCustomerGiveReviewOnThisProduct] =', error);
@@ -111,23 +104,14 @@ export const canCustomerGiveReviewOnThisProduct = async (
 	}
 }; // End of canCustomerGiveReviewOnThisProduct
 
-export const submitProductRatingAndReview = async (
-	ratingData: {
-		comments: string;
-		rating: number;
-		user_id: string;
-		product_id: string;
-		order_id: string;
-	},
-	reviewId?: string
-) => {
+export const submitProductRatingAndReview = async (ratingData: {
+	product_id: string;
+	rating: number;
+	comments: string;
+}) => {
 	try {
-		const url = reviewId
-			? `/order_review/update/${reviewId}`
-			: '/order_review';
-
-		const { data } = await axiosInstance[reviewId ? 'put' : 'post'](
-			url,
+		const { data } = await axiosInstance.post(
+			'/product-review',
 			ratingData
 		);
 		return {
