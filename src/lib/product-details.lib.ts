@@ -167,3 +167,18 @@ export const getProductsWithCollectionBySellerId = async (
 		return [];
 	}
 }; // End of getProductsWithCollectionBySellerId
+
+export const getOrderIdByProductId = async (productId: string) => {
+	try {
+		const { data } = await axiosInstance.get(`/order/product/${productId}`);
+
+		
+		console.log('reviewId =', data?.data);
+
+		return data.data || {};
+	} catch (error) {
+		console.log('[getOrderIdByProductId] =', error);
+		const { data, status } = (error as any).response || {};
+		return {};
+	}
+}; // End of getOrderIdByProductId

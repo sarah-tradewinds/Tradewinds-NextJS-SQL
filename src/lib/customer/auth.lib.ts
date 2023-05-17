@@ -107,8 +107,8 @@ export const getCustomerBuyerDetails = async (userId: string) => {
 
 export const forgetPasswordGenerateLink = async (email: string) => {
 	try {
-		const { data } = await proxyAxiosInstance.post(
-			'/v1/auth/forgot_password',
+		const { data } = await axiosInstance.patch(
+			'/auth/forgot-password',
 			{
 				email
 			}

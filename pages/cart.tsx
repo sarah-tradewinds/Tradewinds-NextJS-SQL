@@ -244,7 +244,7 @@ const CartPage: NextPage = () => {
 								if (inputQuantity < minimumOrderQuantity) {
 									setIsMinimumQuantityModalOpen(true);
 									setMinimumQuantityErrorMessage(
-										`You have add atleast ${minimumOrderQuantity} quantity`
+										`This product has a minimum order quantity requirement of <${minimumOrderQuantity}>. In order to proceed further buying this product, you need to buy a minimum quantity of <${minimumOrderQuantity}> or more.`
 									);
 									return;
 								}

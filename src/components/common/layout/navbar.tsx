@@ -39,7 +39,7 @@ import { useHomeStore } from 'store/home';
 import ImageWithErrorHandler from '../elements/image-with-error-handler';
 
 const Header = (props: any) => {
-	console.log('propspropspropspropspropspropsprops =', props);
+	// console.log('propspropspropspropspropspropsprops =', props);
 	const [isOpen, setIsOpen] = useState(false);
 	const [showLogout, setShowLogout] = useState(false);
 	const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);

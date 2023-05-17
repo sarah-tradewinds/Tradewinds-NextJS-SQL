@@ -1,5 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
+import ImageWithErrorHandler from '../elements/image-with-error-handler';
 import Button from '../form/button';
 
 interface ErrorPopupProps {
@@ -48,7 +49,15 @@ const ErrorPopup: React.FC<ErrorPopupProps> = (props) => {
 								leaveFrom="opacity-100 scale-100"
 								leaveTo="opacity-0 scale-95"
 							>
-								<Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+								<Dialog.Panel className="h-[156px] w-[611px] transform overflow-hidden rounded-2xl bg-white  shadow-xl transition-all">
+									<div className="ml-[158px] mt-[17px] md:ml-[292px] lg:ml-[292px]">
+										<ImageWithErrorHandler
+											src="/static/icons/alert_icon.png"
+											alt="Empty Cart"
+											width={27}
+											height={27}
+										/>
+									</div>
 									<Dialog.Title
 										as="h3"
 										className={`text-lg font-medium leading-6 text-error ${titleClassName}`}
