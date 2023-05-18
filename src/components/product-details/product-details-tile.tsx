@@ -278,6 +278,117 @@ const ProductDetailsTile: React.FC<{
 		: defaultVariant?.images || [];
 	const masterImageUrl = images?.[0];
 
+	// const optionsAndValues = [
+	// 	{
+	// 		id: '',
+	// 		name: 'Color',
+	// 		value: '',
+	// 		values: [
+	// 			{
+	// 				id: '',
+	// 				name: '',
+	// 				imageUrl: ''
+	// 			}
+	// 		]
+	// 	}
+	// ];
+
+	// console.log('[optionsAndValues] variant', variants);
+	// const options: { [key: string]: any } = {};
+	// for (const variant of variants) {
+	// 	const productAttributeAndOptions =
+	// 		variant?.edges?.product_attribute_options || [];
+
+	// 	for (const productAttributeAndOption of productAttributeAndOptions) {
+	// 		const productAttribute =
+	// 			productAttributeAndOption?.edges?.product_attribute;
+	// 		const attributeId = productAttribute?.id;
+
+	// 		const optionAndValues = {
+	// 			id: attributeId,
+	// 			name: productAttribute?.name,
+	// 			values: [
+	// 				productAttributeAndOption?.value?.trim()?.toLowerCase()
+	// 			]
+	// 		};
+
+	// 		const isOptionExist = options?.[attributeId];
+	// 		if (!isOptionExist) {
+	// 			options[attributeId] = optionAndValues;
+	// 			continue;
+	// 		}
+
+	// 		const selectedOption = options[attributeId];
+	// 		const values = [
+	// 			...selectedOption?.values,
+	// 			...optionAndValues?.values
+	// 		];
+	// 		const uniqueValues = [...new Set(values)];
+	// 		options[attributeId] = {
+	// 			...selectedOption,
+	// 			values: uniqueValues || []
+	// 		};
+	// 	}
+
+	// 	console.log('[productAttributeOptions] =', variant);
+	// } // End of for-loop
+
+	// const optionsAndValueListObject = { ...options };
+	// const updatedOptions: { [key: string]: any } = {};
+
+	// for (const key in optionsAndValueListObject) {
+	// 	const optionsAndValueLists = optionsAndValueListObject[key] || [];
+
+	// 	for (const optionAndValueList of optionsAndValueLists) {
+	// 		const { values = [] } = optionAndValueList;
+	// 		for (const value of values) {
+	// 			const optionValue = {
+	// 				name: value,
+	// 				imageUrl: ''
+	// 			};
+
+	// 			// Variants Loop
+	// 			for (const variant of variants) {
+	// 				const productAttributeOptions =
+	// 					variant?.edges?.product_attribute_options?.map(
+	// 						(productAttributeAndOption: any) =>
+	// 							productAttributeAndOption?.value
+	// 					) || [];
+
+	// 				if (productAttributeOptions?.includes(value)) {
+	// 					optionValue.imageUrl = variant?.images?.[0] || '';
+	// 					break;
+	// 				}
+	// 			} // End of variant for-loop
+
+	// 			const isOptionExist = updatedOptions?.[key];
+	// 			if (!isOptionExist) {
+	// 				options[key] = optionAndValues;
+	// 				continue;
+	// 			}
+
+	// 			const selectedOption = updatedOptions[key];
+	// 			const values = [
+	// 				...selectedOption?.values,
+	// 				...optionAndValues?.values
+	// 			];
+	// 			const uniqueValues = [...new Set(values)];
+	// 			updatedOptions[key] = {
+	// 				...selectedOption,
+	// 				values: uniqueValues || []
+	// 			};
+	// 		} // End of values for-loop
+	// 	} // End of for-loop
+	// }
+
+	console.log('[options-options] =', {
+		// optionsAndValueLists,
+		// updatedOptionsAndValueLists,
+		// updatedOptions
+	});
+
+	// const optionsAndValueList = Object.values(options);
+
 	return (
 		<>
 			<MessageVendorPopup
@@ -490,6 +601,8 @@ const ProductDetailsTile: React.FC<{
 									</div>
 								))}
 						</div>
+
+						{/* Variants Options And Values */}
 
 						{/* Variants */}
 						{productVariants?.length >= 0 && (

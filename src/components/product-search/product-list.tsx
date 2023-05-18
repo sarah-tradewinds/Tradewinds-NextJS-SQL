@@ -192,7 +192,7 @@ const ProductList: React.FC<ProductListProps> = ({
 						isSaleOn: is_on_sale || 0,
 						isBulkPricing: is_bulk_pricing,
 						displayPrice: displayPrice,
-						alt: product.alt || product.name,
+						alt: product.alt || product.name?.en,
 						minOrderQuantity: inventory?.minimum_order_quantity || 0,
 						totalReviewCount: product.total_review_count || 0,
 						totalRateCount: product.total_rate_count || 0,
