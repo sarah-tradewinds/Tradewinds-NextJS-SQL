@@ -16,7 +16,10 @@ import RatingStars from './product-details-tab/product-review/rating-stars';
 
 // utils
 import { Listbox, Transition } from '@headlessui/react';
-import { ChevronUpDownIcon } from '@heroicons/react/20/solid';
+import {
+	ChevronLeftIcon,
+	ChevronUpDownIcon
+} from '@heroicons/react/20/solid';
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import MessageVendorPopup from 'components/common/popup/message-vendor.popup';
 import { useKeenSlider } from 'keen-slider/react';
@@ -278,116 +281,172 @@ const ProductDetailsTile: React.FC<{
 		: defaultVariant?.images || [];
 	const masterImageUrl = images?.[0];
 
-	// const optionsAndValues = [
-	// 	{
-	// 		id: '',
-	// 		name: 'Color',
-	// 		value: '',
-	// 		values: [
-	// 			{
-	// 				id: '',
-	// 				name: '',
-	// 				imageUrl: ''
-	// 			}
-	// 		]
-	// 	}
-	// ];
+	const optionsAndValues = [
+		{
+			id: '',
+			name: 'Color',
+			value: '',
+			values: [
+				{
+					id: '',
+					name: '',
+					imageUrl: ''
+				}
+			]
+		}
+	];
 
-	// console.log('[optionsAndValues] variant', variants);
-	// const options: { [key: string]: any } = {};
-	// for (const variant of variants) {
-	// 	const productAttributeAndOptions =
-	// 		variant?.edges?.product_attribute_options || [];
+	console.log('[optionsAndValues] variant', variants);
+	const options: { [key: string]: any } = {};
+	for (const variant of variants) {
+		const productAttributeAndOptions =
+			variant?.edges?.product_attribute_options || [];
 
-	// 	for (const productAttributeAndOption of productAttributeAndOptions) {
-	// 		const productAttribute =
-	// 			productAttributeAndOption?.edges?.product_attribute;
-	// 		const attributeId = productAttribute?.id;
+		for (const productAttributeAndOption of productAttributeAndOptions) {
+			const productAttribute =
+				productAttributeAndOption?.edges?.product_attribute;
+			const attributeId = productAttribute?.id;
 
-	// 		const optionAndValues = {
-	// 			id: attributeId,
-	// 			name: productAttribute?.name,
-	// 			values: [
-	// 				productAttributeAndOption?.value?.trim()?.toLowerCase()
-	// 			]
-	// 		};
+			const optionAndValues = {
+				id: attributeId,
+				name: productAttribute?.name,
+				values: [
+					productAttributeAndOption?.value?.trim()?.toLowerCase()
+				]
+			};
 
-	// 		const isOptionExist = options?.[attributeId];
-	// 		if (!isOptionExist) {
-	// 			options[attributeId] = optionAndValues;
-	// 			continue;
-	// 		}
+			const isOptionExist = options?.[attributeId];
+			if (!isOptionExist) {
+				options[attributeId] = optionAndValues;
+				continue;
+			}
 
-	// 		const selectedOption = options[attributeId];
-	// 		const values = [
-	// 			...selectedOption?.values,
-	// 			...optionAndValues?.values
-	// 		];
-	// 		const uniqueValues = [...new Set(values)];
-	// 		options[attributeId] = {
-	// 			...selectedOption,
-	// 			values: uniqueValues || []
-	// 		};
-	// 	}
+			const selectedOption = options[attributeId];
+			const values = [
+				...selectedOption?.values,
+				...optionAndValues?.values
+			];
+			const uniqueValues = [...new Set(values)];
+			options[attributeId] = {
+				...selectedOption,
+				values: uniqueValues || []
+			};
+		}
 
-	// 	console.log('[productAttributeOptions] =', variant);
-	// } // End of for-loop
+		console.log('[productAttributeOptions] =', variant);
+	} // End of for-loop
 
-	// const optionsAndValueListObject = { ...options };
-	// const updatedOptions: { [key: string]: any } = {};
+	const [selectedOptionAndValue, setSelectedOptionAndValue] = useState<{
+		[key: string]: {
+			optionId: string;
+			optionName: string;
+			value: {
+				name: string;
+			};
+		};
+	}>();
 
-	// for (const key in optionsAndValueListObject) {
-	// 	const optionsAndValueLists = optionsAndValueListObject[key] || [];
+	console.log(
+		'[selectedOption-selectedOption]',
+		selectedOptionAndValue
+	);
 
-	// 	for (const optionAndValueList of optionsAndValueLists) {
-	// 		const { values = [] } = optionAndValueList;
-	// 		for (const value of values) {
-	// 			const optionValue = {
-	// 				name: value,
-	// 				imageUrl: ''
-	// 			};
+	const optionsAndValueListObject: any = {};
+	const optionList = { ...options };
+	for (const key in optionList) {
+		const optionsAndValueLists = optionList[key] || [];
+		const {
+			id: optionId,
+			name: optionName,
+			values = []
+		} = optionsAndValueLists;
+		if (!optionsAndValueListObject[optionId]) {
+			optionsAndValueListObject[optionId] = {
+				id: optionId,
+				name: optionName,
+				values: []
+			};
+		}
 
-	// 			// Variants Loop
-	// 			for (const variant of variants) {
-	// 				const productAttributeOptions =
-	// 					variant?.edges?.product_attribute_options?.map(
-	// 						(productAttributeAndOption: any) =>
-	// 							productAttributeAndOption?.value
-	// 					) || [];
+		// Looping through all the option values.
+		for (const value of values) {
+			const optionValue = {
+				name: value?.toLowerCase(),
+				imageUrl: ''
+			};
 
-	// 				if (productAttributeOptions?.includes(value)) {
-	// 					optionValue.imageUrl = variant?.images?.[0] || '';
-	// 					break;
-	// 				}
-	// 			} // End of variant for-loop
+			// Variants Loop
+			for (const variant of variants) {
+				const productAttributeOptions =
+					variant?.edges?.product_attribute_options?.map(
+						(productAttributeAndOption: any) =>
+							productAttributeAndOption?.value?.toLowerCase()
+					) || [];
 
-	// 			const isOptionExist = updatedOptions?.[key];
-	// 			if (!isOptionExist) {
-	// 				options[key] = optionAndValues;
-	// 				continue;
-	// 			}
+				if (productAttributeOptions?.includes(value?.toLowerCase())) {
+					optionValue.imageUrl = variant?.images?.[0] || '';
+					break;
+				}
+			} // End of variant for-loop
+			const existingOptionValues =
+				optionsAndValueListObject[key].values;
+			optionsAndValueListObject[key].values = [
+				...existingOptionValues,
+				optionValue
+			];
+		} // End of values for-loop
+	} // End of optionsAndValueListObject for-loop
 
-	// 			const selectedOption = updatedOptions[key];
-	// 			const values = [
-	// 				...selectedOption?.values,
-	// 				...optionAndValues?.values
-	// 			];
-	// 			const uniqueValues = [...new Set(values)];
-	// 			updatedOptions[key] = {
-	// 				...selectedOption,
-	// 				values: uniqueValues || []
-	// 			};
-	// 		} // End of values for-loop
-	// 	} // End of for-loop
-	// }
+	const firstSelectedOptionAndValues =
+		optionsAndValueListObject[product?.product_attribute_id];
+	delete optionsAndValueListObject[product?.product_attribute_id];
+	const updatedOptionsAndValueLists = [
+		firstSelectedOptionAndValues,
+		...Object.values(optionsAndValueListObject || {})
+	];
 
 	console.log('[options-options] =', {
-		// optionsAndValueLists,
-		// updatedOptionsAndValueLists,
-		// updatedOptions
+		updatedOptionsAndValueLists,
+		variants,
+		product
 	});
 
-	// const optionsAndValueList = Object.values(options);
+	const onOptionAndValueSelect = (optionAndValue: any) => {
+		setSelectedOptionAndValue((prevSelectedOptionAndValue) => {
+			const updated = Object.values({
+				...prevSelectedOptionAndValue,
+				[optionAndValue?.optionId]: optionAndValue
+			});
+
+			console.log('{onOptionAndValueSelect-productVariants} =', {
+				productVariants,
+				updated
+			});
+
+			const variant = productVariants?.find((productVariant) => {
+				const productAttributeOptions =
+					productVariant?.edges?.product_attribute_options || [];
+			});
+
+			const selectedOptionId = optionAndValue?.optionId;
+
+			const prevSelectedOptionsAndValue = {
+				...prevSelectedOptionAndValue
+			};
+			if (
+				prevSelectedOptionsAndValue?.[selectedOptionId]?.value?.name ===
+				optionAndValue?.value?.name
+			) {
+				delete prevSelectedOptionsAndValue[selectedOptionId];
+				return prevSelectedOptionsAndValue;
+			}
+
+			return {
+				...prevSelectedOptionsAndValue,
+				[selectedOptionId]: optionAndValue
+			};
+		});
+	}; // End of onOptionAndValueSelect
 
 	return (
 		<>
@@ -517,14 +576,18 @@ const ProductDetailsTile: React.FC<{
 						)}
 					</div>
 
-					{/* Product name and bullet points */}
+					{/* Product name and description */}
 					<div className="mt-[15px] border-t-2 border-[#DEDFE0] pt-[13px] md:border-b-2 md:pt-[19px] md:pb-[25.64px]">
-						<h2 className="text-xs leading-[22px] text-gray md:text-[15px]">
-							{/* <span className="font-semibold">{productName}:</span>{' '} */}
-							<span className="whitespace-pre-line">
+						<div className="flex items-end">
+							<h2 className="borer h-[49px] overflow-clip text-xs leading-[22px] text-gray md:text-[15px]">
+								{/* <span className="whitespace-pre-line"> */}
 								{getLocaleText(description || {}, locale)}
-							</span>
-						</h2>
+								{/* </span> */}
+							</h2>
+							<button className="border text-[15px] font-bold text-cyan">
+								More
+							</button>
+						</div>
 
 						{/* Actions */}
 						<div className="mt-[25px] hidden items-center space-x-2 md:flex">
@@ -603,10 +666,126 @@ const ProductDetailsTile: React.FC<{
 						</div>
 
 						{/* Variants Options And Values */}
+						{updatedOptionsAndValueLists?.map(
+							(optionAndValueList: any, index: number) => {
+								const { id, name, values = [] } = optionAndValueList;
+								const showImage = index === 0;
+
+								const filteredOptionAndValue =
+									selectedOptionAndValue?.[id];
+								console.log(
+									'filteredOptionAndValue =',
+									filteredOptionAndValue
+								);
+								const selectedOptionValue =
+									filteredOptionAndValue?.value?.name || '';
+
+								return (
+									<div
+										key={id}
+										className="border-b border-[#DEDFE0] pb-8"
+									>
+										{/* Option Name */}
+										<div className="flex items-center justify-between">
+											{/* Option name: Selected Value */}
+											<p className="text-[15px] capitalize">
+												<span>{optionAndValueList?.name}: </span>
+												<span className="font-semibold">
+													{selectedOptionValue}
+												</span>
+											</p>
+											<Button>
+												<ChevronLeftIcon className="h-10 w-10 text-gray" />{' '}
+											</Button>
+										</div>
+
+										{/* Values */}
+										<div
+											className={`grid grid-cols-4 gap-8 ${
+												showImage ? 'mt-4' : 'mt-8'
+											}`}
+										>
+											{/* If option is First then all value will be visible as image otherwise text */}
+											{values?.map((value: any, index: number) => {
+												const isOptionValueSelected =
+													value?.name === selectedOptionValue;
+
+												const optionAndValue = {
+													optionId: id,
+													optionName: name,
+													value
+												};
+
+												if (showImage) {
+													return (
+														<div key={index} className="">
+															<div
+																key={index}
+																className={`h-[110px] w-[111px] cursor-pointer overflow-hidden ${
+																	isOptionValueSelected
+																		? 'border-4 border-cyan'
+																		: 'border-cyan hover:border-4'
+																}`}
+																onClick={() =>
+																	onOptionAndValueSelect(optionAndValue)
+																}
+															>
+																<ImageWithErrorHandler
+																	key={value?.imageUrl || ''}
+																	src={value?.imageUrl || ''}
+																	alt={value?.name || ''}
+																	width={111}
+																	height={110}
+																/>
+															</div>
+															<p className="w-[111px] text-center">
+																{value?.name}
+															</p>
+														</div>
+													);
+												}
+
+												return (
+													<p
+														key={index}
+														className={`font-semibold ${
+															isOptionValueSelected
+																? 'text-[#575858]'
+																: 'text-[#575858]/40'
+														}`}
+														onClick={() =>
+															onOptionAndValueSelect(optionAndValue)
+														}
+													>
+														{value?.name}
+													</p>
+												);
+											})}
+										</div>
+									</div>
+								);
+							}
+						)}
+
+						{/* Product Feature */}
+						<div>
+							<p className="text-[15px] font-semibold leading-[22px] text-[#575858]">
+								Product features:
+							</p>
+							<ul className="ml-6 list-disc text-[15px] leading-[22px] text-[#575858]">
+								<li>Powerful engines</li>
+								<li>Powerful engines</li>
+								<li>Powerful engines</li>
+								<li>Powerful engines</li>
+								<li>Powerful engines</li>
+								<li>Powerful engines</li>
+								<li>Powerful engines</li>
+							</ul>
+						</div>
 
 						{/* Variants */}
 						{productVariants?.length >= 0 && (
-							<div className="mt-3 space-y-5">
+							<div className="mt-3 hidden space-y-5">
 								{/* Variants Dropdown */}
 								<div className="flex items-center space-x-2">
 									<p className="text-[21px] font-semibold leading-[26px] text-primary-main">
