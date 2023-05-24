@@ -85,7 +85,10 @@ const ProductDetailsPage: NextPage<
 	useEffect(() => {
 		if (selectedVariantId) {
 			const updatedProductData = { ...productData };
-			console.log('updatedProductData', updatedProductData);
+			console.log('[updatedProductData]', {
+				updatedProductData,
+				selectedVariantId
+			});
 
 			const productVariants =
 				updatedProductData?.edges?.product_variants || [];
@@ -97,6 +100,11 @@ const ProductDetailsPage: NextPage<
 				if (!productVariant) {
 					return;
 				}
+
+				console.log('[productVariant]', {
+					productVariant,
+					selectedVariantId
+				});
 
 				updatedProductData.variant_id = productVariant?.id;
 				updatedProductData.product_dimension =

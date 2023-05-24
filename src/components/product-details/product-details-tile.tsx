@@ -17,6 +17,7 @@ import RatingStars from './product-details-tab/product-review/rating-stars';
 // utils
 import { Listbox, Transition } from '@headlessui/react';
 import {
+	ChevronDownIcon,
 	ChevronLeftIcon,
 	ChevronUpDownIcon
 } from '@heroicons/react/20/solid';
@@ -37,6 +38,7 @@ import {
 import { getDefaultProductAndProductVariants } from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
 import ImageContainer from './product-details-images/image-contaier';
+import ProductOptionsValuesAccordion from './product-options-values-accordion';
 
 const ProductDetailsTile: React.FC<{
 	totalReviewCount: number;
@@ -61,6 +63,10 @@ const ProductDetailsTile: React.FC<{
 	const [sliderRef] = useKeenSlider<HTMLDivElement>({
 		slides: { perView: 4, spacing: 16 }
 	});
+	const [
+		isProductDescriptionSectionExpanded,
+		setIsProductDescriptionSectionExpanded
+	] = useState(false);
 
 	const { t } = useTranslation();
 
@@ -84,15 +90,14 @@ const ProductDetailsTile: React.FC<{
 		is_eco,
 		seller_country = [],
 		total_rate_count = 0,
-		total_review_count = 0
+		total_review_count = 0,
+		product_features = []
 	} = product || {};
 
 	const { defaultVariant, variants, totalVariantCount } =
 		getDefaultProductAndProductVariants(
 			product?.edges?.product_variants || []
 		);
-
-	// let firstVariant: any = {};
 
 	const productVariants: any[] = [];
 	const productSizes: string[] = [];
@@ -152,12 +157,19 @@ const ProductDetailsTile: React.FC<{
 
 	console.log('[colors] = ', { colors, productVariants });
 
+	const selectedVariant = variants?.find(
+		(variant) => variant?.id === selectedVariantId
+	);
+	console.log('{selectedVariant-selectedVariantId}', {
+		selectedVariantId,
+		selectedVariant
+	});
 	const {
 		retail_price: product_price,
 		is_bulk_pricing,
 		bulk_pricing = [],
 		inventory = {}
-	} = defaultVariant || {};
+	} = selectedVariantId ? selectedVariant : defaultVariant || {};
 
 	const productName = getLocaleText(name || {}, locale);
 
@@ -181,6 +193,7 @@ const ProductDetailsTile: React.FC<{
 		getLocaleText(sellerCountry?.name || {}, locale) || '';
 
 	const minOrderQuantity = inventory?.minimum_order_quantity || 0;
+  const isInStock = inventory?.available_quantity > 0 || defaultVariant?.is_unlimited_quantity || false;
 
 	const metadataTileLists = [
 		// country of origin
@@ -257,7 +270,7 @@ const ProductDetailsTile: React.FC<{
 				icon={
 					<div
 						className={`text-[20px] md:text-[24] lg:pl-[2px] lg:text-[24px] ${
-							is_live ? 'text-accent-primary-main' : 'text-gray/40'
+							(is_live && isInStock) ? 'text-accent-primary-main' : 'text-gray/40'
 						}`}
 					>
 						<MdOutlineShoppingCart />
@@ -266,9 +279,9 @@ const ProductDetailsTile: React.FC<{
 				alt={t('common:save')}
 				title={t('cart')}
 				className={`!space-x-1 md:!space-x-4 ${
-					is_live ? 'cursor-pointer' : 'cursor-not-allowed'
+					(is_live && isInStock) ? 'cursor-pointer' : 'cursor-not-allowed'
 				}`}
-				onClick={is_live ? onAddToCart : undefined}
+				onClick={(is_live && isInStock) ? onAddToCart : undefined}
 				titleClassName="md:text-cyan md:text-[13px] md:leading-4"
 			/>
 		</div>
@@ -412,41 +425,77 @@ const ProductDetailsTile: React.FC<{
 	});
 
 	const onOptionAndValueSelect = (optionAndValue: any) => {
-		setSelectedOptionAndValue((prevSelectedOptionAndValue) => {
-			const updated = Object.values({
-				...prevSelectedOptionAndValue,
-				[optionAndValue?.optionId]: optionAndValue
-			});
-
-			console.log('{onOptionAndValueSelect-productVariants} =', {
-				productVariants,
-				updated
-			});
-
+		const findAndSetVariantBySelectedOptionValues = (
+			updatedSelectedOptionAndValueObject: any
+		) => {
+			const updatedSelectedOptionAndValue = Object.values(
+				updatedSelectedOptionAndValueObject || {}
+			);
 			const variant = productVariants?.find((productVariant) => {
 				const productAttributeOptions =
 					productVariant?.edges?.product_attribute_options || [];
+
+				// This matchCount track or count for, wheather in a variant all seletct option are matching or not
+				let matchCount = 0;
+				for (const productAttributeOption of productAttributeOptions) {
+					for (const selectedOptionAndValue of updatedSelectedOptionAndValue) {
+						if (
+							(selectedOptionAndValue as any)?.value?.name ===
+							productAttributeOption.value
+						) {
+							matchCount += 1;
+						}
+					}
+				}
+
+				const updatedSelectedOptionAndValueLength =
+					updatedSelectedOptionAndValue.length;
+				return (
+					matchCount === updatedSelectedOptionAndValueLength &&
+					updatedSelectedOptionAndValueLength > 0
+				);
 			});
 
+			onVariantClick(
+				selectedVariantId === variant?.id ? '' : variant?.id
+			);
+		}; // End of findAndSetVariantBySelectedOptionValues
+
+		setSelectedOptionAndValue((prevSelectedOptionAndValue) => {
 			const selectedOptionId = optionAndValue?.optionId;
 
 			const prevSelectedOptionsAndValue = {
 				...prevSelectedOptionAndValue
 			};
+
+			let updatedSelectedOptionAndValueObj = {};
 			if (
 				prevSelectedOptionsAndValue?.[selectedOptionId]?.value?.name ===
 				optionAndValue?.value?.name
 			) {
 				delete prevSelectedOptionsAndValue[selectedOptionId];
+
+				findAndSetVariantBySelectedOptionValues(
+					prevSelectedOptionsAndValue || {}
+				);
 				return prevSelectedOptionsAndValue;
 			}
 
-			return {
+			const updatedSelectedOptionAndValueObject = {
 				...prevSelectedOptionsAndValue,
 				[selectedOptionId]: optionAndValue
 			};
+
+			findAndSetVariantBySelectedOptionValues(
+				updatedSelectedOptionAndValueObject || {}
+			);
+
+			return updatedSelectedOptionAndValueObject;
 		});
 	}; // End of onOptionAndValueSelect
+
+	const productDescription =
+		getLocaleText(description || {}, locale) || '';
 
 	return (
 		<>
@@ -578,15 +627,48 @@ const ProductDetailsTile: React.FC<{
 
 					{/* Product name and description */}
 					<div className="mt-[15px] border-t-2 border-[#DEDFE0] pt-[13px] md:border-b-2 md:pt-[19px] md:pb-[25.64px]">
-						<div className="flex items-end">
-							<h2 className="borer h-[49px] overflow-clip text-xs leading-[22px] text-gray md:text-[15px]">
-								{/* <span className="whitespace-pre-line"> */}
-								{getLocaleText(description || {}, locale)}
-								{/* </span> */}
+						<div className="flex items-start">
+							<h2 className="overflow-clips h-[49px]s text-xs leading-[22px] text-gray md:text-[15px]">
+								{productDescription?.length > 150
+									? productDescription?.substring(
+											0,
+											isProductDescriptionSectionExpanded
+												? productDescription?.length
+												: 150
+									  )
+									: productDescription}
+
+								{productDescription?.length > 150 && (
+									<button
+										className="pl-2 text-[15px] font-bold text-cyan"
+										onClick={() =>
+											setIsProductDescriptionSectionExpanded(
+												(prevState) => !prevState
+											)
+										}
+									>
+										{isProductDescriptionSectionExpanded
+											? 'Less'
+											: 'More'}
+									</button>
+								)}
 							</h2>
-							<button className="border text-[15px] font-bold text-cyan">
-								More
-							</button>
+
+							{productDescription?.length > 150 && (
+								<Button
+									onClick={() =>
+										setIsProductDescriptionSectionExpanded(
+											(prevState) => !prevState
+										)
+									}
+								>
+									{isProductDescriptionSectionExpanded ? (
+										<ChevronDownIcon className="h-10 w-10 text-gray" />
+									) : (
+										<ChevronLeftIcon className="h-10 w-10 text-gray" />
+									)}
+								</Button>
+							)}
 						</div>
 
 						{/* Actions */}
@@ -668,7 +750,11 @@ const ProductDetailsTile: React.FC<{
 						{/* Variants Options And Values */}
 						{updatedOptionsAndValueLists?.map(
 							(optionAndValueList: any, index: number) => {
-								const { id, name, values = [] } = optionAndValueList;
+								const {
+									id,
+									name,
+									values = []
+								} = optionAndValueList || {};
 								const showImage = index === 0;
 
 								const filteredOptionAndValue =
@@ -681,107 +767,33 @@ const ProductDetailsTile: React.FC<{
 									filteredOptionAndValue?.value?.name || '';
 
 								return (
-									<div
-										key={id}
-										className="border-b border-[#DEDFE0] pb-8"
-									>
-										{/* Option Name */}
-										<div className="flex items-center justify-between">
-											{/* Option name: Selected Value */}
-											<p className="text-[15px] capitalize">
-												<span>{optionAndValueList?.name}: </span>
-												<span className="font-semibold">
-													{selectedOptionValue}
-												</span>
-											</p>
-											<Button>
-												<ChevronLeftIcon className="h-10 w-10 text-gray" />{' '}
-											</Button>
-										</div>
-
-										{/* Values */}
-										<div
-											className={`grid grid-cols-4 gap-8 ${
-												showImage ? 'mt-4' : 'mt-8'
-											}`}
-										>
-											{/* If option is First then all value will be visible as image otherwise text */}
-											{values?.map((value: any, index: number) => {
-												const isOptionValueSelected =
-													value?.name === selectedOptionValue;
-
-												const optionAndValue = {
-													optionId: id,
-													optionName: name,
-													value
-												};
-
-												if (showImage) {
-													return (
-														<div key={index} className="">
-															<div
-																key={index}
-																className={`h-[110px] w-[111px] cursor-pointer overflow-hidden ${
-																	isOptionValueSelected
-																		? 'border-4 border-cyan'
-																		: 'border-cyan hover:border-4'
-																}`}
-																onClick={() =>
-																	onOptionAndValueSelect(optionAndValue)
-																}
-															>
-																<ImageWithErrorHandler
-																	key={value?.imageUrl || ''}
-																	src={value?.imageUrl || ''}
-																	alt={value?.name || ''}
-																	width={111}
-																	height={110}
-																/>
-															</div>
-															<p className="w-[111px] text-center">
-																{value?.name}
-															</p>
-														</div>
-													);
-												}
-
-												return (
-													<p
-														key={index}
-														className={`font-semibold ${
-															isOptionValueSelected
-																? 'text-[#575858]'
-																: 'text-[#575858]/40'
-														}`}
-														onClick={() =>
-															onOptionAndValueSelect(optionAndValue)
-														}
-													>
-														{value?.name}
-													</p>
-												);
-											})}
-										</div>
-									</div>
+									<ProductOptionsValuesAccordion
+										key={index}
+										productVariants={productVariants || []}
+										showImage={showImage}
+										selectedOptionAndValue={selectedOptionAndValue}
+										optionAndValues={optionAndValueList}
+										onOptionAndValueSelect={onOptionAndValueSelect}
+									/>
 								);
 							}
 						)}
 
 						{/* Product Feature */}
-						<div>
-							<p className="text-[15px] font-semibold leading-[22px] text-[#575858]">
-								Product features:
-							</p>
-							<ul className="ml-6 list-disc text-[15px] leading-[22px] text-[#575858]">
-								<li>Powerful engines</li>
-								<li>Powerful engines</li>
-								<li>Powerful engines</li>
-								<li>Powerful engines</li>
-								<li>Powerful engines</li>
-								<li>Powerful engines</li>
-								<li>Powerful engines</li>
-							</ul>
-						</div>
+						{product_features?.length > 0 && (
+							<div>
+								<p className="text-[15px] font-semibold leading-[22px] text-[#575858]">
+									Product features:
+								</p>
+								<ul className="ml-6 list-disc text-[15px] leading-[22px] text-[#575858]">
+									{product_features?.map((productFeature: any) => (
+										<li key={productFeature?.en}>
+											{getLocaleText(productFeature, locale)}
+										</li>
+									))}
+								</ul>
+							</div>
+						)}
 
 						{/* Variants */}
 						{productVariants?.length >= 0 && (
