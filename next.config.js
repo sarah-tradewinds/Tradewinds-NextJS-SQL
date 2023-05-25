@@ -47,19 +47,24 @@ const nextConfig = (phase) => {
 		reactStrictMode: true,
 		env: {
 			SITE_URL:
-				'https://tradewindsmppreprodshoppingsite.azurewebsites.net',
+				// 'https://tradewindsmppreprodshoppingsite.azurewebsites.net',
+				'tradewindsmpproductionshoppingsite.azurewebsites.net',
 
 			BUYER_DASHBOARD_SITE_URL:
-				'https://white-ocean-019fe600f.2.azurestaticapps.net/#',
+				// 'https://white-ocean-019fe600f.2.azurestaticapps.net/#',
+				'https://victorious-forest-0245d510f.3.azurestaticapps.net/#',
 
 			BDM_DASHBOARD_SITE_URL:
-				'https://white-ocean-019fe600f.2.azurestaticapps.net/#',
+				// 'https://white-ocean-019fe600f.2.azurestaticapps.net/#',
+				'https://victorious-forest-0245d510f.3.azurestaticapps.net/#',
 
 			SELLER_DASHBOARD_SITE_URL:
-				'https://white-ocean-019fe600f.2.azurestaticapps.net/#',
+				// 'https://white-ocean-019fe600f.2.azurestaticapps.net/#',
+				'https://victorious-forest-0245d510f.3.azurestaticapps.net',
 
 			API_BASE_URL:
-				'https://tradewinds-sql-preprod-as.azurewebsites.net',
+				// 'https://tradewinds-sql-preprod-as.azurewebsites.net',
+				'https://tradewinds-production-apim.azure-api.net',
 
 			// UAT PRE-PROD
 			// 'https://tradewinds-uat-preprod-apim.azure-api.net',
