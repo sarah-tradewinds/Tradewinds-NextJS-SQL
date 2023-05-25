@@ -101,7 +101,7 @@ const ProductDetailsPage: NextPage<
 					return;
 				}
 
-				console.log('[productVariant]', {
+				console.log('[productVariant]-[productVariant] =', {
 					productVariant,
 					selectedVariantId
 				});

@@ -193,7 +193,10 @@ const ProductDetailsTile: React.FC<{
 		getLocaleText(sellerCountry?.name || {}, locale) || '';
 
 	const minOrderQuantity = inventory?.minimum_order_quantity || 0;
-  const isInStock = inventory?.available_quantity > 0 || defaultVariant?.is_unlimited_quantity || false;
+	const isInStock =
+		inventory?.available_quantity > 0 ||
+		defaultVariant?.is_unlimited_quantity ||
+		false;
 
 	const metadataTileLists = [
 		// country of origin
@@ -270,7 +273,9 @@ const ProductDetailsTile: React.FC<{
 				icon={
 					<div
 						className={`text-[20px] md:text-[24] lg:pl-[2px] lg:text-[24px] ${
-							(is_live && isInStock) ? 'text-accent-primary-main' : 'text-gray/40'
+							is_live && isInStock
+								? 'text-accent-primary-main'
+								: 'text-gray/40'
 						}`}
 					>
 						<MdOutlineShoppingCart />
@@ -279,9 +284,9 @@ const ProductDetailsTile: React.FC<{
 				alt={t('common:save')}
 				title={t('cart')}
 				className={`!space-x-1 md:!space-x-4 ${
-					(is_live && isInStock) ? 'cursor-pointer' : 'cursor-not-allowed'
+					is_live && isInStock ? 'cursor-pointer' : 'cursor-not-allowed'
 				}`}
-				onClick={(is_live && isInStock) ? onAddToCart : undefined}
+				onClick={is_live && isInStock ? onAddToCart : undefined}
 				titleClassName="md:text-cyan md:text-[13px] md:leading-4"
 			/>
 		</div>
@@ -435,21 +440,67 @@ const ProductDetailsTile: React.FC<{
 				const productAttributeOptions =
 					productVariant?.edges?.product_attribute_options || [];
 
-				// This matchCount track or count for, wheather in a variant all seletct option are matching or not
+				// This matchCount track or count for, weather in a variant all selected option are matching or not
 				let matchCount = 0;
 				for (const productAttributeOption of productAttributeOptions) {
 					for (const selectedOptionAndValue of updatedSelectedOptionAndValue) {
+						const selectedOptionAndValueData =
+							selectedOptionAndValue as any;
+
+						const productAttributeId =
+							productAttributeOption?.edges?.product_attribute?.id;
+
 						if (
-							(selectedOptionAndValue as any)?.value?.name ===
-							productAttributeOption.value
+							productAttributeId ===
+								selectedOptionAndValueData?.optionId &&
+							selectedOptionAndValueData?.value?.name ===
+								productAttributeOption.value
+						) {
+							// console.log(
+							// 	'selectedOptionAndValue as any)?.value?.name === productAttributeOption.value',
+							// 	{
+							// 		productAttributeId,
+							// 		name: (selectedOptionAndValue as any)?.value?.name,
+							// 		productAttributeOptionName:
+							// 			productAttributeOption?.value
+							// 	}
+							// );
+						}
+
+						if (
+							// productAttributeId ===
+							// 	selectedOptionAndValueData?.optionId &&
+							// selectedOptionAndValueData?.value?.name ===
+							// 	productAttributeOption.value
+
+							productAttributeId ===
+								selectedOptionAndValueData?.optionId &&
+							selectedOptionAndValueData?.value?.name ===
+								productAttributeOption.value
 						) {
 							matchCount += 1;
 						}
 					}
 				}
 
+				console.log(
+					'selectedOptionAndValue as any)?.value?.name === productAttributeOption.value',
+					matchCount,
+					updatedSelectedOptionAndValue.length,
+					{
+						updatedSelectedOptionAndValue
+					}
+					// {
+					// 	productAttributeId,
+					// 	name: (selectedOptionAndValue as any)?.value?.name,
+					// 	productAttributeOptionName:
+					// 		productAttributeOption?.value
+					// }
+				);
+
 				const updatedSelectedOptionAndValueLength =
 					updatedSelectedOptionAndValue.length;
+
 				return (
 					matchCount === updatedSelectedOptionAndValueLength &&
 					updatedSelectedOptionAndValueLength > 0
@@ -459,6 +510,13 @@ const ProductDetailsTile: React.FC<{
 			onVariantClick(
 				selectedVariantId === variant?.id ? '' : variant?.id
 			);
+
+			console.log('[onOptionAndValueSelect] optionAndValue', {
+				optionAndValue,
+				// selectedOptionAndValueData,
+				variants,
+				variant
+			});
 		}; // End of findAndSetVariantBySelectedOptionValues
 
 		setSelectedOptionAndValue((prevSelectedOptionAndValue) => {
@@ -727,7 +785,7 @@ const ProductDetailsTile: React.FC<{
 					</div>
 
 					{/* Additional info */}
-					<div className="hidden space-y-4 md:mt-[21px] md:block">
+					<div className="md:mt-[21px]s hidden space-y-4 md:block">
 						{/* Bulk Pricing */}
 						<div ref={sliderRef} className="keen-slider">
 							{is_bulk_pricing &&
