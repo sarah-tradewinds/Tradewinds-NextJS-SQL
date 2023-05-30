@@ -25,11 +25,13 @@ export const getProducts = async (params: {
 	minimum_order?: string | number;
 	maximum_order?: string | number;
 	minimum_order_quantity?: boolean;
+	limit?: string | number;
 }) => {
 	if (params.minimum_order || params.maximum_order) {
 		params.minimum_order_quantity = true;
 	}
 
+	params.limit = '1000';
 	const queryString = generateQueryString(params);
 
 	try {
