@@ -15,9 +15,11 @@ import MetadataTile from '../product-search/metadata/metadata-tile';
 import RatingStars from './product-details-tab/product-review/rating-stars';
 
 // utils
+import { Listbox, Transition } from '@headlessui/react';
 import {
 	ChevronDownIcon,
-	ChevronLeftIcon
+	ChevronLeftIcon,
+	ChevronUpDownIcon
 } from '@heroicons/react/20/solid';
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import MessageVendorPopup from 'components/common/popup/message-vendor.popup';
@@ -27,7 +29,7 @@ import {
 	sendMessageToSeller
 } from 'lib/common.lib';
 import { useTranslation } from 'next-i18next';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import {
 	MdBookmark,
 	MdOutlineBookmarkBorder,
@@ -54,6 +56,7 @@ const ProductDetailsTile: React.FC<{
 	} = props;
 
 	const [selected, setSelected] = useState<any>({});
+	const [selectedColor, setSelectedColor] = useState('');
 	const [isMessageVendorPopupOpen, setIsMessageVendorPopupOpen] =
 		useState(false);
 
@@ -96,77 +99,77 @@ const ProductDetailsTile: React.FC<{
 			product?.edges?.product_variants || []
 		);
 
-	// const productVariants: any[] = [];
-	// const productSizes: string[] = [];
-	// const materials: string[] = [];
-	// const styles: string[] = [];
-	// const titles: string[] = [];
-	// const colors: string[] = [];
-	// variants?.forEach((variant: any, index: number) => {
-	// const { product_attribute_options = [] } = variant?.edges || {};
+	const productVariants: any[] = [];
+	const productSizes: string[] = [];
+	const materials: string[] = [];
+	const styles: string[] = [];
+	const titles: string[] = [];
+	const colors: string[] = [];
+	variants?.forEach((variant: any, index: number) => {
+		const { product_attribute_options = [] } = variant?.edges || {};
 
-	// product_attribute_options?.forEach((attributeOption: any) => {
-	// 	// const attributeName =
-	// 	// 	attributeOption?.edges?.product_attribute?.name
-	// 	// 		?.trim()
-	// 	// 		?.toLowerCase();
+		product_attribute_options?.forEach((attributeOption: any) => {
+			const attributeName =
+				attributeOption?.edges?.product_attribute?.name
+					?.trim()
+					?.toLowerCase();
 
-	// 	// const attributeValue = attributeOption?.value
-	// 	// 	?.trim()
-	// 	// 	?.toLowerCase();
+			const attributeValue = attributeOption?.value
+				?.trim()
+				?.toLowerCase();
 
-	// 	// switch (attributeName) {
-	// 	// 	case 'size':
-	// 	// 		variant.size = attributeValue;
-	// 	// 		// productSizes.push(attributeValue);
-	// 	// 		break;
-	// 	// 	case 'material':
-	// 	// 		// materials.push(attributeValue);
-	// 	// 		break;
-	// 	// 	case '':
-	// 	// 		variant.style = attributeValue;
-	// 	// 		// styles.push(attributeValue);
-	// 	// 		break;
-	// 	// 	case 'title':
-	// 	// 		variant.title = attributeValue;
-	// 	// 		// titles.push(attributeValue);
-	// 	// 		break;
-	// 	// 	case 'color':
-	// 	// 		variant.color = attributeValue;
-	// 	// 		// colors.push(attributeValue);
-	// 	// 		break;
-	// 	// 	case 'colour':
-	// 	// 		variant.color = attributeValue;
-	// 	// 		// colors.push(attributeValue);
-	// 	// 		break;
-	// 	// }
-	// }); // End of inner forEach loop
+			switch (attributeName) {
+				case 'size':
+					variant.size = attributeValue;
+					productSizes.push(attributeValue);
+					break;
+				case 'material':
+					materials.push(attributeValue);
+					break;
+				case '':
+					variant.style = attributeValue;
+					styles.push(attributeValue);
+					break;
+				case 'title':
+					variant.title = attributeValue;
+					titles.push(attributeValue);
+					break;
+				case 'color':
+					variant.color = attributeValue;
+					colors.push(attributeValue);
+					break;
+				case 'colour':
+					variant.color = attributeValue;
+					colors.push(attributeValue);
+					break;
+			}
+		}); // End of inner forEach loop
 
-	// console.log('variant?.name', variant?.name);
-	// if (!variant?.name?.en) {
-	// 	variant.name = {
-	// 		en: `${variant.color || ''} ${variant.size || ''}`
-	// 	};
-	// }
-	// Pushing variant to list
-	// productVariants.push(variant);
-	// }); // End of forEach loop
+		console.log('variant?.name', variant?.name);
+		if (!variant?.name?.en) {
+			variant.name = {
+				en: `${variant.color || ''} ${variant.size || ''}`
+			};
+		}
+		// Pushing variant to list
+		productVariants.push(variant);
+	}); // End of forEach loop
 
-	const selectedVariant =
-		variants?.find((variant) => variant?.id === selectedVariantId) ||
-		defaultVariant;
+	console.log('[colors] = ', { colors, productVariants });
 
+	const selectedVariant = variants?.find(
+		(variant) => variant?.id === selectedVariantId
+	);
+	console.log('{selectedVariant-selectedVariantId}', {
+		selectedVariantId,
+		selectedVariant
+	});
 	const {
 		retail_price: product_price,
 		is_bulk_pricing,
 		bulk_pricing = [],
 		inventory = {}
-		// } = selectedVariantId ? selectedVariant : defaultVariant || {};
-	} = selectedVariant || {};
-	console.log(
-		'selectedVariant-selectedVariant-selectedVariant =',
-		selectedVariant
-	);
+	} = selectedVariantId ? selectedVariant : defaultVariant || {};
 
 	const productName = getLocaleText(name || {}, locale);
 
@@ -192,7 +195,7 @@ const ProductDetailsTile: React.FC<{
 	const minOrderQuantity = inventory?.minimum_order_quantity || 0;
 	const isInStock =
 		inventory?.available_quantity > 0 ||
-		selectedVariant?.is_unlimited_quantity ||
+		defaultVariant?.is_unlimited_quantity ||
 		false;
 
 	const metadataTileLists = [
@@ -256,7 +259,7 @@ const ProductDetailsTile: React.FC<{
 			key={metadataList[4].title}
 			imageUrl={metadataList[4].imageUrl}
 			alt={metadataList[4].title}
-			title={`${t('common:variants')} ${totalVariantCount || 0}`}
+			title={`${t('common:variants')} ${productVariants?.length || 0}`}
 			className="!space-x-1 md:!space-x-4"
 			titleClassName="md:text-[13px] md:leading-4"
 		/>,
@@ -289,11 +292,29 @@ const ProductDetailsTile: React.FC<{
 		</div>
 	];
 
+	const getUniqueList = (list: string[]) => [...new Set<string>(list)];
+
 	const images = product?.images?.length
 		? product?.images
-		: selectedVariant?.images || [];
+		: defaultVariant?.images || [];
 	const masterImageUrl = images?.[0];
 
+	const optionsAndValues = [
+		{
+			id: '',
+			name: 'Color',
+			value: '',
+			values: [
+				{
+					id: '',
+					name: '',
+					imageUrl: ''
+				}
+			]
+		}
+	];
+
+	console.log('[optionsAndValues] variant', variants);
 	const options: { [key: string]: any } = {};
 	for (const variant of variants) {
 		const productAttributeAndOptions =
@@ -342,6 +363,11 @@ const ProductDetailsTile: React.FC<{
 			};
 		};
 	}>();
+
+	console.log(
+		'[selectedOption-selectedOption]',
+		selectedOptionAndValue
+	);
 
 	const optionsAndValueListObject: any = {};
 	const optionList = { ...options };
@@ -397,6 +423,12 @@ const ProductDetailsTile: React.FC<{
 		...Object.values(optionsAndValueListObject || {})
 	];
 
+	console.log('[options-options] =', {
+		updatedOptionsAndValueLists,
+		variants,
+		product
+	});
+
 	const onOptionAndValueSelect = (optionAndValue: any) => {
 		const findAndSetVariantBySelectedOptionValues = (
 			updatedSelectedOptionAndValueObject: any
@@ -404,7 +436,7 @@ const ProductDetailsTile: React.FC<{
 			const updatedSelectedOptionAndValue = Object.values(
 				updatedSelectedOptionAndValueObject || {}
 			);
-			const variant = variants?.find((productVariant) => {
+			const variant = productVariants?.find((productVariant) => {
 				const productAttributeOptions =
 					productVariant?.edges?.product_attribute_options || [];
 
@@ -462,6 +494,13 @@ const ProductDetailsTile: React.FC<{
 			onVariantClick(
 				selectedVariantId === variant?.id ? '' : variant?.id
 			);
+
+			console.log('[onOptionAndValueSelect] optionAndValue', {
+				optionAndValue,
+				// selectedOptionAndValueData,
+				variants,
+				variant
+			});
 		}; // End of findAndSetVariantBySelectedOptionValues
 
 		setSelectedOptionAndValue((prevSelectedOptionAndValue) => {
@@ -549,10 +588,10 @@ const ProductDetailsTile: React.FC<{
 					{/* Price and quantity info */}
 					<div className="my-2 flex justify-between text-[12px] font-semibold text-primary-main md:mt-[13px]">
 						<h3 className="flex items-center space-x-8 text-xs font-semibold leading-[15px] md:text-[21px] md:leading-[26px]">
-							{selectedVariant?.is_on_sale && !is_bulk_pricing ? (
+							{defaultVariant?.is_on_sale && !is_bulk_pricing ? (
 								<>
 									<span className="text-accent-error">
-										Sale {selectedVariant?.sales_price}/piece
+										Sale {defaultVariant?.sales_price}/piece
 									</span>
 									<span className="text-gray line-through">
 										${product_price}/piece
@@ -772,7 +811,7 @@ const ProductDetailsTile: React.FC<{
 								return (
 									<ProductOptionsValuesAccordion
 										key={index}
-										productVariants={variants || []}
+										productVariants={productVariants || []}
 										showImage={showImage}
 										selectedOptionAndValue={selectedOptionAndValue}
 										optionAndValues={optionAndValueList}
@@ -795,6 +834,306 @@ const ProductDetailsTile: React.FC<{
 										</li>
 									))}
 								</ul>
+							</div>
+						)}
+
+						{/* Variants */}
+						{productVariants?.length >= 0 && (
+							<div className="mt-3 hidden space-y-5">
+								{/* Variants Dropdown */}
+								<div className="flex items-center space-x-2">
+									<p className="text-[21px] font-semibold leading-[26px] text-primary-main">
+										Variants:
+									</p>
+									<div className="w-full">
+										{/* Variant Button */}
+										<div className="flex items-center space-x-4">
+											{productVariants?.length <= 3 && (
+												<>
+													<Button
+														onClick={() => onVariantClick('')}
+														className={`!text-[21px] ${
+															selectedVariantId
+																? '!px-0 font-normal '
+																: '!h-10 bg-gradient-to-t from-success to-accent-primary-main !text-[16px] font-semibold !leading-4 !text-white'
+														} !text-primary-main`}
+													>
+														Main
+													</Button>
+
+													{productVariants?.map((variant: any) => {
+														console.log('variant', variant);
+														const { id } = variant;
+														const isSelected = selectedVariantId === id;
+														return (
+															<div
+																key={id}
+																className="keen-slider__slide"
+															>
+																<Button
+																	onClick={() =>
+																		onVariantClick(isSelected ? '' : id)
+																	}
+																	className={`!text-[21px] ${
+																		isSelected
+																			? '!h-10 bg-gradient-to-t from-success to-accent-primary-main !text-[16px] font-semibold !leading-4 !text-white'
+																			: '!px-0 font-normal'
+																	} !text-primary-main`}
+																>
+																	{getLocaleText(variant.name, locale)}
+																</Button>
+															</div>
+														);
+													})}
+												</>
+											)}
+										</div>
+
+										{/* Variant dropdown */}
+										{productVariants?.length > 3 && (
+											<Listbox value={selected} onChange={setSelected}>
+												<div className="relative mt-1 w-[235px]">
+													<Listbox.Button className="relative h-10 w-full rounded-md bg-accent-primary-main font-semibold text-white">
+														<span className="block truncate">
+															{getLocaleText(
+																selected.name || {},
+																locale
+															) ||
+																`Variants (${productVariants?.length})`}
+														</span>
+														<span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+															<ChevronUpDownIcon
+																className="h-5 w-5"
+																aria-hidden="true"
+															/>
+														</span>
+													</Listbox.Button>
+
+													<Transition
+														as={Fragment}
+														leave="transition ease-in duration-100"
+														leaveFrom="opacity-100"
+														leaveTo="opacity-0"
+													>
+														<Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+															{/* Main */}
+															<Listbox.Option
+																key="main"
+																className={`relative cursor-pointer select-none py-2 px-4 ${
+																	!selectedVariantId
+																		? 'bg-amber-100 text-amber-900'
+																		: 'text-gray-900'
+																}`}
+																value={{ variants_option: 'Main' }}
+															>
+																<div
+																	className="flex items-center space-x-4"
+																	onClick={() => onVariantClick('')}
+																>
+																	<span
+																		className={`inline-block h-5 w-5 rounded-full ${
+																			!selectedVariantId
+																				? 'bg-accent-primary-main'
+																				: 'bg-[#D9D9D9]'
+																		}`}
+																	></span>
+																	<span
+																		className={`block truncate text-[18px] leading-[22px] ${
+																			!selectedVariantId
+																				? 'font-medium text-accent-primary-main'
+																				: 'font-normal'
+																		}`}
+																	>
+																		Main
+																	</span>
+																</div>
+															</Listbox.Option>
+
+															{productVariants?.map((variant: any) => (
+																<Listbox.Option
+																	key={variant.id}
+																	className={({ active }) =>
+																		`relative cursor-pointer select-none py-2 px-4 ${
+																			active
+																				? 'bg-amber-100 text-amber-900'
+																				: 'text-gray-900'
+																		}`
+																	}
+																	value={variant}
+																	onClick={() => {
+																		console.log(variant.id);
+																		onVariantClick(
+																			selectedVariantId === variant.id
+																				? ''
+																				: variant.id
+																		);
+																	}}
+																>
+																	{({ selected }) => (
+																		<div
+																			className="flex items-center space-x-4"
+																			onClick={() =>
+																				onVariantClick(
+																					selected ? '' : variant.id
+																				)
+																			}
+																		>
+																			<span
+																				className={`inline-block h-5 w-5 rounded-full ${
+																					selected
+																						? 'bg-accent-primary-main'
+																						: 'bg-[#D9D9D9]'
+																				}`}
+																			></span>
+																			<span
+																				className={`block truncate text-[18px] leading-[22px] ${
+																					selected
+																						? 'font-medium text-accent-primary-main'
+																						: 'font-normal'
+																				}`}
+																			>
+																				{getLocaleText(
+																					variant.name,
+																					locale
+																				)}
+																			</span>
+																		</div>
+																	)}
+																</Listbox.Option>
+															))}
+														</Listbox.Options>
+													</Transition>
+												</div>
+											</Listbox>
+										)}
+									</div>
+								</div>
+
+								{/* Size */}
+								{getUniqueList(productSizes)?.length > 0 && (
+									<div className="flex items-center space-x-2">
+										<p className="text-[21px] font-semibold leading-[26px] text-primary-main">
+											Sizes:
+										</p>
+										<div className="flex space-x-4">
+											{getUniqueList(productSizes)?.map((size: any) => (
+												<button
+													key={size}
+													className="h-10 px-2 font-bold"
+												>
+													{size}
+												</button>
+											))}
+										</div>
+									</div>
+								)}
+
+								{/* Materials */}
+								{getUniqueList(materials)?.length > 0 && (
+									<div className="flex items-center space-x-2">
+										<p className="text-[21px] font-semibold leading-[26px] text-primary-main">
+											Materials:
+										</p>
+										<div className="flex space-x-4">
+											{getUniqueList(materials)?.map(
+												(material: any) => (
+													<button
+														key={material}
+														className="h-10 px-2 font-bold"
+													>
+														{material}
+													</button>
+												)
+											)}
+										</div>
+									</div>
+								)}
+
+								{/* Styles */}
+								{getUniqueList(styles)?.length > 0 && (
+									<div className="flex items-center space-x-2">
+										<p className="text-[21px] font-semibold leading-[26px] text-primary-main">
+											Styles:
+										</p>
+										<div className="flex space-x-4">
+											{getUniqueList(styles)?.map((style: any) => (
+												<button
+													key={style}
+													className="h-10 px-2 font-bold"
+												>
+													{style}
+												</button>
+											))}
+										</div>
+									</div>
+								)}
+
+								{/* Titles */}
+								{getUniqueList(titles)?.length > 0 && (
+									<div className="flex items-center space-x-2">
+										<p className="text-[21px] font-semibold leading-[26px] text-primary-main">
+											Titles:
+										</p>
+										<div className="flex space-x-4">
+											{getUniqueList(titles)?.map((title: any) => (
+												<button
+													key={title}
+													className="h-10 px-2 font-bold"
+												>
+													{title}
+												</button>
+											))}
+										</div>
+									</div>
+								)}
+
+								{/* Colors */}
+								{getUniqueList(colors)?.length > 0 && (
+									<div className="flex items-center space-x-2">
+										<p className="text-[21px] font-semibold leading-[26px] text-primary-main">
+											Colors:
+										</p>
+										<div className="space-x-4">
+											{getUniqueList(colors)?.map((color: string) => {
+												return (
+													<button
+														key={color}
+														className={`h-10 w-10 rounded-full ${
+															selectedColor === color
+																? 'ring-2 ring-offset-4'
+																: 'ring-1'
+														}`}
+														style={{
+															backgroundColor: color
+														}}
+														onClick={() => {
+															setSelectedColor((prevColor) => {
+																if (prevColor === color) {
+																	return '';
+																}
+																return color;
+															});
+
+															const variant = productVariants?.find(
+																(variant: any) =>
+																	variant.color === color
+															);
+
+															if (variant) {
+																const variantId = variant.id;
+																const isSelected =
+																	selectedVariantId === variantId;
+																onVariantClick(
+																	isSelected ? '' : variantId
+																);
+															}
+														}}
+													></button>
+												);
+											})}
+										</div>
+									</div>
+								)}
 							</div>
 						)}
 

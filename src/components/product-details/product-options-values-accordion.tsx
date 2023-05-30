@@ -95,7 +95,9 @@ const ProductOptionsValuesAccordion: React.FC<
 					{/* Option name: Selected Value */}
 					<p className="text-[15px] capitalize">
 						<span>{optionAndValues?.name}: </span>
-						<span className="font-semibold">{selectedOptionValue}</span>
+						<span className="font-semibold capitalize">
+							{selectedOptionValue}
+						</span>
 					</p>
 
 					{valueLength > 4 && (
@@ -135,10 +137,7 @@ const ProductOptionsValuesAccordion: React.FC<
 									...selectedOptionAndValue,
 									[id]: optionAndValue
 								});
-							console.log(
-								'isCurrentOptionInStock =',
-								isCurrentOptionInStock
-							);
+
 							if (showImage) {
 								return (
 									<div
@@ -166,7 +165,7 @@ const ProductOptionsValuesAccordion: React.FC<
 							return (
 								<Button
 									key={index}
-									className={`!text-[15px] !font-semibold !outline-none ${
+									className={`!text-[15px] !font-semibold !uppercase !outline-none ${
 										isCurrentOptionInStock
 											? 'text-[#575858]'
 											: 'cursor-not-allowed text-[#575858]/40'
