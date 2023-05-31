@@ -72,7 +72,6 @@ const CategorySubCategoriesSection: React.FC<
 		setMainCategory(mainCategoryId, main_category.title?.en || '');
 
 		const params = setCategory(categoryId, categoryName);
-		// router.push(`/product-search?${params}`);
 
 		router.push(
 			{
@@ -88,7 +87,6 @@ const CategorySubCategoriesSection: React.FC<
 
 	const subCategoriesMobile = categories
 		? [...categories]
-				// .slice(0, deviceSize === 'md' ? 5 : 7)
 				.map((subCat) => {
 					let { categories: category } = subCat as any;
 
@@ -112,7 +110,6 @@ const CategorySubCategoriesSection: React.FC<
 							<div className="mb-[7px]">
 								<div className="relative h-[42px] w-[44px]">
 									<ImageWithErrorHandler
-										// src={categoryData?.image?.url || ''}
 										src={categoryData?.image || ''}
 										alt=""
 										fill={true}
@@ -141,8 +138,6 @@ const CategorySubCategoriesSection: React.FC<
 							main_category.id!,
 							main_category.title.en || ''
 						);
-
-						// router.push(`/product-search?${params}`);
 
 						router.push(
 							{

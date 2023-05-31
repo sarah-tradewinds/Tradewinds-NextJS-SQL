@@ -108,14 +108,14 @@ const HomePage: NextPage<
 			<div className="hidden items-center justify-end bg-[url('/latest-trend-image.png')] bg-left p-3 md:flex">
 				<div className="flex flex-col items-center space-y-2 ">
 					<h3 className="text-[18px] font-semibold leading-[26px] text-white md:mr-8 md:text-[35px] lg:leading-[43px]">
-						{t('Find the latest Trends')}
+						{t('home:find_the_latest_trends')}
 					</h3>
 					<Button
 						// href={`/product-search?is_trending=${true}`}
 						href="/whats-trending"
 						className="border-2 border-secondary !text-[21px] font-bold text-secondary lg:!h-[48px] lg:!leading-[26px] pc:!rounded-full"
 					>
-						See Trends
+						{t('home:see_trends')}
 					</Button>
 				</div>
 			</div>

@@ -96,62 +96,6 @@ const ProductDetailsTile: React.FC<{
 			product?.edges?.product_variants || []
 		);
 
-	// const productVariants: any[] = [];
-	// const productSizes: string[] = [];
-	// const materials: string[] = [];
-	// const styles: string[] = [];
-	// const titles: string[] = [];
-	// const colors: string[] = [];
-	// variants?.forEach((variant: any, index: number) => {
-	// const { product_attribute_options = [] } = variant?.edges || {};
-
-	// product_attribute_options?.forEach((attributeOption: any) => {
-	// 	// const attributeName =
-	// 	// 	attributeOption?.edges?.product_attribute?.name
-	// 	// 		?.trim()
-	// 	// 		?.toLowerCase();
-
-	// 	// const attributeValue = attributeOption?.value
-	// 	// 	?.trim()
-	// 	// 	?.toLowerCase();
-
-	// 	// switch (attributeName) {
-	// 	// 	case 'size':
-	// 	// 		variant.size = attributeValue;
-	// 	// 		// productSizes.push(attributeValue);
-	// 	// 		break;
-	// 	// 	case 'material':
-	// 	// 		// materials.push(attributeValue);
-	// 	// 		break;
-	// 	// 	case '':
-	// 	// 		variant.style = attributeValue;
-	// 	// 		// styles.push(attributeValue);
-	// 	// 		break;
-	// 	// 	case 'title':
-	// 	// 		variant.title = attributeValue;
-	// 	// 		// titles.push(attributeValue);
-	// 	// 		break;
-	// 	// 	case 'color':
-	// 	// 		variant.color = attributeValue;
-	// 	// 		// colors.push(attributeValue);
-	// 	// 		break;
-	// 	// 	case 'colour':
-	// 	// 		variant.color = attributeValue;
-	// 	// 		// colors.push(attributeValue);
-	// 	// 		break;
-	// 	// }
-	// }); // End of inner forEach loop
-
-	// console.log('variant?.name', variant?.name);
-	// if (!variant?.name?.en) {
-	// 	variant.name = {
-	// 		en: `${variant.color || ''} ${variant.size || ''}`
-	// 	};
-	// }
-	// Pushing variant to list
-	// productVariants.push(variant);
-	// }); // End of forEach loop
-
 	const selectedVariant =
 		variants?.find((variant) => variant?.id === selectedVariantId) ||
 		defaultVariant;
@@ -161,7 +105,6 @@ const ProductDetailsTile: React.FC<{
 		is_bulk_pricing,
 		bulk_pricing = [],
 		inventory = {}
-		// } = selectedVariantId ? selectedVariant : defaultVariant || {};
 	} = selectedVariant || {};
 	console.log(
 		'selectedVariant-selectedVariant-selectedVariant =',

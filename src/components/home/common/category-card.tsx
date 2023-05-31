@@ -74,7 +74,7 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 
 				{!hideImage && (
 					<div className="absolute bottom-0 right-0">
-						<div className="relative h-[60px] w-[60px] overflow-hidden md:h-[100px] md:w-[100px] lg:h-[250px] lg:w-[250px]">
+						<div className="relative h-[60px] w-[60px] overflow-hidden md:h-[100px] md:w-[100px] lg:h-[235px] lg:w-[250px]">
 							<div className="absolute bottom-0 right-0">
 								<img
 									src={imageUrl}
