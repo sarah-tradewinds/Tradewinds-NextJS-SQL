@@ -120,10 +120,15 @@ export const getCountryById = async (countryId: string) => {
 	}
 }; // End of getCountryById function
 
-export const getSearchSuggestions = async (searchText: string) => {
+export const getSearchSuggestions = async (
+	searchText: string,
+	isEco?: boolean
+) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/product/global-search?search_query=${searchText}&lang=en`
+			`/product/global-search?search_query=${searchText}&lang=en&is_eco=${
+				isEco || false
+			}`
 		);
 
 		return data.data || [];
