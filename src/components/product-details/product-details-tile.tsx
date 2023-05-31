@@ -150,7 +150,7 @@ const ProductDetailsTile: React.FC<{
 	// }
 	// Pushing variant to list
 	// productVariants.push(variant);
-	// });// End of forEach loop
+	// }); // End of forEach loop
 
 	const selectedVariant =
 		variants?.find((variant) => variant?.id === selectedVariantId) ||
