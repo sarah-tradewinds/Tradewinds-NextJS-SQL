@@ -40,6 +40,8 @@ interface MobileProductTileProps {
 	onCompareClick?: () => any;
 	onCartClick?: () => any;
 	onMessageVendorClick?: () => any;
+	onClick?: () => any;
+  
 	isInCompareList?: boolean;
 	isVerified?: boolean;
 	isLive?: boolean;
@@ -75,7 +77,8 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 		isCustomizable,
 		variantCount,
 		onCartClick,
-		onMessageVendorClick
+		onMessageVendorClick,
+		onClick
 	} = props;
 
 	const router = useRouter();
@@ -160,8 +163,8 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 			<div className="flex space-x-2">
 				{/* Image Container  */}
 				<div className="relative h-[78px] !w-[120px]">
-					<Link href={`/product/${slug}`}>
-						<div className="relative h-full w-[120px] md:mt-5 md:h-[97px] lg:mt-0 lg:h-full">
+					{/* <Link href={`/product/${slug}`}> */}
+						<div className="cursor-pointer relative h-full w-[120px] md:mt-5 md:h-[97px] lg:mt-0 lg:h-full" onClick={onClick}>
 							<ImageWithErrorHandler
 								src={imageUrl}
 								alt={alt || ''}
@@ -169,7 +172,7 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 								className="object-contain"
 							/>
 						</div>
-					</Link>
+					{/* </Link> */}
 
 					{isEco && (
 						<div className="absolute top-2 left-2 lg:top-0">

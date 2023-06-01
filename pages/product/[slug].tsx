@@ -49,10 +49,8 @@ const ProductDetailsPage: NextPage<
 	similarProducts = [],
 	orderedId
 }) => {
-	console.log('orderId', orderedId);
-	// console.log('dervalue', product);
 	const router = useRouter();
-	const { pathname, query } = router;
+	const { pathname, query, push } = router;
 
 	const [productData, setProductData] = useState(product);
 	const [productReviewList, setProductReviewList] =
@@ -61,11 +59,6 @@ const ProductDetailsPage: NextPage<
 		useState(reviewAnalytics);
 	const [isReviewLoading, setIsReviewLoading] = useState(false);
 	const [selectedVariantId, setSelectedVariantId] = useState('');
-
-	console.log('[productReviewList-productReviews] =', {
-		productReviews,
-		productReviewAnalytics
-	});
 
 	const { customerData, isAuth } = useAuthStore((state) => ({
 		isAuth: state.isAuth,
@@ -81,6 +74,38 @@ const ProductDetailsPage: NextPage<
 	useEffect(() => {
 		setProductData(product);
 	}, [slug]);
+
+	useEffect(() => {
+		const {
+			main_categories,
+			categories,
+			sub_categories,
+			specific_categories
+		} = product?.edges || {};
+		push(
+			{
+				pathname: `/product/${product?.id}`,
+				query: {
+					main_category: `${main_categories?.id || ''}_${
+						main_categories?.title?.en || ''
+					}`,
+					category: `${categories?.id || ''}_${
+						categories?.title?.en || ''
+					}`,
+					sub_category: `${sub_categories?.id || ''}_${
+						sub_categories?.title?.en || ''
+					}`,
+					sub_sub_category: `${specific_categories?.id || ''}_${
+						specific_categories?.title?.en || ''
+					}`
+				}
+			},
+			undefined,
+			{
+				shallow: true
+			}
+		);
+	}, [selectedVariantId]);
 
 	useEffect(() => {
 		if (selectedVariantId) {
@@ -302,10 +327,6 @@ export const getServerSideProps: GetServerSideProps = async ({
 				seo: seo,
 				orderedId,
 
-				// seo: {
-				// 	title: getLocaleText(seo?.title || {}),
-				// 	description: getLocaleText(seo?.description || {})
-				// },
 				...(await serverSideTranslations(locale || 'en'))
 			}
 		};

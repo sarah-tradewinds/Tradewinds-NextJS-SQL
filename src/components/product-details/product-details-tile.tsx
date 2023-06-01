@@ -340,6 +340,101 @@ const ProductDetailsTile: React.FC<{
 		...Object.values(optionsAndValueListObject || {})
 	];
 
+	// const onOptionAndValueSelect = (optionAndValue: any) => {
+	// 	const findAndSetVariantBySelectedOptionValues = (
+	// 		updatedSelectedOptionAndValueObject: any
+	// 	) => {
+	// 		const updatedSelectedOptionAndValue = Object.values(
+	// 			updatedSelectedOptionAndValueObject || {}
+	// 		);
+	// 		const variant = variants?.find((productVariant) => {
+	// 			const productAttributeOptions =
+	// 				productVariant?.edges?.product_attribute_options || [];
+
+	// 			// This matchCount track or count for, weather in a variant all selected option are matching or not
+	// 			let matchCount = 0;
+	// 			for (const productAttributeOption of productAttributeOptions) {
+	// 				for (const selectedOptionAndValue of updatedSelectedOptionAndValue) {
+	// 					const selectedOptionAndValueData =
+	// 						selectedOptionAndValue as any;
+
+	// 					const productAttributeId =
+	// 						productAttributeOption?.edges?.product_attribute?.id;
+
+	// 					if (
+	// 						productAttributeId ===
+	// 							selectedOptionAndValueData?.optionId &&
+	// 						selectedOptionAndValueData?.value?.name ===
+	// 							productAttributeOption.value
+	// 					) {
+	// 						matchCount += 1;
+	// 						console.log(
+	// 							'selectedOptionAndValue as any)?.value?.name === productAttributeOption.value',
+	// 							{
+	// 								productAttributeId,
+	// 								name: (selectedOptionAndValue as any)?.value?.name,
+	// 								productAttributeOptionName:
+	// 									productAttributeOption?.value,
+	// 								productAttributeOptions,
+	// 								updatedSelectedOptionAndValue,
+	// 								productVariant
+	// 							}
+	// 						);
+	// 					}
+	// 				}
+	// 			}
+	// 			const updatedSelectedOptionAndValueLength =
+	// 				updatedSelectedOptionAndValue.length;
+
+	// 			console.log(
+	// 				'variantvariantvariantvariantvariantvariant-variant-variant =',
+	// 				{ updatedSelectedOptionAndValueLength, matchCount }
+	// 			);
+
+	// 			return (
+	// 				matchCount === updatedSelectedOptionAndValueLength &&
+	// 				updatedSelectedOptionAndValueLength > 0
+	// 			);
+	// 		});
+
+	// 		onVariantClick(
+	// 			selectedVariantId === variant?.id ? '' : variant?.id
+	// 		);
+	// 	}; // End of findAndSetVariantBySelectedOptionValues
+
+	// 	setSelectedOptionAndValue((prevSelectedOptionAndValue) => {
+	// 		const selectedOptionId = optionAndValue?.optionId;
+
+	// 		const prevSelectedOptionsAndValue = {
+	// 			...prevSelectedOptionAndValue
+	// 		};
+
+	// 		let updatedSelectedOptionAndValueObj = {};
+	// 		if (
+	// 			prevSelectedOptionsAndValue?.[selectedOptionId]?.value?.name ===
+	// 			optionAndValue?.value?.name
+	// 		) {
+	// 			delete prevSelectedOptionsAndValue[selectedOptionId];
+
+	// 			findAndSetVariantBySelectedOptionValues(
+	// 				prevSelectedOptionsAndValue || {}
+	// 			);
+	// 			return prevSelectedOptionsAndValue;
+	// 		}
+
+	// 		const updatedSelectedOptionAndValueObject = {
+	// 			...prevSelectedOptionsAndValue,
+	// 			[selectedOptionId]: optionAndValue
+	// 		};
+
+	// 		findAndSetVariantBySelectedOptionValues(
+	// 			updatedSelectedOptionAndValueObject || {}
+	// 		);
+
+	// 		return updatedSelectedOptionAndValueObject;
+	// 	});
+	// }; // End of onOptionAndValueSelect
+
 	const onOptionAndValueSelect = (optionAndValue: any) => {
 		const findAndSetVariantBySelectedOptionValues = (
 			updatedSelectedOptionAndValueObject: any
@@ -353,8 +448,8 @@ const ProductDetailsTile: React.FC<{
 
 				// This matchCount track or count for, weather in a variant all selected option are matching or not
 				let matchCount = 0;
-				for (const productAttributeOption of productAttributeOptions) {
-					for (const selectedOptionAndValue of updatedSelectedOptionAndValue) {
+				for (const selectedOptionAndValue of updatedSelectedOptionAndValue) {
+					for (const productAttributeOption of productAttributeOptions) {
 						const selectedOptionAndValueData =
 							selectedOptionAndValue as any;
 
@@ -367,34 +462,30 @@ const ProductDetailsTile: React.FC<{
 							selectedOptionAndValueData?.value?.name ===
 								productAttributeOption.value
 						) {
-							// console.log(
-							// 	'selectedOptionAndValue as any)?.value?.name === productAttributeOption.value',
-							// 	{
-							// 		productAttributeId,
-							// 		name: (selectedOptionAndValue as any)?.value?.name,
-							// 		productAttributeOptionName:
-							// 			productAttributeOption?.value
-							// 	}
-							// );
-						}
-
-						if (
-							// productAttributeId ===
-							// 	selectedOptionAndValueData?.optionId &&
-							// selectedOptionAndValueData?.value?.name ===
-							// 	productAttributeOption.value
-
-							productAttributeId ===
-								selectedOptionAndValueData?.optionId &&
-							selectedOptionAndValueData?.value?.name ===
-								productAttributeOption.value
-						) {
-							matchCount += 1;
+              matchCount += 1;
+							console.log(
+								'selectedOptionAndValue as any)?.value?.name === productAttributeOption.value',
+								{
+									productAttributeId,
+									name: (selectedOptionAndValue as any)?.value?.name,
+									productAttributeOptionName:
+										productAttributeOption?.value,
+									productAttributeOptions,
+									updatedSelectedOptionAndValue,
+									productVariant
+								}
+							);
+              break;
 						}
 					}
 				}
 				const updatedSelectedOptionAndValueLength =
 					updatedSelectedOptionAndValue.length;
+
+				console.log(
+					'variantvariantvariantvariantvariantvariant-variant-variant =',
+					{ updatedSelectedOptionAndValueLength, matchCount }
+				);
 
 				return (
 					matchCount === updatedSelectedOptionAndValueLength &&
