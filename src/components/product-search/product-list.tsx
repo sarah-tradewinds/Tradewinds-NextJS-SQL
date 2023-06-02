@@ -32,7 +32,7 @@ const ProductList: React.FC<ProductListProps> = ({
 	products,
 	onCompareClick
 }) => {
-	const { locale } = useRouter();
+	const { locale, push } = useRouter();
 
 	const { addProductVariantToCart, cartItems } = useCartStore(
 		(state) => ({
@@ -172,6 +172,45 @@ const ProductList: React.FC<ProductListProps> = ({
 						bulk_pricing
 					});
 
+					console.log(
+						'product===product===product===product',
+						product?.id,
+						product?.edges
+					);
+
+					const {
+						main_categories,
+						categories,
+						sub_categories,
+						specific_categories
+					} = product?.edges || {};
+
+					const navigateWithShallow = () => {
+						push(
+							{
+								pathname: `/product/${product?.id}`,
+								query: {
+									main_category: `${main_categories?.id || ''}_${
+										main_categories?.title?.en || ''
+									}`,
+									category: `${categories?.id || ''}_${
+										categories?.title?.en || ''
+									}`,
+									sub_category: `${sub_categories?.id || ''}_${
+										sub_categories?.title?.en || ''
+									}`,
+									sub_sub_category: `${specific_categories?.id || ''}_${
+										specific_categories?.title?.en || ''
+									}`
+								}
+							},
+							undefined,
+							{
+								shallow: true
+							}
+						);
+					}; // End of navigateWithShallow function
+
 					const productData = {
 						key: product.id,
 						name: getLocaleText(product.name || {}, locale),
@@ -235,11 +274,17 @@ const ProductList: React.FC<ProductListProps> = ({
 							)}
 
 							<div className="w-full md:hidden">
-								<MobileProductTile {...productData} />
+								<MobileProductTile
+									{...productData}
+									onClick={navigateWithShallow}
+								/>
 							</div>
 
 							<div className="hidden md:block">
-								<ProductTile {...productData} />
+								<ProductTile
+									{...productData}
+									onClick={navigateWithShallow}
+								/>
 							</div>
 						</>
 					);

@@ -1,5 +1,12 @@
-{"meta_title":"página de inicio","shop_by_country":"Comprar por país","meta_description":"Descripciones de la página de inicio","sub_cat_limit_result_btn":"RESULTADOS LIMITADOS A VENDEDORES ECOLÓGICOS",
-"search_from_6500_categories":"Búsqueda de 6.500 categorías",
+{
+    "meta_title": "página de inicio",
+    "shop_by_country": "Comprar por país",
+    "meta_description": "Descripciones de la página de inicio",
+    "sub_cat_limit_result_btn": "RESULTADOS LIMITADOS A VENDEDORES ECOLÓGICOS",
+    "search_from_6500_categories": "Búsqueda de 6.500 categorías",
     "search_from": "Buscar desde",
     "categories": "categorías",
-    "sub_cat_find_more_great_deals":"Encuentre más ofertas excelentes en todo lo relacionado con la agricultura"}
+    "sub_cat_find_more_great_deals": "Encuentre más ofertas excelentes en todo lo relacionado con la agricultura",
+    "find_the_latest_trends": "Encuentra las últimas tendencias",
+    "see_trends": "Ver tendencias"
+}

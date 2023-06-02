@@ -8,6 +8,7 @@ import { useCategoryStore } from 'store/eco/category-store';
 
 // components
 import { useTranslation } from 'next-i18next';
+import { useHomeStore } from 'store/home';
 import Button from '../form/button';
 import Overlay from '../modal/modal';
 
@@ -19,6 +20,8 @@ const SearchBar: React.FC = () => {
 
 	const router = useRouter();
 	const { t } = useTranslation();
+
+	const isEco = useHomeStore((state) => state.isEco);
 
 	const removeCategoryFilter = useCategoryStore(
 		(state) => state.removeCategoryFilter
@@ -41,7 +44,7 @@ const SearchBar: React.FC = () => {
 			return;
 		}
 
-		const data = await getSearchSuggestions(searchQuery);
+		const data = await getSearchSuggestions(searchQuery, isEco);
 		setSuggestions(data);
 	}; // End of getSearchSuggestionsHandler function
 

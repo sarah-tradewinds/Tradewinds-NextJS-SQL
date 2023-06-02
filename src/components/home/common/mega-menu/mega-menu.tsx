@@ -9,10 +9,10 @@ import { useState } from 'react';
 // styles
 import { ContentSkeleton } from 'components/common/elements/skeleton/content.skeleton';
 import {
-	useCategoriesByMainCategoryId,
-	useMainCategories,
-	useSpecificCategoriesBySubCategoryId,
-	useSubCategoriesByCategoryId
+  useCategoriesByMainCategoryId,
+  useMainCategories,
+  useSpecificCategoriesBySubCategoryId,
+  useSubCategoriesByCategoryId
 } from 'hooks/useMainCategories';
 import { useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';
@@ -69,8 +69,6 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 	const megaMenuClassName = `relative grid grid-cols-12 border bg-white text-sm text-gray shadow-lg overflow-y-autos ${className}`;
 
 	const navigateWithShallow = (query: { [key: string]: any }) => {
-		// router.push(path, undefined, { shallow: true });
-
 		router.push({ pathname: '/product-search', query }, undefined, {
 			shallow: true
 		});
@@ -130,12 +128,6 @@ const MegaMenu: React.FC<MegaMenuProps> = (props) => {
 										id,
 										mainCategory.title?.en || ''
 									);
-									// navigateWithShallow(
-									// 	`/product-search?${params}&${generateQueryString({
-									// 		region: router.query.region,
-									// 		country: router.query.region
-									// 	})}`
-									// );
 
 									navigateWithShallow({
 										main_category: value,

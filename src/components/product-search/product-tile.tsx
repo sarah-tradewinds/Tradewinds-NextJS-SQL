@@ -41,6 +41,7 @@ interface ProductTileProps {
 	onCompareClick?: () => any;
 	onCartClick?: () => any;
 	onMessageVendorClick?: () => any;
+	onClick?: () => any;
 	isInCompareList?: boolean;
 	isVerified?: boolean;
 	isLive?: boolean;
@@ -74,10 +75,13 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 		isCustomizable,
 		variantCount,
 		onCartClick,
-		onMessageVendorClick
+		onMessageVendorClick,
+		onClick
 	} = props;
+
 	const router = useRouter();
 	const { pathname, query } = router;
+
 	const main_category = query?.main_category;
 	const category = query?.category;
 	const filters = query?.filters;
@@ -220,11 +224,11 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 			<div className="flex md:ml-4 md:pt-3 md:pr-[14px] lg:space-x-2">
 				{/* Image container */}
 				{/* <div className="relative md:h-[97px] md:min-w-[137px] lg:h-[189px] lg:min-w-[286px]"> */}
-				<div className="relative md:h-[97px] md:min-w-[137px] lg:h-[255px] lg:w-[255px]">
-					<Link
-						href={`/product/${slug}?main_category=${main_category}&category=${category}&filters=${filters}`}
-					>
-						{/* <div className="relative h-full w-full">
+				<div className="relative overflow-hidden md:h-[97px] md:min-w-[137px] lg:h-[255px] lg:w-[255px]">
+					{/* <Link
+						href={`/product/${slug}?main_category=${main_category}&category=${category}`}
+					> */}
+					{/* <div className="relative h-full w-full">
 							<ImageWithErrorHandler
 								key={imageUrl}
 								src={imageUrl}
@@ -233,8 +237,14 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 								className="object-contain"
 							/>
 						</div> */}
-						<img key={imageUrl} src={imageUrl} alt={alt || ''} />
-					</Link>
+					<img
+						key={imageUrl}
+						src={imageUrl}
+						alt={alt || ''}
+						className="cursor-pointer"
+						onClick={onClick}
+					/>
+					{/* </Link> */}
 
 					{isEco && (
 						<div className="absolute top-2 left-2 lg:top-0">
@@ -250,14 +260,17 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 
 				{/* Name, descriptions and keywords */}
 				<div className="w-full">
-					<Link
+					{/* <Link
 						href={`/product/${slug}?main_category=${main_category}&category=${category}&filters=${filters}`}
-					>
-						<h2 className="min-h-[59px] line-clamp-3 md:text-[16px] md:leading-5 lg:text-[15px] lg:leading-[18px]">
+          > */}
+					<div onClick={onClick}>
+						<h2 className="min-h-[59px] cursor-pointer line-clamp-3 md:text-[16px] md:leading-5 lg:text-[15px] lg:leading-[18px]">
 							<span className="font-semibold">{name}: </span>
 							<span className="text-gray">{description}</span>
 						</h2>
-					</Link>
+					</div>
+
+					{/* </Link> */}
 
 					{/* Keywords, Price and quantity */}
 					<div className="border-[#DEDFE0] md:w-[266.68px] md:border-b-[0.966234px] md:pb-2 lg:w-[552px] lg:border-b-2 lg:pb-4">

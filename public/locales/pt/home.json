@@ -1,4 +1,12 @@
-{"meta_title":"Pagina inicial","shop_by_country":"Comprar por país","meta_description":"Descrições da página inicial","sub_cat_limit_result_btn":"LIMITAR RESULTADOS PARA FORNECEDORES AMIGOS DO ECO","search_from_6500_categories":"Pesquise em 6.500 categorias",
-"search_from": "Pesquisar de",
+{
+    "meta_title": "Pagina inicial",
+    "shop_by_country": "Comprar por país",
+    "meta_description": "Descrições da página inicial",
+    "sub_cat_limit_result_btn": "LIMITAR RESULTADOS PARA FORNECEDORES AMIGOS DO ECO",
+    "search_from_6500_categories": "Pesquise em 6.500 categorias",
+    "search_from": "Pesquisar de",
     "categories": "categorias",
-    "sub_cat_find_more_great_deals":"Encontre mais ótimas ofertas em tudo relacionado à agricultura"}
+    "sub_cat_find_more_great_deals": "Encontre mais ótimas ofertas em tudo relacionado à agricultura",
+    "find_the_latest_trends": "Encontre as últimas tendências",
+    "see_trends": "Ver tendências"
+  }
