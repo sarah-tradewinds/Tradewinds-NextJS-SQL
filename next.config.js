@@ -67,7 +67,7 @@ const nextConfig = (phase) => {
 				'https://tradewinds-production-sql-as.azurewebsites.net',
 
 			STRIPE_PUBLISHABLE_KEY:
-				'pk_test_51JAhKFCQTcpcYTusSG85R25JWHRXIbw9mg6bn2mJAIncKhAhXpxvAemulgavKUw0iv4J1ygM6zSWGbthNAMWGftk00Jzzmiqcs'
+				'pk_live_51JAhKFCQTcpcYTus0nINDA07UHO9vC8tKxCUzQgYkZhsJuuwXjrVetP6guxJzrOIrvPowH9FpGpMIK3ZfxhqeAQc00AmdLhqZD'
 		},
 		images: {
 			domains: [
