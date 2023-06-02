@@ -84,7 +84,12 @@ const ProductSearchPage: NextPage<
 	} = useProductCompareStore();
 
 	const isEco = useHomeStore((state) => state.isEco);
-	const setCategory = useCategoryStore((state) => state.setCategory);
+	const { setMainCategory, setCategory } = useCategoryStore(
+		(state) => ({
+			setMainCategory: state.setMainCategory,
+			setCategory: state.setCategory
+		})
+	);
 
 	const setInitialIds = useCategoryStore(
 		(state) => state.setInitialIds
@@ -193,6 +198,16 @@ const ProductSearchPage: NextPage<
 	const selectedCategoryList = categoryId?.split(',') || [];
 
 	const navigateWithShallow = (query: { [key: string]: any }) => {
+		const region = router.query.region;
+		const country = router.query.country;
+		if (region) {
+			query.region = region;
+		}
+
+		if (country) {
+			query.country = country;
+		}
+
 		router.push({ pathname: '/product-search', query }, undefined, {
 			shallow: true
 		});
@@ -443,17 +458,19 @@ const ProductSearchPage: NextPage<
 										categories={[...selectedCategories]}
 										selectedCategoryIds={selectedCategoryList || []}
 										onTileClick={(categoryId, data) => {
+											const { id: mainCategoryId, title } =
+												data?.edges?.main_category;
+											setMainCategory(
+												mainCategoryId || '',
+												title?.en || ''
+											);
+
 											const params = setCategory(
 												categoryId,
 												data?.title?.en
 											);
-											navigateWithShallow(params?.payload);
 
-											// router.push(
-											// 	`/product-search?${params}`,
-											// 	undefined,
-											// 	{ shallow: true }
-											// );
+											navigateWithShallow(params?.payload);
 										}}
 									/>
 								</div>
@@ -469,12 +486,18 @@ const ProductSearchPage: NextPage<
 									categories={selectedCategories || []}
 									selectedCategoryList={selectedCategoryList}
 									onTilePressed={(subCategory) => {
+										const { id: mainCategoryId, title } =
+											subCategory?.edges?.main_category;
+										setMainCategory(
+											mainCategoryId || '',
+											title?.en || ''
+										);
+
 										const params = setCategory(
 											subCategory.id,
 											subCategory?.title?.en
 										);
 										navigateWithShallow(params?.payload);
-										// router.push(`/product-search?${params}`);
 									}}
 								/>
 							</div>
