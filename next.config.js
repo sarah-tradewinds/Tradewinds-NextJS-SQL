@@ -58,7 +58,7 @@ const nextConfig = (phase) => {
 				'https://victorious-forest-0245d510f.3.azurestaticapps.net',
 
 			API_BASE_URL:
-				'https://tradewinds-production-sql-as.azurewebsites.net/',
+				'https://tradewinds-production-sql-as.azurewebsites.net',
 
 			STRIPE_PUBLISHABLE_KEY:
 				'pk_test_51JAhKFCQTcpcYTusSG85R25JWHRXIbw9mg6bn2mJAIncKhAhXpxvAemulgavKUw0iv4J1ygM6zSWGbthNAMWGftk00Jzzmiqcs'
