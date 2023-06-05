@@ -22,13 +22,15 @@ const nextConfig = (phase) => {
 					'https://white-ocean-019fe600f.2.azurestaticapps.net/#',
 
 				API_BASE_URL:
-					'https://tradewinds-sql-preprod-as.azurewebsites.net',
+					// 'https://tradewinds-sql-preprod-as.azurewebsites.net',
+					'https://tradewinds-production-sql-as.azurewebsites.net',
 
 				STRIPE_PUBLISHABLE_KEY:
 					'pk_test_51JAhKFCQTcpcYTusSG85R25JWHRXIbw9mg6bn2mJAIncKhAhXpxvAemulgavKUw0iv4J1ygM6zSWGbthNAMWGftk00Jzzmiqcs'
 			},
 			images: {
 				domains: [
+					'tradewindsblobproduction.blob.core.windows.net',
 					'images.unsplash.com',
 					'wmarketplacestgact.blob.core.windows.net',
 					'm.media-amazon.com',
@@ -65,6 +67,7 @@ const nextConfig = (phase) => {
 		},
 		images: {
 			domains: [
+				'tradewindsblobproduction.blob.core.windows.net',
 				'images.unsplash.com',
 				'wmarketplacestgact.blob.core.windows.net',
 				'm.media-amazon.com',
