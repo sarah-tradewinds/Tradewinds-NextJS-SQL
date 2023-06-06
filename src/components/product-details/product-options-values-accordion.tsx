@@ -169,7 +169,11 @@ const ProductOptionsValuesAccordion: React.FC<
 										isCurrentOptionInStock
 											? 'text-[#575858]'
 											: 'cursor-not-allowed text-[#575858]/40'
-									}`}
+									} ${
+											isOptionValueSelected
+												? 'border-4 border-cyan'
+												: 'border-cyan hover:border-4'
+										}`}
 									onClick={() =>
 										isCurrentOptionInStock
 											? onOptionAndValueSelect(optionAndValue)

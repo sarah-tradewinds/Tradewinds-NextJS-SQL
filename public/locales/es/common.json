@@ -101,5 +101,6 @@
     "unit_price": "Precio unitario",
     "wechat_pay": "Pago de WeChat",
     "company_images": "Imágenes de la empresa",
-    "company_video": "vídeo de empresa"
+    "company_video": "vídeo de empresa",
+    "campany_name": "nombre de empresa"
 }

@@ -191,6 +191,19 @@ const CompanyProfileTab: React.FC<{
 										<div className="col-span-12 space-y-4 sm:col-span-8">
 											<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
 												<span className="font-semibold md:min-w-[148px]">
+													{t('common:campany_name')}:
+												</span>
+												<span>
+													{getLocaleText(
+														edges?.company?.business_name || {},
+														locale
+													)}
+
+												</span>
+											</p>
+
+											<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
+												<span className="font-semibold md:min-w-[148px]">
 													{t('common:country')}:
 												</span>
 												<span>
@@ -454,19 +467,23 @@ const CompanyProfileTab: React.FC<{
 										name || {},
 										locale
 									);
-
+									const productId=collectionProduct?.edges?.products[0]?.id
+                                      
 									return (
 										<div
 											key={id}
 											className="border-[#C4C4C4] last:border-none md:border-b"
 										>
-											<CollectionSliderOld
+											<Link href={`/product/${productId}`}>
+												<CollectionSliderOld
 												key={id}
 												name={collectionName}
 												dataList={
 													collectionProduct?.edges?.products || []
 												}
 											/>
+											</Link>
+											
 										</div>
 									);
 								})}
