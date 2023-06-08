@@ -48,25 +48,27 @@ const nextConfig = (phase) => {
 		i18n,
 		reactStrictMode: true,
 		env: {
-			// SITE_URL: 'tradewindsmpproductionshoppingsite.azurewebsites.net',
-			SITE_URL: 'https://www.tradewindsmarketplace.com',
-
-			// BUYER_DASHBOARD_SITE_URL:
-			// 	'https://victorious-forest-0245d510f.3.azurestaticapps.net/#',
+			SITE_URL: 'tradewindsmpproductionshoppingsite.azurewebsites.net',
+			// SITE_URL: 'https://www.tradewindsmarketplace.com',
 
 			BUYER_DASHBOARD_SITE_URL:
-				'https://www.dashboard.tradewindsmarketplace.com/#',
+				'https://victorious-forest-0245d510f.3.azurestaticapps.net/#',
+
+			BUYER_DASHBOARD_SITE_URL:
+				'https://victorious-forest-0245d510f.3.azurestaticapps.net/#',
+			// 'https://www.dashboard.tradewindsmarketplace.com/#',
 
 			BDM_DASHBOARD_SITE_URL:
-				// 'https://victorious-forest-0245d510f.3.azurestaticapps.net/#',
-				'https://www.dashboard.tradewindsmarketplace.com/#',
+				'https://victorious-forest-0245d510f.3.azurestaticapps.net/#',
+			// 'https://www.dashboard.tradewindsmarketplace.com/#',
 
 			SELLER_DASHBOARD_SITE_URL:
-				// 'https://victorious-forest-0245d510f.3.azurestaticapps.net',
-				'https://www.dashboard.tradewindsmarketplace.com/#',
+				'https://victorious-forest-0245d510f.3.azurestaticapps.net',
+			// 'https://www.dashboard.tradewindsmarketplace.com/#',
 
 			API_BASE_URL:
-				'https://tradewinds-production-sql-as.azurewebsites.net',
+				'https://tradewinds-sql-preprod-as.azurewebsites.net',
+			// 'https://tradewinds-production-sql-as.azurewebsites.net',
 
 			STRIPE_PUBLISHABLE_KEY:
 				'pk_live_51JAhKFCQTcpcYTus0nINDA07UHO9vC8tKxCUzQgYkZhsJuuwXjrVetP6guxJzrOIrvPowH9FpGpMIK3ZfxhqeAQc00AmdLhqZD'
