@@ -59,7 +59,7 @@ const SimilarProductList: React.FC<SimilarProductListProps> = (
 							onClick={() => push(`/product/${similarProduct.id}`)}
 						>
 							{/* {console.log('similarProduct', similarProduct)} */}
-					``		<div className="h-[274px] w-[298px]">
+							<div className="h-[274px] w-[298px]">
 								<div className="relative h-[205px] w-[240px]">
 									<ImageWithErrorHandler
 										src={
@@ -70,10 +70,10 @@ const SimilarProductList: React.FC<SimilarProductListProps> = (
 										fill={true}
 									/>
 								</div>
-								<p className="mt-1 flex justify-between space-x-8 text-[18px] font-bold text-primary-main">
+								<p className="mt-1 flex justify-between space-x-8 truncate text-[18px] font-bold text-primary-main">
 									{getLocaleText(similarProduct.name || {}, locale)}
 								</p>
-								<p className="text-[15px] text-gray">
+								<p className="truncate text-[15px] text-gray">
 									{getLocaleText(
 										similarProduct.description || {},
 										locale

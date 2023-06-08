@@ -462,7 +462,7 @@ const ProductDetailsTile: React.FC<{
 							selectedOptionAndValueData?.value?.name ===
 								productAttributeOption.value
 						) {
-              matchCount += 1;
+							matchCount += 1;
 							console.log(
 								'selectedOptionAndValue as any)?.value?.name === productAttributeOption.value',
 								{
@@ -475,7 +475,7 @@ const ProductDetailsTile: React.FC<{
 									productVariant
 								}
 							);
-              break;
+							break;
 						}
 					}
 				}
@@ -600,7 +600,9 @@ const ProductDetailsTile: React.FC<{
 						{minOrderQuantity > 0 && (
 							<div className="text-xs font-semibold leading-[15px] md:text-[21px] md:leading-[26px]">
 								<h4>
-									{minOrderQuantity} {t('common:piece')} /
+									{/* {minOrderQuantity} {t('common:piece')} / */}
+									{minOrderQuantity}{' '}
+									{inventory?.minimum_order_quantity_unit || ''} /
 									{t('common:min_order')}
 								</h4>
 								<p>Lead Time: {product?.lead_time}</p>
