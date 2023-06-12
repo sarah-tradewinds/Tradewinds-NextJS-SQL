@@ -667,7 +667,7 @@ const ProductDetailsTile: React.FC<{
 					{/* Product name and description */}
 					<div className="mt-[15px] border-t-2 border-[#DEDFE0] pt-[13px] md:border-b-2 md:pt-[19px] md:pb-[25.64px]">
 						<div className="flex items-start">
-							<h2 className="overflow-clips h-[49px]s text-xs leading-[22px] text-gray md:text-[15px]">
+							<h2 className="overflow-clips h-[49px]s whitespace-pre-wrap text-xs leading-[22px] text-gray md:text-[15px]">
 								{productDescription?.length > 150
 									? productDescription?.substring(
 											0,
