@@ -109,7 +109,7 @@ const CartReviewPage: NextPage = () => {
 											{t('cart:items')})
 										</p>
 										<p className="text-right text-primary-main">
-											${sub_total}
+											${+(sub_total || 0)?.toFixed(2)}
 										</p>
 									</div>
 									<Button onClick={gotoCheckout} variant="product">
@@ -135,7 +135,7 @@ const CartReviewPage: NextPage = () => {
 									{t('cart:items')}):
 								</p>
 								<p className="text-center text-primary-main">
-									${sub_total}
+									${+(sub_total || 0)?.toFixed(2)}
 								</p>
 							</div>
 							<Button
@@ -260,7 +260,7 @@ const CartReviewPage: NextPage = () => {
 												${orderItem?.unit_cost}
 											</td>
 											<td className="text-center">
-												${orderItem?.sub_total}
+												${+(orderItem?.sub_total || 0)?.toFixed(2)}
 											</td>
 										</tr>
 									);
@@ -282,7 +282,7 @@ const CartReviewPage: NextPage = () => {
 								<p>{t('common:taxes')}</p>
 							</div>
 							<div className="text-[18px] text-gray">
-								<p>${sub_total}</p>
+								<p>${+(sub_total || 0)?.toFixed(2)}</p>
 								<p>${shipping_charge}</p>
 								<p>${stripe_charge}</p>
 								<p>${tax}</p>
@@ -297,7 +297,7 @@ const CartReviewPage: NextPage = () => {
 						<div className="mt-1 flex justify-between bg-gray/20 px-4 py-2 text-[18px] font-semibold md:justify-end md:space-x-16 md:text-[25px]">
 							<p>{t('common:grand_total')}</p>
 							<div>
-								<p>${grand_total}</p>
+								<p>${+(grand_total || 0)?.toFixed(2)}</p>
 							</div>
 						</div>
 					</div>

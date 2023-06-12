@@ -21,6 +21,7 @@ import { useProductCompareStore } from 'store/product-compare-store';
 
 // utils
 import ProductDetailsTab from 'components/product-details/product-details-tab/product-details-tab';
+import { getDefaultProductAndProductVariants } from 'utils/common.util';
 import { getDisplayBulkPrice } from 'utils/get-bulk-price';
 import { getLocaleText } from 'utils/get_locale_text';
 
@@ -56,20 +57,41 @@ const ComparePage: NextPage = (props) => {
 
 	const compareProductTiles = (isSlider?: boolean) => {
 		return compareProducts.map((compareProduct: any, index) => {
+			const { id, seo, edges } = compareProduct;
+
+			const { defaultVariant } = getDefaultProductAndProductVariants(
+				edges?.product_variants || []
+			);
+
 			const {
-				id,
-				product_price,
+				retail_price = 0,
+				sales_price = 0,
+				is_on_sale,
 				is_bulk_pricing,
-				bulk_pricing,
-				inventory,
-				seo
-			} = compareProduct;
+				bulk_pricing = [],
+				inventory = {}
+			} = defaultVariant || {};
 
 			const displayPrice = getDisplayBulkPrice({
-				product_price,
+				product_price: is_on_sale ? sales_price : retail_price,
 				is_bulk_pricing,
 				bulk_pricing
 			});
+
+			// const {
+			// 	id,
+			// 	product_price,
+			// 	is_bulk_pricing,
+			// 	bulk_pricing,
+			// 	inventory,
+			// 	seo
+			// } = compareProduct;
+
+			// const displayPrice = getDisplayBulkPrice({
+			// 	product_price,
+			// 	is_bulk_pricing,
+			// 	bulk_pricing
+			// });
 
 			return (
 				<div
@@ -87,15 +109,15 @@ const ComparePage: NextPage = (props) => {
 							compareProduct.product_description || {},
 							locale
 						)}
-						productPrice={product_price}
-						salePrice={compareProduct?.sale_price}
-						isSaleOn={compareProduct?.is_on_sale || 0}
-						isBulkPricing={compareProduct?.is_bulk_pricing}
+						productPrice={retail_price}
+						salePrice={sales_price}
+						isSaleOn={is_on_sale || false}
+						isBulkPricing={is_bulk_pricing}
 						displayPrice={displayPrice}
 						minimumOrderQuantity={
 							inventory?.minimum_order_quantity || 0
 						}
-						images={compareProduct?.images || []}
+						images={defaultVariant?.images || []}
 						onProductRemove={() => removeProductFromCompareList(id)}
 						className={
 							compareProducts?.length - 1 === index
