@@ -16,6 +16,7 @@ import TrendingProduct from '../src/components/common/trending_page/trending-pro
 // stores
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import Seo from 'components/common/seo';
+import CompareProductList from 'components/compare/compare-bottom-overlay/compare-overlay-product-list';
 import ProductFilter from 'components/product-search/product-filter/product-filter';
 import ProductList from 'components/product-search/product-list';
 import ProductSearchFilterBar from 'components/product-search/product-search-filter-bar';
@@ -87,7 +88,12 @@ const Trending_page: NextPage<
 	} = useProductCompareStore();
 
 	const isEco = useHomeStore((state) => state.isEco);
-	const setCategory = useCategoryStore((state) => state.setCategory);
+	const { setMainCategory, setCategory } = useCategoryStore(
+		(state) => ({
+			setMainCategory: state.setMainCategory,
+			setCategory: state.setCategory
+		})
+	);
 
 	const setInitialIds = useCategoryStore(
 		(state) => state.setInitialIds
@@ -304,7 +310,15 @@ const Trending_page: NextPage<
 				</div>
 
 				{isExpanded1 && (
-					<TrendingCatagories categories={trendingCategories || []} />
+					<TrendingCatagories
+						categories={trendingCategories || []}
+						onTileClick={(selectedCategory: any) => {
+							console.log(
+								'selectedCategory---selectedCategory---selectedCategory',
+								selectedCategory
+							);
+						}}
+					/>
 				)}
 
 				{/* This is Trending Products */}
@@ -457,6 +471,35 @@ const Trending_page: NextPage<
 								</div>
 								<TrendingCatagories
 									categories={trendingCategories || []}
+									onTileClick={(selectedCategory) => {
+										const { id: mainCategoryId, title } =
+											selectedCategory?.edges?.main_category;
+										setMainCategory(
+											mainCategoryId || '',
+											title?.en || ''
+										);
+
+										const params = setCategory(
+											selectedCategory?.id || '',
+											selectedCategory?.title?.en || ''
+										);
+
+										router.push(
+											{
+												pathname: '/product-search',
+												query: params?.payload || {}
+											},
+											undefined,
+											{
+												shallow: true
+											}
+										);
+
+										console.log(
+											'selectedCategory-----selectedCategory===selectedCategory',
+											selectedCategory
+										);
+									}}
 								/>
 							</Tab.Panel>
 							<Tab.Panel>
@@ -510,8 +553,19 @@ const Trending_page: NextPage<
 								</div>
 								<ProductList
 									products={products || []}
-									onCompareClick={() => {}}
+									onCompareClick={addProductToCompareList}
 								/>
+
+								{/* Compare */}
+								{compareProducts.length > 0 && (
+									<CompareProductList
+										products={compareProducts}
+										onClearAllClick={removeAllProductFromCompareList}
+										onRemoveCompareProduct={
+											removeProductFromCompareList
+										}
+									/>
+								)}
 							</Tab.Panel>
 						</Tab.Group>
 					</div>

@@ -96,6 +96,9 @@ const CartList: React.FC<CartListProps> = (props) => {
 							minOrderQuantity={
 								product?.inventory?.minimum_order_quantity
 							}
+							minOrderQuantityUnit={(
+								product?.inventory?.minimum_order_quantity_unit || ''
+							)?.toLowerCase()}
 							totalReviewCount={product?.totalReviewCount || 0}
 							variantCount={
 								product?.edges?.product_variants?.length - 1 || 0
