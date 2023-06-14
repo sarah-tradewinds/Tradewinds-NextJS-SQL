@@ -244,7 +244,7 @@ const ProductSearchPage: NextPage<
 			</div>
 
 			{/* ProductSearchFilterBar */}
-			<div className="top-[97px] z-20 hidden md:sticky md:ml-[9px] md:mr-[10px] md:block md:pt-[14.01px] lg:top-[101px] lg:ml-[26px] lg:mr-[23px] lg:pt-[18.14px]">
+			<div className="top-[97px] z-20 hidden md:sticky md:ml-[9px] md:mr-[10px] md:block md:pt-[14.01px] lg:top-[121px] lg:ml-[26px] lg:mr-[23px] lg:pt-[18.14px]">
 				<ProductSearchFilterBar
 					onCountryChange={(id = '', name = '') => {
 						const country = id && name ? `${id}_${name || ''}` : '';

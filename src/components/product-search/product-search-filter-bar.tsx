@@ -76,7 +76,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 		useSWR('/region_country/all', getHomeCountries);
 
 	const dropDownSelect =
-		'outline-none border-2 border-gray/20 md:h-[18px] lg:h-9 w-[84px] lg:w-[202px] md:text-[10px] md:leading-3';
+		'outline-none border-2 border-gray/20 md:h-[18px] lg:h-9 w-[84px] lg:w-[202px] font-semibold md:text-[10px] md:leading-[22px]';
 
 	const chevronDownIcon = (
 		<ChevronDownIcon className="hidden h-6 w-6 text-[#E1DDDD] lg:block" />

@@ -189,11 +189,11 @@ const CategoriesPage: NextPage<
 					{/* List of alphabets */}
 					<div className="flex items-center justify-between pl-[17px] pt-[7px] pr-[14px] md:mx-[38px] lg:space-x-16 lg:p-[16px]">
 						{/* Line */}
-						<div className="hidden h-[2px] w-[17px] rounded-full bg-gray md:block lg:w-full"></div>
+						{/* <div className="hidden h-[2px] w-[17px] rounded-full bg-gray md:block lg:w-full"></div> */}
 
 						{/* List of alphabets */}
 
-						<div className="float-left flex flex-wrap space-x-[11px] leading-[26px] md:flex-wrap md:space-x-2  md:text-[18px] lg:flex-nowrap lg:space-x-4 lg:text-[24px]">
+						<div className="float-left flex w-full  flex-wrap justify-center space-x-[11px] leading-[26px] md:flex-wrap md:space-x-2  md:text-[18px] lg:flex-nowrap lg:space-x-4 lg:text-[24px]">
 							{alphabets.map((alphabet, index) => {
 								return (
 									<Link
@@ -213,7 +213,7 @@ const CategoriesPage: NextPage<
 						</div>
 
 						{/* Line */}
-						<div className="hidden h-[2px] w-[17px] rounded-full bg-gray md:block lg:w-full"></div>
+						{/* <div className="hidden h-[2px] w-[17px] rounded-full bg-gray md:block lg:w-full"></div> */}
 					</div>
 
 					<div className=" md:mx[20px] mx-[20px] mt-[16px] columns-1 text-[15px] md:columns-3 lg:mx-[27px] lg:mt-[17px] lg:columns-5 lg:gap-[45px]">

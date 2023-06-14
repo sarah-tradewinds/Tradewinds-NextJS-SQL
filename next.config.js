@@ -48,19 +48,20 @@ const nextConfig = (phase) => {
 		i18n,
 		reactStrictMode: true,
 		env: {
-			SITE_URL: 'https://www.tradewindsmarketplace.com',
+			SITE_URL:
+				'https://tradewindsmppreprodshoppingsite.azurewebsites.net',
 
 			BUYER_DASHBOARD_SITE_URL:
-				'https://www.dashboard.tradewindsmarketplace.com/#',
+				'https://white-ocean-019fe600f.2.azurestaticapps.net/#',
 
 			BDM_DASHBOARD_SITE_URL:
-				'https://www.dashboard.tradewindsmarketplace.com/#',
+				'https://white-ocean-019fe600f.2.azurestaticapps.net/#',
 
 			SELLER_DASHBOARD_SITE_URL:
-				'https://www.dashboard.tradewindsmarketplace.com/#',
+				'https://white-ocean-019fe600f.2.azurestaticapps.net/#',
 
 			API_BASE_URL:
-				'https://tradewinds-production-sql-as.azurewebsites.net',
+				'https://tradewinds-sql-preprod-as.azurewebsites.net',
 
 			STRIPE_PUBLISHABLE_KEY:
 				'pk_live_51JAhKFCQTcpcYTus0nINDA07UHO9vC8tKxCUzQgYkZhsJuuwXjrVetP6guxJzrOIrvPowH9FpGpMIK3ZfxhqeAQc00AmdLhqZD'
