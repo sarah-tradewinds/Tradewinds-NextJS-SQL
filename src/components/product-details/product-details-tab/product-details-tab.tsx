@@ -183,6 +183,40 @@ const ProductDetailsTab: React.FC<{
 						</li>
 					)}
 
+					{/* eco verifications */}
+					{product?.is_eco && product?.eco_verifications?.length > 0 && (
+						<div>
+							<p className="text-gray md:font-semibold">
+								Eco Verifications:
+							</p>
+							<div className="space-y-2 pl-4">
+								{product?.eco_verifications?.map(
+									(ecoVerification: any) => {
+										const { verification_type } = ecoVerification;
+
+										return (
+											<div
+												key={verification_type}
+												className="flex items-center space-x-4"
+											>
+												<div className="w-[280px] md:w-[306px]">
+													{verification_type}
+												</div>
+												<div className="relative h-[30px] w-[162px]">
+													<ImageWithErrorHandler
+														src="/tradewinds-horizontal-logo.png"
+														alt=""
+														fill={true}
+													/>
+												</div>
+											</div>
+										);
+									}
+								)}
+							</div>
+						</div>
+					)}
+
 					{/* Certificates */}
 					{(certifications as any)?.[0]?.name && (
 						<li className="flex">
