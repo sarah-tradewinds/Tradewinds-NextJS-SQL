@@ -86,47 +86,71 @@ const CategorySubCategoriesSection: React.FC<
 	};
 
 	const subCategoriesMobile = categories
-		? [...categories]
-				.map((subCat) => {
-					let { categories: category } = subCat as any;
+		? [...categories].map((subCat) => {
+				let { categories: category } = subCat as any;
 
-					const categoryData = category || subCat;
-					const subCategoryTitle = getLocaleText(
-						categoryData?.title || {},
-						locale
-					);
+				const categoryData = category || subCat;
+				const subCategoryTitle = getLocaleText(
+					categoryData?.title || {},
+					locale
+				);
 
-					return (
-						<div
-							key={subCat.id}
-							className="mb-[9px] flex items-center border-b-[1.5px] border-[#D1D1CF] last:border-none"
-							onClick={() =>
-								onSubCategoryTileClickHandler(
-									categoryData.id,
-									categoryData?.title?.en || ''
-								)
-							}
-						>
-							<div className="mb-[7px]">
-								<div className="relative h-[42px] w-[44px]">
-									<ImageWithErrorHandler
-										src={categoryData?.image || ''}
-										alt=""
-										fill={true}
-									/>
-								</div>
+				return (
+					<div
+						key={subCat.id}
+						className="mb-[9px] flex items-center border-b-[1.5px] border-[#D1D1CF] last:border-none"
+						onClick={() =>
+							onSubCategoryTileClickHandler(
+								categoryData.id,
+								categoryData?.title?.en || ''
+							)
+						}
+					>
+						<div className="mb-[7px]">
+							<div className="relative h-[42px] w-[44px]">
+								<ImageWithErrorHandler
+									src={categoryData?.image || ''}
+									alt=""
+									fill={true}
+								/>
 							</div>
-
-							<p className="ml-[13px] text-[15px] font-semibold leading-[18px] text-primary-main">
-								{subCategoryTitle}
-							</p>
 						</div>
-					);
-				})
+
+						<p className="ml-[13px] text-[15px] font-semibold leading-[18px] text-primary-main">
+							{subCategoryTitle}
+						</p>
+					</div>
+				);
+		  })
 		: [];
 
+	let slidesToScroll = 2;
+	let slidesToShow = 2;
+	// if (deviceWidth >= 900) {
+	// 	slidesToScroll = 3;
+	// 	slidesToShow = 3;
+	// } else if (deviceWidth >= 1500) {
+	// 	slidesToScroll = 4;
+	// 	slidesToShow = 4;
+	// }
+
+	if (deviceWidth >= 1536) {
+		slidesToScroll = 5;
+		slidesToShow = 5;
+	} else if (deviceWidth >= 1280) {
+		slidesToScroll = 4;
+		slidesToShow = 4;
+	} else if (deviceWidth >= 1024) {
+		slidesToScroll = 3;
+		slidesToShow = 3;
+	} else if (deviceWidth >= 900) {
+		slidesToScroll = 3;
+		slidesToShow = 3;
+	}
+
 	return (
-		<div className="bg-white md:h-[334.09px] md:w-full md:rounded-md md:pt-[25px] md:pl-[22px] md:pr-[10px] lg:w-[1466.01px] lg:pl-[22px] lg:pt-[25px] lg:pr-[10px]">
+		// <div className="bg-white md:h-[334.09px] md:w-full md:rounded-md md:pt-[25px] md:pl-[22px] md:pr-[10px] lg:w-[1466.01px] lg:pl-[22px] lg:pt-[25px] lg:pr-[10px]">
+		<div className="bg-white md:h-[334.09px] md:w-full md:rounded-md md:pt-[25px] md:pl-[22px] md:pr-[10px] lg:pl-[22px] lg:pt-[25px] lg:pr-[10px]">
 			{/* For Small Screen- Collapse */}
 			<div className="md:hidden">
 				<Collapse
@@ -200,53 +224,60 @@ const CategorySubCategoriesSection: React.FC<
 			</div>
 
 			{/* For Medium and Large screen */}
-			<div className="hidden md:flex">
+			{/* <div className="hidden md:flex"> */}
+			<div className="hidden grid-cols-12 md:grid">
 				{/* Category For medium and large screen */}
-				<CategoryCard
-					title={mainCategoryTitle}
-					name={(main_category as any).name || ''}
-					onClick={() => {
-						const { value } = setMainCategory(
-							main_category.id!,
-							main_category.title.en || ''
-						);
+				<div className="col-span-3 lg:col-span-2">
+					<CategoryCard
+						title={mainCategoryTitle}
+						name={(main_category as any).name || ''}
+						onClick={() => {
+							const { value } = setMainCategory(
+								main_category.id!,
+								main_category.title.en || ''
+							);
 
-						router.push(
-							{
-								pathname: '/product-search',
-								query: {
-									main_category: value
+							router.push(
+								{
+									pathname: '/product-search',
+									query: {
+										main_category: value
+									}
+								},
+								undefined,
+								{
+									shallow: true
 								}
-							},
-							undefined,
-							{
-								shallow: true
-							}
-						);
+							);
 
-						// router.push(`/product-search?${params}`);
-					}}
-					description={mainCategoryDescription}
-					buttonText={getLocaleText(
-						main_category.btnTxt || t('source_now'),
-						locale
-					)}
-					imageUrl={main_category?.image}
-					alt={main_category.title?.en || ''}
-					bgHexColor={main_category?.color}
-					actionButtonBgColor={main_category?.source_now_button_color}
-					containerClassName="lg:!h-[278px] lg:w-[349.08px] md:w-[250px] md:!h-[278px]"
-				/>
+							// router.push(`/product-search?${params}`);
+						}}
+						description={mainCategoryDescription}
+						buttonText={getLocaleText(
+							main_category.btnTxt || t('source_now'),
+							locale
+						)}
+						imageUrl={main_category?.image}
+						alt={main_category.title?.en || ''}
+						bgHexColor={main_category?.color}
+						actionButtonBgColor={main_category?.source_now_button_color}
+						// containerClassName="lg:!h-[278px] lg:w-[349.08px] md:w-[250px] md:!h-[278px]"
+						containerClassName="md:!w-full md:!h-[278px]s md:!h-full"
+					/>
+				</div>
 
 				{/* Sub categories */}
-				<div className="md:w-[500px] md:pl-[40px] lg:mr-[56.01px] lg:h-[279px] lg:w-[1046px] lg:pl-[61px]">
+				{/* <div className="md:w-[500px] md:pl-[40px] lg:mr-[56.01px] lg:h-[279px] lg:w-[1046px] lg:pl-[61px]"> */}
+				<div className="bg-errors col-span-9 md:pl-10 lg:col-span-10 lg:px-12">
 					<SubCategorySlider
 						categories={categories || []}
 						className={subCategorySliderClassName}
 						leftButtonClassName={subCategorySliderLeftButtonClassName}
 						rightButtonClassName={subCategorySliderRightButtonClassName}
-						slidesToScroll={deviceWidth <= 1024 ? 2 : 4}
-						slidesToShow={deviceWidth <= 1024 ? 2 : 4}
+						// slidesToScroll={deviceWidth <= 1024 ? 2 : 4}
+						// slidesToShow={deviceWidth <= 1024 ? 2 : 4}
+						slidesToScroll={slidesToScroll}
+						slidesToShow={slidesToShow}
 						subCategoryStyle={{
 							backgroundColor: main_category.panel_color,
 							border: '2px solid gray'

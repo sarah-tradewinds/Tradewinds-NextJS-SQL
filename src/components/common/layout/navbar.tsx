@@ -75,9 +75,9 @@ const Header = (props: any) => {
 	const router = useRouter();
 	useMainCategories();
 
-	let classes = `leading-[22px] pt-[11px] bg-white dark:bg-accent-primary-eco md:bg-[#DCDBDB] w-[180.97px] md:w-full md:h-[41px] lg:h-[59px] md:pl-5 md:pr-4 lg:px-[35px]  items-center ${
+	let classes = `leading-[22px] pt-[11px] bg-white dark:bg-accent-primary-eco md:bg-[#DCDBDB] w-[240px] md:w-full md:h-[41px] slg:h-[59px] lg:h-[44px] md:pl-5 md:pr-4 lg:px-[35px]  items-center ${
 		!isOpen
-			? 'pc:w-0 pc:opacity-0 pc:overflow-hidden'
+			? 'hidden md:block'
 			: 'fixed bottom-[51px] top-[50.6px] md:relative md:bottom-0 md:top-0'
 	}`;
 
@@ -218,7 +218,7 @@ const Header = (props: any) => {
 					{/* Tradewinds logo */}
 					<div
 						className={`md:mt-[6px] md:mb-[7.44] lg:mr-[112px] lg:h-[56px] lg:w-[202px] ${
-							isAuth ? '' : 'ml-8 md:mr-[24.51px] md:ml-5'
+							isAuth ? 'md:ml-8' : 'ml-8 md:mr-[24.51px] md:ml-5'
 						}`}
 					>
 						<div
@@ -262,11 +262,12 @@ const Header = (props: any) => {
 					</div>
 
 					{/* Search Input */}
-					<SearchBar />
+					<div className="hidden md:block">
+						<SearchBar />
+					</div>
 
 					{/* Mobile Right Search Icons */}
 					<div className="flex items-center md:mr-4 md:hidden">
-						{/* <HiOutlineSearch className="h-[7.9px] w-[7.37px] text-white md:h-6 md:w-6" /> */}
 						<HiOutlineSearch className="mr-4 h-4 w-4 text-white md:h-6 md:w-6" />
 						{cartIconAndUsername}
 					</div>
@@ -277,16 +278,16 @@ const Header = (props: any) => {
 
 				{/* Bottom nav */}
 				<div className={classes}>
-					<div className="m-4  flex w-full flex-col justify-between pt-4 md:m-0 md:flex-row md:items-center md:pt-0">
+					<div className="m-4s flex w-full flex-col justify-between p-4 md:flex-row md:items-center md:p-0">
 						<div className="flex md:items-center">
 							<div
 								className="group hidden md:inline-block"
 								onMouseEnter={() => setIsMegaMenuOpen(true)}
 								onMouseLeave={() => setIsMegaMenuOpen(false)}
 							>
-								<div className="cursor-pointer font-semibold text-primary-main outline-none dark:text-accent-secondary-eco md:text-xs md:leading-[15px] lg:text-[18px] lg:leading-[22px]">
-									{t('categories_text')}{' '}
-									<span className="hidden md:inline">&gt;</span>
+								<div className="flex cursor-pointer items-center space-x-1 font-semibold text-primary-main outline-none dark:text-accent-secondary-eco md:text-xs md:leading-[15px] lg:text-[18px] lg:leading-[22px]">
+									<span>{t('categories_text')} </span>
+									<span className="hidden md:inline-block">&gt;</span>
 								</div>
 
 								{isMegaMenuOpen && (
@@ -298,7 +299,7 @@ const Header = (props: any) => {
 								)}
 							</div>
 
-							<nav className="flex cursor-pointer flex-col items-start justify-start md:flex-row md:items-center md:divide-x">
+							<nav className="flex w-full cursor-pointer flex-col items-start justify-start md:flex-row md:items-center md:divide-x">
 								<NavLink
 									href="/eco"
 									className="nav-link hidden items-center justify-center gap-2 md:flex"

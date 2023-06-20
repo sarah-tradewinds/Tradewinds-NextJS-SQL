@@ -44,7 +44,7 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 	return (
 		<div className={`relative flex flex-col ${containerClassName}`}>
 			<h2
-				className={`font-montserrat font-semibold text-primary-main dark:text-accent-secondary-eco md:mb-[11px] md:p-4 lg:mb-[11px] lg:p-0 lg:text-[25px] lg:leading-[30px] ${titleClassName}`}
+				className={`lg:mb-[11px]s md:p-4d font-montserrat font-semibold text-primary-main dark:text-accent-secondary-eco md:mb-[11px] lg:p-0 lg:text-[25px] lg:leading-[30px] ${titleClassName}`}
 			>
 				{title}
 			</h2>
@@ -92,7 +92,7 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 						<Button
 							href={onClick ? '' : slug}
 							onClick={onClick}
-							className={`whitespace-nowrap !px-0 !py-0 font-montserrat capitalize text-white lg:!min-h-[25.95px] lg:!w-[138.39px] lg:!rounded-lg lg:text-lg lg:!font-normal lg:!leading-[22px]`}
+							className={`whitespace-nowrap !px-2 !py-0 font-montserrat capitalize text-white lg:!min-h-[25.95px] lg:!w-[138.39px] lg:!rounded-lg lg:text-lg lg:!font-normal lg:!leading-[22px]`}
 							style={{
 								backgroundColor: actionButtonBgColor
 							}}

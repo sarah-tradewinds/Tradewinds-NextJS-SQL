@@ -85,19 +85,20 @@ const HomePage: NextPage<
 	}, []);
 
 	const searchCategoriesAndTrendingBanner = (
-		<div className="grid gap-4 lg:grid-cols-2">
-			<div className="flex h-[78.75px] items-center bg-accent-primary-main p-3 text-white dark:bg-accent-primary-eco md:space-y-2 lg:h-[143px] lg:flex-col lg:p-0">
-				<h3 className="text-[21px] font-semibold leading-[26px] md:text-[35px] lg:text-center lg:text-[35px] lg:leading-[43px]">
-					{t('home:search_from')}
-					<span className="inline-block lg:mx-3 lg:text-[60px] lg:leading-[73px]">
+		// <div className="grid gap-4 lg:grid-cols-2">
+		<div className="grid gap-4 md:grid-cols-2">
+			<div className="flex h-[78.75px] items-center space-x-2 bg-accent-primary-main p-3 text-white dark:bg-accent-primary-eco md:h-[143px] md:space-y-2 lg:flex-col lg:p-0">
+				<h3 className="text-[21px] font-semibold leading-[26px] md:text-[35px] lg:text-center lg:text-[35px] lg:leading-[43px] ">
+					<span>{t('home:search_from')} </span>
+					<span className="inline-block pr-2 lg:mx-3 lg:text-[60px] lg:leading-[73px]">
 						6500
 					</span>
-					{t('home:categories')}
+					<span className="inline-block">{t('home:categories')}</span>
 				</h3>
 				<Button
 					href="/6500-categories"
 					variant="special"
-					className="!min-h-[20px] whitespace-nowrap !px-4 !py-0 !text-[11px] !leading-[13px] md:h-auto lg:!h-[48px] lg:!min-h-[48px] lg:!w-[236px] lg:!text-[21px] lg:!leading-[26px]"
+					className="md:h-autos !min-h-[20px] whitespace-nowrap !px-4 !py-0 !text-[11px] !leading-[13px]  md:!h-[48px] md:!min-h-[48px] lg:!w-[236px] lg:!text-[21px] lg:!leading-[26px]"
 				>
 					{t('common:search_more')}
 					<span className="hidden md:inline-block lg:pl-2">{' >'}</span>
@@ -111,7 +112,6 @@ const HomePage: NextPage<
 						{t('home:find_the_latest_trends')}
 					</h3>
 					<Button
-						// href={`/product-search?is_trending=${true}`}
 						href="/whats-trending"
 						className="border-2 border-secondary !text-[21px] font-bold text-secondary lg:!h-[48px] lg:!leading-[26px] pc:!rounded-full"
 					>
@@ -138,7 +138,7 @@ const HomePage: NextPage<
 				cardBData={cardBData}
 			/>
 
-			<div className="md:container">
+			<div className="md:containers">
 				<div className="mt-20 md:-mt-14 lg:-mt-14">
 					{/* Category and sub categories */}
 					<div className="space-y-[41px] lg:mx-[23px] lg:space-y-[27px]">

@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
 	};
 
 	return (
-		<footer className=" dark:bg-header-bar bg-accent-primary-main font-montserrat md:bg-header-bar lg:sm:bg-accent-primary-main">
+		<footer className="bg-accent-primary-main font-montserrat dark:bg-header-bar md:bg-header-bar lg:sm:bg-accent-primary-main">
 			<div className="relative flex h-[80px] flex-col items-center justify-center md:items-center md:justify-center">
 				<button
 					onClick={goToTop}
@@ -37,7 +37,7 @@ const Footer: React.FC = () => {
 					/>
 				</div>
 			</div>
-			<div className=" h-[1597px] w-full bg-primary-main text-lg  text-white dark:bg-primary-eco md:h-[747px] md:bg-primary-eco lg:h-[517px] lg:bg-primary-main">
+			<div className=" h-[1597px] w-full bg-primary-main text-lg  text-white dark:bg-primary-eco md:h-[747px] lg:h-[517px] lg:bg-primary-main">
 				<div className="ml-7 mr-[20px] grid-cols-3 grid-rows-2 pt-[57px] text-lg md:grid lg:mb-[40px] lg:flex lg:justify-between lg:pl-[74px] lg:pr-[74px]">
 					<div className=" mb-[28px] h-[116px] w-[203px]">
 						<p className=" text-xl font-bold">Customer services</p>
