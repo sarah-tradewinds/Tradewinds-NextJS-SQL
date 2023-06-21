@@ -4,7 +4,6 @@ import useSWR from 'swr';
 
 // components
 import Button from 'components/common/form/button';
-import AddBanner from 'components/home/ads-banner';
 import CategorySubCategoriesSection from 'components/home/category-sub-categories-section';
 import CountrySlider from 'components/home/country-slider';
 import Hero from 'components/home/hero';
@@ -14,7 +13,6 @@ import {
 	getCardAList,
 	getCardB,
 	getHeroCarousels,
-	getHomeAdvertisements,
 	getHomeCountries
 } from 'lib/home.lib';
 import {
@@ -48,10 +46,10 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 		);
 
 	// Fetching Advertisement
-	const { data: homeAdvertisements = [], error } = useSWR(
-		'/advertisement/getalladvertisement',
-		getHomeAdvertisements
-	);
+	// const { data: homeAdvertisements = [], error } = useSWR(
+	// 	'/advertisement/getalladvertisement',
+	// 	getHomeAdvertisements
+	// );
 
 	// Fetching Countries
 	const {
@@ -205,14 +203,14 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 						</div>
 
 						{/* Bottom ADS Banner */}
-						<div className="mt-[30px] grid grid-cols-2">
+						{/* <div className="mt-[30px] grid grid-cols-2">
 							{homeAdvertisements.map((advertisement: any) => (
 								<AddBanner
 									key={advertisement.id}
 									iframe_code={advertisement.i_frame_code}
 								/>
 							))}
-						</div>
+						</div> */}
 					</div>
 				</div>
 			</div>

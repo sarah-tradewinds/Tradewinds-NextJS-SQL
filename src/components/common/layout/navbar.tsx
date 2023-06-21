@@ -75,7 +75,7 @@ const Header = (props: any) => {
 	const router = useRouter();
 	useMainCategories();
 
-	let classes = `leading-[22px] pt-[11px] bg-white dark:bg-accent-primary-eco md:bg-[#DCDBDB] w-[240px] md:w-full md:h-[41px] slg:h-[59px] lg:h-[44px] md:pl-5 md:pr-4 lg:px-[35px]  items-center ${
+	let classes = `leading-[22px] pt-[11px] bg-white dark:bg-accent-primary-eco md:bg-[#DCDBDB] w-[240px] md:w-full md:h-[41px] slg:h-[59px] lg:h-[58px] md:pl-5 md:pr-4 lg:px-[35px] items-center ${
 		!isOpen
 			? 'hidden md:block'
 			: 'fixed bottom-[51px] top-[50.6px] md:relative md:bottom-0 md:top-0'

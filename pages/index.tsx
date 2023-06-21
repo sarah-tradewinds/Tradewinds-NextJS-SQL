@@ -1,7 +1,7 @@
 import {
-	GetServerSideProps,
-	InferGetServerSidePropsType,
-	NextPage
+  GetServerSideProps,
+  InferGetServerSidePropsType,
+  NextPage
 } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -20,12 +20,12 @@ import Hero from 'components/home/hero';
 
 // lib
 import {
-	getCardAList,
-	getCardB,
-	getHeroCarousels,
-	getHomeAdvertisements,
-	getHomeCountries,
-	getHomeMainCategoriesAndCategories
+  getCardAList,
+  getCardB,
+  getHeroCarousels,
+  getHomeAdvertisements,
+  getHomeCountries,
+  getHomeMainCategoriesAndCategories
 } from 'lib/home.lib';
 
 // stores
