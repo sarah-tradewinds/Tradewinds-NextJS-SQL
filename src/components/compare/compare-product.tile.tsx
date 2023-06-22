@@ -3,17 +3,23 @@ import Button from 'components/common/form/button';
 import MetadataList from 'components/product-search/metadata/metadata-list';
 
 // data
+import {
+	BUYER_DASHBOARD_ACTIONS,
+	BUYER_DASHBOARD_PAGES,
+	generateBuyerDashboardUrl
+} from 'data/buyer/buyer-actions';
 import { metadataList } from 'data/product-search/metadata-list';
 import { useKeenSlider } from 'keen-slider/react';
 import { useState } from 'react';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
+import { useAuthStore } from 'store/auth';
 import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
 import Input from '../common/form/input';
 import RatingStars from '../product-details/product-details-tab/product-review/rating-stars';
 
 interface CompareProductTileProps {
 	id: string;
-	images: { url?: string }[];
+	images: string[];
 	alt?: string;
 	name: string;
 	description: string;
@@ -45,8 +51,18 @@ const CompareProductTile: React.FC<CompareProductTileProps> = (
 		onProductRemove
 	} = props;
 
+	console.log('images----images----images =', images);
+
 	const [currentSlide, setCurrentSlide] = useState(0);
 	const [loaded, setLoaded] = useState(false);
+
+	const { isAuth, setIsLoginOpen, customerData } = useAuthStore(
+		(state) => ({
+			isAuth: state.isAuth,
+			setIsLoginOpen: state.setIsLoginOpen,
+			customerData: state.customerData
+		})
+	);
 
 	const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
 		initial: 0,
@@ -73,10 +89,11 @@ const CompareProductTile: React.FC<CompareProductTileProps> = (
 			<div className="navigation-wrapper">
 				<div ref={sliderRef} className="keen-slider">
 					{images?.map((image) => (
-						<div key={image.url} className="keen-slider__slide">
+						<div key={image} className="keen-slider__slide">
 							<div className="relative h-[202px] w-[240px]">
 								<ImageWithErrorHandler
-									src={image.url || ''}
+									key={image || ''}
+									src={image || ''}
 									alt={alt || ''}
 									fill={true}
 								/>
@@ -194,12 +211,38 @@ const CompareProductTile: React.FC<CompareProductTileProps> = (
 			{/* Action Button */}
 			<div className="flex flex-col items-center justify-between space-y-4 lg:flex-row lg:items-start lg:space-y-0">
 				<Button
-					variant="buyer"
+					variant="product"
+					onClick={() => {
+						if (!isAuth) {
+							setIsLoginOpen();
+							return;
+						}
+						const url = generateBuyerDashboardUrl({
+							redirect_to: BUYER_DASHBOARD_PAGES.buyer_rfq,
+							action: BUYER_DASHBOARD_ACTIONS.create_rfq,
+							access_key: customerData.access.token,
+							refresh_key: customerData.refresh.token
+						});
+						window.open(url, '__blank');
+					}}
 					className="w-[124px] !px-2 !text-[12px] !font-medium lg:w-auto"
 				>
 					Message Seller
 				</Button>
 				<Button
+					onClick={() => {
+						if (!isAuth) {
+							setIsLoginOpen();
+							return;
+						}
+						const url = generateBuyerDashboardUrl({
+							redirect_to: BUYER_DASHBOARD_PAGES.buyer_rfq,
+							action: BUYER_DASHBOARD_ACTIONS.create_rfq,
+							access_key: customerData.access.token,
+							refresh_key: customerData.refresh.token
+						});
+						window.open(url, '__blank');
+					}}
 					variant="special"
 					className="w-[124px] !px-2 !text-[12px] !font-medium lg:w-auto"
 				>

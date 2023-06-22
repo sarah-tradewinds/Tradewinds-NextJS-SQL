@@ -176,7 +176,7 @@ const CartPage: NextPage = () => {
 											{t('cart:items')})
 										</p>
 										<p className="text-right text-primary-main">
-											${totalAmount}
+											${+(totalAmount || 0)?.toFixed(2)}
 										</p>
 									</div>
 									<Button onClick={cartReviewHandler} variant="special">
@@ -205,7 +205,7 @@ const CartPage: NextPage = () => {
 									{t('cart:items')}):
 								</p>
 								<p className="text-center text-primary-main">
-									${totalAmount}
+									${+(totalAmount || 0)?.toFixed(2)}
 								</p>
 							</div>
 							<Button
@@ -272,7 +272,7 @@ const CartPage: NextPage = () => {
 								{t('cart:items')}):
 							</p>
 							<p className="text-center text-primary-main">
-								${totalAmount}
+								${+(totalAmount || 0)?.toFixed(2)}
 							</p>
 						</div>
 						<Button

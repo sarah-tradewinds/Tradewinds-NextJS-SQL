@@ -1,7 +1,10 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-import { generateListByCount } from 'utils/common.util';
+import {
+	generateListByCount,
+	getDefaultProductAndProductVariants
+} from 'utils/common.util';
 import { getDisplayBulkPrice } from 'utils/get-bulk-price';
 import { getLocaleText } from 'utils/get_locale_text';
 import Button from '../../common/form/button';
@@ -36,25 +39,24 @@ const CompareProductList: React.FC<CompareProductListProps> = (
 			>
 				<div className="2xl:px-16 flex flex-wrap items-center justify-center space-x-6 py-4 px-4 md:flex-nowrap">
 					{products?.map((product) => {
-						const [firstVariantData = {}] =
-							product?.edges?.product_variants || [];
-
-						// const { id, product_price, is_bulk_pricing, bulk_pricing } =
-						//   product;
+						const { defaultVariant } =
+							getDefaultProductAndProductVariants(
+								product?.edges?.product_variants || []
+							);
 
 						const { id } = product;
 
 						const {
-							retail_price: product_price = 0,
+							retail_price = 0,
 							sales_price = 0,
 							is_on_sale,
 							is_bulk_pricing,
 							bulk_pricing = [],
 							inventory = {}
-						} = firstVariantData || {};
+						} = defaultVariant || {};
 
 						const displayPrice = getDisplayBulkPrice({
-							product_price,
+							product_price: is_on_sale ? sales_price : retail_price,
 							is_bulk_pricing,
 							bulk_pricing
 						});
@@ -62,7 +64,7 @@ const CompareProductList: React.FC<CompareProductListProps> = (
 						return (
 							<CompareProductTile
 								key={id}
-								imageUrl={firstVariantData?.images?.[0] || ''}
+								imageUrl={defaultVariant?.images?.[0] || ''}
 								displayPrice={displayPrice}
 								title={getLocaleText(product.name || {}, locale)}
 								onRemoveCompareProduct={() => {

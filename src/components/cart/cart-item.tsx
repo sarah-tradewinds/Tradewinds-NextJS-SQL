@@ -22,6 +22,7 @@ interface CartItemProps {
 	displayPrice: string;
 	isBulkPricing: boolean;
 	minOrderQuantity: number;
+	minOrderQuantityUnit: string;
 	imageUrl: string;
 	countryName: string;
 	countryImageUrl: string;
@@ -44,6 +45,7 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 		salePrice,
 		displayPrice,
 		minOrderQuantity,
+		minOrderQuantityUnit,
 		isBulkPricing,
 		imageUrl,
 		countryName,
@@ -214,8 +216,8 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 											<>{displayPrice} / piece</>
 										)}
 									</h3>
-									<p>
-										{minOrderQuantity} {t('common:pieces')} /
+									<p className="capitalize">
+										{minOrderQuantity} {minOrderQuantityUnit} /
 										{t('common:min_order')}
 									</p>
 								</div>
@@ -256,8 +258,8 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 								<p className="font-semibold">
 									{t('common:price_per_unit')}: ${productPrice}
 								</p>
-								<p>
-									{minOrderQuantity} {t('common:pieces')} /
+								<p className="capitalize">
+									{minOrderQuantity} {minOrderQuantityUnit} /
 									{t('common:min_order')}
 								</p>
 							</div>

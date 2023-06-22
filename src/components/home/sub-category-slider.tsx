@@ -44,9 +44,9 @@ const SubCategorySlider: React.FC<{
 		<div className={`relative w-full ${subCategoryContainerClassName}`}>
 			<Button
 				onClick={() => (slider?.current as any)?.slickPrev()}
-				className={`absolute -left-[40px] top-1/2 hidden -translate-y-1/2 transform items-center justify-center !rounded-full !px-0 !py-0 lg:flex lg:!h-[33px] lg:!w-[33px] lg:border lg:!border-[#575858] ${leftButtonClassName}`}
+				className={`lg:!border-[#575858]s absolute -left-[45px] top-1/2 hidden -translate-y-1/2 transform items-center justify-center !rounded-full bg-[#DCDBDB] !px-0 !py-0 lg:flex lg:!h-[20px] lg:!w-[40px] lg:border ${leftButtonClassName}`}
 			>
-				<MdChevronLeft className="w-full text-[#575858] lg:h-full" />
+				<MdChevronLeft className="text-[#575858]s w-full text-white lg:h-full" />
 			</Button>
 
 			<div className={`${className}`}>
@@ -75,10 +75,10 @@ const SubCategorySlider: React.FC<{
 			</div>
 
 			<Button
-				className={`absolute -right-[34px] top-1/2 hidden !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full !px-0 !py-0 lg:flex lg:!h-[33px] lg:!w-[33px] lg:border lg:!border-[#575858] ${rightButtonClassName}`}
+				className={`lg:!border-[#575858]s absolute -right-[40px] top-1/2 hidden !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full bg-[#DCDBDB] !px-0 !py-0 lg:flex lg:!h-[20px] lg:!w-[40px] lg:border ${rightButtonClassName}`}
 				onClick={() => (slider?.current as any)?.slickNext()}
 			>
-				<MdChevronRight className="w-full text-[#575858] lg:h-full" />
+				<MdChevronRight className="text-[#575858]s w-full text-white lg:h-full" />
 			</Button>
 		</div>
 	);

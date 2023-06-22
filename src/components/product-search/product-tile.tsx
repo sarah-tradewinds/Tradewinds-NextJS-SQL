@@ -36,6 +36,7 @@ interface ProductTileProps {
 	displayPrice: string;
 	isBulkPricing: boolean;
 	minOrderQuantity: number;
+	minOrderQuantityUnit: string;
 	totalReviewCount?: number;
 	totalRateCount?: number;
 	onCompareClick?: () => any;
@@ -66,6 +67,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 		isSaleOn,
 		displayPrice,
 		minOrderQuantity,
+		minOrderQuantityUnit,
 		totalRateCount,
 		totalReviewCount,
 		onCompareClick,
@@ -264,7 +266,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 						href={`/product/${slug}?main_category=${main_category}&category=${category}&filters=${filters}`}
           > */}
 					<div onClick={onClick}>
-						<h2 className="min-h-[59px] cursor-pointer line-clamp-3 md:text-[16px] md:leading-5 lg:text-[15px] lg:leading-[18px]">
+						<h2 className="min-h-[57px] cursor-pointer line-clamp-3 md:text-[16px] md:leading-5 lg:text-[15px] lg:leading-[18px]">
 							<span className="font-semibold">{name}: </span>
 							<span className="text-gray">{description}</span>
 						</h2>
@@ -281,24 +283,26 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 							)}
 						</div>
 
-						<h3 className="flex items-center space-x-2 font-semibold md:space-x-8 md:text-[18px] md:leading-[22px] md:text-primary-main lg:text-[21px] lg:leading-[26px]">
+						<h3 className="flex items-center space-x-2 font-semibold capitalize md:space-x-8 md:text-[18px] md:leading-[22px] md:text-primary-main lg:text-[21px] lg:leading-[26px]">
 							{isSaleOn && !isBulkPricing ? (
 								<>
 									<span className="text-accent-error">
-										Sale ${salePrice}/piece
+										Sale ${salePrice}/{minOrderQuantityUnit}
 									</span>
 									<span className="text-gray line-through">
-										${productPrice}/piece
+										${productPrice}/{minOrderQuantityUnit}
 									</span>
 								</>
 							) : (
-								<>{displayPrice} /piece</>
+								<>
+									{displayPrice} /{minOrderQuantityUnit}
+								</>
 							)}
 						</h3>
 
 						{minOrderQuantity > 0 && (
-							<h4 className="font-normal md:text-[18px] md:font-semibold md:leading-[22px] md:text-primary-main lg:text-[21px] lg:leading-[26px]">
-								{minOrderQuantity} {t('common:piece')} /
+							<h4 className="font-normal capitalize md:text-[18px] md:font-semibold md:leading-[22px] md:text-primary-main lg:text-[21px] lg:leading-[26px]">
+								{minOrderQuantity} {minOrderQuantityUnit} /
 								{t('common:min_order')}
 							</h4>
 						)}

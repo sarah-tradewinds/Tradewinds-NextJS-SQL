@@ -95,7 +95,7 @@ const AddAddressModal = (props: {
 			open={isOpen}
 			onClose={() => {}}
 			overlayClassName="!bg-white top-[80px] z-[4000]"
-			className="!top-[128px] z-[4005] w-full"
+			className="!top-[128px] z-[4006] w-full"
 		>
 			<div className="flex h-full items-center justify-center md:mt-16">
 				<form

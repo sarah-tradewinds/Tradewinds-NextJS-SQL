@@ -48,21 +48,15 @@ const nextConfig = (phase) => {
 		i18n,
 		reactStrictMode: true,
 		env: {
-			// SITE_URL: 'tradewindsmpproductionshoppingsite.azurewebsites.net',
 			SITE_URL: 'https://www.tradewindsmarketplace.com',
-
-			// BUYER_DASHBOARD_SITE_URL:
-			// 	'https://victorious-forest-0245d510f.3.azurestaticapps.net/#',
 
 			BUYER_DASHBOARD_SITE_URL:
 				'https://www.dashboard.tradewindsmarketplace.com/#',
 
 			BDM_DASHBOARD_SITE_URL:
-				// 'https://victorious-forest-0245d510f.3.azurestaticapps.net/#',
 				'https://www.dashboard.tradewindsmarketplace.com/#',
 
 			SELLER_DASHBOARD_SITE_URL:
-				// 'https://victorious-forest-0245d510f.3.azurestaticapps.net',
 				'https://www.dashboard.tradewindsmarketplace.com/#',
 
 			API_BASE_URL:

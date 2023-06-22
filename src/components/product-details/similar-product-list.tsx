@@ -3,6 +3,7 @@ import { useKeenSlider } from 'keen-slider/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
+import { getDefaultProductAndProductVariants } from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
 import Button from '../common/form/button';
 
@@ -50,38 +51,41 @@ const SimilarProductList: React.FC<SimilarProductListProps> = (
 			{/* Similar Products */}
 			<div className="navigation-wrapper pl-8s group relative">
 				<div ref={sliderRef} className={`keen-slider ${className}`}>
-					{similarProducts.map((similarProduct, index) => (
-						<div
-							key={similarProduct.id}
-							className={`keen-slider__slide cursor-pointer ${
-								index === 3 ? 'xl:block hidden' : ''
-							}`}
-							onClick={() => push(`/product/${similarProduct.id}`)}
-						>
-							{/* {console.log('similarProduct', similarProduct)} */}
-					``		<div className="h-[274px] w-[298px]">
-								<div className="relative h-[205px] w-[240px]">
-									<ImageWithErrorHandler
-										src={
-											similarProduct?.edges?.product_variants?.[0]
-												?.images?.[0] || ''
-										}
-										alt=""
-										fill={true}
-									/>
+					{similarProducts.map((similarProduct, index) => {
+						const { defaultVariant } =
+							getDefaultProductAndProductVariants(
+								similarProduct?.edges?.product_variants || []
+							);
+						return (
+							<div
+								key={similarProduct?.id}
+								className={`keen-slider__slide cursor-pointer ${
+									index === 3 ? 'xl:block hidden' : ''
+								}`}
+								onClick={() => push(`/product/${similarProduct?.id}`)}
+							>
+								{/* {console.log('similarProduct', similarProduct)} */}
+								<div className="h-[274px] w-[298px]">
+									<div className="relative h-[205px] w-[240px]">
+										<ImageWithErrorHandler
+											src={defaultVariant?.images?.[0] || ''}
+											alt=""
+											fill={true}
+										/>
+									</div>
+									<p className="mt-1 flex justify-between space-x-8 truncate text-[18px] font-bold text-primary-main">
+										{getLocaleText(defaultVariant?.name || {}, locale)}
+									</p>
+									<p className="truncate text-[15px] text-gray">
+										{getLocaleText(
+											defaultVariant?.description || {},
+											locale
+										)}
+									</p>
 								</div>
-								<p className="mt-1 flex justify-between space-x-8 text-[18px] font-bold text-primary-main">
-									{getLocaleText(similarProduct.name || {}, locale)}
-								</p>
-								<p className="text-[15px] text-gray">
-									{getLocaleText(
-										similarProduct.description || {},
-										locale
-									)}
-								</p>
 							</div>
-						</div>
-					))}
+						);
+					})}
 				</div>
 
 				{/* Navigation button */}

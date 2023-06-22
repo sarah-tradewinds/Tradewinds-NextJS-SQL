@@ -96,11 +96,11 @@ const SelectSignUp: React.FC = () => {
 											setIsSignUpOpen();
 										} else if (selectedOption === 'Seller') {
 											window.open(
-												'https://www.tradewindsqa.com/#/seller-registration'
+												`${process.env.SELLER_DASHBOARD_SITE_URL}/seller-registration`
 											);
 										} else if (selectedOption === 'BDM') {
 											window.open(
-												'https://www.tradewindsqa.com/#/bdm-registration'
+												`${process.env.BDM_DASHBOARD_SITE_URL}/bdm-registration`
 											);
 										}
 									}}

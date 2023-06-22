@@ -193,8 +193,8 @@ const Header = (props: any) => {
 			className={`sticky top-0 z-[10000] h-[50.07px] w-full md:h-[111px] lg:h-[119.68px] ${
 				isEco
 					? 'bg-primary-eco'
-					: // : 'bg-gradient-to-r from-success via-accent-primary-main to-primary-main'
-					  'bg-primary-main'
+					: 'bg-gradient-to-r from-success via-accent-primary-main to-primary-main'
+				// :'bg-primary-main'
 			}`}
 		>
 			<div className="h-full">

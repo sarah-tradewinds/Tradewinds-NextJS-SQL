@@ -74,9 +74,11 @@ const Layout: React.FC<{ productName?: string; seo: any }> = (
 		const [bodyTag] = Array.from(document.getElementsByTagName('body'));
 		if (bodyTag) {
 			if (deviceWidth >= 744) {
-				(bodyTag.style as any).zoom = '85%';
+				// (bodyTag.style as any).zoom = '80%';
+				(document.body.style as any).zoom = '80%';
 			} else {
-				(bodyTag.style as any).zoom = '100%';
+				// (bodyTag.style as any).zoom = '100%';
+				(document.body.style as any).zoom = '100%';
 			}
 		}
 	}, [deviceWidth]);

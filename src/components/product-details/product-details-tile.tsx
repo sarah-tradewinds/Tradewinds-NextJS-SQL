@@ -111,7 +111,9 @@ const ProductDetailsTile: React.FC<{
 		selectedVariant
 	);
 
-	const productName = getLocaleText(name || {}, locale);
+	const productName = (
+		getLocaleText(name || {}, locale) || ''
+	)?.toLowerCase();
 
 	const displayPrice = getDisplayBulkPrice({
 		product_price,
@@ -132,7 +134,15 @@ const ProductDetailsTile: React.FC<{
 	const countryName =
 		getLocaleText(sellerCountry?.name || {}, locale) || '';
 
-	const minOrderQuantity = inventory?.minimum_order_quantity || 0;
+	const minOrderQuantity =
+		inventory?.minimum_order_quantity ||
+		defaultVariant?.inventory?.minimum_order_quantity_unit ||
+		0;
+	const minOrderQuantityUnit = (
+		inventory?.minimum_order_quantity_unit ||
+		defaultVariant?.inventory?.minimum_order_quantity_unit ||
+		''
+	)?.toLowerCase();
 	const isInStock =
 		inventory?.available_quantity > 0 ||
 		selectedVariant?.is_unlimited_quantity ||
@@ -340,101 +350,6 @@ const ProductDetailsTile: React.FC<{
 		...Object.values(optionsAndValueListObject || {})
 	];
 
-	// const onOptionAndValueSelect = (optionAndValue: any) => {
-	// 	const findAndSetVariantBySelectedOptionValues = (
-	// 		updatedSelectedOptionAndValueObject: any
-	// 	) => {
-	// 		const updatedSelectedOptionAndValue = Object.values(
-	// 			updatedSelectedOptionAndValueObject || {}
-	// 		);
-	// 		const variant = variants?.find((productVariant) => {
-	// 			const productAttributeOptions =
-	// 				productVariant?.edges?.product_attribute_options || [];
-
-	// 			// This matchCount track or count for, weather in a variant all selected option are matching or not
-	// 			let matchCount = 0;
-	// 			for (const productAttributeOption of productAttributeOptions) {
-	// 				for (const selectedOptionAndValue of updatedSelectedOptionAndValue) {
-	// 					const selectedOptionAndValueData =
-	// 						selectedOptionAndValue as any;
-
-	// 					const productAttributeId =
-	// 						productAttributeOption?.edges?.product_attribute?.id;
-
-	// 					if (
-	// 						productAttributeId ===
-	// 							selectedOptionAndValueData?.optionId &&
-	// 						selectedOptionAndValueData?.value?.name ===
-	// 							productAttributeOption.value
-	// 					) {
-	// 						matchCount += 1;
-	// 						console.log(
-	// 							'selectedOptionAndValue as any)?.value?.name === productAttributeOption.value',
-	// 							{
-	// 								productAttributeId,
-	// 								name: (selectedOptionAndValue as any)?.value?.name,
-	// 								productAttributeOptionName:
-	// 									productAttributeOption?.value,
-	// 								productAttributeOptions,
-	// 								updatedSelectedOptionAndValue,
-	// 								productVariant
-	// 							}
-	// 						);
-	// 					}
-	// 				}
-	// 			}
-	// 			const updatedSelectedOptionAndValueLength =
-	// 				updatedSelectedOptionAndValue.length;
-
-	// 			console.log(
-	// 				'variantvariantvariantvariantvariantvariant-variant-variant =',
-	// 				{ updatedSelectedOptionAndValueLength, matchCount }
-	// 			);
-
-	// 			return (
-	// 				matchCount === updatedSelectedOptionAndValueLength &&
-	// 				updatedSelectedOptionAndValueLength > 0
-	// 			);
-	// 		});
-
-	// 		onVariantClick(
-	// 			selectedVariantId === variant?.id ? '' : variant?.id
-	// 		);
-	// 	}; // End of findAndSetVariantBySelectedOptionValues
-
-	// 	setSelectedOptionAndValue((prevSelectedOptionAndValue) => {
-	// 		const selectedOptionId = optionAndValue?.optionId;
-
-	// 		const prevSelectedOptionsAndValue = {
-	// 			...prevSelectedOptionAndValue
-	// 		};
-
-	// 		let updatedSelectedOptionAndValueObj = {};
-	// 		if (
-	// 			prevSelectedOptionsAndValue?.[selectedOptionId]?.value?.name ===
-	// 			optionAndValue?.value?.name
-	// 		) {
-	// 			delete prevSelectedOptionsAndValue[selectedOptionId];
-
-	// 			findAndSetVariantBySelectedOptionValues(
-	// 				prevSelectedOptionsAndValue || {}
-	// 			);
-	// 			return prevSelectedOptionsAndValue;
-	// 		}
-
-	// 		const updatedSelectedOptionAndValueObject = {
-	// 			...prevSelectedOptionsAndValue,
-	// 			[selectedOptionId]: optionAndValue
-	// 		};
-
-	// 		findAndSetVariantBySelectedOptionValues(
-	// 			updatedSelectedOptionAndValueObject || {}
-	// 		);
-
-	// 		return updatedSelectedOptionAndValueObject;
-	// 	});
-	// }; // End of onOptionAndValueSelect
-
 	const onOptionAndValueSelect = (optionAndValue: any) => {
 		const findAndSetVariantBySelectedOptionValues = (
 			updatedSelectedOptionAndValueObject: any
@@ -462,7 +377,7 @@ const ProductDetailsTile: React.FC<{
 							selectedOptionAndValueData?.value?.name ===
 								productAttributeOption.value
 						) {
-              matchCount += 1;
+							matchCount += 1;
 							console.log(
 								'selectedOptionAndValue as any)?.value?.name === productAttributeOption.value',
 								{
@@ -475,7 +390,7 @@ const ProductDetailsTile: React.FC<{
 									productVariant
 								}
 							);
-              break;
+							break;
 						}
 					}
 				}
@@ -572,35 +487,39 @@ const ProductDetailsTile: React.FC<{
 				<div className="col-span-12 overflow-y-auto px-5 md:py-8 md:pl-20 lg:col-span-7 lg:h-[786px] lg:p-8">
 					{/* Product name and sku info */}
 					<div className="flex items-center justify-between">
-						<h1 className="text-[18px] font-semibold leading-[22px] text-primary-main md:text-[30px] md:leading-[37px]">
+						<h1 className="text-[18px] font-semibold capitalize leading-[22px] text-primary-main md:text-[30px] md:leading-[37px]">
 							{productName}
 						</h1>
-						<p className="hidden text-[25px] font-semibold text-gray/40 md:block">
+						<p className="hidden text-[25px] font-semibold uppercase text-gray/40 md:block">
 							{inventory?.sku}
 						</p>
 					</div>
 
 					{/* Price and quantity info */}
 					<div className="my-2 flex justify-between text-[12px] font-semibold text-primary-main md:mt-[13px]">
-						<h3 className="flex items-center space-x-8 text-xs font-semibold leading-[15px] md:text-[21px] md:leading-[26px]">
+						<h3 className="flex items-center space-x-8 text-xs font-semibold capitalize leading-[15px] md:text-[21px] md:leading-[26px]">
 							{selectedVariant?.is_on_sale && !is_bulk_pricing ? (
 								<>
 									<span className="text-accent-error">
-										Sale {selectedVariant?.sales_price}/piece
+										Sale ${selectedVariant?.sales_price}/
+										{minOrderQuantityUnit}
 									</span>
 									<span className="text-gray line-through">
-										${product_price}/piece
+										${product_price}/{minOrderQuantityUnit}
 									</span>
 								</>
 							) : (
-								<>{displayPrice} /piece</>
+								<>
+									{displayPrice} /{minOrderQuantityUnit}
+								</>
 							)}
 						</h3>
 
 						{minOrderQuantity > 0 && (
-							<div className="text-xs font-semibold leading-[15px] md:text-[21px] md:leading-[26px]">
+							<div className="text-xs font-semibold capitalize leading-[15px] md:text-[21px] md:leading-[26px]">
 								<h4>
-									{minOrderQuantity} {t('common:piece')} /
+									{/* {minOrderQuantity} {t('common:piece')} / */}
+									{minOrderQuantity} {minOrderQuantityUnit} /
 									{t('common:min_order')}
 								</h4>
 								<p>Lead Time: {product?.lead_time}</p>
@@ -665,7 +584,7 @@ const ProductDetailsTile: React.FC<{
 					{/* Product name and description */}
 					<div className="mt-[15px] border-t-2 border-[#DEDFE0] pt-[13px] md:border-b-2 md:pt-[19px] md:pb-[25.64px]">
 						<div className="flex items-start">
-							<h2 className="overflow-clips h-[49px]s text-xs leading-[22px] text-gray md:text-[15px]">
+							<h2 className="overflow-clips h-[49px]s whitespace-pre-wrap text-xs leading-[22px] text-gray md:text-[15px]">
 								{productDescription?.length > 150
 									? productDescription?.substring(
 											0,
@@ -787,6 +706,10 @@ const ProductDetailsTile: React.FC<{
 						{/* Variants Options And Values */}
 						{updatedOptionsAndValueLists?.map(
 							(optionAndValueList: any, index: number) => {
+								if (!optionAndValueList) {
+									return null;
+								}
+
 								const {
 									id,
 									name,

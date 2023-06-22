@@ -40,7 +40,7 @@ const AddressTile: React.FC<AddressTileProps> = (props) => {
 					? 'outline outline-accent-primary-main'
 					: 'border border-gray/20'
 			} ${containerClassName}`}
-			onClick={() => onChange(isSelected || false)}
+			// onClick={() => onChange(isSelected || false)}
 		>
 			<div>
 				<div className="flex justify-end">
@@ -50,6 +50,7 @@ const AddressTile: React.FC<AddressTileProps> = (props) => {
 						name={type}
 						checked={isSelected}
 						className="h-[24px] w-[24px] cursor-pointer"
+						onChange={() => onChange(isSelected || false)}
 					/>
 				</div>
 				<ul className="text-sm font-medium">

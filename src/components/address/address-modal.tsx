@@ -142,6 +142,7 @@ const AddressModal: React.FC<ModalProps> = (props) => {
 					getBuyerShippingAndBillingAddresses();
 				}}
 			/>
+
 			<Modal
 				open={open}
 				onClose={() => {}}
@@ -150,7 +151,7 @@ const AddressModal: React.FC<ModalProps> = (props) => {
 					isLoginOpen || isSignUpOpen ? '!z-[5]' : ''
 				} !top-[128px] w-full`}
 			>
-				<div className="mx-4 pr-4 lg:mx-8">
+				<div className="mx-4 pr-4 lg:mx-8 lg:mt-8">
 					<div className="mb-6 items-center justify-between md:flex">
 						<h1 className="xl:text-[40px] text-lg font-semibold md:text-[24px] lg:text-[32px]">
 							Select Shipping and Billing Address

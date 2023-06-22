@@ -85,7 +85,7 @@ const MinMaxPicker: React.FC<MinMaxPickerProps> = (props) => {
 					{minStartEndList.map((count) => (
 						<div
 							key={count}
-							className="keen-slider__slide text-center text-white"
+							className="keen-slider__slide text-center text-secondary"
 						>
 							{count}
 						</div>
@@ -100,7 +100,7 @@ const MinMaxPicker: React.FC<MinMaxPickerProps> = (props) => {
 					{maxStartEndList.map((count) => (
 						<div
 							key={count}
-							className="keen-slider__slide text-center text-white"
+							className="keen-slider__slide text-center text-secondary"
 						>
 							{count}
 						</div>
