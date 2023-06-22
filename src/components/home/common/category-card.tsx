@@ -44,14 +44,14 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 	return (
 		<div className={`relative flex flex-col ${containerClassName}`}>
 			<h2
-				className={`lg:mb-[11px]s md:p-4d font-montserrat font-semibold text-primary-main dark:text-accent-secondary-eco md:mb-[11px] lg:p-0 lg:text-[25px] lg:leading-[30px] ${titleClassName}`}
+				className={`lg:mb-[11px]s tablet:p-4d font-montserrat font-semibold text-primary-main dark:text-accent-secondary-eco lg:p-0 lg:text-[25px] lg:leading-[30px] tablet:mb-[11px] ${titleClassName}`}
 			>
 				{title}
 			</h2>
 
 			{/* Container */}
 			<div
-				className={`relative bg-agri-main p-4 font-montserrat md:h-full lg:h-full ${innerContainer}`}
+				className={`relative bg-agri-main p-4 font-montserrat lg:h-full tablet:h-full ${innerContainer}`}
 				style={{ backgroundColor: bgHexColor }}
 			>
 				<p
@@ -60,21 +60,9 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 					<span className="text-gray">{description}</span>
 				</p>
 
-				{/* {!hideImage && (
-					<div className="absolute bottom-0 right-0">
-						<div className="relative h-[60px] w-[60px] md:h-[100px] md:w-[100px] lg:h-[250px] lg:w-[250px]">
-							<ImageWithErrorHandler
-								src={imageUrl}
-								alt={alt || slug || ''}
-								fill={true}
-							/>
-						</div>
-					</div>
-				)} */}
-
 				{!hideImage && (
 					<div className="absolute bottom-0 right-0">
-						<div className="relative h-[60px] w-[60px] overflow-hidden md:h-[100px] md:w-[100px] lg:h-[235px] lg:w-[250px]">
+						<div className="relative h-[60px] w-[60px] overflow-hidden lg:h-[235px] lg:w-[250px] tablet:h-[100px] tablet:w-[100px]">
 							<div className="absolute bottom-0 right-0">
 								<img
 									src={imageUrl}
@@ -88,7 +76,7 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 
 				{/* Action button */}
 				{!hideButton && (
-					<div className="absolute md:bottom-[21.12px] md:left-[27px] lg:left-[27px] lg:bottom-[21.12px]">
+					<div className="absolute lg:left-[27px] lg:bottom-[21.12px] tablet:bottom-[21.12px] tablet:left-[27px]">
 						<Button
 							href={onClick ? '' : slug}
 							onClick={onClick}

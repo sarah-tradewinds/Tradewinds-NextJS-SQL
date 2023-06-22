@@ -82,8 +82,8 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 
 	const searchCategoriesAndTrendingBanner = (
 		// <div className="grid gap-4 lg:grid-cols-2">
-		<div className="grid gap-4 md:grid-cols-2">
-			<div className="flex h-[78.75px] items-center space-x-2 bg-accent-primary-main p-3 text-white dark:bg-accent-primary-eco md:h-[143px] md:space-y-2 lg:flex-col lg:p-0">
+		<div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-2 desktop:grid-cols-1">
+			<div className="flex h-[78.75px] items-center space-x-2 bg-accent-primary-main p-3 text-white dark:bg-accent-primary-eco md:h-[143px] md:space-y-2 lg:w-auto lg:flex-col lg:p-0">
 				<h3 className="text-[21px] font-semibold leading-[26px] md:text-[35px] lg:text-center lg:text-[35px] lg:leading-[43px] ">
 					<span>{t('home:search_from')} </span>
 					<span className="inline-block pr-2 lg:mx-3 lg:text-[60px] lg:leading-[73px]">
@@ -102,7 +102,7 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 			</div>
 
 			{/* Trending section */}
-			<div className="hidden items-center justify-end bg-[url('/latest-trend-image.png')] bg-left p-3 md:flex">
+			<div className="hidden items-center justify-end bg-[url('/latest-trend-image.png')] bg-left p-3 md:flex 2xl:!flex desktop:hidden">
 				<div className="flex flex-col items-center space-y-2 ">
 					<h3 className="text-[18px] font-semibold leading-[26px] text-white md:mr-8 md:text-[35px] lg:leading-[43px]">
 						{t('home:find_the_latest_trends')}
@@ -135,7 +135,7 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 			/>
 
 			<div className="md:containers">
-				<div className="mt-20 md:-mt-14 lg:-mt-14">
+				<div className="mt-20 md:-mt-14 lg:-mt-14 tablet:-mt-10">
 					{/* Category and sub categories */}
 					<div className="space-y-[41px] lg:mx-[23px] lg:space-y-[27px]">
 						{homeMainCategoriesAndCategories?.cat_section &&

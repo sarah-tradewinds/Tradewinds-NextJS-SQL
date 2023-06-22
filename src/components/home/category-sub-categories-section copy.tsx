@@ -126,31 +126,33 @@ const CategorySubCategoriesSection: React.FC<
 
 	let slidesToScroll = 2;
 	let slidesToShow = 2;
+	// if (deviceWidth >= 900) {
+	// 	slidesToScroll = 3;
+	// 	slidesToShow = 3;
+	// } else if (deviceWidth >= 1500) {
+	// 	slidesToScroll = 4;
+	// 	slidesToShow = 4;
+	// }
+
 	if (deviceWidth >= 1536) {
-		slidesToScroll = 4;
-		slidesToShow = 4;
+		slidesToScroll = 5;
+		slidesToShow = 5;
 	} else if (deviceWidth >= 1280) {
 		slidesToScroll = 4;
 		slidesToShow = 4;
 	} else if (deviceWidth >= 1024) {
 		slidesToScroll = 3;
 		slidesToShow = 3;
-	} else if (deviceWidth >= 950) {
-		slidesToScroll = 2.8;
-		slidesToShow = 2.8;
 	} else if (deviceWidth >= 900) {
-		slidesToScroll = 2.6;
-		slidesToShow = 2.6;
-	} else if (deviceWidth >= 830) {
-		slidesToScroll = 2.1;
-		slidesToShow = 2.1;
+		slidesToScroll = 3;
+		slidesToShow = 3;
 	}
 
 	return (
-		// <div className="bg-white tablet:h-[334.09px] tablet:w-full tablet:rounded-md tablet:pt-[25px] tablet:pl-[22px] tablet:pr-[10px] lg:w-[1466.01px] lg:pl-[22px] lg:pt-[25px] lg:pr-[10px]">
-		<div className="bg-white md:pr-[10px] lg:!h-[334.09px] lg:pl-[22px] lg:pt-[25px] lg:pr-[10px] tablet:mx-4 tablet:h-[238px] tablet:w-auto tablet:rounded-md tablet:pt-[25px] tablet:pl-[22px] desktop:mx-0">
+		// <div className="bg-white md:h-[334.09px] md:w-full md:rounded-md md:pt-[25px] md:pl-[22px] md:pr-[10px] lg:w-[1466.01px] lg:pl-[22px] lg:pt-[25px] lg:pr-[10px]">
+		<div className="bg-white md:h-[334.09px] md:w-full md:rounded-md md:pt-[25px] md:pl-[22px] md:pr-[10px] lg:pl-[22px] lg:pt-[25px] lg:pr-[10px]">
 			{/* For Small Screen- Collapse */}
-			<div className="tablet:hidden">
+			<div className="md:hidden">
 				<Collapse
 					collapseHeadBgHexColor={main_category.color}
 					isReverse={isReverse}
@@ -222,10 +224,10 @@ const CategorySubCategoriesSection: React.FC<
 			</div>
 
 			{/* For Medium and Large screen */}
-			{/* <div className="hidden tablet:flex"> */}
-			<div className="hidden grid-cols-12 md:!grid 2xl:grid 2xl:w-auto tablet:flex desktop:flex desktop:w-[1466px]">
+			<div className="hidden md:flex">
+				{/* <div className="hidden grid-cols-12 md:grid lg:grid lg:w-auto desktop:flex desktop:w-[1466px] bg-primary-main"> */}
 				{/* Category For medium and large screen */}
-				<div className="col-span-3 md:col-span-4 lg:col-span-2 900px:col-span-3">
+				<div className="col-span-3 lg:col-span-2">
 					<CategoryCard
 						title={mainCategoryTitle}
 						name={(main_category as any).name || ''}
@@ -259,14 +261,14 @@ const CategorySubCategoriesSection: React.FC<
 						alt={main_category.title?.en || ''}
 						bgHexColor={main_category?.color}
 						actionButtonBgColor={main_category?.source_now_button_color}
-						// containerClassName="lg:!h-[278px] lg:w-[349.08px] tablet:w-[250px] tablet:!h-[278px]"
-						containerClassName="tablet:!w-[211px] tablet:!h-[184px] md:!w-[250px] md:!h-[278px] md:!w-full md:!h-full desktop:!h-[278px] desktop:!w-[334px] 2xl:!w-auto"
+						// containerClassName="lg:!h-[278px] lg:w-[349.08px] md:w-[250px] md:!h-[278px]"
+						containerClassName="md:!w-full md:!h-[278px]s md:!h-full desktop:!h-[278px] desktop:!w-[349.08px]"
 					/>
 				</div>
 
 				{/* Sub categories */}
-				{/* <div className="tablet:w-[500px] tablet:pl-[40px] lg:mr-[56.01px] lg:h-[279px] lg:w-[1046px] lg:pl-[61px]"> */}
-				<div className="md:pl-10s desktop:ml-4s col-span-9 md:col-span-8 md:!w-full lg:col-span-10 lg:mr-0 lg:px-12 2xl:h-auto 2xl:w-auto tablet:w-[480px] tablet:pl-4 900px:col-span-9   desktop:h-[279px] desktop:w-[1080px]">
+				{/* <div className="md:w-[500px] md:pl-[40px] lg:mr-[56.01px] lg:h-[279px] lg:w-[1046px] lg:pl-[61px]"> */}
+				<div className="col-span-9 bg-error md:pl-10 lg:col-span-10 lg:px-12 desktop:mr-[56.01px] desktop:h-[279px] desktop:w-[1046px]">
 					<SubCategorySlider
 						categories={categories || []}
 						className={subCategorySliderClassName}

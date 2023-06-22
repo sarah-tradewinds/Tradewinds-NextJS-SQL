@@ -1,7 +1,6 @@
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import Footer from './footer';
-import NavBar from './navbar';
 
 // Third party packages
 
@@ -68,18 +67,18 @@ const Layout: React.FC<{ productName?: string; seo: any }> = (
 	const { routeChangeStart } = useRouteEvent();
 	const { deviceWidth, deviceType } = useDeviceSize();
 
-	useEffect(() => {
-		const [bodyTag] = Array.from(document.getElementsByTagName('body'));
-		if (bodyTag) {
-			if (deviceWidth >= 744) {
-				// (bodyTag.style as any).zoom = '80%';
-				(document.body.style as any).zoom = '80%';
-			} else {
-				// (bodyTag.style as any).zoom = '100%';
-				(document.body.style as any).zoom = '100%';
-			}
-		}
-	}, [deviceWidth]);
+	// useEffect(() => {
+	// 	const [bodyTag] = Array.from(document.getElementsByTagName('body'));
+	// 	if (bodyTag) {
+	// 		if (deviceWidth >= 744) {
+	// 			// (bodyTag.style as any).zoom = '80%';
+	// 			(document.body.style as any).zoom = '80%';
+	// 		} else {
+	// 			// (bodyTag.style as any).zoom = '100%';
+	// 			(document.body.style as any).zoom = '100%';
+	// 		}
+	// 	}
+	// }, [deviceWidth]);
 
 	useEffect(() => {
 		autoLogin();
@@ -134,7 +133,7 @@ const Layout: React.FC<{ productName?: string; seo: any }> = (
 			/>
 
 			<div className={isEco ? 'dark' : 'light'}>
-				<NavBar productName={productName} />
+				{/* <NavBar productName={productName} /> */}
 				<SelectSignUpPage />
 				<SignUpPage />
 				<Login />

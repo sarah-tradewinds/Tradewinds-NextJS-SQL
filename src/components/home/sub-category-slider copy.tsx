@@ -44,7 +44,7 @@ const SubCategorySlider: React.FC<{
 		<div className={`relative w-full ${subCategoryContainerClassName}`}>
 			<Button
 				onClick={() => (slider?.current as any)?.slickPrev()}
-				className={`absolute -left-[45px] top-1/2 hidden -translate-y-1/2 transform items-center justify-center !rounded-full bg-[#DCDBDB] !px-0 !py-0 lg:flex lg:!h-[20px] lg:!w-[40px] 2xl:!h-[20px] 2xl:!w-[40px] desktop:!h-[16px] desktop:!w-[34px] lg:border ${leftButtonClassName}`}
+				className={`absolute -left-[45px] top-1/2 hidden -translate-y-1/2 transform items-center justify-center !rounded-full bg-[#DCDBDB] !px-0 !py-0 lg:flex lg:!h-[20px] lg:!w-[40px] lg:border ${leftButtonClassName}`}
 			>
 				<MdChevronLeft className="text-[#575858]s w-full text-white lg:h-full" />
 			</Button>
@@ -65,8 +65,8 @@ const SubCategorySlider: React.FC<{
 												onTileClick(categoryData?.id, categoryData);
 										}}
 										style={subCategoryStyle}
-										// containerClassName="tablet:!w-[220px] tablet:!h-[134px] lg:!w-[239px] lg:!h-[134px] lg:!border-[2px] lg:!border-[#C4C4C4] lg:!mb-[11px] tablet:!mb-[11px]"
-										containerClassName="tablet:!w-[144.12] tablet:!h-[92px] md:!w-[220px] md:!h-[134px] tablet:!mb-[11px] tablet:!mr-[11px] 2xl:!w-auto 2xl:!h-[134px] desktop:!w-[239px] desktop:!h-[134px]"
+										// containerClassName="md:!w-[220px] md:!h-[134px] lg:!w-[239px] lg:!h-[134px] lg:!border-[2px] lg:!border-[#C4C4C4] lg:!mb-[11px] md:!mb-[11px]"
+										containerClassName="md:!h-[134px] md:!mb-[11px] md:!mr-[11px]"
 									/>
 								</div>
 							);
@@ -76,7 +76,7 @@ const SubCategorySlider: React.FC<{
 			</div>
 
 			<Button
-				className={`absolute -right-[40px] desktop:-right-[24px] 2xl:!-right-[28px] 2xl:-right-20 top-1/2 hidden !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full bg-[#DCDBDB] !px-0 !py-0 lg:flex lg:!h-[20px] lg:!w-[40px] 2xl:!h-[20px] 2xl:!w-[40px] desktop:!h-[16px] desktop:!w-[34px] lg:border ${rightButtonClassName}`}
+				className={`absolute -right-[40px] top-1/2 hidden !h-[40px] !w-[40px] -translate-y-1/2 transform items-center justify-center !rounded-full bg-[#DCDBDB] !px-0 !py-0 lg:flex lg:!h-[20px] lg:!w-[40px] lg:border ${rightButtonClassName}`}
 				onClick={() => (slider?.current as any)?.slickNext()}
 			>
 				<MdChevronRight className="text-[#575858]s w-full text-white lg:h-full" />

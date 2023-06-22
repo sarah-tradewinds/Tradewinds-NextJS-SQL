@@ -63,7 +63,9 @@ const nextConfig = (phase) => {
 			// 	'https://tradewinds-production-sql-as.azurewebsites.net',
 
 			// # PRE-PROD
-			SITE_URL: 'http://localhost:3000',
+			// SITE_URL: 'http://localhost:3000',
+			SITE_URL:
+				'https://tradewindsmppreprodshoppingsite.azurewebsites.net',
 
 			BUYER_DASHBOARD_SITE_URL:
 				'https://white-ocean-019fe600f.2.azurestaticapps.net/#',

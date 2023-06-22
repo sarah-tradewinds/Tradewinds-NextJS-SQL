@@ -46,31 +46,36 @@ module.exports = {
 			'header-bar': '#EDD3A9'
 		},
 		// screens: {
-		// 	// sm: '640px',
-		// 	// md: '768px',
-		// 	// lg: '1024px',
-		// 	// xl: '1280px',
-		// 	// '2xl': '1536px',
-		// 	// '4k': '2560px',
-		// 	// mobile: '320px',
-		// 	// tablet: '744px',
-		// 	// desktop: '1512px'
 		// 	sm: '640px',
-		// 	md: '744px',
-		// 	lg: '1512px'
-		// },
-		// container: {
-		//  screens: {
-		//      md: '744px',
-		//      lg: '1512px'
-		//  }
+		// 	md: '768px',
+		// 	lg: '1024px',
+		// 	xl: '1280px',
+		// 	'512': '512px',
+		// 	'2xl': '1536px',
+		// 	'4k': '2560px',
+		// 	mobile: '320px',
+		// 	tablet: '744px',
+		// 	desktop: '1512px'
+		// 	// 	sm: '640px',
+		// 	// 	md: '744px',
+		// 	// 	lg: '1512px'
+		// 	// },
+		// 	// container: {
+		// 	//  screens: {
+		// 	//      md: '744px',
+		// 	//      lg: '1512px'
+		// 	//  }
 		// },
 		container: {
 			center: true
 		},
 		extend: {
 			screens: {
-				pc: { raw: '(max-width: 640px)' }
+				pc: { raw: '(max-width: 640px)' },
+				mobile: '320px',
+				tablet: '744px',
+				'900px': '900px',
+				desktop: '1512px'
 			},
 			boxShadow: {
 				'mega-menu': '2px 0px 4px rgba(0, 0, 0, 0.25)'

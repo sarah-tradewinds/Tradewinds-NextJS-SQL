@@ -23,7 +23,31 @@ const CardWrapper: React.FC<{
 	return (
 		<>
 			{/* <div className="hidden flex-col space-y-4 px-2 md:flex md:flex-row md:space-y-0 md:px-0"> */}
-			<div className="hidden justify-center space-x-6 md:flex">
+			<div className="hidden justify-center space-x-4 lg:space-x-6 tablet:flex">
+				<CardA
+					title={'Become a Vendor'}
+					name={''}
+					subtitle={
+						'Grow your business. Reach a global audience. Connect with motivated buyers and unlock new opportunities'
+					}
+					imageUrl={
+						'https://wmarketplacestgact.blob.core.windows.net/tradewinds-static/cardA/1681206214-Trade%20winds%20HP%201.26%203%20%282%29.png'
+					}
+					href="/why-sell-on-tradewinds"
+				/>
+
+				<CardA
+					title={' Tradewvinds ECO '}
+					name={''}
+					subtitle={
+						'Discover sustainable commerce. Explore environmentally focused products, support ethical brands, and make a positive impact on the planet.'
+					}
+					imageUrl={
+						'https://wmarketplacestgact.blob.core.windows.net/tradewinds-static/cardA/1681206158-Trade%20winds%20HP%201.26%201%20%282%29.png'
+					}
+					href="/why-sell-on-tradewinds"
+				/>
+
 				{cardAList.map((cardAData, index) => (
 					<div
 						key={cardAData.id}
@@ -63,7 +87,7 @@ const CardWrapper: React.FC<{
 			</div>
 
 			{/* Card Slider only visible on mobile */}
-			<div className="md:hidden">
+			<div className="tablet:hidden">
 				<div ref={ref} className="keen-slider">
 					{cardAList.map((cardAData, index) => (
 						<div
