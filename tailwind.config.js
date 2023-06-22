@@ -37,6 +37,8 @@ module.exports = {
 			light_yellow: '#EEAD20',
 			gray: '#575858',
 			border: '#DCDBDB',
+			dark_brown: '#712A10',
+			bg_input: '#fffbfb',
 			// green: '#37B34A',
 			green: '#35B34A',
 			cyan: '#33A7DF',
