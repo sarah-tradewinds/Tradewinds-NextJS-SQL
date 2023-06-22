@@ -1,5 +1,7 @@
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
+import Footer from './footer';
+import NavBar from './navbar';
 
 // Third party packages
 
@@ -7,10 +9,6 @@ import Link from 'next/link';
 const Login = dynamic(() => import('../auth/login'));
 const SignUpPage = dynamic(() => import('../auth/signup'));
 const SelectSignUpPage = dynamic(() => import('../auth/select-signup'));
-// import Login from '../auth/login';
-// import SignUpPage from '../auth/signup';
-import Footer from './footer';
-import NavBar from './navbar';
 
 // icons
 import {

@@ -214,7 +214,8 @@ const ProductSearchPage: NextPage<
 	}; // End of navigateWithShallow function
 
 	return (
-		<div className="md:container">
+		// <div className="md:container">
+		<div className="">
 			<Seo title="Product search page" description="" />
 
 			{/* Main Category Banner and Category banner */}
@@ -269,11 +270,12 @@ const ProductSearchPage: NextPage<
 				/>
 			</div>
 
-			<div className="relative flex md:mt-[9px] md:mr-[10px] md:pl-[9px] lg:mt-[19px] lg:pl-6">
+			{/* <div className="relative flex md:mt-[9px] md:mr-[10px] md:pl-[9px] lg:mt-[19px] lg:pl-6"> */}
+			<div className="relative grid grid-cols-12 gap-x-4 md:mt-[9px] md:mr-[10px] md:pl-[9px] lg:mt-[19px] lg:pl-6">
 				{/* Side container */}
-				<section className="hidden md:mr-[13px] md:block md:w-[159px] lg:mr-[25px] lg:w-[297px]">
+				<section className="col-span-4 hidden space-y-4 md:block lg:col-span-3 2xl:col-span-2">
 					{/* filters */}
-					<div className="md:mb-[14px] md:h-[383px] lg:mb-[17px] lg:h-[475px]">
+					<div className="h-[800px] overflow-y-auto">
 						<ProductFilter />
 					</div>
 
@@ -339,7 +341,7 @@ const ProductSearchPage: NextPage<
 				</section>
 
 				{/* Category container and Product list */}
-				<div className="md:w-[552.06px] lg:w-[1142px]">
+				<div className="col-span-12 md:col-span-8 lg:col-span-9 2xl:col-span-10">
 					{router.query.is_trending && (
 						<TrendingSectionTile
 							minPrice={+minPrice}
@@ -375,10 +377,15 @@ const ProductSearchPage: NextPage<
 					{((!router.query.is_trending &&
 						selectedCategories.length > 0) ||
 						selectedCountry?.banner_image) && (
-						<div className="rounded-md bg-white md:mb-[10.87px] md:flex md:h-[101.13px] md:py-2 md:pl-[8.06px] lg:mb-[23px] lg:h-[209px] lg:py-[17px] lg:pl-[17px]">
+						// <div className="rounded-md bg-white md:mb-[10.87px] md:flex md:h-[101.13px] md:py-2 md:pl-[8.06px] lg:mb-[23px] lg:h-[209px] lg:py-[17px] lg:pl-[17px]">
+						// <div className="rounded-md bg-white  md:mb-[10.87px] md:flex md:h-[101.13px] md:py-2 md:pl-[8.06px] lg:mb-[23px] lg:h-[209px] lg:py-[17px] lg:pl-[17px] 2xl:grid 2xl:w-auto 2xl:grid-cols-12">
+						// <div className="rounded-md bg-white 2xl:mb-4 2xl:grid 2xl:w-auto 2xl:grid-cols-12 2xl:p-4">
+						<div className="mb-4 grid grid-cols-12 rounded-md md:bg-white md:p-4">
 							{/* Main category Card */}
 							<div
-								className="h-[42px] w-full md:h-auto md:w-[122px] lg:w-[266px]"
+								// className="h-[42px] w-full md:h-auto md:w-[122px] lg:w-[266px]"
+								// className="h-[42px] w-full md:h-auto md:w-[122px] lg:w-[266px] 2xl:col-span-2 2xl:h-[280px] 2xl:w-auto 2xl:bg-error"
+								className="col-span-12 md:col-span-2 md:mr-4 md:block lg:col-span-3 2xl:col-span-2"
 								style={{
 									backgroundColor:
 										deviceWidth >= 744
@@ -420,7 +427,8 @@ const ProductSearchPage: NextPage<
 
 										{selectedMainCategory?.id && (
 											<div
-												className="relative h-[38px] w-[38px] md:mt-1 md:block md:h-[70px] md:w-[99px] lg:mt-2 lg:h-full lg:w-[266px]"
+												// className="relative h-[38px] w-[38px] md:mt-1 md:block md:h-[70px] md:w-[99px] lg:mt-2 lg:h-full lg:w-[266px]"
+												className="relative mt-1 h-[38px] w-[38px] bg-error md:h-full md:w-full"
 												style={{
 													backgroundColor: selectedMainCategory?.color,
 													border: selectedMainCategory?.color
@@ -453,7 +461,9 @@ const ProductSearchPage: NextPage<
 
 							{/* Category Slider for tablet and desktop  */}
 							{selectedCategories?.length > 0 ? (
-								<div className="hidden md:mt-[9px] md:block md:w-[402px] lg:ml-[13px] lg:mt-[35px] lg:mb-[25px] lg:h-[150px] lg:w-[838px]">
+								// <div className="hidden md:mt-[9px] md:block md:w-[402px] lg:ml-[13px] lg:mt-[35px] lg:mb-[25px] lg:h-[150px] lg:w-[838px]">
+								// <div className="hidden md:mt-[9px] md:block md:w-[402px] lg:ml-[13px] lg:mt-[35px] lg:mb-[25px] lg:h-[150px] lg:w-[838px] 2xl:col-span-10 2xl:w-auto">
+								<div className="hidden md:col-span-10 md:mt-[9px] md:block lg:col-span-9 2xl:col-span-10">
 									<TrendingCategorySlider
 										categories={[...selectedCategories]}
 										selectedCategoryIds={selectedCategoryList || []}
@@ -481,7 +491,7 @@ const ProductSearchPage: NextPage<
 							)}
 
 							{/* For small screen only */}
-							<div className="bg-[#E5E5E5] py-1 md:hidden">
+							<div className="w-screen bg-[#E5E5E5] py-1 md:hidden">
 								<TrendingCategorySliderMobile
 									categories={selectedCategories || []}
 									selectedCategoryList={selectedCategoryList}

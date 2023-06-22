@@ -1,7 +1,7 @@
 import {
-  GetServerSideProps,
-  InferGetServerSidePropsType,
-  NextPage
+	GetStaticProps,
+	InferGetStaticPropsType,
+	NextPage
 } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -13,19 +13,15 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 // components
 import Button from 'components/common/form/button';
 import Seo from 'components/common/seo';
-import AddBanner from 'components/home/ads-banner';
 import CategorySubCategoriesSection from 'components/home/category-sub-categories-section';
 import CountrySlider from 'components/home/country-slider';
 import Hero from 'components/home/hero';
 
 // lib
 import {
-  getCardAList,
-  getCardB,
-  getHeroCarousels,
-  getHomeAdvertisements,
-  getHomeCountries,
-  getHomeMainCategoriesAndCategories
+	getHeroCarousels,
+	getHomeCountries,
+	getHomeMainCategoriesAndCategories
 } from 'lib/home.lib';
 
 // stores
@@ -34,9 +30,9 @@ import { useHomeStore } from 'store/home';
 import useSWR from 'swr';
 import { CatSubCatSectionType } from 'types/home';
 
-const HomePage: NextPage<
-	InferGetServerSidePropsType<GetServerSideProps>
-> = (props) => {
+const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
+	props
+) => {
 	const {
 		cardAList = [],
 		cardBData = {},
@@ -59,10 +55,10 @@ const HomePage: NextPage<
 		);
 
 	// Fetching Advertisement
-	const { data: homeAdvertisements = [], error } = useSWR(
-		'/advertisement/getalladvertisement',
-		getHomeAdvertisements
-	);
+	// const { data: homeAdvertisements = [], error } = useSWR(
+	// 	'/advertisement/getalladvertisement',
+	// 	getHomeAdvertisements
+	// );
 
 	const { isEco } = useHomeStore(({ isEco }) => ({
 		isEco
@@ -206,14 +202,14 @@ const HomePage: NextPage<
 						</div>
 
 						{/* Bottom ADS Banner */}
-						<div className="mt-[30px] grid grid-cols-2">
+						{/* <div className="mt-[30px] grid grid-cols-2">
 							{homeAdvertisements.map((advertisement: any) => (
 								<AddBanner
 									key={advertisement.id}
 									iframe_code={advertisement.i_frame_code}
 								/>
 							))}
-						</div>
+						</div> */}
 					</div>
 				</div>
 			</div>
@@ -224,9 +220,7 @@ const HomePage: NextPage<
 export default HomePage;
 
 // Static Props
-export const getServerSideProps: GetServerSideProps = async ({
-	locale
-}) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
 	const dateS = new Date();
 	console.log(
 		'Home page = [getServerSideProps] started data fetching',
@@ -234,9 +228,9 @@ export const getServerSideProps: GetServerSideProps = async ({
 	);
 
 	try {
-		const cardAList = (await getCardAList()) || [];
-		console.log('cardAList', cardAList);
-		const cardBData = (await getCardB()) || {};
+		// const cardAList = (await getCardAList()) || [];
+		// console.log('cardAList', cardAList);
+		// const cardBData = (await getCardB()) || {};
 
 		const homeMainCategoriesAndCategories =
 			await getHomeMainCategoriesAndCategories();
@@ -245,15 +239,19 @@ export const getServerSideProps: GetServerSideProps = async ({
 			props: {
 				...(await serverSideTranslations(locale || 'en')),
 
-				cardAList,
-				cardBData,
-				// homeMainCategoriesAndCategories: []
+				// cardAList,
+				// cardBData,
 				homeMainCategoriesAndCategories:
 					homeMainCategoriesAndCategories ?? {
 						cat_section: [],
 						is_custom: false
-					}
+					},
+
+				cardAList: [],
+				cardBData: []
+				// homeMainCategoriesAndCategories: []
 			}
+			// revalidate: 1440
 		};
 	} catch (error) {
 		console.log((error as any).message);

@@ -27,13 +27,22 @@ const TrendingCategorySlider: React.FC<{
 	} = props;
 
 	let slideToShow = 2;
-	if (deviceWidth >= 1512) {
+	let slidesToScroll = 3;
+	if (deviceWidth >= 1536) {
+		slideToShow = 4;
+	} else if (deviceWidth >= 1280) {
+		slideToShow = 5;
+	} else if (deviceWidth >= 1024) {
+		slideToShow = 2;
+	} else if (deviceWidth >= 768) {
+		slideToShow = 3;
+	} else if (deviceWidth >= 640) {
 		slideToShow = 3;
 	}
 
 	const settings = {
 		slidesToShow: slideToShow,
-		slidesToScroll: 3,
+		slidesToScroll: slidesToScroll,
 		speed: 500,
 		rows: 2,
 		arrows: false,

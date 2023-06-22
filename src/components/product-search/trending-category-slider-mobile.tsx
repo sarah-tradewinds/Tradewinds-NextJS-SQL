@@ -30,7 +30,7 @@ const TrendingCategorySliderMobile: React.FC<
 	return (
 		<div
 			ref={ref}
-			className="keen-sliders scrollbar-hide flex h-[36px] w-screen snap-x space-x-4 overflow-x-auto"
+			className="scrollbar-hide flex h-[36px] w-full snap-x space-x-4 overflow-x-auto"
 		>
 			{categories?.map((subCategory: any) => {
 				const title = getLocaleText(
@@ -51,7 +51,6 @@ const TrendingCategorySliderMobile: React.FC<
 							)}
 							onTilePressed={() => onTilePressed(subCategory)}
 						/>
-						{/* </div> */}
 					</div>
 				);
 			})}
