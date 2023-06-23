@@ -22,7 +22,7 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 		dots: false,
 		arrows: false,
 		infinite: true,
-		autoplay: true,
+		// autoplay: true,
 		speed: 500,
 		slidesToShow: 1,
 		slidesToScroll: 1
@@ -32,7 +32,7 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 		<Slider {...settings}>
 			{heroCarouselData.map((item, index) => (
 				<div
-					className="relative h-[329px] w-full md:h-[343px] lg:h-[688px]"
+					className="relative h-[329px] w-full md:h-[343px] desktop:h-[624px]"
 					key={item.id || index}
 				>
 					<Link href={item.link ?? '/'}>
@@ -60,7 +60,7 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 								{getLocaleText(item?.title || {}, locale)}
 							</p>
 							<p
-								className="xl:text-[24px] text-[16px]"
+								className="text-[16px] xl:text-[24px]"
 								style={{ color: item?.color }}
 							>
 								{getLocaleText(item?.description || {}, locale)}

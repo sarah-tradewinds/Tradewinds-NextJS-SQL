@@ -214,7 +214,8 @@ const ProductSearchPage: NextPage<
 	}; // End of navigateWithShallow function
 
 	return (
-		<div className="tablet:containers">
+		// <div className="md:container">
+		<div className="">
 			<Seo title="Product search page" description="" />
 
 			{/* Main Category Banner and Category banner */}
@@ -244,7 +245,7 @@ const ProductSearchPage: NextPage<
 			</div>
 
 			{/* ProductSearchFilterBar */}
-			<div className="top-[97px] z-20 hidden tablet:sticky tablet:ml-[9px] tablet:mr-[10px] tablet:block tablet:pt-[14.01px] desktop:top-[121px] desktop:ml-[26px] desktop:mr-[23px] desktop:pt-[18.14px]">
+			<div className="top-[97px] z-20 hidden md:sticky md:ml-[9px] md:mr-[10px] md:block md:pt-[14.01px] lg:top-[121px] lg:ml-[26px] lg:mr-[23px] lg:pt-[18.14px]">
 				<ProductSearchFilterBar
 					onCountryChange={(id = '', name = '') => {
 						const country = id && name ? `${id}_${name || ''}` : '';
@@ -269,21 +270,22 @@ const ProductSearchPage: NextPage<
 				/>
 			</div>
 
-			<div className="relative flex md:grid md:grid-cols-12 tablet:mt-[9px] tablet:mr-[10px] tablet:pl-[9px] desktop:mt-[19px] desktop:pl-6">
+			{/* <div className="relative flex md:mt-[9px] md:mr-[10px] md:pl-[9px] lg:mt-[19px] lg:pl-6"> */}
+			<div className="relative grid grid-cols-12 gap-x-4 md:mt-[9px] md:mr-[10px] md:pl-[9px] lg:mt-[19px] lg:pl-6">
 				{/* Side container */}
-				<section className="hidden md:col-span-3 md:!w-auto tablet:mr-[13px] tablet:block tablet:w-[159px] desktop:mr-[25px] desktop:w-[297px]">
+				<section className="col-span-4 hidden space-y-4 md:block lg:col-span-3 2xl:col-span-2">
 					{/* filters */}
-					<div className="md:w-auto tablet:mb-[14px] tablet:h-[383px] desktop:mb-[17px] desktop:h-[475px]">
+					<div className="h-[800px] overflow-y-auto">
 						<ProductFilter />
 					</div>
 
 					{/* RFQ CARD */}
-					<div className="hidden tablet:block">
-						<div className="w-full space-y-2 bg-gradient-to-r from-[#E7CA00] via-[#E8A30E] to-[#E8A30E] tablet:h-[321px] tablet:rounded-lg tablet:pt-2 desktop:h-[475px] desktop:pl-5 desktop:pt-6">
+					<div className="hidden md:block">
+						<div className="w-full space-y-2 bg-gradient-to-r from-[#E7CA00] via-[#E8A30E] to-[#E8A30E] md:h-[321px] md:rounded-lg md:pt-2 lg:h-[475px] lg:pl-5 lg:pt-6">
 							{/* Image */}
-							<div className="desktop:flex desktop:items-center">
+							<div className="lg:flex lg:items-center">
 								<div className="flex justify-center">
-									<div className="relative tablet:h-[66.02px] tablet:w-[61.72px]">
+									<div className="relative md:h-[66.02px] md:w-[61.72px]">
 										<ImageWithErrorHandler
 											src="/static/rfq-box.png"
 											alt="rfq box"
@@ -292,19 +294,19 @@ const ProductSearchPage: NextPage<
 									</div>
 								</div>
 
-								<p className="text-white tablet:px-[6px] tablet:text-[18px] tablet:font-bold tablet:leading-[22px] desktop:text-[25px] desktop:leading-[30px]">
+								<p className="text-white md:px-[6px] md:text-[18px] md:font-bold md:leading-[22px] lg:text-[25px] lg:leading-[30px]">
 									Submit an RFQ for anything!
 								</p>
 							</div>
 
-							<ul className="list-disc text-white tablet:ml-6 tablet:text-[15px] tablet:font-semibold tablet:leading-[18px] desktop:ml-7 desktop:pt-[34px] desktop:text-[25px] desktop:leading-[30px]">
+							<ul className="list-disc text-white md:ml-6 md:text-[15px] md:font-semibold md:leading-[18px] lg:ml-7 lg:pt-[34px] lg:text-[25px] lg:leading-[30px]">
 								<li>One request</li>
 								<li>Receive multiple quotes</li>
 								<li>Responed</li>
 								<li>Close the deal</li>
 							</ul>
 
-							<div className="flex justify-center tablet:pt-[34px] desktop:justify-start desktop:pl-2">
+							<div className="flex justify-center md:pt-[34px] lg:justify-start lg:pl-2">
 								<button
 									onClick={() => {
 										// if (!isAuth) {
@@ -320,16 +322,16 @@ const ProductSearchPage: NextPage<
 										// 	);
 										// }
 									}}
-									className="flex items-center border-none bg-white outline-none tablet:h-[19.88px] tablet:w-[125px] tablet:rounded-md desktop:h-[39px] desktop:w-[245.2px] desktop:pl-1"
+									className="flex items-center border-none bg-white outline-none md:h-[19.88px] md:w-[125px] md:rounded-md lg:h-[39px] lg:w-[245.2px] lg:pl-1"
 								>
-									<div className="relative h-[15.8px] w-[18.35px] desktop:h-[31px] desktop:w-[36px]">
+									<div className="relative h-[15.8px] w-[18.35px] lg:h-[31px] lg:w-[36px]">
 										<ImageWithErrorHandler
 											src="/static/rfq-orange.png"
 											alt="rfq orange icon"
 											fill={true}
 										/>
 									</div>
-									<p className="text-center text-secondary tablet:ml-[9.69px] tablet:text-[10.7054px] tablet:font-semibold tablet:leading-[13px] desktop:ml-0 desktop:w-full desktop:text-[21px] desktop:leading-[26px]">
+									<p className="text-center text-secondary md:ml-[9.69px] md:text-[10.7054px] md:font-semibold md:leading-[13px] lg:ml-0 lg:w-full lg:text-[21px] lg:leading-[26px]">
 										{t('common:submit_rfq')}
 									</p>
 								</button>
@@ -339,7 +341,7 @@ const ProductSearchPage: NextPage<
 				</section>
 
 				{/* Category container and Product list */}
-				<div className=" md:col-span-9 md:!w-auto 2xl:!w-auto tablet:w-[552.06px] desktop:w-[1142px]">
+				<div className="col-span-12 md:col-span-8 lg:col-span-9 2xl:col-span-10">
 					{router.query.is_trending && (
 						<TrendingSectionTile
 							minPrice={+minPrice}
@@ -375,10 +377,15 @@ const ProductSearchPage: NextPage<
 					{((!router.query.is_trending &&
 						selectedCategories.length > 0) ||
 						selectedCountry?.banner_image) && (
-						<div className="rounded-md bg-white tablet:mb-[10.87px] tablet:flex tablet:h-[101.13px] tablet:py-2 tablet:pl-[8.06px] desktop:mb-[23px] desktop:h-[209px] desktop:py-[17px] desktop:pl-[17px]">
+						// <div className="rounded-md bg-white md:mb-[10.87px] md:flex md:h-[101.13px] md:py-2 md:pl-[8.06px] lg:mb-[23px] lg:h-[209px] lg:py-[17px] lg:pl-[17px]">
+						// <div className="rounded-md bg-white  md:mb-[10.87px] md:flex md:h-[101.13px] md:py-2 md:pl-[8.06px] lg:mb-[23px] lg:h-[209px] lg:py-[17px] lg:pl-[17px] 2xl:grid 2xl:w-auto 2xl:grid-cols-12">
+						// <div className="rounded-md bg-white 2xl:mb-4 2xl:grid 2xl:w-auto 2xl:grid-cols-12 2xl:p-4">
+						<div className="mb-4 grid grid-cols-12 rounded-md md:bg-white md:p-4">
 							{/* Main category Card */}
 							<div
-								className="h-[42px] w-full 2xl:col-span-2 tablet:h-auto tablet:w-[122px]  desktop:w-[266px]"
+								// className="h-[42px] w-full md:h-auto md:w-[122px] lg:w-[266px]"
+								// className="h-[42px] w-full md:h-auto md:w-[122px] lg:w-[266px] 2xl:col-span-2 2xl:h-[280px] 2xl:w-auto 2xl:bg-error"
+								className="col-span-12 md:col-span-2 md:mr-4 md:block lg:col-span-3 2xl:col-span-2"
 								style={{
 									backgroundColor:
 										deviceWidth >= 744
@@ -387,13 +394,13 @@ const ProductSearchPage: NextPage<
 								}}
 							>
 								{isSelectedMainCategoryAndCategoriesLoading ? (
-									<div className="hidden tablet:block">
+									<div className="hidden md:block">
 										<Skeleton />
 										<Skeleton height="84px" />
 									</div>
 								) : (
-									<div className="flex h-[42px] items-center justify-between p-2 tablet:h-full tablet:flex-col tablet:items-start tablet:space-x-0 tablet:p-0">
-										<p className="text-[16px] font-semibold leading-5 text-gray tablet:text-[10px] tablet:leading-3 desktop:text-[21px] desktop:leading-[26px]">
+									<div className="flex h-[42px] items-center justify-between p-2 md:h-full md:flex-col md:items-start md:space-x-0 md:p-0">
+										<p className="text-[16px] font-semibold leading-5 text-gray md:text-[10px] md:leading-3 lg:text-[21px] lg:leading-[26px]">
 											{getLocaleText(
 												selectedMainCategory?.title ||
 													selectedCountry?.name ||
@@ -404,7 +411,7 @@ const ProductSearchPage: NextPage<
 
 										{/* Country Image */}
 										{selectedCountry?.id && !selectedMainCategory?.id && (
-											<div className="relative h-[38px] w-[38px] tablet:h-full tablet:w-full">
+											<div className="relative h-[38px] w-[38px] md:h-full md:w-full">
 												<ImageWithErrorHandler
 													key={selectedCountry?.image}
 													src={selectedCountry?.image}
@@ -420,7 +427,8 @@ const ProductSearchPage: NextPage<
 
 										{selectedMainCategory?.id && (
 											<div
-												className="relative h-[38px] w-[38px] tablet:mt-1 tablet:block tablet:h-[70px] tablet:w-[99px] desktop:mt-2 desktop:h-full desktop:w-[266px]"
+												// className="relative h-[38px] w-[38px] md:mt-1 md:block md:h-[70px] md:w-[99px] lg:mt-2 lg:h-full lg:w-[266px]"
+												className="relative mt-1 h-[38px] w-[38px] bg-error md:h-full md:w-full"
 												style={{
 													backgroundColor: selectedMainCategory?.color,
 													border: selectedMainCategory?.color
@@ -428,8 +436,8 @@ const ProductSearchPage: NextPage<
 														: '2px solid gray'
 												}}
 											>
-												<div className="tablet:absolute tablet:bottom-0 tablet:right-0">
-													<div className="relative h-[38px] w-[38px] tablet:h-[30px] tablet:w-[30px] desktop:h-[60px] desktop:w-[60px]">
+												<div className="md:absolute md:bottom-0 md:right-0">
+													<div className="relative h-[38px] w-[38px] md:h-[30px] md:w-[30px] lg:h-[60px] lg:w-[60px]">
 														<ImageWithErrorHandler
 															key={
 																selectedMainCategory?.category_search_image
@@ -453,7 +461,9 @@ const ProductSearchPage: NextPage<
 
 							{/* Category Slider for tablet and desktop  */}
 							{selectedCategories?.length > 0 ? (
-								<div className="hidden 2xl:col-span-9 2xl:!w-full tablet:mt-[9px] tablet:block tablet:w-[402px] 900px:!w-[532px] desktop:ml-[13px] desktop:mt-[35px] desktop:mb-[25px] desktop:h-[150px] desktop:!w-[808px]">
+								// <div className="hidden md:mt-[9px] md:block md:w-[402px] lg:ml-[13px] lg:mt-[35px] lg:mb-[25px] lg:h-[150px] lg:w-[838px]">
+								// <div className="hidden md:mt-[9px] md:block md:w-[402px] lg:ml-[13px] lg:mt-[35px] lg:mb-[25px] lg:h-[150px] lg:w-[838px] 2xl:col-span-10 2xl:w-auto">
+								<div className="hidden md:col-span-10 md:mt-[9px] md:block lg:col-span-9 2xl:col-span-10">
 									<TrendingCategorySlider
 										categories={[...selectedCategories]}
 										selectedCategoryIds={selectedCategoryList || []}
@@ -481,7 +491,7 @@ const ProductSearchPage: NextPage<
 							)}
 
 							{/* For small screen only */}
-							<div className="bg-[#E5E5E5] py-1 tablet:hidden">
+							<div className="w-screen bg-[#E5E5E5] py-1 md:hidden">
 								<TrendingCategorySliderMobile
 									categories={selectedCategories || []}
 									selectedCategoryList={selectedCategoryList}
@@ -506,13 +516,13 @@ const ProductSearchPage: NextPage<
 
 					{/*If no any product in the product list - Speed your search up!! RFQ Card  */}
 					{products?.length <= 0 && (
-						<div className="hidden tablet:block">
+						<div className="hidden md:block">
 							<RFQCard size="lg" />
 						</div>
 					)}
 
 					{/* Product List */}
-					<div className="space-y-4 tablet:space-y-8">
+					<div className="space-y-4 md:space-y-8">
 						{products?.length > 0 && (
 							<ProductList
 								products={products}
@@ -522,13 +532,13 @@ const ProductSearchPage: NextPage<
 					</div>
 
 					{/* If product are available in the product list - Submit RFQ Card */}
-					<div className="mt-4 tablet:mt-4">
+					<div className="mt-4 md:mt-4">
 						{products?.length > 0 && <MiniRFQCard size="xs" />}
 					</div>
 
 					{/* Pagination */}
-					{/* <div className="col-span-12 hidden justify-center tablet:flex ">
-						<div className="flex space-x-3 font-semibold text-gray tablet:text-[20px] desktop:text-[25px]">
+					{/* <div className="col-span-12 hidden justify-center md:flex ">
+						<div className="flex space-x-3 font-semibold text-gray md:text-[20px] lg:text-[25px]">
 							<p>{`<`}</p>
 							<p>1</p>
 							<p>of</p>

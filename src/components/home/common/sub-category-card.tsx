@@ -35,7 +35,7 @@ const SubCategoryCard = ({
 			onClick={onClick}
 		>
 			{showImageInFront && (
-				<div className="relative h-[60px] w-[60px] overflow-hidden lg:h-[80px] lg:w-[80px] tablet:h-[80px] tablet:w-[80px] 900px:h-[104px] 900px:w-[104px]">
+				<div className="relative h-[60px] w-[60px] overflow-hidden lg:!h-[80px] lg:!w-[80px] tablet:h-[80px] tablet:w-[80px] 900px:h-[104px] 900px:w-[104px] desktop:!h-[104px] desktop:!w-[104px]">
 					<ImageWithErrorHandler
 						src={subCat.image}
 						alt="sub-cat-image"

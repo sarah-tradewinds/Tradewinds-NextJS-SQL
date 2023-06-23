@@ -23,7 +23,7 @@ const CardWrapper: React.FC<{
 	return (
 		<>
 			{/* <div className="hidden flex-col space-y-4 px-2 md:flex md:flex-row md:space-y-0 md:px-0"> */}
-			<div className="hidden justify-center space-x-4 lg:space-x-6 tablet:flex">
+			<div className="hidden justify-center space-x-4 desktop:!space-x-8 lg:space-x-6 tablet:flex">
 				{/* <CardA
 					title={'Become a Vendor'}
 					name={''}
@@ -51,7 +51,7 @@ const CardWrapper: React.FC<{
 				{cardAList.map((cardAData, index) => (
 					<div
 						key={cardAData.id}
-						// className={index === 0 ? 'md:mr-4 lg:mr-[38px]' : ''}
+						// className={index === 0 ? 'tablet:mr-4 lg:mr-[38px]' : ''}
 					>
 						<CardA
 							title={getLocaleText(cardAData?.title || {}, locale)}
@@ -66,7 +66,7 @@ const CardWrapper: React.FC<{
 					</div>
 				))}
 
-				<div className="md:ml-4s lg:ml-[34px]s">
+				<div className="tablet:ml-4s lg:ml-[34px]s">
 					<CardB
 						title={getLocaleText(cardBData.title || {}, locale)}
 						imageUrl={cardBData?.image}

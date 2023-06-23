@@ -51,7 +51,7 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 
 			{/* Container */}
 			<div
-				className={`relative bg-agri-main p-4 font-montserrat lg:h-full tablet:h-full ${innerContainer}`}
+				className={`relative bg-agri-main p-4 font-montserrat tablet:h-full desktop:h-full ${innerContainer}`}
 				style={{ backgroundColor: bgHexColor }}
 			>
 				<p
@@ -62,7 +62,7 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
 
 				{!hideImage && (
 					<div className="absolute bottom-0 right-0">
-						<div className="relative h-[60px] w-[60px] overflow-hidden lg:h-[235px] lg:w-[250px] tablet:h-[100px] tablet:w-[100px]">
+						<div className="relative h-[60px] w-[60px] overflow-hidden lg:!h-[235px] lg:!w-[250px] tablet:h-[100px] tablet:w-[100px]">
 							<div className="absolute bottom-0 right-0">
 								<img
 									src={imageUrl}

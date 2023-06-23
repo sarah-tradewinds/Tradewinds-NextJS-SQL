@@ -132,7 +132,7 @@ const Header = (props: any) => {
 			</div>
 
 			{isAuth ? (
-				<div className="hidden md:flex tablet:ml-[6px]">
+				<div className="hidden tablet:ml-[6px] tablet:flex">
 					<Button
 						href={generateBuyerDashboardUrl({
 							redirect_to: BUYER_DASHBOARD_PAGES.buyers,
@@ -189,7 +189,7 @@ const Header = (props: any) => {
 
 	return (
 		<header
-			className={`sticky top-0 z-[10000] h-[50.07px] w-full md:h-[111px] lg:h-[119.68px] ${
+			className={`sticky top-0 z-[10000] h-[50.07px] w-full  md:h-[111px] lg:h-[119.68px]  ${
 				isEco
 					? 'bg-primary-eco'
 					: 'bg-gradient-to-r from-success via-accent-primary-main to-primary-main'

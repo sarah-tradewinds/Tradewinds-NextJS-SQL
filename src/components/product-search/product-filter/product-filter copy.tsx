@@ -15,10 +15,10 @@ const ProductFilter: React.FC<ProductFilterProps> = (props) => {
 	const router = useRouter();
 
 	return (
-		<div className="h-full space-y-6 overflow-y-auto rounded-xl bg-white px-4 pb-20 shadow-md tablet:pb-6">
+		<div className="h-full space-y-6 overflow-y-auto rounded-xl bg-white px-4 pb-20 shadow-md md:pb-6">
 			{/* Categories filter */}
 			<div>
-				<h4 className="font-semibold text-gray tablet:mb-1 tablet:mt-2 tablet:text-[14px] tablet:leading-4 desktop:text-[18px] desktop:leading-[33px]">
+				<h4 className="font-semibold text-gray md:mb-1 md:mt-2 md:text-[14px] md:leading-4 lg:text-[18px] lg:leading-[33px]">
 					{t('navigation:categories_text')}
 				</h4>
 

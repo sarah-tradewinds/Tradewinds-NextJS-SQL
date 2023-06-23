@@ -148,7 +148,7 @@ const CategorySubCategoriesSection: React.FC<
 
 	return (
 		// <div className="bg-white tablet:h-[334.09px] tablet:w-full tablet:rounded-md tablet:pt-[25px] tablet:pl-[22px] tablet:pr-[10px] lg:w-[1466.01px] lg:pl-[22px] lg:pt-[25px] lg:pr-[10px]">
-		<div className="bg-white md:pr-[10px] lg:!h-[256px] lg:pl-[22px] lg:pt-[25px] lg:pr-[10px] xl:!h-[334.09px] tablet:mx-4 tablet:h-[238px] tablet:w-auto tablet:rounded-md tablet:pt-[25px] tablet:pl-[22px] desktop:mx-0">
+		<div className="bg-white md:pr-[10px] lg:!h-[256px] lg:pl-[22px] lg:pt-[25px] lg:pr-[10px] xl:!h-[334.09px] tablet:mx-4 tablet:h-[238px] tablet:w-auto tablet:rounded-md tablet:pt-[25px] tablet:pl-[22px] desktop:!mx-0">
 			{/* For Small Screen- Collapse */}
 			<div className="tablet:hidden">
 				<Collapse
@@ -225,7 +225,7 @@ const CategorySubCategoriesSection: React.FC<
 			{/* <div className="hidden tablet:flex"> */}
 			<div className="hidden grid-cols-12 md:!grid 2xl:grid 2xl:w-auto tablet:flex desktop:flex desktop:w-[1466px]">
 				{/* Category For medium and large screen */}
-				<div className="col-span-3 md:col-span-4 lg:col-span-2 900px:col-span-3">
+				<div className="bg-errors col-span-3 md:col-span-4 lg:col-span-3 900px:col-span-3">
 					<CategoryCard
 						title={mainCategoryTitle}
 						name={(main_category as any).name || ''}
@@ -260,13 +260,13 @@ const CategorySubCategoriesSection: React.FC<
 						bgHexColor={main_category?.color}
 						actionButtonBgColor={main_category?.source_now_button_color}
 						// containerClassName="lg:!h-[278px] lg:w-[349.08px] tablet:w-[250px] tablet:!h-[278px]"
-						containerClassName="tablet:!w-[211px] tablet:!h-[184px] md:!w-[250px] md:!h-[278px] md:!w-full md:!h-full desktop:!h-[278px] desktop:!w-[334px] 2xl:!w-auto"
+						containerClassName="tablet:!w-[211px] tablet:!h-[184px] md:!w-[250px] md:!h-[278px] md:!w-full md:!h-full desktop:!h-[278px] desktop:!w-[334px] 2xl:!w-auto lg:!w-full"
 					/>
 				</div>
 
 				{/* Sub categories */}
 				{/* <div className="tablet:w-[500px] tablet:pl-[40px] lg:mr-[56.01px] lg:h-[279px] lg:w-[1046px] lg:pl-[61px]"> */}
-				<div className="md:pl-10s desktop:ml-4s col-span-9 md:col-span-8 md:!w-full lg:col-span-10 lg:mr-0 lg:mt-2 lg:ml-4 lg:px-16 2xl:h-auto 2xl:w-auto tablet:w-[480px] tablet:pl-4 900px:col-span-9 desktop:h-[279px] desktop:w-[1080px]">
+				<div className="md:pl-10s desktop:ml-4s desktop:mx-10s col-span-9 md:col-span-8 md:!w-full lg:col-span-10 lg:mr-0 lg:mt-2 lg:ml-4 lg:px-16 2xl:h-auto 2xl:w-auto tablet:w-[480px] tablet:pl-4 900px:col-span-9 desktop:h-[279px] desktop:!w-[1088px] desktop:pl-0">
 					<SubCategorySlider
 						categories={categories || []}
 						className={subCategorySliderClassName}

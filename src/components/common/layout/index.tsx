@@ -138,12 +138,12 @@ const Layout: React.FC<{ productName?: string; seo: any }> = (
 				<SelectSignUpPage />
 				<SignUpPage />
 				<Login />
-				<main className="md:scale-[0.85]s md:transforms bg-bg-main pb-8 dark:bg-bg-eco">
+				<main className="tablet:scale-[0.85]s tablet:transforms bg-bg-main pb-8 dark:bg-bg-eco">
 					{children}
 				</main>
 
 				{/* Bottom navbar for small screen */}
-				<div className="fixed bottom-0 left-0 right-0 z-[1000] h-[51px] bg-primary-main dark:bg-primary-eco md:hidden">
+				<div className="fixed bottom-0 left-0 right-0 z-[1000] h-[51px] bg-primary-main dark:bg-primary-eco tablet:hidden">
 					<div className="flex items-center justify-between">
 						<div className="flex items-center space-x-4">
 							{/* Home Icon */}

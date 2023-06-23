@@ -76,23 +76,20 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 		useSWR('/region_country/all', getHomeCountries);
 
 	const dropDownSelect =
-		'outline-none border-2 border-gray/20 md:h-[18px] lg:h-9 w-[84px] lg:w-[202px] font-semibold md:text-[10px] md:leading-[22px]';
+		'outline-none border-2 border-gray/20 tablet:h-[18px] desktop:h-9 w-[84px] desktop:w-[202px] font-semibold tablet:text-[10px] tablet:leading-[22px]';
 
 	const chevronDownIcon = (
-		<ChevronDownIcon className="hidden h-6 w-6 text-[#E1DDDD] lg:block" />
+		<ChevronDownIcon className="hidden h-6 w-6 text-[#E1DDDD] desktop:block" />
 	);
 
 	return (
-		<div
-			// className="hidden justify-between rounded-md border border-gray/10 bg-white p-2 shadow-lg md:flex lg:p-4"
-			className="hidden justify-between rounded-md border border-gray/10 bg-white shadow-lg md:flex md:h-8 md:py-[7px] md:pl-[9px] md:pr-2 lg:h-[54px] lg:pl-[13px] lg:pr-[14px] lg:pt-2 lg:pb-[10px]"
-		>
+		<div className="hidden justify-between rounded-md border border-gray/10 bg-white shadow-lg tablet:flex tablet:h-8 tablet:py-[7px] tablet:pl-[9px] tablet:pr-2 desktop:h-[54px] desktop:pl-[13px] desktop:pr-[14px] desktop:pt-2 desktop:pb-[10px]">
 			{/* Live Buy/ Ready to ship - checkbox */}
 			<label className="flex cursor-pointer items-center">
 				<input
 					type="checkbox"
 					checked={isReadyToShip}
-					className="!rounded-none md:scale-125"
+					className="!rounded-none tablet:scale-125"
 					onChange={() => {
 						setIsReadyToShip((prevState) => {
 							onLiveBuyReadyToShipChange?.(!prevState);
@@ -102,12 +99,12 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 				/>
 				{/* For large screen */}
 				<p className="ml-2 font-semibold text-gray">
-					<span className="hidden text-[15px] lg:block lg:leading-[18px]">
+					<span className="hidden text-[15px] desktop:block desktop:leading-[18px]">
 						Live Buy/ Ready to ship
 					</span>
 
 					{/* For medium screen */}
-					<span className="block text-[10px] lg:hidden">
+					<span className="block text-[10px] desktop:hidden">
 						Ready to ship
 					</span>
 				</p>
@@ -118,7 +115,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 				<input
 					type="checkbox"
 					checked={isCustomizable}
-					className="!rounded-none md:scale-125"
+					className="!rounded-none tablet:scale-125"
 					onChange={() => {
 						setIsCustomizable((prevState) => {
 							onCustomizableChange?.(!prevState);
@@ -126,7 +123,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 						});
 					}}
 				/>
-				<p className="ml-2 text-[10px] font-semibold text-gray lg:text-[15px] lg:leading-[18px]">
+				<p className="ml-2 text-[10px] font-semibold text-gray desktop:text-[15px] desktop:leading-[18px]">
 					Customizable
 				</p>
 			</label>
@@ -135,7 +132,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 			<div className="relative flex items-center">
 				<label
 					htmlFor="country"
-					className="mr-2 text-[10px] font-semibold leading-[22px] text-gray lg:text-[15px]"
+					className="mr-2 text-[10px] font-semibold leading-[22px] text-gray desktop:text-[15px]"
 				>
 					Country
 				</label>
@@ -143,15 +140,15 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 					countries={countries || []}
 					defaultValue={selectedCountry}
 					onCountryChange={onCountryChange}
-					inputAndButtonContainerClassName={`flex justify-between md:h-[18px] text-gray-900 lg:h-9 md:w-[115px] border-2 border-gray/20 lg:py-2 pl-1 pr-8 font-semibold outline-none lg:w-[202px]`}
-					buttonClassName="absolute inset-y-0 right-0 flex items-center pr-2 md:hidden lg:block text-center"
+					inputAndButtonContainerClassName={`flex justify-between tablet:h-[18px] text-gray-900 desktop:h-9 tablet:w-[115px] border-2 border-gray/20 desktop:py-2 pl-1 pr-8 font-semibold outline-none desktop:w-[202px]`}
+					buttonClassName="absolute inset-y-0 right-0 flex items-center pr-2 tablet:hidden desktop:block text-center"
 					optionsContainerClassName="w-[202px] sw-full"
 				/>
 			</div>
 
 			{/* Min. Order - dropdown */}
 			<div className="relative flex items-center">
-				<p className="mr-2 whitespace-nowrap text-[10px] font-semibold text-gray lg:text-[15px]">
+				<p className="mr-2 whitespace-nowrap text-[10px] font-semibold text-gray desktop:text-[15px]">
 					Min. Order
 				</p>
 
@@ -208,7 +205,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 
 			{/* Dollar - dropdown */}
 			<div className="relative flex items-center">
-				<p className="mr-2 whitespace-nowrap text-[10px] font-semibold text-gray lg:text-[15px]">
+				<p className="mr-2 whitespace-nowrap text-[10px] font-semibold text-gray desktop:text-[15px]">
 					$$$
 				</p>
 
