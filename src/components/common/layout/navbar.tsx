@@ -39,7 +39,6 @@ import { useHomeStore } from 'store/home';
 import ImageWithErrorHandler from '../elements/image-with-error-handler';
 
 const Header = (props: any) => {
-	// console.log('propspropspropspropspropspropsprops =', props);
 	const [isOpen, setIsOpen] = useState(false);
 	const [showLogout, setShowLogout] = useState(false);
 	const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
@@ -90,32 +89,32 @@ const Header = (props: any) => {
 			<div
 				className={`${
 					isAuth
-						? 'md:mx-4 md:mt-5 lg:mr-[58px] lg:ml-[90px]'
-						: 'md:mx-[38px] md:mt-5 lg:ml-[111.43px]'
+						? 'md:mx-4 md:mt-5 desktop:mr-[58px] desktop:ml-[90px]'
+						: 'md:mx-[38px] md:mt-5 desktop:ml-[111.43px]'
 				}`}
 			>
 				<CartIcon
 					count={totalItemCartItem}
 					onClick={() => router.push('/cart')}
-					iconClassName="!text-[20px] md:!text-[24px] lg:!text-[25.16px]"
+					iconClassName="!text-[20px] tablet:!text-[24px] desktop:!text-[25.16px]"
 					countClassName={`block ${
 						isAuth
-							? '!-top-1 !right-4 md:!-top-3 !lg:-top-0 md:!right-2'
-							: '!-top-3 md:!-top-5'
+							? '!-top-1 !right-4 tablet:!-top-3 !desktop:-top-0 tablet:!right-2'
+							: '!-top-3 tablet:!-top-5'
 					}`}
 				/>
 
 				{/* Name and logout button */}
 				{isAuth && (
-					<div className="group relative cursor-pointer md:mr-10">
+					<div className="group relative cursor-pointer tablet:mr-10">
 						<p
-							className="overflow-ellipsis whitespace-nowrap text-xs text-white md:w-[64px] md:text-xs md:leading-[15px] lg:!text-lg lg:leading-[22px]"
+							className="overflow-ellipsis whitespace-nowrap text-xs text-white lg:!text-lg lg:leading-[22px] tablet:w-[64px] tablet:text-xs tablet:leading-[15px]"
 							onMouseEnter={() => setShowLogout(true)}
 						>
 							{`Hi, ${customerData.name.substring(0, 10)}`}
 						</p>
 
-						<div className="absolute right-0 z-50 hidden w-[200px] bg-accent-primary-main p-2 text-white hover:bg-primary-main group-hover:block md:right-auto">
+						<div className="absolute right-0 z-50 hidden w-[200px] bg-accent-primary-main p-2 text-white hover:bg-primary-main group-hover:block tablet:right-auto">
 							<div
 								className="flex cursor-pointer"
 								onClick={() => {
@@ -133,7 +132,7 @@ const Header = (props: any) => {
 			</div>
 
 			{isAuth ? (
-				<div className="hidden md:ml-[6px] md:flex">
+				<div className="hidden md:flex tablet:ml-[6px]">
 					<Button
 						href={generateBuyerDashboardUrl({
 							redirect_to: BUYER_DASHBOARD_PAGES.buyers,
@@ -141,7 +140,7 @@ const Header = (props: any) => {
 							refresh_key: customerData.refresh.token
 						})}
 						variant="buyer"
-						className="flex flex-col items-center justify-center rounded-none !px-0 !py-0 transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary md:mr-[5.56px] md:!h-[70px] md:!w-[73px] lg:!mr-[6.57px] lg:!h-[76px] lg:!w-[94.43px] lg:!text-lg lg:leading-[22px]"
+						className="flex flex-col items-center justify-center rounded-none !px-0 !py-0 transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary lg:!mr-[6.57px] lg:!h-[76px] lg:!w-[94.43px] lg:!text-lg lg:leading-[22px] tablet:mr-[5.56px] tablet:!h-[70px] tablet:!w-[73px]"
 					>
 						<AiOutlineDashboard size={35} />
 						<p className="md:text-[8px]">{t('common:dashboard')}</p>
@@ -266,7 +265,7 @@ const Header = (props: any) => {
 						<SearchBar />
 					</div>
 
-					{/* Mobile Right Search Icons */}
+					{/* Mobile Right Search Icons for mobile only */}
 					<div className="flex items-center md:mr-4 md:hidden">
 						<HiOutlineSearch className="mr-4 h-4 w-4 text-white md:h-6 md:w-6" />
 						{cartIconAndUsername}

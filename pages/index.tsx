@@ -19,6 +19,8 @@ import Hero from 'components/home/hero';
 
 // lib
 import {
+	getCardAList,
+	getCardB,
 	getHeroCarousels,
 	getHomeCountries,
 	getHomeMainCategoriesAndCategories
@@ -82,7 +84,7 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 
 	const searchCategoriesAndTrendingBanner = (
 		// <div className="grid gap-4 lg:grid-cols-2">
-		<div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-2 desktop:grid-cols-1">
+		<div className="grid gap-4 md:grid-cols-2 2xl:!grid-cols-2 desktop:grid-cols-1">
 			<div className="flex h-[78.75px] items-center space-x-2 bg-accent-primary-main p-3 text-white dark:bg-accent-primary-eco md:h-[143px] md:space-y-2 lg:w-auto lg:flex-col lg:p-0">
 				<h3 className="text-[21px] font-semibold leading-[26px] md:text-[35px] lg:text-center lg:text-[35px] lg:leading-[43px] ">
 					<span>{t('home:search_from')} </span>
@@ -135,7 +137,7 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 			/>
 
 			<div className="md:containers">
-				<div className="mt-20 md:-mt-14 lg:-mt-14 tablet:-mt-10">
+				<div className="mt-20 md:-mt-14 lg:!mt-36 tablet:-mt-10 desktop:-mt-14">
 					{/* Category and sub categories */}
 					<div className="space-y-[41px] lg:mx-[23px] lg:space-y-[27px]">
 						{homeMainCategoriesAndCategories?.cat_section &&
@@ -228,9 +230,9 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 	);
 
 	try {
-		// const cardAList = (await getCardAList()) || [];
+		const cardAList = (await getCardAList()) || [];
 		// console.log('cardAList', cardAList);
-		// const cardBData = (await getCardB()) || {};
+		const cardBData = (await getCardB()) || {};
 
 		const homeMainCategoriesAndCategories =
 			await getHomeMainCategoriesAndCategories();
@@ -239,16 +241,16 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 			props: {
 				...(await serverSideTranslations(locale || 'en')),
 
-				// cardAList,
-				// cardBData,
+				cardAList,
+				cardBData,
 				homeMainCategoriesAndCategories:
 					homeMainCategoriesAndCategories ?? {
 						cat_section: [],
 						is_custom: false
-					},
+					}
 
-				cardAList: [],
-				cardBData: []
+				// cardAList: [],
+				// cardBData: []
 				// homeMainCategoriesAndCategories: []
 			}
 			// revalidate: 1440

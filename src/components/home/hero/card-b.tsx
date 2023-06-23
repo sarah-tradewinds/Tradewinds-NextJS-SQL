@@ -26,13 +26,13 @@ const CardB: React.FC<CardBProps> = (props) => {
 
 	return (
 		// <div className="flex h-[153px] w-[203px] flex-col rounded-md bg-secondary p-3 transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg tablet:h-[240px] tablet:w-[226px] tablet:p-0 lg:!h-[352px] lg:!w-[466px]">
-		<div className="flex h-[153px] w-[203px] flex-col rounded-md bg-secondary p-3 transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg md:h-[240px] md:w-[280px] desktop:!h-[352px] desktop:!w-[466px] tablet:h-[240px] tablet:w-[226px] tablet:p-0">
+		<div className="flex h-[153px] w-[203px] flex-col overflow-clip rounded-md bg-secondary p-3 transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg md:h-[240px] md:w-[280px] lg:!h-[280px] lg:!w-[308px] tablet:h-[240px] tablet:w-[226px] tablet:p-0 desktop:!h-[352px] desktop:!w-[466px] ">
 			<h2 className="tablet:leading[24px] font-mont text-[15px] font-bold capitalize leading-[18px] text-primary-main dark:text-accent-secondary-eco lg:ml-[18px] lg:mt-[8px] lg:!h-[66px] lg:pt-[3px] lg:text-[25px] lg:leading-[30px] tablet:ml-[10.48px] tablet:mt-[3px] tablet:pt-[3px] tablet:text-[20px]">
 				{title}
 			</h2>
-			<div className="mt-2 flex h-full items-center tablet:mt-[6.04px]">
+			<div className="mt-2 flex h-full items-center 2xl:!mt-2 tablet:mt-[6.04px]">
 				<div>
-					<div className="relative lg:mt-[10px] lg:ml-[21px] desktop:!h-[129.2px] desktop:!w-[147.2px] tablet:ml-[9.48px] tablet:h-[52.66px] tablet:w-[60px] ">
+					<div className="relative lg:mt-[10px] lg:ml-[21px] lg:!w-full tablet:ml-[9.48px] tablet:h-[52.66px] tablet:w-[60px] desktop:!h-[129.2px] desktop:!w-[147.2px] ">
 						<ImageWithErrorHandler
 							src={imageUrl}
 							alt={alt || ''}

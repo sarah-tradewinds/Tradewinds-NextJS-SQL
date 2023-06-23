@@ -24,7 +24,7 @@ const CardWrapper: React.FC<{
 		<>
 			{/* <div className="hidden flex-col space-y-4 px-2 md:flex md:flex-row md:space-y-0 md:px-0"> */}
 			<div className="hidden justify-center space-x-4 lg:space-x-6 tablet:flex">
-				<CardA
+				{/* <CardA
 					title={'Become a Vendor'}
 					name={''}
 					subtitle={
@@ -46,7 +46,7 @@ const CardWrapper: React.FC<{
 						'https://wmarketplacestgact.blob.core.windows.net/tradewinds-static/cardA/1681206158-Trade%20winds%20HP%201.26%201%20%282%29.png'
 					}
 					href="/why-sell-on-tradewinds"
-				/>
+				/> */}
 
 				{cardAList.map((cardAData, index) => (
 					<div

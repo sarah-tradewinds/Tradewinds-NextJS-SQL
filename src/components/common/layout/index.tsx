@@ -34,6 +34,7 @@ import ImageWithErrorHandler from '../elements/image-with-error-handler';
 import Loader from '../elements/loader/loader';
 import Button from '../form/button';
 import Seo from '../seo';
+import Header from './navbar';
 
 const Layout: React.FC<{ productName?: string; seo: any }> = (
 	props
@@ -133,7 +134,7 @@ const Layout: React.FC<{ productName?: string; seo: any }> = (
 			/>
 
 			<div className={isEco ? 'dark' : 'light'}>
-				{/* <NavBar productName={productName} /> */}
+				<Header productName={productName} />
 				<SelectSignUpPage />
 				<SignUpPage />
 				<Login />

@@ -17,12 +17,12 @@ const CardA: React.FC<CardAProps> = (props) => {
 		<Link
 			href={href}
 			// className="flex h-full w-full cursor-pointer flex-col rounded-md bg-white p-2 transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg md:h-[240px] md:w-[226px] md:px-3 md:pb-3 lg:h-[352px] lg:w-![466px]"
-			className="tablet-h-[240px] flex h-full w-full cursor-pointer flex-col space-y-1 rounded-md bg-white p-2 transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg md:h-[240px] md:w-[280px] desktop:!h-[352px] desktop:!w-[466px] tablet:w-[226px] tablet:px-3 tablet:pb-3"
+			className="tablet-h-[240px] flex h-full w-full cursor-pointer flex-col space-y-1 rounded-md bg-white p-2 transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg md:h-[240px] md:w-[280px] lg:!h-[280px] lg:!w-[308px] tablet:w-[226px] tablet:px-3 tablet:pb-3 desktop:!h-[352px] desktop:!w-[466px]"
 		>
-			<h2 className="font-mont text-[15px] font-semibold capitalize leading-[18px] text-primary-main dark:text-accent-secondary-eco desktop:py-2 desktop:text-[25px] desktop:leading-[30px] tablet:text-[20px] tablet:leading-6">
+			<h2 className="font-mont text-[15px] font-semibold capitalize leading-[18px] text-primary-main dark:text-accent-secondary-eco tablet:text-[20px] tablet:leading-6 desktop:py-2 desktop:text-[25px] desktop:leading-[30px]">
 				{title}
 			</h2>
-			<div className="relative mt-1 hidden h-[86px] w-[180px] overflow-hidden desktop:mt-[15px] desktop:!h-[201px] lg:!w-[420px] tablet:mt-[3.19px] tablet:block tablet:h-[109.63px] tablet:w-[203.41px]">
+			<div className="relative mt-1 hidden h-[86px] w-[180px] overflow-hidden tablet:mt-[3.19px] tablet:block tablet:!h-[109.63px] tablet:!w-[203.41px] desktop:mt-[15px] desktop:!h-[201px] desktop:!w-[420px]">
 				<ImageWithErrorHandler
 					src={imageUrl}
 					alt={alt || ''}
