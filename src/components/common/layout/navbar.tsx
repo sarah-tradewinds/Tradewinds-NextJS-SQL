@@ -89,8 +89,8 @@ const Header = (props: any) => {
 			<div
 				className={`${
 					isAuth
-						? 'md:mx-4 md:mt-5 desktop:mr-[58px] desktop:ml-[90px]'
-						: 'md:mx-[38px] md:mt-5 desktop:ml-[111.43px]'
+						? 'tablet:mx-4 tablet:mt-5 desktop:mr-[58px] desktop:ml-[90px]'
+						: 'tablet:mx-[38px] tablet:mt-5 desktop:ml-[111.43px]'
 				}`}
 			>
 				<CartIcon
@@ -143,7 +143,7 @@ const Header = (props: any) => {
 						className="flex flex-col items-center justify-center rounded-none !px-0 !py-0 transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary lg:!mr-[6.57px] lg:!h-[76px] lg:!w-[94.43px] lg:!text-lg lg:leading-[22px] tablet:mr-[5.56px] tablet:!h-[70px] tablet:!w-[73px]"
 					>
 						<AiOutlineDashboard size={35} />
-						<p className="md:text-[8px]">{t('common:dashboard')}</p>
+						<p className="tablet:text-[8px]">{t('common:dashboard')}</p>
 					</Button>
 
 					<Button
@@ -154,22 +154,22 @@ const Header = (props: any) => {
 							refresh_key: customerData.refresh.token
 						})}
 						variant="special"
-						className="flex-col !items-center rounded-none !px-0 py-0 transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08] md:!h-[70px] md:!w-[73px] lg:!h-[76px] lg:!w-[94.43px] lg:!text-lg lg:leading-[22px]"
+						className="flex-col !items-center rounded-none !px-0 py-0 transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08] lg:!h-[76px] lg:!w-[94.43px] lg:!text-lg lg:leading-[22px] tablet:!h-[70px] tablet:!w-[73px]"
 					>
 						<div className="flex items-center justify-center text-center">
 							<BiMessageDetail size={25} />
 						</div>
-						<p className="text-primary-main md:text-[8px] md:leading-[15px]">
+						<p className="text-primary-main tablet:text-[8px] tablet:leading-[15px]">
 							{t('navigation:submit_rfq_text')}
 						</p>
 					</Button>
 				</div>
 			) : (
-				<div className="mr-[39px] hidden md:flex md:items-center">
+				<div className="mr-[39px] hidden tablet:flex tablet:items-center">
 					<button
 						type="button"
 						// className="rounded-sm border-[1px] bg-transparent px-5 py-2 text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary"
-						className="flex flex-col items-center justify-center rounded-sm border bg-transparent text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary md:mr-[5.56px] md:!h-[42px] md:!w-[73px] md:!font-normal lg:!mr-[9px] lg:!w-[94px] lg:!border-2 lg:!border-secondary lg:!text-lg lg:leading-[22px]"
+						className="flex flex-col items-center justify-center rounded-sm border bg-transparent text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary lg:!mr-[9px] lg:!w-[94px] lg:!border-2 lg:!border-secondary lg:!text-lg lg:leading-[22px] tablet:mr-[5.56px] tablet:!h-[42px] tablet:!w-[73px] tablet:!font-normal"
 						onClick={setIsSelectSignUpOpen}
 					>
 						{t('sign_up_text')}
@@ -177,7 +177,7 @@ const Header = (props: any) => {
 					<Button
 						variant="special"
 						// className="rounded-sm border-[1px] border-secondary bg-secondary px-5 py-2 text-white transition duration-300 ease-in-out hover:border-white hover:bg-transparent"
-						className="rounded-none !px-0 py-0 transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08] md:!h-[42px] md:!w-[73px] md:!font-normal lg:!w-[94px] lg:!text-lg lg:leading-[22px]"
+						className="rounded-none !px-0 py-0 transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08] lg:!w-[94px] lg:!text-lg lg:leading-[22px] tablet:!h-[42px] tablet:!w-[73px] tablet:!font-normal"
 						onClick={setIsLoginOpen}
 					>
 						{t('log_in_text')}
@@ -189,7 +189,7 @@ const Header = (props: any) => {
 
 	return (
 		<header
-			className={`sticky top-0 z-[10000] h-[50.07px] w-full  md:h-[111px] lg:h-[119.68px]  ${
+			className={`sticky top-0 z-[10000] h-[50.07px] w-full md:h-[111px] lg:h-[119.68px] tablet:h-[70px]  ${
 				isEco
 					? 'bg-primary-eco'
 					: 'bg-gradient-to-r from-success via-accent-primary-main to-primary-main'
@@ -198,13 +198,13 @@ const Header = (props: any) => {
 		>
 			<div className="h-full">
 				<div
-					className="md:px-auto flex h-full items-center justify-between px-[21.46px] md:h-[70px] md:px-0 lg:h-[76px]"
+					className="tablet:px-auto flex h-full items-center justify-between px-[21.46px] lg:h-[76px] tablet:h-[70px] tablet:px-0"
 					onClick={() => setShowLogout(false)}
 				>
 					{/* Menu icon */}
 					<button
 						type="button"
-						className="flex md:hidden"
+						className="flex md:hidden tablet:ml-4"
 						onClick={drawerHandler}
 					>
 						{!isOpen ? (
@@ -216,17 +216,17 @@ const Header = (props: any) => {
 
 					{/* Tradewinds logo */}
 					<div
-						className={`md:mt-[6px] md:mb-[7.44] lg:mr-[112px] lg:h-[56px] lg:w-[202px] ${
+						className={`lg:mr-[112px] lg:h-[56px] lg:w-[202px] tablet:mt-[6px] tablet:mb-[7.44] ${
 							isAuth ? 'md:ml-8' : 'ml-8 md:mr-[24.51px] md:ml-5'
 						}`}
 					>
 						<div
-							className="relative h-[28px] w-[101px] md:h-[57px] md:w-[69.49px] lg:h-[56px] lg:w-[202px]"
+							className="relative h-[28px] w-[101px] lg:h-[56px] lg:w-[202px] tablet:h-[57px] tablet:w-[69.49px]"
 							id="logo"
 						>
 							<Link href="/">
 								{/* For mobile and medium*/}
-								<div className="relative hidden h-full w-full md:block lg:hidden">
+								<div className="relative hidden h-full w-full lg:hidden tablet:block">
 									<ImageWithErrorHandler
 										src="/tradewind-logo.png"
 										alt="Logo"
@@ -241,7 +241,7 @@ const Header = (props: any) => {
 								</div>
 
 								{/* For desktop */}
-								<div className="md:hidden lg:block">
+								<div className="lg:block tablet:hidden">
 									<ImageWithErrorHandler
 										src="/static/images/tradewinds_logo.png"
 										alt="Logo"
@@ -261,18 +261,20 @@ const Header = (props: any) => {
 					</div>
 
 					{/* Search Input */}
-					<div className="hidden md:block">
+					<div className="hidden tablet:block">
 						<SearchBar />
 					</div>
 
 					{/* Mobile Right Search Icons for mobile only */}
-					<div className="flex items-center md:mr-4 md:hidden">
-						<HiOutlineSearch className="mr-4 h-4 w-4 text-white md:h-6 md:w-6" />
+					<div className="flex items-center tablet:mr-4 tablet:hidden">
+						<HiOutlineSearch className="mr-4 h-4 w-4 text-white tablet:h-6 tablet:w-6" />
 						{cartIconAndUsername}
 					</div>
 
 					{/* Cart Icon and Login user name */}
-					<div className="hidden md:block">{cartIconAndUsername}</div>
+					<div className="hidden tablet:block">
+						{cartIconAndUsername}
+					</div>
 				</div>
 
 				{/* Bottom nav */}
@@ -284,9 +286,11 @@ const Header = (props: any) => {
 								onMouseEnter={() => setIsMegaMenuOpen(true)}
 								onMouseLeave={() => setIsMegaMenuOpen(false)}
 							>
-								<div className="flex cursor-pointer items-center space-x-1 font-semibold text-primary-main outline-none dark:text-accent-secondary-eco md:text-xs md:leading-[15px] lg:text-[18px] lg:leading-[22px]">
+								<div className="flex cursor-pointer items-center space-x-1 font-semibold text-primary-main outline-none dark:text-accent-secondary-eco lg:text-[18px] lg:leading-[22px] tablet:text-xs tablet:leading-[15px]">
 									<span>{t('categories_text')} </span>
-									<span className="hidden md:inline-block">&gt;</span>
+									<span className="hidden tablet:inline-block">
+										&gt;
+									</span>
 								</div>
 
 								{isMegaMenuOpen && (
@@ -405,7 +409,7 @@ const Header = (props: any) => {
 						</div>
 					</div>
 
-					<div className="ml-[35px] hidden md:inline-block">
+					<div className="ml-[35px] hidden tablet:inline-block">
 						<Breadcrumbs productName={props.productName} />
 					</div>
 				</div>
