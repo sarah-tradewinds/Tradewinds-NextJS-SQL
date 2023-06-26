@@ -3,60 +3,23 @@ import ImageWithErrorHandler from '../elements/image-with-error-handler';
 interface WhyBuyOperationProps {
 	imageUrl: string;
 	alt?: string;
-	title: string;
-	subtitle?: string | React.ReactNode;
-	className?: string;
-	displayBorder?: boolean;
-	containerClassName?: string;
 	imageClassName?: string;
-	childrenContainerClassName?: string;
 }
 
 export const WhyBuyOperationTile: React.FC<WhyBuyOperationProps> = ({
 	imageUrl,
 	alt,
-	title,
-	subtitle,
-	children,
-	className,
-	displayBorder,
-	containerClassName,
-	childrenContainerClassName,
 	imageClassName
 }) => {
 	return (
 		<>
-			<div className={`flex items-center ${containerClassName}`}>
-				<div>
-					<div
-						className={`relative md:h-[400px] md:w-[300px] lg:h-[380px] lg:w-[601px] ${imageClassName}`}
-					>
-						<ImageWithErrorHandler
-							src={imageUrl}
-							alt={alt || title}
-							fill={true}
-						/>
-					</div>
-				</div>
-
-				<div className={className}>
-					<div className="text-primary-main md:text-[20px] lg:text-[25px]">
-						<h3 className="font-semibold">{title}</h3>
-						<p>{subtitle}</p>
-					</div>
-					<div
-						className={`space-y-2 px-4 ${childrenContainerClassName}`}
-					>
-						{children}
-					</div>
-				</div>
+			<div className={`relative ${imageClassName}`}>
+				<ImageWithErrorHandler
+					src={imageUrl}
+					alt={alt || ''}
+					fill={true}
+				/>
 			</div>
-
-			{displayBorder && (
-				<div className="flex justify-center">
-					<div className="w-1/2 border border-gray/40"></div>
-				</div>
-			)}
 		</>
 	);
 };
@@ -83,7 +46,7 @@ export const WhyBuyOperationSubTile: React.FC<{
 		<div className={`flex ${className}`}>
 			<div>
 				<div
-					className={`relative mr-8 h-[30px] w-[34px] ${imgClassName}`}
+					className={`relative mt-[10px] mr-[18px] h-[34px] w-[29px]  ${imgClassName}`}
 				>
 					<ImageWithErrorHandler
 						src={imageUrl}
@@ -95,10 +58,12 @@ export const WhyBuyOperationSubTile: React.FC<{
 			</div>
 
 			<div
-				className={`text-[15px] text-primary-main ${contentClassName}`}
+				className={`w-[475px] text-[15px]  text-primary-main ${contentClassName}`}
 			>
-				<p className="font-semibold">{title}</p>
-				<p>{subtitle}</p>
+				<p className="text-[24px] font-semibold">{title}</p>
+				<p className="text-[18px] font-normal  leading-[22px] ">
+					{subtitle}
+				</p>
 			</div>
 		</div>
 	);
