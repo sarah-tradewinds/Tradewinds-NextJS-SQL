@@ -6,6 +6,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // components
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
+import Point from 'components/common/rfq/point';
 import WhyUseRFQTile from 'components/common/rfq/why-use-rfq-tile';
 import Seo from 'components/common/seo';
 
@@ -90,7 +91,7 @@ const WhatIsRFQPage: NextPage = () => {
 								transform the way you source and procure goods for your
 								business.
 							</p>
-							<div className=" flex items-center justify-between">
+							<div className=" flex items-center space-x-[480px] ">
 								<p className="pl-10 font-semibold text-primary-main md:text-[20px] lg:pl-24 lg:text-[50px]">
 									{t('common:why_use_rfq')}
 								</p>
@@ -98,28 +99,28 @@ const WhatIsRFQPage: NextPage = () => {
 									<WhyUseRFQTile
 										imageUrl="/static/images/RfqPageImages/submit-request-img.png"
 										title={t('submit_quote_for_your_custom_request')}
-										imageContainerClassName="md:!w-[52px] md:!h-[48px] lg:!w-[132px] lg:!h-[110px]"
-										textClassName="md:!text-[18px] lg:!text-[25px]"
+										imageContainerClassName=" lg:!w-[150px] lg:!h-[124px]"
+										textClassName="md:!text-[18px] ml-[46px]  lg:!text-[25px]"
 									/>
 									<WhyUseRFQTile
 										imageUrl="/static/images/RfqPageImages/receive-response-img.png"
 										title={t(
 											'receive_responses_from_multiple_suppliers'
 										)}
-										imageContainerClassName="md:!w-[52px] md:!h-[48px] lg:!w-[132px] lg:!h-[110px]"
-										textClassName="md:!text-[18px] lg:!text-[25px]"
+										imageContainerClassName=" lg:!w-[160px] lg:!h-[96px]"
+										textClassName="md:!text-[18px] ml-[46px] lg:!text-[25px]"
 									/>
 									<WhyUseRFQTile
 										imageUrl="/static/images/RfqPageImages/why-use-rfq/choose-right-supplier.png"
 										title={t('choose_the_right_supplier')}
-										imageContainerClassName="md:!w-[52px] md:!h-[48px] lg:!w-[132px] lg:!h-[110px]"
-										textClassName="md:!text-[18px] lg:!text-[25px]"
+										imageContainerClassName=" lg:!w-[102px] lg:!h-[128px]"
+										textClassName="md:!text-[18px] ml-[51px] lg:!text-[25px]"
 									/>
 									<WhyUseRFQTile
 										imageUrl="/static/images/RfqPageImages/why-use-rfq/close-deal.png"
 										title={t('close_deal')}
-										imageContainerClassName="md:!w-[52px] md:!h-[48px] lg:!w-[132px] lg:!h-[110px]"
-										textClassName="md:!text-[18px] lg:!text-[25px]"
+										imageContainerClassName=" lg:!w-[129px] lg:!h-[115px]"
+										textClassName="md:!text-[18px] ml-[27px] lg:!text-[25px]"
 									/>
 								</div>
 							</div>
@@ -127,28 +128,82 @@ const WhatIsRFQPage: NextPage = () => {
 					</div>
 
 					{/* RFQ Sending Process */}
-					<div className="flex bg-[url('/static/images/RfqPageImages/rfq-bg.png')]">
-						<div className="relative hidden lg:block lg:h-[888px] lg:w-[814px]">
+					<div className="flex overflow-hidden bg-[url('/static/images/RfqPageImages/rfq-bg.png')]">
+						<div className="relative hidden  lg:-ml-[29px] lg:block lg:h-[888px] lg:w-[814px]">
 							<ImageWithErrorHandler
-								src="/static/images/RfqPageImages/rfq-main.png"
+								src="/static/images/RfqPageImages/rfq-main-img.png"
 								alt=""
 								fill={true}
 								className="object-contain"
 							/>
 						</div>
 
-						<div className="relative hidden md:block md:h-[824px] md:w-[100vw] lg:hidden">
-							<ImageWithErrorHandler
-								src="/static/images/RfqPageImages/rfq-main-tablet.png"
-								alt=""
-								fill={true}
-							/>
+						{/* content */}
+						<div>
+							<div className=" -ml-[15px]">
+								<p className="font-semibold text-accent-secondary-main lg:mt-[62px] lg:h-[122px] lg:w-[741px] lg:text-[50px] lg:leading-[60px]">
+									How should I send a RFQ <br />
+									on Tradewinds Marketplace?
+								</p>
+
+								<h4 className="font-semibold lg:text-[24px] lg:leading-[29px] lg:text-white">
+									{t('we_have_made_preparing_a_rfq_simple')}
+								</h4>
+							</div>
+							<div className="mt-[38px] ml-[51px] leading-[21.94px]">
+								<div className=" h-[540px] w-[584px] text-[18px] text-white ">
+									<p className="text-[25px] font-semibold text-accent-secondary-main ">
+										Fill out RFQ form:
+									</p>
+									<div className="mb-[10px] ml-[15px] ">
+										<Point
+											content="Complete RFQ Form: Note: To enhance vendor
+											responses, ensure your provided information is
+											detailed for responses that are tailored and
+											relevant."
+										/>
+
+										<Point
+											content="Complete Product information: Complete Product
+											information: Add additional notes. Eg. Multiple
+											colors, fabric needs etc."
+										/>
+
+										<Point content="Review details and Submit" />
+									</div>
+									<p className="text-[25px] font-semibold text-accent-secondary-main ">
+										Review vendor responses:
+									</p>
+									<div className="mb-[10px] ml-[15px] ">
+										<Point content="Review vendor responses:" />
+										<Point
+											content="Choose your preferred quote: Notify your chosen
+											vendor of your decision and next steps while
+											retaining a copy of the RFQ for future contractual
+											reference."
+										/>
+										<Point content="Review details and Submit" />
+									</div>
+									<p className="text-[25px] font-semibold text-accent-secondary-main ">
+										Finalize the process:
+									</p>
+									<div className="mb-[10px] ml-[15px] ">
+										<Point
+											content="Finally, formalize the arrangement with the chosen
+											vendor to close out the process. Keep in mind that
+											an RFQ is not a contract and requires formal
+											agreement from both parties to be enforceable.
+											Notify other vendors of your decision to proceed
+											with a different vendor."
+										/>
+									</div>
+								</div>
+							</div>
 						</div>
 
-						{/* content */}
-						<div className="space-y-8 py-8 px-8 text-gray md:py-16 md:text-white">
-							{/* First section */}
-							<div className="md:space-y-4">
+						{/* <div className="space-y-8 py-8 px-8 text-gray md:py-16 md:text-white"> */}
+						{/* First section */}
+						{/* <div className="md:space-y-4">
 								<h3 className="text-[18px] font-semibold text-accent-secondary-main md:text-[20px] lg:text-[25px]">
 									{t(
 										'how_should_i_send_a_rfq_on_tradewinds_marketplace'
@@ -168,10 +223,10 @@ const WhatIsRFQPage: NextPage = () => {
 								<p className="text-[12px] font-semibold text-gray md:text-[16px] lg:text-[15px] lg:text-white">
 									{t('review_details_and_submit')}
 								</p>
-							</div>
+							</div> */}
 
-							{/* Second section */}
-							<div className="md:space-y-4">
+						{/* Second section */}
+						{/* <div className="md:space-y-4">
 								<h3 className="text-[18px] font-semibold text-accent-secondary-main  md:text-[20px] lg:text-[25px]">
 									{t('review_vendor_responses')}
 								</h3>
@@ -202,10 +257,10 @@ const WhatIsRFQPage: NextPage = () => {
 										)}
 									</p>
 								</div>{' '}
-							</div>
+							</div> */}
 
-							{/* Third section */}
-							<div className="md:space-y-4">
+						{/* Third section */}
+						{/* <div className="md:space-y-4">
 								<h3 className="text-[18px] font-semibold text-accent-secondary-main md:text-[20px] lg:text-[25px]">
 									{t('close_out_the_process')}
 								</h3>
@@ -221,8 +276,8 @@ const WhatIsRFQPage: NextPage = () => {
 										)}
 									</p>
 								</div>
-							</div>
-						</div>
+							</div> */}
+						{/* </div> */}
 					</div>
 
 					{/* Bottom section */}

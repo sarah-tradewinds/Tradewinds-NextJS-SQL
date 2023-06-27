@@ -140,7 +140,7 @@ const Layout: React.FC<{ productName?: string; seo: any }> = (
 				<SelectSignUpPage />
 				<SignUpPage />
 				<Login />
-				<main className="md:scale-[0.85]s md:transforms bg-bg-main pb-8 dark:bg-bg-eco">
+				<main className="md:scale-[0.85]s md:transforms bg-bg-main  dark:bg-bg-eco">
 					{children}
 				</main>
 

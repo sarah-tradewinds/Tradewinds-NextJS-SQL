@@ -42,7 +42,7 @@ export const WhySellOnTWOperationTile: React.FC<
 				</div>
 
 				<div className={className}>
-					<div className="text-primary-main md:text-[20px] lg:text-[35px]">
+					<div className=" md:text-[20px] lg:text-[35px]">
 						<h3 className="font-semibold">{title}</h3>
 						<p>{subtitle}</p>
 					</div>
@@ -96,9 +96,7 @@ export const WhySellOnTWOperationSubTile: React.FC<{
 				</div>
 			</div>
 
-			<div
-				className={`text-[18px] text-primary-main ${contentClassName}`}
-			>
+			<div className={`text-[18px] ${contentClassName}`}>
 				<p className="font-semibold">
 					{title} <span className=" font-normal">{subtitle}</span>
 				</p>

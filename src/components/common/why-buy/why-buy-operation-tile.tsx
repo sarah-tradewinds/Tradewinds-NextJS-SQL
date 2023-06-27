@@ -2,21 +2,21 @@ import ImageWithErrorHandler from '../elements/image-with-error-handler';
 
 interface WhyBuyOperationProps {
 	imageUrl: string;
-	alt?: string;
-	imageClassName?: string;
+	title?: string;
+	className?: string;
 }
 
 export const WhyBuyOperationTile: React.FC<WhyBuyOperationProps> = ({
 	imageUrl,
-	alt,
-	imageClassName
+	title,
+	className
 }) => {
 	return (
 		<>
-			<div className={`relative ${imageClassName}`}>
+			<div className={`relative ${className}`}>
 				<ImageWithErrorHandler
 					src={imageUrl}
-					alt={alt || ''}
+					alt={title || ''}
 					fill={true}
 				/>
 			</div>
@@ -65,6 +65,36 @@ export const WhyBuyOperationSubTile: React.FC<{
 					{subtitle}
 				</p>
 			</div>
+		</div>
+	);
+};
+
+interface ImageProps {
+	imageUrl: string;
+	alt: string;
+	imgClassname: string;
+}
+
+export const OperationTailImage: React.FC<ImageProps> = (props) => {
+	const { imageUrl, alt, imgClassname } = props;
+	return (
+		<div className={`relative ${imgClassname}`}>
+			<ImageWithErrorHandler src={imageUrl} alt={alt} fill={true} />{' '}
+		</div>
+	);
+};
+
+export const OperationTailContent: React.FC<{
+	title: string;
+	subtitle: string;
+	contentClassName: string;
+}> = ({ title, subtitle, contentClassName }) => {
+	return (
+		<div className={` text-primary-main ${contentClassName}`}>
+			<p className="text-[24px] font-semibold">{title}</p>
+			<p className="text-[18px] font-normal  leading-[22px] ">
+				{subtitle}
+			</p>
 		</div>
 	);
 };

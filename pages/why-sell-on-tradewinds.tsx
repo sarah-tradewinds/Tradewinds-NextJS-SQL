@@ -8,10 +8,6 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import Button from 'components/common/form/button';
 import Seo from 'components/common/seo';
-import {
-	WhyBuyOperationSubTile,
-	WhyBuyOperationTile
-} from 'components/common/why-buy/why-buy-operation-tile';
 
 const WhySellOnTradewindsPage: NextPage = () => {
 	const { t } = useTranslation('why_sell_on_tw');
@@ -329,7 +325,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 							<Button variant="buyer">{t('common:buy_now')}</Button>
 						</div>
 
-						<div className="space-y-8">
+						{/* <div className="space-y-8">
 							<WhyBuyOperationTile
 								imageUrl="/static/images/why-sell-on-tradewinds-images/custom-store-front.png"
 								title={t(
@@ -569,7 +565,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 									imgClassName="hidden md:block"
 								/>
 							</WhyBuyOperationTile>
-						</div>
+						</div> */}
 					</div>
 				</div>
 			</div>
