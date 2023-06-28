@@ -150,7 +150,28 @@ const CategorySubCategoriesSection: React.FC<
 	return (
     <>
 			<div className="tablet:hidden">
-        <CategoryCollapse  />
+        <CategoryCollapse 
+          title={mainCategoryTitle || ""} 
+          imageUrl={main_category?.image || ""} 
+          onTitleClick={() => {
+						const { value } = setMainCategory(
+							main_category.id!,
+							main_category.title.en || ''
+						);
+
+						router.push(
+							{
+								pathname: '/product-search',
+								query: {
+									main_category: value
+								}
+							},
+							undefined,
+							{
+								shallow: true
+							}
+						);
+					}}/>
       </div>
 
 		<div className="bg-white md:pr-[10px] lg:!h-[256px] lg:pl-[22px] lg:pt-[25px] lg:pr-[10px] xl:!h-[334.09px] tablet:mx-4 tablet:h-[238px] tablet:w-auto tablet:rounded-md tablet:pt-[25px] tablet:pl-[22px] desktop:!mx-0">
