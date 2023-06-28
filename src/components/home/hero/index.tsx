@@ -1,4 +1,5 @@
 import { HeroCarouselType } from 'types/home';
+import CardWrapper from './card-wrapper';
 import HeroCarousel from './hero-carousel';
 type Props = {
 	hcd: HeroCarouselType[];
@@ -19,6 +20,8 @@ const Index = ({ hcd, cardAList, cardBData }: Props) => {
 					<CardWrapper cardAList={cardAList} cardBData={cardBData} />
 				</div>
 			</div> */}
+
+			<CardWrapper cardAList={cardAList} cardBData={cardBData} />
 		</section>
 	);
 };

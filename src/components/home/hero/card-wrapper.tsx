@@ -12,7 +12,6 @@ const CardWrapper: React.FC<{
 
 	const [ref] = useKeenSlider<HTMLDivElement>({
 		mode: 'free-snap',
-		// loop: true,
 		slides: {
 			origin: 'center',
 			perView: 2,
@@ -22,8 +21,7 @@ const CardWrapper: React.FC<{
 
 	return (
 		<>
-			{/* <div className="hidden flex-col space-y-4 px-2 md:flex md:flex-row md:space-y-0 md:px-0"> */}
-			<div className="hidden justify-center space-x-4 desktop:!space-x-8 lg:space-x-6 tablet:flex">
+			<div className="hidden justify-center space-x-4 lg:space-x-6 tablet:flex desktop:!space-x-8">
 				{/* <CardA
 					title={'Become a Vendor'}
 					name={''}
@@ -49,10 +47,7 @@ const CardWrapper: React.FC<{
 				/> */}
 
 				{cardAList.map((cardAData, index) => (
-					<div
-						key={cardAData.id}
-						// className={index === 0 ? 'tablet:mr-4 lg:mr-[38px]' : ''}
-					>
+					<div key={cardAData.id}>
 						<CardA
 							title={getLocaleText(cardAData?.title || {}, locale)}
 							name={getLocaleText(cardAData?.name || {}, locale)}
