@@ -1,4 +1,5 @@
 import { useKeenSlider } from 'keen-slider/react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { getLocaleText } from 'utils/get_locale_text';
 import CardA from './card-a';
@@ -36,28 +37,33 @@ const CardWrapper: React.FC<{
 								locale
 							)}
 							imageUrl={cardAData.image}
-							href="/why-sell-on-tradewinds"
+							href={index == 0 ? '/why-sell-on-tradewinds' : '/eco'}
 						/>
 					</div>
 				))}
 
 				<div className="md:ml-4 lg:ml-[34px]">
-					<CardB
-						title={getLocaleText(cardBData.title || {}, locale)}
-						imageUrl={cardBData?.image}
-						subtitle={getLocaleText(
-							cardBData.description || {},
-							locale
-						)}
-						description={getLocaleText(
-							cardBData.description2 || {},
-							locale
-						)}
-						buttonText={getLocaleText(cardBData.btn_text || {}, locale)}
-						href={cardBData.slug?.en}
-						name=""
-						alt={cardBData.title?.en}
-					/>
+					<Link href="/what-is-rfq">
+						<CardB
+							title={getLocaleText(cardBData.title || {}, locale)}
+							imageUrl={cardBData?.image}
+							subtitle={getLocaleText(
+								cardBData.description || {},
+								locale
+							)}
+							description={getLocaleText(
+								cardBData.description2 || {},
+								locale
+							)}
+							buttonText={getLocaleText(
+								cardBData.btn_text || {},
+								locale
+							)}
+							href={cardBData.slug?.en}
+							name=""
+							alt={cardBData.title?.en}
+						/>
+					</Link>
 				</div>
 			</div>
 

@@ -3,12 +3,14 @@ import ImageWithErrorHandler from '../elements/image-with-error-handler';
 interface WhyBuyOperationProps {
 	imageUrl: string;
 	title?: string;
+	subtitle: string;
 	className?: string;
 }
 
 export const WhyBuyOperationTile: React.FC<WhyBuyOperationProps> = ({
 	imageUrl,
 	title,
+	subtitle,
 	className
 }) => {
 	return (

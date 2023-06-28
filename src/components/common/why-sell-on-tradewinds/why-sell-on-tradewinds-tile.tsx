@@ -2,7 +2,7 @@ import ImageWithErrorHandler from '../elements/image-with-error-handler';
 
 interface WhySellOnTWOperationProps {
 	imageUrl: string;
-	alt?: string;
+
 	title: string;
 	subtitle?: string | React.ReactNode;
 	className?: string;
@@ -16,7 +16,7 @@ export const WhySellOnTWOperationTile: React.FC<
 	WhySellOnTWOperationProps
 > = ({
 	imageUrl,
-	alt,
+
 	title,
 	subtitle,
 	children,
@@ -35,7 +35,7 @@ export const WhySellOnTWOperationTile: React.FC<
 					>
 						<ImageWithErrorHandler
 							src={imageUrl}
-							alt={alt || title}
+							alt={title}
 							fill={true}
 						/>
 					</div>
@@ -65,7 +65,7 @@ export const WhySellOnTWOperationTile: React.FC<
 
 export const WhySellOnTWOperationSubTile: React.FC<{
 	imageUrl: string;
-	alt?: string;
+
 	title: string;
 	subtitle: string;
 	className?: string;
@@ -74,7 +74,7 @@ export const WhySellOnTWOperationSubTile: React.FC<{
 	imgClassName?: string;
 }> = ({
 	imageUrl,
-	alt,
+
 	title,
 	subtitle,
 	className,
@@ -89,7 +89,7 @@ export const WhySellOnTWOperationSubTile: React.FC<{
 				>
 					<ImageWithErrorHandler
 						src={imageUrl}
-						alt={alt || title}
+						alt={title}
 						fill={true}
 						className=""
 					/>
