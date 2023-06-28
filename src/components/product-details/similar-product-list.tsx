@@ -37,6 +37,12 @@ const SimilarProductList: React.FC<SimilarProductListProps> = (
 			},
 			'(min-width: 1000px)': {
 				slides: { perView: 4, spacing: 10 }
+			},
+			'(min-width: 1800px)': {
+				slides: { perView: 5, spacing: 10 }
+			},
+			'(min-width: 2000px)': {
+				slides: { perView: 6, spacing: 10 }
 			}
 		},
 		slides: { perView: 1 }
@@ -60,7 +66,7 @@ const SimilarProductList: React.FC<SimilarProductListProps> = (
 							<div
 								key={similarProduct?.id}
 								className={`keen-slider__slide cursor-pointer ${
-									index === 3 ? 'xl:block hidden' : ''
+									index === 3 ? 'hidden xl:block' : ''
 								}`}
 								onClick={() => push(`/product/${similarProduct?.id}`)}
 							>

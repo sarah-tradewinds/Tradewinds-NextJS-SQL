@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 interface NavLinkProps {
-	href: string;
+	href?: string;
 	onClick?: () => any;
 	className?: string;
 	activeClassName?: string;
@@ -19,18 +19,15 @@ const NavLink: React.FC<NavLinkProps> = (props) => {
 		isLinkActive ? activeClassName : ''
 	}`;
 
-	// const handleClick = (e) => {
-	// 	e.preventDefault();
-	// 	router.push(href);
-	// };
-
 	return (
-        (<Link href={href} className={navLinkClassName} onClick={onClick}>
-
-            {children}
-
-        </Link>)
-    );
+		<Link
+			href={href || '/'}
+			className={navLinkClassName}
+			onClick={onClick}
+		>
+			{children}
+		</Link>
+	);
 };
 
 export default NavLink;

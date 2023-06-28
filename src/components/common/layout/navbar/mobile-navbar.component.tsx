@@ -11,12 +11,6 @@ import { FiLogOut } from 'react-icons/fi';
 import { HiOutlineSearch } from 'react-icons/hi';
 
 // components
-import Breadcrumbs from 'components/breadcrumbs/breadcrumbs';
-import CartIcon from '../elements/cart-icon';
-import LanguageDropdown from '../elements/lang-menu';
-import NavLink from '../elements/nav-link';
-import Button from '../form/button';
-import SearchBar from '../searh-bar/search-bar';
 const MegaMenu = dynamic(
 	() => import('components/home/common/mega-menu/mega-menu')
 );
@@ -29,17 +23,22 @@ import {
 } from 'data/buyer/buyer-actions';
 
 // stores
+import CartIcon from 'components/common/elements/cart-icon';
+import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
+import NavLink from 'components/common/elements/nav-link';
+import Button from 'components/common/form/button';
+import SearchBar from 'components/common/searh-bar/search-bar';
 import { useMainCategories } from 'hooks/useMainCategories';
+import Image from 'next/image';
 import { MdClose, MdMenu } from 'react-icons/md';
 import { useAuthStore } from 'store/auth';
 import { useCartStore } from 'store/cart-store-v2';
 import { useCountriesStore } from 'store/countries-store';
 import { useCategoryStore } from 'store/eco/category-store';
 import { useHomeStore } from 'store/home';
-import ImageWithErrorHandler from '../elements/image-with-error-handler';
-import MobileHeader from './navbar/mobile-navbar.component';
+import Sidebar from './sidebar.component';
 
-const Header = (props: any) => {
+const MobileHeader = (props: any) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [showLogout, setShowLogout] = useState(false);
 	const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
@@ -86,7 +85,7 @@ const Header = (props: any) => {
 	};
 
 	const cartIconAndUsername = (
-		<div className="flex justify-center">
+		<div className="flex justify-center ">
 			<div
 				className={`${
 					isAuth
@@ -188,16 +187,61 @@ const Header = (props: any) => {
 		</div>
 	);
 
-	return <MobileHeader />;
+	return (
+		<header
+			className={`sticky top-0 z-[10000] flex h-[50.06px]
+					w-full items-center
+					justify-between bg-gradient-to-r from-success via-accent-primary-main to-primary-main px-5 dark:bg-primary-eco
+			`}
+		>
+			{/* Menu icon */}
+			<button
+				type="button"
+				className="flex md:hidden tablet:ml-4"
+				onClick={drawerHandler}
+			>
+				{!isOpen ? (
+					<MdMenu className="h-5 w-5 text-white" />
+				) : (
+					<MdClose className="h-5 w-5 text-white" />
+				)}
+			</button>
+			{/* Tradewinds logo */}
+			<Link
+				href="/"
+				className="relative mx-10 block h-[28px] w-[101px]"
+			>
+				<Image
+					src="/images/tradewinds-horizontal-logo.png"
+					alt="Logo"
+					fill={true}
+					onClick={() => {
+						if (isEco) {
+							setIsEco();
+						}
+					}}
+				/>
+			</Link>
+			{/* Search Icon and Cart Icon */}
+			<div className="flex items-center ">
+				<HiOutlineSearch className="mr-[19.66px] h-4 w-4 text-white" />
+				{cartIconAndUsername}
+			</div>
+			{/* Sidebar */}
+			<Sidebar
+				isOpen={isOpen}
+				onClose={() => setIsOpen((prevState) => !prevState)}
+			/>
+			;
+		</header>
+	);
 
 	return (
 		<header
-			className={`sticky top-0 z-[10000] h-[50.07px] w-full md:h-[111px] lg:h-[119.68px] tablet:h-[70px]  ${
-				isEco
-					? 'bg-primary-eco'
-					: 'bg-gradient-to-r from-success via-accent-primary-main to-primary-main'
-				// :'bg-primary-main'
-			}`}
+			className={`sticky top-0 z-[10000] h-[50.06px] w-full
+					bg-gradient-to-r
+					from-success via-accent-primary-main to-primary-main dark:bg-primary-eco
+			`}
 		>
 			<div className="h-full">
 				<div
@@ -230,7 +274,7 @@ const Header = (props: any) => {
 							<Link href="/">
 								{/* For mobile and medium*/}
 								<div className="relative hidden h-full w-full lg:hidden tablet:block">
-									<ImageWithErrorHandler
+									<Image
 										src="/tradewind-logo.png"
 										alt="Logo"
 										fill={true}
@@ -245,7 +289,7 @@ const Header = (props: any) => {
 
 								{/* For desktop */}
 								<div className="lg:block tablet:hidden">
-									<ImageWithErrorHandler
+									<Image
 										src="/static/images/tradewinds_logo.png"
 										alt="Logo"
 										fill={true}
@@ -281,7 +325,7 @@ const Header = (props: any) => {
 				</div>
 
 				{/* Bottom nav */}
-				<div className={classes}>
+				<div className="">
 					<div className="m-4s flex w-full flex-col justify-between p-4 md:flex-row md:items-center md:p-0">
 						<div className="flex md:items-center">
 							<div
@@ -406,14 +450,6 @@ const Header = (props: any) => {
 								</div>
 							</nav>
 						</div>
-
-						<div className="relative">
-							<LanguageDropdown />
-						</div>
-					</div>
-
-					<div className="ml-[35px] hidden tablet:inline-block">
-						<Breadcrumbs productName={props.productName} />
 					</div>
 				</div>
 			</div>
@@ -421,4 +457,4 @@ const Header = (props: any) => {
 	);
 };
 
-export default Header;
+export default MobileHeader;

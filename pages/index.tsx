@@ -56,12 +56,6 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 			getHomeCountries
 		);
 
-	// Fetching Advertisement
-	// const { data: homeAdvertisements = [], error } = useSWR(
-	// 	'/advertisement/getalladvertisement',
-	// 	getHomeAdvertisements
-	// );
-
 	const { isEco } = useHomeStore(({ isEco }) => ({
 		isEco
 	}));
@@ -136,8 +130,8 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 				cardBData={cardBData}
 			/>
 
-			<div className="md:containers">
-				<div className="mt-20 tablet:-mt-14 lg:!mt-36 tablet:-mt-10 desktop:!mt-[156px]">
+			<div className="hidden">
+				<div className="mt-20 lg:!mt-36 tablet:-mt-14 desktop:!mt-[156px]">
 					{/* Category and sub categories */}
 					<div className="space-y-[41px] lg:mx-[23px] lg:space-y-[27px]">
 						{homeMainCategoriesAndCategories?.cat_section &&

@@ -184,7 +184,7 @@ const ProductDetailsPage: NextPage<
 	}; // End of submitReviewHandler function
 
 	return (
-		<div className="pb-16 md:container md:space-y-8">
+		<div className="tablet:containers pb-16 tablet:space-y-8 desktop:mt-14">
 			<ProductDetailsTile
 				product={productData}
 				onVariantClick={(variantId) => {
@@ -210,7 +210,7 @@ const ProductDetailsPage: NextPage<
 			/>
 
 			{/* Tabs */}
-			<div className="md:-ml-[33px]">
+			<div className="tablet:-ml-[33px]">
 				<ProductDetailsTabContainer
 					product={productData}
 					reviews={productReviewList || []}
@@ -220,7 +220,7 @@ const ProductDetailsPage: NextPage<
 					isReviewLoading={isReviewLoading}
 				/>
 
-				<div className="bg-white md:hidden">
+				<div className="bg-white tablet:hidden">
 					<ProductReviewsDetailsTab
 						reviews={productReviewList}
 						reviewAnalytics={productReviewAnalytics || {}}
@@ -238,7 +238,7 @@ const ProductDetailsPage: NextPage<
 
 			{/* Similar Product */}
 			{similarProducts?.length > 0 && (
-				<div className="lg:h-[334.09px]s hidden md:block">
+				<div className="lg:h-[334.09px]s hidden tablet:block">
 					<SimilarProductList
 						title="Similar Product"
 						similarProducts={similarProducts || []}
@@ -248,7 +248,7 @@ const ProductDetailsPage: NextPage<
 			)}
 
 			{/* Fixed container for small screen only */}
-			<div className="flexs fixed left-0 right-0 bottom-0 z-[2000] hidden justify-around bg-primary-main py-6 md:hidden">
+			<div className="flexs fixed left-0 right-0 bottom-0 z-[2000] hidden justify-around bg-primary-main py-6 tablet:hidden">
 				<Button
 					variant="special"
 					href={generateBuyerDashboardUrl({
