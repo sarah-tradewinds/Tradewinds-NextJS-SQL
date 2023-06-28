@@ -30,11 +30,11 @@ const WhySellOnTradewindsPage: NextPage = () => {
 						{/* content */}
 						{/* <div className="4k:left-1/2 4k:-translate-x-1/2 absolute left-20 top-8 z-[50] text-white lg:top-32 lg:w-1/2"> */}
 						<div className="absolute left-[87px] top-8 z-[50] text-white lg:top-32 lg:w-1/2">
-							<h1 className="text-[35px] font-semibold leading-[51px] md:text-[40px] lg:text-[50px] ">
+							<p className="text-[35px] font-semibold  leading-[51px] md:text-[40px] lg:w-[666px] lg:text-[50px] ">
 								{t('Expand your')}
 								<br />
 								{t('Business Globally')}
-							</h1>
+							</p>
 							<div className="mt-[20px] hidden space-y-2 font-semibold md:block md:text-[16px] lg:text-[25px]">
 								<p className=" w-[490px]">
 									{t(

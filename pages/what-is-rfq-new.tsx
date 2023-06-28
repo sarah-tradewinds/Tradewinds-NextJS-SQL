@@ -35,7 +35,7 @@ const WhatIsRFQPage: NextPage = () => {
 						<p className=" text-[33px] ">
 							{t('engage_with_suppliers_more_effectively')}
 						</p>
-						<div className=" ml-[161px] mt-[25px]  p-0 ">
+						<div className=" ml-[161px] mt-[45px]  p-0 ">
 							<button className=" h-[52px] w-[276px] rounded-[5px] bg-secondary text-[18px] font-medium">
 								Submit RFQ
 							</button>
@@ -92,7 +92,7 @@ const WhatIsRFQPage: NextPage = () => {
 								business.
 							</p>
 							<div className=" flex items-center space-x-[480px] ">
-								<p className="pl-10 font-semibold text-primary-main md:text-[20px] lg:pl-24 lg:text-[50px]">
+								<p className=" font-semibold text-primary-main md:text-[20px] lg:pl-[84px] lg:text-[50px]">
 									{t('common:why_use_rfq')}
 								</p>
 								<div className="text-white md:w-[290px] md:space-y-16 md:pl-8 lg:mt-16 lg:w-[540px] lg:space-y-20">

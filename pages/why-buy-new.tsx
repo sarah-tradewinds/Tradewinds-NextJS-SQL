@@ -7,7 +7,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 // components
 import Button from 'components/common/form/button';
 import Seo from 'components/common/seo';
-import CommunicationCenter from 'components/eco/why-buy/feature-communication';
+import FeatureCommunicationCenter from 'components/eco/why-buy/feature-communication';
 
 const WhyBuyPage: NextPage = () => {
 	const { t } = useTranslation('why_buy');
@@ -44,7 +44,7 @@ const WhyBuyPage: NextPage = () => {
 					</div>
 				</div>
 				<div className=" -mt-[70px]">
-					<CommunicationCenter />
+					<FeatureCommunicationCenter />
 				</div>
 
 				<div className=' container mx-auto  h-[822px] w-[1506px]  bg-[url("/static/images/WhyBuyImages/ready-to-grow-banner.png")]  pt-[70px] pl-[164px] text-white '>

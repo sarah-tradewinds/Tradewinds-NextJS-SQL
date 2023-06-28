@@ -191,7 +191,7 @@ function FeatureCommunication() {
 									imgClassname=" mt-[15px] w-[39px] h-[39px]  "
 								/>
 								<OperationTailImage
-									imageUrl="/static/images/WhyBuyImages/invoice.png"
+									imageUrl="/static/images/WhyBuyImages/.png"
 									alt="Effortlessly Manage Invoices"
 									imgClassname=" mt-[80px] w-[20px] h-[30px]"
 								/>
