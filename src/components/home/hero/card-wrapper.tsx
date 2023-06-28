@@ -1,5 +1,6 @@
 import { useKeenSlider } from 'keen-slider/react';
 import { useRouter } from 'next/router';
+import Slider from 'react-slick';
 import { getLocaleText } from 'utils/get_locale_text';
 import CardA from './card-a';
 import CardB from './card-b';
@@ -14,10 +15,19 @@ const CardWrapper: React.FC<{
 		mode: 'free-snap',
 		slides: {
 			origin: 'center',
-			perView: 2,
-			spacing: 15
+			perView: 3,
+			spacing: 13
 		}
 	});
+
+	const settings = {
+		className: 'center',
+		centerMode: true,
+		infinite: true,
+		centerPadding: '60px',
+		slidesToShow: 3,
+		speed: 500
+	};
 
 	return (
 		<>
@@ -82,8 +92,7 @@ const CardWrapper: React.FC<{
 			</div>
 
 			{/* Card Slider only visible on mobile */}
-			<div className="tablet:hidden">
-				<div ref={ref} className="keen-slider">
+				<div ref={ref} className="keen-slider tablet:hidden">
 					{cardAList.map((cardAData, index) => (
 						<div
 							key={cardAData.id}
@@ -124,7 +133,6 @@ const CardWrapper: React.FC<{
 						/>
 					</div>
 				</div>
-			</div>
 		</>
 	);
 };

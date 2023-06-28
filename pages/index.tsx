@@ -116,8 +116,6 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 
 	const router = useRouter();
 
-	let isReverse = false;
-
 	return (
 		<>
 			<Seo
@@ -130,7 +128,6 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 				cardBData={cardBData}
 			/>
 
-			<div className="hidden">
 				<div className="mt-20 lg:!mt-36 tablet:-mt-14 desktop:!mt-[156px]">
 					{/* Category and sub categories */}
 					<div className="space-y-[41px] lg:mx-[23px] lg:space-y-[27px]">
@@ -145,10 +142,6 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 											?.length / 2
 									);
 
-									if (index !== 0) {
-										isReverse = !isReverse;
-									}
-
 									return (
 										<>
 											<CategorySubCategoriesSection
@@ -159,7 +152,6 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 												isCustom={
 													homeMainCategoriesAndCategories.is_custom
 												}
-												isReverse={isReverse}
 											/>
 											{/*  Search Categories Banner */}
 											{canIDisplayFlags === index && (
@@ -208,7 +200,6 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 						</div> */}
 					</div>
 				</div>
-			</div>
 		</>
 	);
 };

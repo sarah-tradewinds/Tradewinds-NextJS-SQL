@@ -26,12 +26,12 @@ const CardB: React.FC<CardBProps> = (props) => {
 
 	return (
 		<div className="h-[153px] w-[203px] rounded-md bg-gradient-to-r from-[#E7CA00] to-[#E8A30E]">
-			<h2 className="text-[18px] font-semibold text-primary-main">
+			<h2 className="ml-[14px] mt-[5.5px] h-[48px] truncate text-[18px] font-semibold text-primary-main">
 				{title}
 			</h2>
 
 			<div>
-				<div className="">
+				<div className="relative ml-[11px] h-[76.75px] w-[72.32px]">
 					<ImageWithErrorHandler
 						src={imageUrl}
 						alt={alt || ''}

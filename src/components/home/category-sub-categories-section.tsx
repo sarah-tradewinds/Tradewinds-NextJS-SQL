@@ -7,6 +7,7 @@ import { useHomeStore } from 'store/home';
 import { CatSubCatSectionType } from 'types/home';
 import { getLocaleText } from 'utils/get_locale_text';
 import Collapse from '../common/collapse';
+import CategoryCollapse from "./category-collapse.component";
 import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
 
 import useDeviceSize from 'hooks/use-device-size.hooks';
@@ -147,7 +148,11 @@ const CategorySubCategoriesSection: React.FC<
 	}
 
 	return (
-		// <div className="bg-white tablet:h-[334.09px] tablet:w-full tablet:rounded-md tablet:pt-[25px] tablet:pl-[22px] tablet:pr-[10px] lg:w-[1466.01px] lg:pl-[22px] lg:pt-[25px] lg:pr-[10px]">
+    <>
+			<div className="tablet:hidden">
+        <CategoryCollapse  />
+      </div>
+
 		<div className="bg-white md:pr-[10px] lg:!h-[256px] lg:pl-[22px] lg:pt-[25px] lg:pr-[10px] xl:!h-[334.09px] tablet:mx-4 tablet:h-[238px] tablet:w-auto tablet:rounded-md tablet:pt-[25px] tablet:pl-[22px] desktop:!mx-0">
 			{/* For Small Screen- Collapse */}
 			<div className="tablet:hidden">
@@ -290,6 +295,7 @@ const CategorySubCategoriesSection: React.FC<
 				</div>
 			</div>
 		</div>
+    </>
 	);
 };
 
