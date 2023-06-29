@@ -4203,16 +4203,6 @@
   dependencies:
     "prop-types" "^15.5.8"
 
-"react-grid-carousel@^1.0.1":
-  "integrity" "sha512-YC0WJe45v9Kxsne09VBlK4ewwtROSo3F42UEXZfN1nvAo2q0lbvB7HIHdhK/D4DhVnsnjPQnBWyXQSDBb1g9IQ=="
-  "resolved" "https://registry.npmjs.org/react-grid-carousel/-/react-grid-carousel-1.0.1.tgz"
-  "version" "1.0.1"
-  dependencies:
-    "lodash.debounce" "^4.0.8"
-    "prop-types" "^15.7.2"
-    "smoothscroll-polyfill" "^0.4.4"
-    "styled-components" "^4.4.1"
-
 "react-hook-form@^7.43.9":
   "integrity" "sha512-AUDN3Pz2NSeoxQ7Hs6OhQhDr6gtF9YRuutGDwPQqhSUAHJSgGl2VeY3qN19MG0SucpjgDiuMJ4iC5T5uB+eaNQ=="
   "resolved" "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.43.9.tgz"
