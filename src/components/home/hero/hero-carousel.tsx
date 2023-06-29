@@ -29,14 +29,21 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 	};
 
 	const [ref] = useKeenSlider<HTMLDivElement>({
-		loop: true
+		loop: true,
+		slides: {
+			perView: 1
+		}
 	});
 
 	return (
-		<div ref={ref} className="keen-slider">
+		<div
+			key={heroCarouselData?.length}
+			ref={ref}
+			className="keen-slider"
+		>
 			{heroCarouselData.map((item, index) => (
 				<div
-					className="keen-slider__slide relative h-[329px] w-full"
+					className="keen-slider__slide relative h-[248px] w-full sm:h-[278px] md:h-[277.8px]"
 					key={item.id || index}
 				>
 					{/* Image */}

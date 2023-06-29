@@ -34,7 +34,7 @@ import ImageWithErrorHandler from '../elements/image-with-error-handler';
 import Loader from '../elements/loader/loader';
 import Button from '../form/button';
 import Seo from '../seo';
-import Header from './navbar';
+import ResponsiveHeader from './responsive-navbar';
 
 const Layout: React.FC<{ productName?: string; seo: any }> = (
 	props
@@ -134,7 +134,7 @@ const Layout: React.FC<{ productName?: string; seo: any }> = (
 			/>
 
 			<div className={isEco ? 'dark' : 'light'}>
-				<Header productName={productName} />
+				<ResponsiveHeader productName={productName} />
 				<SelectSignUpPage />
 				<SignUpPage />
 				<Login />

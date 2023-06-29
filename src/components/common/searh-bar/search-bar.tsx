@@ -12,11 +12,17 @@ import { useHomeStore } from 'store/home';
 import Button from '../form/button';
 import Overlay from '../modal/modal';
 
-const SearchBar: React.FC = () => {
+interface SearchBarProps {
+	placeholder?: string;
+}
+
+const SearchBar: React.FC<SearchBarProps> = (props) => {
 	const [searchText, setSearchText] = useState('');
 	const [showSuggestion, setShowSuggestion] = useState(false);
 	const [suggestions, setSuggestions] = useState<string[]>([]);
 	const searchInputRef = useRef(null);
+
+	const { placeholder } = props;
 
 	const router = useRouter();
 	const { t } = useTranslation();
@@ -140,7 +146,8 @@ const SearchBar: React.FC = () => {
 		<div>
 			<form className="relative" onSubmit={searchHandler}>
 				<label
-					className="hidden items-center overflow-hidden rounded-full transition duration-300 ease-in-out hover:ring-1 hover:ring-accent-primary-main hover:ring-opacity-90 sm:flex md:w-[383px] tablet:h-[31px] tablet:w-[240px] desktop:w-[746.9px]"
+					// className="hidden items-center overflow-hidden rounded-full transition duration-300 ease-in-out hover:ring-1 hover:ring-accent-primary-main hover:ring-opacity-90 sm:flex md:w-[383px] tablet:h-[31px] tablet:w-[240px] desktop:w-[746.9px]"
+					className="hidden items-center overflow-hidden rounded-full transition duration-300 ease-in-out hover:ring-1 hover:ring-accent-primary-main hover:ring-opacity-90 sm:flex sm:h-[19px] sm:w-[364px]"
 					htmlFor="searchBar"
 				>
 					<input
@@ -153,16 +160,15 @@ const SearchBar: React.FC = () => {
 						onFocus={onFocusHandler}
 						onBlur={onBlurHandler}
 						aria-label="Search"
-						className="h-full border-none pl-2 outline-none tablet:w-[350px] desktop:w-[714.66px]"
+						className="h-full border-none pl-2 outline-none sm:w-[350px] desktop:w-[714.66px]"
 						autoComplete="off"
-						// placeholder={t('search_product')}
-						placeholder="Search product"
+						placeholder={placeholder || 'Search product'}
 					/>
 					<Button
 						type="submit"
-						className="flex cursor-pointer items-center justify-center !rounded-r-full bg-accent-primary-main !px-0 !py-0 tablet:!w-[33px] desktop:!w-[32.24px]"
+						className="flex cursor-pointer items-center justify-center !rounded-r-full bg-accent-primary-main !px-0 !py-0 sm:!h-[18.4px] sm:!w-[19.34px] tablet:!w-[33px] desktop:!w-[32.24px]"
 					>
-						<HiOutlineSearch className="tablet:h-[15.72px] tablet:w-[15.72px]" />
+						<HiOutlineSearch className="sm:h-[9.4px] sm:w-[9.4px] tablet:h-[15.72px] tablet:w-[15.72px]" />
 					</Button>
 				</label>
 

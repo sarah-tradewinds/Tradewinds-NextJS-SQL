@@ -1,14 +1,12 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-import { HiMinusCircle, HiPlusCircle } from 'react-icons/hi';
 import { useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';
 import { CatSubCatSectionType } from 'types/home';
 import { getLocaleText } from 'utils/get_locale_text';
-import Collapse from '../common/collapse';
-import CategoryCollapse from "./category-collapse.component";
 import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
+import CategoryCollapse from './category-collapse.component';
 
 import useDeviceSize from 'hooks/use-device-size.hooks';
 import { useTranslation } from 'next-i18next';
@@ -108,7 +106,7 @@ const CategorySubCategoriesSection: React.FC<
 						}
 					>
 						<div className="mb-[7px]">
-							<div className="relative h-[42px] w-[44px]">
+							<div className="relative h-[40px] w-[40px]">
 								<ImageWithErrorHandler
 									src={categoryData?.image || ''}
 									alt=""
@@ -117,7 +115,7 @@ const CategorySubCategoriesSection: React.FC<
 							</div>
 						</div>
 
-						<p className="ml-[13px] text-[15px] font-semibold leading-[18px] text-primary-main">
+						<p className="ml-[13px] text-[18px] font-semibold leading-[18px] text-primary-main">
 							{subCategoryTitle}
 						</p>
 					</div>
@@ -148,47 +146,13 @@ const CategorySubCategoriesSection: React.FC<
 	}
 
 	return (
-    <>
-			<div className="tablet:hidden">
-        <CategoryCollapse
-          backgroundColor={main_category.color} 
-          title={mainCategoryTitle || ""} 
-          imageUrl={main_category?.image || ""} 
-          onTitleClick={() => {
-						const { value } = setMainCategory(
-							main_category.id!,
-							main_category.title.en || ''
-						);
-
-						router.push(
-							{
-								pathname: '/product-search',
-								query: {
-									main_category: value
-								}
-							},
-							undefined,
-							{
-								shallow: true
-							}
-						);
-					}}>
-            <div className="bg-white">
-						<div className="ml-7 mr-[34px] mt-2 pb-4">
-							{subCategoriesMobile}
-						</div>
-					</div>
-          </CategoryCollapse>
-      </div>
-
-		<div className="bg-white md:pr-[10px] lg:!h-[256px] lg:pl-[22px] lg:pt-[25px] lg:pr-[10px] xl:!h-[334.09px] tablet:mx-4 tablet:h-[238px] tablet:w-auto tablet:rounded-md tablet:pt-[25px] tablet:pl-[22px] desktop:!mx-0">
-			{/* For Small Screen- Collapse */}
-			<div className="hidden tablet:hidden">
-				<Collapse
-					collapseHeadBgHexColor={main_category.color}
-					isReverse={isReverse}
-					onLeadingClick={() => setIsOpen((preState) => !preState)}
-					onContentClick={() => {
+		<>
+			<div className="md:hidden">
+				<CategoryCollapse
+					backgroundColor={main_category.color}
+					title={mainCategoryTitle || ''}
+					imageUrl={main_category?.image || ''}
+					onTitleClick={() => {
 						const { value } = setMainCategory(
 							main_category.id!,
 							main_category.title.en || ''
@@ -207,123 +171,99 @@ const CategorySubCategoriesSection: React.FC<
 							}
 						);
 					}}
-					leading={
-						<div
-							className={`text-[26px] text-primary-main ${
-								isReverse ? 'mr-4' : 'ml-[11px]'
-							}`}
-						>
-							{isOpen ? <HiMinusCircle /> : <HiPlusCircle />}
-						</div>
-					}
-					title={
-						<p className="text-left text-[15px] font-semibold leading-[18px] text-primary-main">
-							{mainCategoryTitle}
-						</p>
-					}
-					subtitle={
-						<p className="text-xs leading-[15px] text-gray">
-							{mainCategoryDescription?.length > 32
-								? `${mainCategoryDescription.substring(0, 24)}...`
-								: mainCategoryDescription}
-						</p>
-					}
-					trailing={
-						<div
-							className={`absolute -top-8 ${
-								isReverse ? 'left-0' : 'right-0'
-							} z-10`}
-						>
-							<ImageWithErrorHandler
-								src={main_category?.image}
-								alt=""
-								width={80}
-								height={80}
-								className="h-20 w-20"
-							/>
-						</div>
-					}
-					containerClassName="pt-[5px] !items-start"
-					contentClassName="!ml-[8.1px]"
 				>
-					<div className="bg-white">
-						<div className="ml-7 mr-[34px] mt-2 pb-4">
-							{subCategoriesMobile}
-						</div>
+					<div className="ml-7 mr-[34px] mt-2 pb-4">
+						{subCategoriesMobile}
 					</div>
-				</Collapse>
+				</CategoryCollapse>
 			</div>
 
 			{/* For Medium and Large screen */}
-			{/* <div className="hidden tablet:flex"> */}
-			<div className="hidden grid-cols-12 md:!grid 2xl:grid 2xl:w-auto tablet:flex desktop:flex desktop:w-[1466px]">
-				{/* Category For medium and large screen */}
-				<div className="bg-errors col-span-3 md:col-span-4 lg:col-span-3 900px:col-span-3">
-					<CategoryCard
-						title={mainCategoryTitle}
-						name={(main_category as any).name || ''}
-						onClick={() => {
-							const { value } = setMainCategory(
-								main_category.id!,
-								main_category.title.en || ''
-							);
-
-							router.push(
-								{
-									pathname: '/product-search',
-									query: {
-										main_category: value
-									}
-								},
-								undefined,
-								{
-									shallow: true
-								}
-							);
-
-							// router.push(`/product-search?${params}`);
-						}}
-						description={mainCategoryDescription}
-						buttonText={getLocaleText(
-							main_category.btnTxt || t('source_now'),
-							locale
-						)}
-						imageUrl={main_category?.image}
-						alt={main_category.title?.en || ''}
-						bgHexColor={main_category?.color}
-						actionButtonBgColor={main_category?.source_now_button_color}
-						// containerClassName="lg:!h-[278px] lg:w-[349.08px] tablet:w-[250px] tablet:!h-[278px]"
-						containerClassName="tablet:!w-[211px] tablet:!h-[184px] md:!w-[250px] md:!h-[278px] md:!w-full md:!h-full desktop:!h-[278px] desktop:!w-[334px] 2xl:!w-auto lg:!w-full"
-					/>
+			<div className="rounded-md bg-white md:h-[216px] md:w-full">
+				{/* Category Container */}
+				{/* <div> */}
+				{/*Category Image and CTA  */}
+				<div className="relative flex items-end bg-error md:h-[152px] md:w-[169px]">
+					<button className="mb-[11.26px] ml-2 h-[16.74px] w-[94.08px] rounded-md bg-primary-eco text-center text-[12.01px] text-white outline-none">
+						Source Now
+					</button>
 				</div>
+				{/* <div> */}
+			</div>
 
-				{/* Sub categories */}
-				{/* <div className="tablet:w-[500px] tablet:pl-[40px] lg:mr-[56.01px] lg:h-[279px] lg:w-[1046px] lg:pl-[61px]"> */}
-				<div className="md:pl-10s desktop:ml-4s desktop:mx-10s col-span-9 md:col-span-8 md:!w-full lg:col-span-10 lg:mr-0 lg:mt-2 lg:ml-4 lg:px-16 2xl:h-auto 2xl:w-auto tablet:w-[480px] tablet:pl-4 900px:col-span-9 desktop:h-[279px] desktop:!w-[1088px] desktop:pl-0">
-					<SubCategorySlider
-						categories={categories || []}
-						className={subCategorySliderClassName}
-						leftButtonClassName={subCategorySliderLeftButtonClassName}
-						rightButtonClassName={subCategorySliderRightButtonClassName}
-						// slidesToScroll={deviceWidth <= 1024 ? 2 : 4}
-						// slidesToShow={deviceWidth <= 1024 ? 2 : 4}
-						slidesToScroll={slidesToScroll}
-						slidesToShow={slidesToShow}
-						subCategoryStyle={{
-							backgroundColor: main_category.panel_color,
-							border: '2px solid gray'
-						}}
-						onTileClick={(categoryId, data) =>
-							onSubCategoryTileClickHandler(
-								categoryId,
-								data?.title?.en || ''
-							)
-						}
-					/>
+			<div className="hidden bg-white md:block md:pr-[10px] lg:!h-[256px] lg:pl-[22px] lg:pt-[25px] lg:pr-[10px] xl:!h-[334.09px] tablet:mx-4 tablet:h-[238px] tablet:w-auto tablet:rounded-md tablet:pt-[25px] tablet:pl-[22px] desktop:!mx-0">
+				<div className="hidden grid-cols-12 md:flex md:!grid 2xl:grid 2xl:w-auto desktop:flex desktop:w-[1466px]">
+					{/* Category For medium and large screen */}
+					<div className="bg-errors col-span-3 md:col-span-4 lg:col-span-3 900px:col-span-3">
+						<CategoryCard
+							title={mainCategoryTitle}
+							name={(main_category as any).name || ''}
+							onClick={() => {
+								const { value } = setMainCategory(
+									main_category.id!,
+									main_category.title.en || ''
+								);
+
+								router.push(
+									{
+										pathname: '/product-search',
+										query: {
+											main_category: value
+										}
+									},
+									undefined,
+									{
+										shallow: true
+									}
+								);
+
+								// router.push(`/product-search?${params}`);
+							}}
+							description={mainCategoryDescription}
+							buttonText={getLocaleText(
+								main_category.btnTxt || t('source_now'),
+								locale
+							)}
+							imageUrl={main_category?.image}
+							alt={main_category.title?.en || ''}
+							bgHexColor={main_category?.color}
+							actionButtonBgColor={
+								main_category?.source_now_button_color
+							}
+							// containerClassName="lg:!h-[278px] lg:w-[349.08px] tablet:w-[250px] tablet:!h-[278px]"
+							containerClassName="tablet:!w-[211px] tablet:!h-[184px] md:!w-[250px] md:!h-[278px] md:!w-full md:!h-full desktop:!h-[278px] desktop:!w-[334px] 2xl:!w-auto lg:!w-full"
+						/>
+					</div>
+
+					{/* Sub categories */}
+					{/* <div className="tablet:w-[500px] tablet:pl-[40px] lg:mr-[56.01px] lg:h-[279px] lg:w-[1046px] lg:pl-[61px]"> */}
+					<div className="md:pl-10s desktop:ml-4s desktop:mx-10s col-span-9 md:col-span-8 md:!w-full lg:col-span-10 lg:mr-0 lg:mt-2 lg:ml-4 lg:px-16 2xl:h-auto 2xl:w-auto tablet:w-[480px] tablet:pl-4 900px:col-span-9 desktop:h-[279px] desktop:!w-[1088px] desktop:pl-0">
+						<SubCategorySlider
+							categories={categories || []}
+							className={subCategorySliderClassName}
+							leftButtonClassName={subCategorySliderLeftButtonClassName}
+							rightButtonClassName={
+								subCategorySliderRightButtonClassName
+							}
+							// slidesToScroll={deviceWidth <= 1024 ? 2 : 4}
+							// slidesToShow={deviceWidth <= 1024 ? 2 : 4}
+							slidesToScroll={slidesToScroll}
+							slidesToShow={slidesToShow}
+							subCategoryStyle={{
+								backgroundColor: main_category.panel_color,
+								border: '2px solid gray'
+							}}
+							onTileClick={(categoryId, data) =>
+								onSubCategoryTileClickHandler(
+									categoryId,
+									data?.title?.en || ''
+								)
+							}
+						/>
+					</div>
 				</div>
 			</div>
-		</div>
-    </>
+		</>
 	);
 };
 

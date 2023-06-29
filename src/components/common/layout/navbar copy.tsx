@@ -188,7 +188,14 @@ const Header = (props: any) => {
 		</div>
 	);
 
-	return <MobileHeader />;
+	return (
+		<>
+			<MobileHeader />
+			<div className="hidden h-[26px] items-center justify-center bg-[#DEDFE0] sm:flex md:hidden">
+				<SearchBar placeholder={' '} />
+			</div>
+		</>
+	);
 
 	return (
 		<header

@@ -11,12 +11,13 @@ interface CategoryCollapseProps {
 	imageUrl: string;
 	children?: React.ReactNode;
 	containerClassName?: string;
-  backgroundColor?: string;
+	backgroundColor?: string;
 	onTitleClick?: () => void;
 }
 
 const CategoryCollapse: React.FC<CategoryCollapseProps> = (props) => {
-	const { title, imageUrl, children,backgroundColor, onTitleClick } = props;
+	const { title, imageUrl, children, backgroundColor, onTitleClick } =
+		props;
 
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -28,10 +29,16 @@ const CategoryCollapse: React.FC<CategoryCollapseProps> = (props) => {
 	}
 
 	return (
-		<div>
-			<div className="flex h-[67px] items-center justify-between rounded-lg pl-2" style={{backgroundColor}}>
+		<div className="overflow-hidden rounded-t-md bg-white">
+			<div
+				className="flex h-[67px] items-center justify-between rounded-md pl-2"
+				style={{ backgroundColor }}
+			>
 				<div className="flex items-center space-x-4">
-					<button className="text-[26px] text-primary-main outline-none">
+					<button
+						onClick={() => setIsOpen((prevState) => !prevState)}
+						className="text-[26px] text-primary-main outline-none"
+					>
 						{isOpen ? <HiMinusCircle /> : <HiPlusCircle />}
 					</button>
 					<p className="text-[18px] font-semibold text-primary-main">
