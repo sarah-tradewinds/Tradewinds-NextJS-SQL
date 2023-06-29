@@ -130,7 +130,7 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 
 				<div className="mt-20 lg:!mt-36 tablet:-mt-14 desktop:!mt-[156px]">
 					{/* Category and sub categories */}
-					<div className="space-y-[41px] lg:mx-[23px] lg:space-y-[27px]">
+					<div className="space-y-[41px] mx-3 lg:mx-[23px] lg:space-y-[27px]">
 						{homeMainCategoriesAndCategories?.cat_section &&
 							homeMainCategoriesAndCategories?.cat_section?.map(
 								(

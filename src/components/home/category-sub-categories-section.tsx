@@ -150,7 +150,8 @@ const CategorySubCategoriesSection: React.FC<
 	return (
     <>
 			<div className="tablet:hidden">
-        <CategoryCollapse 
+        <CategoryCollapse
+          backgroundColor={main_category.color} 
           title={mainCategoryTitle || ""} 
           imageUrl={main_category?.image || ""} 
           onTitleClick={() => {
@@ -171,12 +172,18 @@ const CategorySubCategoriesSection: React.FC<
 								shallow: true
 							}
 						);
-					}}/>
+					}}>
+            <div className="bg-white">
+						<div className="ml-7 mr-[34px] mt-2 pb-4">
+							{subCategoriesMobile}
+						</div>
+					</div>
+          </CategoryCollapse>
       </div>
 
 		<div className="bg-white md:pr-[10px] lg:!h-[256px] lg:pl-[22px] lg:pt-[25px] lg:pr-[10px] xl:!h-[334.09px] tablet:mx-4 tablet:h-[238px] tablet:w-auto tablet:rounded-md tablet:pt-[25px] tablet:pl-[22px] desktop:!mx-0">
 			{/* For Small Screen- Collapse */}
-			<div className="tablet:hidden">
+			<div className="hidden tablet:hidden">
 				<Collapse
 					collapseHeadBgHexColor={main_category.color}
 					isReverse={isReverse}
