@@ -10,10 +10,16 @@ import CategoryCollapse from './category-collapse.component';
 
 import useDeviceSize from 'hooks/use-device-size.hooks';
 import { useTranslation } from 'next-i18next';
-import CategoryCard from './common/category-card';
-import SubCategorySlider from './sub-category-slider';
 
-type CategorySubCategoriesSectionProps = {
+// import required modules
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/grid';
+import 'swiper/css/pagination';
+import HomeCategorySlider from './home-category-slider';
+
+type HomeCategorySubCategoriesSectionProps = {
 	catSubCat: CatSubCatSectionType;
 	isReverse?: boolean;
 	isCustom?: boolean;
@@ -22,8 +28,8 @@ type CategorySubCategoriesSectionProps = {
 	subCategorySliderRightButtonClassName?: string;
 };
 
-const CategorySubCategoriesSection: React.FC<
-	CategorySubCategoriesSectionProps
+const HomeCategorySubCategoriesSection: React.FC<
+	HomeCategorySubCategoriesSectionProps
 > = ({
 	catSubCat,
 	isReverse,
@@ -123,28 +129,6 @@ const CategorySubCategoriesSection: React.FC<
 		  })
 		: [];
 
-	let slidesToScroll = 2;
-	let slidesToShow = 2;
-	if (deviceWidth >= 1536) {
-		slidesToScroll = 4;
-		slidesToShow = 4;
-	} else if (deviceWidth >= 1280) {
-		slidesToScroll = 4;
-		slidesToShow = 4;
-	} else if (deviceWidth >= 1024) {
-		slidesToScroll = 2.4;
-		slidesToShow = 2.4;
-	} else if (deviceWidth >= 950) {
-		slidesToScroll = 2.8;
-		slidesToShow = 2.8;
-	} else if (deviceWidth >= 900) {
-		slidesToScroll = 2.6;
-		slidesToShow = 2.6;
-	} else if (deviceWidth >= 830) {
-		slidesToScroll = 2.1;
-		slidesToShow = 2.1;
-	}
-
 	const onMainCategoryPressed = () => {
 		const { value } = setMainCategory(
 			main_category.id!,
@@ -182,7 +166,7 @@ const CategorySubCategoriesSection: React.FC<
 			</div>
 
 			{/* For Medium and Large screen */}
-			<div className="rounded-md bg-white md:h-[216px] md:w-full">
+			<div className="hidden rounded-md bg-white md:flex md:h-[216px] xl:h-[269.13px] md:w-full desktop:h-[317px]">
 				{/* Category Container */}
 				<MainCategoryCard
 					backgroundColor={main_category.color}
@@ -191,85 +175,16 @@ const CategorySubCategoriesSection: React.FC<
 					imageUrl={main_category?.image || ''}
 					onPressed={onMainCategoryPressed}
 				/>
-			</div>
 
-			<div className="hidden bg-white md:block md:hidden md:pr-[10px] lg:!h-[256px] lg:pl-[22px] lg:pt-[25px] lg:pr-[10px] xl:!h-[334.09px] tablet:mx-4 tablet:h-[238px] tablet:w-auto tablet:rounded-md tablet:pt-[25px] tablet:pl-[22px] desktop:!mx-0">
-				<div className="hidden grid-cols-12 md:flex md:!grid 2xl:grid 2xl:w-auto desktop:flex desktop:w-[1466px]">
-					{/* Category For medium and large screen */}
-					<div className="bg-errors col-span-3 md:col-span-4 lg:col-span-3 900px:col-span-3">
-						<CategoryCard
-							title={mainCategoryTitle}
-							name={(main_category as any).name || ''}
-							onClick={() => {
-								const { value } = setMainCategory(
-									main_category.id!,
-									main_category.title.en || ''
-								);
-
-								router.push(
-									{
-										pathname: '/product-search',
-										query: {
-											main_category: value
-										}
-									},
-									undefined,
-									{
-										shallow: true
-									}
-								);
-
-								// router.push(`/product-search?${params}`);
-							}}
-							description={mainCategoryDescription}
-							buttonText={getLocaleText(
-								main_category.btnTxt || t('source_now'),
-								locale
-							)}
-							imageUrl={main_category?.image}
-							alt={main_category.title?.en || ''}
-							bgHexColor={main_category?.color}
-							actionButtonBgColor={
-								main_category?.source_now_button_color
-							}
-							// containerClassName="lg:!h-[278px] lg:w-[349.08px] tablet:w-[250px] tablet:!h-[278px]"
-							containerClassName="tablet:!w-[211px] tablet:!h-[184px] md:!w-[250px] md:!h-[278px] md:!w-full md:!h-full desktop:!h-[278px] desktop:!w-[334px] 2xl:!w-auto lg:!w-full"
-						/>
-					</div>
-
-					{/* Sub categories */}
-					{/* <div className="tablet:w-[500px] tablet:pl-[40px] lg:mr-[56.01px] lg:h-[279px] lg:w-[1046px] lg:pl-[61px]"> */}
-					<div className="md:pl-10s desktop:ml-4s desktop:mx-10s col-span-9 md:col-span-8 md:!w-full lg:col-span-10 lg:mr-0 lg:mt-2 lg:ml-4 lg:px-16 2xl:h-auto 2xl:w-auto tablet:w-[480px] tablet:pl-4 900px:col-span-9 desktop:h-[279px] desktop:!w-[1088px] desktop:pl-0">
-						<SubCategorySlider
-							categories={categories || []}
-							className={subCategorySliderClassName}
-							leftButtonClassName={subCategorySliderLeftButtonClassName}
-							rightButtonClassName={
-								subCategorySliderRightButtonClassName
-							}
-							// slidesToScroll={deviceWidth <= 1024 ? 2 : 4}
-							// slidesToShow={deviceWidth <= 1024 ? 2 : 4}
-							slidesToScroll={slidesToScroll}
-							slidesToShow={slidesToShow}
-							subCategoryStyle={{
-								backgroundColor: main_category.panel_color,
-								border: '2px solid gray'
-							}}
-							onTileClick={(categoryId, data) =>
-								onSubCategoryTileClickHandler(
-									categoryId,
-									data?.title?.en || ''
-								)
-							}
-						/>
-					</div>
+				<div className="relative md:ml-[31.84px] md:mt-[19.16px] md:w-[506.48px]s md:w-[68%] 900px:w-[72%] lg:!w-[68%]">
+          <HomeCategorySlider categories={categories || []} />
 				</div>
 			</div>
 		</>
 	);
 };
 
-export default CategorySubCategoriesSection;
+export default HomeCategorySubCategoriesSection;
 
 interface MainCategoryCardProps {
 	title: string;
@@ -289,18 +204,28 @@ const MainCategoryCard: React.FC<MainCategoryCardProps> = (props) => {
 	} = props;
 
 	return (
-		<div>
-			<h3 className="ml-[15.69px] pt-[19px] text-[18px] font-semibold text-primary-main">
+		<div className="relative">
+			<h3 className="ml-[15.69px] lg:ml-[29.23px] lg:pt-[16.44px] xl:ml-[36.51px] xl:pt-[20.53px] pt-[19px] text-[18px] lg:text-[21px] font-semibold text-primary-main desktop:text-[25px] desktop:ml-[43px] desktop:pt-[23px]">
 				{title}
 			</h3>
 			{/*Category Image and CTA  */}
 			<div
-				className="relative ml-[11.69px] flex items-end md:h-[152px] md:w-[169px]"
+				className="relative ml-[11.69px] lg:ml-[22.99px] xl:ml-[28.87px] flex items-end md:h-[152px] md:w-[169px] lg:w-[237px] xl:w-[296.36px] xl:h-[200.61px] desktop:w-[349.08px] desktop:h-[236.3px] desktop:ml-[34px]"
 				style={{ backgroundColor }}
 			>
+				<div className="absolute bottom-0 right-0">
+					<div className="relative overflow-hidden md:h-[100px] md:w-[100px] lg:w-[150px] lg:h-[150px] xl:h-[200px] xl:w-[200px] desktop:h-[250px] desktop:w-[250px]">
+						<img
+							src={imageUrl}
+							alt={''}
+							className="h-auto w-auto object-contain"
+						/>
+					</div>
+				</div>
+
 				<button
 					onClick={onPressed}
-					className="mb-[11.26px] ml-2 h-[16.74px] w-[94.08px] rounded-md bg-primary-eco text-center text-[12.01px] text-white outline-none"
+					className="mb-[11.26px] desktop:mb-[19.61px] desktop:ml-[25px] ml-2 h-[16.74px] w-[94.08px] rounded-md bg-primary-eco text-center text-[12.01px] xl:text-[15px] xl:w-[117.49px] xl:h-[20.9px] text-white outline-none desktop:w-[138.39px] desktop:h-[24.62px]"
 					style={{ backgroundColor: buttonBackgroundColor }}
 				>
 					Source Now

@@ -13,7 +13,6 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 // components
 import Button from 'components/common/form/button';
 import Seo from 'components/common/seo';
-import CategorySubCategoriesSection from 'components/home/category-sub-categories-section';
 import CountrySlider from 'components/home/country-slider';
 import Hero from 'components/home/hero';
 
@@ -27,6 +26,7 @@ import {
 } from 'lib/home.lib';
 
 // stores
+import HomeCategorySubCategoriesSection from 'components/home/home-category-sub-categories-section';
 import Link from 'next/link';
 import { useCountriesStore } from 'store/countries-store';
 import { useHomeStore } from 'store/home';
@@ -122,101 +122,120 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 				title={t('home:meta_title')}
 				description={t('home:meta_description')}
 			/>
-			<Hero
-				hcd={heroCarousels}
-				cardAList={cardAList}
-				cardBData={cardBData}
-			/>
+			<div className="desktop:container desktop:w-[1512px]">
+				<Hero
+					hcd={heroCarousels}
+					cardAList={cardAList}
+					cardBData={cardBData}
+				/>
 
-			{/* <div className="mt-20 lg:!mt-36 tablet:-mt-14 desktop:!mt-[156px]"> */}
-			<div className="mt-[27px]">
-				{/* Category and sub categories */}
-				{/* <div className="mx-3 space-y-[33px] lg:mx-[23px] lg:space-y-[27px]"> */}
-				<div className="mx-2 space-y-[33px] sm:mx-4 sm:space-y-[42px]">
-					{homeMainCategoriesAndCategories?.cat_section &&
-						homeMainCategoriesAndCategories?.cat_section?.map(
-							(
-								homeMainCategoryAndCategories: CatSubCatSectionType,
-								index: number
-							) => {
-								const canIDisplayFlags = Math.floor(
-									homeMainCategoriesAndCategories?.cat_section?.length /
-										2
-								);
+				<div className="mt-[27px] lg:container">
+					{/* Category and sub categories */}
+					<div className="mx-2 space-y-[33px] sm:mx-4 sm:space-y-[42px] md:space-y-[20px] desktop:space-y-[27px]">
+						{homeMainCategoriesAndCategories?.cat_section &&
+							homeMainCategoriesAndCategories?.cat_section?.map(
+								(
+									homeMainCategoryAndCategories: CatSubCatSectionType,
+									index: number
+								) => {
+									const canIDisplayFlags = Math.floor(
+										homeMainCategoriesAndCategories?.cat_section
+											?.length / 2
+									);
 
-								return (
-									<>
-										<CategorySubCategoriesSection
-											key={
-												homeMainCategoryAndCategories.main_category.id
-											}
-											catSubCat={homeMainCategoryAndCategories}
-											isCustom={
-												homeMainCategoriesAndCategories.is_custom
-											}
-										/>
-										{/*  Search Categories Banner */}
-										{canIDisplayFlags === index && (
-											<div className="my-[30px] hidden md:block">
-												{searchCategoriesAndTrendingBanner}
-											</div>
-										)}
-									</>
-								);
-							}
-						)}
+									return (
+										<>
+											<HomeCategorySubCategoriesSection
+												key={
+													homeMainCategoryAndCategories.main_category.id
+												}
+												catSubCat={homeMainCategoryAndCategories}
+												isCustom={
+													homeMainCategoriesAndCategories.is_custom
+												}
+											/>
+
+											{/*  Search Categories Banner */}
+											{canIDisplayFlags === index && (
+												<div className="hidden md:block">
+													<div className="flex items-center bg-accent-primary-main text-white md:h-[85.8px] lg:justify-between">
+														<h3 className="text-[33px] font-semibold md:ml-[26.4px]">
+															<span>{t('home:search_from')} </span>
+															<span className="inline-block pr-2 lg:mx-3 lg:text-[60px] lg:leading-[73px]">
+																6500
+															</span>
+															<span className="inline-block">
+																{t('home:categories')}
+															</span>
+														</h3>
+														<Link
+															href="/6500-categories"
+															className="flex items-center justify-center bg-secondary md:ml-[33.4px] md:h-[28.8px] md:w-[141.6px] md:text-[12.6px] md:font-semibold lg:mr-[67.27px]"
+														>
+															{t('common:search_more')}
+															<span className="hidden md:inline-block lg:pl-2">
+																{' >'}
+															</span>
+														</Link>
+													</div>
+												</div>
+											)}
+										</>
+									);
+								}
+							)}
+
+						{/*  Search Categories Banner */}
+						<Link
+							href="/6500-categories"
+							className="flex h-[67px] w-full items-center justify-center rounded-md bg-accent-primary-main text-[21px] font-semibold text-white md:hidden"
+						>
+							Explore all Categories
+						</Link>
+
+						<div className="hidden h-[79px] w-full overflow-hidden rounded-md sm:block md:h-[102px] lg:h-[136.13px] xl:h-[170px]">
+							<CountrySlider
+								key={homeCountries?.length}
+								countries={homeCountries}
+								onCountryClick={(country) => {
+									router.push(
+										`/product-search?region=${country?.region_id}_${
+											country?.edges?.region?.name?.en
+										}&country=${country?.id}_${country?.name?.en || ''}`
+									);
+								}}
+								isLoading={isCountriesValidating && !homeCountries}
+								className="overflow-hidden md:!rounded-md"
+							/>
+						</div>
+					</div>
 
 					{/*  Search Categories Banner */}
-					<Link
-						href="/6500-categories"
-						className="block flex h-[67px] w-full items-center justify-center rounded-md bg-accent-primary-main text-[21px] font-semibold text-white"
-					>
-						Explore all Categories
-					</Link>
-
-					<div className="hidden h-[79px] w-full overflow-hidden rounded-md sm:block">
-						<CountrySlider
-							key={homeCountries?.length}
-							countries={homeCountries}
-							onCountryClick={(country) => {
-								router.push(
-									`/product-search?region=${country?.region_id}_${
-										country?.edges?.region?.name?.en
-									}&country=${country?.id}_${country?.name?.en || ''}`
-								);
-							}}
-							isLoading={isCountriesValidating && !homeCountries}
-							className="overflow-hidden md:!rounded-md"
-						/>
-					</div>
-				</div>
-
-				{/*  Search Categories Banner */}
-				<div className="mb-[45.25px] mt-[30px] hidden md:my-[30px] md:hidden">
-					{searchCategoriesAndTrendingBanner}
-				</div>
-
-				{/* Shop by country and ads */}
-				<div className="space-y-8 lg:mx-[23px]">
-					{/* Shop by country */}
-					<div className="mt-[30px] h-[78.75px] sm:hidden md:h-[81px] lg:h-[168px]">
-						<CountrySlider
-							key={homeCountries?.length}
-							countries={homeCountries}
-							onCountryClick={(country) => {
-								router.push(
-									`/product-search?region=${country?.region_id}_${
-										country?.edges?.region?.name?.en
-									}&country=${country?.id}_${country?.name?.en || ''}`
-								);
-							}}
-							isLoading={isCountriesValidating && !homeCountries}
-							className="overflow-hidden md:!rounded-md"
-						/>
+					<div className="mb-[45.25px] mt-[30px] hidden md:my-[30px] md:hidden">
+						{searchCategoriesAndTrendingBanner}
 					</div>
 
-					{/* Bottom ADS Banner */}
-					{/* <div className="mt-[30px] grid grid-cols-2">
+					{/* Shop by country and ads */}
+					<div className="space-y-8 lg:mx-[23px]">
+						{/* Shop by country */}
+						<div className="mt-[30px] h-[78.75px] sm:hidden md:h-[81px] lg:h-[168px]">
+							<CountrySlider
+								key={homeCountries?.length}
+								countries={homeCountries}
+								onCountryClick={(country) => {
+									router.push(
+										`/product-search?region=${country?.region_id}_${
+											country?.edges?.region?.name?.en
+										}&country=${country?.id}_${country?.name?.en || ''}`
+									);
+								}}
+								isLoading={isCountriesValidating && !homeCountries}
+								className="overflow-hidden md:!rounded-md"
+							/>
+						</div>
+
+						{/* Bottom ADS Banner */}
+						{/* <div className="mt-[30px] grid grid-cols-2">
 							{homeAdvertisements.map((advertisement: any) => (
 								<AddBanner
 									key={advertisement.id}
@@ -224,6 +243,7 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 								/>
 							))}
 						</div> */}
+					</div>
 				</div>
 			</div>
 		</>

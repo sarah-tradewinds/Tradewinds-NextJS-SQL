@@ -9,7 +9,7 @@ type Props = {
 
 const Index = ({ hcd, cardAList, cardBData }: Props) => {
 	return (
-		<section className="relative h-[348px] sm:h-[432px]">
+		<section className="relative h-[348px] sm:h-[432px] lg:h-[648px] xl:h-[756px] desktop:h-[880px]">
 			{/* <div className="relative h-[329px] w-full overflow-hidden md:h-[600px] tablet:h-[540px] desktop:!h-[724px]"> */}
 			{/* <HeroCarousel heroCarouselData={hcd} /> */}
 			{/* <div className="bg-error/40s absolute bottom-0 z-[2] h-[140px] w-full bg-gradient-to-t from-bg-main to-transparent dark:from-bg-eco md:bottom-8 md:h-[300px] lg:!-bottom-32 tablet:bottom-10 tablet:h-[240px] desktop:bottom-14 desktop:!h-[396px]"></div>
@@ -24,7 +24,7 @@ const Index = ({ hcd, cardAList, cardBData }: Props) => {
 			<div>
 				<HeroCarousel heroCarouselData={hcd} />
 			</div>
-			<div className="absolute bottom-0 w-full bg-gradient-to-t from-bg-main to-transparent dark:from-bg-eco">
+			<div className="absolute bottom-0 w-full bg-gradient-to-b from-[#DEDFE0]/60 to-[#F5F5F5] dark:from-bg-eco">
 				<CardWrapper cardAList={cardAList} cardBData={cardBData} />
 			</div>
 		</section>

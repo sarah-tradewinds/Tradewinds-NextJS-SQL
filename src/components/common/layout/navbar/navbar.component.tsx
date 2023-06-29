@@ -8,7 +8,6 @@ import { useTranslation } from 'next-i18next';
 import { AiOutlineDashboard } from 'react-icons/ai';
 import { BiMessageDetail } from 'react-icons/bi';
 import { FiLogOut } from 'react-icons/fi';
-import { HiOutlineSearch } from 'react-icons/hi';
 
 // components
 import Breadcrumbs from 'components/breadcrumbs/breadcrumbs';
@@ -31,7 +30,6 @@ import {
 
 // stores
 import { useMainCategories } from 'hooks/useMainCategories';
-import { MdClose, MdMenu } from 'react-icons/md';
 import { useAuthStore } from 'store/auth';
 import { useCartStore } from 'store/cart-store-v2';
 import { useCountriesStore } from 'store/countries-store';
@@ -195,222 +193,163 @@ const Header = (props: any) => {
 					: 'bg-gradient-to-r from-success via-accent-primary-main to-primary-main'
 			}`}
 		>
-			<div className="h-full">
-				<div
-					className="tablet:px-auto flex h-full items-center justify-between px-[21.46px] lg:h-[76px] tablet:h-[70px] tablet:px-0"
-					onClick={() => setShowLogout(false)}
+			<div className="flex w-full items-center justify-between">
+				{/* Tradewinds logo */}
+				<Link
+					href="/"
+					className="relative block md:h-[33.6px] md:w-[121.2px]"
 				>
-					{/* Menu icon */}
-					<button
-						type="button"
-						className="flex md:hidden tablet:ml-4"
-						onClick={drawerHandler}
-					>
-						{!isOpen ? (
-							<MdMenu className="h-5 w-5 text-white" />
-						) : (
-							<MdClose className="h-5 w-5 text-white" />
-						)}
-					</button>
+					<ImageWithErrorHandler
+						src="/images/tradewinds-horizontal-logo.png"
+						alt="Logo"
+						fill={true}
+						className="cursor-pointer"
+						onClick={() => {
+							removeCategoryFilter();
+							removeSelectedCountries();
+							if (isEco) {
+								setIsEco();
+							}
+						}}
+					/>
+				</Link>
 
-					{/* Tradewinds logo */}
-					<div
-						className={`lg:mr-[112px] lg:h-[56px] lg:w-[202px] tablet:mt-[6px] tablet:mb-[7.44] ${
-							isAuth ? 'md:ml-8' : 'ml-8 md:mr-[24.51px] md:ml-5'
-						}`}
-					>
+				{/* Search Input */}
+				<SearchBar />
+
+				<div>{cartIconAndUsername}</div>
+			</div>
+
+			{/* Bottom nav */}
+			<div className={classes}>
+				<div className="m-4s flex w-full flex-col justify-between p-4 md:flex-row md:items-center md:p-0">
+					<div className="flex md:items-center">
 						<div
-							className="relative h-[28px] w-[101px] lg:h-[56px] lg:w-[202px] tablet:h-[57px] tablet:w-[69.49px]"
-							id="logo"
+							className="group hidden md:inline-block"
+							onMouseEnter={() => setIsMegaMenuOpen(true)}
+							onMouseLeave={() => setIsMegaMenuOpen(false)}
 						>
-							<Link href="/">
-								{/* For mobile and medium*/}
-								<div className="relative hidden h-full w-full lg:hidden tablet:block">
-									<ImageWithErrorHandler
-										src="/tradewind-logo.png"
-										alt="Logo"
-										fill={true}
-										className="cursor-pointer"
-										onClick={() => {
-											if (isEco) {
-												setIsEco();
-											}
-										}}
-									/>
-								</div>
-
-								{/* For desktop */}
-								<div className="lg:block tablet:hidden">
-									<ImageWithErrorHandler
-										src="/static/images/tradewinds_logo.png"
-										alt="Logo"
-										fill={true}
-										className="cursor-pointer"
-										onClick={() => {
-											removeCategoryFilter();
-											removeSelectedCountries();
-											if (isEco) {
-												setIsEco();
-											}
-										}}
-									/>
-								</div>
-							</Link>
-						</div>
-					</div>
-
-					{/* Search Input */}
-					<div className="hidden tablet:block">
-						<SearchBar />
-					</div>
-
-					{/* Mobile Right Search Icons for mobile only */}
-					<div className="flex items-center tablet:mr-4 tablet:hidden">
-						<HiOutlineSearch className="mr-4 h-4 w-4 text-white tablet:h-6 tablet:w-6" />
-						{cartIconAndUsername}
-					</div>
-
-					{/* Cart Icon and Login user name */}
-					<div className="hidden tablet:block">
-						{cartIconAndUsername}
-					</div>
-				</div>
-
-				{/* Bottom nav */}
-				<div className={classes}>
-					<div className="m-4s flex w-full flex-col justify-between p-4 md:flex-row md:items-center md:p-0">
-						<div className="flex md:items-center">
-							<div
-								className="group hidden md:inline-block"
-								onMouseEnter={() => setIsMegaMenuOpen(true)}
-								onMouseLeave={() => setIsMegaMenuOpen(false)}
-							>
-								<div className="flex cursor-pointer items-center space-x-1 font-semibold text-primary-main outline-none dark:text-accent-secondary-eco lg:text-[18px] lg:leading-[22px] tablet:text-xs tablet:leading-[15px]">
-									<span>{t('categories_text')} </span>
-									<span className="hidden tablet:inline-block">
-										&gt;
-									</span>
-								</div>
-
-								{isMegaMenuOpen && (
-									<div className="fixed top-[110px] left-0 right-0 z-[9000000000000]">
-										<MegaMenu
-											onClose={() => setIsMegaMenuOpen(false)}
-										/>
-									</div>
-								)}
+							<div className="flex cursor-pointer items-center space-x-1 font-semibold text-primary-main outline-none dark:text-accent-secondary-eco lg:text-[18px] lg:leading-[22px] tablet:text-xs tablet:leading-[15px]">
+								<span>{t('categories_text')} </span>
+								<span className="hidden tablet:inline-block">&gt;</span>
 							</div>
 
-							<nav className="flex w-full cursor-pointer flex-col items-start justify-start md:flex-row md:items-center md:divide-x">
-								<NavLink
-									href="/eco"
-									className="nav-link hidden items-center justify-center gap-2 md:flex"
-									activeClassName="underline font-semibold"
-									onClick={() => {
-										router.push(`/eco?is_eco=${true}`, undefined, {
-											shallow: true
-										});
+							{isMegaMenuOpen && (
+								<div className="fixed top-[110px] left-0 right-0 z-[9000000000000]">
+									<MegaMenu onClose={() => setIsMegaMenuOpen(false)} />
+								</div>
+							)}
+						</div>
 
-										if (!isEco) {
-											setIsEco();
-										}
-									}}
+						<nav className="flex w-full cursor-pointer flex-col items-start justify-start md:flex-row md:items-center md:divide-x">
+							<NavLink
+								href="/eco"
+								className="nav-link hidden items-center justify-center gap-2 md:flex"
+								activeClassName="underline font-semibold"
+								onClick={() => {
+									router.push(`/eco?is_eco=${true}`, undefined, {
+										shallow: true
+									});
+
+									if (!isEco) {
+										setIsEco();
+									}
+								}}
+							>
+								<ImageWithErrorHandler
+									src="/static/images/eco_logo.png"
+									alt="EcoLogo"
+									width={20}
+									height={20}
+								/>
+								{t('eco_text')}
+							</NavLink>
+
+							<NavLink
+								href="/eco"
+								className="nav-link md:hidden"
+								activeClassName="underline font-semibold"
+								onClick={() => {
+									drawerHandler();
+								}}
+							>
+								{t('eco_text')}
+							</NavLink>
+							<NavLink
+								href="/why-sell-on-tradewinds"
+								className="nav-link"
+								activeClassName="underline font-semibold"
+								onClick={drawerHandler}
+							>
+								{t('why_sell_on_tw_text')}
+							</NavLink>
+
+							<NavLink
+								href="/why-buy"
+								className="nav-link"
+								activeClassName="underline font-semibold"
+								onClick={drawerHandler}
+							>
+								{t('why_buy_text')}
+							</NavLink>
+
+							<NavLink
+								href="/shop-by-country"
+								className="nav-link"
+								activeClassName="underline font-semibold"
+								onClick={drawerHandler}
+							>
+								{t('search_by_country_text')}
+							</NavLink>
+
+							<NavLink
+								href="what-is-rfq"
+								className="nav-link"
+								activeClassName="underline font-semibold"
+								onClick={drawerHandler}
+							>
+								{t('what_is_a_rfq_text')}
+							</NavLink>
+
+							{/* For mobile only */}
+							<div className="flex w-full flex-col space-y-4 sm:hidden">
+								<NavLink
+									href={generateBuyerDashboardUrl({
+										redirect_to: BUYER_DASHBOARD_PAGES.buyer_rfq,
+										action: BUYER_DASHBOARD_ACTIONS.create_rfq,
+										access_key: customerData.access.token,
+										refresh_key: customerData.refresh.token
+									})}
+									className="nav-link"
+									activeClassName="underline font-semibold"
+									onClick={drawerHandler}
 								>
-									<ImageWithErrorHandler
-										src="/static/images/eco_logo.png"
-										alt="EcoLogo"
-										width={20}
-										height={20}
-									/>
-									{t('eco_text')}
+									{t('dashboard')}
 								</NavLink>
 
 								<NavLink
-									href="/eco"
-									className="nav-link md:hidden"
-									activeClassName="underline font-semibold"
+									href="/"
+									className="nav-link border-0"
+									activeClassName="capitalize underline font-semibold"
 									onClick={() => {
+										logout();
+										resetCart();
 										drawerHandler();
 									}}
 								>
-									{t('eco_text')}
+									{t('logout')}
 								</NavLink>
-								<NavLink
-									href="/why-sell-on-tradewinds"
-									className="nav-link"
-									activeClassName="underline font-semibold"
-									onClick={drawerHandler}
-								>
-									{t('why_sell_on_tw_text')}
-								</NavLink>
-
-								<NavLink
-									href="/why-buy"
-									className="nav-link"
-									activeClassName="underline font-semibold"
-									onClick={drawerHandler}
-								>
-									{t('why_buy_text')}
-								</NavLink>
-
-								<NavLink
-									href="/shop-by-country"
-									className="nav-link"
-									activeClassName="underline font-semibold"
-									onClick={drawerHandler}
-								>
-									{t('search_by_country_text')}
-								</NavLink>
-
-								<NavLink
-									href="what-is-rfq"
-									className="nav-link"
-									activeClassName="underline font-semibold"
-									onClick={drawerHandler}
-								>
-									{t('what_is_a_rfq_text')}
-								</NavLink>
-
-								{/* For mobile only */}
-								<div className="flex w-full flex-col space-y-4 sm:hidden">
-									<NavLink
-										href={generateBuyerDashboardUrl({
-											redirect_to: BUYER_DASHBOARD_PAGES.buyer_rfq,
-											action: BUYER_DASHBOARD_ACTIONS.create_rfq,
-											access_key: customerData.access.token,
-											refresh_key: customerData.refresh.token
-										})}
-										className="nav-link"
-										activeClassName="underline font-semibold"
-										onClick={drawerHandler}
-									>
-										{t('dashboard')}
-									</NavLink>
-
-									<NavLink
-										href="/"
-										className="nav-link border-0"
-										activeClassName="capitalize underline font-semibold"
-										onClick={() => {
-											logout();
-											resetCart();
-											drawerHandler();
-										}}
-									>
-										{t('logout')}
-									</NavLink>
-								</div>
-							</nav>
-						</div>
-
-						<div className="relative">
-							<LanguageDropdown />
-						</div>
+							</div>
+						</nav>
 					</div>
 
-					<div className="ml-[35px] hidden tablet:inline-block">
-						<Breadcrumbs productName={props.productName} />
+					<div className="relative">
+						<LanguageDropdown />
 					</div>
+				</div>
+
+				<div className="ml-[35px] hidden tablet:inline-block">
+					<Breadcrumbs productName={props.productName} />
 				</div>
 			</div>
 		</header>

@@ -4,6 +4,8 @@ import { getLocaleText } from 'utils/get_locale_text';
 import CardA from './card-a';
 import CardB from './card-b';
 
+import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
+
 const CardWrapper: React.FC<{
 	cardAList: any[];
 	cardBData: any;
@@ -31,7 +33,7 @@ const CardWrapper: React.FC<{
 	return (
 		<>
 			{/* Medium and desktop */}
-			<div className="hidden justify-center space-x-2 md:flex lg:space-x-6 desktop:!space-x-8">
+			<div className="hidden justify-center space-x-2 md:flex lg:space-x-[11.21px] desktop:!space-x-8">
 				{cardAList.map((cardAData) => (
 					<div key={cardAData.id}>
 						<CardA
@@ -46,21 +48,18 @@ const CardWrapper: React.FC<{
 					</div>
 				))}
 
-					<CardB
-						title={getLocaleText(cardBData.title || {}, locale)}
-						imageUrl={cardBData?.image}
-						subtitle={getLocaleText(
-							cardBData.description || {},
-							locale
-						)}
-						description={getLocaleText(
-							cardBData.description2 || {},
-							locale
-						)}
-						buttonText={getLocaleText(cardBData.btn_text || {}, locale)}
-						href={cardBData.slug?.en}
-						alt={cardBData.title?.en}
-					/>
+				<CardB
+					title={getLocaleText(cardBData.title || {}, locale)}
+					imageUrl={cardBData?.image}
+					subtitle={getLocaleText(cardBData.description || {}, locale)}
+					description={getLocaleText(
+						cardBData.description2 || {},
+						locale
+					)}
+					buttonText={getLocaleText(cardBData.btn_text || {}, locale)}
+					href={cardBData.slug?.en}
+					alt={cardBData.title?.en}
+				/>
 			</div>
 
 			{/* Card Slider only visible on mobile */}

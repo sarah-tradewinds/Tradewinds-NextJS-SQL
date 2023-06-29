@@ -10,13 +10,10 @@ import Layout from 'components/common/layout';
 // Third party styles
 import 'keen-slider/keen-slider.min.css';
 import 'react-loading-skeleton/dist/skeleton.css';
-// import 'slick-carousel/slick/slick-theme.css';
-// import 'slick-carousel/slick/slick.css';
 
-// Import Swiper styles
-// import 'swiper/css';
-// import 'swiper/css/grid';
-// import 'swiper/css/pagination';
+// react slick style
+import 'slick-carousel/slick/slick-theme.css';
+import 'slick-carousel/slick/slick.css';
 
 // local style
 import '../styles/globals.css';

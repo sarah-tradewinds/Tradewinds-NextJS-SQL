@@ -146,8 +146,7 @@ const SearchBar: React.FC<SearchBarProps> = (props) => {
 		<div>
 			<form className="relative" onSubmit={searchHandler}>
 				<label
-					// className="hidden items-center overflow-hidden rounded-full transition duration-300 ease-in-out hover:ring-1 hover:ring-accent-primary-main hover:ring-opacity-90 sm:flex md:w-[383px] tablet:h-[31px] tablet:w-[240px] desktop:w-[746.9px]"
-					className="hidden items-center overflow-hidden rounded-full transition duration-300 ease-in-out hover:ring-1 hover:ring-accent-primary-main hover:ring-opacity-90 sm:flex sm:h-[19px] sm:w-[364px]"
+					className="hidden items-center overflow-hidden rounded-full transition duration-300 ease-in-out hover:ring-1 hover:ring-accent-primary-main hover:ring-opacity-90 sm:flex sm:h-[19px] sm:w-[364px] md:w-[232.8px]"
 					htmlFor="searchBar"
 				>
 					<input
@@ -160,15 +159,15 @@ const SearchBar: React.FC<SearchBarProps> = (props) => {
 						onFocus={onFocusHandler}
 						onBlur={onBlurHandler}
 						aria-label="Search"
-						className="h-full border-none pl-2 outline-none sm:w-[350px] desktop:w-[714.66px]"
+						className="h-full border-none pl-2 outline-none sm:w-[350px] md:w-[429px] desktop:w-[714.66px]"
 						autoComplete="off"
 						placeholder={placeholder || 'Search product'}
 					/>
 					<Button
 						type="submit"
-						className="flex cursor-pointer items-center justify-center !rounded-r-full bg-accent-primary-main !px-0 !py-0 sm:!h-[18.4px] sm:!w-[19.34px] tablet:!w-[33px] desktop:!w-[32.24px]"
+						className="flex cursor-pointer items-center justify-center !rounded-r-full bg-accent-primary-main !px-0 !py-0 sm:!h-[18.4px] sm:!w-[19.34px]"
 					>
-						<HiOutlineSearch className="sm:h-[9.4px] sm:w-[9.4px] tablet:h-[15.72px] tablet:w-[15.72px]" />
+						<HiOutlineSearch className="sm:h-[9.4px] sm:w-[9.4px]" />
 					</Button>
 				</label>
 

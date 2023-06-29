@@ -43,7 +43,7 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 		>
 			{heroCarouselData.map((item, index) => (
 				<div
-					className="keen-slider__slide relative h-[248px] w-full sm:h-[278px] md:h-[277.8px]"
+					className="keen-slider__slide relative h-[248px] w-full sm:h-[278px] md:h-[277.8px] lg:h-[463px] xl:h-[536px] desktop:h-[623px]"
 					key={item.id || index}
 				>
 					{/* Image */}
@@ -59,7 +59,7 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 
 					{item.title?.en && (
 						<div
-							className={`absolute z-[4] hidden w-[90%] space-y-2 p-4 md:w-auto ${getAlignmentClassName(
+							className={`absolute z-[4] w-[90%] space-y-2 p-4 md:w-auto ${getAlignmentClassName(
 								(item.horizonatal_alignment ||
 									'left') as xAxisAlignment,
 								(item.vertical_alignment || 'center') as yAxisAlignment

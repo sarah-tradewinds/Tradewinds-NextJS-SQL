@@ -145,29 +145,29 @@ const CategorySubCategoriesSection: React.FC<
 		slidesToShow = 2.1;
 	}
 
-	const onMainCategoryPressed = () => {
-		const { value } = setMainCategory(
-			main_category.id!,
-			main_category.title.en || ''
-		);
+  const onMainCategoryPressed = () => {
+const { value } = setMainCategory(
+							main_category.id!,
+							main_category.title.en || ''
+						);
 
-		router.push(
-			{
-				pathname: '/product-search',
-				query: {
-					main_category: value
-				}
-			},
-			undefined,
-			{
-				shallow: true
-			}
-		);
-	}; // End of onMainCategoryPressed
+						router.push(
+							{
+								pathname: '/product-search',
+								query: {
+									main_category: value
+								}
+							},
+							undefined,
+							{
+								shallow: true
+							}
+						);
+  }// End of onMainCategoryPressed
 
 	return (
 		<>
-			{/* For Mobile only */}
+      {/* For Mobile only */}
 			<div className="md:hidden">
 				<CategoryCollapse
 					backgroundColor={main_category.color}
@@ -182,18 +182,19 @@ const CategorySubCategoriesSection: React.FC<
 			</div>
 
 			{/* For Medium and Large screen */}
-			<div className="rounded-md bg-white md:h-[216px] md:w-full">
+      <div className="rounded-md bg-white md:h-[216px] md:w-full">
 				{/* Category Container */}
-				<MainCategoryCard
-					backgroundColor={main_category.color}
-					buttonBackgroundColor={main_category?.source_now_button_color}
-					title={mainCategoryTitle || ''}
-					imageUrl={main_category?.image || ''}
-					onPressed={onMainCategoryPressed}
-				/>
+          <MainCategoryCard
+            backgroundColor={main_category.color}
+            buttonBackgroundColor={main_category?.source_now_button_color}
+            title={mainCategoryTitle || ''}
+            imageUrl={main_category?.image || ''}
+            onPressed={onMainCategoryPressed}
+          />
+
 			</div>
 
-			<div className="hidden bg-white md:block md:hidden md:pr-[10px] lg:!h-[256px] lg:pl-[22px] lg:pt-[25px] lg:pr-[10px] xl:!h-[334.09px] tablet:mx-4 tablet:h-[238px] tablet:w-auto tablet:rounded-md tablet:pt-[25px] tablet:pl-[22px] desktop:!mx-0">
+			<div className="hidden md:hidden bg-white md:block md:pr-[10px] lg:!h-[256px] lg:pl-[22px] lg:pt-[25px] lg:pr-[10px] xl:!h-[334.09px] tablet:mx-4 tablet:h-[238px] tablet:w-auto tablet:rounded-md tablet:pt-[25px] tablet:pl-[22px] desktop:!mx-0">
 				<div className="hidden grid-cols-12 md:flex md:!grid 2xl:grid 2xl:w-auto desktop:flex desktop:w-[1466px]">
 					{/* Category For medium and large screen */}
 					<div className="bg-errors col-span-3 md:col-span-4 lg:col-span-3 900px:col-span-3">
@@ -272,40 +273,33 @@ const CategorySubCategoriesSection: React.FC<
 export default CategorySubCategoriesSection;
 
 interface MainCategoryCardProps {
-	title: string;
-	imageUrl: string;
-	backgroundColor?: string;
-	buttonBackgroundColor?: string;
-	onPressed?: () => void;
+  title: string;
+  imageUrl: string;
+  backgroundColor?: string;
+  buttonBackgroundColor?: string;
+  onPressed?: () => void;
 }
 
 const MainCategoryCard: React.FC<MainCategoryCardProps> = (props) => {
-	const {
-		title,
-		imageUrl,
-		backgroundColor,
-		buttonBackgroundColor,
-		onPressed
-	} = props;
 
-	return (
-		<div>
-			<h3 className="ml-[15.69px] pt-[19px] text-[18px] font-semibold text-primary-main">
-				{title}
-			</h3>
-			{/*Category Image and CTA  */}
-			<div
-				className="relative ml-[11.69px] flex items-end md:h-[152px] md:w-[169px]"
-				style={{ backgroundColor }}
-			>
-				<button
-					onClick={onPressed}
-					className="mb-[11.26px] ml-2 h-[16.74px] w-[94.08px] rounded-md bg-primary-eco text-center text-[12.01px] text-white outline-none"
-					style={{ backgroundColor: buttonBackgroundColor }}
-				>
-					Source Now
-				</button>
+  const { title, imageUrl, backgroundColor, buttonBackgroundColor, onPressed } = props;
+
+   return (
+  <div>
+          <h3 className="text-[18px] pt-[19px] ml-[15.69px] font-semibold text-primary-main">{title}</h3>
+				{/*Category Image and CTA  */}
+				<div 
+        className="relative ml-[11.69px] flex items-end md:h-[152px] md:w-[169px]"
+        style={{backgroundColor}}
+        >
+					<button 
+            onClick={onPressed} 
+            className="mb-[11.26px] ml-2 h-[16.74px] w-[94.08px] rounded-md bg-primary-eco text-center text-[12.01px] text-white outline-none"
+        style={{backgroundColor: buttonBackgroundColor}}
+            >
+						Source Now
+					</button>
+				</div>
 			</div>
-		</div>
-	);
-}; // End of MainCategoryCard
+  );
+}// End of MainCategoryCard
