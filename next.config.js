@@ -63,7 +63,8 @@ const nextConfig = (phase) => {
 			// API_BASE_URL:
 			// 	'https://tradewinds-sql-preprod-as.azurewebsites.net',
 
-			SITE_URL: 'https://www.tradewindsmarketplace.com',
+			SITE_URL:
+				'https://tradewindsmp-productionshoppingsite.azurewebsites.net',
 
 			BUYER_DASHBOARD_SITE_URL:
 				'https://www.dashboard.tradewindsmarketplace.com/#',
