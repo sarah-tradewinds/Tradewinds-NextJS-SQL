@@ -146,7 +146,7 @@ const SearchBar: React.FC<SearchBarProps> = (props) => {
 		<div>
 			<form className="relative" onSubmit={searchHandler}>
 				<label
-					className="hidden items-center overflow-hidden rounded-full transition duration-300 bg-error ease-in-out hover:ring-1 hover:ring-accent-primary-main hover:ring-opacity-90 sm:flex sm:h-[19px] sm:w-[364px] md:w-[232.8px] lg:h-[27.82px] lg:w-[310.7px] xl:w-[387px] xl:h-[31.45px] desktop:w-[746.9px]"
+					className="hidden items-center overflow-hidden rounded-full transition duration-300 ease-in-out hover:ring-1 hover:ring-accent-primary-main hover:ring-opacity-90 sm:flex sm:h-[19px] sm:w-[364px] md:w-[232.8px] lg:h-[27.82px] lg:w-[310.7px] xl:h-[31.45px] xl:w-[387px] desktop:w-[746.9px]"
 					htmlFor="searchBar"
 				>
 					<input

@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
 
 	return (
 		<footer className="bg-accent-primary-main font-montserrat dark:bg-header-bar md:bg-header-bar lg:sm:bg-accent-primary-main">
-			<div className="relative flex h-[80px] flex-col items-center justify-center md:items-center md:justify-center">
+			<div className="relative flex h-[80px] flex-col items-center justify-center bg-cyan md:items-center md:justify-center">
 				<button
 					onClick={goToTop}
 					className="mb-6 text-center font-semibold text-white dark:text-accent-secondary-eco"

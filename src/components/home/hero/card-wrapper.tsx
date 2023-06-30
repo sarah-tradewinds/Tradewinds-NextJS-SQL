@@ -16,19 +16,10 @@ const CardWrapper: React.FC<{
 		mode: 'free-snap',
 		slides: {
 			origin: 'center',
-			perView: 3,
+			perView: 2,
 			spacing: 13
 		}
 	});
-
-	const settings = {
-		className: 'center',
-		centerMode: true,
-		infinite: true,
-		centerPadding: '60px',
-		slidesToShow: 3,
-		speed: 500
-	};
 
 	return (
 		<>

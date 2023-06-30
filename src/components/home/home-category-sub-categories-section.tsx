@@ -204,7 +204,7 @@ const MainCategoryCard: React.FC<MainCategoryCardProps> = (props) => {
 	} = props;
 
 	return (
-		<div className="bg-errors relative flex flex-col md:h-[198px] lg:h-[200px] xl:h-[230px] desktop:h-[280px]">
+		<div className="bg-errors relative flex flex-col md:h-[198px] lg:h-[200px] xl:h-[256px] desktop:h-[324px]">
 			<h3 className="ml-[15.69px] pt-[19px] text-[18px] font-semibold text-primary-main md:w-[169px] lg:ml-[29.23px] lg:w-[237px] lg:pt-[16.44px] lg:text-[21px] xl:ml-[36.51px] xl:w-[296.36px] xl:pt-[20.53px]  desktop:ml-[43px] desktop:w-[349.08px] desktop:pt-[23px] desktop:text-[25px]">
 				{title}
 			</h3>
@@ -214,7 +214,7 @@ const MainCategoryCard: React.FC<MainCategoryCardProps> = (props) => {
 				style={{ backgroundColor }}
 			>
 				<div className="absolute bottom-0 right-0">
-					<div className="bg-errord relative overflow-hidden md:h-[100px] md:w-[100px] lg:h-[150px] lg:w-[150px] xl:h-[200px] xl:w-[200px] desktop:h-[250px] desktop:w-[250px]">
+					<div className="relative overflow-hidden md:h-[100px] md:w-[100px] lg:h-[150px] lg:w-[150px] xl:h-[200px] xl:w-[200px]">
 						<div className="absolute bottom-0 right-0">
 							<img
 								src={imageUrl}

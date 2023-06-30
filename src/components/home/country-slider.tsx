@@ -67,7 +67,7 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 					}}
 					className="keen-slider__slide !relative flex !h-9 !min-w-[36.06px] !max-w-[36.06px] flex-col items-center md:!mx-5 md:!h-[30.59px] md:!min-w-[52.04px] md:!max-w-[52.04px] lg:!mx-[41px] lg:!h-[64px] lg:!min-w-[107px] lg:!max-w-[107px]"
 				>
-					<div className="relative !min-h-[24.44px] !min-w-[36.06px] !max-w-[36.06px] md:!h-full md:!min-w-[52.04px] md:!max-w-[52.04px] lg:!min-w-[107px] lg:!max-w-[107px]">
+					<div className="relative !min-h-[24.44px] !min-w-[36.06px] !max-w-[36.06px] md:!h-full md:!min-w-[61.47px] md:!max-w-[61.47px] lg:!min-w-[107px] lg:!max-w-[107px]">
 						<ImageWithErrorHandler
 							key={country.image + country.id}
 							src={country.image}
@@ -89,7 +89,7 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 		>
 			<div className="flex items-center justify-center space-x-4 md:mt-[5.72px] lg:mt-[11px] lg:mb-3">
 				<div className="w-40 border-2 border-[#FFFFFF] md:w-[236.86px] lg:w-[487px]"></div>
-				<p className="whitespace-nowrap text-center text-[15px] font-semibold leading-[18px]  text-white lg:text-[25px] lg:leading-[30px]">
+				<p className="whitespace-nowrap text-center text-[15px] font-semibold leading-[18px] text-white lg:text-[25px] lg:leading-[30px]">
 					{t('shop_by_country')}
 				</p>
 				<div className="w-40 border-2 border-[#FFFFFF] md:w-[236.86px] lg:w-[487px]"></div>
@@ -128,7 +128,7 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 				</div>
 			</div>
 
-			<div className="navigation-wrapper relative mt-[7px] hidden md:mt-0 md:block md:px-8">
+			<div className="navigation-wrapper relative mt-[11.14px] hidden md:block md:px-8">
 				<div ref={ref} className="keen-slider">
 					{countriesSlider}
 				</div>

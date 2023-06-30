@@ -158,8 +158,8 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 											{/*  Search Categories Banner */}
 											{canIDisplayFlags === index && (
 												<div className="hidden md:block">
-													<div className="flex items-center bg-accent-primary-main text-white md:h-[85.8px] lg:justify-between">
-														<h3 className="text-[33px] font-semibold md:ml-[26.4px]">
+													<div className="flex items-center bg-accent-primary-main text-white md:h-[85.8px] lg:h-[114.51px] lg:justify-between xl:h-[143px]">
+														{/* <h3 className="text-[33px] font-semibold md:ml-[26.4px]">
 															<span>{t('home:search_from')} </span>
 															<span className="inline-block pr-2 lg:mx-3 lg:text-[60px] lg:leading-[73px]">
 																6500
@@ -167,10 +167,14 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 															<span className="inline-block">
 																{t('home:categories')}
 															</span>
+														</h3> */}
+														<h3 className="text-[33px] font-semibold md:ml-[26.4px] lg:text-[55px] lg:leading-[46px] xl:leading-[67.05px] desktop:text-[72px] desktop:leading-[87.77px]">
+															{t('home:search_from')} 6500{' '}
+															{t('home:categories')}
 														</h3>
 														<Link
 															href="/6500-categories"
-															className="flex items-center justify-center bg-secondary md:ml-[33.4px] md:h-[28.8px] md:w-[141.6px] md:text-[12.6px] md:font-semibold lg:mr-[67.27px]"
+															className="flex items-center justify-center bg-secondary md:ml-[33.4px] md:h-[28.8px] md:w-[141.6px] md:text-[12.6px] md:font-semibold lg:mr-[67.27px] lg:h-[38.44px] lg:w-[188.98px] lg:text-[16.82px] lg:leading-[20.5px] xl:h-[48px] xl:w-[236px] xl:text-[21px] xl:leading-[25.6px]"
 														>
 															{t('common:search_more')}
 															<span className="hidden md:inline-block lg:pl-2">

@@ -4249,10 +4249,10 @@
     "prop-types" "^15.5.8"
     "react-easy-swipe" "^0.0.21"
 
-"react-simply-carousel@^8.3.2":
-  "integrity" "sha512-Ttt+KSarDOEppm8pIGS+jF2C2SEkUYl+N3gFfHGOj/5qUVUwaus40vVwTa0YIuBNEPDQxIGuOP39twvR1ZhMug=="
-  "resolved" "https://registry.npmjs.org/react-simply-carousel/-/react-simply-carousel-8.3.2.tgz"
-  "version" "8.3.2"
+"react-simply-carousel@^8.5.7":
+  "integrity" "sha512-+UZS6nWDfr7VWgZpY8ZndlG+97ICwS9DS1ctWstYMjiv1yd1exyaihbFoMCNQeyNG2jPuYpXXc9xPySt+PW75Q=="
+  "resolved" "https://registry.npmjs.org/react-simply-carousel/-/react-simply-carousel-8.5.7.tgz"
+  "version" "8.5.7"
   dependencies:
     "core-js" "^3.8.1"
 
