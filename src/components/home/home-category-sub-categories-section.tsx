@@ -121,7 +121,7 @@ const HomeCategorySubCategoriesSection: React.FC<
 							</div>
 						</div>
 
-						<p className="ml-[13px] text-[18px] font-semibold leading-[18px] text-primary-main">
+						<p className="ml-[17px] text-[18px] font-semibold leading-[21.94px] text-primary-main">
 							{subCategoryTitle}
 						</p>
 					</div>
@@ -166,7 +166,7 @@ const HomeCategorySubCategoriesSection: React.FC<
 			</div>
 
 			{/* For Medium and Large screen */}
-			<div className="hidden rounded-md bg-white md:flex md:h-[216px] xl:h-[269.13px] md:w-full desktop:h-[317px]">
+			<div className="hidden rounded-md bg-white md:flex md:h-[216px] md:w-full xl:h-[269.13px] desktop:h-[317px]">
 				{/* Category Container */}
 				<MainCategoryCard
 					backgroundColor={main_category.color}
@@ -176,8 +176,8 @@ const HomeCategorySubCategoriesSection: React.FC<
 					onPressed={onMainCategoryPressed}
 				/>
 
-				<div className="relative md:ml-[31.84px] md:mt-[19.16px] md:w-[506.48px]s md:w-[68%] 900px:w-[72%] lg:!w-[68%]">
-          <HomeCategorySlider categories={categories || []} />
+				<div className="md:w-[506.48px]s relative md:ml-[31.84px] md:mt-[19.16px] md:w-[68%] lg:!w-[68%] 900px:w-[72%]">
+					<HomeCategorySlider categories={categories || []} />
 				</div>
 			</div>
 		</>
@@ -204,28 +204,30 @@ const MainCategoryCard: React.FC<MainCategoryCardProps> = (props) => {
 	} = props;
 
 	return (
-		<div className="relative">
-			<h3 className="ml-[15.69px] lg:ml-[29.23px] lg:pt-[16.44px] xl:ml-[36.51px] xl:pt-[20.53px] pt-[19px] text-[18px] lg:text-[21px] font-semibold text-primary-main desktop:text-[25px] desktop:ml-[43px] desktop:pt-[23px]">
+		<div className="bg-errors relative flex flex-col md:h-[198px] lg:h-[200px] xl:h-[230px] desktop:h-[280px]">
+			<h3 className="ml-[15.69px] pt-[19px] text-[18px] font-semibold text-primary-main md:w-[169px] lg:ml-[29.23px] lg:w-[237px] lg:pt-[16.44px] lg:text-[21px] xl:ml-[36.51px] xl:w-[296.36px] xl:pt-[20.53px]  desktop:ml-[43px] desktop:w-[349.08px] desktop:pt-[23px] desktop:text-[25px]">
 				{title}
 			</h3>
 			{/*Category Image and CTA  */}
 			<div
-				className="relative ml-[11.69px] lg:ml-[22.99px] xl:ml-[28.87px] flex items-end md:h-[152px] md:w-[169px] lg:w-[237px] xl:w-[296.36px] xl:h-[200.61px] desktop:w-[349.08px] desktop:h-[236.3px] desktop:ml-[34px]"
+				className="md:h-[152px]s relative ml-[11.69px] flex h-full items-end md:w-[169px] lg:ml-[22.99px] lg:w-[237px] xl:ml-[28.87px] xl:max-h-[200.61px] xl:w-[296.36px] desktop:ml-[34px] desktop:max-h-[236.3px] desktop:w-[349.08px]"
 				style={{ backgroundColor }}
 			>
 				<div className="absolute bottom-0 right-0">
-					<div className="relative overflow-hidden md:h-[100px] md:w-[100px] lg:w-[150px] lg:h-[150px] xl:h-[200px] xl:w-[200px] desktop:h-[250px] desktop:w-[250px]">
-						<img
-							src={imageUrl}
-							alt={''}
-							className="h-auto w-auto object-contain"
-						/>
+					<div className="bg-errord relative overflow-hidden md:h-[100px] md:w-[100px] lg:h-[150px] lg:w-[150px] xl:h-[200px] xl:w-[200px] desktop:h-[250px] desktop:w-[250px]">
+						<div className="absolute bottom-0 right-0">
+							<img
+								src={imageUrl}
+								alt={''}
+								className="h-auto w-auto object-contain"
+							/>
+						</div>
 					</div>
 				</div>
 
 				<button
 					onClick={onPressed}
-					className="mb-[11.26px] desktop:mb-[19.61px] desktop:ml-[25px] ml-2 h-[16.74px] w-[94.08px] rounded-md bg-primary-eco text-center text-[12.01px] xl:text-[15px] xl:w-[117.49px] xl:h-[20.9px] text-white outline-none desktop:w-[138.39px] desktop:h-[24.62px]"
+					className="mb-[11.26px] ml-2 h-[16.74px] w-[94.08px] rounded-md bg-primary-eco text-center text-[12.01px] text-white outline-none xl:h-[20.9px] xl:w-[117.49px] xl:text-[15px] desktop:mb-[19.61px] desktop:ml-[25px] desktop:h-[24.62px] desktop:w-[138.39px]"
 					style={{ backgroundColor: buttonBackgroundColor }}
 				>
 					Source Now

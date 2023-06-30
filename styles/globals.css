@@ -10,9 +10,7 @@
   }
 
   .nav-link {
-    cursor: pointer;
-    position: relative;
-    @apply text-primary-main tablet:dark:text-accent-secondary-eco tablet:px-2 tablet:border-b-0 text-[15px] tablet:text-xs lg:text-[18px] lg:leading-[22px] tablet:leading-[15px] tablet:font-normal tablet:w-auto tablet:py-0 tablet:my-0 font-semibold w-10/12 py-2 my-2 border-b-[0.5px] border-[#D1D1CF] leading-[18.29px]
+    @apply md:text-[#575858] md:dark:text-accent-secondary-eco md:px-2 md:text-[10.8px] lg:text-[14.41px] md:my-4 md:border-r-[0.5px] md:border-[#575858] lg:leading-[17.57px] xl:text-[18px] xl:leading-[21.94px] desktop:text-primary-main desktop:border-primary-main
   }
 
   .nav-link::after {

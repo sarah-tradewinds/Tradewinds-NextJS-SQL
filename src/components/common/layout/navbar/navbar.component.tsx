@@ -5,13 +5,12 @@ import { useState } from 'react';
 
 // Third party packages
 import { useTranslation } from 'next-i18next';
-import { AiOutlineDashboard } from 'react-icons/ai';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { BiMessageDetail } from 'react-icons/bi';
 import { FiLogOut } from 'react-icons/fi';
 
 // components
 import Breadcrumbs from 'components/breadcrumbs/breadcrumbs';
-import CartIcon from 'components/common/elements/cart-icon';
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import LanguageDropdown from 'components/common/elements/lang-menu';
 import NavLink from 'components/common/elements/nav-link';
@@ -72,47 +71,47 @@ const Header = (props: any) => {
 	const router = useRouter();
 	useMainCategories();
 
-	let classes = `leading-[22px] pt-[11px] bg-white dark:bg-accent-primary-eco md:bg-[#DCDBDB] w-[240px] md:w-full md:h-[58px] slg:h-[59px] lg:h-[58px] md:pl-5 md:pr-4 lg:px-[35px] items-center ${
-		!isOpen
-			? 'hidden md:block'
-			: 'fixed bottom-[51px] top-[50.6px] md:relative md:bottom-0 md:top-0'
-	}`;
+	let classes = `bg-[#DEDFE0] md:h-[35px]`;
 
 	const drawerHandler = () => {
 		setIsOpen((pevState) => !pevState);
 	};
 
 	const cartIconAndUsername = (
-		<div className="flex justify-center">
+		<div className="flex items-center justify-end">
 			<div
-				className={`${
+				className={`flex flex-col items-center ${
 					isAuth
-						? 'tablet:mx-4 tablet:mt-5 desktop:mr-[58px] desktop:ml-[90px]'
-						: 'tablet:mx-[38px] tablet:mt-5 desktop:ml-[111.43px]'
+						? 'md:mt-5s md:mx-4 desktop:mr-[58px] desktop:ml-[90px]'
+						: 'md:mx-[38px]s md:mt-5s md:mr-[40.1px] desktop:ml-[111.43px]'
 				}`}
 			>
-				<CartIcon
+				{/* <CartIcon
 					count={totalItemCartItem}
 					onClick={() => router.push('/cart')}
-					iconClassName="!text-[20px] tablet:!text-[24px] desktop:!text-[25.16px]"
+					iconClassName="!text-[20px] md:!text-[24px] desktop:!text-[25.16px]"
 					countClassName={`block ${
 						isAuth
-							? '!-top-1 !right-4 tablet:!-top-3 !desktop:-top-0 tablet:!right-2'
-							: '!-top-3 tablet:!-top-5'
+							? '!-top-1 !right-4 md:!-top-3 !desktop:-top-0 md:!right-2'
+							: '!-top-3 md:!-top-5'
 					}`}
-				/>
+				/> */}
+
+				<div>
+					<AiOutlineShoppingCart className="h-[12.32px] w-[15.1px] text-white lg:h-[16.45px] lg:w-[20.15px]" />
+				</div>
 
 				{/* Name and logout button */}
 				{isAuth && (
-					<div className="group relative cursor-pointer tablet:mr-10">
+					<div className="group relative cursor-pointer md:mr-8 xl:mr-14">
 						<p
-							className="overflow-ellipsis whitespace-nowrap text-xs text-white lg:!text-lg lg:leading-[22px] tablet:w-[64px] tablet:text-xs tablet:leading-[15px]"
+							className="overflow-ellipsis whitespace-nowrap text-xs text-white md:w-[64px] md:text-xs md:leading-[15px] lg:text-[14.41px] lg:leading-[17.57px]"
 							onMouseEnter={() => setShowLogout(true)}
 						>
 							{`Hi, ${customerData.name.substring(0, 10)}`}
 						</p>
 
-						<div className="absolute right-0 z-50 hidden w-[200px] bg-accent-primary-main p-2 text-white hover:bg-primary-main group-hover:block tablet:right-auto">
+						<div className="absolute right-0 z-50 hidden w-[200px] bg-accent-primary-main p-2 text-white hover:bg-primary-main group-hover:block md:right-auto">
 							<div
 								className="flex cursor-pointer"
 								onClick={() => {
@@ -130,52 +129,58 @@ const Header = (props: any) => {
 			</div>
 
 			{isAuth ? (
-				<div className="hidden tablet:ml-[6px] tablet:flex">
-					<Button
+				<div className="md:ml-[6px] md:flex md:h-[46px] lg:h-[61px] xl:h-[76px]">
+					<Link
 						href={generateBuyerDashboardUrl({
 							redirect_to: BUYER_DASHBOARD_PAGES.buyers,
 							access_key: customerData.access.token,
 							refresh_key: customerData.refresh.token
 						})}
-						variant="buyer"
-						className="flex flex-col items-center justify-center rounded-none !px-0 !py-0 transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary lg:!mr-[6.57px] lg:!h-[76px] lg:!w-[94.43px] lg:!text-lg lg:leading-[22px] tablet:mr-[5.56px] tablet:!h-[70px] tablet:!w-[73px]"
+						// variant="buyer"
+						// className="flex flex-col items-center justify-center rounded-none !px-0 !py-0 transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary md:mr-[5.56px] md:!h-[45.6px] md:!w-[73px] lg:!mr-[6.57px] lg:!h-[76px] lg:!w-[94.43px] lg:!text-lg lg:leading-[22px]"
+						className="md: flex flex-col items-center justify-center border-none bg-cyan text-white outline-none transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary md:mr-[5.56px] md:w-[56.66px] lg:w-[75.62px] xl:w-[94.43px]"
 					>
-						<AiOutlineDashboard size={35} />
-						<p className="tablet:text-[8px]">{t('common:dashboard')}</p>
-					</Button>
+						<div className="relative md:h-[12.04px] md:w-[22px] lg:h-[16.06px] lg:w-[29.36px] xl:h-[20.06px] xl:w-[36.66px] ">
+							<ImageWithErrorHandler
+								src="/icons/dashboard-icon.png"
+								alt=""
+								fill={true}
+							/>
+						</div>
+						<p className="md:text-[8px]">{t('common:dashboard')}</p>
+					</Link>
 
-					<Button
+					<Link
 						href={generateBuyerDashboardUrl({
 							redirect_to: BUYER_DASHBOARD_PAGES.buyer_rfq,
 							action: BUYER_DASHBOARD_ACTIONS.create_rfq,
 							access_key: customerData.access.token,
 							refresh_key: customerData.refresh.token
 						})}
-						variant="special"
-						className="flex-col !items-center rounded-none !px-0 py-0 transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08] lg:!h-[76px] lg:!w-[94.43px] lg:!text-lg lg:leading-[22px] tablet:!h-[70px] tablet:!w-[73px]"
+						// variant="special"
+						// className="flex-col !items-center rounded-none !px-0 py-0 transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08] md:!h-[70px] md:!w-[73px] lg:!h-[76px] lg:!w-[94.43px] lg:!text-lg lg:leading-[22px]"
+						className="flex flex-col items-center rounded-none bg-secondary text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08] md:h-full md:w-[56.66px] lg:w-[75.62px] xl:w-[94.43px]"
 					>
-						<div className="flex items-center justify-center text-center">
+						<div className="flex items-center justify-center text-center lg:mt-[12px] xl:mt-[16px]">
 							<BiMessageDetail size={25} />
 						</div>
-						<p className="text-primary-main tablet:text-[8px] tablet:leading-[15px]">
+						<p className="text-primary-main md:text-[8px] md:leading-[15px]">
 							{t('navigation:submit_rfq_text')}
 						</p>
-					</Button>
+					</Link>
 				</div>
 			) : (
-				<div className="mr-[39px] hidden tablet:flex tablet:items-center">
+				<div className="flex items-center md:mr-[5.5px]">
 					<button
 						type="button"
-						// className="rounded-sm border-[1px] bg-transparent px-5 py-2 text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary"
-						className="flex flex-col items-center justify-center rounded-sm border bg-transparent text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary lg:!mr-[9px] lg:!w-[94px] lg:!border-2 lg:!border-secondary lg:!text-lg lg:leading-[22px] tablet:mr-[5.56px] tablet:!h-[42px] tablet:!w-[73px] tablet:!font-normal"
+						className="flex flex-col items-center justify-center rounded-sm border bg-transparent text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary md:mr-[5.56px] md:!h-[42px] md:!w-[73px] md:text-[10.8px] md:!font-normal lg:!mr-[9px] lg:!w-[94px] lg:!border-2 lg:!border-secondary lg:!text-lg lg:leading-[22px]"
 						onClick={setIsSelectSignUpOpen}
 					>
 						{t('sign_up_text')}
 					</button>
 					<Button
 						variant="special"
-						// className="rounded-sm border-[1px] border-secondary bg-secondary px-5 py-2 text-white transition duration-300 ease-in-out hover:border-white hover:bg-transparent"
-						className="rounded-none !px-0 py-0 transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08] lg:!w-[94px] lg:!text-lg lg:leading-[22px] tablet:!h-[42px] tablet:!w-[73px] tablet:!font-normal"
+						className="rounded-none !px-0 py-0 transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08] md:!h-[42px] md:!w-[73px] md:text-[10.8px] md:!font-normal lg:!w-[94px] lg:!text-lg lg:leading-[22px]"
 						onClick={setIsLoginOpen}
 					>
 						{t('log_in_text')}
@@ -187,17 +192,22 @@ const Header = (props: any) => {
 
 	return (
 		<header
-			className={`sticky top-0 z-[10000] hidden h-[50.07px] w-full md:block md:h-[111px] lg:h-[119.68px] tablet:h-[70px]  ${
-				isEco
-					? 'bg-primary-eco'
-					: 'bg-gradient-to-r from-success via-accent-primary-main to-primary-main'
-			}`}
+			// className={`sticky top-0 z-[10000] hidden h-[50.07px] w-full md:block md:h-[111px] lg:h-[119.68px] md:h-[70px]  ${
+			// 	isEco
+			// 		? 'bg-primary-eco'
+			// 		: 'bg-gradient-to-r from-success via-accent-primary-main to-primary-main'
+			// }`}
+			className={`sticky top-0 z-[10000] hidden w-full md:block md:h-[80px] lg:h-[96px] xl:h-[120px]`}
 		>
-			<div className="flex w-full items-center justify-between">
+			<div
+				className={`${
+					isEco ? 'bg-primary-eco' : 'bg-gradient-to-r to-primary-main'
+				} via-accent-primary-mains flex h-[45.6px] w-full  items-center justify-between from-[#37B34A] via-cyan to-primary-main md:pl-[5.4px] lg:pl-[20px] xl:pl-[47px] desktop:pl-[18px] lg:h-[61px] xl:h-[76px]`}
+			>
 				{/* Tradewinds logo */}
 				<Link
 					href="/"
-					className="relative block md:h-[33.6px] md:w-[121.2px]"
+					className="relative block md:h-[33.6px] md:w-[121.2px] lg:h-[44.84px] lg:w-[161.76px] xl:h-[56px] xl:w-[202px]"
 				>
 					<ImageWithErrorHandler
 						src="/images/tradewinds-horizontal-logo.png"
@@ -215,23 +225,23 @@ const Header = (props: any) => {
 				</Link>
 
 				{/* Search Input */}
-				<SearchBar />
+				<SearchBar placeholder=" " />
 
 				<div>{cartIconAndUsername}</div>
 			</div>
 
 			{/* Bottom nav */}
-			<div className={classes}>
-				<div className="m-4s flex w-full flex-col justify-between p-4 md:flex-row md:items-center md:p-0">
-					<div className="flex md:items-center">
+			<div className="flex items-center overflow-hidden bg-[#DEDFE0] md:h-[33px] xl:h-[44px]">
+				<div className="bg-errors flex w-full items-center justify-between">
+					<div className="flex items-center md:ml-[5.9px]">
 						<div
 							className="group hidden md:inline-block"
 							onMouseEnter={() => setIsMegaMenuOpen(true)}
 							onMouseLeave={() => setIsMegaMenuOpen(false)}
 						>
-							<div className="flex cursor-pointer items-center space-x-1 font-semibold text-primary-main outline-none dark:text-accent-secondary-eco lg:text-[18px] lg:leading-[22px] tablet:text-xs tablet:leading-[15px]">
+							<div className="nav-link flex items-center space-x-1 font-semibold outline-none dark:text-accent-secondary-eco">
 								<span>{t('categories_text')} </span>
-								<span className="hidden tablet:inline-block">&gt;</span>
+								<span className="hidden md:inline-block">&gt;</span>
 							</div>
 
 							{isMegaMenuOpen && (
@@ -241,10 +251,10 @@ const Header = (props: any) => {
 							)}
 						</div>
 
-						<nav className="flex w-full cursor-pointer flex-col items-start justify-start md:flex-row md:items-center md:divide-x">
+						<nav className="flex items-center">
 							<NavLink
 								href="/eco"
-								className="nav-link hidden items-center justify-center gap-2 md:flex"
+								className="nav-link flex items-center space-x-1"
 								activeClassName="underline font-semibold"
 								onClick={() => {
 									router.push(`/eco?is_eco=${true}`, undefined, {
@@ -259,10 +269,10 @@ const Header = (props: any) => {
 								<ImageWithErrorHandler
 									src="/static/images/eco_logo.png"
 									alt="EcoLogo"
-									width={20}
-									height={20}
+									width={13.8}
+									height={13.2}
 								/>
-								{t('eco_text')}
+								<span>{t('eco_text')}</span>
 							</NavLink>
 
 							<NavLink
@@ -275,6 +285,7 @@ const Header = (props: any) => {
 							>
 								{t('eco_text')}
 							</NavLink>
+
 							<NavLink
 								href="/why-sell-on-tradewinds"
 								className="nav-link"
@@ -304,42 +315,12 @@ const Header = (props: any) => {
 
 							<NavLink
 								href="what-is-rfq"
-								className="nav-link"
+								className="nav-link !border-r-0"
 								activeClassName="underline font-semibold"
 								onClick={drawerHandler}
 							>
 								{t('what_is_a_rfq_text')}
 							</NavLink>
-
-							{/* For mobile only */}
-							<div className="flex w-full flex-col space-y-4 sm:hidden">
-								<NavLink
-									href={generateBuyerDashboardUrl({
-										redirect_to: BUYER_DASHBOARD_PAGES.buyer_rfq,
-										action: BUYER_DASHBOARD_ACTIONS.create_rfq,
-										access_key: customerData.access.token,
-										refresh_key: customerData.refresh.token
-									})}
-									className="nav-link"
-									activeClassName="underline font-semibold"
-									onClick={drawerHandler}
-								>
-									{t('dashboard')}
-								</NavLink>
-
-								<NavLink
-									href="/"
-									className="nav-link border-0"
-									activeClassName="capitalize underline font-semibold"
-									onClick={() => {
-										logout();
-										resetCart();
-										drawerHandler();
-									}}
-								>
-									{t('logout')}
-								</NavLink>
-							</div>
 						</nav>
 					</div>
 
@@ -348,7 +329,7 @@ const Header = (props: any) => {
 					</div>
 				</div>
 
-				<div className="ml-[35px] hidden tablet:inline-block">
+				<div className="ml-[35px] hidden md:inline-block">
 					<Breadcrumbs productName={props.productName} />
 				</div>
 			</div>

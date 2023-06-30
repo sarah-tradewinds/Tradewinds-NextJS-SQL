@@ -31,7 +31,7 @@ const CategoryCollapse: React.FC<CategoryCollapseProps> = (props) => {
 	return (
 		<div className="overflow-hidden rounded-t-md bg-white">
 			<div
-				className="flex h-[67px] items-center justify-between rounded-md pl-2"
+				className="relative flex h-[67px] items-center justify-between rounded-md pl-2"
 				style={{ backgroundColor }}
 			>
 				<div className="flex items-center space-x-4">
@@ -46,8 +46,9 @@ const CategoryCollapse: React.FC<CategoryCollapseProps> = (props) => {
 					</p>
 				</div>
 
-				{/* Image container */}
-				<div>
+        {/* Image container */}
+        <div className="relative w-20 h-full">
+				<div className="absolute right-0 top-1/2 transform -translate-y-1/2">
 					<ImageWithErrorHandler
 						src={imageUrl}
 						alt=""
@@ -55,6 +56,7 @@ const CategoryCollapse: React.FC<CategoryCollapseProps> = (props) => {
 						height={80}
 						className="h-20 w-20"
 					/>
+				</div>
 				</div>
 			</div>
 
