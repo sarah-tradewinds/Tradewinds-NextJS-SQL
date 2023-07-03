@@ -10,15 +10,15 @@ import Hero from 'components/home/hero';
 
 // lib
 import {
-	getCardAList,
-	getCardB,
-	getHeroCarousels,
-	getHomeCountries
+  getCardAList,
+  getCardB,
+  getHeroCarousels,
+  getHomeCountries
 } from 'lib/home.lib';
 import {
-	GetStaticProps,
-	InferGetStaticPropsType,
-	NextPage
+  GetStaticProps,
+  InferGetStaticPropsType,
+  NextPage
 } from 'next';
 
 import { getEcoHomeMainCategoriesAndCategories } from 'lib/eco/eco-home.lib';
@@ -200,10 +200,10 @@ export default HomePage;
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
 	try {
 		// const heroCarousels = await getHeroCarousels(true);
-		console.log(
-			'heroCarousels-heroCarousels-heroCarousels =',
-			heroCarousels
-		);
+		// console.log(
+		// 	'heroCarousels-heroCarousels-heroCarousels =',
+		// 	heroCarousels
+		// );
 		const cardAList = await getCardAList(true);
 		const cardBData = await getCardB(true);
 		const ecoHomeMainCategoriesAndCategories =
