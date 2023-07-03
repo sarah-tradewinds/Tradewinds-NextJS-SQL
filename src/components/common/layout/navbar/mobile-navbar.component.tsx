@@ -86,8 +86,8 @@ const MobileHeader = (props: any) => {
 				<CartIcon
 					count={totalItemCartItem}
 					onClick={() => router.push('/cart')}
-					iconClassName="!text-[20px] md:!text-[24px] desktop:!text-[25.16px]"
-					countClassName={`block ${
+					iconClassName="!text-[20px] md:!text-[24px]"
+					countClassName={`!hidden ${
 						isAuth
 							? '!-top-1 !right-4 md:!-top-3 !desktop:-top-0 md:!right-2'
 							: '!-top-3 md:!-top-5'
@@ -157,7 +157,6 @@ const MobileHeader = (props: any) => {
 				<div className="mr-[39px] hidden md:flex md:items-center">
 					<button
 						type="button"
-						// className="rounded-sm border-[1px] bg-transparent px-5 py-2 text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary"
 						className="flex flex-col items-center justify-center rounded-sm border bg-transparent text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary md:mr-[5.56px] md:!h-[42px] md:!w-[73px] md:!font-normal lg:!mr-[9px] lg:!w-[94px] lg:!border-2 lg:!border-secondary lg:!text-lg lg:leading-[22px]"
 						onClick={setIsSelectSignUpOpen}
 					>
@@ -165,7 +164,6 @@ const MobileHeader = (props: any) => {
 					</button>
 					<Button
 						variant="special"
-						// className="rounded-sm border-[1px] border-secondary bg-secondary px-5 py-2 text-white transition duration-300 ease-in-out hover:border-white hover:bg-transparent"
 						className="rounded-none !px-0 py-0 transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08] md:!h-[42px] md:!w-[73px] md:!font-normal lg:!w-[94px] lg:!text-lg lg:leading-[22px]"
 						onClick={setIsLoginOpen}
 					>
@@ -196,7 +194,7 @@ const MobileHeader = (props: any) => {
 				className="relative mx-10 block h-[28px] w-[101px]"
 			>
 				<Image
-					src="/images/tradewinds-horizontal-logo.png"
+					src="/images/tradewinds-horizontal-logo.svg"
 					alt="Logo"
 					fill={true}
 					onClick={() => {

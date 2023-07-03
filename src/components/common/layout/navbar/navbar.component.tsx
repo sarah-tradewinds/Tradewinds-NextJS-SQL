@@ -202,7 +202,7 @@ const Header = (props: any) => {
 			<div
 				className={`${
 					isEco ? 'bg-primary-eco' : 'bg-gradient-to-r to-primary-main'
-				} via-accent-primary-mains flex h-[45.6px] w-full  items-center justify-between from-[#37B34A] via-cyan to-primary-main md:pl-[5.4px] lg:pl-[20px] xl:pl-[47px] desktop:pl-[18px] lg:h-[61px] xl:h-[76px]`}
+				} via-accent-primary-mains flex h-[45.6px] w-full  items-center justify-between from-[#37B34A] via-cyan to-primary-main md:pl-[5.4px] lg:h-[61px] lg:pl-[20px] xl:h-[76px] xl:pl-[47px] desktop:pl-[18px]`}
 			>
 				{/* Tradewinds logo */}
 				<Link
@@ -210,7 +210,7 @@ const Header = (props: any) => {
 					className="relative block md:h-[33.6px] md:w-[121.2px] lg:h-[44.84px] lg:w-[161.76px] xl:h-[56px] xl:w-[202px]"
 				>
 					<ImageWithErrorHandler
-						src="/images/tradewinds-horizontal-logo.png"
+						src="/images/tradewinds-horizontal-logo.svg"
 						alt="Logo"
 						fill={true}
 						className="cursor-pointer"

@@ -122,7 +122,7 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 				title={t('home:meta_title')}
 				description={t('home:meta_description')}
 			/>
-			<div className="desktop:container desktop:w-[1512px]">
+			<div className="3xl:container 3xl:w-[1700px]">
 				<Hero
 					hcd={heroCarousels}
 					cardAList={cardAList}
@@ -158,16 +158,7 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 											{/*  Search Categories Banner */}
 											{canIDisplayFlags === index && (
 												<div className="hidden md:block">
-													<div className="flex items-center bg-accent-primary-main text-white md:h-[85.8px] lg:h-[114.51px] lg:justify-between xl:h-[143px]">
-														{/* <h3 className="text-[33px] font-semibold md:ml-[26.4px]">
-															<span>{t('home:search_from')} </span>
-															<span className="inline-block pr-2 lg:mx-3 lg:text-[60px] lg:leading-[73px]">
-																6500
-															</span>
-															<span className="inline-block">
-																{t('home:categories')}
-															</span>
-														</h3> */}
+													<div className="flex items-center bg-accent-primary-main  dark:bg-accent-primary-eco text-white md:h-[85.8px] lg:h-[114.51px] lg:justify-between xl:h-[143px]">
 														<h3 className="text-[33px] font-semibold md:ml-[26.4px] lg:text-[55px] lg:leading-[46px] xl:leading-[67.05px] desktop:text-[72px] desktop:leading-[87.77px]">
 															{t('home:search_from')} 6500{' '}
 															{t('home:categories')}

@@ -16,7 +16,6 @@ import {
 	getHomeCountries
 } from 'lib/home.lib';
 import {
-	GetServerSideProps,
 	GetStaticProps,
 	InferGetStaticPropsType,
 	NextPage
@@ -33,6 +32,7 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 	props
 ) => {
 	const {
+		// heroCarousels = [],
 		cardAList = [],
 		cardBData = {},
 		ecoHomeMainCategoriesAndCategories = [],
@@ -41,15 +41,7 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 
 	// Fetching Hero carousel
 	const { data: heroCarousels = [], error: heroCarouselsError } =
-		useSWR(`//cms/carousel?isEco=${true}`, () =>
-			getHeroCarousels(true)
-		);
-
-	// Fetching Advertisement
-	// const { data: homeAdvertisements = [], error } = useSWR(
-	// 	'/advertisement/getalladvertisement',
-	// 	getHomeAdvertisements
-	// );
+		useSWR(`/cms/carousel?isEco=${true}`, () => getHeroCarousels(true));
 
 	// Fetching Countries
 	const {
@@ -69,21 +61,6 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 		}
 	}, [is_eco]);
 
-	// const searchCategoriesBanner = (
-	// 	<div className="flex items-center justify-center bg-accent-primary-main p-4 text-white dark:bg-accent-primary-eco md:p-8 lg:p-14">
-	// 		<h3 className="text-[21px] leading-[26px] md:mr-8 md:text-[48px] md:leading-[44px] lg:whitespace-nowrap lg:text-[72px]">
-	// 			Search from 6,500 categories
-	// 		</h3>
-	// 		<Button
-	// 			href={`/6500-categories?is_eco=${true}`}
-	// 			variant="special"
-	// 			className="whitespace-nowrap !px-4"
-	// 		>
-	// 			Search More
-	// 			{' >'}
-	// 		</Button>
-	// 	</div>
-	// );
 	const searchCategoriesAndTrendingBanner = (
 		<div className="grid gap-4 lg:grid-cols-2">
 			<div className="flex h-[78.75px] items-center bg-accent-primary-main p-3 text-white dark:bg-header-bar md:space-y-2 lg:h-[143px] lg:flex-col lg:p-0">
@@ -220,10 +197,13 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 
 export default HomePage;
 
-export const getServerSideProps: GetServerSideProps = async ({
-	locale
-}) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
 	try {
+		// const heroCarousels = await getHeroCarousels(true);
+		console.log(
+			'heroCarousels-heroCarousels-heroCarousels =',
+			heroCarousels
+		);
 		const cardAList = await getCardAList(true);
 		const cardBData = await getCardB(true);
 		const ecoHomeMainCategoriesAndCategories =
@@ -232,6 +212,8 @@ export const getServerSideProps: GetServerSideProps = async ({
 		return {
 			props: {
 				...(await serverSideTranslations(locale || 'en')),
+
+				// heroCarousels,
 				cardAList,
 				cardBData,
 				ecoHomeMainCategoriesAndCategories:
@@ -246,6 +228,8 @@ export const getServerSideProps: GetServerSideProps = async ({
 		return {
 			props: {
 				...(await serverSideTranslations(locale || 'en')),
+
+				heroCarousels: [],
 				cardAList: [],
 				cardBData: {},
 				ecoHomeMainCategoriesAndCategories: {

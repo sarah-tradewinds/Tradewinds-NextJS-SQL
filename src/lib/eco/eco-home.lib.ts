@@ -3,8 +3,6 @@ import { axiosInstance } from 'utils/axios-instance.utils';
 export const getEcoHomeMainCategoriesAndCategories = async () => {
 	try {
 		const { data } = await axiosInstance.get(
-			// '/cms/category-cms/home?eco=true'
-			// '/cms/category-cms?eco=true'
 			'cms/cms-category-eco'
 		);
 

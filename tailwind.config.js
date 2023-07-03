@@ -75,7 +75,8 @@ module.exports = {
 				mobile: '320px',
 				tablet: '744px',
 				'900px': '900px',
-				desktop: '1512px'
+				desktop: '1512px',
+				'3xl': '1700px'
 			},
 			boxShadow: {
 				'mega-menu': '2px 0px 4px rgba(0, 0, 0, 0.25)'

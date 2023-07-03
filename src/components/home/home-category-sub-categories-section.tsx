@@ -176,8 +176,16 @@ const HomeCategorySubCategoriesSection: React.FC<
 					onPressed={onMainCategoryPressed}
 				/>
 
-				<div className="md:w-[506.48px]s bg-errors relative md:ml-[31.84px] md:mt-[19.16px] md:w-[68%] lg:!w-[68%] xl:mt-[25px] desktop:mt-[28px] 900px:w-[72%]">
-					<HomeCategorySlider categories={categories || []} />
+				<div className="md:w-[506.48px]s bg-errors relative md:ml-[31.84px] md:mt-[19.16px] md:w-[68%] lg:!w-[68%] xl:mt-[25px] 900px:w-[72%] desktop:mt-[28px]">
+					<HomeCategorySlider
+						categories={categories || []}
+						onTileClick={(categoryId, data) =>
+							onSubCategoryTileClickHandler(
+								categoryId,
+								data?.title?.en || ''
+							)
+						}
+					/>
 				</div>
 			</div>
 		</>
@@ -205,7 +213,7 @@ const MainCategoryCard: React.FC<MainCategoryCardProps> = (props) => {
 
 	return (
 		<div className="bg-errors relative flex flex-col md:h-[198px] lg:h-[200px] xl:h-[256px] desktop:h-[324px]">
-			<h3 className="ml-[15.69px] pt-[19px] text-[18px] font-semibold text-primary-main md:w-[169px] lg:ml-[29.23px] lg:w-[237px] lg:pt-[16.44px] lg:text-[21px] xl:ml-[36.51px] xl:w-[296.36px] xl:pt-[16px] desktop:ml-[43px] desktop:w-[349.08px] desktop:pt-[23px]s desktop:text-[25px]">
+			<h3 className="desktop:pt-[23px]s ml-[15.69px] pt-[19px] text-[18px] font-semibold text-primary-main md:w-[169px] lg:ml-[29.23px] lg:w-[237px] lg:pt-[16.44px] lg:text-[21px] xl:ml-[36.51px] xl:w-[296.36px] xl:pt-[16px] desktop:ml-[43px] desktop:w-[349.08px] desktop:text-[25px]">
 				{title}
 			</h3>
 			{/*Category Image and CTA  */}

@@ -206,39 +206,40 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 			/>
 		</div>
 	];
+	const isSalePriceAvailable = isSaleOn && !isBulkPricing;
 
 	return (
 		<div
-			className={`relative bg-white tablet:h-[230px] tablet:w-full tablet:rounded-md desktop:h-[312px] ${
+			className={`relative overflow-hidden rounded-md bg-white sm:h-[230px] ${
 				isEco ? 'border-2 border-accent-success' : ''
 			}`}
 		>
-			<div className="flex tablet:ml-4 tablet:pt-3 tablet:pr-[14px] desktop:space-x-2">
-				{/* Image container */}
-				<div className="relative flex items-center justify-center">
-					<div className="overflow-hidden sm:h-[139px] sm:w-[139px]">
-						<img
-							key={imageUrl}
-							src={imageUrl}
-							alt={alt || ''}
-							className="cursor-pointer object-contain"
-							onClick={onClick}
-						/>
-					</div>
-					{isEco && (
-						<div className="absolute top-2 left-2 desktop:top-0">
-							<ImageWithErrorHandler
-								src="/static/icons/eco-icon.png"
-								alt="eco-icon"
-								width={32}
-								height={32}
-							/>
-						</div>
-					)}
-				</div>
+			<div className="flex">
+        {/* Image container */}
+        <div className="relative flex items-center justify-cener w-[188px] h-[177px]s">
+          <div className="overflow-hidden sm:h-[139px] sm:w-[139px]">
+            <img
+              key={imageUrl}
+              src={imageUrl}
+              alt={alt || ''}
+              className="cursor-pointer object-contain"
+              onClick={onClick}
+            />
+          </div>
+          {isEco && (
+            <div className="absolute top-2 left-2 desktop:top-0">
+              <ImageWithErrorHandler
+                src="/static/icons/eco-icon.png"
+                alt="eco-icon"
+                width={32}
+                height={32}
+              />
+            </div>
+          )}
+        </div>
 
 				{/* Name, descriptions and keywords */}
-				<div className="mt-[8px] w-full">
+				<div className="ml-[28px] mt-[8px] w-full">
 					<h2
 						onClick={onClick}
 						className="cursor-pointer line-clamp-3 sm:text-[16px] sm:leading-[19.5px]"
@@ -246,27 +247,16 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 						<span className="font-semibold">{name}: </span>
 						<span className="text-gray">{description}</span>
 					</h2>
-
-					{/* Keywords, Price and quantity */}
-					{/* <div className="border-[#DEDFE0] lg:!w-[340px] tablet:w-[256px] tablet:border-b-[0.966234px] tablet:pb-2 desktop:w-[552px] desktop:border-b-2 desktop:pb-4"> */}
-					<div className="">
-						{/* keywords */}
-						{/* <div className="tablet:pb-5s tablet:h-8s tablet:mt-1 tablet:pb-4">
-							{keywords.length > 0 && (
-								<KeywordSlider keywords={keywords || []} />
-							)}
-						</div> */}
-
-						<h3
-							// className="flex items-center space-x-2 font-semibold capitalize tablet:space-x-8 tablet:text-[18px] tablet:leading-[22px] tablet:text-primary-main desktop:text-[21px] desktop:leading-[26px]"
-							className="text-[18px] font-semibold leading-[21.94px] text-primary-main"
-						>
+            
+					{/* Price and quantity */}
+					<div className="mt-[18px] border-b-[0.97px] w-[266.68px] border-[#DEDFE0] pb-[13px]">
+						<h3 className="text-[18px] font-semibold leading-[21.94px] text-primary-main">
 							{isSaleOn && !isBulkPricing ? (
 								<>
 									<span className="text-accent-error">
 										Sale ${salePrice}/{minOrderQuantityUnit}
 									</span>
-									<span className="text-gray line-through">
+									<span className="inline-block ml-2 text-gray line-through">
 										${productPrice}/{minOrderQuantityUnit}
 									</span>
 								</>
@@ -275,11 +265,10 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 									{displayPrice} /{minOrderQuantityUnit}
 								</>
 							)}
-						</h3>
+            </h3>
 
 						{minOrderQuantity > 0 && (
-							// <h4 className="font-normal capitalize tablet:text-[18px] tablet:font-semibold tablet:leading-[22px] tablet:text-primary-main desktop:text-[21px] desktop:leading-[26px]">
-							<h4 className="text-[18px] leading-[21.94px]">
+							<h4 className="text-[18px] leading-[21.94px] font-semibold text-primary-main">
 								{minOrderQuantity} {minOrderQuantityUnit} /
 								{t('common:min_order')}
 							</h4>
@@ -287,7 +276,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 					</div>
 
 					{/* Metadata - For desktop only */}
-					<div className="hidden items-center justify-between xl:flex xl:w-[552px] desktop:mt-[18px]">
+					<div className="hidden lg:flex items-center justify-between">
 						<div className="flex flex-col space-y-4">
 							{metadataTileList[0]}
 							{metadataTileList[3]}
@@ -304,8 +293,8 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 				</div>
 			</div>
 
-			{/* Metadata - For tablet only */}
-			{/* <div className="flex items-center space-x-4 lg:!w-[500px] xl:hidden tablet:mt-[17px] tablet:w-[440px] tablet:pl-4">
+			{/* Metadata - For sm and tablet only */}
+			<div className="flex items-center space-x-4 sm:mt-[17px] sm:ml-[25px]">
 				<div className="flex flex-col space-y-2">
 					{metadataTileList[0]}
 					{metadataTileList[3]}
@@ -318,9 +307,9 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 					{metadataTileList[2]}
 					{metadataTileList[5]}
 				</div>
-			</div> */}
+			</div>
 
-			<div className="absolute right-0 bottom-3 flex w-[126px] flex-col items-center space-y-2 desktop:right-12 desktop:bottom-6 desktop:w-[138.32px]">
+			<div className="absolute right-0 bottom-[19.37px] flex w-[126px] flex-col items-center space-y-2 desktop:right-12 desktop:bottom-6 desktop:w-[138.32px]">
 				{/* Verified Image */}
 				<div className="relative h-[54.87px] w-[83.09px] desktop:h-[82px] desktop:w-[124px]">
 					<ImageWithErrorHandler

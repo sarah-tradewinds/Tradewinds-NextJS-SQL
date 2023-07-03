@@ -11,12 +11,13 @@ import { getLocaleText } from 'utils/get_locale_text';
 
 interface HomeCategorySliderProps {
 	categories: any[];
+	onTileClick?: (categoryId: string, data: any) => any;
 }
 
 const HomeCategorySlider: React.FC<HomeCategorySliderProps> = (
 	props
 ) => {
-	const { categories = [] } = props;
+	const { categories = [], onTileClick } = props;
 	const { locale } = useRouter();
 	const { deviceWidth } = useDeviceSize();
 	const slider = useRef(null);
@@ -81,6 +82,7 @@ const HomeCategorySlider: React.FC<HomeCategorySliderProps> = (
 								title={subCategoryTitle}
 								imageUrl={categoryData?.image}
 								isEco={categoryData?.is_eco}
+                onTileClick={() => onTileClick?.(categoryData?.id, categoryData)}
 							/>
 						</div>
 					);
@@ -105,23 +107,21 @@ interface SubCategoryCardProps {
 	backgroundColor?: string;
 	buttonBackgroundColor?: string;
 	isEco?: boolean;
-	onPressed?: () => void;
+	onTileClick?: () => void;
 }
 
 const SubCategoryCard: React.FC<SubCategoryCardProps> = (props) => {
-	const {
-		title,
-		imageUrl,
-		backgroundColor,
-		buttonBackgroundColor,
-		isEco,
-		onPressed
-	} = props;
+	const { title, imageUrl, backgroundColor, isEco, onTileClick } =
+		props;
 
 	return (
-		<div className="relative flex flex-col justify-between border-[1.36px] border-[#C4C4C4] md:h-[86.43px] md:w-[162.48px] xl:h-[107.93px] xl:w-[202.91px] desktop:h-[127.13px] desktop:w-[239px]">
+		<div
+			className="relative flex flex-col justify-between border-[1.36px] border-[#C4C4C4] md:h-[86.43px] md:w-[162.48px] xl:h-[107.93px] xl:w-[202.91px] desktop:h-[127.13px] desktop:w-[239px]"
+			style={{ backgroundColor }}
+		>
 			<h4
-				className={`text-[14px]s mt-[9.74px] ml-[6.12px] w-[76%] font-semibold text-primary-main lg:w-[78%] lg:text-[13px] ${
+				onClick={onTileClick}
+				className={`cursor-pointer mt-[9.74px] ml-[6.12px] w-[76%] font-semibold text-primary-main lg:w-[78%] lg:text-[13px] ${
 					title?.length >= 20 ? 'text-[12px]' : 'text-[14px]'
 				}`}
 			>
