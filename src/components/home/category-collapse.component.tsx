@@ -41,7 +41,7 @@ const CategoryCollapse: React.FC<CategoryCollapseProps> = (props) => {
 					>
 						{isOpen ? <HiMinusCircle /> : <HiPlusCircle />}
 					</button>
-					<p className="text-[18px] font-semibold text-primary-main">
+					<p onClick={onTitleClick} className="text-[18px] font-semibold text-primary-main">
 						{title}
 					</p>
 				</div>
