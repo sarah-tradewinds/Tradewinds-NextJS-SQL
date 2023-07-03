@@ -141,7 +141,7 @@ const ProductList: React.FC<ProductListProps> = ({
 				]}
 			/>
 
-			<div className="grid grid-cols-1 gap-y-1 tablet:gap-y-[15px] desktop:gap-[27px]">
+			<div className="m-[9px] grid grid-cols-1 gap-y-[14px] md:gap-y-[15px] desktop:gap-[27px]">
 				{products.map((product, index) => {
 					console.log('product-product-product = ', product);
 
@@ -271,19 +271,19 @@ const ProductList: React.FC<ProductListProps> = ({
 					return (
 						<>
 							{products?.length <= 0 && (
-								<div className="hidden tablet:block">
+								<div className="hidden md:block">
 									<RFQCard size="sm" />
 								</div>
 							)}
 
-							<div className="w-full tablet:hidden">
+							<div className="w-full sm:hidden">
 								<MobileProductTile
 									{...productData}
 									onClick={navigateWithShallow}
 								/>
 							</div>
 
-							<div className="hidden tablet:block">
+							<div className="hidden sm:block">
 								<ProductTile
 									{...productData}
 									onClick={navigateWithShallow}
