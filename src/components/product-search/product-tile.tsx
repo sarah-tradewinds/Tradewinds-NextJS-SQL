@@ -100,10 +100,10 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 	const messageVendorButton = (
 		<button
 			onClick={onMessageVendorClick}
-			className="flex h-[20px] items-center space-x-1 rounded border-[0.594234px] border-primary-main outline-none desktop:h-[22.98px] desktop:w-[138.32px] desktop:border-[1.23px]"
+			className="flex h-[20px] items-center space-x-1 rounded border-[0.594234px] border-primary-main outline-none xl:h-[22.98px] xl:w-[138.32px] xl:border-[1.23px]"
 		>
-			<div className="flex h-full w-[17.28px] justify-center bg-accent-primary-main desktop:w-[26.4px]">
-				<div className="relative h-[20px] w-[12.08px] desktop:w-[18px]">
+			<div className="flex h-full w-[17.28px] justify-center bg-accent-primary-main xl:w-[26.4px]">
+				<div className="relative h-[20px] w-[12.08px] xl:w-[18px]">
 					<ImageWithErrorHandler
 						src="/message-vendor-icon.png"
 						alt="message vendor icon"
@@ -125,6 +125,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 			imageUrl={country?.imageUrl}
 			alt={country?.name}
 			title={country?.name}
+			titleClassName="lg:!text-[10px] sm:!text-[12px] sm:!leading-[14.63px] xl:!text-[13px] xl:!leading-[15.85px]"
 			imageContainerClassName="!w-[14px] !h-[10px] desktop:!w-[23px] desktop:!h-[14px]"
 			className="!space-x-1"
 		/>,
@@ -135,6 +136,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 				imageUrl={metadataList[1].imageUrl}
 				alt={`${t('common:live_buy')}/${t('common:ready_to_ship')}`}
 				title={`${t('common:live_buy')}/${t('common:ready_to_ship')}`}
+				titleClassName="lg:!text-[10px] sm:!text-[12px] sm:!leading-[14.63px] xl:!text-[13px] xl:!leading-[15.85px]"
 				className="!space-x-1"
 				imageContainerClassName="desktop:!w-[22px] desktop:!h-[12.57px]"
 			/>
@@ -143,7 +145,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 		<MetadataTile
 			key={metadataList[2].title}
 			icon={
-				<div className="text-[20px] tablet:text-[24] desktop:text-[28px]">
+				<div className="text-[20px] md:text-[24] desktop:text-[28px]">
 					{isInCompareList ? (
 						<MdBookmark className="text-[#FC5267]" />
 					) : (
@@ -155,7 +157,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 			title={t('common:compare')}
 			onClick={onCompareClick}
 			className="cursor-pointer !space-x-1"
-			titleClassName="desktop:text-cyan"
+			titleClassName="xl:text-cyan lg:!text-[10px] xl:!text-[13px] xl:!leading-[15.85px]"
 		/>,
 		// Customizable
 		<MetadataTile
@@ -171,6 +173,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 					</span>
 				</p>
 			}
+			titleClassName="lg:!text-[10px] sm:!text-[12px] sm:!leading-[14.63px] xl:!text-[13px] xl:!leading-[15.85px]"
 		/>,
 		// variantCount
 		<MetadataTile
@@ -178,18 +181,20 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 			imageUrl={metadataList[4].imageUrl}
 			alt={metadataList[4].title}
 			title={`${t('common:variants')} ${variantCount}`}
+			titleClassName="lg:!text-[10px] sm:!text-[12px] sm:!leading-[14.63px] xl:!text-[13px] xl:!leading-[15.85px]"
 			className="!space-x-1"
 		/>,
 		// add to cart
 		<div
 			key={t('common:save')}
 			title={!isLive ? 'Use message vendor' : ''}
+			// titleClassName="lg:!text-[10px] sm:!text-[12px] sm:!leading-[14.63px]"
 		>
 			<MetadataTile
 				key={t('common:save')}
 				icon={
 					<div
-						className={`text-[20px] tablet:text-[24] desktop:pl-[2px] desktop:text-[24px] ${
+						className={`text-[20px] md:text-[24] desktop:pl-[2px] desktop:text-[24px] ${
 							isLive ? 'text-accent-primary-main' : 'text-gray/40'
 						}`}
 					>
@@ -202,61 +207,62 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 					isLive ? 'cursor-pointer' : 'cursor-not-allowed'
 				}`}
 				onClick={isLive ? onCartClick : undefined}
-				titleClassName="desktop:text-cyan"
+				// titleClassName="desktop:text-cyan lg:!text-[10px]"
+			titleClassName="xl:text-cyan lg:!text-[10px] sm:!text-[12px] sm:!leading-[14.63px] xl:!text-[13px] xl:!leading-[15.85px]"
 			/>
 		</div>
 	];
-	const isSalePriceAvailable = isSaleOn && !isBulkPricing;
 
 	return (
 		<div
-			className={`relative overflow-hidden rounded-md bg-white sm:h-[230px] ${
+			className={`relative overflow-hidden rounded-md bg-white sm:h-[230px] xl:h-[280px] desktop:h-[312px] ${
 				isEco ? 'border-2 border-accent-success' : ''
 			}`}
 		>
-			<div className="flex">
-        {/* Image container */}
-        <div className="relative flex items-center justify-cener w-[188px] h-[177px]s">
-          <div className="overflow-hidden sm:h-[139px] sm:w-[139px]">
-            <img
-              key={imageUrl}
-              src={imageUrl}
-              alt={alt || ''}
-              className="cursor-pointer object-contain"
-              onClick={onClick}
-            />
-          </div>
-          {isEco && (
-            <div className="absolute top-2 left-2 desktop:top-0">
-              <ImageWithErrorHandler
-                src="/static/icons/eco-icon.png"
-                alt="eco-icon"
-                width={32}
-                height={32}
-              />
-            </div>
-          )}
-        </div>
+			<div className="flex xl:mt-[25px]">
+				{/* Image container */}
+				<div className="relative flex w-[188px]s items-center justify-center">
+					<div className="overflow-hidden sm:ml-[21px] flex items-center overflow-hidden justify-center sm:mt-[16px] sm:mr-[28px] sm:h-[139px] sm:w-[139px] lg:h-[171.93px] lg:w-[171.93px] xl:w-[200px] xl:h-[200px] xl:ml-[26px] xl:mr-[54px]">
+						<img
+							key={imageUrl}
+							// src={'/tmp/vehicle.png' || imageUrl}
+							src={imageUrl}
+							alt={alt || ''}
+							className="cursor-pointer object-contain w-full h-full"
+							onClick={onClick}
+						/>
+					</div>
+					{isEco && (
+						<div className="absolute top-2 left-2 desktop:top-0">
+							<ImageWithErrorHandler
+								src="/static/icons/eco-icon.png"
+								alt="eco-icon"
+								width={32}
+								height={32}
+							/>
+						</div>
+					)}
+				</div>
 
 				{/* Name, descriptions and keywords */}
-				<div className="ml-[28px] mt-[8px] w-full">
+				<div className="ml-[28px]s mt-[10px] w-full lg:w-[372.19px] xl:w-[452px] desktop:w-[552px]">
 					<h2
 						onClick={onClick}
-						className="cursor-pointer line-clamp-3 sm:text-[16px] sm:leading-[19.5px]"
+						className="cursor-pointer line-clamp-3 sm:text-[16px] sm:leading-[19.5px] lg:text-[15px] desktop:h-[76.9px]"
 					>
 						<span className="font-semibold">{name}: </span>
-						<span className="text-gray">{description}</span>
+						<span className="text-grays">{description}</span>
 					</h2>
-            
+
 					{/* Price and quantity */}
-					<div className="mt-[18px] border-b-[0.97px] w-[266.68px] border-[#DEDFE0] pb-[13px]">
+					<div className="mt-[18px] w-[266.68px] border-b-[0.97px] border-[#DEDFE0] pb-[13px] lg:w-full">
 						<h3 className="text-[18px] font-semibold leading-[21.94px] text-primary-main">
 							{isSaleOn && !isBulkPricing ? (
 								<>
 									<span className="text-accent-error">
 										Sale ${salePrice}/{minOrderQuantityUnit}
 									</span>
-									<span className="inline-block ml-2 text-gray line-through">
+									<span className="ml-2 inline-block text-gray line-through">
 										${productPrice}/{minOrderQuantityUnit}
 									</span>
 								</>
@@ -265,10 +271,10 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 									{displayPrice} /{minOrderQuantityUnit}
 								</>
 							)}
-            </h3>
+						</h3>
 
 						{minOrderQuantity > 0 && (
-							<h4 className="text-[18px] leading-[21.94px] font-semibold text-primary-main">
+							<h4 className="text-[18px] font-semibold leading-[21.94px] text-primary-main">
 								{minOrderQuantity} {minOrderQuantityUnit} /
 								{t('common:min_order')}
 							</h4>
@@ -276,7 +282,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 					</div>
 
 					{/* Metadata - For desktop only */}
-					<div className="hidden lg:flex items-center justify-between">
+					<div className="hidden items-center justify-between lg:mt-[12.14px] lg:flex">
 						<div className="flex flex-col space-y-4">
 							{metadataTileList[0]}
 							{metadataTileList[3]}
@@ -294,7 +300,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 			</div>
 
 			{/* Metadata - For sm and tablet only */}
-			<div className="flex items-center space-x-4 sm:mt-[17px] sm:ml-[25px]">
+			<div className="flex items-center space-x-4 sm:mt-[17px] sm:ml-[25px] lg:hidden">
 				<div className="flex flex-col space-y-2">
 					{metadataTileList[0]}
 					{metadataTileList[3]}
@@ -309,9 +315,9 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 				</div>
 			</div>
 
-			<div className="absolute right-0 bottom-[19.37px] flex w-[126px] flex-col items-center space-y-2 desktop:right-12 desktop:bottom-6 desktop:w-[138.32px]">
+			<div className="absolute right-0 bottom-[19.37px] flex w-[126px] flex-col items-center space-y-2 xl:right-[32px] desktop:right-[68px] xl:bottom-[29.02px] desktop:w-[138.32px]">
 				{/* Verified Image */}
-				<div className="relative h-[54.87px] w-[83.09px] desktop:h-[82px] desktop:w-[124px]">
+				<div className="relative h-[54.87px] w-[83.09px] lg:h-[55.29px] lg:w-[83.61px] xl:h-[82px] xl:w-[124px]">
 					<ImageWithErrorHandler
 						src="/twmp-verified.png"
 						alt=""
@@ -320,12 +326,12 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 				</div>
 
 				{/* Rating and reviews */}
-				<div className="flex flex-col items-center space-y-1 desktop:pt-[18px]">
+				<div className="flex flex-col items-center space-y-1 lg:pt-[16.18px] xl:pt-[24px]">
 					<div className="h-[13px] w-[81.71px] desktop:h-[23.7px] desktop:w-[149px]">
 						<RatingStars
 							starNumber={5}
 							rating={totalRateCount}
-							className="!h-[13px] !w-[13px] text-gray desktop:!h-[23.7px] desktop:!w-[23.7px]"
+							className="!h-[13px] !w-[13px] text-gray lg:!h-[15.98px] lg:!w-[15.98px] desktop:!h-[23.7px] desktop:!w-[23.7px]"
 							containerClassName="space-x-1 desktop:space-x-2"
 							selectedClassName="text-secondary"
 						/>
@@ -336,7 +342,9 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 					</p>
 				</div>
 
-				<div className="desktop:pt-6">{messageVendorButton}</div>
+				<div className="lg:pt-[30.8px] xl:pt-[46px]">
+					{messageVendorButton}
+				</div>
 			</div>
 		</div>
 	);

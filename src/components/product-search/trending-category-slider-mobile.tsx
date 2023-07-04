@@ -47,7 +47,7 @@ const TrendingCategorySliderMobile: React.FC<
 					>
 						<SubCategoryTile
 							className="!w-full"
-							imageClassName="!w-[37px] !h-[33px]"
+							imageClassName="!w-[40px] !h-[40px]"
 							imageUrl={subCategory.image}
 							title={title}
 							titleClassName="!whitespace-nowrap"

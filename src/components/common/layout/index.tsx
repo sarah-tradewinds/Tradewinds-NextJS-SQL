@@ -143,7 +143,7 @@ const Layout: React.FC<{ productName?: string; seo: any }> = (
 				</main>
 
 				{/* Bottom navbar for small screen */}
-				<div className="fixed bottom-0 left-0 right-0 z-[1000] h-[51px] bg-primary-main dark:bg-primary-eco tablet:hidden">
+				<div className="fixed bottom-0 left-0 right-0 z-[1000] h-[51px] bg-primary-main dark:bg-primary-eco md:hidden">
 					<div className="flex items-center justify-between">
 						<div className="flex items-center space-x-4">
 							{/* Home Icon */}

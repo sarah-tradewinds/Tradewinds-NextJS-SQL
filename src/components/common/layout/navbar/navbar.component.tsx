@@ -22,9 +22,9 @@ const MegaMenu = dynamic(
 
 // actions
 import {
-	BUYER_DASHBOARD_ACTIONS,
-	BUYER_DASHBOARD_PAGES,
-	generateBuyerDashboardUrl
+  BUYER_DASHBOARD_ACTIONS,
+  BUYER_DASHBOARD_PAGES,
+  generateBuyerDashboardUrl
 } from 'data/buyer/buyer-actions';
 
 // stores
@@ -324,12 +324,12 @@ const Header = (props: any) => {
 						</nav>
 					</div>
 
-					<div className="relative">
+					<div className="relative mr-4">
 						<LanguageDropdown />
 					</div>
 				</div>
 
-				<div className="ml-[35px] hidden md:inline-block">
+				<div className="ml-[35px] hidden md:inline-blocks">
 					<Breadcrumbs productName={props.productName} />
 				</div>
 			</div>

@@ -8,6 +8,11 @@ import TrendingCategorySliderMobile from './trending-category-slider-mobile';
 import { useCategoryStore } from 'store/category-store';
 
 interface MainCategoryAndCategoriesTileProps {
+	mainCategory: {
+		imageUrl: string;
+		title: string;
+		backgroundColor?: string;
+	};
 	selectedCategories: any[];
 	selectedCategoryList: any[];
 }
@@ -15,7 +20,8 @@ interface MainCategoryAndCategoriesTileProps {
 const MainCategoryAndCategoriesTile: React.FC<
 	MainCategoryAndCategoriesTileProps
 > = (props) => {
-	const { selectedCategories, selectedCategoryList } = props;
+	const { selectedCategories, selectedCategoryList, mainCategory } =
+		props;
 
 	const router = useRouter();
 
@@ -44,13 +50,21 @@ const MainCategoryAndCategoriesTile: React.FC<
 
 	return (
 		<div>
-			<div className="flex h-[42px] items-center justify-between bg-green px-[15px]">
-				<p className="text-[18px] font-semibold leading-[21.94px] text-gray">
-					Agriculture
+			<div
+				className="flex h-[42px] w-full items-center justify-between px-[15px]"
+				style={{ backgroundColor: mainCategory?.backgroundColor }}
+			>
+				<p className="w-[80%]s truncate text-[18px] font-semibold leading-[21.94px] text-gray">
+					{mainCategory?.title}
 				</p>
 
-				<div className="relative mt-[1px] h-[38px] w-[35.63px]">
-					<ImageWithErrorHandler src={''} alt="" fill={true} />{' '}
+				<div className="relative h-[38px] w-[35.63px]">
+					<ImageWithErrorHandler
+						key={mainCategory?.imageUrl}
+						src={mainCategory?.imageUrl}
+						alt={mainCategory?.title}
+						fill={true}
+					/>
 				</div>
 			</div>
 

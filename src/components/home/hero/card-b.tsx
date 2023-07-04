@@ -24,7 +24,7 @@ const CardB: React.FC<CardBProps> = (props) => {
 
 	return (
 		<div className="h-[153px] w-[203px] overflow-hidden rounded-md bg-gradient-to-r from-[#E7CA00] to-[#E8A30E] sm:h-[203px] sm:w-[245px] lg:h-[244.24px] lg:w-[325.92px] xl:h-[305px] xl:w-[405.73px] desktop:h-[352px] desktop:w-[466px]">
-			<h2 className="h-[48px]s truncates ml-[14px] mt-[5.5px] text-[18px] font-semibold text-primary-main sm:pt-[4px] xl:text-[25px]">
+			<h2 className="h-[48px]s truncates ml-[14px] mt-[5.5px] text-[18px] font-semibold text-primary-main dark:text-primary-eco sm:pt-[4px] xl:text-[25px]">
 				{title}
 			</h2>
 

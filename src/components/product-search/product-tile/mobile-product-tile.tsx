@@ -10,9 +10,9 @@ import { metadataList } from 'data/product-search/metadata-list';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import {
-	MdBookmark,
-	MdOutlineBookmarkBorder,
-	MdOutlineShoppingCart
+  MdBookmark,
+  MdOutlineBookmarkBorder,
+  MdOutlineShoppingCart
 } from 'react-icons/md';
 import { useAuthStore } from 'store/auth';
 
@@ -161,7 +161,7 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 
 	return (
 		<div
-			className={`h-[118px]s w-full overflow-hidden rounded-md bg-white ${
+			className={`w-full overflow-hidden rounded-md bg-white ${
 				isEco ? 'border-2 border-accent-success' : ''
 			} ${isSalePriceAvailable ? 'h-[132px]' : 'h-[118px]'}`}
 		>
@@ -169,7 +169,7 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 			<div className="flex ">
 				{/* Image Container  */}
 				<div className="relative flex w-[124px] items-center justify-center">
-					<div className="relative flex h-[90px] w-[90px] items-center justify-center">
+					<div className="relative ml-[8px] mt-[8px] mr-[34px] flex h-[81px] w-[79px] items-center justify-center">
 						<ImageWithErrorHandler
 							src={imageUrl}
 							alt={alt || ''}
@@ -190,7 +190,7 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 					)}
 				</div>
 
-				<div className="ml-[34px]s mt-[9px]">
+				<div className="mt-[9px]">
 					{/* Product Info and keywords*/}
 					<Link
 						href={`/product/${slug}`}

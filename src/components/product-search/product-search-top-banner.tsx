@@ -25,7 +25,7 @@ const ProductSearchTopBanner: React.FC<ProductSearchTopBannerProps> = (
 	} = props;
 
 	return (
-		<div className="relative h-[103px] w-full md:h-[111.99px] desktop:h-[227.59px]">
+		<div className="relative h-[103px] w-full md:h-[116px] lg:h-[228px] desktop:h-[227.59px]">
 			{/* <Image */}
 			<ImageWithErrorHandler
 				key={imageUrl}

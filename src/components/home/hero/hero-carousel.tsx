@@ -18,15 +18,14 @@ type Props = {
 const HeroCarousel = ({ heroCarouselData }: Props) => {
 	const { locale } = useRouter();
 
-
-  const animation = { duration: 5000, easing: (t: number) => t }
+	const animation = { duration: 5000, easing: (t: number) => t };
 
 	const [ref] = useKeenSlider<HTMLDivElement>({
 		loop: true,
 		slides: {
 			perView: 1
 		}
-	},  );
+	});
 
 	return (
 		<div
@@ -36,7 +35,7 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 		>
 			{heroCarouselData.map((item, index) => (
 				<div
-					className="keen-slider__slide relative h-[248px] w-full bg-error sm:h-[278px] md:h-[277.8px] lg:h-[463px] xl:h-[536px] desktop:h-[623px]"
+					className="keen-slider__slide bg-errors relative h-[248px] w-full sm:h-[278px] md:h-[277.8px] lg:h-[463px] xl:h-[536px] desktop:h-[623px]"
 					key={item.id || index}
 				>
 					{/* Image */}

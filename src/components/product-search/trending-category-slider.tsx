@@ -42,12 +42,15 @@ const TrendingCategorySlider: React.FC<{
 
 	let slidesToScroll = 2;
 	let slidesToShow = 2;
-	if (deviceWidth >= 1536) {
+	if (deviceWidth >= 1700) {
+		slidesToScroll = 3;
+		slidesToShow = 3;
+	} else if (deviceWidth >= 1536) {
 		slidesToScroll = 3;
 		slidesToShow = 3;
 	} else if (deviceWidth >= 1280) {
-		slidesToScroll = 3;
-		slidesToShow = 3;
+		slidesToScroll = 2;
+		slidesToShow = 2;
 	} else if (deviceWidth >= 1024) {
 		slidesToScroll = 2.4;
 		slidesToShow = 2.4;
@@ -103,7 +106,7 @@ const TrendingCategorySlider: React.FC<{
 				<MdChevronLeft className="h-full w-full" />
 			</button>
 
-			<div className={`tablet:ml-6 desktop:ml-14 ${className}`}>
+			<div className={`tablet:ml-6 ${className}`}>
 				<Slider ref={slider} {...settings}>
 					{updatedCategories?.map((subCat: any) => {
 						const { categories: category } = subCat as any;
@@ -127,7 +130,7 @@ const TrendingCategorySlider: React.FC<{
 								}
 							>
 								<div className="flex items-center">
-									<div className="relative h-[30px] w-[30px] tablet:mr-[6px] desktop:mr-[7px] desktop:h-[60px] desktop:w-[60px] desktop:leading-[18px]">
+									<div className="relative h-[30px] w-[30px] lg:h-[40.46px] lg:w-[40.46px] tablet:mr-[6px] desktop:mr-[7px] xl:h-[60px] xl:w-[60px]">
 										<ImageWithErrorHandler
 											src={categoryData.image}
 											alt="bean"
@@ -137,7 +140,7 @@ const TrendingCategorySlider: React.FC<{
 									</div>
 
 									<p
-										className={`tablet:pb-1 tablet:text-[10px] tablet:leading-3 desktop:text-[15px] desktop:font-semibold ${
+										className={`tablet:pb-1 tablet:text-[10px] tablet:leading-3 xl:!text-[15px] font-semibold ${
 											isSelected
 												? 'border-b-4 border-secondary ' +
 												  selectedTitleClassName
