@@ -10,9 +10,9 @@ import { metadataList } from 'data/product-search/metadata-list';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import {
-  MdBookmark,
-  MdOutlineBookmarkBorder,
-  MdOutlineShoppingCart
+	MdBookmark,
+	MdOutlineBookmarkBorder,
+	MdOutlineShoppingCart
 } from 'react-icons/md';
 import { useAuthStore } from 'store/auth';
 
@@ -162,7 +162,7 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 	return (
 		<div
 			className={`w-full overflow-hidden rounded-md bg-white ${
-				isEco ? 'border-2 border-accent-success' : ''
+				isEco ? 'border-1 border-accent-success' : ''
 			} ${isSalePriceAvailable ? 'h-[132px]' : 'h-[118px]'}`}
 		>
 			{/* Image and Info */}

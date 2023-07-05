@@ -188,15 +188,16 @@ const CompanyProfileTab: React.FC<{
 							<Tab.Panel className="outline-none">
 								{/* Only for mobile device */}
 								<div className="md:hidden">
-									<h3 className="font semibold border-b-2 border-[#C4C4C4] pb-[7px] text-[15px] leading-[18.29px]">
+									<h3 className="border-b-2 border-[#C4C4C4] pb-[7px] text-[15px] font-semibold leading-[18.29px] text-gray">
 										Company Profile
 									</h3>
-									<Image
-										src="/images/twmp-verified-horizontal.png"
-										alt="twmp-verified-horizontal"
-										width={93.7}
-										height={20.48}
-									/>
+									<div className="relative mt-[8.57px] h-[20.48px] w-[93.7px]">
+										<Image
+											src="/images/twmp-verified-horizontal.png"
+											alt="twmp-verified-horizontal"
+											fill={true}
+										/>
+									</div>
 								</div>
 
 								<div>

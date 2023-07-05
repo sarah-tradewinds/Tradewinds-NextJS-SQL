@@ -208,7 +208,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 				}`}
 				onClick={isLive ? onCartClick : undefined}
 				// titleClassName="desktop:text-cyan lg:!text-[10px]"
-			titleClassName="xl:text-cyan lg:!text-[10px] sm:!text-[12px] sm:!leading-[14.63px] xl:!text-[13px] xl:!leading-[15.85px]"
+				titleClassName="xl:text-cyan lg:!text-[10px] sm:!text-[12px] sm:!leading-[14.63px] xl:!text-[13px] xl:!leading-[15.85px]"
 			/>
 		</div>
 	];
@@ -216,19 +216,19 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 	return (
 		<div
 			className={`relative overflow-hidden rounded-md bg-white sm:h-[230px] xl:h-[280px] desktop:h-[312px] ${
-				isEco ? 'border-2 border-accent-success' : ''
+				isEco ? 'border border-accent-success' : ''
 			}`}
 		>
 			<div className="flex xl:mt-[25px]">
 				{/* Image container */}
-				<div className="relative flex w-[188px]s items-center justify-center">
-					<div className="overflow-hidden sm:ml-[21px] flex items-center overflow-hidden justify-center sm:mt-[16px] sm:mr-[28px] sm:h-[139px] sm:w-[139px] lg:h-[171.93px] lg:w-[171.93px] xl:w-[200px] xl:h-[200px] xl:ml-[26px] xl:mr-[54px]">
+				<div className="w-[188px]s relative flex items-center justify-center">
+					<div className="flex items-center justify-center overflow-hidden overflow-hidden sm:ml-[21px] sm:mt-[16px] sm:mr-[28px] sm:h-[139px] sm:w-[139px] lg:h-[171.93px] lg:w-[171.93px] xl:ml-[26px] xl:mr-[54px] xl:h-[200px] xl:w-[200px]">
 						<img
 							key={imageUrl}
 							// src={'/tmp/vehicle.png' || imageUrl}
 							src={imageUrl}
 							alt={alt || ''}
-							className="cursor-pointer object-contain w-full h-full"
+							className="h-full w-full cursor-pointer object-contain"
 							onClick={onClick}
 						/>
 					</div>
@@ -315,7 +315,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 				</div>
 			</div>
 
-			<div className="absolute right-0 bottom-[19.37px] flex w-[126px] flex-col items-center space-y-2 xl:right-[32px] desktop:right-[68px] xl:bottom-[29.02px] desktop:w-[138.32px]">
+			<div className="absolute right-0 bottom-[19.37px] flex w-[126px] flex-col items-center space-y-2 xl:right-[32px] xl:bottom-[29.02px] desktop:right-[68px] desktop:w-[138.32px]">
 				{/* Verified Image */}
 				<div className="relative h-[54.87px] w-[83.09px] lg:h-[55.29px] lg:w-[83.61px] xl:h-[82px] xl:w-[124px]">
 					<ImageWithErrorHandler

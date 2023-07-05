@@ -294,7 +294,7 @@ const ProductSearchPage: NextPage<
 			<div className="bg-priary-main lg:container">
 				<div className="relative mx-auto flex md:mt-[9px] md:ml-[10px] lg:mt-[19px] xl:ml-[24px] xl:mr-[24px]">
 					{/* Side container */}
-					<section className="mr-[14px] hidden md:block md:w-[159px] xl:mr-[17px] xl:!w-[297px] 900px:w-[203px]">
+					<section className="mr-[14px]s hidden md:block md:w-[159px] xl:mr-[17px] xl:!w-[297px] 900px:w-[203px]">
 						{/* filters */}
 						<div className="md:mb-[14px] md:h-[383px] md:w-full lg:h-[361px] xl:h-[475px] xl:w-[297px]">
 							<ProductFilter />
@@ -363,7 +363,7 @@ const ProductSearchPage: NextPage<
 					</section>
 
 					{/* Category container and Product list */}
-					<div className="xl:w-[1008px]s lg:ml-[8px] lg:w-[779px] xl:w-full">
+					<div className="md:ml-[14px] md:mr-[11px] lg:ml-[8px] lg:w-[779px] xl:w-full">
 						<div className="mb-[13px] hidden lg:block">
 							{productSearchFilerComponent}
 						</div>
@@ -475,7 +475,7 @@ const ProductSearchPage: NextPage<
 									</div>
 
 									<div
-										className="bg-errors hidden h-[42px] w-full md:h-auto md:w-[122px] lg:w-[181.45px] desktop:w-[266px]"
+										className="hidden h-[42px] w-full md:h-auto md:w-[122px] lg:w-[181.45px] desktop:w-[266px]"
 										style={{
 											backgroundColor:
 												deviceWidth >= 744
@@ -552,7 +552,7 @@ const ProductSearchPage: NextPage<
 
 									{/* Category Slider for tablet and desktop  */}
 									{selectedCategories?.length > 0 ? (
-										<div className="hidden md:mt-[9px] md:ml-[13px] md:block md:w-[400px] lg:!w-[72%] xl:!w-[624px] xl:pr-2 900px:w-[500px] desktop:mt-[35px] desktop:mb-[25px] desktop:!w-[840px] 3xl:w-[980px]">
+										<div className="hidden md:mt-[4px] md:ml-[13px] md:block md:w-[384px] lg:!w-[72%] xl:mt-[12px] xl:!w-[624px] xl:pr-2 840px:w-[424px] 900px:w-[500px] 980px:!w-[640px] desktop:mt-[8px] desktop:mb-[8px]  desktop:!w-[840px] 3xl:!w-[1000px]">
 											<TrendingCategorySlider
 												categories={[...selectedCategories]}
 												selectedCategoryIds={selectedCategoryList || []}
