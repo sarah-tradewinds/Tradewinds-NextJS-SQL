@@ -474,7 +474,7 @@ const ProductDetailsTile: React.FC<{
 				}}
 			/>
 
-			<div className="grids grid-cols-12s gap-y-8s smd:gap-8 bg-white">
+			<div className="flex flex-row-reverse bg-white">
 				{/* Images container */}
 				<ImageContainer
 					key={masterImageUrl}
@@ -497,11 +497,10 @@ const ProductDetailsTile: React.FC<{
 				/>
 
 				{/* Product details */}
-				{/* <div className="col-span-12 overflow-y-auto px-5 md:py-8 md:pl-20 lg:col-span-7 lg:h-[786px] lg:p-8"> */}
-				<div className="mt-[16px] ml-[13px] mr-[7px]">
+				<div className="mt-[16px] ml-[13px] mr-[7px] sm:w-[345px]">
 					{/* Product name and sku info */}
 					<div className="flex items-center justify-between">
-						<h1 className="text-[18px] font-semibold capitalize leading-[22px] text-primary-main md:text-[30px] md:leading-[37px]">
+						<h1 className="text-[18px] font-semibold capitalize leading-[22px] text-primary-main sm:text-[15px] sm:leading-[18.29px] md:text-[30px] md:leading-[37px]">
 							{productName}
 						</h1>
 						<p className="hidden text-[25px] font-semibold uppercase text-gray/40 md:block">
@@ -510,8 +509,8 @@ const ProductDetailsTile: React.FC<{
 					</div>
 
 					{/* Price and quantity info */}
-					<div className="my-2 flex justify-between text-[12px] font-semibold text-primary-main md:mt-[13px]">
-						<h3 className="flex items-center space-x-8 text-xs font-semibold capitalize leading-[15px] md:text-[21px] md:leading-[26px]">
+					<div className="my-2 flex justify-between text-[12px] font-semibold text-primary-main sm:items-center sm:justify-start sm:space-x-4 sm:text-[10.83px] sm:leading-[13.21px] md:mt-[13px]">
+						<h3 className="flex items-center space-x-8 text-xs font-semibold capitalize leading-[15px] sm:space-x-2 md:text-[21px] md:leading-[26px]">
 							{selectedVariant?.is_on_sale && !is_bulk_pricing ? (
 								<>
 									<span className="text-accent-error">
@@ -530,7 +529,7 @@ const ProductDetailsTile: React.FC<{
 						</h3>
 
 						{minOrderQuantity > 0 && (
-							<div className="text-xs font-semibold capitalize leading-[15px] md:text-[21px] md:leading-[26px]">
+							<div className="text-xs font-semibold capitalize leading-[15px] sm:text-[10.83px] sm:leading-[13.21px] md:text-[21px] md:leading-[26px]">
 								<h4>
 									{/* {minOrderQuantity} {t('common:piece')} / */}
 									{minOrderQuantity} {minOrderQuantityUnit} /
@@ -617,53 +616,58 @@ const ProductDetailsTile: React.FC<{
 					<div className="mt-[15px] border-[#DEDFE0] pt-[13px] md:border-t-2 md:border-b-2 md:pt-[19px] md:pb-[25.64px]">
 						<div className="flex items-start">
 							{/* For Small Screen */}
-							<h2 className="tex-[12px] leading-[22px] text-gray md:hidden">
+							<h2 className="tex-[12px] leading-[22px] text-gray sm:hidden">
 								<span className="font-semibold">{productName}:</span>
 								<span>{productDescription}</span>
 							</h2>
 
 							{/* For Large Screen */}
-							<h2 className="h-[49px]s hidden whitespace-pre-wrap text-xs leading-[22px] text-gray md:block md:text-[15px]">
-								{productDescription?.length > 150
-									? productDescription?.substring(
-											0,
-											isProductDescriptionSectionExpanded
-												? productDescription?.length
-												: 150
-									  )
-									: productDescription}
+							<h2 className="h-[49px]s hidden whitespace-pre-wrap text-xs leading-[22px] text-gray sm:block md:block md:text-[15px]">
+								<span className="font-semibold capitalize">
+									{productName}:{' '}
+								</span>
+								<span>
+									{productDescription?.length > 150
+										? productDescription?.substring(
+												0,
+												isProductDescriptionSectionExpanded
+													? productDescription?.length
+													: 150
+										  )
+										: productDescription}
 
-								{productDescription?.length > 150 && (
-									<button
-										className="pl-2 text-[15px] font-bold text-cyan"
-										onClick={() =>
-											setIsProductDescriptionSectionExpanded(
-												(prevState) => !prevState
-											)
-										}
-									>
-										{isProductDescriptionSectionExpanded
-											? 'Less'
-											: 'More'}
-									</button>
-								)}
+									{productDescription?.length > 150 && (
+										<button
+											className="pl-2 text-[15px] font-bold text-cyan"
+											onClick={() =>
+												setIsProductDescriptionSectionExpanded(
+													(prevState) => !prevState
+												)
+											}
+										>
+											{isProductDescriptionSectionExpanded
+												? 'Less'
+												: 'More'}
+										</button>
+									)}
+								</span>
 							</h2>
 
 							{productDescription?.length > 150 && (
-								<Button
+								<button
 									onClick={() =>
 										setIsProductDescriptionSectionExpanded(
 											(prevState) => !prevState
 										)
 									}
-									className="hidden md:block"
+									className="hidden outline-none sm:block"
 								>
 									{isProductDescriptionSectionExpanded ? (
-										<ChevronDownIcon className="h-10 w-10 text-gray" />
+										<ChevronDownIcon className="h-10 w-10 text-gray sm:h-5 sm:w-5" />
 									) : (
-										<ChevronLeftIcon className="h-10 w-10 text-gray" />
+										<ChevronLeftIcon className="h-10 w-10 text-gray sm:h-5 sm:w-5" />
 									)}
-								</Button>
+								</button>
 							)}
 						</div>
 

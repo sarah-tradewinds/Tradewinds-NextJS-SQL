@@ -33,8 +33,8 @@ const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 	return (
 		<div className={className}>
 			{/* Main Image */}
-			<div className="relative flex items-center justify-center md:p-4">
-				<div className="relative h-[200px] w-[200px] md:h-[323px] md:w-[489px] lg:h-[475px] lg:w-[719.26px]">
+			<div className="relative flex items-center justify-center sm:mt-[17px] sm:mr-[43.41px] sm:ml-[36.71px]">
+				<div className="relative h-[200px] w-[200px] sm:h-[196.89px] sm:w-[196.89px] md:h-[323px] md:w-[489px] lg:h-[475px] lg:w-[719.26px]">
 					<ImageWithErrorHandler
 						key={selectedImageUrl}
 						src={selectedImageUrl || imageUrl}
@@ -45,7 +45,7 @@ const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 				</div>
 				<button
 					onClick={back}
-					className="absolute top-4 right-4 flex h-5 w-5 items-center justify-center rounded-full bg-primary-main !p-0 dark:bg-primary-eco md:hidden md:h-8 md:w-8"
+					className="absolute top-4 right-4 flex h-5 w-5 items-center justify-center rounded-full bg-primary-main !p-0 dark:bg-primary-eco sm:hidden md:hidden md:h-8 md:w-8"
 				>
 					<MdOutlineClose className="text-[24px] font-bold text-white" />
 				</button>
@@ -79,7 +79,7 @@ const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 			</div>
 
 			{/* Thumbnails Slider only large screen */}
-			<div className="hiddens grids grid-cols-3s gap-4s ml-[18px] mr-[13px]">
+			<div className="ml-[18px] mr-[13px] sm:mt-[2.11px]">
 				<ThumbnailList
 					thumbnails={thumbnails}
 					onImageSelect={(thumbnailImageUrl) =>

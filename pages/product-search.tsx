@@ -1,7 +1,7 @@
 import {
-	GetServerSideProps,
-	InferGetServerSidePropsType,
-	NextPage
+  GetServerSideProps,
+  InferGetServerSidePropsType,
+  NextPage
 } from 'next';
 
 // Third party packages
@@ -24,19 +24,19 @@ import TrendingCategorySlider from 'components/product-search/trending-category-
 import TrendingSectionTile from 'components/product-search/trending-section-tile';
 import useDeviceSize from 'hooks/use-device-size.hooks';
 import {
-	getCountryById,
-	getTrendingCategoriesByCountry
+  getCountryById,
+  getTrendingCategoriesByCountry
 } from 'lib/common.lib';
 
 import {
-	BUYER_DASHBOARD_ACTIONS,
-	BUYER_DASHBOARD_PAGES,
-	generateBuyerDashboardUrl
+  BUYER_DASHBOARD_ACTIONS,
+  BUYER_DASHBOARD_PAGES,
+  generateBuyerDashboardUrl
 } from 'data/buyer/buyer-actions';
 
 import {
-	getProducts,
-	getSelectedMainCategoryAndCategories
+  getProducts,
+  getSelectedMainCategoryAndCategories
 } from 'lib/product-search.lib';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
@@ -47,8 +47,8 @@ import { getIdAndName, useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';
 import { useProductCompareStore } from 'store/product-compare-store';
 import {
-	getFilterValueFromQuery,
-	getProductSearchURL
+  getFilterValueFromQuery,
+  getProductSearchURL
 } from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
 
@@ -276,7 +276,6 @@ const ProductSearchPage: NextPage<
 						vertical={selectedMainCategory?.vertical}
 					/>
 				)}
-
 				{/* Country Banner */}
 				{!main_category && selectedCountry?.banner_image && (
 					<ProductSearchTopBanner

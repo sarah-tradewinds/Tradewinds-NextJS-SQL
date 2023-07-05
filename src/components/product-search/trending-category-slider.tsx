@@ -124,6 +124,7 @@ const TrendingCategorySlider: React.FC<{
 								<div className="flex items-center">
 									<div className="relative min-h-[30px] min-w-[30px] lg:min-h-[40.46px] lg:min-w-[40.46px] xl:min-h-[60px] xl:min-w-[60px] tablet:mr-[6px] desktop:mr-[7px]">
 										<ImageWithErrorHandler
+											key={categoryData.image}
 											src={categoryData.image}
 											// src={'/tmp/category-tmp.svg'}
 											alt="bean"

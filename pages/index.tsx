@@ -1,6 +1,8 @@
 import {
-	GetStaticProps,
+  GetStaticProps,
 	InferGetStaticPropsType,
+  GetServerSideProps,
+	InferGetServerSidePropsType,
 	NextPage
 } from 'next';
 import { useRouter } from 'next/router';
@@ -33,7 +35,8 @@ import { useHomeStore } from 'store/home';
 import useSWR from 'swr';
 import { CatSubCatSectionType } from 'types/home';
 
-const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
+// const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
+const HomePage: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = (
 	props
 ) => {
 	const {
@@ -248,7 +251,8 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 export default HomePage;
 
 // Static Props
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+// export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
 	const dateS = new Date();
 	console.log(
 		'Home page = [getServerSideProps] started data fetching',

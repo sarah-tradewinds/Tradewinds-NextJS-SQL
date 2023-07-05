@@ -72,7 +72,16 @@ const ProductDetailsPage: NextPage<
 	const { locale } = useRouter();
 
 	useEffect(() => {
-		setProductData(product);
+		// TODO: Uncomment below code
+		// setProductData(product);
+
+		(async () => {
+			const productDetails =
+				(await getProductById(
+					'a8e792e4-805f-4348-a9d9-772020d20000'
+				)) || {};
+			setProductData(productDetails);
+		})();
 	}, [slug]);
 
 	useEffect(() => {

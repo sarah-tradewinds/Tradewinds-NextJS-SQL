@@ -5,13 +5,13 @@ import Button from 'components/common/form/button';
 import MessageVendorPopup from 'components/common/popup/message-vendor.popup';
 import { useKeenSlider } from 'keen-slider/react';
 import {
-	createConversation,
-	sendMessageToSeller
+  createConversation,
+  sendMessageToSeller
 } from 'lib/common.lib';
 import {
-	getFeaturedProductsBySellerId,
-	getProductsWithCollectionBySellerId,
-	getSellerStorefrontDetailsSellerId
+  getFeaturedProductsBySellerId,
+  getProductsWithCollectionBySellerId,
+  getSellerStorefrontDetailsSellerId
 } from 'lib/product-details.lib';
 import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
@@ -19,9 +19,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import {
-	MdChevronLeft,
-	MdChevronRight,
-	MdOutlineMessage
+  MdChevronLeft,
+  MdChevronRight,
+  MdOutlineMessage
 } from 'react-icons/md';
 import { useAuthStore } from 'store/auth';
 import { getLocaleText } from 'utils/get_locale_text';
@@ -198,13 +198,19 @@ const CompanyProfileTab: React.FC<{
 											fill={true}
 										/>
 									</div>
+									<p className="text-[15px] font-semibold leading-[18.29px] text-gray">
+										{getLocaleText(
+											edges?.company?.business_name || {},
+											locale
+										)}
+									</p>
 								</div>
 
 								<div>
-									<div className="mt-8 grid grid-cols-12 md:gap-8">
+									<div className="grid grid-cols-12 md:mt-8 md:gap-8">
 										{/* Profile details */}
 										<div className="col-span-12 space-y-4 sm:col-span-8">
-											<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
+											<p className="sflex hidden flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
 												<span className="font-semibold md:min-w-[148px]">
 													{t('common:campany_name')}:
 												</span>
@@ -216,7 +222,7 @@ const CompanyProfileTab: React.FC<{
 												</span>
 											</p>
 
-											<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
+											<p className="flex flex-col text-[12px] leading-[21px] text-gray md:flex-row md:space-x-8 md:text-[18px]">
 												<span className="font-semibold md:min-w-[148px]">
 													{t('common:country')}:
 												</span>
@@ -228,7 +234,7 @@ const CompanyProfileTab: React.FC<{
 												</span>
 											</p>
 
-											<p className="flex flex-col whitespace-pre-wrap text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
+											<p className="flex flex-col whitespace-pre-wrap text-[12px] leading-[21px] text-gray md:flex-row md:space-x-8 md:text-[18px]">
 												<span className="font-semibold md:min-w-[148px]">
 													{t('common:tw_page')}:
 												</span>
@@ -239,13 +245,15 @@ const CompanyProfileTab: React.FC<{
 													{`${process.env.SITE_URL}/seller/${seller?.id}`}
 												</Link>
 											</p>
-											<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
+
+											<p className="flex flex-col text-[12px] leading-[21px] text-gray md:flex-row md:space-x-8 md:text-[18px]">
 												<span className="font-semibold md:min-w-[148px]">
 													{t('common:established')}:
 												</span>
 												<span>{seller?.established}</span>
 											</p>
-											<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
+
+											<p className="flex flex-col text-[12px] leading-[21px] text-gray md:flex-row md:space-x-8 md:text-[18px]">
 												<span className="font-semibold md:min-w-[148px]">
 													{t('common:certification')}:
 												</span>
@@ -267,7 +275,9 @@ const CompanyProfileTab: React.FC<{
 													)}
 												</span>
 											</p>
-											<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
+
+											{/* Member Since */}
+											<p className="flex flex-col text-[12px] leading-[21px] text-gray md:flex-row md:space-x-8 md:text-[18px]">
 												<span className="font-semibold md:min-w-[148px]">
 													{t('common:member_since')}:
 												</span>
@@ -306,10 +316,10 @@ const CompanyProfileTab: React.FC<{
 
 								{/* About */}
 								<div className="mb-10 mt-4 lg:mt-16">
-									<h2 className="border-b border-gray/40 text-[18px] font-semibold text-gray/40 md:text-[21px]">
+									<h2 className="border-b-2 border-[#C4C4C4] text-[15px] leading-[1.29px] font-semibold text-gray md:text-[21px]">
 										{t('common:about')}
 									</h2>
-									<p className="mt-1 text-[13px] text-gray md:text-[18px]">
+									<p className="mt-1 text-[12px] leading-[14.63px] text-gray md:text-[18px]">
 										{seller?.about_us || store_front?.about_information}
 									</p>
 								</div>
