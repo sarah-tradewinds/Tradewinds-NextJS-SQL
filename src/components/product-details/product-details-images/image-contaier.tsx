@@ -34,7 +34,7 @@ const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 		<div className={className}>
 			{/* Main Image */}
 			<div className="relative flex items-center justify-center md:p-4">
-				<div className="relative h-[211px] w-[320px] md:h-[323px] md:w-[489px] lg:h-[475px] lg:w-[719.26px]">
+				<div className="relative h-[200px] w-[200px] md:h-[323px] md:w-[489px] lg:h-[475px] lg:w-[719.26px]">
 					<ImageWithErrorHandler
 						key={selectedImageUrl}
 						src={selectedImageUrl || imageUrl}
@@ -79,7 +79,7 @@ const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 			</div>
 
 			{/* Thumbnails Slider only large screen */}
-			<div className="hidden grid-cols-3 gap-4 lg:grid">
+			<div className="hiddens grids grid-cols-3s gap-4s ml-[18px] mr-[13px]">
 				<ThumbnailList
 					thumbnails={thumbnails}
 					onImageSelect={(thumbnailImageUrl) =>

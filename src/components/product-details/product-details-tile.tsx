@@ -473,18 +473,31 @@ const ProductDetailsTile: React.FC<{
 				}}
 			/>
 
-			<div className="grid grid-cols-12 gap-y-8 bg-white md:gap-8">
+			<div className="grids grid-cols-12s gap-y-8s smd:gap-8 bg-white">
 				{/* Images container */}
 				<ImageContainer
 					key={masterImageUrl}
-					className="col-span-12 md:first-letter:p-8 lg:col-span-5"
+					className="pt-[7px]"
 					imageUrl={masterImageUrl}
 					alt=""
-					thumbnails={images || []}
+					thumbnails={
+						[
+							masterImageUrl,
+							masterImageUrl,
+							masterImageUrl,
+							masterImageUrl,
+							masterImageUrl,
+							masterImageUrl,
+							masterImageUrl
+						] ||
+						images ||
+						[]
+					}
 				/>
 
 				{/* Product details */}
-				<div className="col-span-12 overflow-y-auto px-5 md:py-8 md:pl-20 lg:col-span-7 lg:h-[786px] lg:p-8">
+				{/* <div className="col-span-12 overflow-y-auto px-5 md:py-8 md:pl-20 lg:col-span-7 lg:h-[786px] lg:p-8"> */}
+				<div className="col-span-12 mt-[16px] overflow-y-auto px-5 md:py-8 md:pl-20 lg:col-span-7 lg:h-[786px] lg:p-8">
 					{/* Product name and sku info */}
 					<div className="flex items-center justify-between">
 						<h1 className="text-[18px] font-semibold capitalize leading-[22px] text-primary-main md:text-[30px] md:leading-[37px]">
@@ -582,9 +595,16 @@ const ProductDetailsTile: React.FC<{
 					</div>
 
 					{/* Product name and description */}
-					<div className="mt-[15px] border-t-2 border-[#DEDFE0] pt-[13px] md:border-b-2 md:pt-[19px] md:pb-[25.64px]">
+					<div className="hiddens mt-[15px] border-[#DEDFE0] pt-[13px] md:border-t-2 md:border-b-2 md:pt-[19px] md:pb-[25.64px]">
 						<div className="flex items-start">
-							<h2 className="overflow-clips h-[49px]s whitespace-pre-wrap text-xs leading-[22px] text-gray md:text-[15px]">
+							{/* For Small Screen */}
+							<h2 className="tex-[12px] leading-[22px] text-gray md:hidden">
+								<span>{productName}</span>
+								<span>{productDescription}</span>
+							</h2>
+
+							{/* For Large Screen */}
+							<h2 className="h-[49px]s hidden whitespace-pre-wrap text-xs leading-[22px] text-gray md:block md:text-[15px]">
 								{productDescription?.length > 150
 									? productDescription?.substring(
 											0,
@@ -617,6 +637,7 @@ const ProductDetailsTile: React.FC<{
 											(prevState) => !prevState
 										)
 									}
+									className="hidden md:block"
 								>
 									{isProductDescriptionSectionExpanded ? (
 										<ChevronDownIcon className="h-10 w-10 text-gray" />
