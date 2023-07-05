@@ -56,6 +56,7 @@ const Header = (props: any) => {
 		isEco,
 		setIsEco
 	}));
+	console.log('Eco condition', isEco);
 
 	const removeCategoryFilter = useCategoryStore(
 		(state) => state.removeCategoryFilter
@@ -347,7 +348,11 @@ const Header = (props: any) => {
 									{t('eco_text')}
 								</NavLink>
 								<NavLink
-									href="/why-sell-on-tradewinds"
+									href={
+										isEco
+											? '/eco/why-sell-on-tw'
+											: '/why-sell-on-tradewinds'
+									}
 									className="nav-link"
 									activeClassName="underline font-semibold"
 									onClick={drawerHandler}
@@ -356,7 +361,7 @@ const Header = (props: any) => {
 								</NavLink>
 
 								<NavLink
-									href="/why-buy"
+									href={isEco ? 'eco/why-buy' : '/why-buy'}
 									className="nav-link"
 									activeClassName="underline font-semibold"
 									onClick={drawerHandler}

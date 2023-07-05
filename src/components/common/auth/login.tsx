@@ -146,7 +146,7 @@ const Login: React.FC = () => {
 	return (
 		<Modal
 			open={isLoginOpen}
-			className="top-14  !z-[51000] transform md:top-40 md:mx-4 md:mx-20 lg:left-1/2 lg:top-1/2 lg:mx-0 lg:-translate-x-1/2 lg:-translate-y-1/2"
+			className="top-14  !z-[51000] transform md:top-40  md:mx-20 lg:left-1/2 lg:top-1/2 lg:mx-0 lg:-translate-x-1/2 lg:-translate-y-1/2"
 			overlayClassName="!z-[51000]"
 			onClose={setIsLoginOpen}
 		>

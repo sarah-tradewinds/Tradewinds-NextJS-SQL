@@ -7,7 +7,8 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 // components
 import Button from 'components/common/form/button';
 import Seo from 'components/common/seo';
-import FeatureCommunicationCenter from 'components/eco/why-buy/feature-communication';
+import CommunicationCenter from 'components/eco/why-buy/feature-communication';
+import ProductQualifications from 'components/eco/why-buy/product-qualifications';
 
 const WhyBuyPage: NextPage = () => {
 	const { t } = useTranslation('why_buy');
@@ -15,7 +16,8 @@ const WhyBuyPage: NextPage = () => {
 	return (
 		<>
 			<Seo title="Why buy page" description="" />
-			<div className=" !bg-white pb-[48px]">
+
+			<div className=" bg-bg_light_pink">
 				{/* Header section */}
 				<div className="h-[263px]  bg-[url('/static/images/WhyBuyImages/why-buy-header.png')] bg-cover bg-no-repeat md:h-[318px] lg:h-[719px]">
 					<div className="4k:py-16 pt-[153px] pl-[770px] ">
@@ -43,44 +45,10 @@ const WhyBuyPage: NextPage = () => {
 						</div>
 					</div>
 				</div>
-				<div className=" -mt-[70px]">
-					<FeatureCommunicationCenter />
+				<div className=" -mt-[91px] ">
+					<ProductQualifications />
 				</div>
-
-				<div className=' container mx-auto  h-[822px] w-[1506px]  bg-[url("/static/images/WhyBuyImages/ready-to-grow-banner.png")]  pt-[70px] pl-[164px] text-white '>
-					<p className=" h-[122px] w-[389px] text-[50px] font-semibold leading-[61px] ">
-						Ready to Grow Your Business?
-					</p>
-					<div className=" mt-[20px] h-[354px] w-[699px] text-[25px] leading-[30px]">
-						<p>
-							<span className=" font-semibold">Start Buying</span>
-							<br />
-							Create an account
-							<br />
-							Negotiate deals, buy right away or Post a RFQ
-							<br />
-							Respond to Suppliers
-							<br /> Procure Orders and payment
-							<br /> Receive Products
-						</p>
-						<p className=" mt-[25px]">
-							<span className=" font-semibold">
-								Manage your account
-							</span>{' '}
-							<br />
-							Stay connected with Suppliers
-							<br />
-							Nurture your relationships
-							<br />
-							Optimize purchases
-						</p>
-					</div>
-					<div className=" mt-[20px] ml-[51px]  ">
-						<button className=" h-[26px] w-[138px] rounded-[5px] bg-cyan text-[18px]">
-							Start Today
-						</button>
-					</div>
-				</div>
+				<CommunicationCenter />
 			</div>
 		</>
 	);

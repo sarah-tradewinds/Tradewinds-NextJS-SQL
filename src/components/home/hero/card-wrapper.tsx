@@ -25,7 +25,7 @@ const CardWrapper: React.FC<{
 		<>
 			{/* Medium and desktop */}
 			<div className="hidden justify-center space-x-2 md:flex lg:space-x-[11.21px] desktop:!space-x-8">
-				{cardAList.map((cardAData) => (
+				{cardAList.map((cardAData, index) => (
 					<div key={cardAData.id}>
 						<CardA
 							title={getLocaleText(cardAData?.title || {}, locale)}
@@ -34,7 +34,7 @@ const CardWrapper: React.FC<{
 								locale
 							)}
 							imageUrl={cardAData.image}
-							href="/why-sell-on-tradewinds"
+							href={index == 0 ? '/why-sell-on-tradewinds' : '/eco'}
 						/>
 					</div>
 				))}
