@@ -4,6 +4,7 @@ import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { getDefaultProductAndProductVariants } from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
+import CompanyProfileTab from './company-profile-tab';
 import ProductDetailsTab from './product-details-tab';
 import ReviewsDetailsTab from './product-reviews-details-tab';
 
@@ -105,7 +106,7 @@ const ProductDetailsTabContainer: React.FC<{
 						/>
 					</Tab.Panel>
 					<Tab.Panel className="outline-none">
-						{/* <CompanyProfileTab seller={seller} /> */}
+						<CompanyProfileTab seller={seller} />
 					</Tab.Panel>
 				</Tab.Panels>
 			</Tab.Group>

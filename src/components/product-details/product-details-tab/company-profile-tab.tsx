@@ -14,6 +14,7 @@ import {
 	getSellerStorefrontDetailsSellerId
 } from 'lib/product-details.lib';
 import { useTranslation } from 'next-i18next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -141,7 +142,7 @@ const CompanyProfileTab: React.FC<{
 
 			<div className="bg-bg-main">
 				{/* Store front Banner Image and Logo */}
-				<div className="relative">
+				<div className="relative hidden md:block">
 					<div className="relative h-[426px] w-full">
 						<ImageWithErrorHandler
 							key={store_front?.store_banner}
@@ -165,7 +166,7 @@ const CompanyProfileTab: React.FC<{
 
 				<div className="bg-white p-4 md:mx-8">
 					<Tab.Group>
-						<Tab.List className="space-x-16 border-b border-gray/40 text-[18px] text-gray/40 md:border-t-0 md:text-[25px] lg:leading-[30px]">
+						<Tab.List className="hidden space-x-16 border-b border-gray/40 text-[18px] text-gray/40 md:border-t-0 md:text-[25px] lg:leading-[30px]">
 							<Tab
 								className={({ selected }: { selected: boolean }) =>
 									`font-semibold ${selected ? 'text-primary-main' : ''}`
@@ -185,6 +186,19 @@ const CompanyProfileTab: React.FC<{
 						<Tab.Panels>
 							{/* Seller info */}
 							<Tab.Panel className="outline-none">
+								{/* Only for mobile device */}
+								<div className="md:hidden">
+									<h3 className="font semibold border-b-2 border-[#C4C4C4] pb-[7px] text-[15px] leading-[18.29px]">
+										Company Profile
+									</h3>
+									<Image
+										src="/images/twmp-verified-horizontal.png"
+										alt="twmp-verified-horizontal"
+										width={93.7}
+										height={20.48}
+									/>
+								</div>
+
 								<div>
 									<div className="mt-8 grid grid-cols-12 md:gap-8">
 										{/* Profile details */}
