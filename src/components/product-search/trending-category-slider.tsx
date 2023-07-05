@@ -52,8 +52,8 @@ const TrendingCategorySlider: React.FC<{
 		slidesToScroll = 2;
 		slidesToShow = 2;
 	} else if (deviceWidth >= 1024) {
-		slidesToScroll = 2.4;
-		slidesToShow = 2.4;
+		slidesToScroll = 3;
+		slidesToShow = 3;
 	} else if (deviceWidth >= 950) {
 		slidesToScroll = 2.8;
 		slidesToShow = 2.8;
@@ -130,7 +130,7 @@ const TrendingCategorySlider: React.FC<{
 								}
 							>
 								<div className="flex items-center">
-									<div className="relative h-[30px] w-[30px] lg:h-[40.46px] lg:w-[40.46px] tablet:mr-[6px] desktop:mr-[7px] xl:h-[60px] xl:w-[60px]">
+									<div className="relative h-[30px] w-[30px] lg:h-[40.46px] lg:w-[40.46px] xl:h-[60px] xl:w-[60px] tablet:mr-[6px] desktop:mr-[7px]">
 										<ImageWithErrorHandler
 											src={categoryData.image}
 											alt="bean"
@@ -140,7 +140,7 @@ const TrendingCategorySlider: React.FC<{
 									</div>
 
 									<p
-										className={`tablet:pb-1 tablet:text-[10px] tablet:leading-3 xl:!text-[15px] font-semibold ${
+										className={`font-semibold xl:!text-[15px] xl:!leading-[18.29px] tablet:pb-1 tablet:text-[10px] tablet:leading-3 ${
 											isSelected
 												? 'border-b-4 border-secondary ' +
 												  selectedTitleClassName

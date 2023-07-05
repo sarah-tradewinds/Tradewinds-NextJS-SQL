@@ -1,7 +1,7 @@
 import {
-	GetServerSideProps,
-	InferGetServerSidePropsType,
-	NextPage
+  GetServerSideProps,
+  InferGetServerSidePropsType,
+  NextPage
 } from 'next';
 import { useEffect, useState } from 'react';
 
@@ -19,18 +19,18 @@ import CompanyProfileTab from 'components/product-details/product-details-tab/co
 import ProductDetailsTabContainer from 'components/product-details/product-details-tab/product-details-tab-container';
 import ProductReviewsDetailsTab from 'components/product-details/product-details-tab/product-reviews-details-tab';
 import {
-	BUYER_DASHBOARD_ACTIONS,
-	BUYER_DASHBOARD_PAGES,
-	generateBuyerDashboardUrl
+  BUYER_DASHBOARD_ACTIONS,
+  BUYER_DASHBOARD_PAGES,
+  generateBuyerDashboardUrl
 } from 'data/buyer/buyer-actions';
 import {
-	getOrderIdByProductId,
-	getProductById,
-	getProductReviewAnalyticsByProductId,
-	getProductReviewsByProductId,
-	getSellerDetailsBySellerId,
-	getSimilarProducts,
-	submitProductRatingAndReview
+  getOrderIdByProductId,
+  getProductById,
+  getProductReviewAnalyticsByProductId,
+  getProductReviewsByProductId,
+  getSellerDetailsBySellerId,
+  getSimilarProducts,
+  submitProductRatingAndReview
 } from 'lib/product-details.lib';
 import { useRouter } from 'next/router';
 import { useAuthStore } from 'store/auth';

@@ -27,6 +27,7 @@ import {
 	sendMessageToSeller
 } from 'lib/common.lib';
 import { useTranslation } from 'next-i18next';
+import Image from 'next/image';
 import { useState } from 'react';
 import {
 	MdBookmark,
@@ -497,7 +498,7 @@ const ProductDetailsTile: React.FC<{
 
 				{/* Product details */}
 				{/* <div className="col-span-12 overflow-y-auto px-5 md:py-8 md:pl-20 lg:col-span-7 lg:h-[786px] lg:p-8"> */}
-				<div className="col-span-12 mt-[16px] overflow-y-auto px-5 md:py-8 md:pl-20 lg:col-span-7 lg:h-[786px] lg:p-8">
+				<div className="mt-[16px] ml-[13px] mr-[7px]">
 					{/* Product name and sku info */}
 					<div className="flex items-center justify-between">
 						<h1 className="text-[18px] font-semibold capitalize leading-[22px] text-primary-main md:text-[30px] md:leading-[37px]">
@@ -594,12 +595,30 @@ const ProductDetailsTile: React.FC<{
 						)}
 					</div>
 
+					{/* Message Vendor button only for mobile*/}
+					<div className="flex justify-center">
+						<button className="justify-centers relative mt-[14.18px] flex h-[32.5px] w-[239.67px] items-center rounded-lg border-[1.74px] border-[#33A7DF]">
+							<div className="sh-[24.02px] absolute top-0 bottom-0 flex w-[31.08px] items-center justify-center bg-cyan">
+								<Image
+									src="/icons/message-vendor-white-outline-icon.svg"
+									alt="message-vendor-white-outline-icon"
+									width={24}
+									height={22.02}
+								/>
+							</div>
+
+							<span className="ml-[62.17px] text-[19.6px] font-semibold leading-[23.89px] text-cyan">
+								Message Vendor
+							</span>
+						</button>
+					</div>
+
 					{/* Product name and description */}
-					<div className="hiddens mt-[15px] border-[#DEDFE0] pt-[13px] md:border-t-2 md:border-b-2 md:pt-[19px] md:pb-[25.64px]">
+					<div className="mt-[15px] border-[#DEDFE0] pt-[13px] md:border-t-2 md:border-b-2 md:pt-[19px] md:pb-[25.64px]">
 						<div className="flex items-start">
 							{/* For Small Screen */}
 							<h2 className="tex-[12px] leading-[22px] text-gray md:hidden">
-								<span>{productName}</span>
+								<span className="font-semibold">{productName}:</span>
 								<span>{productDescription}</span>
 							</h2>
 
@@ -704,7 +723,7 @@ const ProductDetailsTile: React.FC<{
 					</div>
 
 					{/* Additional info */}
-					<div className="md:mt-[21px]s hidden space-y-4 md:block">
+					<div className="md:mt-[21px]s hiddens space-y-4 md:block">
 						{/* Bulk Pricing */}
 						<div ref={sliderRef} className="keen-slider">
 							{is_bulk_pricing &&
@@ -732,33 +751,68 @@ const ProductDetailsTile: React.FC<{
 								}
 
 								const {
-									id,
-									name,
-									values = []
+									id
+									// name,
+									// values = []
 								} = optionAndValueList || {};
 								const showImage = index === 0;
 
 								const filteredOptionAndValue =
 									selectedOptionAndValue?.[id];
-								console.log(
-									'filteredOptionAndValue =',
-									filteredOptionAndValue
-								);
-								const selectedOptionValue =
-									filteredOptionAndValue?.value?.name || '';
+
+								// const selectedOptionValue =
+								// 	filteredOptionAndValue?.value?.name || '';
 
 								return (
-									<ProductOptionsValuesAccordion
+									<div
 										key={index}
-										productVariants={variants || []}
-										showImage={showImage}
-										selectedOptionAndValue={selectedOptionAndValue}
-										optionAndValues={optionAndValueList}
-										onOptionAndValueSelect={onOptionAndValueSelect}
-									/>
+										className="border-t border-[#DEDFE0]"
+									>
+										<ProductOptionsValuesAccordion
+											key={index}
+											productVariants={variants || []}
+											showImage={showImage}
+											selectedOptionAndValue={selectedOptionAndValue}
+											optionAndValues={optionAndValueList}
+											onOptionAndValueSelect={onOptionAndValueSelect}
+										/>
+									</div>
 								);
 							}
 						)}
+
+						{/* Action Buttons */}
+						<div className="flex flex-col items-center space-y-[22.01px]">
+							{/* Submit RFQ button */}
+							<button className="flex h-[32.5px] w-[239.67px] items-center justify-center rounded-lg bg-gradient-to-r from-[#E7CA00] via-[#E8A30E] to-[#E8A30E]">
+								<div className="flex items-center space-x-[8.79px]">
+									<Image
+										src="/icons/rfq-white-outline-icon.svg"
+										alt="rfq-white-outline-icon"
+										width={31.08}
+										height={24.02}
+									/>
+									<span className="text-[19.6px] font-semibold leading-[23.89px] text-white">
+										Submit an RFQ
+									</span>
+								</div>
+							</button>
+
+							{/* ADD to Cart button */}
+							<button className="flex h-[32.5px] w-[239.67px] items-center justify-center rounded-lg border-[1.41px] border-[#37B04A]">
+								<div className="flex items-center space-x-[8.79px]">
+									<Image
+										src="/icons/cart-green-outline-icon.svg"
+										alt="cart-icon"
+										width={31.08}
+										height={24.02}
+									/>
+									<span className="text-[19.6px] font-semibold leading-[23.89px] text-[#37B04A]">
+										Add to Cart
+									</span>
+								</div>
+							</button>
+						</div>
 
 						{/* Product Feature */}
 						{product_features?.length > 0 && (
@@ -776,7 +830,7 @@ const ProductDetailsTile: React.FC<{
 							</div>
 						)}
 
-						<p className="text-[21px] leading-[26px] text-primary-main">
+						<p className="hidden text-[21px] leading-[26px] text-primary-main md:block">
 							<span className="font-semibold capitalize">
 								{t('common:customizable')}:
 							</span>{' '}

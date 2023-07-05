@@ -198,7 +198,6 @@ const CompanyProfileTab: React.FC<{
 														edges?.company?.business_name || {},
 														locale
 													)}
-
 												</span>
 											</p>
 
@@ -467,8 +466,9 @@ const CompanyProfileTab: React.FC<{
 										name || {},
 										locale
 									);
-									const productId=collectionProduct?.edges?.products[0]?.id
-                                      
+									const productId =
+										collectionProduct?.edges?.products[0]?.id;
+
 									return (
 										<div
 											key={id}
@@ -476,14 +476,13 @@ const CompanyProfileTab: React.FC<{
 										>
 											<Link href={`/product/${productId}`}>
 												<CollectionSliderOld
-												key={id}
-												name={collectionName}
-												dataList={
-													collectionProduct?.edges?.products || []
-												}
-											/>
+													key={id}
+													name={collectionName}
+													dataList={
+														collectionProduct?.edges?.products || []
+													}
+												/>
 											</Link>
-											
 										</div>
 									);
 								})}

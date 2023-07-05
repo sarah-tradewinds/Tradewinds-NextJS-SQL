@@ -93,7 +93,7 @@ const ProductOptionsValuesAccordion: React.FC<
 				{/* Option Name */}
 				<div className="flex items-center justify-between">
 					{/* Option name: Selected Value */}
-					<p className="text-[15px] capitalize">
+					<p className="text-[12px] capitalize lg:text-[15px]">
 						<span>{optionAndValues?.name}: </span>
 						<span className="font-semibold capitalize">
 							{selectedOptionValue}
@@ -119,7 +119,7 @@ const ProductOptionsValuesAccordion: React.FC<
 				<div
 					className={`grid grid-cols-4 ${
 						showImage ? 'mt-4' : 'mt-8'
-					} w-[570px]`}
+					}lg:w-[570px]`}
 				>
 					{showOnlyTheseOptionValues?.map(
 						(value: any, index: number) => {
@@ -142,10 +142,10 @@ const ProductOptionsValuesAccordion: React.FC<
 								return (
 									<div
 										key={index}
-										className={`h-[110px] w-[111px] cursor-pointer overflow-hidden ${
+										className={`h-[55.12px] w-[55.12px] cursor-pointer overflow-hidden lg:h-[110px] lg:w-[111px] ${
 											isOptionValueSelected
-												? 'border-4 border-cyan'
-												: 'border-cyan hover:border-4'
+												? 'border-2 border-cyan lg:border-4'
+												: 'border-cyan hover:border-2 hover:lg:border-4'
 										}`}
 										onClick={() =>
 											onOptionAndValueSelect(optionAndValue)
@@ -170,10 +170,10 @@ const ProductOptionsValuesAccordion: React.FC<
 											? 'text-[#575858]'
 											: 'cursor-not-allowed text-[#575858]/40'
 									} ${
-											isOptionValueSelected
-												? 'border-4 border-cyan'
-												: 'border-cyan hover:border-4'
-										}`}
+										isOptionValueSelected
+											? 'border-4 border-cyan'
+											: 'border-cyan hover:border-4'
+									}`}
 									onClick={() =>
 										isCurrentOptionInStock
 											? onOptionAndValueSelect(optionAndValue)

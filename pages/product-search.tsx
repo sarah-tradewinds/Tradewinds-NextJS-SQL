@@ -1,7 +1,7 @@
 import {
-  GetServerSideProps,
-  InferGetServerSidePropsType,
-  NextPage
+	GetServerSideProps,
+	InferGetServerSidePropsType,
+	NextPage
 } from 'next';
 
 // Third party packages
@@ -24,8 +24,8 @@ import TrendingCategorySlider from 'components/product-search/trending-category-
 import TrendingSectionTile from 'components/product-search/trending-section-tile';
 import useDeviceSize from 'hooks/use-device-size.hooks';
 import {
-  getCountryById,
-  getTrendingCategoriesByCountry
+	getCountryById,
+	getTrendingCategoriesByCountry
 } from 'lib/common.lib';
 
 import {
@@ -35,8 +35,8 @@ import {
 } from 'data/buyer/buyer-actions';
 
 import {
-  getProducts,
-  getSelectedMainCategoryAndCategories
+	getProducts,
+	getSelectedMainCategoryAndCategories
 } from 'lib/product-search.lib';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
@@ -47,8 +47,8 @@ import { getIdAndName, useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';
 import { useProductCompareStore } from 'store/product-compare-store';
 import {
-  getFilterValueFromQuery,
-  getProductSearchURL
+	getFilterValueFromQuery,
+	getProductSearchURL
 } from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
 
@@ -291,10 +291,10 @@ const ProductSearchPage: NextPage<
 				{productSearchFilerComponent}
 			</div>
 
-			<div className="lg:container bg-priary-main">
+			<div className="bg-priary-main lg:container">
 				<div className="relative mx-auto flex md:mt-[9px] md:ml-[10px] lg:mt-[19px] xl:ml-[24px] xl:mr-[24px]">
 					{/* Side container */}
-					<section className="xl:!w-[297px] mr-[14px] hidden md:block md:w-[159px] 900px:w-[203px] xl:mr-[17px]">
+					<section className="mr-[14px] hidden md:block md:w-[159px] xl:mr-[17px] xl:!w-[297px] 900px:w-[203px]">
 						{/* filters */}
 						<div className="md:mb-[14px] md:h-[383px] md:w-full lg:h-[361px] xl:h-[475px] xl:w-[297px]">
 							<ProductFilter />
@@ -302,11 +302,11 @@ const ProductSearchPage: NextPage<
 
 						{/* RFQ CARD */}
 						<div className="hidden md:block  xl:w-[297px]">
-							<div className="w-full space-y-2 bg-gradient-to-r from-[#E7CA00] via-[#E8A30E] to-[#E8A30E] md:h-[321px] md:rounded-lg md:pt-2 lg:pl-[12.97px] xl:pl-[19x] xl:h-[475px]">
+							<div className="w-full space-y-2 bg-gradient-to-r from-[#E7CA00] via-[#E8A30E] to-[#E8A30E] md:h-[321px] md:rounded-lg md:pt-2 lg:pl-[12.97px] xl:h-[475px] xl:pl-[19x]">
 								{/* Image */}
 								<div className="lg:mt-[16.86px] lg:flex desktop:items-center ">
 									<div className="flex justify-center">
-										<div className="relative md:h-[66.02px] md:w-[61.72px] lg:h-[45.06px] lg:w-[42.12px] xl:w-[61.72px] xl:h-[66.02px]">
+										<div className="relative md:h-[66.02px] md:w-[61.72px] lg:h-[45.06px] lg:w-[42.12px] xl:h-[66.02px] xl:w-[61.72px]">
 											<ImageWithErrorHandler
 												src="/static/rfq-box.png"
 												alt="rfq box"
@@ -320,14 +320,14 @@ const ProductSearchPage: NextPage<
 									</p>
 								</div>
 
-								<ul className="list-disc text-white md:ml-6 md:pt-[65.98px] md:text-[15px] md:font-semibold md:leading-[18px] lg:pt-[22px] xl:text-[25px] xl:leading-[30.48px] xl:pt-[34px]">
+								<ul className="list-disc text-white md:ml-6 md:pt-[65.98px] md:text-[15px] md:font-semibold md:leading-[18px] lg:pt-[22px] xl:pt-[34px] xl:text-[25px] xl:leading-[30.48px]">
 									<li>One request</li>
 									<li>Receive multiple quotes</li>
 									<li>Responed</li>
 									<li>Close the deal</li>
 								</ul>
 
-								<div className="flex justify-center md:pt-[34px] desktop:justify-start desktop:pl-2 xl:pt-[68px]">
+								<div className="flex justify-center md:pt-[34px] xl:pt-[68px] desktop:justify-start desktop:pl-2">
 									<button
 										onClick={() => {
 											if (!isAuth) {
@@ -363,7 +363,7 @@ const ProductSearchPage: NextPage<
 					</section>
 
 					{/* Category container and Product list */}
-					<div className="lg:ml-[8px] lg:w-[779px] xl:w-[1008px]s xl:w-full">
+					<div className="xl:w-[1008px]s lg:ml-[8px] lg:w-[779px] xl:w-full">
 						<div className="mb-[13px] hidden lg:block">
 							{productSearchFilerComponent}
 						</div>
@@ -399,7 +399,7 @@ const ProductSearchPage: NextPage<
 							/>
 						)}
 
-              {/* For Mobile only */}
+						{/* For Mobile only */}
 						<div className="md:hidden">
 							<MainCategoryAndCategoriesTile
 								key={selectedMainCategory?.category_search_image}
@@ -422,7 +422,7 @@ const ProductSearchPage: NextPage<
 							{/* MainCategory and categories list */}
 							{((!isTrending && selectedCategories.length > 0) ||
 								selectedCountry?.banner_image) && (
-								<div className="w-full rounded-md bg-white md:mb-[10.87px] md:flex md:h-[101.13px] md:py-2 md:pl-[8.06px] lg:h-[142px] xl:h-[209px] desktop:mb-[23px] desktop:py-[17px] desktop:pl-[17px] xl:mt-[17px]">
+								<div className="w-full rounded-md bg-white md:mb-[10.87px] md:flex md:h-[101.13px] md:py-2 md:pl-[8.06px] lg:h-[142px] xl:mt-[17px] xl:h-[209px] desktop:mb-[23px] desktop:py-[17px] desktop:pl-[17px]">
 									{/* Main category Card */}
 
 									<div className="relative flex flex-col md:h-[84.78px] md:w-[160.69px] lg:h-[118.9px] lg:w-[181.45px] xl:h-[175px] xl:w-[266px]">
@@ -552,7 +552,7 @@ const ProductSearchPage: NextPage<
 
 									{/* Category Slider for tablet and desktop  */}
 									{selectedCategories?.length > 0 ? (
-										<div className="hidden md:mt-[9px] md:ml-[13px] md:block md:w-[400px] 900px:w-[500px] lg!:w-[72%] desktop:mt-[35px] desktop:mb-[25px] desktop:w-[840px] xl:!w-[624px] xl:pr-2 3xl:w-[980px] xl:w-[50%]s">
+										<div className="hidden md:mt-[9px] md:ml-[13px] md:block md:w-[400px] lg:!w-[72%] xl:!w-[624px] xl:pr-2 900px:w-[500px] desktop:mt-[35px] desktop:mb-[25px] desktop:!w-[840px] 3xl:w-[980px]">
 											<TrendingCategorySlider
 												categories={[...selectedCategories]}
 												selectedCategoryIds={selectedCategoryList || []}
