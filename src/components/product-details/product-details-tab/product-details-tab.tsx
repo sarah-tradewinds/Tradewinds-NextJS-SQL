@@ -52,7 +52,7 @@ const ProductDetailsTab: React.FC<{
 			: true;
 
 	const headingClassName =
-		'border-b-2 border-[#C4C4C4] text-[15px] capitalize font-semibold leading-[18.29px] text-primary-main md:border-t-0 md:text-xl lg:text-[21px] md:text-[12px] md:leading-[14.63px] md:uppercase lg:leading-6 md:text-gray lg:border-t-2';
+		'border-b-2 pb-[2px] sm:borer-b-1 xl:border-b-2 xl:pb-[8px] border-[#C4C4C4] text-[15px] capitalize font-semibold leading-[18.29px] text-primary-main lg:text-[21px] md:text-[12px] md:leading-[14.63px] lg:text-[15px] lg:leading-[18.29px] xl:text-[21px] xl:leading-[25.6px] md:uppercase lg:leading-6 md:text-gray lg:border-b-[1.37px] lg:pb-[5.33]';
 
 	return (
 		<div className="space-y-8 bg-white p-4 pt-[48px] md:space-y-8 md:p-8">
@@ -64,7 +64,7 @@ const ProductDetailsTab: React.FC<{
 				<div
 					className={`mt-1 space-y-8 md:p-[6.69px] lg:p-4  ${productDetailsContainerClassName}`}
 				>
-					<p className="flex justify-between space-x-8 text-[12px] text-gray md:text-[10px] md:leading-[19.57px] lg:text-[18px]">
+					<p className="flex justify-between space-x-8 text-[12px] text-gray md:text-[10px] md:leading-[19.57px] lg:text-[12px] lg:leading-[26.08px] xl:text-[18px] xl:leading-[38px]">
 						{seoDescription}
 					</p>
 				</div>
@@ -95,7 +95,7 @@ const ProductDetailsTab: React.FC<{
 								return (
 									<p
 										key={key}
-										className="flex flex-col text-left text-[12px] leading-[21px] text-gray md:flex-row md:justify-between md:space-x-8 md:text-[10px] md:text-[10px] md:text-[18px] md:leading-[19.57px] md:leading-[19.57px]"
+										className="flex flex-col text-left text-[12px] leading-[21px] text-gray md:flex-row md:justify-between md:space-x-8 md:text-[10px] md:leading-[19.57px] lg:text-[12px] lg:leading-[26.08px] xl:text-[18px] xl:leading-[38px]"
 									>
 										<span className="font-semibold">{key}: </span>
 										<span>{value}</span>{' '}
@@ -117,7 +117,7 @@ const ProductDetailsTab: React.FC<{
 
 				{/* Product information body */}
 				<ul
-					className={`mt-1 space-y-2 text-[12px] leading-[18.29px] md:p-4 md:text-[10px] md:leading-[19.57px] lg:text-[18px] lg:leading-[38px] ${productDetailsContainerClassName}`}
+					className={`mt-1 space-y-2 text-[12px] leading-[18.29px] md:p-4 md:text-[10px] md:leading-[19.57px] lg:text-[12px] lg:leading-[26.08px] xl:text-[18px] xl:leading-[38px] ${productDetailsContainerClassName}`}
 				>
 					{/* IS ECO */}
 					{product?.is_eco && (
@@ -255,7 +255,6 @@ const ProductDetailsTab: React.FC<{
 			{/* PRODUCT DIMENSIONS  */}
 			<div className={dimensionContainerClassName}>
 				<p
-					// className="border-b-2 border-[#C4C4C4] pb-1 text-lg font-semibold leading-[22px] text-primary-main md:text-[21px] md:uppercase md:leading-6 md:text-gray"
 					className={headingClassName}
 				>
 					{t('Product Dimensions')}
@@ -264,7 +263,7 @@ const ProductDetailsTab: React.FC<{
 					<div className="mt-1 flex justify-between md:p-4">
 						<div className="space-y-2">
 							{product_dimension?.product_length && (
-								<p className="flex justify-between space-x-8 text-[12px] text-gray md:text-[10px] md:text-[18px] md:leading-[19.57px]">
+								<p className="flex justify-between space-x-8 text-[12px] text-gray md:text-[10px] md:leading-[19.57px] lg:text-[12px] lg:leading-[26.08px] xl:text-[18px] xl:leading-[38px]">
 									<span className="font-semibold">
 										{t('common:product')} {t('common:length')}:
 									</span>
@@ -275,7 +274,7 @@ const ProductDetailsTab: React.FC<{
 								</p>
 							)}
 							{product_dimension?.product_width && (
-								<p className="flex justify-between space-x-8 text-[12px] text-gray md:text-[10px] md:leading-[19.57px] lg:text-[18px]">
+								<p className="flex justify-between space-x-8 text-[12px] text-gray md:text-[10px] md:leading-[19.57px] lg:text-[12px] lg:leading-[26.08px] xl:text-[18px] xl:leading-[38px]">
 									<span className="font-semibold">
 										{t('common:product')} {t('common:width')}:
 									</span>
@@ -286,7 +285,7 @@ const ProductDetailsTab: React.FC<{
 								</p>
 							)}
 							{product_dimension?.product_height && (
-								<p className="flex justify-between space-x-8 text-[12px] text-gray md:text-[10px] md:leading-[19.57px] lg:text-[18px]">
+								<p className="flex justify-between space-x-8 text-[12px] text-gray md:text-[10px] md:leading-[19.57px] lg:text-[12px] lg:leading-[26.08px] xl:text-[18px] xl:leading-[38px]">
 									<span className="font-semibold">
 										{t('common:product')} {t('common:height')}:
 									</span>
@@ -297,7 +296,7 @@ const ProductDetailsTab: React.FC<{
 								</p>
 							)}
 							{product_dimension?.product_weight && (
-								<p className="flex justify-between space-x-8 text-[12px] text-gray md:text-[10px] md:leading-[19.57px] lg:text-[18px]">
+								<p className="flex justify-between space-x-8 text-[12px] text-gray md:text-[10px] md:leading-[19.57px] lg:text-[12px] lg:leading-[26.08px] xl:text-[18px] xl:leading-[38px]">
 									<span className="font-semibold">
 										{t('common:product')} {t('common:weight')}:
 									</span>
@@ -308,7 +307,7 @@ const ProductDetailsTab: React.FC<{
 								</p>
 							)}
 							{product_dimension?.notes && (
-								<p className="flex justify-between space-x-8 text-[12px] text-gray md:text-[10px] md:leading-[19.57px] lg:text-[18px]">
+								<p className="flex justify-between space-x-8 text-[12px] text-gray md:text-[10px] md:leading-[19.57px] lg:text-[12px] lg:leading-[26.08px] xl:text-[18px] xl:leading-[38px]">
 									<span className="font-semibold">{t('Notes')}:</span>
 									<span>{product_dimension?.notes}</span>
 								</p>

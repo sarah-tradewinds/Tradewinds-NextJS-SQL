@@ -247,8 +247,7 @@ const ProductDetailsTile: React.FC<{
 		? product?.images
 		: selectedVariant?.images || [];
 
-
-  // TODO: Uncomment below code
+	// TODO: Uncomment below code
 	const masterImageUrl = images?.[0];
 	// const masterImageUrl = "/tmp/vehicle.png";
 
@@ -455,8 +454,8 @@ const ProductDetailsTile: React.FC<{
 		getLocaleText(description || {}, locale) || '';
 
 	const messageVendor = (
-		<button className="relative mt-[14.18px] flex h-[32.5px] w-[239.67px] items-center rounded-lg border-[1.74px] border-[#33A7DF] sm:mt-0 sm:h-[12.17px] sm:w-[89.75px]">
-			<div className="absolute top-0 bottom-0 flex h-[24.02px] w-[31.08px] items-center justify-center bg-cyan sm:h-[8.32px] sm:w-[9.77px]">
+		<button className="relative mt-[14.18px] flex h-[32.5px] w-[239.67px] items-center rounded-lg border-[1.74px] border-[#33A7DF] sm:mt-0 sm:h-[12.17px] sm:w-[89.75px] md:h-[14.6px] md:w-[107.69px]">
+			<div className="absolute top-0 bottom-0 flex h-full w-[31.08px] items-center justify-center bg-cyan sm:w-[9.77px]">
 				<div className="relative h-[22.02px] w-[24px] sm:h-[8.32px] sm:w-[9.77px]">
 					<Image
 						src="/icons/message-vendor-white-outline-icon.svg"
@@ -472,11 +471,9 @@ const ProductDetailsTile: React.FC<{
 		</button>
 	);
 
-
-  
 	const submitRFQ = (
-		<button className="relative flex items-center lg:w-[94.1px] lg:h-[15.63px] xl:w-[138.32px] xl:h-[22.98px] rounded-lg border-[1.74px] border-[#33A7DF]">
-			<div className="absolute top-0 bottom-0 flex h-[24.02px] w-[31.08px] items-center justify-center bg-cyan sm:h-[8.32px] sm:w-[9.77px]">
+		<button className="relative flex items-center rounded-lg border-[1.74px] border-[#33A7DF] lg:h-[15.63px] lg:w-[94.1px] xl:h-[22.98px] xl:w-[138.32px]">
+			<div className="absolute top-0 bottom-0 flex h-full w-[31.08px] items-center justify-center bg-cyan sm:w-[9.77px]">
 				<div className="relative h-[22.02px] w-[24px] sm:h-[8.32px] sm:w-[9.77px]">
 					<Image
 						src="/icons/message-vendor-white-outline-icon.svg"
@@ -492,10 +489,8 @@ const ProductDetailsTile: React.FC<{
 		</button>
 	);
 
-
-
 	const baseButtonClass =
-		'flex h-[32.5px] w-[239.67px] items-center justify-center rounded-lg sm:h-[12.17px] md:w-[107.29px] md:h-[13.33px] sm:w-[89.75px] lg:w-[114.85px]';
+		'flex h-[32.5px] w-[239.67px] items-center justify-center rounded-lg sm:h-[12.17px] md:w-[107.69px] md:h-[14.6px] sm:w-[89.75px] lg:w-[114.85px]';
 
 	const actionButtons = (
 		<div className="flex flex-col items-center space-y-[22.01px] sm:flex-row sm:space-x-[30.35px] sm:space-y-0">
@@ -588,13 +583,13 @@ const ProductDetailsTile: React.FC<{
 				/>
 
 				{/* Product details */}
-				<div className="mt-[16px] ml-[13px] mr-[7px] sm:w-[345px] md:ml-[40.49px] md:mr-[19.35px] md:w-[392.04px] 840px:w-auto lg:mr-[41.61px]">
+				<div className="mt-[16px] ml-[13px] mr-[7px] sm:w-[345px] md:ml-[40.49px] md:mr-[19.35px] md:w-[392.04px] lg:mr-[41.61px] lg:!w-[652px] 840px:w-auto">
 					{/* Product name and sku info */}
 					<div className="flex items-center justify-between">
 						<h1 className="text-[18px] font-semibold capitalize leading-[21.94px] text-primary-main sm:text-[15px] sm:leading-[18.29px] md:text-[18px] md:leading-[21.94px] lg:text-[20px] lg:leading-[24.38px] xl:text-[30px] xl:leading-[36.57px]">
 							{productName}
 						</h1>
-						<p className="hidden lg:text-[20px] lg:leading-[24.38px]  xl:text-[30px] xl:leading-[36.57px] font-semibold uppercase text-gray/40 lg:block">
+						<p className="hidden font-semibold uppercase  text-gray/40 lg:block lg:text-[20px] lg:leading-[24.38px] xl:text-[30px] xl:leading-[36.57px]">
 							{inventory?.sku}
 						</p>
 					</div>
@@ -620,12 +615,14 @@ const ProductDetailsTile: React.FC<{
 						</h3>
 
 						{minOrderQuantity > 0 && (
-							<div className="text-xs font-semibold capitalize leading-[15px] sm:text-[10.83px] sm:leading-[13.21px] md:text-[13px] md:leading-[15.85px] lg:text-[15px] md:flex md:items-center md:space-x-4 lg:leading-[18.29px] xl:text-[21px] xl:leading-[25.6px]">
+							<div className="text-xs font-semibold capitalize leading-[15px] sm:flex sm:items-center sm:space-x-2 sm:text-[10.83px] sm:leading-[13.21px] md:space-x-4 md:text-[13px] md:leading-[15.85px] lg:text-[15px] lg:leading-[18.29px] xl:text-[21px] xl:leading-[25.6px]">
 								<h4>
 									{minOrderQuantity} {minOrderQuantityUnit} /
 									{t('common:min_order')}
 								</h4>
-								<p>Lead Time: {product?.lead_time}</p>
+								<p className="hidden sm:block">
+									Lead Time: {product?.lead_time}
+								</p>
 							</div>
 						)}
 					</div>
@@ -647,8 +644,8 @@ const ProductDetailsTile: React.FC<{
 					</div>
 
 					{/* Rating, review count and verified Image */}
-					<div className="pb-4s mt-[28px] hidden items-center md:mt-[10.25px] md:flex md:justify-between">
-						<div className="flex items-center md:mr-[79px]">
+					<div className="mt-[28px] hidden items-center md:mt-[10.25px] md:flex md:justify-between lg:pr-[32px]">
+						<div className="md:mr-[79px]s flex items-center">
 							<RatingStars
 								starNumber={5}
 								rating={total_rate_count}
@@ -656,14 +653,12 @@ const ProductDetailsTile: React.FC<{
 								className="h-[23.7px] w-[23.7px] text-gray md:h-[14.25px] md:w-[14.25px]"
 								selectedClassName="text-secondary"
 							/>
-							<p className="text-center text-[13px] leading-4 text-secondary md:ml-[7px] md:text-[7.82px] lg:text-[8.84px] lg:leading-[10.78px] md:leading-[9.53px] xl:text-[13px] xl:leading-[15.85px]">
+							<p className="text-center text-[13px] leading-4 text-secondary md:ml-[7px] md:text-[7.82px] md:leading-[9.53px] lg:text-[8.84px] lg:leading-[10.78px] xl:text-[13px] xl:leading-[15.85px]">
 								{total_review_count} {t('common:reviews')}
 							</p>
 						</div>
 
-            <div className="hidden lg:block">
-              {submitRFQ}
-            </div>
+						<div className="hidden lg:block">{submitRFQ}</div>
 
 						{/* {!is_verified && ( */}
 						<div className="relative h-[30px] w-[162px] md:h-[17.42px] md:w-[97.43px]">

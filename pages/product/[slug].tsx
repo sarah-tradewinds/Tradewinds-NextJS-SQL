@@ -73,16 +73,16 @@ const ProductDetailsPage: NextPage<
 
 	useEffect(() => {
 		// TODO: Uncomment below code
-		setProductData(product);
+		// setProductData(product);
 
-		// (async () => {
-		// 	const productDetails =
-		// 		(await getProductById(
-		// 			// 'a8e792e4-805f-4348-a9d9-772020d20000'
-		// 			'99be8127-bf88-42f1-831f-c927cf46e432'
-		// 		)) || {};
-		// 	setProductData(productDetails);
-		// })();
+		(async () => {
+			const productDetails =
+				(await getProductById(
+					// 'a8e792e4-805f-4348-a9d9-772020d20000'
+					'99be8127-bf88-42f1-831f-c927cf46e432'
+				)) || {};
+			setProductData(productDetails);
+		})();
 	}, [slug]);
 
 	useEffect(() => {
@@ -194,7 +194,7 @@ const ProductDetailsPage: NextPage<
 	}; // End of submitReviewHandler function
 
 	return (
-		<div className="lg:container pb-16 tablet:space-y-8">
+		<div className="pb-16 lg:container tablet:space-y-8">
 			<ProductDetailsTile
 				product={productData}
 				onVariantClick={(variantId) => {
@@ -300,7 +300,11 @@ export const getServerSideProps: GetServerSideProps = async ({
 	};
 
 	try {
-		const productId = (params as any).slug;
+		// TODO: Uncomment below code
+		// const productId = (params as any).slug;
+
+		const productId = '99be8127-bf88-42f1-831f-c927cf46e432';
+
 		const product = (await getProductById(productId)) || {};
 		console.log('productproductproductproduct =', product, productId);
 
