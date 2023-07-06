@@ -42,7 +42,8 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 					<Link href={item.link || '/'}>
 						<div className="relative h-full w-full">
 							<ImageWithErrorHandler
-								src={item.image}
+								// src={item.image}
+								src={"/tmp/blur-image.webp"}
 								alt={item.title?.en || item.order?.toString()}
 								fill={true}
 								className="object-cover"

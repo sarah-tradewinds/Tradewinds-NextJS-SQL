@@ -34,7 +34,7 @@ const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 		<div className={className}>
 			{/* Main Image */}
 			<div className="relative flex items-center justify-center sm:mt-[17px] sm:mr-[43.41px] sm:ml-[36.71px]">
-				<div className="relative h-[200px] w-[200px] sm:h-[196.89px] sm:w-[196.89px] md:h-[323px] md:w-[489px] lg:h-[475px] lg:w-[719.26px]">
+				<div className="relative h-[200px] w-[200px] sm:h-[196.89px] sm:w-[196.89px] md:h-[236.27px] md:w-[236.27px] lg:h-[322.48px] lg:w-[322.48px] xl:h-[474px] xl:w-[474px]">
 					<ImageWithErrorHandler
 						key={selectedImageUrl}
 						src={selectedImageUrl || imageUrl}
@@ -52,7 +52,7 @@ const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 			</div>
 
 			{/* Thumbnails Slider only for small and medium screen */}
-			<div className="relative hidden md:block lg:hidden">
+			<div className="md:blocks relative hidden lg:hidden">
 				<div ref={ref} className="keen-slider">
 					{thumbnails.map((thumbnailImageUrl) => (
 						<div key={thumbnailImageUrl} className="keen-slider__slide">

@@ -5,13 +5,13 @@ import Button from 'components/common/form/button';
 import MessageVendorPopup from 'components/common/popup/message-vendor.popup';
 import { useKeenSlider } from 'keen-slider/react';
 import {
-  createConversation,
-  sendMessageToSeller
+	createConversation,
+	sendMessageToSeller
 } from 'lib/common.lib';
 import {
-  getFeaturedProductsBySellerId,
-  getProductsWithCollectionBySellerId,
-  getSellerStorefrontDetailsSellerId
+	getFeaturedProductsBySellerId,
+	getProductsWithCollectionBySellerId,
+	getSellerStorefrontDetailsSellerId
 } from 'lib/product-details.lib';
 import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
@@ -19,9 +19,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import {
-  MdChevronLeft,
-  MdChevronRight,
-  MdOutlineMessage
+	MdChevronLeft,
+	MdChevronRight,
+	MdOutlineMessage
 } from 'react-icons/md';
 import { useAuthStore } from 'store/auth';
 import { getLocaleText } from 'utils/get_locale_text';
@@ -309,14 +309,14 @@ const CompanyProfileTab: React.FC<{
 									</div>
 
 									{/* <div className="my-8 md:hidden lg:block"> */}
-									<div className="my-8 lg:hidden">
+									<div className="my-8 hidden lg:hidden">
 										{messageVendorButton}
 									</div>
 								</div>
 
 								{/* About */}
-								<div className="mb-10 mt-4 lg:mt-16">
-									<h2 className="border-b-2 border-[#C4C4C4] text-[15px] leading-[1.29px] font-semibold text-gray md:text-[21px]">
+								<div className="mb-10 mt-4 sm:mt-[35px] lg:mt-16">
+									<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18.29px] text-gray md:text-[21px]">
 										{t('common:about')}
 									</h2>
 									<p className="mt-1 text-[12px] leading-[14.63px] text-gray md:text-[18px]">
@@ -327,10 +327,10 @@ const CompanyProfileTab: React.FC<{
 								{/* Company Photos */}
 								{storeFrontDetails?.company_photos?.length !== 0 && (
 									<div className="mb-10">
-										<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18px] text-gray/40 md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
+										<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18.29px] text-gray md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
 											{t('common:company_images')} 
 										</h2>
-										<div className=" mt-4 flex space-x-4">
+										<div className="mt-4 flex space-x-4">
 											{storeFrontDetails?.company_photos?.map(
 												(companyPhoto: string) => (
 													<div
@@ -354,7 +354,7 @@ const CompanyProfileTab: React.FC<{
 								{storeFrontDetails?.company_videos?.[0] !==
 									'Error occurred' && (
 									<div className="mb-10">
-										<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18px] text-gray/40 md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
+										<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18.29px] text-gray md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
 											{t('common:company_video')}
 										</h2>
 										<div className="mt-4 flex space-x-4">
@@ -390,7 +390,7 @@ const CompanyProfileTab: React.FC<{
 
 								{/* Featured Product */}
 								<div>
-									<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18px] text-gray/40 md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
+									<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18.29px] text-gray md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
 										{t('common:featured_product')}
 									</h2>
 									{featuredProducts?.length > 0 && (
