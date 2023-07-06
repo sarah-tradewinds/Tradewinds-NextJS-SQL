@@ -1,6 +1,8 @@
 import {
 	GetStaticProps,
 	InferGetStaticPropsType,
+	GetServerSideProps,
+	InferGetServerSidePropsType,
 	NextPage
 } from 'next';
 import Link from 'next/link';
@@ -31,7 +33,8 @@ import { useEffect } from 'react';
 import { useHomeStore } from 'store/home';
 import { CatSubCatSectionType } from 'types/home';
 
-const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
+// const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
+const HomePage: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = (
 	props
 ) => {
 	const {
@@ -236,7 +239,8 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 
 export default HomePage;
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+// export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
 	try {
 		// const heroCarousels = await getHeroCarousels(true);
 		// console.log(
