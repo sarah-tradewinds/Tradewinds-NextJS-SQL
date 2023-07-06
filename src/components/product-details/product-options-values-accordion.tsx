@@ -89,11 +89,11 @@ const ProductOptionsValuesAccordion: React.FC<
 
 	return (
 		<>
-			<div key={id} className="border-b border-[#DEDFE0] pb-8">
+			<div key={id}>
 				{/* Option Name */}
 				<div className="flex items-center justify-between">
 					{/* Option name: Selected Value */}
-					<p className="text-[15px] capitalize">
+					<p className="text-[12px] capitalize md:text-[10px] md:leading-[12.19px] lg:text-[12px] lg:leading-[14.63px] xl:text-[15px] xl:leading-[18.29ppx]">
 						<span>{optionAndValues?.name}: </span>
 						<span className="font-semibold capitalize">
 							{selectedOptionValue}
@@ -118,8 +118,8 @@ const ProductOptionsValuesAccordion: React.FC<
 				{/* Option Values */}
 				<div
 					className={`grid grid-cols-4 ${
-						showImage ? 'mt-4' : 'mt-8'
-					} w-[570px]`}
+						showImage ? 'mt-2 md:mt-4' : 'mt-2'
+					} lg:w-[570px]`}
 				>
 					{showOnlyTheseOptionValues?.map(
 						(value: any, index: number) => {
@@ -142,10 +142,10 @@ const ProductOptionsValuesAccordion: React.FC<
 								return (
 									<div
 										key={index}
-										className={`h-[110px] w-[111px] cursor-pointer overflow-hidden ${
+										className={`h-[55.12px] w-[55.12px] cursor-pointer overflow-hidden md:h-[66.14px] md:w-[66.14px] lg:w-[74.84px] lg:h-[74.84px] xl:h-[110px] xl:w-[110px] ${
 											isOptionValueSelected
-												? 'border-4 border-cyan'
-												: 'border-cyan hover:border-4'
+												? 'border-2 border-cyan'
+												: 'border-cyan hover:border-2'
 										}`}
 										onClick={() =>
 											onOptionAndValueSelect(optionAndValue)
@@ -153,7 +153,9 @@ const ProductOptionsValuesAccordion: React.FC<
 									>
 										<ImageWithErrorHandler
 											key={value?.imageUrl || ''}
+											// TODO: Uncomment below code
 											src={value?.imageUrl || ''}
+											// src={"/tmp/vehicle.png"}
 											alt={value?.name || ''}
 											width={111}
 											height={110}
@@ -163,17 +165,17 @@ const ProductOptionsValuesAccordion: React.FC<
 							}
 
 							return (
-								<Button
+								<button
 									key={index}
-									className={`!text-[15px] !font-semibold !uppercase !outline-none ${
+									className={`text-[12px] font-semibold uppercase leading-[14.63px] outline-none md:text-[10px] md:leading-[12.19px] xl:text-[15px] lg:text-[12px] lg:leading-[14.63px] xl:text-[15px] xl:leading-[18.29px] ${
 										isCurrentOptionInStock
-											? 'text-[#575858]'
-											: 'cursor-not-allowed text-[#575858]/40'
+											? 'text-gray'
+											: 'cursor-not-allowed text-gray/40'
 									} ${
-											isOptionValueSelected
-												? 'border-4 border-cyan'
-												: 'border-cyan hover:border-4'
-										}`}
+										isOptionValueSelected
+											? 'border-2 border-cyan'
+											: 'border-cyan hover:border-2'
+									}`}
 									onClick={() =>
 										isCurrentOptionInStock
 											? onOptionAndValueSelect(optionAndValue)
@@ -181,7 +183,7 @@ const ProductOptionsValuesAccordion: React.FC<
 									}
 								>
 									{value?.name}
-								</Button>
+								</button>
 							);
 						}
 					)}

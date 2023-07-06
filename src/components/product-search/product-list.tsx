@@ -141,7 +141,7 @@ const ProductList: React.FC<ProductListProps> = ({
 				]}
 			/>
 
-			<div className="mx-[9px] grid grid-cols-1 gap-y-[14px] sm:mx-[10px] sm:mt-[19px] sm:gap-y-[20px] md:gap-y-[15px] lg:mx-0 xl:gap-[26px]">
+			<div className="mx-[9px] grid grid-cols-1 gap-y-[14px] sm:mx-[10px] sm:mt-[19px] sm:gap-y-[20px] md:mx-0 md:mt-[10px] md:gap-y-[15px] xl:gap-[26px]">
 				{products.map((product, index) => {
 					console.log('product-product-product = ', product);
 

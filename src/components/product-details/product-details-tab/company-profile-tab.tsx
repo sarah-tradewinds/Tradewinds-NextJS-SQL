@@ -14,6 +14,7 @@ import {
 	getSellerStorefrontDetailsSellerId
 } from 'lib/product-details.lib';
 import { useTranslation } from 'next-i18next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -141,7 +142,7 @@ const CompanyProfileTab: React.FC<{
 
 			<div className="bg-bg-main">
 				{/* Store front Banner Image and Logo */}
-				<div className="relative">
+				<div className="relative hidden md:block">
 					<div className="relative h-[426px] w-full">
 						<ImageWithErrorHandler
 							key={store_front?.store_banner}
@@ -165,7 +166,7 @@ const CompanyProfileTab: React.FC<{
 
 				<div className="bg-white p-4 md:mx-8">
 					<Tab.Group>
-						<Tab.List className="space-x-16 border-b border-gray/40 text-[18px] text-gray/40 md:border-t-0 md:text-[25px] lg:leading-[30px]">
+						<Tab.List className="hidden space-x-16 border-b border-gray/40 text-[18px] text-gray/40 md:border-t-0 md:text-[25px] lg:leading-[30px]">
 							<Tab
 								className={({ selected }: { selected: boolean }) =>
 									`font-semibold ${selected ? 'text-primary-main' : ''}`
@@ -185,11 +186,31 @@ const CompanyProfileTab: React.FC<{
 						<Tab.Panels>
 							{/* Seller info */}
 							<Tab.Panel className="outline-none">
+								{/* Only for mobile device */}
+								<div className="md:hidden">
+									<h3 className="border-b-2 border-[#C4C4C4] pb-[7px] text-[15px] font-semibold leading-[18.29px] text-gray">
+										Company Profile
+									</h3>
+									<div className="relative mt-[8.57px] h-[20.48px] w-[93.7px]">
+										<Image
+											src="/images/twmp-verified-horizontal.png"
+											alt="twmp-verified-horizontal"
+											fill={true}
+										/>
+									</div>
+									<p className="text-[15px] font-semibold leading-[18.29px] text-gray">
+										{getLocaleText(
+											edges?.company?.business_name || {},
+											locale
+										)}
+									</p>
+								</div>
+
 								<div>
-									<div className="mt-8 grid grid-cols-12 md:gap-8">
+									<div className="grid grid-cols-12 md:mt-8 md:gap-8">
 										{/* Profile details */}
 										<div className="col-span-12 space-y-4 sm:col-span-8">
-											<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
+											<p className="sflex hidden flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
 												<span className="font-semibold md:min-w-[148px]">
 													{t('common:campany_name')}:
 												</span>
@@ -198,11 +219,10 @@ const CompanyProfileTab: React.FC<{
 														edges?.company?.business_name || {},
 														locale
 													)}
-
 												</span>
 											</p>
 
-											<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
+											<p className="flex flex-col text-[12px] leading-[21px] text-gray md:flex-row md:space-x-8 md:text-[18px]">
 												<span className="font-semibold md:min-w-[148px]">
 													{t('common:country')}:
 												</span>
@@ -214,7 +234,7 @@ const CompanyProfileTab: React.FC<{
 												</span>
 											</p>
 
-											<p className="flex flex-col whitespace-pre-wrap text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
+											<p className="flex flex-col whitespace-pre-wrap text-[12px] leading-[21px] text-gray md:flex-row md:space-x-8 md:text-[18px]">
 												<span className="font-semibold md:min-w-[148px]">
 													{t('common:tw_page')}:
 												</span>
@@ -225,13 +245,15 @@ const CompanyProfileTab: React.FC<{
 													{`${process.env.SITE_URL}/seller/${seller?.id}`}
 												</Link>
 											</p>
-											<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
+
+											<p className="flex flex-col text-[12px] leading-[21px] text-gray md:flex-row md:space-x-8 md:text-[18px]">
 												<span className="font-semibold md:min-w-[148px]">
 													{t('common:established')}:
 												</span>
 												<span>{seller?.established}</span>
 											</p>
-											<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
+
+											<p className="flex flex-col text-[12px] leading-[21px] text-gray md:flex-row md:space-x-8 md:text-[18px]">
 												<span className="font-semibold md:min-w-[148px]">
 													{t('common:certification')}:
 												</span>
@@ -253,7 +275,9 @@ const CompanyProfileTab: React.FC<{
 													)}
 												</span>
 											</p>
-											<p className="flex flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
+
+											{/* Member Since */}
+											<p className="flex flex-col text-[12px] leading-[21px] text-gray md:flex-row md:space-x-8 md:text-[18px]">
 												<span className="font-semibold md:min-w-[148px]">
 													{t('common:member_since')}:
 												</span>
@@ -285,17 +309,17 @@ const CompanyProfileTab: React.FC<{
 									</div>
 
 									{/* <div className="my-8 md:hidden lg:block"> */}
-									<div className="my-8 lg:hidden">
+									<div className="my-8 hidden lg:hidden">
 										{messageVendorButton}
 									</div>
 								</div>
 
 								{/* About */}
-								<div className="mb-10 mt-4 lg:mt-16">
-									<h2 className="border-b border-gray/40 text-[18px] font-semibold text-gray/40 md:text-[21px]">
+								<div className="mb-10 mt-4 sm:mt-[35px] lg:mt-16">
+									<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18.29px] text-gray md:text-[21px]">
 										{t('common:about')}
 									</h2>
-									<p className="mt-1 text-[13px] text-gray md:text-[18px]">
+									<p className="mt-1 text-[12px] leading-[14.63px] text-gray md:text-[18px]">
 										{seller?.about_us || store_front?.about_information}
 									</p>
 								</div>
@@ -303,10 +327,10 @@ const CompanyProfileTab: React.FC<{
 								{/* Company Photos */}
 								{storeFrontDetails?.company_photos?.length !== 0 && (
 									<div className="mb-10">
-										<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18px] text-gray/40 md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
+										<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18.29px] text-gray md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
 											{t('common:company_images')} 
 										</h2>
-										<div className=" mt-4 flex space-x-4">
+										<div className="mt-4 flex space-x-4">
 											{storeFrontDetails?.company_photos?.map(
 												(companyPhoto: string) => (
 													<div
@@ -330,7 +354,7 @@ const CompanyProfileTab: React.FC<{
 								{storeFrontDetails?.company_videos?.[0] !==
 									'Error occurred' && (
 									<div className="mb-10">
-										<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18px] text-gray/40 md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
+										<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18.29px] text-gray md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
 											{t('common:company_video')}
 										</h2>
 										<div className="mt-4 flex space-x-4">
@@ -366,7 +390,7 @@ const CompanyProfileTab: React.FC<{
 
 								{/* Featured Product */}
 								<div>
-									<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18px] text-gray/40 md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
+									<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18.29px] text-gray md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
 										{t('common:featured_product')}
 									</h2>
 									{featuredProducts?.length > 0 && (
@@ -467,8 +491,9 @@ const CompanyProfileTab: React.FC<{
 										name || {},
 										locale
 									);
-									const productId=collectionProduct?.edges?.products[0]?.id
-                                      
+									const productId =
+										collectionProduct?.edges?.products[0]?.id;
+
 									return (
 										<div
 											key={id}
@@ -476,14 +501,13 @@ const CompanyProfileTab: React.FC<{
 										>
 											<Link href={`/product/${productId}`}>
 												<CollectionSliderOld
-												key={id}
-												name={collectionName}
-												dataList={
-													collectionProduct?.edges?.products || []
-												}
-											/>
+													key={id}
+													name={collectionName}
+													dataList={
+														collectionProduct?.edges?.products || []
+													}
+												/>
 											</Link>
-											
 										</div>
 									);
 								})}

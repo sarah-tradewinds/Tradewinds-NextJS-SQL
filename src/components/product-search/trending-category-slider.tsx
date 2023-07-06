@@ -40,34 +40,26 @@ const TrendingCategorySlider: React.FC<{
 	// 	slideToShow = 3;
 	// }
 
-	let slidesToScroll = 2;
 	let slidesToShow = 2;
 	if (deviceWidth >= 1700) {
-		slidesToScroll = 3;
-		slidesToShow = 3;
-	} else if (deviceWidth >= 1536) {
-		slidesToScroll = 3;
+		slidesToShow = 3.4;
+	} else if (deviceWidth >= 1512) {
 		slidesToShow = 3;
 	} else if (deviceWidth >= 1280) {
-		slidesToScroll = 2;
 		slidesToShow = 2;
 	} else if (deviceWidth >= 1024) {
-		slidesToScroll = 2.4;
-		slidesToShow = 2.4;
+		slidesToShow = 3;
 	} else if (deviceWidth >= 950) {
-		slidesToScroll = 2.8;
 		slidesToShow = 2.8;
 	} else if (deviceWidth >= 900) {
-		slidesToScroll = 2.6;
 		slidesToShow = 2.6;
 	} else if (deviceWidth >= 830) {
-		slidesToScroll = 2.1;
 		slidesToShow = 2.1;
 	}
 
 	const settings = {
 		slidesToShow: slidesToShow,
-		slidesToScroll: slidesToScroll,
+		slidesToScroll: slidesToShow,
 		speed: 500,
 		rows: 2,
 		arrows: false,
@@ -98,15 +90,15 @@ const TrendingCategorySlider: React.FC<{
 	];
 
 	return (
-		<div className="relative w-full">
+		<div className="relative w-full md:h-[80.85px] lg:h-[107.21px] xl:h-[156px] desktop:h-[159px]">
 			<button
-				className={`absolute top-1/2 -left-1 flex -translate-y-1/2 transform items-center justify-center !rounded-full border border-gray !px-0 !py-0 !text-gray tablet:!h-[22px] tablet:!w-[22px] desktop:left-4 desktop:!h-[33px] desktop:!w-[33px] desktop:border-2`}
+				className={`absolute top-1/2 -left-1 flex -translate-y-1/2 transform items-center justify-center !rounded-full border border-gray !px-0 !py-0 !text-gray tablet:!h-[22px] tablet:!w-[22px] desktop:left-0 desktop:!h-[33px] desktop:!w-[33px] desktop:border-2`}
 				onClick={() => (slider?.current as any)?.slickPrev()}
 			>
 				<MdChevronLeft className="h-full w-full" />
 			</button>
 
-			<div className={`tablet:ml-6 ${className}`}>
+			<div className={`tablet:ml-6 desktop:ml-10 ${className}`}>
 				<Slider ref={slider} {...settings}>
 					{updatedCategories?.map((subCat: any) => {
 						const { categories: category } = subCat as any;
@@ -124,15 +116,17 @@ const TrendingCategorySlider: React.FC<{
 						return (
 							<div
 								key={subCat.id}
-								className="transform cursor-pointer transition duration-300 ease-in-out hover:-translate-y-2"
+								className="transform cursor-pointer transition duration-300 ease-in-out hover:-translate-y-2 lg:mb-[26.3px] xl:mb-[39px]"
 								onClick={() =>
 									onTileClick?.(categoryData?.id, categoryData)
 								}
 							>
 								<div className="flex items-center">
-									<div className="relative h-[30px] w-[30px] lg:h-[40.46px] lg:w-[40.46px] tablet:mr-[6px] desktop:mr-[7px] xl:h-[60px] xl:w-[60px]">
+									<div className="relative min-h-[30px] min-w-[30px] lg:min-h-[40.46px] lg:min-w-[40.46px] xl:min-h-[60px] xl:min-w-[60px] tablet:mr-[6px] desktop:mr-[7px]">
 										<ImageWithErrorHandler
+											key={categoryData.image}
 											src={categoryData.image}
+											// src={'/tmp/category-tmp.svg'}
 											alt="bean"
 											fill={true}
 											className="object-contain"
@@ -140,7 +134,7 @@ const TrendingCategorySlider: React.FC<{
 									</div>
 
 									<p
-										className={`tablet:pb-1 tablet:text-[10px] tablet:leading-3 xl:!text-[15px] font-semibold ${
+										className={`flex items-center font-semibold text-gray md:h-[36px] lg:h-[36.28px] lg:leading-[12.33] lg:text-[10.11] xl:h-[54px] xl:!text-[15px] xl:!leading-[18.29px] tablet:pb-1 tablet:text-[10px] tablet:leading-3 ${
 											isSelected
 												? 'border-b-4 border-secondary ' +
 												  selectedTitleClassName
@@ -148,6 +142,8 @@ const TrendingCategorySlider: React.FC<{
 										}`}
 									>
 										{subCategoryTitle}
+										{/* Electronic Components, Accessories &
+										Telecommunication */}
 									</p>
 								</div>
 							</div>

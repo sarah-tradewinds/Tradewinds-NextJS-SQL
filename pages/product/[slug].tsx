@@ -72,7 +72,17 @@ const ProductDetailsPage: NextPage<
 	const { locale } = useRouter();
 
 	useEffect(() => {
+		// TODO: Uncomment below code
 		setProductData(product);
+
+		// (async () => {
+		// 	const productDetails =
+		// 		(await getProductById(
+		// 			// 'a8e792e4-805f-4348-a9d9-772020d20000'
+		// 			'99be8127-bf88-42f1-831f-c927cf46e432'
+		// 		)) || {};
+		// 	setProductData(productDetails);
+		// })();
 	}, [slug]);
 
 	useEffect(() => {
@@ -184,7 +194,7 @@ const ProductDetailsPage: NextPage<
 	}; // End of submitReviewHandler function
 
 	return (
-		<div className="tablet:containers pb-16 tablet:space-y-8 desktop:mt-14">
+		<div className="lg:container pb-16 tablet:space-y-8">
 			<ProductDetailsTile
 				product={productData}
 				onVariantClick={(variantId) => {
@@ -210,7 +220,7 @@ const ProductDetailsPage: NextPage<
 			/>
 
 			{/* Tabs */}
-			<div className="tablet:-ml-[33px]">
+			<div className="tablet:-ml-[33px]s">
 				<ProductDetailsTabContainer
 					product={productData}
 					reviews={productReviewList || []}
@@ -220,6 +230,7 @@ const ProductDetailsPage: NextPage<
 					isReviewLoading={isReviewLoading}
 				/>
 
+				{/* For Mobile screen only */}
 				<div className="bg-white tablet:hidden">
 					<ProductReviewsDetailsTab
 						reviews={productReviewList}
@@ -248,7 +259,7 @@ const ProductDetailsPage: NextPage<
 			)}
 
 			{/* Fixed container for small screen only */}
-			<div className="flexs fixed left-0 right-0 bottom-0 z-[2000] hidden justify-around bg-primary-main py-6 tablet:hidden">
+			<div className="fixed left-0 right-0 bottom-0 z-[2000] hidden justify-around bg-primary-main py-6 tablet:hidden">
 				<Button
 					variant="special"
 					href={generateBuyerDashboardUrl({
@@ -291,10 +302,12 @@ export const getServerSideProps: GetServerSideProps = async ({
 	try {
 		const productId = (params as any).slug;
 		const product = (await getProductById(productId)) || {};
+		console.log('productproductproductproduct =', product, productId);
 
-		if (!product || !product?.id) {
-			return notFound;
-		}
+		// TODO: uncomment below code.
+		// if (!product || !product?.id) {
+		// 	return notFound;
+		// }
 		const orderedId = (await getOrderIdByProductId(productId)) || {};
 		console.log('updatevalue', orderedId);
 

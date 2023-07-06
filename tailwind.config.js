@@ -85,7 +85,9 @@ module.exports = {
 				pc: { raw: '(max-width: 640px)' },
 				mobile: '320px',
 				tablet: '744px',
+				'840px': '840px',
 				'900px': '900px',
+				'980px': '980px',
 				desktop: '1512px',
 				'3xl': '1700px'
 			},

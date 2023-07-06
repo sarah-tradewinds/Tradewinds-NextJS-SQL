@@ -84,13 +84,13 @@ const ProductReviewsDetailsTab: React.FC<{
 
 	const writeReview = canCustomerWriteReviewForThisProduct && (
 		<div className="md:px-8">
-			<h3 className="border-b-2 border-[#C4C4C4] pb-2 text-lg font-semibold leading-[22px] text-gray md:text-[21px]">
+			<h3 className="border-[#C4C4C4] pb-2 text-lg font-semibold leading-[22px] text-gray md:border-b-2 md:text-[21px]">
 				Review this Product
 			</h3>
 
-			<div className="mt-[22px] flex justify-center">
+			<div className="mt-[6px] flex md:justify-center">
 				<button
-					className="h-[22px] w-[196px] rounded-md border border-[#C4C4C4] text-[15px] leading-[15px] text-gray/40"
+					className="h-[21.47px] w-[247.03px]  rounded-md border border-[#C4C4C4] text-[15px] leading-[15px] text-[#C4C4C4]"
 					onClick={() => {
 						if (isAuth) {
 							setShowReview(true);
@@ -131,11 +131,11 @@ const ProductReviewsDetailsTab: React.FC<{
 
 			<div className="space-y-4 bg-white p-4 md:p-8">
 				{/* Customer reviews and rating count */}
-				<div className="flex items-center border-b-2 border-t-2 border-[#C4C4C4] pb-2 md:space-x-4 md:border-t-0">
+				<div className="flex items-center border-b-2 border-[#C4C4C4] pb-2 md:space-x-4 md:border-t-0">
 					<h2 className="hidden text-[21px] font-semibold text-gray/40 md:block">
 						{t('common:customer_reviews')}
 					</h2>
-					<h2 className="text-lg font-semibold leading-[22px] text-primary-main md:hidden">
+					<h2 className="text-[15px] font-semibold leading-[18.29px] text-primary-main md:hidden">
 						{t('common:reviews')}
 					</h2>
 					<div className="relative hidden w-[124px] md:block">
@@ -152,14 +152,14 @@ const ProductReviewsDetailsTab: React.FC<{
 
 				<div className="grid grid-cols-12">
 					{/* Reviews stats, Write reviews */}
-					<div className="2xl:col-span-3 col-span-12 space-y-6 md:col-span-6 lg:col-span-5">
+					<div className="col-span-12 space-y-6 md:col-span-6 lg:col-span-5 2xl:col-span-3">
 						{/* only for mobile */}
 						<div className="md:hidden">
 							<div className="flex">
 								<RatingStars
 									starNumber={5}
 									containerClassName="justify-between w-[110.23px]"
-									className="!h-[17.54px] !w-[17.54px] text-gray"
+									className="!h-[23.14px] !w-[23.7px] text-gray"
 									selectedClassName="text-secondary"
 								/>
 								<p className="ml-[10.77px] text-[13px] leading-4 text-gray">
@@ -212,9 +212,9 @@ const ProductReviewsDetailsTab: React.FC<{
 					</div>
 
 					{/* Rating and reviews list */}
-					<div className="2xl:col-span-9 col-span-12 mt-8 space-y-8 md:col-span-6 md:mt-0 lg:col-span-7">
+					<div className="col-span-12 mt-8 space-y-8 md:col-span-6 md:mt-0 lg:col-span-7 2xl:col-span-9">
 						{/* Write Reviews if reviews list not available */}
-						{reviews?.map((review) => {
+						{reviews?.map((review: any) => {
 							const { first_name = '', last_name = '' } =
 								review?.edges?.user || {};
 
