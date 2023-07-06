@@ -89,12 +89,16 @@ export const OperationTailImage: React.FC<ImageProps> = (props) => {
 export const OperationTailContent: React.FC<{
 	title: string;
 	subtitle: string;
-	contentClassName: string;
-}> = ({ title, subtitle, contentClassName }) => {
+	// contentClassName: string;
+	// clasName1: string;
+	// clasName2: string;
+}> = ({ title, subtitle }) => {
 	return (
-		<div className={` text-primary-main ${contentClassName}`}>
-			<p className="text-[24px] font-semibold">{title}</p>
-			<p className="text-[18px] font-normal  leading-[22px] ">
+		<div className={` text-gray `}>
+			<p className=" text-[12px] font-semibold sm:text-[12px] md:text-[12px] lg:text-[15px] desktop:text-[24px]">
+				{title}
+			</p>
+			<p className="text-[12px] font-normal sm:text-[10px] sm:leading-[13px] md:text-[10px] md:leading-[12px] lg:text-[12px]  lg:leading-[15px] desktop:text-[18px]  desktop:leading-[22px] ">
 				{subtitle}
 			</p>
 		</div>
