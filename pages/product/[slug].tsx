@@ -72,17 +72,7 @@ const ProductDetailsPage: NextPage<
 	const { locale } = useRouter();
 
 	useEffect(() => {
-		// TODO: Uncomment below code
-		// setProductData(product);
-
-		(async () => {
-			const productDetails =
-				(await getProductById(
-					// 'a8e792e4-805f-4348-a9d9-772020d20000'
-					'99be8127-bf88-42f1-831f-c927cf46e432'
-				)) || {};
-			setProductData(productDetails);
-		})();
+		setProductData(product);
 	}, [slug]);
 
 	useEffect(() => {
@@ -300,18 +290,14 @@ export const getServerSideProps: GetServerSideProps = async ({
 	};
 
 	try {
-		// TODO: Uncomment below code
-		// const productId = (params as any).slug;
-
-		const productId = '99be8127-bf88-42f1-831f-c927cf46e432';
+		const productId = (params as any).slug;
 
 		const product = (await getProductById(productId)) || {};
 		console.log('productproductproductproduct =', product, productId);
 
-		// TODO: uncomment below code.
-		// if (!product || !product?.id) {
-		// 	return notFound;
-		// }
+		if (!product || !product?.id) {
+			return notFound;
+		}
 		const orderedId = (await getOrderIdByProductId(productId)) || {};
 		console.log('updatevalue', orderedId);
 
