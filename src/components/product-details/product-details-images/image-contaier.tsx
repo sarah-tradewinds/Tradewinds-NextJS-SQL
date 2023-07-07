@@ -34,13 +34,14 @@ const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 		<div className={className}>
 			{/* Main Image */}
 			<div className="relative flex items-center justify-center sm:mt-[17px] sm:mr-[43.41px] sm:ml-[36.71px]">
-				<div className="relative h-[200px] w-[200px] sm:h-[196.89px] sm:w-[196.89px] md:h-[236.27px] md:w-[236.27px] lg:h-[322.48px] lg:w-[322.48px] xl:h-[474px] xl:w-[474px]">
+				<div className="relative flex h-[200px] w-[200px] items-center justify-center sm:h-[196.89px] sm:w-[196.89px] md:h-[236.27px] md:w-[236.27px] lg:h-[322.48px] lg:w-[322.48px] desktop:h-[474px] desktop:w-[474px]">
 					<ImageWithErrorHandler
 						key={selectedImageUrl}
 						src={selectedImageUrl || imageUrl}
 						alt={alt || ''}
 						fill={true}
 						className="object-contain"
+						// className="object-cover"
 					/>
 				</div>
 				<button

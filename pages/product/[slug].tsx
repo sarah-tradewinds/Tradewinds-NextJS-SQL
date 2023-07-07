@@ -184,7 +184,7 @@ const ProductDetailsPage: NextPage<
 	}; // End of submitReviewHandler function
 
 	return (
-		<div className="pb-16 lg:container tablet:space-y-8">
+		<div className="lg::space-y-[51px] pb-16 md:space-y-[18px] lg:container desktop:w-[1512px] desktop:space-y-[32px]">
 			<ProductDetailsTile
 				product={productData}
 				onVariantClick={(variantId) => {
@@ -239,7 +239,7 @@ const ProductDetailsPage: NextPage<
 
 			{/* Similar Product */}
 			{similarProducts?.length > 0 && (
-				<div className="lg:h-[334.09px]s hidden tablet:block">
+				<div className="hidden md:mx-[8.6px] md:block desktop:mx-[24px]">
 					<SimilarProductList
 						title="Similar Product"
 						similarProducts={similarProducts || []}

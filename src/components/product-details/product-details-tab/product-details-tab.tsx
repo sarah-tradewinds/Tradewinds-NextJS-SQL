@@ -82,7 +82,7 @@ const ProductDetailsTab: React.FC<{
 					<div
 						className={`flex flex-col md:justify-between md:p-[6.69px] ${productDetailsContainerClassName}`}
 					>
-						<div className="ml-1 mt-[7px] space-y-1 md:mt-[6.69px] md:columns-2 md:space-x-8">
+						<div className="ml-1 mt-[7px] space-y-1 md:mt-[6.69px] md:columns-2">
 							{productDetailItems?.map((productDetailItem: any) => {
 								const key = getLocaleText(
 									productDetailItem.key || {},
@@ -95,9 +95,9 @@ const ProductDetailsTab: React.FC<{
 								return (
 									<p
 										key={key}
-										className="flex flex-col text-left text-[12px] leading-[21px] text-gray md:flex-row md:justify-between md:space-x-8 md:text-[10px] md:leading-[19.57px] lg:text-[12px] lg:leading-[26.08px] xl:text-[18px] xl:leading-[38px]"
+										className="flex flex-col text-left text-[12px] leading-[21px] text-gray md:flex-row md:text-[10px] md:leading-[19.57px] lg:text-[12px] lg:leading-[26.08px] xl:text-[18px] xl:leading-[38px]"
 									>
-										<span className="w-[124px] font-semibold">
+										<span className="min-w-[124px] font-semibold">
 											{key}:{' '}
 										</span>
 										<span>{value}</span>{' '}
@@ -262,7 +262,7 @@ const ProductDetailsTab: React.FC<{
 						<div className="space-y-2">
 							{product_dimension?.product_length && (
 								<p className="flex space-x-8 text-[12px] text-gray md:text-[10px] md:leading-[19.57px] lg:text-[12px] lg:leading-[26.08px] xl:text-[18px] xl:leading-[38px]">
-									<span className="w-[124px] xl:w-[180px] font-semibold">
+									<span className="w-[124px] font-semibold xl:w-[180px]">
 										{t('common:product')} {t('common:length')}:
 									</span>
 									<span>
@@ -273,7 +273,7 @@ const ProductDetailsTab: React.FC<{
 							)}
 							{product_dimension?.product_width && (
 								<p className="flex space-x-8 text-[12px] text-gray md:text-[10px] md:leading-[19.57px] lg:text-[12px] lg:leading-[26.08px] xl:text-[18px] xl:leading-[38px]">
-									<span className="w-[124px] xl:w-[180px] font-semibold">
+									<span className="w-[124px] font-semibold xl:w-[180px]">
 										{t('common:product')} {t('common:width')}:
 									</span>
 									<span>
@@ -284,7 +284,7 @@ const ProductDetailsTab: React.FC<{
 							)}
 							{product_dimension?.product_height && (
 								<p className="flex space-x-8 text-[12px] text-gray md:text-[10px] md:leading-[19.57px] lg:text-[12px] lg:leading-[26.08px] xl:text-[18px] xl:leading-[38px]">
-									<span className="w-[124px] xl:w-[180px] font-semibold">
+									<span className="w-[124px] font-semibold xl:w-[180px]">
 										{t('common:product')} {t('common:height')}:
 									</span>
 									<span>
@@ -295,7 +295,7 @@ const ProductDetailsTab: React.FC<{
 							)}
 							{product_dimension?.product_weight && (
 								<p className="flex space-x-8 text-[12px] text-gray md:text-[10px] md:leading-[19.57px] lg:text-[12px] lg:leading-[26.08px] xl:text-[18px] xl:leading-[38px]">
-									<span className="w-[124px] xl:w-[180px] font-semibold">
+									<span className="w-[124px] font-semibold xl:w-[180px]">
 										{t('common:product')} {t('common:weight')}:
 									</span>
 									<span>

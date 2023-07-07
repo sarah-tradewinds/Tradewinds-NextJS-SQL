@@ -165,7 +165,7 @@ const ProductOptionsValuesAccordion: React.FC<
 							return (
 								<button
 									key={index}
-									className={`text-[12px] font-semibold uppercase leading-[14.63px] outline-none md:text-[10px] md:leading-[12.19px] lg:text-[12px] lg:leading-[14.63px] xl:text-[15px] xl:text-[15px] xl:leading-[18.29px] ${
+									className={`text text-[12px] font-semibold uppercase leading-[14.63px] outline-none md:text-[10px] md:leading-[12.19px] lg:text-[12px] lg:leading-[14.63px] xl:text-[15px] xl:leading-[18.29px] ${
 										isCurrentOptionInStock
 											? 'text-gray'
 											: 'cursor-not-allowed text-gray/40'

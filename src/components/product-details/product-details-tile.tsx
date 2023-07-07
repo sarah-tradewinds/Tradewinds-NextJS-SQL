@@ -451,23 +451,19 @@ const ProductDetailsTile: React.FC<{
 	const productDescription =
 		getLocaleText(description || {}, locale) || '';
 
+	// Start Handlers
+	const sendMessageVendorHandler = () => {}; // End of sendMessageVendorHandler
 
-  // Start Handlers
-  const sendMessageVendorHandler = () => {
+	// const sendMessageVendorHandler = () => {
 
-  }// End of sendMessageVendorHandler
-
-  // const sendMessageVendorHandler = () => {
-
-  // }// End of sendMessageVendorHandler
-  // End Handlers
-
-
+	// }// End of sendMessageVendorHandler
+	// End Handlers
 
 	const messageVendor = (
-		<button 
-    onClick={() => setIsMessageVendorPopupOpen(true)}
-    className="relative mt-[14.18px] flex h-[32.5px] w-[239.67px] items-center justify-center rounded-lg sm:rounded-sm border-[1.74px] border-[#33A7DF] sm:mt-0 sm:h-[12.17px] sm:w-[89.75px] md:h-[14.6px] md:w-[107.69px] lg:h-[15.65px] lg:w-[114.85px]  xl:w-[169.64px] xl:h-[23px]">
+		<button
+			onClick={() => setIsMessageVendorPopupOpen(true)}
+			className="relative mt-[14.18px] flex h-[32.5px] w-[239.67px] items-center justify-center rounded-lg border-[1.74px] border-[#33A7DF] sm:mt-0 sm:h-[12.17px] sm:w-[89.75px] sm:rounded-sm md:h-[14.6px] md:w-[107.69px] lg:h-[15.65px] lg:w-[114.85px] xl:h-[23px]  xl:w-[169.64px] desktop:rounded-md"
+		>
 			<div className="absolute left-0 top-0 bottom-0 flex h-full w-[32px] items-center justify-center bg-cyan sm:w-[16px]">
 				<div className="relative h-[22.02px] w-[24px] sm:h-[8.32px] sm:w-[9.77px]">
 					<Image
@@ -485,7 +481,7 @@ const ProductDetailsTile: React.FC<{
 	);
 
 	const submitRFQ = (
-		<button className="relative flex items-center rounded-lg sm:rounded-sm border-[1.74px] border-[#33A7DF] lg:h-[15.65px] lg:w-[114.85px] xl:w-[169.64px] xl:h-[23px]">
+		<button className="relative flex items-center rounded-lg border-[1.74px] border-[#33A7DF] sm:rounded-sm lg:h-[15.65px] lg:w-[114.85px] xl:h-[23px] xl:w-[169.64px] desktop:rounded-md">
 			<div className="absolute top-0 bottom-0 flex h-full w-[31.08px] items-center justify-center bg-cyan sm:w-[9.77px] lg:w-[16px]">
 				<div className="relative h-[22.02px] w-[24px] sm:h-[8.32px] sm:w-[9.77px]">
 					<Image
@@ -496,14 +492,14 @@ const ProductDetailsTile: React.FC<{
 				</div>
 			</div>
 
-			<span className="ml-[62.17px] text-[19.6px] font-semibold leading-[23.89px] text-cyan sm:ml-[16.28px] lg:ml-[32px] sm:text-[7.34px] sm:leading-[8.95px] lg:text-[9.44px] lg:leading-[11.51px] xl:text-[13.87px] xl:leading-[16.91px]">
+			<span className="ml-[62.17px] text-[19.6px] font-semibold leading-[23.89px] text-cyan sm:ml-[16.28px] sm:text-[7.34px] sm:leading-[8.95px] lg:ml-[32px] lg:text-[9.44px] lg:leading-[11.51px] xl:text-[13.87px] xl:leading-[16.91px]">
 				Submit RFQ
 			</span>
 		</button>
 	);
 
 	const baseButtonClass =
-		'flex h-[32.5px] w-[239.67px] items-center justify-center sm:h-[12.17px] md:w-[107.69px] md:h-[14.6px] sm:w-[89.75px] lg:w-[114.85px] lg:h-[15.65px] rounded-lg sm:rounded-sm xl:w-[169.64px] xl:h-[23px]';
+		'flex h-[32.5px] w-[239.67px] items-center justify-center sm:h-[12.17px] md:w-[107.69px] md:h-[14.6px] sm:w-[89.75px] lg:w-[114.85px] lg:h-[15.65px] rounded-lg sm:rounded-sm desktop:rounded-md xl:w-[169.64px] xl:h-[23px]';
 
 	const actionButtons = (
 		<div className="-mt-4 flex flex-col items-center space-y-[22.01px] sm:flex-row sm:space-x-[30.35px] sm:space-y-0">
@@ -531,11 +527,11 @@ const ProductDetailsTile: React.FC<{
 
 			{/* ADD to Cart button */}
 			<button
-        onClick={onAddToCart}
+				onClick={onAddToCart}
 				className={`${baseButtonClass} border-[1.41px] border-[#37B04A]`}
 			>
 				<div className="flex items-center space-x-[8.79px]">
-					<div className="relative h-[24.02px] w-[31.08px] sm:h-[8.99px] sm:w-[11.64px] lg:w-[14.29px] lg:h-[11.57px]">
+					<div className="relative h-[24.02px] w-[31.08px] sm:h-[8.99px] sm:w-[11.64px] lg:h-[11.57px] lg:w-[14.29px]">
 						<Image
 							src="/icons/cart-green-outline-icon.svg"
 							alt="cart-icon"
@@ -587,11 +583,11 @@ const ProductDetailsTile: React.FC<{
 				}}
 			/>
 
-			<div className="justify-end bg-white sm:flex sm:flex-row-reverse md:flex-row">
+			<div className="justify-end bg-white sm:flex sm:flex-row-reverse md:flex-row md:justify-start">
 				{/* Images container */}
 				<ImageContainer
 					key={masterImageUrl}
-					className="pt-[7px] md:pt-[5px]"
+					className="pt-[7px] md:pt-[5px] desktop:ml-[48px]"
 					imageUrl={masterImageUrl}
 					alt=""
 					thumbnails={
@@ -610,7 +606,7 @@ const ProductDetailsTile: React.FC<{
 				/>
 
 				{/* Product details */}
-				<div className="mt-[16px] ml-[13px] mr-[13px] sm:w-[345px] md:ml-[40.49px] md:mr-[19.35px] md:w-[392.04px] lg:mr-[41.61px] lg:!w-[652px] 840px:w-auto">
+				<div className="mt-[16px] ml-[13px] mr-[13px] sm:w-[345px] md:ml-[40.49px] md:mr-[19.35px] md:w-[392.04px] lg:mr-[41.61px] lg:!w-[652px] 840px:w-auto desktop:ml-[164px]">
 					{/* Product name and sku info */}
 					<div className="flex items-center justify-between">
 						<h1 className="text-[18px] font-semibold capitalize leading-[21.94px] text-primary-main sm:text-[15px] sm:leading-[18.29px] md:text-[18px] md:leading-[21.94px] lg:text-[20px] lg:leading-[24.38px] xl:text-[30px] xl:leading-[36.57px]">
@@ -907,9 +903,7 @@ const ProductDetailsTile: React.FC<{
 								<p className="font-semibold leading-[22px] text-[#575858] sm:text-[12px] sm:leading-[14.63px] md:text-[10px] md:leading-[13.23px] lg:text-[15px]">
 									Product features:
 								</p>
-                <div>
-								  {productFeatures}
-							  </div>
+								<div>{productFeatures}</div>
 							</div>
 						)}
 
