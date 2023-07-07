@@ -26,20 +26,6 @@ const TrendingCategorySlider: React.FC<{
 		selectedTitleClassName = ''
 	} = props;
 
-	// let slideToShow = 2;
-	// let slidesToScroll = 3;
-	// if (deviceWidth >= 1536) {
-	// 	slideToShow = 4;
-	// } else if (deviceWidth >= 1280) {
-	// 	slideToShow = 5;
-	// } else if (deviceWidth >= 1024) {
-	// 	slideToShow = 2;
-	// } else if (deviceWidth >= 768) {
-	// 	slideToShow = 3;
-	// } else if (deviceWidth >= 640) {
-	// 	slideToShow = 3;
-	// }
-
 	let slidesToShow = 2;
 	if (deviceWidth >= 1700) {
 		slidesToShow = 3.4;
@@ -126,7 +112,6 @@ const TrendingCategorySlider: React.FC<{
 										<ImageWithErrorHandler
 											key={categoryData.image}
 											src={categoryData.image}
-											// src={'/tmp/category-tmp.svg'}
 											alt="bean"
 											fill={true}
 											className="object-contain"
@@ -134,7 +119,7 @@ const TrendingCategorySlider: React.FC<{
 									</div>
 
 									<p
-										className={`flex items-center font-semibold text-gray md:h-[36px] lg:h-[36.28px] lg:leading-[12.33] lg:text-[10.11] xl:h-[54px] xl:!text-[15px] xl:!leading-[18.29px] tablet:pb-1 tablet:text-[10px] tablet:leading-3 ${
+										className={`flex items-center text-gray md:h-[36px] lg:h-[36.28px] lg:leading-[12.33] lg:text-[10.11] xl:h-[54px] xl:!text-[15px] xl:!leading-[18.29px] tablet:pb-1 tablet:text-[10px] tablet:leading-3 ${
 											isSelected
 												? 'border-b-4 border-secondary ' +
 												  selectedTitleClassName
@@ -142,8 +127,6 @@ const TrendingCategorySlider: React.FC<{
 										}`}
 									>
 										{subCategoryTitle}
-										{/* Electronic Components, Accessories &
-										Telecommunication */}
 									</p>
 								</div>
 							</div>
