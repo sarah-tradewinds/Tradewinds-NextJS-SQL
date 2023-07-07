@@ -64,6 +64,7 @@ const HomePage: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = (
 		isEco
 	}));
 
+
 	const { t } = useTranslation();
 
 	const { fetchCountries, removeSelectedCountries } = useCountriesStore(

@@ -49,13 +49,52 @@ const SimilarProductList: React.FC<SimilarProductListProps> = (
 	});
 
 	return (
-		<div className="mx-4 h-full rounded-md bg-white p-4">
-			<h3 className="mb-6 font-semibold text-primary-main lg:text-[25px] lg:leading-[30px]">
+		<div className="h-full rounded-md bg-white px-4">
+			<h3 className="md:text-leading-[14.63px] mb-6 pt-[9.32px] font-semibold text-gray md:text-[12px] lg:mb-[16px] lg:pt-[12.42px] lg:text-[15px] lg:leading-[18.29px] desktop:text-[25px] desktop:leading-[30px]">
 				{title}
 			</h3>
 
+			<div className="md:ml-[41.34px] md:grid md:grid-cols-4 md:gap-x-[32px] lg:ml-[24px] xl:grid-cols-5">
+				{similarProducts.map((similarProduct, index) => {
+					const { defaultVariant } =
+						getDefaultProductAndProductVariants(
+							similarProduct?.edges?.product_variants || []
+						);
+					return (
+						<div
+							key={similarProduct?.id}
+							onClick={() => push(`/product/${similarProduct?.id}`)}
+							className=""
+						>
+							<div className="md:pb-[21.25px]">
+								<div className="relative h-[116.52px] w-[116.52px] lg:h-[155.29px] lg:w-[155.29px]">
+									<ImageWithErrorHandler
+										src={defaultVariant?.images?.[0] || ''}
+										alt=""
+										fill={true}
+									/>
+								</div>
+
+								<div className="w-[116.52px] overflow-x-clip lg:w-[155.29px]">
+									<p className="mt-1 flex  justify-between space-x-8 truncate text-[12px] font-bold leading-[14.63px] text-gray">
+										{getLocaleText(defaultVariant?.name || {}, locale)}
+									</p>
+									<p className="truncates text-[10px] leading-[12.19px] text-gray">
+										{getLocaleText(
+											defaultVariant?.description || {},
+											locale
+										)}
+										nice green color
+									</p>
+								</div>
+							</div>
+						</div>
+					);
+				})}
+			</div>
+
 			{/* Similar Products */}
-			<div className="navigation-wrapper pl-8s group relative">
+			<div className="navigation-wrapper pl-8s group relative hidden">
 				<div ref={sliderRef} className={`keen-slider ${className}`}>
 					{similarProducts.map((similarProduct, index) => {
 						const { defaultVariant } =
@@ -72,7 +111,7 @@ const SimilarProductList: React.FC<SimilarProductListProps> = (
 							>
 								{/* {console.log('similarProduct', similarProduct)} */}
 								<div className="h-[274px] w-[298px]">
-									<div className="relative h-[205px] w-[240px]">
+									<div className="relative h-[116.52px] w-[240px]">
 										<ImageWithErrorHandler
 											src={defaultVariant?.images?.[0] || ''}
 											alt=""

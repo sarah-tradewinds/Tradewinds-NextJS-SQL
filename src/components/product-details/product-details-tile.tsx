@@ -247,10 +247,7 @@ const ProductDetailsTile: React.FC<{
 		? product?.images
 		: selectedVariant?.images || [];
 
-
-  // TODO: Uncomment below code
 	const masterImageUrl = images?.[0];
-	// const masterImageUrl = "/tmp/vehicle.png";
 
 	const options: { [key: string]: any } = {};
 	for (const variant of variants) {
@@ -454,9 +451,20 @@ const ProductDetailsTile: React.FC<{
 	const productDescription =
 		getLocaleText(description || {}, locale) || '';
 
+	// Start Handlers
+	const sendMessageVendorHandler = () => {}; // End of sendMessageVendorHandler
+
+	// const sendMessageVendorHandler = () => {
+
+	// }// End of sendMessageVendorHandler
+	// End Handlers
+
 	const messageVendor = (
-		<button className="relative mt-[14.18px] flex h-[32.5px] w-[239.67px] items-center rounded-lg border-[1.74px] border-[#33A7DF] sm:mt-0 sm:h-[12.17px] sm:w-[89.75px]">
-			<div className="absolute top-0 bottom-0 flex h-[24.02px] w-[31.08px] items-center justify-center bg-cyan sm:h-[8.32px] sm:w-[9.77px]">
+		<button
+			onClick={() => setIsMessageVendorPopupOpen(true)}
+			className="relative mt-[14.18px] flex h-[32.5px] w-[239.67px] items-center justify-center rounded-lg border-[1.74px] border-[#33A7DF] sm:mt-0 sm:h-[12.17px] sm:w-[89.75px] sm:rounded-sm md:h-[14.6px] md:w-[107.69px] lg:h-[15.65px] lg:w-[114.85px] xl:h-[23px]  xl:w-[169.64px] desktop:rounded-md"
+		>
+			<div className="absolute left-0 top-0 bottom-0 flex h-full w-[32px] items-center justify-center bg-cyan sm:w-[16px]">
 				<div className="relative h-[22.02px] w-[24px] sm:h-[8.32px] sm:w-[9.77px]">
 					<Image
 						src="/icons/message-vendor-white-outline-icon.svg"
@@ -466,17 +474,15 @@ const ProductDetailsTile: React.FC<{
 				</div>
 			</div>
 
-			<span className="ml-[62.17px] text-[19.6px] font-semibold leading-[23.89px] text-cyan sm:ml-[16.28px] sm:text-[7.34px] sm:leading-[8.95px]">
+			<p className="ml-[24px] text-[19.6px] font-semibold leading-[23.89px] text-cyan sm:ml-[16.28px] sm:text-[7.34px] sm:leading-[8.95px] lg:text-[9.44px] lg:leading-[11.51px] xl:text-[13.87px] xl:leading-[16.91px]">
 				Message Vendor
-			</span>
+			</p>
 		</button>
 	);
 
-
-  
 	const submitRFQ = (
-		<button className="relative flex items-center lg:w-[94.1px] lg:h-[15.63px] xl:w-[138.32px] xl:h-[22.98px] rounded-lg border-[1.74px] border-[#33A7DF]">
-			<div className="absolute top-0 bottom-0 flex h-[24.02px] w-[31.08px] items-center justify-center bg-cyan sm:h-[8.32px] sm:w-[9.77px]">
+		<button className="relative flex items-center rounded-lg border-[1.74px] border-[#33A7DF] sm:rounded-sm lg:h-[15.65px] lg:w-[114.85px] xl:h-[23px] xl:w-[169.64px] desktop:rounded-md">
+			<div className="absolute top-0 bottom-0 flex h-full w-[31.08px] items-center justify-center bg-cyan sm:w-[9.77px] lg:w-[16px]">
 				<div className="relative h-[22.02px] w-[24px] sm:h-[8.32px] sm:w-[9.77px]">
 					<Image
 						src="/icons/message-vendor-white-outline-icon.svg"
@@ -486,19 +492,17 @@ const ProductDetailsTile: React.FC<{
 				</div>
 			</div>
 
-			<span className="ml-[62.17px] text-[19.6px] font-semibold leading-[23.89px] text-cyan sm:ml-[16.28px] sm:text-[7.34px] sm:leading-[8.95px]">
+			<span className="ml-[62.17px] text-[19.6px] font-semibold leading-[23.89px] text-cyan sm:ml-[16.28px] sm:text-[7.34px] sm:leading-[8.95px] lg:ml-[32px] lg:text-[9.44px] lg:leading-[11.51px] xl:text-[13.87px] xl:leading-[16.91px]">
 				Submit RFQ
 			</span>
 		</button>
 	);
 
-
-
 	const baseButtonClass =
-		'flex h-[32.5px] w-[239.67px] items-center justify-center rounded-lg sm:h-[12.17px] md:w-[107.29px] md:h-[13.33px] sm:w-[89.75px] lg:w-[114.85px]';
+		'flex h-[32.5px] w-[239.67px] items-center justify-center sm:h-[12.17px] md:w-[107.69px] md:h-[14.6px] sm:w-[89.75px] lg:w-[114.85px] lg:h-[15.65px] rounded-lg sm:rounded-sm desktop:rounded-md xl:w-[169.64px] xl:h-[23px]';
 
 	const actionButtons = (
-		<div className="flex flex-col items-center space-y-[22.01px] sm:flex-row sm:space-x-[30.35px] sm:space-y-0">
+		<div className="-mt-4 flex flex-col items-center space-y-[22.01px] sm:flex-row sm:space-x-[30.35px] sm:space-y-0">
 			{/* Message Vendor */}
 			<div className="hidden sm:block">{messageVendor}</div>
 
@@ -515,7 +519,7 @@ const ProductDetailsTile: React.FC<{
 						/>
 					</div>
 
-					<span className="text-[19.6px] font-semibold leading-[23.89px] text-white sm:text-[7.34px] sm:leading-[8.95px]">
+					<span className="text-[19.6px] font-semibold leading-[23.89px] text-white sm:text-[7.34px] sm:leading-[8.95px] lg:text-[9.44px] lg:leading-[11.51px] xl:text-[13.87px] xl:leading-[16.91px]">
 						Submit an RFQ
 					</span>
 				</div>
@@ -523,22 +527,36 @@ const ProductDetailsTile: React.FC<{
 
 			{/* ADD to Cart button */}
 			<button
+				onClick={onAddToCart}
 				className={`${baseButtonClass} border-[1.41px] border-[#37B04A]`}
 			>
 				<div className="flex items-center space-x-[8.79px]">
-					<div className="relative h-[24.02px] w-[31.08px] sm:h-[8.99px] sm:w-[11.64px]">
+					<div className="relative h-[24.02px] w-[31.08px] sm:h-[8.99px] sm:w-[11.64px] lg:h-[11.57px] lg:w-[14.29px]">
 						<Image
 							src="/icons/cart-green-outline-icon.svg"
 							alt="cart-icon"
 							fill={true}
 						/>
 					</div>
-					<span className="text-[19.6px] font-semibold leading-[23.89px] text-[#37B04A] sm:text-[7.34px] sm:leading-[8.95px]">
+					<span className="text-[19.6px] font-semibold leading-[23.89px] text-[#37B04A] sm:text-[7.34px] sm:leading-[8.95px] lg:text-[9.44px] lg:leading-[11.51px] xl:text-[13.87px] xl:leading-[16.91px]">
 						Add to Cart
 					</span>
 				</div>
 			</button>
 		</div>
+	);
+
+	const productFeatures = (
+		<ul className="ml-6 list-disc">
+			{product_features?.map((productFeature: any) => (
+				<li
+					key={productFeature?.en}
+					className="text-[12px] leading-[22px] text-[#575858] md:text-[10px] md:leading-[13.23px] lg:text-[12px] lg:leading-[14.97px] xl:text-[15px] xl:leading-[22px]"
+				>
+					{getLocaleText(productFeature, locale)}
+				</li>
+			))}
+		</ul>
 	);
 
 	return (
@@ -565,11 +583,11 @@ const ProductDetailsTile: React.FC<{
 				}}
 			/>
 
-			<div className="bg-white sm:flex sm:flex-row-reverse md:flex-row">
+			<div className="justify-end bg-white sm:flex sm:flex-row-reverse md:flex-row md:justify-start">
 				{/* Images container */}
 				<ImageContainer
 					key={masterImageUrl}
-					className="pt-[7px] md:pt-[5px]"
+					className="pt-[7px] md:pt-[5px] desktop:ml-[48px]"
 					imageUrl={masterImageUrl}
 					alt=""
 					thumbnails={
@@ -588,13 +606,13 @@ const ProductDetailsTile: React.FC<{
 				/>
 
 				{/* Product details */}
-				<div className="mt-[16px] ml-[13px] mr-[7px] sm:w-[345px] md:ml-[40.49px] md:mr-[19.35px] md:w-[392.04px] 840px:w-auto lg:mr-[41.61px]">
+				<div className="mt-[16px] ml-[13px] mr-[13px] sm:w-[345px] md:ml-[40.49px] md:mr-[19.35px] md:w-[392.04px] lg:mr-[41.61px] lg:!w-[652px] 840px:w-auto desktop:ml-[164px]">
 					{/* Product name and sku info */}
 					<div className="flex items-center justify-between">
 						<h1 className="text-[18px] font-semibold capitalize leading-[21.94px] text-primary-main sm:text-[15px] sm:leading-[18.29px] md:text-[18px] md:leading-[21.94px] lg:text-[20px] lg:leading-[24.38px] xl:text-[30px] xl:leading-[36.57px]">
 							{productName}
 						</h1>
-						<p className="hidden lg:text-[20px] lg:leading-[24.38px]  xl:text-[30px] xl:leading-[36.57px] font-semibold uppercase text-gray/40 lg:block">
+						<p className="hidden font-semibold uppercase  text-gray/40 lg:block lg:text-[20px] lg:leading-[24.38px] xl:text-[30px] xl:leading-[36.57px]">
 							{inventory?.sku}
 						</p>
 					</div>
@@ -620,12 +638,14 @@ const ProductDetailsTile: React.FC<{
 						</h3>
 
 						{minOrderQuantity > 0 && (
-							<div className="text-xs font-semibold capitalize leading-[15px] sm:text-[10.83px] sm:leading-[13.21px] md:text-[13px] md:leading-[15.85px] lg:text-[15px] md:flex md:items-center md:space-x-4 lg:leading-[18.29px] xl:text-[21px] xl:leading-[25.6px]">
+							<div className="text-xs font-semibold capitalize leading-[15px] sm:flex sm:items-center sm:space-x-2 sm:text-[10.83px] sm:leading-[13.21px] md:space-x-4 md:text-[13px] md:leading-[15.85px] lg:text-[15px] lg:leading-[18.29px] xl:text-[21px] xl:leading-[25.6px]">
 								<h4>
 									{minOrderQuantity} {minOrderQuantityUnit} /
 									{t('common:min_order')}
 								</h4>
-								<p>Lead Time: {product?.lead_time}</p>
+								<p className="hidden sm:block">
+									Lead Time: {product?.lead_time}
+								</p>
 							</div>
 						)}
 					</div>
@@ -647,8 +667,8 @@ const ProductDetailsTile: React.FC<{
 					</div>
 
 					{/* Rating, review count and verified Image */}
-					<div className="pb-4s mt-[28px] hidden items-center md:mt-[10.25px] md:flex md:justify-between">
-						<div className="flex items-center md:mr-[79px]">
+					<div className="mt-[28px] hidden items-center md:mt-[10.25px] md:flex md:justify-between lg:pr-[32px]">
+						<div className="md:mr-[79px]s flex items-center">
 							<RatingStars
 								starNumber={5}
 								rating={total_rate_count}
@@ -656,14 +676,12 @@ const ProductDetailsTile: React.FC<{
 								className="h-[23.7px] w-[23.7px] text-gray md:h-[14.25px] md:w-[14.25px]"
 								selectedClassName="text-secondary"
 							/>
-							<p className="text-center text-[13px] leading-4 text-secondary md:ml-[7px] md:text-[7.82px] lg:text-[8.84px] lg:leading-[10.78px] md:leading-[9.53px] xl:text-[13px] xl:leading-[15.85px]">
+							<p className="text-center text-[13px] leading-4 text-secondary md:ml-[7px] md:text-[7.82px] md:leading-[9.53px] lg:text-[8.84px] lg:leading-[10.78px] xl:text-[13px] xl:leading-[15.85px]">
 								{total_review_count} {t('common:reviews')}
 							</p>
 						</div>
 
-            <div className="hidden lg:block">
-              {submitRFQ}
-            </div>
+						<div className="hidden lg:block">{submitRFQ}</div>
 
 						{/* {!is_verified && ( */}
 						<div className="relative h-[30px] w-[162px] md:h-[17.42px] md:w-[97.43px]">
@@ -675,7 +693,7 @@ const ProductDetailsTile: React.FC<{
 						</div>
 						{/* )} */}
 
-						{is_eco && (
+						{/* {is_eco && (
 							<div className="ml-20 flex items-center space-x-2">
 								<ImageWithErrorHandler
 									src="/static/icons/eco-icon.png"
@@ -685,7 +703,7 @@ const ProductDetailsTile: React.FC<{
 								/>
 								<span className="font-semibold text-green">ECO</span>
 							</div>
-						)}
+						)} */}
 					</div>
 
 					{/* Message Vendor button only for mobile*/}
@@ -694,13 +712,16 @@ const ProductDetailsTile: React.FC<{
 					</div>
 
 					{/* Product name and description */}
-					<div className="mt-[15px] border-[#DEDFE0] pt-[13px] md:border-t-[1.2px] md:pt-[19px] md:pb-[25.64px]">
+					<div className="mt-[15px] border-b border-[#DEDFE0] pt-[13px] pb-[25.64px] sm:border-none sm:pb-0 md:border-t-[1.2px] md:pt-[19px]">
 						<div className="flex items-start">
 							{/* For Small Screen */}
-							<h2 className="text-[12px] leading-[22px] text-gray sm:hidden">
-								<span className="font-semibold">{productName}:</span>
-								<span>{productDescription}</span>
-							</h2>
+							<div className="sm:hidden">
+								<h2 className="text-[12px] leading-[22px] text-gray">
+									<span className="font-semibold">{productName}:</span>
+									<span>{productDescription}</span>
+								</h2>
+								{productFeatures}
+							</div>
 
 							{/* For Large Screen */}
 							<h2 className="h-[49px]s hidden whitespace-pre-wrap text-xs leading-[22px] text-gray sm:block md:block md:text-[10px] md:leading-[13.23px] lg:text-[12px] lg:leading-[14.97px] xl:text-[15px] xl:leading-[22px]">
@@ -807,13 +828,13 @@ const ProductDetailsTile: React.FC<{
 						</div>
 					</div>
 
-					{/* Action Buttons */}
-					<div className="hidden border-b border-[#DEDFE0] pb-[19.3px] sm:mt-[33.77px] sm:block md:mt-[12.96px]">
+					{/* Action Buttons only for medium and large device */}
+					<div className="hidden border-b border-[#DEDFE0] pb-[19.3px] sm:mt-[33.77px] sm:block">
 						{actionButtons}
 					</div>
 
 					{/* Additional info */}
-					<div className="space-y-4 md:block">
+					<div className="md:block">
 						{/* Bulk Pricing */}
 						<div ref={sliderRef} className="keen-slider">
 							{is_bulk_pricing &&
@@ -834,61 +855,55 @@ const ProductDetailsTile: React.FC<{
 						</div>
 
 						{/* Variants Options And Values */}
-						{updatedOptionsAndValueLists?.map(
-							(optionAndValueList: any, index: number) => {
-								if (!optionAndValueList) {
-									return null;
-								}
+						<div className="">
+							{updatedOptionsAndValueLists?.map(
+								(optionAndValueList: any, index: number) => {
+									if (!optionAndValueList) {
+										return null;
+									}
 
-								const {
-									id
-									// name,
-									// values = []
-								} = optionAndValueList || {};
-								const showImage = index === 0;
+									const { id } = optionAndValueList || {};
+									const showImage = index === 0;
 
-								const filteredOptionAndValue =
-									selectedOptionAndValue?.[id];
+									const filteredOptionAndValue =
+										selectedOptionAndValue?.[id];
 
-								// const selectedOptionValue =
-								// 	filteredOptionAndValue?.value?.name || '';
+									const isLastItem =
+										updatedOptionsAndValueLists?.length === index + 1;
 
-								return (
-									<div
-										key={index}
-										className="mt-1 border-b border-[#DEDFE0] pb-[15.95px] last:border-none md:border-b-[1.2px] md:pb-8 lg:border-b-[1.36px] xl:border-b-2"
-									>
-										<ProductOptionsValuesAccordion
+									return (
+										<div
 											key={index}
-											productVariants={variants || []}
-											showImage={showImage}
-											selectedOptionAndValue={selectedOptionAndValue}
-											optionAndValues={optionAndValueList}
-											onOptionAndValueSelect={onOptionAndValueSelect}
-										/>
-									</div>
-								);
-							}
-						)}
+											className={`mt-1 border-b border-[#DEDFE0] pb-[15.95px] md:border-b-[1.2px] lg:border-b-[1.36px] xl:border-b-2 ${
+												isLastItem ? '!border-none' : ''
+											}`}
+										>
+											<ProductOptionsValuesAccordion
+												key={index}
+												productVariants={variants || []}
+												showImage={showImage}
+												selectedOptionAndValue={selectedOptionAndValue}
+												optionAndValues={optionAndValueList}
+												onOptionAndValueSelect={onOptionAndValueSelect}
+											/>
+										</div>
+									);
+								}
+							)}
+						</div>
 
 						{/* Action Buttons */}
-						<div className="flex flex-col items-center space-y-[22.01px] sm:hidden">
+						<div className="space-y-[22.01px]s flex flex-col items-center sm:hidden">
 							{actionButtons}
 						</div>
 
 						{/* Product Feature */}
 						{product_features?.length > 0 && (
-							<div>
+							<div className="hidden sm:block md:pb-[16px]">
 								<p className="font-semibold leading-[22px] text-[#575858] sm:text-[12px] sm:leading-[14.63px] md:text-[10px] md:leading-[13.23px] lg:text-[15px]">
 									Product features:
 								</p>
-								<ul className="ml-6 list-disc text-[15px] leading-[22px] text-[#575858] md:text-[10px] md:leading-[13.23px]">
-									{product_features?.map((productFeature: any) => (
-										<li key={productFeature?.en}>
-											{getLocaleText(productFeature, locale)}
-										</li>
-									))}
-								</ul>
+								<div>{productFeatures}</div>
 							</div>
 						)}
 

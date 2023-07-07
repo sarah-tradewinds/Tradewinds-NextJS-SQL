@@ -188,7 +188,7 @@ const CompanyProfileTab: React.FC<{
 							<Tab.Panel className="outline-none">
 								{/* Only for mobile device */}
 								<div className="md:hidden">
-									<h3 className="border-b-2 border-[#C4C4C4] pb-[7px] text-[15px] font-semibold leading-[18.29px] text-gray">
+									<h3 className="border-b-2 border-[#C4C4C4] pb-[7px] text-[15px] font-semibold leading-[18.29px] text-primary-main">
 										Company Profile
 									</h3>
 									<div className="relative mt-[8.57px] h-[20.48px] w-[93.7px]">
@@ -210,7 +210,7 @@ const CompanyProfileTab: React.FC<{
 									<div className="grid grid-cols-12 md:mt-8 md:gap-8">
 										{/* Profile details */}
 										<div className="col-span-12 space-y-4 sm:col-span-8">
-											<p className="sflex hidden flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
+											<p className="hidden flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
 												<span className="font-semibold md:min-w-[148px]">
 													{t('common:campany_name')}:
 												</span>
