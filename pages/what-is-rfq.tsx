@@ -58,13 +58,13 @@ const WhatIsRFQPage: NextPage = () => {
 								<WhyUseRFQTile
 									imageUrl="/static/images/RfqPageImages/submit-request-img.png"
 									title={t('submit_quote_for_your_custom_request')}
-									imageContainerClassName=" md:ml-[60px] md:w-[62px] md:h-[58px] lg:ml-0 lg:w-[87px] lg:h-[70px] desktop:ml-0 desktop:w-[150px] desktop:h-[124px]"
+									imageContainerClassName=" md:ml-[60px] md:w-[62px] md:h-[58px] lg:ml-0 lg:w-[87px] lg:h-[70px] desktop:ml-0 desktop:w-[115px] desktop:h-[100px]"
 									textClassName=" md:text-[15px] md:ml-[20px] md:w-[198px] md:h-[34px] lg:text-[18px] lg:ml-[31px] lg:w-[209px] lg:h-[45px] desktop:w-[314px] desktop:h-[67px] desktop:ml-[46px] desktop:text-[25px]"
 								/>
 								<WhyUseRFQTile
 									imageUrl="/static/images/RfqPageImages/receive-response-img.png"
 									title={t('receive_responses_from_multiple_suppliers')}
-									imageContainerClassName="md:ml-[50px] md:w-[58px] md:h-[48px] lg:ml-0 lg:w-[77px] lg:h-[65px] desktop:ml-0 desktop:w-[160px] desktop:h-[96px]"
+									imageContainerClassName="md:ml-[50px] md:w-[58px] md:h-[48px] lg:ml-0 lg:w-[77px] lg:h-[65px] desktop:ml-0 desktop:w-[115px] desktop:h-[96px]"
 									textClassName="md:text-[15px] md:ml-[30px] md:w-[198px] md:h-[34px] lg:text-[18px] lg:ml-[31px] lg:w-[246px] lg:h-[45px] desktop:w-[314px] desktop:h-[67px] desktop:ml-[46px] desktop:text-[25px]"
 								/>
 								<WhyUseRFQTile
@@ -172,51 +172,57 @@ const WhatIsRFQPage: NextPage = () => {
 								</h4>
 							</div>
 							<div className="ml-[22px] mt-[28px] leading-[14px] sm:ml-[180px] sm:mt-[30px] sm:leading-[14px] md:ml-[25px] md:mt-[14px] md:leading-[14px] lg:ml-[31px] lg:mt-[18px] lg:leading-[12.94px] desktop:ml-[51px] desktop:mt-[38px] desktop:leading-[21.94px]">
-								<div className=" h-[646px] w-[246px] text-[12px] text-white sm:h-[488px] sm:w-[371px] sm:text-[12px] md:h-[383px] md:w-[297px] md:text-[12px] lg:h-[384px] lg:w-[395px] lg:text-[12px] desktop:h-[540px] desktop:w-[584px] desktop:text-[18px] ">
-									<p className="text-[12px] font-semibold text-gray sm:text-[12px] md:text-[15px] lg:text-[18px] desktop:text-[25px] ">
-										Fill out RFQ form:
-									</p>
-									<div className="ml-[12px] mb-[30px] -space-y-[5px] sm:ml-[12px] sm:mb-[30px] sm:-space-y-[5px] md:ml-[12px] md:mb-[7px] md:-space-y-[10px] lg:ml-[12px] lg:mb-[7px] lg:-space-y-[10px] desktop:ml-[15px] desktop:mb-[10px] desktop:space-y-[0px] ">
-										<Point
-											content="Complete RFQ Form: Note: To enhance vendor
+								<div className=" h-[646px] w-[246px] space-y-[20px] text-[12px] text-white sm:h-[488px] sm:w-[371px] sm:space-y-[20px] sm:text-[12px] md:h-[383px] md:w-[297px] md:space-y-[5px] md:text-[12px] lg:h-[384px] lg:w-[395px] lg:space-y-[25px] lg:text-[12px] desktop:h-[540px] desktop:w-[584px] desktop:space-y-[30px] desktop:text-[18px] ">
+									<div>
+										<p className="text-[12px] font-semibold text-gray sm:text-[12px] md:text-[15px] lg:text-[18px] desktop:text-[25px] ">
+											Fill out RFQ form:
+										</p>
+										<div className="ml-[12px] mb-[30px] -space-y-[5px] sm:ml-[12px] sm:mb-[30px] sm:-space-y-[5px] md:ml-[12px] md:mb-[7px] md:-space-y-[10px] lg:ml-[12px] lg:mb-[7px] lg:-space-y-[10px] desktop:ml-[15px] desktop:mb-[10px] desktop:space-y-[0px] ">
+											<Point
+												content="Complete RFQ Form: Note: To enhance vendor
 											responses, ensure your provided information is
 											detailed for responses that are tailored and
 											relevant."
-										/>
+											/>
 
-										<Point
-											content="Complete Product information: Complete Product
+											<Point
+												content="Complete Product information: Complete Product
 											information: Add additional notes. Eg. Multiple
 											colors, fabric needs etc."
-										/>
+											/>
 
-										<Point content="Review details and Submit" />
+											<Point content="Review details and Submit" />
+										</div>
 									</div>
-									<p className="text-[12px] font-semibold text-gray md:text-[15px] lg:text-[18px] desktop:text-[25px] ">
-										Review vendor responses:
-									</p>
-									<div className="ml-[12px] mb-[30px] -space-y-[5px]  sm:ml-[12px] sm:mb-[30px] sm:-space-y-[5px] md:ml-[12px] md:mb-[7px] md:-space-y-[10px] lg:ml-[12px] lg:mb-[10px] lg:-space-y-[10px] desktop:ml-[15px]  desktop:mb-[10px] desktop:space-y-[0px] ">
-										<Point content="Review vendor responses:" />
-										<Point
-											content="Choose your preferred quote: Notify your chosen
+									<div>
+										<p className="text-[12px] font-semibold text-gray md:text-[15px] lg:text-[18px] desktop:text-[25px] ">
+											Review vendor responses:
+										</p>
+										<div className="ml-[12px] mb-[30px] -space-y-[5px]  sm:ml-[12px] sm:mb-[30px] sm:-space-y-[5px] md:ml-[12px] md:mb-[7px] md:-space-y-[10px] lg:ml-[12px] lg:mb-[10px] lg:-space-y-[10px] desktop:ml-[15px]  desktop:mb-[10px] desktop:space-y-[0px] ">
+											<Point content="Review vendor responses:" />
+											<Point
+												content="Choose your preferred quote: Notify your chosen
 											vendor of your decision and next steps while
 											retaining a copy of the RFQ for future contractual
 											reference."
-										/>
-										<Point content="Review details and Submit" />
+											/>
+											<Point content="Review details and Submit" />
+										</div>
 									</div>
-									<p className="text-[12px] font-semibold text-gray md:text-[15px] lg:text-[18px] desktop:text-[25px] ">
-										Finalize the process:
-									</p>
-									<div className="ml-[12px] mb-[30px] -space-y-[5px] sm:ml-[12px] sm:mb-[30px] sm:-space-y-[5px] md:ml-[12px] md:mb-[7px] md:-space-y-[10px] lg:ml-[12px] lg:mb-[7px] lg:-space-y-[10px] desktop:ml-[15px] desktop:mb-[10px] desktop:space-y-[0px] ">
-										<Point
-											content="Finally, formalize the arrangement with the chosen
+									<div>
+										<p className="text-[12px] font-semibold text-gray md:text-[15px] lg:text-[18px] desktop:text-[25px] ">
+											Finalize the process:
+										</p>
+										<div className="ml-[12px] mb-[30px] -space-y-[5px] sm:ml-[12px] sm:mb-[30px] sm:-space-y-[5px] md:ml-[12px] md:mb-[7px] md:-space-y-[10px] lg:ml-[12px] lg:mb-[7px] lg:-space-y-[10px] desktop:ml-[15px] desktop:mb-[10px] desktop:space-y-[0px] ">
+											<Point
+												content="Finally, formalize the arrangement with the chosen
 											vendor to close out the process. Keep in mind that
 											an RFQ is not a contract and requires formal
 											agreement from both parties to be enforceable.
 											Notify other vendors of your decision to proceed
 											with a different vendor."
-										/>
+											/>
+										</div>
 									</div>
 								</div>
 							</div>
