@@ -9,6 +9,7 @@ const nextConfig = (phase) => {
 		return {
 			i18n,
 			reactStrictMode: true,
+			output: 'standalone',
 			env: {
 				SITE_URL: 'http://localhost:3000',
 
@@ -47,6 +48,7 @@ const nextConfig = (phase) => {
 	return {
 		i18n,
 		reactStrictMode: true,
+		output: 'standalone',
 		env: {
 			// SITE_URL: 'https://www.tradewindsmarketplace.com',
 
