@@ -1,7 +1,7 @@
 import {
-	GetStaticProps,
-	InferGetStaticPropsType,
-	NextPage
+  GetStaticProps,
+  InferGetStaticPropsType,
+  NextPage
 } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -146,10 +146,6 @@ const Categories: NextPage<InferGetStaticPropsType<GetStaticProps>> = ({
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
 	try {
 		const mainCategoriesAndCategories = await getMainCategories(false);
-		console.log(
-			'mainCategoriesAndCategories--mainCategoriesAndCategories',
-			mainCategoriesAndCategories
-		);
 
 		return {
 			props: {

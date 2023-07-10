@@ -3,17 +3,20 @@ import {
 	InferGetServerSidePropsType,
 	NextPage
 } from 'next';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 // Third party packages
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import useSWR from 'swr';
 
 // components
 import Seo from 'components/common/seo';
 import CountrySlider from 'components/home/country-slider';
 import Hero from 'components/home/hero';
+import HomeCategorySubCategoriesSection from 'components/home/home-category-sub-categories-section';
 
 // lib
 import {
@@ -25,11 +28,8 @@ import {
 } from 'lib/home.lib';
 
 // stores
-import HomeCategorySubCategoriesSection from 'components/home/home-category-sub-categories-section';
-import Link from 'next/link';
 import { useCountriesStore } from 'store/countries-store';
 import { useHomeStore } from 'store/home';
-import useSWR from 'swr';
 import { CatSubCatSectionType } from 'types/home';
 
 // const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (

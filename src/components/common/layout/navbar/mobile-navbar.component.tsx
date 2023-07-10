@@ -9,11 +9,10 @@ import { AiOutlineDashboard } from 'react-icons/ai';
 import { BiMessageDetail } from 'react-icons/bi';
 import { FiLogOut } from 'react-icons/fi';
 import { HiOutlineSearch } from 'react-icons/hi';
+import { MdClose, MdMenu } from 'react-icons/md';
 
 // components
-const MegaMenu = dynamic(
-	() => import('components/home/common/mega-menu/mega-menu')
-);
+const Sidebar = dynamic(() => import('./sidebar.component'));
 
 // actions
 import {
@@ -27,13 +26,12 @@ import CartIcon from 'components/common/elements/cart-icon';
 import Button from 'components/common/form/button';
 import { useMainCategories } from 'hooks/useMainCategories';
 import Image from 'next/image';
-import { MdClose, MdMenu } from 'react-icons/md';
+
 import { useAuthStore } from 'store/auth';
 import { useCartStore } from 'store/cart-store-v2';
 import { useCountriesStore } from 'store/countries-store';
 import { useCategoryStore } from 'store/eco/category-store';
 import { useHomeStore } from 'store/home';
-import Sidebar from './sidebar.component';
 
 const MobileHeader = (props: any) => {
 	const [isOpen, setIsOpen] = useState(false);

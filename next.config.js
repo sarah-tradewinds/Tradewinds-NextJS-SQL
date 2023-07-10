@@ -2,11 +2,14 @@ const { PHASE_DEVELOPMENT_SERVER } = require('next/constants.js');
 
 // Third party packages
 const { i18n } = require('./next-i18next.config.js');
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+	enabled: process.env.ANALYZE === 'true'
+});
 
 const nextConfig = (phase) => {
 	/* development only config options here */
 	if (phase === PHASE_DEVELOPMENT_SERVER) {
-		return {
+		return withBundleAnalyzer({
 			i18n,
 			reactStrictMode: true,
 			output: 'standalone',
@@ -41,11 +44,11 @@ const nextConfig = (phase) => {
 					'localhost'
 				]
 			}
-		};
+		});
 	}
 
 	/* config options for all phases except development here */
-	return {
+	return withBundleAnalyzer({
 		i18n,
 		reactStrictMode: true,
 		output: 'standalone',
@@ -94,7 +97,7 @@ const nextConfig = (phase) => {
 				'picsum.photos'
 			]
 		}
-	};
+	});
 }; // End of nextConfig function
 
 module.exports = nextConfig;

@@ -1,10 +1,17 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
+// store
 import { useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';
+
+// Types
 import { CatSubCatSectionType } from 'types/home';
+
+// utile
 import { getLocaleText } from 'utils/get_locale_text';
+
+// components
 import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
 import CategoryCollapse from './category-collapse.component';
 
