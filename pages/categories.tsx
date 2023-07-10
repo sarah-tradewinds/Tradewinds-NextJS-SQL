@@ -1,7 +1,7 @@
 import {
-  GetStaticProps,
-  InferGetStaticPropsType,
-  NextPage
+	GetStaticProps,
+	InferGetStaticPropsType,
+	NextPage
 } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -18,14 +18,16 @@ import { getMainCategories } from 'lib/common.lib';
 
 // utils
 import { useKeenSlider } from 'keen-slider/react';
+import { useCategoryStore } from 'store/category-store';
 import { getLocaleText } from 'utils/get_locale_text';
 
 const Categories: NextPage<InferGetStaticPropsType<GetStaticProps>> = ({
 	mainCategoriesAndCategories = []
 }) => {
 	const { locale, push } = useRouter();
+	const { setMainCategory, setCategory } = useCategoryStore();
 
-	const [ref, instanceRef] = useKeenSlider<HTMLDivElement>({
+	const [ref] = useKeenSlider<HTMLDivElement>({
 		slideChanged(slider) {
 			// setCurrentSlide(slider.track.details.rel);
 		},
@@ -49,6 +51,23 @@ const Categories: NextPage<InferGetStaticPropsType<GetStaticProps>> = ({
 			}
 		}
 	});
+
+	const onMainCategoryPressed = (id: string, title: string) => {
+		const { value } = setMainCategory(id, title || '');
+
+		push(
+			{
+				pathname: '/product-search',
+				query: {
+					main_category: value
+				}
+			},
+			undefined,
+			{
+				shallow: true
+			}
+		);
+	}; // End of onMainCategoryPressed
 
 	return (
 		<div className="pb-40">
@@ -108,29 +127,65 @@ const Categories: NextPage<InferGetStaticPropsType<GetStaticProps>> = ({
 					<div className="space-y-[9px] md:space-y-5 lg:columns-2 lg:gap-x-[19.75px] lg:space-y-[17.34px] xl:gap-x-[24.55px] xl:space-y-[22.01px] desktop:gap-x-[29px] desktop:space-y-[28px]">
 						{mainCategoriesAndCategories?.map(
 							(mainCategoryAndCategories: any) => {
-								const { categories = [] } =
-									mainCategoryAndCategories?.edges || {};
+								const { id, edges } = mainCategoryAndCategories;
+								const { categories = [] } = edges || {};
+								const mainCategoryTitle = getLocaleText(
+									mainCategoryAndCategories?.title || {},
+									locale
+								);
+
 								return (
 									<CategoryTileAccordion
-										key={mainCategoryAndCategories?.id}
-										title={getLocaleText(
-											mainCategoryAndCategories?.title || {},
-											locale
-										)}
+										key={id}
+										title={mainCategoryTitle}
 										imageUrl={
 											mainCategoryAndCategories?.category_search_image
 										}
 										backgroundColor={mainCategoryAndCategories?.color}
+										onTitleClick={() =>
+											onMainCategoryPressed(id, mainCategoryTitle)
+										}
 									>
-										<div className="my-[15px] ml-[27px] space-y-2 sm:grid sm:grid-cols-2 sm:pb-[25px]">
-											{categories?.map((category: any) => (
-												<p
-													key={category}
-													className="desktop:leading-[ 21.94px] text-[14px] leading-[17.07px] text-gray sm:text-[15px] sm:leading-[18.29px] xl:text-[15.24px] xl:leading-[18.58px] desktop:text-[18px]"
-												>
-													{getLocaleText(category?.title || {}, locale)}
-												</p>
-											))}
+										<div className="my-[15px] ml-[27px] space-y-[2px] sm:grid sm:grid-cols-2 sm:pb-[25px]">
+											{categories?.map((category: any) => {
+												const categoryId = category?.id;
+												const categoryTitle = getLocaleText(
+													category?.title || {},
+													locale
+												);
+
+												return (
+													<p
+														key={categoryId}
+														onClick={() => {
+															const mainCategoryId = id;
+															setMainCategory(
+																mainCategoryId,
+																mainCategoryTitle || ''
+															);
+
+															const params = setCategory(
+																categoryId,
+																categoryTitle
+															);
+
+															push(
+																{
+																	pathname: '/product-search',
+																	query: params?.payload
+																},
+																undefined,
+																{
+																	shallow: true
+																}
+															);
+														}}
+														className="cursor-pointer text-[14px] leading-[17.07px] text-gray outline-none sm:text-[15px] sm:leading-[18.29px] xl:text-[15.24px] xl:leading-[18.58px] desktop:text-[18px] desktop:leading-[21.94px]"
+													>
+														{categoryTitle}
+													</p>
+												);
+											})}
 										</div>
 									</CategoryTileAccordion>
 								);

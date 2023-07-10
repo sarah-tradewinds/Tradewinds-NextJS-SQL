@@ -8,13 +8,9 @@ const MobileHeader = dynamic(
 	() => import('./navbar/mobile-navbar.component')
 );
 const Header = dynamic(() => import('./navbar/navbar.component'));
-const SearchBar = dynamic(() => import('../searh-bar/search-bar'));
-
-const MegaMenu = dynamic(
-	() => import('components/home/common/mega-menu/mega-menu')
+const SearchBar = dynamic(
+	() => import('components/common/search-bar/search-bar')
 );
-
-// actions
 
 // stores
 import { useMainCategories } from 'hooks/useMainCategories';

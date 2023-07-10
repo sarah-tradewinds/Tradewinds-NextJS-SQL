@@ -120,7 +120,7 @@ const HomePage: NextPage<
 					cardBData={cardBData}
 				/>
 
-				<div className="mt-[27px] lg:container">
+				<div className="mt-[27px] lg:container desktop:w-[1478px]">
 					{/* Category and sub categories */}
 					<div className="mx-2 space-y-[33px] sm:mx-4 sm:space-y-[42px] md:space-y-[20px] desktop:space-y-[27px]">
 						{homeMainCategoriesAndCategories?.cat_section &&
