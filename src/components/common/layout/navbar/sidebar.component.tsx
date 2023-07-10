@@ -49,7 +49,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
 	return (
 		<nav className={sidebarClassName}>
 			<NavLink
-				href="/6500-categories"
+				href="/categories"
 				className="mobile-nav-link"
 				activeClassName="underline font-semibold"
 				onClick={onClose}

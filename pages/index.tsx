@@ -1,7 +1,5 @@
 import {
-  GetStaticProps,
-	InferGetStaticPropsType,
-  GetServerSideProps,
+	GetServerSideProps,
 	InferGetServerSidePropsType,
 	NextPage
 } from 'next';
@@ -36,9 +34,9 @@ import useSWR from 'swr';
 import { CatSubCatSectionType } from 'types/home';
 
 // const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
-const HomePage: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = (
-	props
-) => {
+const HomePage: NextPage<
+	InferGetServerSidePropsType<GetServerSideProps>
+> = (props) => {
 	const {
 		cardAList = [],
 		cardBData = {},
@@ -63,7 +61,6 @@ const HomePage: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = (
 	const { isEco } = useHomeStore(({ isEco }) => ({
 		isEco
 	}));
-
 
 	const { t } = useTranslation();
 
@@ -162,7 +159,7 @@ const HomePage: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = (
 											{/*  Search Categories Banner */}
 											{canIDisplayFlags === index && (
 												<div className="hidden md:block">
-													<div className="flex items-center bg-accent-primary-main  dark:bg-accent-primary-eco text-white md:h-[85.8px] lg:h-[114.51px] lg:justify-between xl:h-[143px]">
+													<div className="flex items-center bg-accent-primary-main  text-white dark:bg-accent-primary-eco md:h-[85.8px] lg:h-[114.51px] lg:justify-between xl:h-[143px]">
 														<h3 className="text-[33px] font-semibold md:ml-[26.4px] lg:text-[55px] lg:leading-[46px] xl:leading-[67.05px] desktop:text-[72px] desktop:leading-[87.77px]">
 															{t('home:search_from')} 6500{' '}
 															{t('home:categories')}
@@ -186,7 +183,7 @@ const HomePage: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = (
 
 						{/*  Search Categories Banner */}
 						<Link
-							href="/6500-categories"
+							href="/categories"
 							className="flex h-[67px] w-full items-center justify-center rounded-md bg-accent-primary-main text-[21px] font-semibold text-white md:hidden"
 						>
 							Explore all Categories
@@ -210,9 +207,9 @@ const HomePage: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = (
 					</div>
 
 					{/*  Search Categories Banner */}
-					<div className="mb-[45.25px] mt-[30px] hidden md:my-[30px] md:hidden">
+					{/* <div className="mb-[45.25px] mt-[30px] hidden md:my-[30px] md:hidden">
 						{searchCategoriesAndTrendingBanner}
-					</div>
+					</div> */}
 
 					{/* Shop by country and ads */}
 					<div className="space-y-8 lg:mx-[23px]">
@@ -253,7 +250,9 @@ export default HomePage;
 
 // Static Props
 // export const getStaticProps: GetStaticProps = async ({ locale }) => {
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+	locale
+}) => {
 	const dateS = new Date();
 	console.log(
 		'Home page = [getServerSideProps] started data fetching',
