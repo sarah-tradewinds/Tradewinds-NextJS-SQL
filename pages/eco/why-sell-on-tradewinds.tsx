@@ -5,14 +5,10 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // components
-import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
-import Button from 'components/common/form/button';
 import Seo from 'components/common/seo';
-import {
-	WhySellOnTWOperationSubTile,
-	WhySellOnTWOperationTile
-} from 'components/common/why-sell-on-tradewinds/why-sell-on-tradewinds-tile';
+import KeyAdvantageComponent from 'components/eco/why-buy/keyadvantagecomponent';
 import ProductQualifications from 'components/eco/why-buy/product-qualifications';
+import WhySellPlatform from 'components/eco/why-buy/whysell-platform';
 const WhySellOnTradewindsPage: NextPage = () => {
 	const { t } = useTranslation('why_sell_on_tw');
 
@@ -22,172 +18,122 @@ const WhySellOnTradewindsPage: NextPage = () => {
 	return (
 		<>
 			<Seo title="Why sell on tradewinds page" description="" />
-			<div className=" bg-light_gray pb-[138px]">
-				{/* Header */}
-				<div className="   w-full bg-header-bar">
-					<div className="relative h-[703px] bg-[url('/static/images/why-sell-on-tradewinds-images/why-sell-on-tradewinds-header.png')] bg-cover bg-center bg-no-repeat md:h-[340px] lg:h-[703px]">
-						{/* content */}
-						{/* <div className="4k:left-1/2 4k:-translate-x-1/2 absolute left-20 top-8 z-[50] text-white lg:top-32 lg:w-1/2"> */}
-						<div className="absolute left-[87px] top-8 z-[50] text-white lg:top-32 lg:w-1/2">
-							<h1 className="text-[35px] font-semibold leading-[51px] md:text-[40px] lg:text-[50px] ">
-								{t('Expand your')}
-								<br />
-								{t('Business Globally')}
-							</h1>
-							<div className="mt-[20px] hidden space-y-2 font-semibold md:block md:text-[16px] lg:text-[25px]">
-								<p className=" w-[490px]">
-									{t(
-										'Unlock the Full Sales Potential of Your Business and Maximize Profitability Join Us'
-									)}
+			<div className=" bg-light_gray ">
+				<div>
+					{/* Header */}
+					<div className=" w-full bg-header-bar">
+						{/* <div className="relative mx-auto h-[203px] w-[300px] bg-[url('/static/images/why-sell-on-tradewinds-images/why-sell-on-tradewinds-header.png')] bg-cover bg-center bg-no-repeat sm:h-[298px] sm:w-[640px] md:h-[358px] md:w-[768px] lg:h-[478px] lg:w-[1025px] desktop:h-[703px] desktop:w-[1512px]">
+							<div className="absolute inset-0 z-[1] bg-black opacity-40"></div>
+							<div className="absolute z-[50] ml-[16px] mt-[19px] text-white sm:ml-[37px] sm:mt-[60px] md:ml-[44px] md:mt-[71px] lg:ml-[59px] lg:mt-[95px] desktop:ml-[87px] desktop:mt-[137px] ">
+								<p className=" w-[160px] text-[15px] font-semibold sm:w-[160px] sm:text-[15px] md:w-[240px] md:text-[24px] lg:w-[400px] lg:text-[32px] lg:leading-[39px] desktop:w-[566px] desktop:text-[50px] desktop:leading-[51px]">
+									Discover Sustainable e-commerce with Tradewinds Eco.
 								</p>
-							</div>
-							<Button
-								variant="special"
-								className="mt-8 h-[60px] w-[319px] text-[25px] font-medium "
-							>
-								{t('common:join_now')}
-							</Button>
-						</div>
-						<div className=" absolute left-1/2  mt-[550px] -translate-x-1/2">
-							<ProductQualifications />
-						</div>
-					</div>
-					<div className=" container relative mx-auto mt-[921px] h-[1189px] w-[1512px] justify-center bg-bg-eco text-gray">
-						<p className="container mx-auto w-[753px] pt-[136px] text-center text-[50px] font-semibold leading-[60px] text-dark_brown ">
-							Key advantages of selling on Tradewinds Eco
-						</p>
-						<div className=" absolute left-1/2 mt-[70px] -translate-x-1/2 ">
-							<div className="flex space-x-[60px]">
-								<div className=" text-center ">
-									<div className=" relative mx-auto h-[103px] w-[78px] ">
-										<ImageWithErrorHandler
-											src="/static/images/EcoPage/why-sell/targeted-audience.png"
-											alt=""
-											fill={true}
-										/>
-									</div>
-									<div className=" mt-[25px] h-[210px] w-[445px] ">
-										<p className=" text-[35px] font-bold ">
-											{t('Targeted Audience')}
-										</p>
 
-										<p className="  text-[18px]">
-											<span className=" font-semibold">
-												Access to a Targeted Audience:
-											</span>
-											Tradewinds Eco provides you with a dedicated
+								<p className=" mt-[8px] w-[187px] text-[12px] font-semibold leading-[14px] sm:mt-[11px] sm:ml-[5px] sm:w-[242px] sm:text-[12px] sm:leading-[15px] md:mt-[9px] md:ml-[7px] md:w-[300px] md:text-[15px] md:leading-[18px] lg:mt-[14px] lg:ml-[7px] lg:w-[357px] lg:text-[18px] lg:leading-[21px] desktop:mt-[10px] desktop:ml-[8px] desktop:w-[570px] desktop:text-[25px] desktop:leading-[30px]">
+									Explore environmentally focused products, support
+									ethical brands, and make a positive impact on the
+									planet.
+								</p>
+
+								<div className="mt-[24px] ml-[37px]  sm:mt-[17px] sm:ml-[24px] md:mt-[21px] md:ml-[30px] lg:mt-[34px] lg:ml-[39px] desktop:mt-[30px] desktop:ml-[67px]">
+									<button className=" h-[13px] w-[73px] rounded-lg bg-secondary text-[6px] font-medium sm:h-[25px] sm:w-[135px] sm:text-[10px] md:h-[30px] md:w-[162px] md:text-[13px] lg:h-[40px] lg:w-[216px] lg:text-[17px] desktop:h-[60px] desktop:w-[319px] desktop:text-[25px] ">
+										{t('common:join_now')}
+									</button>
+								</div>
+							</div>
+						</div>
+						<div className=" lg:mt-[px] desktop:-mt-[152px]">
+							<ProductQualifications />
+						</div> */}
+						<div className="relative mx-auto h-[203px] w-[300px] bg-[url('/static/images/why-sell-on-tradewinds-images/why-sell-on-tradewinds-header.png')] bg-cover bg-center bg-no-repeat  sm:h-[298px] sm:w-[640px] md:h-[358px] md:w-[768px] lg:h-[478px] lg:w-[1025px] desktop:h-[703px] desktop:w-[1512px]">
+							<div className="absolute inset-0 z-[1] bg-black opacity-40"></div>
+							<div className="absolute z-[50] ml-[16px] mt-[19px] text-white sm:ml-[36px] sm:mt-[60px] md:ml-[44px] md:mt-[35px] lg:ml-[59px] lg:mt-[58px] desktop:ml-[87px] desktop:mt-[137px]">
+								<p className="text-[15px] font-semibold leading-[18px] sm:w-[283px] sm:text-[15px] sm:leading-[18px] md:w-[273px] md:text-[24px] md:leading-[29px] lg:w-[380px] lg:text-[32px] lg:leading-[39px] desktop:w-[566px] desktop:text-[50px] desktop:leading-[51px]">
+									Discover Sustainable e-commerce with Tradewinds Eco.
+								</p>
+								<p className=" mt-[2px] ml-0 w-[187px] text-[12px] font-semibold leading-[15px] sm:mt-[7px] sm:ml-[0px] sm:w-[288px] sm:text-[12px] sm:leading-[15px] md:mt-[15px]  md:ml-[5px] md:w-[300px] md:text-[15px] md:leading-[21px] lg:mt-[14px] lg:ml-[7px] lg:w-[307px] lg:text-[18px] lg:leading-[18px] desktop:mt-[10px] desktop:ml-[8px] desktop:w-[570px] desktop:text-[25px] desktop:leading-[30px]">
+									Explore environmentally focused products, support
+									ethical brands, and make a positive impact on the
+									planet.
+								</p>
+								<div className="mt-[14px] ml-[36px] sm:mt-[27px] sm:ml-[31px] md:mt-[18px] md:ml-[35px] lg:mt-[23px] lg:ml-[39px] desktop:mt-[30px] desktop:ml-[67px]">
+									<button className=" h-[13px] w-[73px] rounded-sm bg-secondary text-[6px] font-medium sm:h-[25px] sm:w-[135px] sm:rounded-sm sm:text-[10px] md:h-[30px] md:w-[162px] md:rounded-md md:text-[13px] lg:h-[40px] lg:w-[216px] lg:rounded-lg lg:text-[17px] desktop:h-[60px] desktop:w-[319px] desktop:rounded-lg desktop:text-[25px] ">
+										{t('common:join_now')}
+									</button>
+								</div>
+							</div>
+							<div className=" absolute left-1/2 z-50 mt-[203px] -translate-x-1/2 sm:mt-[232px] md:mt-[279px] lg:mt-[373px] desktop:mt-[549px]">
+								<ProductQualifications />
+							</div>
+						</div>
+						<div className=" container relative mx-auto mt-[755px] h-[975px] w-[300px] justify-center bg-bg-eco text-gray sm:mt-[447px] sm:h-[526px] sm:w-[640px] md:mt-[550px] md:h-[680px] md:w-[768px] lg:mt-[708px] lg:h-[780px] lg:w-[1025px] desktop:mt-[1015px] desktop:h-[1189px] desktop:w-[1512px]">
+							<p className="container mx-auto w-[300px] pt-[22px] text-center text-[15px] font-semibold leading-[18px] text-dark_brown sm:w-[563px] sm:pt-[35px] sm:text-[15px] sm:leading-[18px] md:w-[768px] md:pt-[39px] md:text-[18px] md:leading-[21px] lg:w-[1025px] lg:pt-[41px] lg:text-[30px] lg:leading-[37px] desktop:w-[753px] desktop:pt-[136px] desktop:text-[50px] desktop:leading-[60px] ">
+								Key advantages of selling on Tradewinds Eco
+							</p>
+							<div className=" absolute left-1/2 mt-[0px] -translate-x-1/2 sm:mt-[30px] md:mt-[38px] lg:mt-[38px] desktop:mt-[70px] ">
+								<div className="block sm:!flex sm:space-x-[18px] md:space-x-[23px] lg:space-x-[42px] desktop:space-x-[69px]">
+									<KeyAdvantageComponent
+										imgUrl="/static/images/EcoPage/why-sell/targeted-audience.png"
+										imgClass="h-[34px] w-[26px] sm:h-[34px] sm:w-[26px] md:h-[44px] md:w-[34px] lg:h-[62px] lg:w-[47px] desktop:h-[103px] desktop:w-[78px]"
+										title="Targeted Audience"
+										descriptionHead="Access to a Targeted Audience:"
+										description="Tradewinds Eco provides you with a dedicated
 											marketplace that caters specifically to
 											eco-conscious buyers. By listing your products
 											here, you can connect with a niche audience
 											actively seeking sustainable and environmentally
-											friendly options.
-										</p>
-									</div>
-								</div>
-								<div className=" text-center ">
-									<div className=" relative mx-auto h-[92px] w-[92px] ">
-										<ImageWithErrorHandler
-											src="/static/images/EcoPage/why-sell/enhanced-visibility.png"
-											alt=""
-											fill={true}
-										/>
-									</div>
-									<div className="mt-[30px] h-[210px] w-[445px]">
-										<p className=" text-[35px] font-bold ">
-											{t('Enhanced Visibility')}
-										</p>
-										<p className="  text-[18px]">
-											<span className=" font-semibold">
-												Enhanced Visibility and Brand Exposure:
-											</span>
-											With Tradewinds Eco, you can increase the
+											friendly options."
+									/>
+									<KeyAdvantageComponent
+										imgUrl="/static/images/EcoPage/why-sell/enhanced-visibility.png"
+										imgClass="h-[31px] w-[31px] sm:h-[31px] sm:w-[31px] md:h-[40px] md:w-[40px] lg:h-[56px] lg:w-[56px] desktop:h-[92px] desktop:w-[92px]"
+										title="Enhanced Visibility"
+										descriptionHead="Enhanced Visibility and Brand Exposure:"
+										description="With Tradewinds Eco, you can increase the
 											visibility of your brand and products within the
 											sustainability community. Our platform showcases
 											your offerings to a wider audience, helping you
-											stand out and attract more potential customers.
-										</p>
-									</div>
-								</div>
-								<div className=" text-center ">
-									<div className=" container relative mx-auto h-[89px] w-[67px] justify-center ">
-										<ImageWithErrorHandler
-											src="/static/images/EcoPage/why-sell/aligned-values.png"
-											alt=""
-											fill={true}
-										/>
-									</div>
-									<div className=" mt-[30px] h-[210px] w-[445px]">
-										<p className=" text-[35px] font-bold ">
-											{t('Aligned Values')}
-										</p>
-
-										<p className=" text-[18px]  ">
-											<span className=" font-semibold">
-												Align with Sustainable Values:
-											</span>
-											Selling on Tradewinds Eco allows you to align your
+											stand out and attract more potential customers."
+									/>
+									<KeyAdvantageComponent
+										imgUrl="/static/images/EcoPage/why-sell/aligned-values.png"
+										imgClass="h-[30px] w-[22px] sm:h-[30px] sm:w-[22px] md:h-[38px] md:w-[29px] lg:h-[54px] lg:w-[40px] desktop:h-[89px] desktop:w-[67px]"
+										title="Aligned Values"
+										descriptionHead="Align with Sustainable Values:"
+										description="Selling on Tradewinds Eco allows you to align your
 											brand with eco-conscious values and demonstrate
 											your commitment to sustainability. This
 											association can enhance your brand reputation and
 											attract customers who prioritize environmentally
-											friendly products.
-										</p>
-									</div>
+											friendly products."
+									/>
 								</div>
-							</div>
-							<div className="container mx-auto mt-[35px] flex justify-center space-x-[60px]">
-								<div className=" text-center ">
-									<div className=" container relative mx-auto h-[105px] w-[104px] justify-center ">
-										<ImageWithErrorHandler
-											src="/static/images/EcoPage/why-sell/dedicated-support.png"
-											alt=""
-											fill={true}
-										/>
-									</div>
-									<div className=" mt-[21px] h-[210px] w-[445px]">
-										<p className=" text-[35px] font-bold ">
-											{t('Dedicated Support')}
-										</p>
-
-										<p className=" text-[18px]  ">
-											<span className=" font-semibold">
-												Dedicated Support and Resources:
-											</span>
-											We provide comprehensive suite of tools and
+								<div className="container mx-auto block justify-center sm:mt-[21px] sm:!flex sm:space-x-[32px] md:mt-[55px] md:space-x-[45px] lg:mt-[45px] lg:space-x-[60px] desktop:mt-[35px] desktop:space-x-[99px]">
+									<KeyAdvantageComponent
+										imgUrl="/static/images/EcoPage/why-sell/dedicated-support.png"
+										imgClass="h-[35px] w-[35px] sm:h-[35px] sm:w-[35px] md:h-[45px] md:w-[45px] lg:h-[63px] lg:w-[63px] desktop:h-[105px] desktop:w-[104px]"
+										title="Dedicated Support"
+										descriptionHead="Dedicated Support and Resources:"
+										description="We provide comprehensive suite of tools and
 											resources to assist you throughout your selling
-											journey.  See all Platform features below.
-										</p>
-									</div>
-								</div>
-								<div className=" text-center ">
-									<div className=" container relative mx-auto h-[110px] w-[117px] justify-center ">
-										<ImageWithErrorHandler
-											src="/static/images/EcoPage/why-sell/networking.png"
-											alt=""
-											fill={true}
-										/>
-									</div>
-									<div className=" mt-[16px] h-[279px] w-[445px]">
-										<p className=" text-[35px] font-bold ">
-											{t('Networking')}
-										</p>
-										<p className="text-[18px] font-semibold">
-											Networking and Collaboration Opportunities:
-										</p>
-										<p className=" text-[18px]">
-											Tradewinds Eco fosters a community of like-minded
+											journey. See all Platform features below."
+									/>
+									<KeyAdvantageComponent
+										imgUrl="/static/images/EcoPage/why-sell/networking.png"
+										imgClass="h-[39px] w-[36px] sm:h-[39px] sm:w-[36px] md:h-[48px] md:w-[51px] lg:h-[67px] lg:w-[71px] desktop:h-[110px] desktop:w-[117px]"
+										title="Networking"
+										descriptionHead="Networking and Collaboration Opportunities:"
+										description="Tradewinds Eco fosters a community of like-minded
 											sellers and buyers who share a common passion for
 											sustainability. As a seller on our platform, you
 											can connect and collaborate with other eco-focused
 											businesses, creating potential partnerships and
-											expanding your network
-										</p>
-									</div>
+											expanding your network"
+									/>
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
+						{/* </div>
 
 				<div className="container mx-auto w-[1336px] text-accent-secondary-eco">
 					<div>
@@ -372,8 +318,14 @@ const WhySellOnTradewindsPage: NextPage = () => {
 								/>
 							</WhySellOnTWOperationTile>
 						</div>
+					</div> */}
 					</div>
 				</div>
+				<WhySellPlatform
+					mainClass="text-accent-secondary-eco bg-light_gray"
+					class1="bg-header-bar"
+					case1={true}
+				/>
 			</div>
 		</>
 	);

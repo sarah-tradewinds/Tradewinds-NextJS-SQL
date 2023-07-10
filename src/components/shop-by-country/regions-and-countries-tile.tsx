@@ -66,7 +66,7 @@ const RegionAndCountriesTile: React.FC<RegionAndCountriesTileProps> = (
 			</div>
 
 			{countryLength <= 3 && (
-				<p className="mt-4 text-[20px] font-semibold text-accent-primary-main">
+				<p className=" font-semibold text-accent-primary-main lg:text-[18px] desktop:mt-4 desktop:text-[21px]">
 					More Coming Soon
 				</p>
 			)}
@@ -74,13 +74,13 @@ const RegionAndCountriesTile: React.FC<RegionAndCountriesTileProps> = (
 			{/* actions */}
 			{countryLength > 3 && (
 				<div
-					className="mt-4 cursor-pointer"
+					className="  justify-center lg:mt-[15px] desktop:mt-4"
 					onClick={() => setIsExpanded((prevState) => !prevState)}
 				>
 					{isExpanded ? (
-						<HiMinusCircle className="text-[32px] text-secondary" />
+						<HiMinusCircle className="text-secondary lg:text-[26px] desktop:text-[20px]" />
 					) : (
-						<HiPlusCircle className="text-[32px] text-secondary" />
+						<HiPlusCircle className=" text-secondary lg:text-[26px] desktop:text-[20px]" />
 					)}
 				</div>
 			)}

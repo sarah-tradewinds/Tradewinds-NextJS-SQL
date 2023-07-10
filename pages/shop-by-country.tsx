@@ -60,13 +60,14 @@ const ShopByCountryPage: NextPage<
 		<>
 			<Seo title="Search by country page" description="" />
 
-			<div className="relative mb-[2080px] bg-white md:m-auto ">
+			<div className="container relative mx-auto mb-[2080px] justify-center bg-white md:m-auto ">
 				{/* Headers */}
-				<div className="relative bg-secondary">
-					<div className="relative h-[480px] bg-[url('/static/images/search-by-country-images/search-by-country-header.png')] bg-cover bg-no-repeat"></div>
-					<h1 className="absolute inset-0 top-16 text-center text-[35px] font-semibold text-white md:top-24 md:text-[40px] lg:top-16 lg:text-[96px]">
-						{t('shop_by_country')}
-					</h1>
+				<div className=" relative ">
+					<div className="container relative mx-auto justify-center bg-[url('/static/images/search-by-country-images/search-by-country-header.png')] bg-cover bg-no-repeat lg:h-[318px] lg:w-[1025px] desktop:h-[436px] desktop:w-[1512px]">
+						<p className="absolute inset-0  text-[35px] font-semibold text-white md:text-[40px] lg:mt-[115px] lg:ml-[151px] lg:text-[40px] desktop:mt-[180px] desktop:ml-[332px] desktop:text-[96px]">
+							{t('shop_by_country')}
+						</p>
+					</div>
 				</div>
 
 				<div className="container">
@@ -116,9 +117,9 @@ const ShopByCountryPage: NextPage<
 					</div>
 
 					{/* Island and flags */}
-					<div className="-mt-[16px] mb-40 hidden justify-center md:flex">
-						<div className="w-[95%]s">
-							<div className="grid grid-cols-4 gap-x-16 gap-y-24">
+					<div className=" hidden justify-center pb-[40px] md:flex lg:mt-0 desktop:-mt-[16px]">
+						<div className="">
+							<div className="grid lg:grid-cols-4 lg:gap-x-[20px] lg:gap-y-[96px] desktop:grid-cols-4 desktop:gap-x-[30px] desktop:gap-y-[130px]">
 								<RegionsAndCountriesList
 									regionsAndCountries={regionsAndCountries || []}
 									onCountryClick={(country) => {

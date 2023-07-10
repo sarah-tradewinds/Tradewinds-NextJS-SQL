@@ -2,7 +2,7 @@
 import { useTranslation } from 'next-i18next';
 import { useAuthStore } from 'store/auth';
 
-function Banner() {
+function WhyBuyBanner() {
 	const { t } = useTranslation('why_buy');
 	const { setIsSignUpOpen } = useAuthStore();
 	return (
@@ -33,4 +33,4 @@ function Banner() {
 	);
 }
 
-export default Banner;
+export default WhyBuyBanner;

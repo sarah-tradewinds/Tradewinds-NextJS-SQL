@@ -13,7 +13,7 @@ const CountryFlagTile: React.FC<CountryFlagTileProps> = (props) => {
 	return (
 		<div className={`relative ${containerClassName}`} onClick={onClick}>
 			<div className="flex">
-				<div className="relative h-[27px] w-[43px]">
+				<div className="relative lg:h-[19px] lg:w-[28px] desktop:h-[30px] desktop:w-[43px]">
 					<ImageWithErrorHandler
 						key={imageUrl}
 						src={imageUrl}
@@ -21,7 +21,9 @@ const CountryFlagTile: React.FC<CountryFlagTileProps> = (props) => {
 						fill={true}
 					/>
 				</div>
-				<p className="pl-4 text-[20px] text-gray">{title}</p>
+				<p className=" text-gray lg:pl-[12px] lg:text-[15px] lg:leading-[18px] desktop:pl-[25px] desktop:text-[21px] desktop:leading-[21px]">
+					{title}
+				</p>
 			</div>
 		</div>
 	);

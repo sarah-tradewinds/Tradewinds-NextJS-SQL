@@ -7,10 +7,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 // components
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import Seo from 'components/common/seo';
-import {
-	WhySellOnTWOperationSubTile,
-	WhySellOnTWOperationTile
-} from 'components/common/why-sell-on-tradewinds/why-sell-on-tradewinds-tile';
+import WhySellPlatform from 'components/eco/why-buy/whysell-platform';
 const WhySellOnTradewindsPage: NextPage = () => {
 	const { t } = useTranslation('why_sell_on_tw');
 
@@ -136,7 +133,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 						</div>
 					</div>
 				</div>
-				<div className=" mx-auto w-[300px] bg-white pb-[40px] sm:w-[620px] md:w-[745px] lg:w-[994px] desktop:w-[1466px]">
+				{/* <div className=" mx-auto w-[300px] bg-white pb-[40px] sm:w-[620px] md:w-[745px] lg:w-[994px] desktop:w-[1466px]">
 					<div className="container mx-auto w-[277px] text-primary-main sm:w-[566px] md:w-[680px] lg:w-[907px] desktop:w-[1336px]">
 						<div>
 							<div className=" pt-[15px] text-center sm:pt-[13px] md:pt-[16px] lg:pt-[31px]  desktop:pt-[75px] ">
@@ -308,7 +305,12 @@ const WhySellOnTradewindsPage: NextPage = () => {
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> */}
+				<WhySellPlatform
+					mainClass="text-primary-main bg-white"
+					class1="bg-bg-main"
+					case1={false}
+				/>
 			</div>
 		</>
 	);
