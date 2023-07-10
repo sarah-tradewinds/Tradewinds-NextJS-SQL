@@ -1,5 +1,5 @@
 import { useKeenSlider } from 'keen-slider/react';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { getLocaleText } from 'utils/get_locale_text';
 import SubCategoryTile from './sub-category-tile';
 
@@ -20,18 +20,12 @@ const TrendingCategorySliderMobile: React.FC<
 
 	const router = useRouter();
 
-	const [ref] = useKeenSlider<HTMLDivElement>({
-		// loop: false,
-		// mode: 'snap',
-		// rtl: false,
-		// slides: { perView: 'auto' }
-	});
+	const [ref] = useKeenSlider<HTMLDivElement>({});
 
 	return (
 		<div
 			ref={ref}
 			className="scrollbar-hide flex h-[50px] w-screen snap-x flex-nowrap items-center space-x-4 overflow-x-auto"
-			// className="keen-slider"
 		>
 			{categories?.map((subCategory: any) => {
 				const title = getLocaleText(
@@ -40,17 +34,13 @@ const TrendingCategorySliderMobile: React.FC<
 				);
 
 				return (
-					<div
-						key={subCategory.id}
-						className="snap-center"
-						// className="keen-slider__slide"
-					>
+					<div key={subCategory.id} className="snap-center">
 						<SubCategoryTile
 							className="!w-full"
 							imageClassName="!w-[40px] !h-[40px]"
 							imageUrl={subCategory.image}
 							title={title}
-							titleClassName="!whitespace-nowrap"
+							titleClassName="!whitespace-nowrap !font-normal"
 							showBorder={selectedCategoryList?.includes(
 								subCategory.id
 							)}

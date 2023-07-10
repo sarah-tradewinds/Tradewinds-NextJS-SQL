@@ -606,7 +606,7 @@ const ProductDetailsTile: React.FC<{
 				/>
 
 				{/* Product details */}
-				<div className="mt-[16px] ml-[13px] mr-[13px] sm:w-[345px] md:ml-[40.49px] md:mr-[19.35px] md:w-[392.04px] lg:mr-[41.61px] lg:!w-[652px] 840px:w-auto desktop:ml-[164px]">
+				<div className="mt-[16px] ml-[13px] mr-[13px] sm:w-[345px] md:ml-[40.49px] md:mr-[19.35px] md:w-[392.04px] lg:mr-[41.61px] lg:!w-[540px] 840px:w-auto desktop:ml-[164px]">
 					{/* Product name and sku info */}
 					<div className="flex items-center justify-between">
 						<h1 className="text-[18px] font-semibold capitalize leading-[21.94px] text-primary-main sm:text-[15px] sm:leading-[18.29px] md:text-[18px] md:leading-[21.94px] lg:text-[20px] lg:leading-[24.38px] xl:text-[30px] xl:leading-[36.57px]">
@@ -836,23 +836,25 @@ const ProductDetailsTile: React.FC<{
 					{/* Additional info */}
 					<div className="md:block">
 						{/* Bulk Pricing */}
-						<div ref={sliderRef} className="keen-slider">
-							{is_bulk_pricing &&
-								bulk_pricing?.map((bulkPrice: any, index: any) => (
-									<div
-										key={`${bulkPrice.range}_${bulkPrice.price}_${index}`}
-										className="keen-slider__slide"
-									>
-										<p className="text-primary-main md:text-lg ">
-											<span className="font-semibold">
-												{bulkPrice.start_range}-{bulkPrice.end_range}
-												{/* {bulkPrice.range} */}
-											</span>{' '}
-											{t('common:piece')}= ${bulkPrice.price}
-										</p>
-									</div>
-								))}
-						</div>
+						{is_bulk_pricing && (
+							<div className="mb-2 sm:w-[345px] md:w-[392.04px] lg:!w-[540px] 840px:w-auto">
+								<div ref={sliderRef} className="keen-slider">
+									{bulk_pricing?.map((bulkPrice: any, index: any) => (
+										<div
+											key={`${bulkPrice.range}_${bulkPrice.price}_${index}`}
+											className="keen-slider__slide"
+										>
+											<p className="whitespace-nowrap text-primary-main md:text-lg">
+												<span className="font-semibold">
+													{bulkPrice.start_range}-{bulkPrice.end_range}
+												</span>{' '}
+												{t('common:piece')}= ${bulkPrice.price}
+											</p>
+										</div>
+									))}
+								</div>
+							</div>
+						)}
 
 						{/* Variants Options And Values */}
 						<div className="">

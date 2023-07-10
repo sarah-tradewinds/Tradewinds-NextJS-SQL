@@ -1,7 +1,7 @@
 import {
-  GetServerSideProps,
-  InferGetServerSidePropsType,
-  NextPage
+	GetServerSideProps,
+	InferGetServerSidePropsType,
+	NextPage
 } from 'next';
 
 // Third party packages
@@ -24,19 +24,19 @@ import TrendingCategorySlider from 'components/product-search/trending-category-
 import TrendingSectionTile from 'components/product-search/trending-section-tile';
 import useDeviceSize from 'hooks/use-device-size.hooks';
 import {
-  getCountryById,
-  getTrendingCategoriesByCountry
+	getCountryById,
+	getTrendingCategoriesByCountry
 } from 'lib/common.lib';
 
 import {
-  BUYER_DASHBOARD_ACTIONS,
-  BUYER_DASHBOARD_PAGES,
-  generateBuyerDashboardUrl
+	BUYER_DASHBOARD_ACTIONS,
+	BUYER_DASHBOARD_PAGES,
+	generateBuyerDashboardUrl
 } from 'data/buyer/buyer-actions';
 
 import {
-  getProducts,
-  getSelectedMainCategoryAndCategories
+	getProducts,
+	getSelectedMainCategoryAndCategories
 } from 'lib/product-search.lib';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
@@ -47,8 +47,8 @@ import { getIdAndName, useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';
 import { useProductCompareStore } from 'store/product-compare-store';
 import {
-  getFilterValueFromQuery,
-  getProductSearchURL
+	getFilterValueFromQuery,
+	getProductSearchURL
 } from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
 
@@ -290,7 +290,7 @@ const ProductSearchPage: NextPage<
 				{productSearchFilerComponent}
 			</div>
 
-			<div className="bg-priary-main lg:container">
+			<div className="lg:container">
 				<div className="relative mx-auto flex md:mt-[9px] md:ml-[10px] lg:mt-[19px] xl:ml-[24px] xl:mr-[24px]">
 					{/* Side container */}
 					<section className="mr-[14px]s hidden md:block md:w-[159px] xl:mr-[17px] xl:!w-[297px] 900px:w-[203px]">
@@ -423,7 +423,6 @@ const ProductSearchPage: NextPage<
 								selectedCountry?.banner_image) && (
 								<div className="w-full rounded-md bg-white md:mb-[10.87px] md:flex md:h-[101.13px] md:py-2 md:pl-[8.06px] lg:h-[142px] xl:mt-[17px] xl:h-[209px] desktop:mb-[23px] desktop:py-[17px] desktop:pl-[17px]">
 									{/* Main category Card */}
-
 									<div className="relative flex flex-col md:h-[84.78px] md:w-[160.69px] lg:h-[118.9px] lg:w-[181.45px] xl:h-[175px] xl:w-[266px]">
 										<h3 className="font-semibold text-gray md:text-[10px] lg:text-[15.16px] xl:text-[21px] xl:leading-[25.1px]">
 											{getLocaleText(
@@ -551,7 +550,7 @@ const ProductSearchPage: NextPage<
 
 									{/* Category Slider for tablet and desktop  */}
 									{selectedCategories?.length > 0 ? (
-										<div className="hidden md:mt-[4px] md:ml-[13px] md:block md:w-[384px] lg:!w-[72%] xl:mt-[12px] xl:!w-[624px] xl:pr-2 840px:w-[424px] 900px:w-[500px] 980px:!w-[640px] desktop:mt-[8px] desktop:mb-[8px]  desktop:!w-[840px] 3xl:!w-[1000px]">
+										<div className="hidden md:mt-[4px] md:ml-[13px] md:block md:w-[384px] lg:mr-2 lg:!w-[72%] xl:mt-[12px] xl:!w-[624px] xl:pr-2 840px:w-[424px] 900px:w-[500px] 980px:!w-[640px] desktop:mt-[8px] desktop:mb-[8px] desktop:mr-1 desktop:!w-[840px] 3xl:!w-[1000px]">
 											<TrendingCategorySlider
 												categories={[...selectedCategories]}
 												selectedCategoryIds={selectedCategoryList || []}
@@ -570,6 +569,7 @@ const ProductSearchPage: NextPage<
 
 													navigateWithShallow(params?.payload);
 												}}
+												className="md:mr-6 lg:mr-7 desktop:mr-8"
 											/>
 										</div>
 									) : (
@@ -577,28 +577,6 @@ const ProductSearchPage: NextPage<
 											No categories available
 										</p>
 									)}
-
-									{/* For small screen only */}
-									{/* <div className="bg-[#E5E5E5] py-1 md:hidden">
-									<TrendingCategorySliderMobile
-										categories={selectedCategories || []}
-										selectedCategoryList={selectedCategoryList}
-										onTilePressed={(subCategory) => {
-											const { id: mainCategoryId, title } =
-												subCategory?.edges?.main_category;
-											setMainCategory(
-												mainCategoryId || '',
-												title?.en || ''
-											);
-
-											const params = setCategory(
-												subCategory.id,
-												subCategory?.title?.en
-											);
-											navigateWithShallow(params?.payload);
-										}}
-									/>
-								</div> */}
 								</div>
 							)}
 						</div>
