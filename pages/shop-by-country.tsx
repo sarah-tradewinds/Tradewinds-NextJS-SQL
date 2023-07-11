@@ -60,66 +60,21 @@ const ShopByCountryPage: NextPage<
 		<>
 			<Seo title="Search by country page" description="" />
 
-			<div className="container relative mx-auto mb-[2080px] justify-center bg-white md:m-auto ">
+			<div className="container relative mx-auto  justify-center bg-white md:m-auto ">
 				{/* Headers */}
 				<div className=" relative ">
-					<div className="container relative mx-auto justify-center bg-[url('/static/images/search-by-country-images/search-by-country-header.png')] bg-cover bg-no-repeat lg:h-[318px] lg:w-[1025px] desktop:h-[436px] desktop:w-[1512px]">
-						<p className="absolute inset-0  text-[35px] font-semibold text-white md:text-[40px] lg:mt-[115px] lg:ml-[151px] lg:text-[40px] desktop:mt-[180px] desktop:ml-[332px] desktop:text-[96px]">
+					<div className="container relative mx-auto justify-center bg-[url('/static/images/search-by-country-images/search-by-country-header.png')] bg-cover bg-no-repeat sm:h-[298px] sm:w-[640px] md:h-[238px] md:w-[768px] lg:h-[318px] lg:w-[1025px] desktop:h-[436px] desktop:w-[1512px]">
+						<p className="absolute inset-0  text-[35px] font-semibold text-white sm:pt-[83px] sm:pl-[202px] sm:text-[25px] md:pt-[85px] md:pl-[113px] md:text-[25px] lg:pt-[115px] lg:pl-[151px] lg:text-[40px] desktop:pt-[180px] desktop:pl-[332px] desktop:text-[96px]">
 							{t('shop_by_country')}
 						</p>
 					</div>
 				</div>
 
 				<div className="container">
-					{/* for small device */}
-					<div className="absolute top-[140px] left-1/2 w-5/6 -translate-x-1/2 transform rounded-t-[40px] bg-white  pt-8 md:hidden">
-						<div className="space-y-2 px-4">
-							{regionsAndCountries.map((regionAndCountries: any) => {
-								const countries =
-									regionAndCountries?.edges?.region_country || [];
-								const regionId = regionAndCountries.id;
-
-								return (
-									<CountryCollapse
-										key={regionId}
-										leading={countries?.length}
-										title={getLocaleText(
-											regionAndCountries.name || {},
-											router.locale
-										)}
-									>
-										<div className="space-y-2 bg-white py-2 pl-16">
-											{countries?.map((country: any) => {
-												return (
-													<CountryFlagTile
-														key={country.id}
-														title={getLocaleText(
-															country.name || {},
-															router.locale
-														)}
-														imageUrl={country?.image?.url}
-														onClick={() => {
-															countryClickHandler(
-																regionId,
-																regionAndCountries?.name,
-																country.id,
-																country.name?.en
-															);
-														}}
-													/>
-												);
-											})}
-										</div>
-									</CountryCollapse>
-								);
-							})}
-						</div>
-					</div>
-
 					{/* Island and flags */}
-					<div className=" hidden justify-center pb-[40px] md:flex lg:mt-0 desktop:-mt-[16px]">
+					<div className=" hidden justify-center pb-[40px] sm:hidden md:mt-0 md:flex lg:mt-0 desktop:-mt-[16px]">
 						<div className="">
-							<div className="grid lg:grid-cols-4 lg:gap-x-[20px] lg:gap-y-[96px] desktop:grid-cols-4 desktop:gap-x-[30px] desktop:gap-y-[130px]">
+							<div className="grid md:grid-cols-3 md:gap-x-[20px] md:gap-y-[123px] lg:grid-cols-4 lg:gap-x-[20px] lg:gap-y-[96px] desktop:grid-cols-4 desktop:gap-x-[30px] desktop:gap-y-[130px]">
 								<RegionsAndCountriesList
 									regionsAndCountries={regionsAndCountries || []}
 									onCountryClick={(country) => {
@@ -134,6 +89,50 @@ const ShopByCountryPage: NextPage<
 							</div>
 						</div>
 					</div>
+				</div>
+			</div>
+			{/* for small device */}
+			<div className=" relative left-1/2 -translate-x-1/2 transform bg-white sm:block  sm:w-[447px] md:hidden">
+				<div className="space-y-2 px-4">
+					{regionsAndCountries.map((regionAndCountries: any) => {
+						const countries =
+							regionAndCountries?.edges?.region_country || [];
+						const regionId = regionAndCountries.id;
+
+						return (
+							<CountryCollapse
+								key={regionId}
+								leading={countries?.length}
+								title={getLocaleText(
+									regionAndCountries.name || {},
+									router.locale
+								)}
+							>
+								<div className="space-y-2 bg-white py-2 pl-16">
+									{countries?.map((country: any) => {
+										return (
+											<CountryFlagTile
+												key={country.id}
+												title={getLocaleText(
+													country.name || {},
+													router.locale
+												)}
+												imageUrl={country?.image?.url}
+												onClick={() => {
+													countryClickHandler(
+														regionId,
+														regionAndCountries?.name,
+														country.id,
+														country.name?.en
+													);
+												}}
+											/>
+										);
+									})}
+								</div>
+							</CountryCollapse>
+						);
+					})}
 				</div>
 			</div>
 		</>
