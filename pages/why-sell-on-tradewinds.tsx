@@ -18,6 +18,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 			<Seo title="Why sell on tradewinds page" description="" />
 			<div className=" bg-bg_light_gray ">
 				{/* Header */}
+
 				<div className=" h-[1126px] w-full sm:h-[729px] md:h-[775px] lg:h-[1016px] desktop:h-[1508px] ">
 					<div className="relative mx-auto h-[203px] w-[300px] bg-[url('/static/images/why-sell-on-tradewinds-images/why-sell-on-tradewinds-header.png')] bg-cover bg-center bg-no-repeat sm:h-[298px] sm:w-[640px] md:h-[358px] md:w-[768px] lg:h-[478px] lg:w-[1025px] desktop:h-[703px] desktop:w-[1512px]">
 						<div className="absolute inset-0 z-[1] bg-black opacity-40"></div>
@@ -133,7 +134,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 						</div>
 					</div>
 				</div>
-				{/* <div className=" mx-auto w-[300px] bg-white pb-[40px] sm:w-[620px] md:w-[745px] lg:w-[994px] desktop:w-[1466px]">
+				{/*<div className=" mx-auto w-[300px] bg-white sm:w-[640px] md:w-[768px] lg:w-[1025px] desktop:w-[1466px]">
 					<div className="container mx-auto w-[277px] text-primary-main sm:w-[566px] md:w-[680px] lg:w-[907px] desktop:w-[1336px]">
 						<div>
 							<div className=" pt-[15px] text-center sm:pt-[13px] md:pt-[16px] lg:pt-[31px]  desktop:pt-[75px] ">

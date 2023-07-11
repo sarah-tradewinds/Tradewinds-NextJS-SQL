@@ -3,25 +3,46 @@ import {
 	InferGetServerSidePropsType,
 	NextPage
 } from 'next';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 // Third party packages
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import Skeleton from 'react-loading-skeleton';
 
 // components
-import CompareProductList from 'components/compare/compare-bottom-overlay/compare-overlay-product-list';
-import ProductList from 'components/product-search/product-list';
-
-// stores
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import Seo from 'components/common/seo';
-import MainCategoryAndCategoriesTile from 'components/product-search/main-category-and-categores-tile';
 import ProductFilter from 'components/product-search/product-filter/product-filter';
+import ProductList from 'components/product-search/product-list';
 import ProductSearchFilterBar from 'components/product-search/product-search-filter-bar';
-import ProductSearchTopBanner from 'components/product-search/product-search-top-banner';
 import RFQCard from 'components/product-search/rfq-card.components';
 import MiniRFQCard from 'components/product-search/rfq-mini-card.components';
-import TrendingCategorySlider from 'components/product-search/trending-category-slider';
-import TrendingSectionTile from 'components/product-search/trending-section-tile';
+
+const MainCategoryAndCategoriesTile = dynamic(
+	() =>
+		import(
+			'components/product-search/main-category-and-categories-tile'
+		)
+);
+const TrendingCategorySlider = dynamic(
+	() => import('components/product-search/trending-category-slider')
+);
+const TrendingSectionTile = dynamic(
+	() => import('components/product-search/trending-section-tile')
+);
+const CompareProductList = dynamic(
+	() =>
+		import(
+			'components/compare/compare-bottom-overlay/compare-overlay-product-list'
+		)
+);
+const ProductSearchTopBanner = dynamic(
+	() => import('components/product-search/product-search-top-banner')
+);
+
+// stores
 import useDeviceSize from 'hooks/use-device-size.hooks';
 import {
 	getCountryById,
@@ -39,9 +60,6 @@ import {
 	getSelectedMainCategoryAndCategories
 } from 'lib/product-search.lib';
 import { useTranslation } from 'next-i18next';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import Skeleton from 'react-loading-skeleton';
 import { useAuthStore } from 'store/auth';
 import { getIdAndName, useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';

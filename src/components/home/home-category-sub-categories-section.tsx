@@ -1,10 +1,17 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
+// store
 import { useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';
+
+// Types
 import { CatSubCatSectionType } from 'types/home';
+
+// utile
 import { getLocaleText } from 'utils/get_locale_text';
+
+// components
 import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
 import CategoryCollapse from './category-collapse.component';
 
@@ -121,7 +128,7 @@ const HomeCategorySubCategoriesSection: React.FC<
 							</div>
 						</div>
 
-						<p className="ml-[17px] text-[18px] font-semibold leading-[21.94px] text-primary-main">
+						<p className="ml-[17px] text-[18px] font-semibold leading-[21.94px] text-gray">
 							{subCategoryTitle}
 						</p>
 					</div>
@@ -213,7 +220,7 @@ const MainCategoryCard: React.FC<MainCategoryCardProps> = (props) => {
 
 	return (
 		<div className="bg-errors relative flex flex-col md:h-[198px] lg:h-[200px] xl:h-[256px] desktop:h-[324px]">
-			<h3 className="desktop:pt-[23px]s ml-[15.69px] pt-[19px] text-[18px] font-semibold text-primary-main md:w-[169px] lg:ml-[29.23px] lg:w-[237px] lg:pt-[16.44px] lg:text-[21px] xl:ml-[36.51px] xl:w-[296.36px] xl:pt-[16px] desktop:ml-[43px] desktop:w-[349.08px] desktop:text-[25px]">
+			<h3 className="desktop:pt-[23px]s ml-[15.69px] pt-[19px] text-[18px] font-semibold text-gray md:w-[169px] lg:ml-[29.23px] lg:w-[237px] lg:pt-[16.44px] lg:text-[21px] xl:ml-[36.51px] xl:w-[296.36px] xl:pt-[16px] desktop:ml-[43px] desktop:w-[349.08px] desktop:text-[25px]">
 				{title}
 			</h3>
 			{/*Category Image and CTA  */}

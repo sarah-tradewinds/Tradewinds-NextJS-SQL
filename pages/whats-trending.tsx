@@ -1,9 +1,10 @@
 import { Tab } from '@headlessui/react';
 import {
-	GetServerSideProps,
-	InferGetServerSidePropsType,
-	NextPage
+  GetServerSideProps,
+  InferGetServerSidePropsType,
+  NextPage
 } from 'next';
+import dynamic from 'next/dynamic';
 
 // Third party packages
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -16,21 +17,32 @@ import TrendingProduct from '../src/components/common/trending_page/trending-pro
 // stores
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import Seo from 'components/common/seo';
-import CompareProductList from 'components/compare/compare-bottom-overlay/compare-overlay-product-list';
 import ProductFilter from 'components/product-search/product-filter/product-filter';
 import ProductList from 'components/product-search/product-list';
 import ProductSearchFilterBar from 'components/product-search/product-search-filter-bar';
-import ProductSearchTopBanner from 'components/product-search/product-search-top-banner';
-import TrendingCategorySlider from 'components/product-search/trending-category-slider';
+
+const CompareProductList = dynamic(
+	() =>
+		import(
+			'components/compare/compare-bottom-overlay/compare-overlay-product-list'
+		)
+);
+const TrendingCategorySlider = dynamic(
+	() => import('components/product-search/trending-category-slider')
+);
+const ProductSearchTopBanner = dynamic(
+	() => import('components/product-search/product-search-top-banner')
+);
+
 import useDeviceSize from 'hooks/use-device-size.hooks';
 import {
-	getCountryById,
-	getTrendingCategories,
-	getTrendingCategoriesByCountry
+  getCountryById,
+  getTrendingCategories,
+  getTrendingCategoriesByCountry
 } from 'lib/common.lib';
 import {
-	getProducts,
-	getSelectedMainCategoryAndCategories
+  getProducts,
+  getSelectedMainCategoryAndCategories
 } from 'lib/product-search.lib';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
@@ -39,8 +51,8 @@ import { getIdAndName, useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';
 import { useProductCompareStore } from 'store/product-compare-store';
 import {
-	getFilterValueFromQuery,
-	getProductSearchURL
+  getFilterValueFromQuery,
+  getProductSearchURL
 } from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
 

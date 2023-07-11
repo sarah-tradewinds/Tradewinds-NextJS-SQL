@@ -24,6 +24,7 @@ const NavLink: React.FC<NavLinkProps> = (props) => {
 			href={href || '/'}
 			className={navLinkClassName}
 			onClick={onClick}
+			prefetch={false}
 		>
 			{children}
 		</Link>
