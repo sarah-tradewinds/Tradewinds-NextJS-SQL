@@ -48,7 +48,7 @@ module.exports = {
 			bg_blue: '#00B2C7',
 			bg_light_blue: '#BBD3DD',
 			bg_gray_medium: '#93A799',
-			// green: '#37B34A',
+			light_green: '#37B34A',
 			green: '#35B34A',
 			cyan: '#33A7DF',
 
