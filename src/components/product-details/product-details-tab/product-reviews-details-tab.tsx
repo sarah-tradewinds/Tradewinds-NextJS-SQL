@@ -135,7 +135,7 @@ const ProductReviewsDetailsTab: React.FC<{
 					<h2 className="hidden text-[21px] font-semibold text-gray/40 md:block">
 						{t('common:customer_reviews')}
 					</h2>
-					<h2 className="text-[15px] font-semibold leading-[18.29px] text-primary-main md:hidden">
+					<h2 className="text-[15px] font-semibold leading-[18.29px] text-gray md:hidden">
 						{t('common:reviews')}
 					</h2>
 					<div className="relative hidden w-[124px] md:block">

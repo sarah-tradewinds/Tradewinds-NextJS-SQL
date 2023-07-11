@@ -188,7 +188,7 @@ const CompanyProfileTab: React.FC<{
 							<Tab.Panel className="outline-none">
 								{/* Only for mobile device */}
 								<div className="md:hidden">
-									<h3 className="border-b-2 border-[#C4C4C4] pb-[7px] text-[15px] font-semibold leading-[18.29px] text-primary-main">
+									<h3 className="border-b-2 border-[#C4C4C4] pb-[7px] text-[15px] font-semibold leading-[18.29px] text-gray">
 										Company Profile
 									</h3>
 									<div className="relative mt-[8.57px] h-[20.48px] w-[93.7px]">

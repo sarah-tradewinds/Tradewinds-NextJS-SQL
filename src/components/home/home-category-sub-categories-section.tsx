@@ -242,7 +242,7 @@ const MainCategoryCard: React.FC<MainCategoryCardProps> = (props) => {
 
 				<button
 					onClick={onPressed}
-					className="mb-[11.26px] ml-2 h-[16.74px] w-[94.08px] rounded-md bg-primary-eco text-center text-[12.01px] text-white outline-none xl:h-[20.9px] xl:w-[117.49px] xl:text-[15px] desktop:mb-[19.61px] desktop:ml-[25px] desktop:h-[24.62px] desktop:w-[138.39px]"
+					className="mb-[11.26px] ml-2 h-[16.74px] w-[94.08px] rounded-md bg-primary-eco text-center text-[12.01px] text-white outline-none md:text-[12px] xl:h-[20.9px] xl:w-[117.49px] xl:text-[15px] desktop:mb-[19.61px] desktop:ml-[25px] desktop:h-[24.62px] desktop:w-[138.39px] desktop:text-[18px]"
 					style={{ backgroundColor: buttonBackgroundColor }}
 				>
 					Source Now

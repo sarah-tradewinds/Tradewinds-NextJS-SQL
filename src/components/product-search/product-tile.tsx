@@ -248,7 +248,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 				<div className="ml-[28px]s mt-[10px] w-full lg:w-[372.19px] xl:w-[452px] desktop:w-[552px]">
 					<h2
 						onClick={onClick}
-						className="cursor-pointer line-clamp-3 sm:text-[16px] sm:leading-[19.5px] lg:text-[15px] desktop:h-[76.9px]"
+						className="cursor-pointer text-gray line-clamp-3 sm:text-[16px] sm:leading-[19.5px] lg:text-[15px] desktop:h-[76.9px]"
 					>
 						<span className="font-semibold">{name}: </span>
 						<span className="text-grays">{description}</span>
@@ -259,10 +259,10 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 						<h3 className="text-[18px] font-semibold leading-[21.94px] text-primary-main">
 							{isSaleOn && !isBulkPricing ? (
 								<>
-									<span className="text-accent-error">
+									<span className="">
 										Sale ${salePrice}/{minOrderQuantityUnit}
 									</span>
-									<span className="ml-2 inline-block text-gray line-through">
+									<span className="ml-2 inline-block line-through">
 										${productPrice}/{minOrderQuantityUnit}
 									</span>
 								</>

@@ -52,7 +52,7 @@ const ProductDetailsTab: React.FC<{
 			: true;
 
 	const headingClassName =
-		'border-b-2 pb-[2px] sm:borer-b-1 xl:border-b-2 xl:pb-[8px] border-[#C4C4C4] text-[15px] capitalize font-semibold leading-[18.29px] text-primary-main lg:text-[21px] md:text-[12px] md:leading-[14.63px] lg:text-[15px] lg:leading-[18.29px] xl:text-[21px] xl:leading-[25.6px] md:uppercase lg:leading-6 md:text-gray lg:border-b-[1.37px] lg:pb-[5.33]';
+		'border-b-2 pb-[2px] sm:borer-b-1 text-gray  xl:border-b-2 xl:pb-[8px] border-[#C4C4C4] text-[15px] capitalize font-semibold leading-[18.29px] lg:text-[21px] md:text-[12px] md:leading-[14.63px] lg:text-[15px] lg:leading-[18.29px] xl:text-[21px] xl:leading-[25.6px] md:uppercase lg:leading-6  lg:border-b-[1.37px] lg:pb-[5.33]';
 
 	return (
 		<div className="space-y-8 bg-white p-4 pt-[32px] md:space-y-8 md:pt-[24px]">
