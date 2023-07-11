@@ -40,7 +40,7 @@ const RegionAndCountriesTile: React.FC<RegionAndCountriesTileProps> = (
 	const countryLength = countries?.length;
 
 	return (
-		<div className={className}>
+		<div className={`${className}`}>
 			<div>
 				<LocationHolder
 					title={regionName}
@@ -74,7 +74,7 @@ const RegionAndCountriesTile: React.FC<RegionAndCountriesTileProps> = (
 			{/* actions */}
 			{countryLength > 3 && (
 				<div
-					className="  justify-center md:mt-[25px] lg:mt-[25px] desktop:mt-4"
+					className=" container mx-auto justify-center md:mt-[25px] md:pl-[80px] lg:mt-[25px] lg:pl-[80px] desktop:mt-4 desktop:pl-[120px]"
 					onClick={() => setIsExpanded((prevState) => !prevState)}
 				>
 					{isExpanded ? (
