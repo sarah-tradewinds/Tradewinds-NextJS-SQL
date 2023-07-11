@@ -86,6 +86,7 @@ const ShopByCountryPage: NextPage<
 								}}
 							/>
 						</div>
+						{console.log('regionsAndCountries', regionsAndCountries)}
 					</div>
 				</div>
 			</div>
@@ -106,8 +107,9 @@ const ShopByCountryPage: NextPage<
 									router.locale
 								)}
 							>
-								<div className="space-y-2 bg-white py-2 pl-[25px] sm:pl-[40px]">
+								<div className="space-y-[30px] bg-white py-2 pl-[25px] sm:pl-[40px]">
 									{countries?.map((country: any) => {
+										console.log('country', country);
 										return (
 											<CountryFlagTile
 												key={country.id}
@@ -115,7 +117,7 @@ const ShopByCountryPage: NextPage<
 													country.name || {},
 													router.locale
 												)}
-												imageUrl={country?.image?.url}
+												imageUrl={country?.image}
 												onClick={() => {
 													countryClickHandler(
 														regionId,

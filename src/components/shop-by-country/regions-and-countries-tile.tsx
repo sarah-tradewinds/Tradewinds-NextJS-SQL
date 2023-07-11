@@ -54,13 +54,15 @@ const RegionAndCountriesTile: React.FC<RegionAndCountriesTileProps> = (
 			<div className="space-y-8">
 				{countriesBasedOnIsExpanded?.map((country: any) => {
 					return (
-						<CountryFlagTile
-							key={country?.id}
-							imageUrl={country?.image}
-							title={getLocaleText(country?.name || {}, locale)}
-							onClick={() => onCountryTileClick(country)}
-							containerClassName="cursor-pointer"
-						/>
+						<div>
+							<CountryFlagTile
+								key={country?.id}
+								imageUrl={country?.image}
+								title={getLocaleText(country?.name || {}, locale)}
+								onClick={() => onCountryTileClick(country)}
+								containerClassName="cursor-pointer"
+							/>
+						</div>
 					);
 				})}
 			</div>
