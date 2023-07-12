@@ -41,12 +41,12 @@ function ProductQualifications() {
 					discover exceptional products.
 				</p>
 				<p>
-					Whether you're a seasoned seller looking to expand your market
-					reach or a budding entrepreneur ready to take your business to
-					new heights, Tradewinds Marketplace offers the tools,
-					resources, and support you need to succeed. Get ready to
-					unlock endless possibilities and embark on an exciting journey
-					of global business growth.
+					Whether you&apos;re a seasoned seller looking to expand your
+					market reach or a budding entrepreneur ready to take your
+					business to new heights, Tradewinds Marketplace offers the
+					tools, resources, and support you need to succeed. Get ready
+					to unlock endless possibilities and embark on an exciting
+					journey of global business growth.
 				</p>
 			</div>
 			<div className="container mx-auto mt-[22px] mb-[31px]  sm:mb-[44px] sm:mt-[23px] md:mt-[35px] md:mb-[40px] lg:mt-[53px] lg:mb-[42px] desktop:mt-[79px] desktop:mb-[81px]">
