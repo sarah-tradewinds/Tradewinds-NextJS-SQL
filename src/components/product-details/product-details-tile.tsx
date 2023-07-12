@@ -606,10 +606,10 @@ const ProductDetailsTile: React.FC<{
 				/>
 
 				{/* Product details */}
-				<div className="mt-[16px] ml-[13px] mr-[13px] sm:w-[345px] md:ml-[40.49px] md:mr-[19.35px] md:w-[392.04px] lg:mr-[41.61px] lg:!w-[540px] 840px:w-auto desktop:ml-[164px]">
+				<div className="mt-[16px] ml-[13px] mr-[13px] sm:w-[345px] md:ml-[40.49px] md:mr-[19.35px] md:w-[392.04px] lg:mr-[41.61px] lg:!w-[540px] xl:!w-[652px] 840px:w-auto desktop:ml-[164px]">
 					{/* Product name and sku info */}
 					<div className="flex items-center justify-between">
-						<h1 className="text-[18px] font-semibold capitalize leading-[21.94px] text-primary-main sm:text-[15px] sm:leading-[18.29px] md:text-[18px] md:leading-[21.94px] lg:text-[20px] lg:leading-[24.38px] xl:text-[30px] xl:leading-[36.57px]">
+						<h1 className="text-[18px] font-semibold capitalize leading-[21.94px] text-gray sm:text-[15px] sm:leading-[18.29px] md:text-[18px] md:leading-[21.94px] lg:text-[20px] lg:leading-[24.38px] xl:text-[30px] xl:leading-[36.57px]">
 							{productName}
 						</h1>
 						<p className="hidden font-semibold uppercase  text-gray/40 lg:block lg:text-[20px] lg:leading-[24.38px] xl:text-[30px] xl:leading-[36.57px]">
@@ -638,7 +638,7 @@ const ProductDetailsTile: React.FC<{
 						</h3>
 
 						{minOrderQuantity > 0 && (
-							<div className="text-xs font-semibold capitalize leading-[15px] sm:flex sm:items-center sm:space-x-2 sm:text-[10.83px] sm:leading-[13.21px] md:space-x-4 md:text-[13px] md:leading-[15.85px] lg:text-[15px] lg:leading-[18.29px] xl:text-[21px] xl:leading-[25.6px]">
+							<div className="text-xs font-semibold capitalize leading-[15px] text-gray sm:flex sm:items-center sm:space-x-2 sm:text-[10.83px] sm:leading-[13.21px] md:space-x-4 md:text-[13px] md:leading-[15.85px] lg:text-[15px] lg:leading-[18.29px] xl:text-[21px] xl:leading-[25.6px]">
 								<h4>
 									{minOrderQuantity} {minOrderQuantityUnit} /
 									{t('common:min_order')}

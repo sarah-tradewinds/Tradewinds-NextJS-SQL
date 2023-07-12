@@ -15,16 +15,17 @@ import ImageWithErrorHandler from 'components/common/elements/image-with-error-h
 import LanguageDropdown from 'components/common/elements/lang-menu';
 import NavLink from 'components/common/elements/nav-link';
 import Button from 'components/common/form/button';
-import SearchBar from 'components/common/searh-bar/search-bar';
+import SearchBar from 'components/common/search-bar/search-bar';
+
 const MegaMenu = dynamic(
 	() => import('components/home/common/mega-menu/mega-menu')
 );
 
 // actions
 import {
-  BUYER_DASHBOARD_ACTIONS,
-  BUYER_DASHBOARD_PAGES,
-  generateBuyerDashboardUrl
+	BUYER_DASHBOARD_ACTIONS,
+	BUYER_DASHBOARD_PAGES,
+	generateBuyerDashboardUrl
 } from 'data/buyer/buyer-actions';
 
 // stores
@@ -52,6 +53,7 @@ const Header = (props: any) => {
 		isEco,
 		setIsEco
 	}));
+	console.log('isEco', isEco);
 
 	const removeCategoryFilter = useCategoryStore(
 		(state) => state.removeCategoryFilter
@@ -86,17 +88,6 @@ const Header = (props: any) => {
 						: 'md:mx-[38px]s md:mt-5s md:mr-[40.1px] desktop:ml-[111.43px]'
 				}`}
 			>
-				{/* <CartIcon
-					count={totalItemCartItem}
-					onClick={() => router.push('/cart')}
-					iconClassName="!text-[20px] md:!text-[24px] desktop:!text-[25.16px]"
-					countClassName={`block ${
-						isAuth
-							? '!-top-1 !right-4 md:!-top-3 !desktop:-top-0 md:!right-2'
-							: '!-top-3 md:!-top-5'
-					}`}
-				/> */}
-
 				<div>
 					<AiOutlineShoppingCart className="h-[12.32px] w-[15.1px] text-white lg:h-[16.45px] lg:w-[20.15px]" />
 				</div>
@@ -157,8 +148,6 @@ const Header = (props: any) => {
 							access_key: customerData.access.token,
 							refresh_key: customerData.refresh.token
 						})}
-						// variant="special"
-						// className="flex-col !items-center rounded-none !px-0 py-0 transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08] md:!h-[70px] md:!w-[73px] lg:!h-[76px] lg:!w-[94.43px] lg:!text-lg lg:leading-[22px]"
 						className="flex flex-col items-center rounded-none bg-secondary text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08] md:h-full md:w-[56.66px] lg:w-[75.62px] xl:w-[94.43px]"
 					>
 						<div className="flex items-center justify-center text-center lg:mt-[12px] xl:mt-[16px]">
@@ -192,11 +181,6 @@ const Header = (props: any) => {
 
 	return (
 		<header
-			// className={`sticky top-0 z-[10000] hidden h-[50.07px] w-full md:block md:h-[111px] lg:h-[119.68px] md:h-[70px]  ${
-			// 	isEco
-			// 		? 'bg-primary-eco'
-			// 		: 'bg-gradient-to-r from-success via-accent-primary-main to-primary-main'
-			// }`}
 			className={`sticky top-0 z-[10000] hidden w-full md:block md:h-[80px] lg:h-[96px] xl:h-[120px]`}
 		>
 			<div
@@ -287,7 +271,11 @@ const Header = (props: any) => {
 							</NavLink>
 
 							<NavLink
-								href="/why-sell-on-tradewinds"
+								href={
+									isEco
+										? '/eco/why-sell-on-tradewinds'
+										: '/why-sell-on-tradewinds'
+								}
 								className="nav-link"
 								activeClassName="underline font-semibold"
 								onClick={drawerHandler}
@@ -296,7 +284,7 @@ const Header = (props: any) => {
 							</NavLink>
 
 							<NavLink
-								href="/why-buy"
+								href={isEco ? '/eco/why-buy' : '/why-buy'}
 								className="nav-link"
 								activeClassName="underline font-semibold"
 								onClick={drawerHandler}
@@ -329,7 +317,7 @@ const Header = (props: any) => {
 					</div>
 				</div>
 
-				<div className="ml-[35px] hidden md:inline-blocks">
+				<div className="md:inline-blocks ml-[35px] hidden">
 					<Breadcrumbs productName={props.productName} />
 				</div>
 			</div>

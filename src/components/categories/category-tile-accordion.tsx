@@ -8,12 +8,14 @@ interface CategoryTileAccordionProps {
 	title: string;
 	imageUrl: string;
 	backgroundColor: string;
+	onTitleClick?: () => void;
 }
 
 const CategoryTileAccordion: React.FC<CategoryTileAccordionProps> = (
 	props
 ) => {
-	const { title, imageUrl, backgroundColor, children } = props;
+	const { title, imageUrl, backgroundColor, children, onTitleClick } =
+		props;
 
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -49,9 +51,12 @@ const CategoryTileAccordion: React.FC<CategoryTileAccordionProps> = (
 					/>
 				</div>
 				{/* Title */}
-				<p className="text-[15px] font-semibold leading-[18.29px] text-gray sm:text-[18px] sm:leading-[21.94px] xl:text-[21.16px] xl:leading-[25.8px] desktop:text-[25px] desktop:leading-[30.48px]">
+				<button
+					onClick={onTitleClick}
+					className="cursor-pointer text-[15px] font-semibold leading-[18.29px] text-gray outline-none sm:text-[18px] sm:leading-[21.94px] xl:text-[21.16px] xl:leading-[25.8px] desktop:text-[25px] desktop:leading-[30.48px]"
+				>
 					{title}
-				</p>
+				</button>
 			</div>
 
 			{isOpen && <div>{children}</div>}

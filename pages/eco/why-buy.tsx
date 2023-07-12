@@ -6,9 +6,9 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // components
 import Seo from 'components/common/seo';
-import Banner from 'components/eco/why-buy/banner';
 import FeatureCommunication from 'components/eco/why-buy/feature-communication';
 import ProductQualifications from 'components/eco/why-buy/product-qualifications';
+import Banner from 'components/eco/why-buy/whybuy-banner';
 
 const WhyBuyPage: NextPage = () => {
 	const { t } = useTranslation('why_buy');

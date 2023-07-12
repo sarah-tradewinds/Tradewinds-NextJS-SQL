@@ -8,6 +8,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Seo from 'components/common/seo';
 import Banner from 'components/eco/why-buy/banner';
 import FeatureCommunicationCenter from 'components/eco/why-buy/feature-communication';
+
 import { useAuthStore } from 'store/auth';
 
 const WhyBuyPage: NextPage = () => {

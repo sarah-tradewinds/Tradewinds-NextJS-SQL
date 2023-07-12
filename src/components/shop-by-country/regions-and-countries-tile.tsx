@@ -40,7 +40,7 @@ const RegionAndCountriesTile: React.FC<RegionAndCountriesTileProps> = (
 	const countryLength = countries?.length;
 
 	return (
-		<div className={className}>
+		<div className={`${className}`}>
 			<div>
 				<LocationHolder
 					title={regionName}
@@ -54,19 +54,21 @@ const RegionAndCountriesTile: React.FC<RegionAndCountriesTileProps> = (
 			<div className="space-y-8">
 				{countriesBasedOnIsExpanded?.map((country: any) => {
 					return (
-						<CountryFlagTile
-							key={country?.id}
-							imageUrl={country?.image}
-							title={getLocaleText(country?.name || {}, locale)}
-							onClick={() => onCountryTileClick(country)}
-							containerClassName="cursor-pointer"
-						/>
+						<div key={country?.id}>
+							<CountryFlagTile
+								key={country?.id}
+								imageUrl={country?.image}
+								title={getLocaleText(country?.name || {}, locale)}
+								onClick={() => onCountryTileClick(country)}
+								containerClassName="cursor-pointer"
+							/>
+						</div>
 					);
 				})}
 			</div>
 
 			{countryLength <= 3 && (
-				<p className="mt-4 text-[20px] font-semibold text-accent-primary-main">
+				<p className=" font-semibold text-accent-primary-main md:mt-[25px] md:text-[18px] lg:mt-[25px] lg:text-[18px] desktop:mt-4  desktop:text-[21px]">
 					More Coming Soon
 				</p>
 			)}
@@ -74,13 +76,13 @@ const RegionAndCountriesTile: React.FC<RegionAndCountriesTileProps> = (
 			{/* actions */}
 			{countryLength > 3 && (
 				<div
-					className="mt-4 cursor-pointer"
+					className=" container mx-auto justify-center md:mt-[25px] md:pl-[80px] lg:mt-[25px] lg:pl-[80px] desktop:mt-4 desktop:pl-[120px]"
 					onClick={() => setIsExpanded((prevState) => !prevState)}
 				>
 					{isExpanded ? (
-						<HiMinusCircle className="text-[32px] text-secondary" />
+						<HiMinusCircle className="text-secondary md:text-[26px] lg:text-[26px] desktop:text-[20px]" />
 					) : (
-						<HiPlusCircle className="text-[32px] text-secondary" />
+						<HiPlusCircle className=" text-secondary md:text-[26px] lg:text-[26px] desktop:text-[20px]" />
 					)}
 				</div>
 			)}

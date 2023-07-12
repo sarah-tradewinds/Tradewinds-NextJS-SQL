@@ -194,7 +194,7 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 					{/* Product Info and keywords*/}
 					<Link
 						href={`/product/${slug}`}
-						className="text-[12px] leading-[14.63px] text-primary-main line-clamp-1"
+						className="text-[12px] leading-[14.63px] text-gray line-clamp-1"
 					>
 						{name}
 					</Link>
@@ -205,23 +205,19 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 						<div className="flex text-[12px] font-semibold leading-[14.63px] text-primary-main">
 							{isSalePriceAvailable ? (
 								<p className="flex flex-col">
-									<span className="text-accent-error">
-										Sale ${salePrice}/piece
-									</span>
+									<span className="">Sale ${salePrice}/piece</span>
 									<span className="text-gray line-through">
 										${productPrice}/piece
 									</span>
 								</p>
 							) : (
-								<span className="text-primary-main">
-									{displayPrice} /piece
-								</span>
+								<span className="text-gray">{displayPrice} /piece</span>
 							)}
 						</div>
 
 						{/* Minimum Order Quantity */}
 						{minOrderQuantity > 0 && (
-							<h4 className="text-[12px] leading-[14.63px] text-primary-main">
+							<h4 className="text-[12px] leading-[14.63px] text-gray">
 								{minOrderQuantity} {t('common:piece')} /
 								{t('common:min_order')}
 							</h4>

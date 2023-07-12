@@ -1,13 +1,25 @@
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import Footer from './footer';
 
 // Third party packages
 
 // components
+import ImageWithErrorHandler from '../elements/image-with-error-handler';
+import Button from '../form/button';
+import Seo from '../seo';
+import Footer from './footer';
+import ResponsiveHeader from './responsive-navbar';
+
+const Loader = dynamic(() => import('../elements/loader/loader'));
 const Login = dynamic(() => import('../auth/login'));
 const SignUpPage = dynamic(() => import('../auth/signup'));
 const SelectSignUpPage = dynamic(() => import('../auth/select-signup'));
+const ProductFilterSlider = dynamic(
+	() =>
+		import(
+			'components/product-search/product-filter-mobile/product-filter-slider'
+		)
+);
 
 // icons
 import {
@@ -20,7 +32,6 @@ import { useEffect } from 'react';
 import { IoSpeedometerOutline } from 'react-icons/io5';
 import { MdOutlineMessage, MdPerson } from 'react-icons/md';
 
-import ProductFilterSlider from 'components/product-search/product-filter-mobile/product-filter-slider';
 import useDeviceSize from 'hooks/use-device-size.hooks';
 import { getCart } from 'lib/cart.lib';
 import { getAddresses } from 'lib/customer/addres.lib';
@@ -30,11 +41,6 @@ import { useAuthStore } from 'store/auth';
 import { useCartStore } from 'store/cart-store-v2';
 import { useHomeStore } from 'store/home';
 import { getLocaleText } from 'utils/get_locale_text';
-import ImageWithErrorHandler from '../elements/image-with-error-handler';
-import Loader from '../elements/loader/loader';
-import Button from '../form/button';
-import Seo from '../seo';
-import ResponsiveHeader from './responsive-navbar';
 
 const Layout: React.FC<{ productName?: string; seo: any }> = (
 	props
@@ -67,19 +73,6 @@ const Layout: React.FC<{ productName?: string; seo: any }> = (
 	const { route } = useRouter();
 	const { routeChangeStart } = useRouteEvent();
 	const { deviceWidth, deviceType } = useDeviceSize();
-
-	// useEffect(() => {
-	// 	const [bodyTag] = Array.from(document.getElementsByTagName('body'));
-	// 	if (bodyTag) {
-	// 		if (deviceWidth >= 744) {
-	// 			// (bodyTag.style as any).zoom = '80%';
-	// 			(document.body.style as any).zoom = '80%';
-	// 		} else {
-	// 			// (bodyTag.style as any).zoom = '100%';
-	// 			(document.body.style as any).zoom = '100%';
-	// 		}
-	// 	}
-	// }, [deviceWidth]);
 
 	useEffect(() => {
 		autoLogin();

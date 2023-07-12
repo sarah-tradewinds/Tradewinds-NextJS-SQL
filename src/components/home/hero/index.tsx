@@ -10,8 +10,8 @@ type Props = {
 const Index = ({ hcd, cardAList, cardBData }: Props) => {
 	return (
 		<section className="relative h-[348px] sm:h-[432px] lg:h-[648px] xl:h-[756px] desktop:h-[880px]">
-      <HeroCarousel heroCarouselData={hcd} />
-			<div className="absolute bottom-0 w-full bg-gradient-to-bs from-[#DEDFE0]/60s to-[#F5F5F5]s dark:from-bg-ecos">
+			<HeroCarousel heroCarouselData={hcd} />
+			<div className="absolute bottom-0 w-full">
 				<CardWrapper cardAList={cardAList} cardBData={cardBData} />
 			</div>
 		</section>

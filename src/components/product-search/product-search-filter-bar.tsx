@@ -1,15 +1,23 @@
-import { Popover } from '@headlessui/react';
-import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import { getHomeCountries } from 'lib/home.lib';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+
+// Third party packages
+import { Popover } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import useSWR from 'swr';
-import { getFilterValueFromQuery } from 'utils/common.util';
+
+// components
 import Button from '../common/form/button';
 import CountrySearchDropdown, {
 	ICountry
 } from './country-search-dropdown';
 import MinMaxPicker from './product-filter/min-max-picker.components';
+
+// libs
+import { getHomeCountries } from 'lib/home.lib';
+
+// util
+import { getFilterValueFromQuery } from 'utils/common.util';
 
 interface ProductSearchFilterBarProps {
 	onCountryChange?: (id?: string, name?: string) => void;
@@ -153,9 +161,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 				</p>
 
 				<Popover className="relative">
-					<Popover.Button
-						className={dropDownSelect}
-					>
+					<Popover.Button className={dropDownSelect}>
 						<span>
 							{minOrder} - {maxOrder}
 						</span>
@@ -210,9 +216,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 				</p>
 
 				<Popover className="relative">
-					<Popover.Button
-						className={dropDownSelect}
-					>
+					<Popover.Button className={dropDownSelect}>
 						<span>
 							${minPrice} - ${maxPrice}
 						</span>

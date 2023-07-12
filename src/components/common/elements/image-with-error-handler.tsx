@@ -17,7 +17,7 @@ const ImageWithErrorHandler: React.FC<ImageWithErrorHandlerProps> = (
 ) => {
 	const {
 		src,
-		alt,
+		alt = '',
 		fill,
 		width,
 		height,
