@@ -12,6 +12,8 @@ const TrendingCategorySlider: React.FC<{
 	onTileClick?: (categoryId: string, data: any) => any;
 	className?: string;
 	selectedTitleClassName?: string;
+	slideContainerClassName?: string;
+	numOfSlidesToShow?: number;
 }> = (props) => {
 	const slider = useRef(null);
 	const router = useRouter();
@@ -23,7 +25,9 @@ const TrendingCategorySlider: React.FC<{
 		onTileClick,
 		selectedCategoryIds,
 		className,
-		selectedTitleClassName = ''
+		selectedTitleClassName = '',
+		slideContainerClassName,
+		numOfSlidesToShow
 	} = props;
 
 	let slidesToShow = 2;
@@ -41,6 +45,10 @@ const TrendingCategorySlider: React.FC<{
 		slidesToShow = 2.6;
 	} else if (deviceWidth >= 830) {
 		slidesToShow = 2.1;
+	}
+
+	if (numOfSlidesToShow) {
+		slidesToShow = numOfSlidesToShow;
 	}
 
 	const settings = {
@@ -102,7 +110,7 @@ const TrendingCategorySlider: React.FC<{
 						return (
 							<div
 								key={subCat.id}
-								className="transform cursor-pointer transition duration-300 ease-in-out hover:-translate-y-2 lg:mb-[26.3px] xl:mb-[39px]"
+								className={`transform cursor-pointer transition duration-300 ease-in-out hover:-translate-y-2 lg:mb-[26.3px] xl:mb-[39px] ${slideContainerClassName}`}
 								onClick={() =>
 									onTileClick?.(categoryData?.id, categoryData)
 								}
@@ -127,6 +135,8 @@ const TrendingCategorySlider: React.FC<{
 										}`}
 									>
 										{subCategoryTitle}
+										{/* Electronic Components, Accessories &
+										Telecommunication */}
 									</p>
 								</div>
 							</div>

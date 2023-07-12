@@ -222,10 +222,9 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 			<div className="flex xl:mt-[25px]">
 				{/* Image container */}
 				<div className="w-[188px]s relative flex items-center justify-center">
-					<div className="flex items-center justify-center overflow-hidden overflow-hidden sm:ml-[21px] sm:mt-[16px] sm:mr-[28px] sm:h-[139px] sm:w-[139px] lg:h-[171.93px] lg:w-[171.93px] xl:ml-[26px] xl:mr-[54px] xl:h-[200px] xl:w-[200px]">
+					<div className="flex items-center justify-center overflow-hidden sm:ml-[21px] sm:mt-[16px] sm:mr-[28px] sm:h-[139px] sm:w-[139px] lg:h-[171.93px] lg:w-[171.93px] xl:ml-[26px] xl:mr-[54px] xl:h-[200px] xl:w-[200px]">
 						<img
 							key={imageUrl}
-							// src={'/tmp/vehicle.png' || imageUrl}
 							src={imageUrl}
 							alt={alt || ''}
 							className="h-full w-full cursor-pointer object-contain"
@@ -248,10 +247,10 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 				<div className="ml-[28px]s mt-[10px] w-full lg:w-[372.19px] xl:w-[452px] desktop:w-[552px]">
 					<h2
 						onClick={onClick}
-						className="cursor-pointer line-clamp-3 sm:text-[16px] sm:leading-[19.5px] lg:text-[15px] desktop:h-[76.9px]"
+						className="cursor-pointer text-gray line-clamp-3 sm:text-[16px] sm:leading-[19.5px] lg:text-[15px] desktop:h-[76.9px]"
 					>
 						<span className="font-semibold">{name}: </span>
-						<span className="text-grays">{description}</span>
+						<span>{description}</span>
 					</h2>
 
 					{/* Price and quantity */}

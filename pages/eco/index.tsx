@@ -1,6 +1,4 @@
 import {
-	GetStaticProps,
-	InferGetStaticPropsType,
 	GetServerSideProps,
 	InferGetServerSidePropsType,
 	NextPage
@@ -34,9 +32,9 @@ import { useHomeStore } from 'store/home';
 import { CatSubCatSectionType } from 'types/home';
 
 // const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
-const HomePage: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = (
-	props
-) => {
+const HomePage: NextPage<
+	InferGetServerSidePropsType<GetServerSideProps>
+> = (props) => {
 	const {
 		// heroCarousels = [],
 		cardAList = [],
@@ -156,7 +154,7 @@ const HomePage: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = (
 															{t('home:categories')}
 														</h3>
 														<Link
-															href="/6500-categories"
+															href={`/categories?is_eco`}
 															className="flex items-center justify-center bg-secondary md:ml-[33.4px] md:h-[28.8px] md:w-[141.6px] md:text-[12.6px] md:font-semibold lg:mr-[67.27px] lg:h-[38.44px] lg:w-[188.98px] lg:text-[16.82px] lg:leading-[20.5px] xl:h-[48px] xl:w-[236px] xl:text-[21px] xl:leading-[25.6px]"
 														>
 															{t('common:search_more')}
@@ -174,7 +172,7 @@ const HomePage: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = (
 
 						{/*  Search Categories Banner */}
 						<Link
-							href="/6500-categories"
+							href={`/categories?is_eco=${true}`}
 							className="flex h-[67px] w-full items-center justify-center rounded-md bg-accent-primary-eco text-[21px] font-semibold text-white md:hidden"
 						>
 							Explore all Categories
@@ -240,7 +238,9 @@ const HomePage: NextPage<InferGetServerSidePropsType<GetServerSideProps>> = (
 export default HomePage;
 
 // export const getStaticProps: GetStaticProps = async ({ locale }) => {
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+	locale
+}) => {
 	try {
 		// const heroCarousels = await getHeroCarousels(true);
 		// console.log(

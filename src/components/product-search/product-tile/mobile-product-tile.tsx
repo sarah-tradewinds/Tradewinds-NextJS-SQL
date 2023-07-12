@@ -194,7 +194,7 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 					{/* Product Info and keywords*/}
 					<Link
 						href={`/product/${slug}`}
-						className="text-[12px] leading-[14.63px] text-primary-main line-clamp-1"
+						className="text-[12px] leading-[14.63px] text-gray line-clamp-1"
 					>
 						{name}
 					</Link>

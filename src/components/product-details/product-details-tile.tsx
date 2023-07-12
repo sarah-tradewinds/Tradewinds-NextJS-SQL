@@ -590,19 +590,7 @@ const ProductDetailsTile: React.FC<{
 					className="pt-[7px] md:pt-[5px] desktop:ml-[48px]"
 					imageUrl={masterImageUrl}
 					alt=""
-					thumbnails={
-						[
-							masterImageUrl,
-							masterImageUrl,
-							masterImageUrl,
-							masterImageUrl,
-							masterImageUrl,
-							masterImageUrl,
-							masterImageUrl
-						] ||
-						images ||
-						[]
-					}
+					thumbnails={images || []}
 				/>
 
 				{/* Product details */}
