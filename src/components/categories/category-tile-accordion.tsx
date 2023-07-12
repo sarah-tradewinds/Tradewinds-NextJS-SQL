@@ -36,24 +36,27 @@ const CategoryTileAccordion: React.FC<CategoryTileAccordionProps> = (
 			</div>
 
 			<div className="flex h-[65px] items-center space-x-[10px] pl-[10px]">
-				{/* Color Box */}
-				<button
-					onClick={openAndCloseHandler}
-					className="sm:h-[22.69px]s sm:w-[22.69px]s h-[26px] w-[26px] outline-none"
-					style={{ backgroundColor }}
-				></button>
-				{/* Image */}
-				<div className="relative h-[47px] w-[47px]">
-					<ImageWithErrorHandler
-						src={imageUrl}
-						alt="category-search"
-						fill={true}
-					/>
+				<div className="flex h-[65px] items-center space-x-[10px]">
+					{/* Color Box */}
+					<button
+						onClick={openAndCloseHandler}
+						className="sm:w-[22.69px]s h-[26px] w-[26px] outline-none"
+						style={{ backgroundColor }}
+					></button>
+					{/* Image */}
+					<div className="relative h-[47px] w-[47px]">
+						<ImageWithErrorHandler
+							src={imageUrl}
+							alt="category-search"
+							fill={true}
+						/>
+					</div>
 				</div>
+
 				{/* Title */}
 				<button
 					onClick={onTitleClick}
-					className="cursor-pointer text-[15px] font-semibold leading-[18.29px] text-gray outline-none sm:text-[18px] sm:leading-[21.94px] xl:text-[21.16px] xl:leading-[25.8px] desktop:text-[25px] desktop:leading-[30.48px]"
+					className="cursor-pointer text-left text-[15px] font-semibold leading-[18.29px] text-gray outline-none sm:text-[18px] sm:leading-[21.94px] xl:text-[21.16px] xl:leading-[25.8px] desktop:text-[25px] desktop:leading-[30.48px]"
 				>
 					{title}
 				</button>

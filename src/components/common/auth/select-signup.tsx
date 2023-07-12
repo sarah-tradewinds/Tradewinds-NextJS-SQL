@@ -9,6 +9,7 @@ import { useAuthStore } from 'store/auth';
 // stores
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
+import { useHomeStore } from 'store/home';
 import ImageWithErrorHandler from '../elements/image-with-error-handler';
 import { Modal } from '../modal/modal';
 import { buttonSpinner } from '../spinners/custom-spinners';
@@ -26,6 +27,9 @@ const SelectSignUp: React.FC = () => {
 
 	const [open, setOpen] = useState(false);
 	const [closeModal, setCloseModal] = useState(false);
+
+	const isEco = useHomeStore(({ isEco }) => isEco);
+
 	function handleRadioChange(event: any) {
 		setSelectedOption(event.target.value);
 	}
@@ -96,7 +100,9 @@ const SelectSignUp: React.FC = () => {
 											setIsSignUpOpen();
 										} else if (selectedOption === 'Seller') {
 											window.open(
-												`${process.env.SELLER_DASHBOARD_SITE_URL}/seller-registration`
+												`${process.env.SELLER_DASHBOARD_SITE_URL}/${
+													isEco ? 'eco/' : ''
+												}seller-registration`
 											);
 										} else if (selectedOption === 'BDM') {
 											window.open(

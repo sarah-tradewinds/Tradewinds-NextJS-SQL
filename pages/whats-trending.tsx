@@ -94,6 +94,8 @@ const Trending_page: NextPage<
 		isTrendingCategoriesExpanded,
 		setIsTrendingCategoriesExpanded
 	] = useState(false);
+	const [showMoreTrendingCategories, setShowMoreTrendingCategories] =
+		useState(false);
 	const [isTrendingProductsExpanded, setIsTrendingProductsExpanded] =
 		useState(false);
 
@@ -362,7 +364,12 @@ const Trending_page: NextPage<
 					{isTrendingCategoriesExpanded && (
 						<div className="mx-[10px] my-[12px] grid grid-cols-1 gap-y-[11px] sm:mx-[17px] sm:grid-cols-2 sm:gap-x-2">
 							{trendingCategories
-								?.slice(0, 9)
+								?.slice(
+									0,
+									showMoreTrendingCategories
+										? trendingCategories?.length
+										: 9
+								)
 								?.map((category: any, index: number) => {
 									return (
 										<TrendingCategoryTile
@@ -388,9 +395,14 @@ const Trending_page: NextPage<
 								<TrendingCategoryTile
 									key={'more'}
 									index=""
-									title="More"
+									title={showMoreTrendingCategories ? 'Less' : 'More'}
 									backgroundColor="#33A7DF"
-									imageUrl="/image/blue-triangle.png"
+									imageUrl="/images/blue-triangle.png"
+									onTileClick={() =>
+										setShowMoreTrendingCategories(
+											(prevState) => !prevState
+										)
+									}
 								/>
 							</div>
 							<Link
