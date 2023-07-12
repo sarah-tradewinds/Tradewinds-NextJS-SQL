@@ -67,7 +67,6 @@ export const getSelectedMainCategoryAndCategories = async (
 ) => {
 	try {
 		const { data } = await axiosInstance.get(
-			// `/category/trending_category/${mainCategoryId}`
 			`cms/category?mainCategoryId=${mainCategoryId}&limit=50000&sortByTrending=true`
 		);
 

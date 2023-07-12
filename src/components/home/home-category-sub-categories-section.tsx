@@ -225,7 +225,7 @@ const MainCategoryCard: React.FC<MainCategoryCardProps> = (props) => {
 			</h3>
 			{/*Category Image and CTA  */}
 			<div
-				className="md:h-[152px]s relative ml-[11.69px] flex h-full items-end md:w-[169px] lg:ml-[22.99px] lg:w-[237px] xl:ml-[28.87px] xl:max-h-[200.61px] xl:w-[296.36px] desktop:ml-[34px] desktop:max-h-[236.3px] desktop:w-[349.08px]"
+				className="relative ml-[11.69px] flex h-full items-end md:w-[169px] lg:ml-[22.99px] lg:w-[237px] xl:ml-[28.87px] xl:w-[296.36px] desktop:ml-[34px] desktop:w-[349.08px]"
 				style={{ backgroundColor }}
 			>
 				<div className="absolute bottom-0 right-0">

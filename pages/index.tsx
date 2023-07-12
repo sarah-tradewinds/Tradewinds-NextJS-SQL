@@ -81,7 +81,7 @@ const HomePage: NextPage<
 		<div className="grid gap-4 md:h-[86px] md:grid-cols-2 lg:h-[126px] xl:h-[148px]">
 			<div className="flex items-center justify-center rounded-md bg-accent-primary-main dark:bg-accent-primary-eco">
 				<Link
-					href="/6500-categories"
+					href="/categories"
 					className="space-y-1 text-center font-semibold text-white"
 				>
 					<p className="md:text-[22.79px] md:leading-[17.78px] lg:text-[25.28px] lg:leading-[19.72px] xl:text-[31.48px] xl:leading-[24.56px]">
