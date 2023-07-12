@@ -219,8 +219,11 @@ const MainCategoryCard: React.FC<MainCategoryCardProps> = (props) => {
 	} = props;
 
 	return (
-		<div className="bg-errors relative flex flex-col md:h-[198px] lg:h-[200px] xl:h-[256px] desktop:h-[324px]">
-			<h3 className="desktop:pt-[23px]s ml-[15.69px] pt-[19px] text-[18px] font-semibold text-gray md:w-[169px] lg:ml-[29.23px] lg:w-[237px] lg:pt-[16.44px] lg:text-[21px] xl:ml-[36.51px] xl:w-[296.36px] xl:pt-[16px] desktop:ml-[43px] desktop:w-[349.08px] desktop:text-[25px]">
+		<div className="bg-errors relative flex flex-col md:h-[198px] lg:h-[200px] xl:h-[256px] desktop:h-[288px]">
+			<h3
+				// className="desktop:pt-[23px]s ml-[15.69px] pt-[19px] text-[18px] font-semibold text-gray md:w-[169px] lg:ml-[29.23px] lg:w-[237px] lg:pt-[16.44px] lg:text-[21px] xl:ml-[36.51px] xl:w-[296.36px] xl:pt-[16px] desktop:ml-[43px] desktop:w-[349.08px] desktop:text-[25px]"
+				className="ml-[15.69px] pt-[19px] text-[18px] font-semibold text-gray md:w-[169px] lg:ml-[29.23px] lg:w-[237px] lg:pt-[16.44px] lg:text-[21px] xl:ml-[36.51px] xl:w-[296.36px] xl:pt-[20.53px]  desktop:ml-[43px] desktop:w-[349.08px] desktop:pt-[23px] desktop:text-[25px]"
+			>
 				{title}
 			</h3>
 			{/*Category Image and CTA  */}
@@ -242,7 +245,8 @@ const MainCategoryCard: React.FC<MainCategoryCardProps> = (props) => {
 
 				<button
 					onClick={onPressed}
-					className="mb-[11.26px] ml-2 h-[16.74px] w-[94.08px] rounded-md bg-primary-eco text-center text-[12.01px] text-white outline-none md:text-[12px] xl:h-[20.9px] xl:w-[117.49px] xl:text-[15px] desktop:mb-[19.61px] desktop:ml-[25px] desktop:h-[24.62px] desktop:w-[138.39px] desktop:text-[18px]"
+					// className="mb-[11.26px] ml-2 h-[16.74px] w-[94.08px] rounded-md bg-primary-eco text-center text-[12.01px] text-white outline-none md:text-[12px] xl:h-[20.9px] xl:w-[117.49px] xl:text-[15px] desktop:mb-[19.61px] desktop:ml-[25px] desktop:h-[24.62px] desktop:w-[138.39px] desktop:text-[18px]"
+					className="mb-[11.26px] ml-2 h-[16.74px] w-[94.08px] rounded-md bg-primary-eco text-center text-[12.01px] text-white outline-none xl:h-[20.9px] xl:w-[117.49px] xl:text-[15px] desktop:mb-[19.61px] desktop:ml-[25px] desktop:h-[24.62px] desktop:w-[138.39px]"
 					style={{ backgroundColor: buttonBackgroundColor }}
 				>
 					Source Now

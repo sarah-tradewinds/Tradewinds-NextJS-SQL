@@ -123,7 +123,10 @@ const SubCategoryCard: React.FC<SubCategoryCardProps> = (props) => {
 		>
 			<h4
 				onClick={onTileClick}
-				className={`mt-[9.74px] ml-[6.12px] w-[76%] cursor-pointer text-gray md:text-[15px] md:leading-[18.29px] lg:w-[78%] desktop:text-[18px] desktop:leading-[21.94px] ${
+				// className={`mt-[9.74px] ml-[6.12px] w-[76%] cursor-pointer text-gray md:text-[15px] md:leading-[18.29px] lg:w-[78%] desktop:text-[18px] desktop:leading-[21.94px] ${
+				// 	title?.length >= 20 ? 'text-[12px]' : 'text-[14px]'
+				// }`}
+				className={`text-[14px]s mt-[9.74px] ml-[6.12px] w-[76%] font-semibold text-gray lg:w-[78%] lg:text-[13px] ${
 					title?.length >= 20 ? 'text-[12px]' : 'text-[14px]'
 				}`}
 			>
