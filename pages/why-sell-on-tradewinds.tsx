@@ -13,6 +13,13 @@ const WhySellOnTradewindsPage: NextPage = () => {
 
 	const leftSideClassName = 'md:pr-4 lg:pr-0  pb-8 lg:pb-0';
 
+	const gotoSellerSignup = () => {
+		window?.open(
+			`${process.env.SELLER_DASHBOARD_SITE_URL}/seller-registration`,
+			'__blank'
+		);
+	}; // End of gotoSellerSignup
+
 	return (
 		<>
 			<Seo title="Why sell on tradewinds page" description="" />
@@ -37,7 +44,10 @@ const WhySellOnTradewindsPage: NextPage = () => {
 							</p>
 
 							<div className="mt-[24px] ml-[37px] sm:mt-[17px] sm:ml-[24px] md:mt-[21px] md:ml-[30px] lg:mt-[34px] lg:ml-[39px] desktop:mt-[29px] desktop:ml-[58px]">
-								<button className=" h-[13px] w-[73px] rounded-sm bg-cyan text-[6px] font-medium sm:h-[25px] sm:w-[135px] sm:text-[10px] md:h-[30px] md:w-[162px] md:text-[13px] lg:h-[40px] lg:w-[216px] lg:text-[17px] desktop:h-[60px] desktop:w-[319px] desktop:text-[25px] ">
+								<button
+									onClick={gotoSellerSignup}
+									className=" h-[13px] w-[73px] rounded-sm bg-cyan text-[6px] font-medium sm:h-[25px] sm:w-[135px] sm:text-[10px] md:h-[30px] md:w-[162px] md:text-[13px] lg:h-[40px] lg:w-[216px] lg:text-[17px] desktop:h-[60px] desktop:w-[319px] desktop:text-[25px] "
+								>
 									{t('common:join_now')}
 								</button>
 							</div>
@@ -128,7 +138,10 @@ const WhySellOnTradewindsPage: NextPage = () => {
 							</div>
 						</div>
 						<div className=" hidden text-center sm:mt-[41px] sm:block md:mt-[33px] lg:mt-[60px] desktop:mt-[90px] ">
-							<button className=" rounded-[7px] bg-cyan font-normal text-white sm:h-[25px] sm:w-[135px] sm:text-[12.5px] md:h-[31px] md:w-[162px] md:text-[15px] lg:h-[40px] lg:w-[216px] lg:text-[25px] desktop:h-[60px] desktop:w-[319px] desktop:text-[25px] ">
+							<button
+								onClick={gotoSellerSignup}
+								className=" rounded-[7px] bg-cyan font-normal text-white sm:h-[25px] sm:w-[135px] sm:text-[12.5px] md:h-[31px] md:w-[162px] md:text-[15px] lg:h-[40px] lg:w-[216px] lg:text-[25px] desktop:h-[60px] desktop:w-[319px] desktop:text-[25px] "
+							>
 								{t('common:join_now')}
 							</button>
 						</div>

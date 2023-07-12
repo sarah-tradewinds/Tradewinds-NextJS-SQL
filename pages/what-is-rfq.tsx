@@ -9,13 +9,44 @@ import ImageWithErrorHandler from 'components/common/elements/image-with-error-h
 import Point from 'components/common/rfq/point';
 import WhyUseRFQTile from 'components/common/rfq/why-use-rfq-tile';
 import Seo from 'components/common/seo';
+import {
+	BUYER_DASHBOARD_ACTIONS,
+	BUYER_DASHBOARD_PAGES,
+	generateBuyerDashboardUrl
+} from 'data/buyer/buyer-actions';
+import { useAuthStore } from 'store/auth';
 
 const WhatIsRFQPage: NextPage = () => {
 	const { t } = useTranslation('what_is_rfq');
 
+	const { isAuth, setIsLoginOpen, customerData } = useAuthStore(
+		(state) => ({
+			isAuth: state.isAuth,
+			setIsLoginOpen: state.setIsLoginOpen,
+			customerData: state.customerData
+		})
+	);
+
+	const submitRFQ = () => {
+		if (!isAuth) {
+			setIsLoginOpen();
+
+			return;
+		}
+
+		const rfqUrl = generateBuyerDashboardUrl({
+			redirect_to: BUYER_DASHBOARD_PAGES.buyer_rfq,
+			action: BUYER_DASHBOARD_ACTIONS.create_rfq,
+			access_key: customerData.access.token,
+			refresh_key: customerData.refresh.token
+		});
+
+		window?.open(rfqUrl, '__blank');
+	}; // End of submitRFQ
+
 	return (
 		<>
-			<Seo title={t('title')} description="" />
+			<Seo title={t('What is RFQ')} description="" />
 
 			<div className=" ">
 				{/* Header */}
@@ -28,7 +59,10 @@ const WhatIsRFQPage: NextPage = () => {
 							{t('engage_with_suppliers_more_effectively')}
 						</p>
 						<div className=" ml-0 mt-[19px] sm:ml-[50px] sm:mt-[20px]  md:ml-[59px] md:mt-[23px] lg:ml-[90px] lg:mt-[32px] desktop:ml-[118px] desktop:mt-[45px] ">
-							<button className="  h-[22px]  w-[117px] rounded-[5px] bg-secondary text-[8px] font-medium sm:h-[22px] sm:w-[117px] sm:text-[8px] md:h-[26px] md:w-[140px] md:text-[10px] lg:h-[35px] lg:w-[187px] lg:text-[12px] desktop:h-[52px] desktop:w-[276px] desktop:text-[18px]">
+							<button
+								onClick={submitRFQ}
+								className="  h-[22px]  w-[117px] rounded-[5px] bg-secondary text-[8px] font-medium sm:h-[22px] sm:w-[117px] sm:text-[8px] md:h-[26px] md:w-[140px] md:text-[10px] lg:h-[35px] lg:w-[187px] lg:text-[12px] desktop:h-[52px] desktop:w-[276px] desktop:text-[18px]"
+							>
 								Submit RFQ
 							</button>
 						</div>

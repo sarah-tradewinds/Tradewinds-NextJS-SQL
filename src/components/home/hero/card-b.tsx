@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 // components
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 
@@ -25,7 +27,7 @@ const CardB: React.FC<CardBProps> = (props) => {
 	return (
 		<div className="h-[153px] w-[203px] overflow-hidden rounded-md bg-gradient-to-r from-[#E7CA00] to-[#E8A30E] sm:h-[203px] sm:w-[245px] lg:h-[244.24px] lg:w-[325.92px] xl:h-[305px] xl:w-[405.73px] desktop:h-[352px] desktop:w-[466px]">
 			<h2 className="ml-[14px] mt-[5.5px] text-[18px] font-semibold leading-[21.94px] text-gray dark:text-primary-eco sm:pt-[4px] lg:text-[21px] lg:leading-[25.6px] xl:ml-[29.85px] xl:text-[25px] xl:leading-[30.48px] desktop:ml-[34px]">
-				{title}
+				<Link href={href}>{title}</Link>
 			</h2>
 
 			<div className="justify-centers mt-[12px] ml-[11px] flex items-center space-x-[12px] sm:mt-[29.51px] sm:justify-start sm:space-x-[24.11px] lg:mt-[16.4px] lg:ml-[14.69px] lg:space-x-[32.17px] xl:mt-[40.52px] xl:ml-[18.28px] xl:space-x-[40.05px] desktop:mt-[51px] desktop:ml-[21px] desktop:space-x-[46px]">

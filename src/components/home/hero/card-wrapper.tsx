@@ -5,12 +5,18 @@ import CardA from './card-a';
 import CardB from './card-b';
 
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
+import { useHomeStore } from 'store/home';
 
 const CardWrapper: React.FC<{
 	cardAList: any[];
 	cardBData: any;
 }> = ({ cardAList, cardBData = {} }) => {
 	const { locale } = useRouter();
+
+	const { setIsEco, isEco } = useHomeStore(({ setIsEco, isEco }) => ({
+		setIsEco,
+		isEco
+	}));
 
 	const [ref] = useKeenSlider<HTMLDivElement>({
 		mode: 'free-snap',
@@ -34,7 +40,15 @@ const CardWrapper: React.FC<{
 								locale
 							)}
 							imageUrl={cardAData.image}
-							href={index == 0 ? '/why-sell-on-tradewinds' : '/eco'}
+							href={
+								index == 0
+									? isEco
+										? '/eco/why-sell-on-tradewinds'
+										: '/why-sell-on-tradewinds'
+									: isEco
+									? '/eco/why-sell-on-tradewinds'
+									: '/eco'
+							}
 						/>
 					</div>
 				))}
@@ -48,7 +62,7 @@ const CardWrapper: React.FC<{
 						locale
 					)}
 					buttonText={getLocaleText(cardBData.btn_text || {}, locale)}
-					href={cardBData.slug?.en}
+					href={'/what-is-rfq' || cardBData.slug?.en}
 					alt={cardBData.title?.en}
 				/>
 			</div>
