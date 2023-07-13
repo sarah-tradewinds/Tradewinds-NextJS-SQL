@@ -71,7 +71,7 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 						<ImageWithErrorHandler
 							key={country.image + country.id}
 							src={country.image}
-							alt={country.name?.toString()}
+							alt={country.name?.en?.toString()}
 							fill={true}
 						/>
 					</div>
