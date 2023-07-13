@@ -78,14 +78,14 @@ const MobileHeader = (props: any) => {
 				className={`${
 					isAuth
 						? 'md:mx-4 md:mt-5 desktop:mr-[58px] desktop:ml-[90px]'
-						: 'md:mx-[38px] md:mt-5 desktop:ml-[111.43px]'
+						: 'mt-2 md:mx-[38px] md:mt-5 desktop:ml-[111.43px]'
 				}`}
 			>
 				<CartIcon
 					count={totalItemCartItem}
 					onClick={() => router.push('/cart')}
 					iconClassName="!text-[20px] md:!text-[24px]"
-					countClassName={`!hidden ${
+					countClassName={`${
 						isAuth
 							? '!-top-1 !right-4 md:!-top-3 !desktop:-top-0 md:!right-2'
 							: '!-top-3 md:!-top-5'

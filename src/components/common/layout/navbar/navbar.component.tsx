@@ -5,7 +5,6 @@ import { useState } from 'react';
 
 // Third party packages
 import { useTranslation } from 'next-i18next';
-import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { BiMessageDetail } from 'react-icons/bi';
 import { FiLogOut } from 'react-icons/fi';
 
@@ -29,6 +28,7 @@ import {
 } from 'data/buyer/buyer-actions';
 
 // stores
+import CartIcon from 'components/common/elements/cart-icon';
 import { useMainCategories } from 'hooks/useMainCategories';
 import { useAuthStore } from 'store/auth';
 import { useCartStore } from 'store/cart-store-v2';
@@ -73,8 +73,6 @@ const Header = (props: any) => {
 	const router = useRouter();
 	useMainCategories();
 
-	let classes = `bg-[#DEDFE0] md:h-[35px]`;
-
 	const drawerHandler = () => {
 		setIsOpen((pevState) => !pevState);
 	};
@@ -88,8 +86,17 @@ const Header = (props: any) => {
 						: 'md:mx-[38px]s md:mt-5s md:mr-[40.1px] desktop:ml-[111.43px]'
 				}`}
 			>
-				<div>
-					<AiOutlineShoppingCart className="h-[12.32px] w-[15.1px] text-white lg:h-[16.45px] lg:w-[20.15px]" />
+				<div className="md:mt-3">
+					{/* <AiOutlineShoppingCart className="h-[12.32px] w-[15.1px] text-white lg:h-[16.45px] lg:w-[20.15px]" /> */}
+					<CartIcon
+						count={totalItemCartItem}
+						iconClassName={`xl:!w-6 xl:!h-6 ${
+							isAuth ? 'md:!w-4 md:!h-4' : '!w-6 !h-6'
+						}`}
+						countClassName={`xl:!bg-secondary md:!-top-4 lg:!-top-5 ${
+							isAuth ? 'md:!bg-transparent' : ''
+						}`}
+					/>
 				</div>
 
 				{/* Name and logout button */}
