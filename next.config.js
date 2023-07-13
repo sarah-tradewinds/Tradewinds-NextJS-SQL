@@ -53,22 +53,6 @@ const nextConfig = (phase) => {
 		reactStrictMode: true,
 		output: 'standalone',
 		env: {
-			// SITE_URL: 'https://www.tradewindsmarketplace.com',
-
-			// BUYER_DASHBOARD_SITE_URL:
-			// 	'https://www.dashboard.tradewindsmarketplace.com/#',
-
-			// BDM_DASHBOARD_SITE_URL:
-			// 	'https://www.dashboard.tradewindsmarketplace.com/#',
-
-			// SELLER_DASHBOARD_SITE_URL:
-			// 	'https://www.dashboard.tradewindsmarketplace.com/#',
-
-			// API_BASE_URL:
-			// 	'https://tradewinds-production-sql-as.azurewebsites.net',
-
-			// # PRE-PROD
-			// SITE_URL: 'http://localhost:3000',
 			SITE_URL:
 				'https://tradewindsmp-productionshoppingsite.azurewebsites.net',
 
