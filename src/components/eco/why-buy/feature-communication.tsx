@@ -10,7 +10,7 @@ function FeatureCommunication() {
 	return (
 		<div>
 			{/* Why Buy points section only display on large screen*/}
-			<div className="z-50 mx-auto flex justify-center bg-[url('/static/images/WhyBuyImages/why-buy-second-banner.png')] bg-center bg-no-repeat sm:h-[394px] sm:w-[640px] md:h-[457px] md:w-[744px] lg:h-[610px] lg:w-[993px] desktop:h-[927px]  desktop:w-[1487px]">
+			<div className="z-50 mx-auto flex w-[300px] justify-center bg-primary-main bg-center bg-no-repeat sm:h-[394px] sm:w-[640px] sm:bg-[url('/static/images/WhyBuyImages/whybuy-feature-bg.png')] md:h-[457px] md:w-[744px] lg:h-[610px] lg:w-[993px] desktop:h-[927px] desktop:w-[1487px]  desktop:bg-[url('/static/images/WhyBuyImages/why-buy-second-banner.png')]">
 				<div className="hidden sm:block md:block lg:block desktop:block">
 					<div className=" grid grid-cols-2 sm:mt-[23px] sm:gap-y-[17px] sm:gap-x-[50px] md:mt-[29px] md:gap-y-[15px] md:gap-x-[56px] lg:mt-[39px] lg:gap-y-[40px] lg:gap-x-[80px] desktop:mt-[61px] desktop:gap-y-[95px] desktop:gap-x-[140px]">
 						<WhyBuyTile
@@ -96,7 +96,7 @@ function FeatureCommunication() {
 				</div>
 			</div>
 
-			<div className="container mx-auto justify-center bg-white !pb-[48px] pt-[1px] sm:pt-[11px] md:pt-[13px] lg:pt-[18px] desktop:pt-[28px]">
+			<div className="container mx-auto w-[300px] justify-center bg-white !pb-[48px] pt-[1px] sm:w-[640px] sm:pt-[11px] md:w-[744px] md:pt-[13px] lg:w-[993px] lg:pt-[18px] desktop:w-[1487px] desktop:pt-[28px]">
 				<div className=" left-0 mt-[33px] flex flex-col pl-[20px] font-semibold text-gray sm:items-center">
 					<p className=" text-[18px] sm:text-[18px] md:text-[20px] lg:text-[25px] desktop:text-[50px] ">
 						Features
@@ -354,7 +354,7 @@ function FeatureCommunication() {
 						/>
 					</div>
 				</div>
-				<div className=' container mx-auto h-[350px]  w-[300px] bg-[url("/static/images/WhyBuyImages/ready-to-grow-banner.png")] pl-[22px]  pt-[14px] text-white sm:mt-[26px] sm:h-[349px]  sm:w-[626px] sm:pl-[64px] sm:pt-[29px] md:mt-[18px] md:h-[403px]  md:w-[721px] md:pl-[74px] md:pt-[43px] lg:mt-[31px] lg:h-[538px]  lg:w-[963px] lg:pl-[99px] lg:pt-[45px]  desktop:mt-[48px]  desktop:h-[822px]  desktop:w-[1489px] desktop:pl-[164px] desktop:pt-[48px] '>
+				<div className=' container mx-auto h-[350px]  w-[300px] bg-[url("/static/images/WhyBuyImages/ready-to-grow-banner-phone.png")] pl-[22px] pt-[14px]  text-white sm:mt-[26px] sm:h-[349px] sm:w-[626px]  sm:bg-[url("/static/images/WhyBuyImages/ready-to-grow-banner.png")] sm:pl-[64px] sm:pt-[29px] md:mt-[18px] md:h-[403px]  md:w-[721px] md:pl-[74px] md:pt-[43px] lg:mt-[31px] lg:h-[538px]  lg:w-[963px] lg:pl-[99px] lg:pt-[45px]  desktop:mt-[48px]  desktop:h-[822px]  desktop:w-[1489px] desktop:pl-[164px] desktop:pt-[48px] '>
 					<p className=" h-[52px] w-[166px] text-[21px] font-semibold leading-[25px] sm:h-[52px] sm:w-[166px] sm:text-[21px] sm:leading-[25px] md:h-[60px] md:w-[191px] md:text-[24px] md:leading-[29px] lg:h-[80px] lg:w-[275px] lg:text-[33px] lg:leading-[38px] desktop:h-[122px] desktop:w-[389px] desktop:text-[50px] desktop:leading-[61px] ">
 						Ready to Grow Your Business?
 					</p>

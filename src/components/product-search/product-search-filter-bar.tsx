@@ -162,7 +162,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 
 				<Popover className="relative">
 					<Popover.Button className={dropDownSelect}>
-						<span>
+						<span className=" text-[10px] text-gray lg:text-[12px] lg:leading-[14.63px] xl:text-[15px] xl:leading-[18.29px]">
 							{minOrder} - {maxOrder}
 						</span>
 
@@ -217,7 +217,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 
 				<Popover className="relative">
 					<Popover.Button className={dropDownSelect}>
-						<span>
+						<span className="text-[10px] text-gray lg:text-[12px] lg:leading-[14.63px] xl:text-[15px] xl:leading-[18.29px]">
 							${minPrice} - ${maxPrice}
 						</span>
 						<span className="absolute right-1">{chevronDownIcon}</span>

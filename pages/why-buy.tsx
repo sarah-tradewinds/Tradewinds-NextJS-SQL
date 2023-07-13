@@ -18,7 +18,7 @@ const WhyBuyPage: NextPage = () => {
 	return (
 		<>
 			<Seo title="Why buy page" description="" />
-			<div className="  ">
+			<div className=" bg-bg-main ">
 				{/* Header section */}
 				<Banner />
 				<div>

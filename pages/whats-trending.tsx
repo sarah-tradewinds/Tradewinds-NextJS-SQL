@@ -493,7 +493,7 @@ const Trending_page: NextPage<
 							</div>
 
 							{/* RFQ CARD */}
-							<div className="hidden md:block  xl:w-[297px]">
+							<div className="hidden md:block  ">
 								<div className="w-full space-y-2 bg-gradient-to-r from-[#E7CA00] via-[#E8A30E] to-[#E8A30E] md:h-[321px] md:rounded-lg md:pt-2 lg:pl-[12.97px] xl:h-[475px] xl:pl-[19x]">
 									{/* Image */}
 									<div className="lg:mt-[16.86px] lg:flex desktop:items-center ">
