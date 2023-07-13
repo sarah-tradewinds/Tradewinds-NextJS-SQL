@@ -35,7 +35,7 @@ const SubCategoryCard = ({
 			onClick={onClick}
 		>
 			{showImageInFront && (
-				<div className="relative h-[60px] w-[60px] overflow-hidden md:h-[80px] md:w-[80px] lg:h-[104px] lg:w-[104px]">
+				<div className="relative h-[60px] w-[60px] overflow-hidden lg:!h-[80px] lg:!w-[80px] tablet:h-[80px] tablet:w-[80px] 900px:h-[104px] 900px:w-[104px] desktop:!h-[104px] desktop:!w-[104px]">
 					<ImageWithErrorHandler
 						src={subCat.image}
 						alt="sub-cat-image"
@@ -48,17 +48,17 @@ const SubCategoryCard = ({
 				{/* Content */}
 				<div className="pr-4">
 					<h2
-						className={`font-semibold text-primary-main dark:text-accent-secondary-eco md:text-[14px] lg:text-[16px] lg:leading-5 ${titleClassName}`}
+						className={`font-semibold text-primary-main dark:text-accent-secondary-eco lg:text-[16px] lg:leading-5 tablet:text-[14px] ${titleClassName}`}
 					>
 						{subCategoryTitle}
 					</h2>
-					<p className="text-primary-main md:text-[12px] lg:text-[15px]">
+					<p className="text-primary-main lg:text-[15px] tablet:text-[12px]">
 						{subCat?.clr}
 					</p>
 				</div>
 
 				{/* Icon or Image */}
-				<div className="hidden gap-2 md:flex">
+				<div className="hidden gap-2 tablet:flex">
 					<div className="relative h-5 w-5 lg:h-[22px] lg:w-[21.08px]">
 						<ImageWithErrorHandler
 							src="/static/images/TWSafety.png"
@@ -80,7 +80,7 @@ const SubCategoryCard = ({
 
 			{!showImageInFront && (
 				<div className="absolute bottom-0 right-0">
-					<div className="relative h-[60px] w-[60px] md:h-[120px] md:w-[120px]">
+					<div className="relative h-[60px] w-[60px] lg:h-[120px] lg:w-[120px]">
 						<ImageWithErrorHandler
 							src={subCat?.image}
 							alt="sub-cat-image"

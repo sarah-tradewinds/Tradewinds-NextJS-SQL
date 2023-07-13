@@ -5,31 +5,32 @@ interface CardAProps {
 	imageUrl: string;
 	alt?: string;
 	title: string;
-	name: string;
 	subtitle: string;
 	href: string;
 }
 
 const CardA: React.FC<CardAProps> = (props) => {
-	const { title, imageUrl, alt, name, subtitle, href } = props;
+	const { title, imageUrl, alt, subtitle, href } = props;
 
 	return (
 		<Link
 			href={href}
-			className="flex h-full w-full cursor-pointer flex-col rounded-md bg-white p-2 transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg md:h-[240px] md:w-[226px] md:px-3 md:pb-3 lg:h-[352px] lg:w-[466px]"
+			className="block h-[153px] w-[203px] overflow-hidden rounded-md bg-white sm:h-[203px] sm:w-[245px] lg:!h-[244.24px] lg:!w-[325.92px] xl:!h-[305px] xl:!w-[405.73px] desktop:!h-[352px] desktop:!w-[466px]"
 		>
-			<h2 className="font-mont text-[15px] font-semibold capitalize leading-[18px] text-primary-main dark:text-accent-secondary-eco md:ml-[10px] md:text-[20px] md:leading-6 lg:mt-[14px] lg:pt-[3px] lg:text-[25px] lg:leading-[30px]">
+			<h2 className="ml-[9.15px] pt-[7px] text-[15px] font-semibold text-gray dark:text-primary-eco sm:pt-[4px] sm:text-[18px] lg:ml-[14.97px] lg:pt-[6px] lg:text-[21px] lg:leading-[25.6px] xl:ml-[19.06px] xl:pt-[12px] desktop:ml-[21px] desktop:pt-[14px] desktop:text-[25px] desktop:leading-[30.48px]">
 				{title}
 			</h2>
-			<div className="relative mt-1 h-[86px] w-[180px] overflow-hidden md:ml-[11.14px] md:mr-[11.45px] md:mt-[3.19px] md:block md:h-[109.63px] md:w-[203.41px] lg:mt-[15px] lg:h-[201px] lg:w-[420px]">
+
+			<div className="relative ml-[14px] mt-1 h-[101px] w-[168px] sm:ml-[12.27px] sm:h-[105.48px] sm:w-[220.42px] lg:ml-[16.37px] lg:h-[135px] lg:w-[300.04px] xl:ml-[21.77px] xl:h-[169.14px] xl:w-[366.22px] desktop:ml-[23px] desktop:h-[195.21px] desktop:w-[420px]">
 				<ImageWithErrorHandler
 					src={imageUrl}
 					alt={alt || ''}
 					fill={true}
 				/>
 			</div>
-			<p className="md:ml-[10.17px]s font-mont text-xs capitalize leading-[15px] text-[#044E86] md:mr-[14.36px] md:mt-[9.09px] md:text-[16px]  md:leading-5 lg:mx-[10px] lg:mt-[15px] lg:text-lg lg:leading-[22px]">
-				{subtitle},
+
+			<p className="hidden text-[10px] text-gray dark:text-primary-eco sm:block sm:pl-[14.87px] sm:pr-[11.82px] lg:mt-1 lg:pl-[17.49px] lg:text-[12.01px] lg:leading-[14.64px] xl:mt-[6.12px] xl:pl-[23.87px] xl:text-[15px] xl:leading-[18.29px] desktop:mt-[7px] desktop:pl-[27px] desktop:text-[18px] desktop:leading-[21.94px]">
+				{subtitle}
 			</p>
 		</Link>
 	);

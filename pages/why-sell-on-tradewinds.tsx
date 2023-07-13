@@ -6,572 +6,325 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // components
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
-import Button from 'components/common/form/button';
 import Seo from 'components/common/seo';
-import {
-	WhyBuyOperationSubTile,
-	WhyBuyOperationTile
-} from 'components/common/why-buy/why-buy-operation-tile';
-
+import WhySellPlatform from 'components/eco/why-buy/whysell-platform';
 const WhySellOnTradewindsPage: NextPage = () => {
 	const { t } = useTranslation('why_sell_on_tw');
 
-	const leftSideClassName =
-		'md:pr-4 lg:pr-0 border-b lg:border-b-0 border-gray/40 pb-8 lg:pb-0';
+	const leftSideClassName = 'md:pr-4 lg:pr-0  pb-8 lg:pb-0';
+
+	const gotoSellerSignup = () => {
+		window?.open(
+			`${process.env.SELLER_DASHBOARD_SITE_URL}/seller-registration`,
+			'__blank'
+		);
+	}; // End of gotoSellerSignup
 
 	return (
 		<>
 			<Seo title="Why sell on tradewinds page" description="" />
-			<div>
+			<div className=" bg-bg_light_gray ">
 				{/* Header */}
-				<div className="relative h-[300px] bg-[url('/static/images/why-sell-on-tradewinds-images/why-sell-on-tradewinds-header.png')] bg-cover bg-center bg-no-repeat md:h-[340px] lg:h-[703px]">
-					<div className="absolute inset-0 z-[1] bg-black opacity-40"></div>
 
-					{/* content */}
-					{/* <div className="4k:left-1/2 4k:-translate-x-1/2 absolute left-20 top-8 z-[50] text-white lg:top-32 lg:w-1/2"> */}
-					<div className="absolute left-5 top-8 z-[50] text-white lg:top-32 lg:w-1/2">
-						<h1 className="text-[35px] font-semibold md:text-[40px] lg:text-[50px] ">
-							{t('why_sell_on_tradewinds_marketplace')}
-						</h1>
-						<div className="hidden space-y-2 font-semibold md:block md:text-[16px] lg:text-[25px]">
-							<p>{t('unified_trading_experience')}</p>
+				<div className=" h-[1126px] w-full sm:h-[729px] md:h-[775px] lg:h-[1016px] desktop:h-[1508px] ">
+					<div className="relative mx-auto h-[203px] w-[300px] bg-[url('/static/images/why-sell-on-tradewinds-images/why-sell-on-tradewinds-header.png')] bg-cover bg-center bg-no-repeat sm:h-[298px] sm:w-[640px] md:h-[358px] md:w-[768px] lg:h-[478px] lg:w-[1025px] desktop:h-[703px] desktop:w-[1512px]">
+						<div className="absolute inset-0 z-[1] bg-black opacity-40"></div>
+
+						{/* content */}
+						{/* <div className="4k:left-1/2 4k:-translate-x-1/2 absolute left-20 top-8 z-[50] text-white lg:top-32 lg:w-1/2"> */}
+						<div className="absolute z-[50] ml-[16px] mt-[19px] text-white sm:ml-[37px] sm:mt-[60px] md:ml-[44px] md:mt-[71px] lg:ml-[59px] lg:mt-[95px] desktop:ml-[87px] desktop:mt-[px] ">
+							<p className=" w-[160px] text-[15px] font-semibold sm:w-[160px] sm:text-[15px] md:w-[240px] md:text-[24px] lg:w-[306px] lg:text-[32px] desktop:w-[530px] desktop:text-[50px]">
+								{t('Expand your Business Globally')}
+							</p>
+
+							<p className=" mt-[8px] w-[187px] text-[12px] font-semibold leading-[14px] sm:mt-[11px] sm:ml-[5px] sm:w-[242px] sm:text-[12px] sm:leading-[15px] md:mt-[9px] md:ml-[7px] md:w-[300px] md:text-[15px] md:leading-[18px] lg:mt-[14px] lg:ml-[7px] lg:w-[357px] lg:text-[18px] lg:leading-[21px] desktop:mt-[20px] desktop:ml-[8px] desktop:w-[390px] desktop:text-[25px] desktop:leading-[30px]">
+								{t(
+									'Unlock the Full Sales Potential of Your Business and Maximize Profitability Join Us'
+								)}
+							</p>
+
+							<div className="mt-[24px] ml-[37px] sm:mt-[17px] sm:ml-[24px] md:mt-[21px] md:ml-[30px] lg:mt-[34px] lg:ml-[39px] desktop:mt-[29px] desktop:ml-[58px]">
+								<button
+									onClick={gotoSellerSignup}
+									className=" h-[13px] w-[73px] rounded-sm bg-cyan text-[6px] font-medium sm:h-[25px] sm:w-[135px] sm:text-[10px] md:h-[30px] md:w-[162px] md:text-[13px] lg:h-[40px] lg:w-[216px] lg:text-[17px] desktop:h-[60px] desktop:w-[319px] desktop:text-[25px] "
+								>
+									{t('common:join_now')}
+								</button>
+							</div>
+						</div>
+						<div className=" absolute left-1/2 z-50 mt-[203px] h-[308px] w-[300px] -translate-x-1/2 space-y-[10px] rounded-none bg-dark_gray p-[14px] text-center text-[12px] leading-[15px]  text-beauty sm:mt-[232px] sm:h-[170px] sm:w-[566px] sm:space-y-[10px] sm:rounded-[12px] sm:p-[10px]  sm:text-[12px] sm:leading-[15px] md:mt-[279px] md:h-[205px] md:w-[680px] md:space-y-[15px] md:p-[15px]  md:text-[15px] md:leading-[18px] lg:mt-[373px] lg:h-[228px] lg:w-[907px] lg:space-y-[15px] lg:p-[20px]  lg:text-[18px] lg:leading-[21px] desktop:mt-[549px]  desktop:h-[338px]  desktop:w-[1336px]  desktop:space-y-[20px] desktop:p-[40px] desktop:text-[25px]  desktop:leading-[30px] ">
 							<p>
 								{t(
-									'platform_that_helps_small_and_medium_sized_enterprises_go_global'
+									'Welcome to Tradewinds Marketplace, your ultimate destination for global trade success. We understand the importance of expanding your business beyond borders and reaching customers around the world. With our innovative platform, we provide a dynamic marketplace where sellers can thrive, and buyers can discover exceptional products.'
 								)}
 							</p>
 							<p>
 								{t(
-									'connect_with_millions_of_business_buyers_from_around_the_world'
+									`Whether you're a seasoned seller looking to expand your market reach or a budding entrepreneur ready to take your business to new heights, Tradewinds Marketplace offers the tools, resources, and support you need to succeed. Get ready to unlock endless possibilities and embark on an exciting journey of global business growth.`
 								)}
 							</p>
 						</div>
-						<Button variant="buyer" className="mt-8">
-							{t('common:join_now')}
-						</Button>
 					</div>
-				</div>
-
-				<div className="container mx-auto">
-					{/* Power is in the Number */}
-					<div className="space-y-4">
-						<div className="p-4 text-center md:p-8">
-							<h2 className="text-[24px] font-semibold text-primary-main md:text-[40px] lg:text-[50px]">
-								{t('power_is_in_the_number')}
-							</h2>
-							<p className="text-[18px] font-semibold text-accent-primary-main md:text-[20px] lg:text-[25px]">
-								{t('let_the_sellers_come_to_you')}
-							</p>
-							<p className="text-[12px] text-gray md:text-[15px]">
-								{t('detail_what_youre_looking_for_and_share')}
-							</p>
-						</div>
-						<div className="space-y-4 md:bg-white md:p-8">
-							<div className="flex flex-wrap justify-center text-primary-main">
-								<div>
-									<h3 className="text-[24px] font-semibold md:text-[40px] lg:text-[50px]">
-										{t('stand_alone_vs')}
-									</h3>
-									<p className="hidden w-56 text-[14px] md:block">
-										{t('building_a_site_with_similar_feature_as_twmp')}
-									</p>
-								</div>
-								<div>
-									<h3 className="text-[24px] font-semibold md:text-[40px] lg:text-[50px]">
-										{t('common:tradewinds')}
-									</h3>
-									<p className="hidden w-56 text-[14px] md:block">
-										{t('membership_of_tradewinds_mp')}
-									</p>
-								</div>
-							</div>
-							{/* Images for small device */}
-							<div className="space-y-8 md:hidden">
-								{/* Stand Alone vs. Tradewinds */}
-								<div className="bg-white p-8">
-									<h3 className="flex flex-col items-center text-gray">
-										<span className="text-[96px] font-semibold">
-											5x
-										</span>
-										<span className="text-[25px]">Traffic</span>
-									</h3>
-									<div className="flex justify-between">
-										<div className="space-y-2 text-primary-main">
-											<div className="relative h-[95px] w-[119px]">
-												<ImageWithErrorHandler
-													src="/static/images/why-sell-on-tradewinds-images/non-member.png"
-													alt=""
-													fill={true}
-												/>
-											</div>
-											<p className="text-center text-[10px]">
-												Non Member
-											</p>
-										</div>
-										<div className="space-y-2">
-											<div className="relative h-[95px] w-[119px]">
-												<ImageWithErrorHandler
-													src="/static/images/why-sell-on-tradewinds-images/twmp-member.png"
-													alt=""
-													fill={true}
-												/>
-											</div>
-											<p className="text-center text-[10px] ">
-												TWMP Member
-											</p>
-										</div>
-									</div>
-								</div>
-								{/* Purchasing Exposure */}
-								<div className="space-y-4 p-8">
-									<h2 className=" text-center text-[25px]">
-										Purchasing Exposure
-									</h2>
-									<div className="flex justify-between">
-										<div className="space-y-2 text-primary-main">
-											<div className="relative h-[95px] w-[119px]">
-												<ImageWithErrorHandler
-													src="/static/images/why-sell-on-tradewinds-images/cart-non-member.png"
-													alt=""
-													fill={true}
-												/>
-											</div>
-											<p className="text-center text-[10px]">
-												Non Member
-											</p>
-										</div>
-										<div className="space-y-2 text-primary-main">
-											<div className="relative h-[95px] w-[119px]">
-												<ImageWithErrorHandler
-													src="/static/images/why-sell-on-tradewinds-images/cart-twmp-member.png"
-													alt=""
-													fill={true}
-												/>
-											</div>
-											<p className="text-center text-[10px]">
-												TWMP Member
-											</p>
-										</div>
-									</div>
-								</div>
-
-								{/* Website cost */}
-								<div className="bg-white p-8">
-									<h3 className="flex flex-col items-center text-gray">
-										<span className="text-[96px] font-semibold">
-											70%
-										</span>
-										<span className="text-[25px]">Website Cost</span>
-									</h3>
-									<div className="flex justify-between">
-										<div className="space-y-2 text-primary-main">
-											<div className="relative h-[95px] w-[119px]">
-												<ImageWithErrorHandler
-													src="/static/images/why-sell-on-tradewinds-images/dollar-non-member.png"
-													alt=""
-													fill={true}
-												/>
-											</div>
-											<p className="text-center text-[10px]">
-												Non Member
-											</p>
-										</div>
-										<div className="space-y-2 text-primary-main">
-											<div className="relative h-[95px] w-[119px]">
-												<ImageWithErrorHandler
-													src="/static/images/why-sell-on-tradewinds-images/dollar-twmp-member.png"
-													alt=""
-													fill={true}
-												/>
-											</div>
-											<p className="text-center text-[10px]">
-												TWMP Member
-											</p>
-										</div>
-									</div>
-								</div>
-							</div>
-							{/* Images for medium and large screen */}
-							<div className="hidden flex-col items-center space-y-4 md:flex">
-								<div className="relative h-[174px] md:w-[431px] lg:w-[812px]">
+					<div className=" container mx-auto mt-[330px] w-[300px] justify-center text-primary-main sm:mt-[122px] sm:w-[640px] md:mt-[146px] md:w-[768px] lg:mt-[156px] lg:w-[950px] desktop:mt-[242px] desktop:w-[1340px]">
+						<p className=" text-center text-[14px] font-semibold leading-[17px] sm:text-[15px] sm:leading-[18px] md:text-[18px] md:leading-[22px] lg:text-[25px] lg:leading-[30px] desktop:text-[50px] desktop:leading-[60px] ">
+							{t('Benefits')}
+						</p>
+						<div className=" container mx-auto mt-[25px] block justify-center sm:mt-[15px] sm:flex sm:space-x-[20px] md:mt-[14px] md:space-x-[8px] lg:mt-[19px] lg:space-x-[11px] desktop:mt-[45px] desktop:space-x-[4px]">
+							<div className=" mx-auto h-[137px] w-[272px] text-left sm:h-[173px] sm:w-[180px] sm:text-center md:h-[160px] md:w-[225px] lg:h-[205px] lg:w-[300px] desktop:h-[279px] desktop:w-[445px] ">
+								<div className=" relative h-[45px] w-[45px] sm:mx-auto sm:h-[46px] sm:w-[46px] md:h-[55px] md:w-[55px] lg:h-[74px] lg:w-[74px] desktop:h-[108px] desktop:w-[109px] ">
 									<ImageWithErrorHandler
-										src="/static/images/why-sell-on-tradewinds-images/5x-traffic.png"
+										src="/static/images/why-sell-on-tradewinds-images/global-img.png"
 										alt=""
 										fill={true}
 									/>
 								</div>
-								<div className="flex space-x-4">
-									<div className="relative h-[174px] md:w-[361px] lg:w-[690px]">
-										<ImageWithErrorHandler
-											src="/static/images/why-sell-on-tradewinds-images/6x-purchasing-exposure.png"
-											alt=""
-											fill={true}
-										/>
-									</div>
-									<div className="relative h-[174px]  md:w-[361px] lg:w-[690px]">
-										<ImageWithErrorHandler
-											src="/static/images/why-sell-on-tradewinds-images/website-cost.png"
-											alt=""
-											fill={true}
-										/>
-									</div>
+								<div className=" mt-[7px] sm:mt-[11px] md:mt-[12px] lg:mt-[17px] desktop:mt-[25px] ">
+									<p className=" text-[12px] font-bold sm:text-[12px] md:text-[11px] lg:text-[15px] desktop:text-[23px] ">
+										{t('Global Exposure')}
+									</p>
+									<p className="text-[10px] font-semibold sm:text-[10px]  md:text-[11px] lg:text-[15px] desktop:text-[18px] ">
+										{t('Skyrocket your Sales')}
+									</p>
+									<p className="mt-[10px] text-[10px] font-medium sm:mt-[11px] sm:text-[10px] md:mt-[12px] md:text-[9px] lg:mt-[17px] lg:text-[12px] desktop:mt-[25px] desktop:text-[18px] ">
+										{t(
+											'Supercharge your business sales with international exposure. Expand your customer base and maximize revenue, capturing new markets, and driving growth.'
+										)}
+									</p>
+								</div>
+							</div>
+							<div className="mx-auto h-[150px] w-[272px] text-left sm:h-[173px] sm:w-[180px] sm:text-center md:h-[160px] md:w-[225px] lg:h-[205px] lg:w-[300px] desktop:h-[279px] desktop:w-[445px] ">
+								<div className=" relative mt-[30px] h-[40px] w-[40px] sm:mx-auto sm:mt-[5px] sm:h-[40px] sm:w-[40px] md:mt-[7px] md:h-[48px] md:w-[47px] lg:mt-[10px] lg:h-[64px] lg:w-[63px] desktop:mt-0 desktop:h-[108px] desktop:w-[109px] ">
+									<ImageWithErrorHandler
+										src="/static/images/why-sell-on-tradewinds-images/commer-img.png"
+										alt=""
+										fill={true}
+									/>
+								</div>
+								<div className="mt-[7px] sm:mt-[11px] md:mt-[12px] lg:mt-[17px] desktop:mt-[25px]">
+									<p className="text-[12px]  font-bold sm:text-[12px] md:text-[11px] lg:text-[15px] desktop:text-[23px] ">
+										{t('Commerce in USD$')}
+									</p>
+									<p className="text-[10px] font-semibold sm:text-[10px] md:text-[11px] lg:text-[15px] desktop:text-[18px] ">
+										{t('Power up profits')}
+									</p>
+									<p className="mt-[10px] text-[10px] font-medium sm:mt-[11px] sm:text-[10px] md:mt-[12px] md:text-[9px] lg:mt-[17px] lg:text-[12px] desktop:mt-[25px] desktop:text-[18px] ">
+										{t(
+											'Boost your sales to new heights by harnessing the power of selling in USD$. Tap into a globally recognized currency to unlock unlimited growth potential for your business.'
+										)}
+									</p>
+								</div>
+							</div>
+							<div className="mx-auto h-[150px] w-[272px] text-left sm:h-[173px] sm:w-[180px] sm:text-center md:h-[160px] md:w-[225px] lg:h-[205px] lg:w-[300px] desktop:h-[279px] desktop:w-[445px] ">
+								<div className=" relative mt-[30px] h-[45px] w-[45px] sm:mx-auto sm:-mt-[0px] sm:h-[46px] sm:w-[46px] md:mt-0 md:h-[55px] md:w-[55px] lg:mt-[0px] lg:h-[73px] lg:w-[73px] desktop:mt-0 desktop:h-[108px] desktop:w-[109px] ">
+									<ImageWithErrorHandler
+										src="/static/images/why-sell-on-tradewinds-images/sell_wholesale.png"
+										alt=""
+										fill={true}
+									/>
+								</div>
+								<div className="mt-[7px] sm:mt-[11px] md:mt-[12px] lg:mt-[17px] desktop:mt-[25px]">
+									<p className=" text-[12px] font-bold sm:mt-[11px] sm:text-[12px] md:text-[11px] lg:text-[15px] desktop:text-[23px] ">
+										{t('Sell Wholesale')}
+									</p>
+									<p className="text-[10px] font-semibold sm:text-[10px] md:text-[11px] lg:text-[15px] desktop:text-[18px] ">
+										{t('Amplify Your Business!')}
+									</p>
+									<p className="mt-[10px] text-[10px] font-medium sm:mt-[11px] sm:text-[10px] md:mt-[12px] md:text-[9px] lg:mt-[17px] lg:text-[12px] desktop:mt-[25px] desktop:text-[18px] ">
+										{t(
+											'Harness the power of bulk selling. Effortlessly showcase and sell your products in larger quantities and leverage the power of high-volume transactions to skyrocket your business growth.'
+										)}
+									</p>
 								</div>
 							</div>
 						</div>
-					</div>
-
-					{/* Why Sell in the  Western Hemisphere?
-					 */}
-					<div className="relative h-[1240px] bg-[url('/static/images/why-sell-on-tradewinds-images/why-buy.png')] bg-cover bg-center bg-no-repeat md:h-[900px] lg:h-[780px]">
-						<div className="absolute inset-0 bg-primary-main opacity-50"></div>
-						<div className="z-2 absolute inset-0">
-							<div className="space-y-8 py-8 px-8 md:px-24">
-								<h2 className="text-center text-[27px] font-semibold text-white md:text-[40px] lg:text-[50px]">
-									{t('why_sell_in_the_western_hemisphere')}
-								</h2>
-								<div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-									<div className="flex flex-col items-center text-center">
-										<h3 className="text-[50px] font-semibold text-secondary md:text-[55px] lg:text-[99px]">
-											{t('331_million')}
-										</h3>
-										<p className="-mt-4 text-[18px] font-semibold text-white md:text-[20px] lg:text-[25px]">
-											{t('largest_market')}
-										</p>
-										<p className="text-[12px] text-white md:text-[16px] lg:text-[18px]">
-											{t(
-												'the_us_has_an_open_consumer_market_of_over_331_million_americans'
-											)}
-										</p>
-									</div>
-									<div className="flex flex-col items-center text-center">
-										<div className="relative h-[95px] w-[147px] md:h-[55px] md:w-[85px] lg:h-[95px] lg:w-[147px]">
-											<ImageWithErrorHandler
-												src="/static/images/why-sell-on-tradewinds-images/diversity.png"
-												alt=""
-												fill={true}
-											/>
-										</div>
-										<p className="mt-4 text-[18px]  font-semibold text-white md:text-[20px] lg:text-[25px]">
-											{t('diversity')}
-										</p>
-										<p className="text-[12px] text-white md:text-[16px] lg:text-[18px]">
-											{t(
-												'the_us_has_an_open_consumer_market_of_over_331_million_americans'
-											)}
-										</p>
-									</div>
-									<div className="text-center">
-										<h3 className="text-[50px] font-semibold text-secondary md:text-[55px] lg:text-[99px]">
-											{t('1_point_9_trillion')}
-										</h3>
-										<p className="-mt-4 text-[18px]  font-semibold text-white md:text-[20px] lg:text-[25px]">
-											{t('active_buyers')}
-										</p>
-										<p className="text-[12px] text-white md:text-[16px] lg:text-[18px]">
-											{t(
-												'the_us_has_an_active_internet_user_base_of_284_million'
-											)}
-										</p>
-									</div>
-									<div className="flex flex-col items-center text-center">
-										<div className="relative h-[107px] w-[107px] md:h-[52px] md:w-[52px] lg:h-[107px] lg:w-[107px]">
-											<ImageWithErrorHandler
-												src="/static/images/why-sell-on-tradewinds-images/free-trade.png"
-												alt=""
-												fill={true}
-											/>
-										</div>
-										<p className="mt-4 font-semibold text-white md:text-[20px] lg:text-[25px]">
-											{t('common:free_trade')}
-										</p>
-										<p className=" text-white md:text-[16px] lg:text-[18px]">
-											{t(
-												'there_are_more_than_100_regional_trade_agreements_in_the_western_hemisphere._the_u.s._currently_has_14_free_trade_agreements_with_20_countries'
-											)}
-										</p>
-									</div>
-									{/* <div className="text-center">
-										<h3 className="text-[50px] font-semibold text-secondary md:text-[55px] lg:text-[99px]">
-											{t('1_point_9_trillion')}
-										</h3>
-										<p className="-mt-4 text-[18px]  font-semibold text-white md:text-[20px] lg:text-[25px]">
-											{t('active_buyers')}
-										</p>
-										<p className="text-[12px] text-white md:text-[16px] lg:text-[18px]">
-											{t(
-												'the_us_has_an_active_internet_user_base_of_284_million'
-											)}
-										</p>
-									</div> */}
-								</div>
-								<div className="hidden justify-center md:flex">
-									<Button variant="special">
-										{t('common:join_now')}
-									</Button>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					{/* B2B tools to simplify your operations */}
-					<div className="bg-white">
-						<div className="space-y-8 p-4 text-center text-primary-main md:p-8">
-							<div>
-								<h2 className="text-[24px] font-semibold md:text-[40px] lg:text-[50px]">
-									{t('b2b_tools_to_simplify_your_operations')}
-								</h2>
-								<p className="text-[18px] md:font-semibold lg:text-[25px]">
-									{t(
-										'innovative_digital_tools_that_transform_the_wholesale_experience'
-									)}
-								</p>
-							</div>
-							<Button variant="buyer">{t('common:buy_now')}</Button>
-						</div>
-
-						<div className="space-y-8">
-							<WhyBuyOperationTile
-								imageUrl="/static/images/why-sell-on-tradewinds-images/custom-store-front.png"
-								title={t(
-									'custom_storefront_set_up_a_store_that_showcases_your_products'
-								)}
-								className="pl-8"
-								containerClassName={leftSideClassName}
+						<div className=" hidden text-center sm:mt-[41px] sm:block md:mt-[33px] lg:mt-[60px] desktop:mt-[90px] ">
+							<button
+								onClick={gotoSellerSignup}
+								className=" rounded-[7px] bg-cyan font-normal text-white sm:h-[25px] sm:w-[135px] sm:text-[12.5px] md:h-[31px] md:w-[162px] md:text-[15px] lg:h-[40px] lg:w-[216px] lg:text-[25px] desktop:h-[60px] desktop:w-[319px] desktop:text-[25px] "
 							>
-								<WhyBuyOperationSubTile
-									imageUrl="/static/images/why-sell-on-tradewinds-images/store-front.png"
-									title={t('digital_storefront')}
-									subtitle={t(
-										'create_a_digital_identity_that_helps_you_brand_your_business_and_showcase_your_capabilities'
-									)}
-									className="-ml-4 pt-4 md:-ml-0"
-									imgClassName="hidden md:block"
-								/>
-								<WhyBuyOperationSubTile
-									imageUrl="/static/images/why-sell-on-tradewinds-images/smart-product-posting.png"
-									title={t('smart_product_posting')}
-									subtitle={t(
-										'optimize_your_product_listings_for_seo_with_posting_suggestions_based_on__titles'
-									)}
-									imgClassName="hidden md:block"
-									className="-ml-4 pt-4 md:-ml-0"
-								/>
-								<WhyBuyOperationSubTile
-									imageUrl="/static/images/why-sell-on-tradewinds-images/dynamic-pricing.png"
-									title={t('common:dynamic_pricing')}
-									subtitle={t('negotiate_pricing_with_seller')}
-									imgClassName="hidden md:block"
-									className="-ml-4 pt-4 md:-ml-0"
-								/>
-							</WhyBuyOperationTile>
-							<WhyBuyOperationTile
-								imageUrl="/static/images/why-sell-on-tradewinds-images/communication-center.png"
-								title={t('common:communication_center')}
-								subtitle={t(
-									'connect_freely_to_build_lasting_relationships'
-								)}
-								className="pl-8"
-								containerClassName="md:pr-4 lg:pr-0 lg:flex-row-reverse border-b lg:border-b-0 border-gray/40 pb-8 lg:pb-0"
-							>
-								<WhyBuyOperationSubTile
-									imageUrl="/static/images/why-sell-on-tradewinds-images/messaging-center.png"
-									title={t('common:messaging_center')}
-									subtitle={t(
-										'interact_with_customers_on_your_terms_and__to_foster_loyalty_and_repeat_sales_and_track_leads_and_orders_all_in_one_place'
-									)}
-									className="-ml-4 pt-4 md:-ml-0"
-									imgClassName="hidden md:block"
-								/>
-								<WhyBuyOperationSubTile
-									imageUrl="/static/images/why-sell-on-tradewinds-images/translation-tool.png"
-									title={t('translation_tools')}
-									subtitle={t(
-										'communicate_seamlessly_with_conversations_translated_into__choice_languages'
-									)}
-									className="-ml-4 pt-4 md:-ml-0"
-									imgClassName="hidden md:block"
-								/>
-								<WhyBuyOperationSubTile
-									imageUrl="/static/images/why-sell-on-tradewinds-images/rfq-icon.png"
-									title={t('common:request_for_quotation_rfq')}
-									subtitle={t(
-										'post_a_rfq_and_proactively_find_and_connect_with_sellers_with_products_you_are_sourcing'
-									)}
-									className="-ml-4 pt-4 md:-ml-0"
-									imgClassName="hidden md:block"
-								/>
-							</WhyBuyOperationTile>
-							<WhyBuyOperationTile
-								imageUrl="/static/images/why-sell-on-tradewinds-images/rfq.png"
-								title={t('common:request_for_quotation_rfq')}
-								subtitle={t(
-									'create_a_digital_storefront_and_get_your_brand_seen_globally'
-								)}
-								className="pl-8"
-								containerClassName={leftSideClassName}
-							>
-								<WhyBuyOperationSubTile
-									imageUrl="/static/images/why-sell-on-tradewinds-images/store-front.png"
-									title={t('digital_storefront')}
-									subtitle={t(
-										'create_a_digital_identity_that_helps_you_brand_your_business_and_showcase_your_capabilities'
-									)}
-									className="-ml-4 pt-4 md:-ml-0"
-									imgClassName="hidden md:block"
-								/>
-								<WhyBuyOperationSubTile
-									imageUrl="/static/images/why-sell-on-tradewinds-images/smart-product-posting.png"
-									title={t('smart_product_posting')}
-									subtitle={t(
-										'optimize_your_product_listings_for_seo_with_posting_suggestions_based_on__titles'
-									)}
-									className="-ml-4 pt-4 md:-ml-0"
-									imgClassName="hidden md:block"
-								/>
-								<WhyBuyOperationSubTile
-									imageUrl="/static/images/why-sell-on-tradewinds-images/dynamic-pricing.png"
-									title={t('common:dynamic_pricing')}
-									subtitle={t('negotiate_pricing_with_seller')}
-									className="-ml-4 pt-4 md:-ml-0"
-									imgClassName="hidden md:block"
-								/>
-							</WhyBuyOperationTile>
-							<WhyBuyOperationTile
-								imageUrl="/static/images/why-sell-on-tradewinds-images/marketing.png"
-								title={t('marketing')}
-								subtitle={t(
-									'find_the_right_buyers_for_your_products_and_market_directly_to_them_with_tools_to_increase_exposure_and_conversions'
-								)}
-								className="pl-8"
-								containerClassName="md:pr-4 lg:pr-0 lg:border-b-0 border-gray/40 pb-8 lg:pb-0 lg:flex-row-reverse border-b"
-							>
-								<WhyBuyOperationSubTile
-									imageUrl="/static/images/why-sell-on-tradewinds-images/sponsored-campaigns.png"
-									title={t('sponsored_campaigns')}
-									subtitle={t(
-										'increase_traffic_to_your_storefront_and_create_interest_for_your_products'
-									)}
-									className="-ml-4 pt-4 md:-ml-0"
-									imgClassName="hidden md:block"
-								/>
-								<WhyBuyOperationSubTile
-									imageUrl="/static/images/why-sell-on-tradewinds-images/keyword-advertising.png"
-									title={t('keyword_advertising')}
-									subtitle={t(
-										'keyword_advertising_is_a_value_added_service_available_to_twmp_members'
-									)}
-									className="-ml-4 pt-4 md:-ml-0"
-									imgClassName="hidden md:block"
-								/>
-								<WhyBuyOperationSubTile
-									imageUrl="/static/images/why-sell-on-tradewinds-images/pay-by-click.png"
-									title={t('pay_by_click')}
-									subtitle={t(
-										'pay_only_when_a_buyer_clicks_on_your_product'
-									)}
-									className="-ml-4 pt-4 md:-ml-0"
-									imgClassName="hidden md:block"
-								/>
-								<WhyBuyOperationSubTile
-									imageUrl="/static/images/why-sell-on-tradewinds-images/budget-control.png"
-									title={t('budget_control')}
-									subtitle={t(
-										'meet_your_advertising_expectations_according_to_your_desired_budget'
-									)}
-									className="-ml-4 pt-4 md:-ml-0"
-									imgClassName="hidden md:block"
-								/>
-								<WhyBuyOperationSubTile
-									imageUrl="/static/images/why-sell-on-tradewinds-images/analytics.png"
-									title={t('common:analytics')}
-									subtitle={t(
-										'meet_your_advertising_expectations_according_to_your_desired_budget'
-									)}
-									className="-ml-4 pt-4 md:-ml-0"
-									imgClassName="hidden md:block"
-								/>
-							</WhyBuyOperationTile>
-							<WhyBuyOperationTile
-								imageUrl="/static/images/why-sell-on-tradewinds-images/order-management.png"
-								title={t('order_management')}
-								subtitle={
-									<>
-										<p>{t('manage_every_step_in_one_place')}</p>
-										<p className="text-[18px]">
-											{t('take_advantage_of_on')}
-										</p>
-									</>
-								}
-								className="pl-8"
-								containerClassName={leftSideClassName}
-							>
-								<WhyBuyOperationSubTile
-									imageUrl="/static/images/why-sell-on-tradewinds-images/invoice.png"
-									title={t('invoice_creation')}
-									subtitle={t(
-										'send_beautifully_branded_invoices_with_minimum_effort_and_maximum_professionalism'
-									)}
-									className="-ml-4 pt-4 md:-ml-0"
-									imgClassName="hidden md:block"
-								/>
-								<WhyBuyOperationSubTile
-									imageUrl="/static/images/why-sell-on-tradewinds-images/processing-protection.png"
-									title={t('processing_protection')}
-									subtitle={t(
-										'accept_secure_customer_payments_through_twmp'
-									)}
-									className="-ml-4 pt-4 md:-ml-0"
-									imgClassName="hidden md:block"
-								/>
-								<WhyBuyOperationSubTile
-									imageUrl="/static/images/why-sell-on-tradewinds-images/payments.png"
-									title={t('payments')}
-									subtitle={t(
-										'facilitate_secure_payments_through_financing_services'
-									)}
-									imgClassName="hidden md:block"
-								/>
-								<WhyBuyOperationSubTile
-									imageUrl="/static/images/why-sell-on-tradewinds-images/logistics-and-fulfillment.png"
-									title={t('common:logistics_and_fulfillment')}
-									subtitle={t(
-										'leverage_flexible_shipping_rates_that_enable_you_to_use_twmp'
-									)}
-									className="-ml-4 pt-4 md:-ml-0"
-									imgClassName="hidden md:block"
-								/>
-							</WhyBuyOperationTile>
-							<WhyBuyOperationTile
-								imageUrl="/static/images/why-sell-on-tradewinds-images/marketing.png"
-								title={t('common:analytics')}
-								subtitle={t(
-									'continuously_improve_your_store_and_sales'
-								)}
-								className="pl-8"
-								containerClassName="md:pr-4 lg:pr-0 lg:flex-row-reverse border-b lg:border-b-0 border-gray/40 pb-8 lg:pb-0"
-							>
-								<WhyBuyOperationSubTile
-									imageUrl="/static/images/why-sell-on-tradewinds-images/dashboards.png"
-									title={t('dashboards')}
-									subtitle={t(
-										'i_visualize_your_store’s_metrics_and_historical_data'
-									)}
-									className="-ml-4 pt-4 md:-ml-0"
-									imgClassName="hidden md:block"
-								/>
-								<WhyBuyOperationSubTile
-									imageUrl="/static/images/why-sell-on-tradewinds-images/industry-analytics.png"
-									title={t('industry_analytics')}
-									subtitle={t(
-										'understand_the_state_of_your_category_and_which_products_perform_best_through_demand_analysis'
-									)}
-									className="-ml-4 pt-4 md:-ml-0"
-									imgClassName="hidden md:block"
-								/>
-							</WhyBuyOperationTile>
+								{t('common:join_now')}
+							</button>
 						</div>
 					</div>
 				</div>
+				{/*<div className=" mx-auto w-[300px] bg-white sm:w-[640px] md:w-[768px] lg:w-[1025px] desktop:w-[1466px]">
+					<div className="container mx-auto w-[277px] text-primary-main sm:w-[566px] md:w-[680px] lg:w-[907px] desktop:w-[1336px]">
+						<div>
+							<div className=" pt-[15px] text-center sm:pt-[13px] md:pt-[16px] lg:pt-[31px]  desktop:pt-[75px] ">
+								<p className="text-[15px] font-semibold leading-[18px] sm:text-[15px] sm:leading-[18px] md:text-[18px] md:leading-[20px] lg:text-[25px] lg:leading-[30px] desktop:text-[50px] desktop:leading-[60px]">
+									{t('Platform Features')}
+								</p>
+							</div>
+							<div className="mt-[20px] space-y-[20px] sm:mt-[19px]  sm:space-y-[41px] md:mt-[23px] md:space-y-[49px] lg:mt-[38px] lg:space-y-[65px] desktop:mt-[71px] desktop:space-y-[96px]">
+								<div className=" h-[375px] rounded-[10px] bg-bg-main pl-[13px] pt-[20px] sm:h-[193px] sm:pl-[13px] sm:pt-[25px] md:h-[232px] md:pl-[15px] md:pt-[29px] lg:h-[310px] lg:pl-[19px] lg:pt-[39px] desktop:h-[456px] desktop:pl-[30px] desktop:pt-[58px]">
+									<WhySellOnTWOperationTile
+										imageUrl="/static/images/why-sell-on-tradewinds-images/store-front-img.png"
+										title={t('Storefront')}
+										className=" pl-[4px] sm:pl-[20px] md:pl-[13px] lg:pl-[32px] desktop:pl-8"
+										containerClassName={leftSideClassName}
+									>
+										<WhySellOnTWOperationSubTile
+											imageUrl="/static/images/why-sell-on-tradewinds-images/store-front.png"
+											title="Personalized Storefront"
+											subtitle={t('Showcase your products seamlessly.')}
+											className=" "
+										/>
+										<WhySellOnTWOperationSubTile
+											imageUrl="/static/images/why-sell-on-tradewinds-images/keyword-advertising.png"
+											title={t('SEO Optimization:')}
+											subtitle={t(
+												'Optimize your product listings for SEO with valuable posting recommendations.'
+											)}
+											className="  "
+										/>
+										<WhySellOnTWOperationSubTile
+											imageUrl="/static/images/why-sell-on-tradewinds-images/inventory.png"
+											title={t('Inventory Management: ')}
+											subtitle={t(
+												'Track inventory from purchase to the sale of goods. individual sale.'
+											)}
+											className=" "
+										/>
+									</WhySellOnTWOperationTile>
+								</div>
+
+								<WhySellOnTWOperationTile
+									imageUrl="/static/images/why-sell-on-tradewinds-images/communication.png"
+									title={t('common:communication_center')}
+									className="pl-[4px] sm:pl-[20px] md:pl-[13px] lg:pl-[32px] desktop:pl-8"
+									containerClassName="md:pr-4 lg:pr-0 sm:flex-row-reverse md:flex-row-reverse lg:flex-row-reverse  pb-8 lg:pb-0"
+								>
+									<WhySellOnTWOperationSubTile
+										imageUrl="/static/images/why-sell-on-tradewinds-images/messaging-center.png"
+										title={t('common:messaging_center')}
+										subtitle={t(
+											'Engage with customers to build strong relationships.'
+										)}
+										className=" "
+									/>
+									<WhySellOnTWOperationSubTile
+										imageUrl="/static/images/why-sell-on-tradewinds-images/Translation tools-icon.png"
+										title={t('translation_tools')}
+										subtitle={t(
+											'Effortlessly communicate with translated conversations in your preferred languages.'
+										)}
+										className=" "
+									/>
+								</WhySellOnTWOperationTile>
+
+								<div className=" h-[450px] rounded-[10px] bg-bg-main pl-[13px] pt-[20px] sm:h-[218px] sm:pl-[13px] sm:pt-[0px] md:h-[262px] md:pl-[15px] md:pt-[12px] lg:h-[310px] lg:pl-[19px] lg:pt-[39px] desktop:h-[456px] desktop:pl-[30px] desktop:pt-[58px]">
+									<WhySellOnTWOperationTile
+										imageUrl="/static/images/why-sell-on-tradewinds-images/Order Management.png"
+										title={t('Order Management')}
+										className="pl-[4px] sm:pl-[20px] md:pl-[13px]  lg:pl-[32px] desktop:pl-8"
+										containerClassName={leftSideClassName}
+									>
+										<WhySellOnTWOperationSubTile
+											imageUrl="/static/images/why-sell-on-tradewinds-images/invoice-icon.png"
+											title={t('Invoice creation:')}
+											subtitle={t(
+												'Effortlessly send stunning, professional invoices that impress.'
+											)}
+											className="  "
+										/>
+										<WhySellOnTWOperationSubTile
+											imageUrl="/static/images/why-sell-on-tradewinds-images/proccessing.png"
+											title={t('Processing Protection:')}
+											subtitle={t(
+												'Enable secure transactions through Tradewinds Marketplace, fostering trust between buyers and sellers.'
+											)}
+											className=" "
+										/>
+										<WhySellOnTWOperationSubTile
+											imageUrl="/static/images/why-sell-on-tradewinds-images/logistics.png"
+											title={t('Logistics: ')}
+											subtitle={t(
+												'Effortlessly streamline your logistics and fulfillment using our advanced Fulfillment Manager, allowing you to easily track every shipment and delivery while enjoying the convenience of automatic updates.'
+											)}
+											className=" "
+										/>
+									</WhySellOnTWOperationTile>
+								</div>
+
+								<WhySellOnTWOperationTile
+									imageUrl="/static/images/why-sell-on-tradewinds-images/RFQ-tool.png"
+									title={t('RFQ Tool- "Request for Quotation"')}
+									className="pl-[4px] sm:pl-[20px] md:pl-[13px] lg:pl-[32px] desktop:pl-8"
+									containerClassName="md:pr-4 lg:pr-0 sm:flex-row-reverse md:flex-row-reverse  pb-8 lg:pb-0 lg:flex-row-reverse "
+								>
+									<WhySellOnTWOperationSubTile
+										imageUrl="/static/images/why-sell-on-tradewinds-images/rfq-icon.png"
+										title={t('Seamlessly connect with buyers')}
+										subtitle={t(
+											'Seeking your products and provide quotes to hot leads, revolutionizing your sales process for limitless business opportunities.'
+										)}
+										className="  "
+									/>
+								</WhySellOnTWOperationTile>
+								<div className=" h-[457px] rounded-[10px] bg-bg-main pl-[13px] pt-[20px] sm:h-[237px] sm:pl-[13px] sm:pt-[0px] md:h-[285px] md:pl-[15px] md:pt-[12px] lg:h-[310px] lg:pl-[19px] lg:pt-[39px] desktop:h-[456px] desktop:pl-[30px] desktop:pt-[58px]">
+									<WhySellOnTWOperationTile
+										imageUrl="/static/images/why-sell-on-tradewinds-images/Marketing-img.png"
+										title={t('Marketing')}
+										className="pl-[4px] sm:pl-[20px] md:pl-[13px]  lg:pl-[32px] desktop:pl-8"
+										containerClassName={leftSideClassName}
+									>
+										<WhySellOnTWOperationSubTile
+											imageUrl="/static/images/why-sell-on-tradewinds-images/sponsored-campaigns.png"
+											title={t('Sponsored campaigns:')}
+											subtitle={t(
+												'Increase traffic to your storefront and create interest for your products.'
+											)}
+											className="  "
+										/>
+										<WhySellOnTWOperationSubTile
+											imageUrl="/static/images/why-sell-on-tradewinds-images/keyword-advertising.png"
+											title={t('Keyword Advertising:')}
+											subtitle={t(
+												'Maximize your product visibility by targeting buyers based on their location, browsing history, and more. This helps your products appear higher in relevant searches, attracting more customers.'
+											)}
+											className=" "
+										/>
+										<WhySellOnTWOperationSubTile
+											imageUrl="/static/images/why-sell-on-tradewinds-images/dynamic-pricing.png"
+											title={t('Budget Control:')}
+											subtitle={t(
+												'Customize your advertising parameters to align with your preferred budget and achieve your marketing goals.'
+											)}
+										/>
+									</WhySellOnTWOperationTile>
+								</div>
+								<WhySellOnTWOperationTile
+									imageUrl="/static/images/why-sell-on-tradewinds-images/analytics-img.png"
+									title={t('common:analytics')}
+									className="pl-[4px] sm:pl-[20px] md:pl-[13px]  lg:pl-[32px] desktop:pl-8"
+									containerClassName="md:pr-4 sm:flex-row-reverse md:flex-row-reverse  lg:pr-0 lg:flex-row-reverse  pb-8 lg:pb-0"
+								>
+									<WhySellOnTWOperationSubTile
+										imageUrl="/static/images/why-sell-on-tradewinds-images/dashboards.png"
+										title={t('dashboards')}
+										subtitle={t(
+											'Unleash the power of data visualization to track your store metrics, analyze historical data, and receive intelligent suggestions based on platform insights.'
+										)}
+										className=" "
+									/>
+									<WhySellOnTWOperationSubTile
+										imageUrl="/static/images/why-sell-on-tradewinds-images/analytics.png"
+										title={t('industry_analytics')}
+										subtitle={t(
+											'Gain valuable insights into product performance through in-depth demand analysis, trend evaluation, price comparisons, and more.'
+										)}
+										className=" "
+									/>
+								</WhySellOnTWOperationTile>
+							</div>
+						</div>
+					</div>
+				</div> */}
+				<WhySellPlatform
+					mainClass="text-primary-main bg-white"
+					class1="bg-bg-main"
+					case1={false}
+				/>
 			</div>
 		</>
 	);

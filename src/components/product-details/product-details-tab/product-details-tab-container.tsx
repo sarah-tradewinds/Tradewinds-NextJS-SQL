@@ -44,13 +44,13 @@ const ProductDetailsTabContainer: React.FC<{
 
 	return (
 		<div
-			className={`rounded bg-white md:mx-[17px] lg:mx-8 ${className}`}
+			className={`bg-errors rounded md:mx-[8.35px] lg:mx-[20px] ${className}`}
 		>
 			<Tab.Group>
 				<Tab.List className="hidden space-x-4 bg-bg-main md:flex">
 					<Tab
 						className={({ selected }) =>
-							`bg-white px-4 outline-none md:text-[14px] md:leading-[17px] lg:text-[21px] lg:leading-[26px] ${
+							`bg-white px-4 outline-none md:text-[12px] md:leading-[14.63px] lg:text-[15px] lg:leading-[18.29px] xl:text-[21px] xl:leading-[25.6px] ${
 								selected ? selectedClassName : unSelectedClassName
 							}`
 						}
@@ -59,7 +59,7 @@ const ProductDetailsTabContainer: React.FC<{
 					</Tab>
 					<Tab
 						className={({ selected }) =>
-							`bg-white px-4 outline-none md:text-[14px] md:leading-[17px] lg:text-[21px] lg:leading-[26px] ${
+							`bg-white px-4 outline-none md:text-[12px] md:leading-[14.63px] lg:text-[15px] lg:leading-[18.29px] xl:text-[21px] xl:leading-[25.6px] ${
 								selected ? selectedClassName : unSelectedClassName
 							}`
 						}
@@ -68,7 +68,7 @@ const ProductDetailsTabContainer: React.FC<{
 					</Tab>
 					<Tab
 						className={({ selected }) =>
-							`bg-white px-4 outline-none md:text-[14px] md:leading-[17px] lg:text-[21px] lg:leading-[26px] ${
+							`bg-white px-4 outline-none md:text-[12px] md:leading-[14.63px] lg:text-[15px] lg:leading-[18.29px] xl:text-[21px] xl:leading-[25.6px] ${
 								selected ? selectedClassName : unSelectedClassName
 							}`
 						}

@@ -3,38 +3,64 @@ import {
 	InferGetServerSidePropsType,
 	NextPage
 } from 'next';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 // Third party packages
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import Skeleton from 'react-loading-skeleton';
 
 // components
-import CompareProductList from 'components/compare/compare-bottom-overlay/compare-overlay-product-list';
-import ProductList from 'components/product-search/product-list';
-
-// stores
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import Seo from 'components/common/seo';
 import ProductFilter from 'components/product-search/product-filter/product-filter';
+import ProductList from 'components/product-search/product-list';
 import ProductSearchFilterBar from 'components/product-search/product-search-filter-bar';
-import ProductSearchTopBanner from 'components/product-search/product-search-top-banner';
 import RFQCard from 'components/product-search/rfq-card.components';
 import MiniRFQCard from 'components/product-search/rfq-mini-card.components';
-import TrendingCategorySlider from 'components/product-search/trending-category-slider';
-import TrendingCategorySliderMobile from 'components/product-search/trending-category-slider-mobile';
-import TrendingSectionTile from 'components/product-search/trending-section-tile';
+
+const MainCategoryAndCategoriesTile = dynamic(
+	() =>
+		import(
+			'components/product-search/main-category-and-categories-tile'
+		)
+);
+const TrendingCategorySlider = dynamic(
+	() => import('components/product-search/trending-category-slider')
+);
+const TrendingSectionTile = dynamic(
+	() => import('components/product-search/trending-section-tile')
+);
+const CompareProductList = dynamic(
+	() =>
+		import(
+			'components/compare/compare-bottom-overlay/compare-overlay-product-list'
+		)
+);
+const ProductSearchTopBanner = dynamic(
+	() => import('components/product-search/product-search-top-banner')
+);
+
+// stores
 import useDeviceSize from 'hooks/use-device-size.hooks';
 import {
 	getCountryById,
 	getTrendingCategoriesByCountry
 } from 'lib/common.lib';
+
+import {
+	BUYER_DASHBOARD_ACTIONS,
+	BUYER_DASHBOARD_PAGES,
+	generateBuyerDashboardUrl
+} from 'data/buyer/buyer-actions';
+
 import {
 	getProducts,
 	getSelectedMainCategoryAndCategories
 } from 'lib/product-search.lib';
 import { useTranslation } from 'next-i18next';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import Skeleton from 'react-loading-skeleton';
+import { useAuthStore } from 'store/auth';
 import { getIdAndName, useCategoryStore } from 'store/category-store';
 import { useHomeStore } from 'store/home';
 import { useProductCompareStore } from 'store/product-compare-store';
@@ -75,6 +101,14 @@ const ProductSearchPage: NextPage<
 
 	const { main_category } = query;
 	const [categoryId] = getIdAndName((query.category || '') as string);
+
+	const { customerData, isAuth, setIsLoginOpen } = useAuthStore(
+		(state) => ({
+			isAuth: state.isAuth,
+			customerData: state.customerData,
+			setIsLoginOpen: state.setIsLoginOpen
+		})
+	);
 
 	const {
 		compareProducts,
@@ -213,8 +247,35 @@ const ProductSearchPage: NextPage<
 		});
 	}; // End of navigateWithShallow function
 
+	const isTrending = router.query.is_trending;
+
+	const productSearchFilerComponent = (
+		<ProductSearchFilterBar
+			onCountryChange={(id = '', name = '') => {
+				const country = id && name ? `${id}_${name || ''}` : '';
+
+				getProductSearchURL(router, { country });
+			}}
+			onOrderChange={(minOrder, maxOrder) => {
+				getProductSearchURL(router, { minOrder, maxOrder });
+			}}
+			onPriceChange={(minPrice, maxPrice) => {
+				getProductSearchURL(router, {
+					price_start: minPrice,
+					price_end: maxPrice
+				});
+			}}
+			onCustomizableChange={(isCustomizable) => {
+				getProductSearchURL(router, { isCustomizable });
+			}}
+			onLiveBuyReadyToShipChange={(isReadyToShip) => {
+				getProductSearchURL(router, { isReadyToShip });
+			}}
+		/>
+	);
+
 	return (
-		<div className="md:container">
+		<div className="3xl:container 3xl:w-[1700px]">
 			<Seo title="Product search page" description="" />
 
 			{/* Main Category Banner and Category banner */}
@@ -233,7 +294,6 @@ const ProductSearchPage: NextPage<
 						vertical={selectedMainCategory?.vertical}
 					/>
 				)}
-
 				{/* Country Banner */}
 				{!main_category && selectedCountry?.banner_image && (
 					<ProductSearchTopBanner
@@ -244,193 +304,174 @@ const ProductSearchPage: NextPage<
 			</div>
 
 			{/* ProductSearchFilterBar */}
-			<div className="top-[97px] z-20 hidden md:sticky md:ml-[9px] md:mr-[10px] md:block md:pt-[14.01px] lg:top-[121px] lg:ml-[26px] lg:mr-[23px] lg:pt-[18.14px]">
-				<ProductSearchFilterBar
-					onCountryChange={(id = '', name = '') => {
-						const country = id && name ? `${id}_${name || ''}` : '';
-
-						getProductSearchURL(router, { country });
-					}}
-					onOrderChange={(minOrder, maxOrder) => {
-						getProductSearchURL(router, { minOrder, maxOrder });
-					}}
-					onPriceChange={(minPrice, maxPrice) => {
-						getProductSearchURL(router, {
-							price_start: minPrice,
-							price_end: maxPrice
-						});
-					}}
-					onCustomizableChange={(isCustomizable) => {
-						getProductSearchURL(router, { isCustomizable });
-					}}
-					onLiveBuyReadyToShipChange={(isReadyToShip) => {
-						getProductSearchURL(router, { isReadyToShip });
-					}}
-				/>
+			<div className="top-[97px] z-20 hidden md:sticky md:ml-[9px] md:mr-[10px] md:block md:pt-[14.01px] lg:hidden desktop:top-[121px] desktop:ml-[26px] desktop:mr-[23px] desktop:pt-[18.14px]">
+				{productSearchFilerComponent}
 			</div>
 
-			<div className="relative flex md:mt-[9px] md:mr-[10px] md:pl-[9px] lg:mt-[19px] lg:pl-6">
-				{/* Side container */}
-				<section className="hidden md:mr-[13px] md:block md:w-[159px] lg:mr-[25px] lg:w-[297px]">
-					{/* filters */}
-					<div className="md:mb-[14px] md:h-[383px] lg:mb-[17px] lg:h-[475px]">
-						<ProductFilter />
-					</div>
+			<div className="lg:container">
+				<div className="relative mx-auto flex md:mt-[9px] md:ml-[10px] lg:mt-[19px] xl:ml-[24px] xl:mr-[24px]">
+					{/* Side container */}
+					<section className="mr-[14px]s hidden md:block md:w-[159px] xl:mr-[17px] xl:!w-[297px] 900px:w-[203px]">
+						{/* filters */}
+						<div className="md:mb-[14px] md:h-[383px] md:w-full lg:h-[361px] xl:h-[475px] xl:w-[297px]">
+							<ProductFilter />
+						</div>
 
-					{/* RFQ CARD */}
-					<div className="hidden md:block">
-						<div className="w-full space-y-2 bg-gradient-to-r from-[#E7CA00] via-[#E8A30E] to-[#E8A30E] md:h-[321px] md:rounded-lg md:pt-2 lg:h-[475px] lg:pl-5 lg:pt-6">
-							{/* Image */}
-							<div className="lg:flex lg:items-center">
-								<div className="flex justify-center">
-									<div className="relative md:h-[66.02px] md:w-[61.72px]">
-										<ImageWithErrorHandler
-											src="/static/rfq-box.png"
-											alt="rfq box"
-											fill={true}
-										/>
+						{/* RFQ CARD */}
+						<div className="hidden md:block  xl:w-[297px]">
+							<div className="w-full space-y-2 bg-gradient-to-r from-[#E7CA00] via-[#E8A30E] to-[#E8A30E] md:h-[321px] md:rounded-lg md:pt-2 lg:pl-[12.97px] xl:h-[475px] xl:pl-[19x]">
+								{/* Image */}
+								<div className="lg:mt-[16.86px] lg:flex desktop:items-center ">
+									<div className="flex justify-center">
+										<div className="relative md:h-[66.02px] md:w-[61.72px] lg:h-[45.06px] lg:w-[42.12px] xl:h-[66.02px] xl:w-[61.72px]">
+											<ImageWithErrorHandler
+												src="/static/rfq-box.png"
+												alt="rfq box"
+												fill={true}
+											/>
+										</div>
 									</div>
+
+									<p className="hidden text-white md:px-[6px] md:text-[18px] md:font-bold md:leading-[22px] lg:block lg:text-[16.86px] lg:leading-[20.55px] xl:text-[25px] xl:leading-[30.48px]">
+										Submit an RFQ for anything!
+									</p>
 								</div>
 
-								<p className="text-white md:px-[6px] md:text-[18px] md:font-bold md:leading-[22px] lg:text-[25px] lg:leading-[30px]">
-									Submit an RFQ for anything!
-								</p>
-							</div>
+								<ul className="list-disc text-white md:ml-6 md:pt-[65.98px] md:text-[15px] md:font-semibold md:leading-[18px] lg:pt-[22px] xl:pt-[34px] xl:text-[25px] xl:leading-[30.48px]">
+									<li>One request</li>
+									<li>Receive multiple quotes</li>
+									<li>Responed</li>
+									<li>Close the deal</li>
+								</ul>
 
-							<ul className="list-disc text-white md:ml-6 md:text-[15px] md:font-semibold md:leading-[18px] lg:ml-7 lg:pt-[34px] lg:text-[25px] lg:leading-[30px]">
-								<li>One request</li>
-								<li>Receive multiple quotes</li>
-								<li>Responed</li>
-								<li>Close the deal</li>
-							</ul>
-
-							<div className="flex justify-center md:pt-[34px] lg:justify-start lg:pl-2">
-								<button
-									onClick={() => {
-										// if (!isAuth) {
-										// 	setIsLoginOpen();
-										// } else {
-										// 	router.push(
-										// 		`${generateBuyerDashboardUrl({
-										// 			redirect_to: BUYER_DASHBOARD_PAGES.buyer_rfq,
-										// 			action: BUYER_DASHBOARD_ACTIONS.create_rfq,
-										// 			access_key: customerData.access.token,
-										// 			refresh_key: customerData.refresh.token
-										// 		})}`
-										// 	);
-										// }
-									}}
-									className="flex items-center border-none bg-white outline-none md:h-[19.88px] md:w-[125px] md:rounded-md lg:h-[39px] lg:w-[245.2px] lg:pl-1"
-								>
-									<div className="relative h-[15.8px] w-[18.35px] lg:h-[31px] lg:w-[36px]">
-										<ImageWithErrorHandler
-											src="/static/rfq-orange.png"
-											alt="rfq orange icon"
-											fill={true}
-										/>
-									</div>
-									<p className="text-center text-secondary md:ml-[9.69px] md:text-[10.7054px] md:font-semibold md:leading-[13px] lg:ml-0 lg:w-full lg:text-[21px] lg:leading-[26px]">
-										{t('common:submit_rfq')}
-									</p>
-								</button>
+								<div className="flex justify-center md:pt-[34px] xl:pt-[68px] desktop:justify-start desktop:pl-2">
+									<button
+										onClick={() => {
+											if (!isAuth) {
+												setIsLoginOpen();
+											} else {
+												router.push(
+													`${generateBuyerDashboardUrl({
+														redirect_to:
+															BUYER_DASHBOARD_PAGES.buyer_rfq,
+														action: BUYER_DASHBOARD_ACTIONS.create_rfq,
+														access_key: customerData.access.token,
+														refresh_key: customerData.refresh.token
+													})}`
+												);
+											}
+										}}
+										className="flex items-center border-none bg-white outline-none md:h-[19.88px] md:w-[125px] md:rounded-md lg:h-[26.62px] lg:w-[167.36px] desktop:h-[39px] desktop:w-[245.2px] desktop:pl-1"
+									>
+										<div className="relative h-[15.8px] w-[18.35px] lg:ml-[4.72px] lg:h-[21.16px] lg:w-[24.57px] desktop:h-[31px] desktop:w-[36px]">
+											<ImageWithErrorHandler
+												src="/static/rfq-orange.png"
+												alt="rfq orange icon"
+												fill={true}
+											/>
+										</div>
+										<p className="text-center text-secondary md:ml-[9.69px] md:text-[10.7054px] md:font-semibold md:leading-[13px] lg:text-[14.16px] lg:leading-[17.26px] desktop:ml-0 desktop:w-full desktop:text-[21px] desktop:leading-[26px]">
+											{t('common:submit_rfq')}
+										</p>
+									</button>
+								</div>
 							</div>
 						</div>
-					</div>
-				</section>
+					</section>
 
-				{/* Category container and Product list */}
-				<div className="md:w-[552.06px] lg:w-[1142px]">
-					{router.query.is_trending && (
-						<TrendingSectionTile
-							minPrice={+minPrice}
-							maxPrice={+maxPrice}
-							filterByEco={filterBuyEco}
-							onMinPriceClick={() => {
-								if (+minPrice === 100) {
-									setMinPrice('0');
-								} else {
-									setMinPrice('100');
-									setMaxPrice('0');
-									setFilterBuyEco(false);
-								}
-							}}
-							onMaxPriceClick={() => {
-								if (+maxPrice === 100) {
-									setMaxPrice('0');
-								} else {
-									setMaxPrice('100');
-									setMinPrice('0');
-									setFilterBuyEco(false);
-								}
-							}}
-							onEcoClick={() => {
-								setMaxPrice('0');
-								setMinPrice('0');
-								setFilterBuyEco((prevState) => !prevState);
-							}}
-						/>
-					)}
+					{/* Category container and Product list */}
+					<div className="md:ml-[14px] md:mr-[11px] lg:ml-[8px] lg:w-[779px] xl:w-full">
+						<div className="mb-[13px] hidden lg:block">
+							{productSearchFilerComponent}
+						</div>
 
-					{/* MainCategory and categories list */}
-					{((!router.query.is_trending &&
-						selectedCategories.length > 0) ||
-						selectedCountry?.banner_image) && (
-						<div className="rounded-md bg-white md:mb-[10.87px] md:flex md:h-[101.13px] md:py-2 md:pl-[8.06px] lg:mb-[23px] lg:h-[209px] lg:py-[17px] lg:pl-[17px]">
-							{/* Main category Card */}
-							<div
-								className="h-[42px] w-full md:h-auto md:w-[122px] lg:w-[266px]"
-								style={{
-									backgroundColor:
-										deviceWidth >= 744
-											? ''
-											: selectedMainCategory?.color
+						{isTrending && (
+							<TrendingSectionTile
+								minPrice={+minPrice}
+								maxPrice={+maxPrice}
+								filterByEco={filterBuyEco}
+								onMinPriceClick={() => {
+									if (+minPrice === 100) {
+										setMinPrice('0');
+									} else {
+										setMinPrice('100');
+										setMaxPrice('0');
+										setFilterBuyEco(false);
+									}
 								}}
-							>
-								{isSelectedMainCategoryAndCategoriesLoading ? (
-									<div className="hidden md:block">
-										<Skeleton />
-										<Skeleton height="84px" />
-									</div>
-								) : (
-									<div className="flex h-[42px] items-center justify-between p-2 md:h-full md:flex-col md:items-start md:space-x-0 md:p-0">
-										<p className="text-[16px] font-semibold leading-5 text-gray md:text-[10px] md:leading-3 lg:text-[21px] lg:leading-[26px]">
+								onMaxPriceClick={() => {
+									if (+maxPrice === 100) {
+										setMaxPrice('0');
+									} else {
+										setMaxPrice('100');
+										setMinPrice('0');
+										setFilterBuyEco(false);
+									}
+								}}
+								onEcoClick={() => {
+									setMaxPrice('0');
+									setMinPrice('0');
+									setFilterBuyEco((prevState) => !prevState);
+								}}
+							/>
+						)}
+
+						{/* For Mobile only */}
+						<div className="md:hidden">
+							<MainCategoryAndCategoriesTile
+								key={selectedMainCategory?.category_search_image}
+								mainCategory={{
+									title: getLocaleText(
+										selectedMainCategory?.title ||
+											selectedCountry?.name ||
+											{},
+										router.locale
+									),
+									imageUrl: selectedMainCategory?.category_search_image,
+									backgroundColor: selectedMainCategory?.color
+								}}
+								selectedCategories={selectedCategories || []}
+								selectedCategoryList={selectedCategoryList}
+							/>
+						</div>
+
+						<div className="hidden md:block">
+							{/* MainCategory and categories list */}
+							{((!isTrending && selectedCategories.length > 0) ||
+								selectedCountry?.banner_image) && (
+								<div className="w-full rounded-md bg-white md:mb-[10.87px] md:flex md:h-[101.13px] md:py-2 md:pl-[8.06px] lg:h-[142px] xl:mt-[17px] xl:h-[209px] desktop:mb-[23px] desktop:py-[17px] desktop:pl-[17px]">
+									{/* Main category Card */}
+									<div className="relative flex flex-col md:h-[84.78px] md:w-[160.69px] lg:h-[118.9px] lg:w-[181.45px] xl:h-[175px] xl:w-[266px]">
+										<h3 className="font-semibold text-gray md:text-[10px] lg:text-[15.16px] xl:text-[21px] xl:leading-[25.1px]">
 											{getLocaleText(
 												selectedMainCategory?.title ||
 													selectedCountry?.name ||
 													{},
 												router.locale
 											)}
-										</p>
-
-										{/* Country Image */}
-										{selectedCountry?.id && !selectedMainCategory?.id && (
-											<div className="relative h-[38px] w-[38px] md:h-full md:w-full">
-												<ImageWithErrorHandler
-													key={selectedCountry?.image}
-													src={selectedCountry?.image}
-													alt={getLocaleText(
-														selectedCountry?.name || {},
-														router.locale
-													)}
-													fill={true}
-													className="object-cover"
-												/>
-											</div>
-										)}
-
-										{selectedMainCategory?.id && (
-											<div
-												className="relative h-[38px] w-[38px] md:mt-1 md:block md:h-[70px] md:w-[99px] lg:mt-2 lg:h-full lg:w-[266px]"
-												style={{
-													backgroundColor: selectedMainCategory?.color,
-													border: selectedMainCategory?.color
-														? ''
-														: '2px solid gray'
-												}}
-											>
-												<div className="md:absolute md:bottom-0 md:right-0">
-													<div className="relative h-[38px] w-[38px] md:h-[30px] md:w-[30px] lg:h-[60px] lg:w-[60px]">
-														<ImageWithErrorHandler
+										</h3>
+										{/*Category Image */}
+										<div
+											className="relative flex h-full items-end md:w-full xl:mt-[8px]"
+											// style={{ backgroundColor }}
+											style={{
+												backgroundColor: selectedMainCategory?.color,
+												border: selectedMainCategory?.color
+													? ''
+													: '2px solid gray'
+											}}
+										>
+											<div className="absolute bottom-0 right-0">
+												<div className="relative overflow-hidden md:h-[30px] md:w-[30px] lg:h-[40.77px] lg:w-[40.93px] xl:h-[60px] xl:w-[60px]">
+													<div className="absolute bottom-0 right-0">
+														<img
+															src={
+																selectedMainCategory?.category_search_image
+															}
+															alt={''}
+															className="h-auto w-auto object-contain"
+														/>
+														{/* <ImageWithErrorHandler
 															key={
 																selectedMainCategory?.category_search_image
 															}
@@ -442,93 +483,145 @@ const ProductSearchPage: NextPage<
 																router.locale
 															)}
 															fill={true}
-														/>
+														/> */}
 													</div>
 												</div>
 											</div>
+										</div>
+									</div>
+
+									<div
+										className="hidden h-[42px] w-full md:h-auto md:w-[122px] lg:w-[181.45px] desktop:w-[266px]"
+										style={{
+											backgroundColor:
+												deviceWidth >= 744
+													? ''
+													: selectedMainCategory?.color
+										}}
+									>
+										{isSelectedMainCategoryAndCategoriesLoading ? (
+											<div className="hidden md:block">
+												<Skeleton />
+												<Skeleton height="84px" />
+											</div>
+										) : (
+											<div className="flex h-[42px] items-center justify-between p-2 md:h-full md:flex-col md:items-start md:space-x-0 md:p-0">
+												<p className="text-[16px] font-semibold leading-5 text-gray md:text-[10px] md:leading-3 desktop:text-[21px] desktop:leading-[26px]">
+													{getLocaleText(
+														selectedMainCategory?.title ||
+															selectedCountry?.name ||
+															{},
+														router.locale
+													)}
+												</p>
+
+												{/* Country Image */}
+												{selectedCountry?.id &&
+													!selectedMainCategory?.id && (
+														<div className="relative h-[38px] w-[38px] md:h-full md:w-full">
+															<ImageWithErrorHandler
+																key={selectedCountry?.image}
+																src={selectedCountry?.image}
+																alt={getLocaleText(
+																	selectedCountry?.name || {},
+																	router.locale
+																)}
+																fill={true}
+																className="object-cover"
+															/>
+														</div>
+													)}
+
+												{selectedMainCategory?.id && (
+													<div
+														className="relative h-[38px] w-[38px] md:mt-1 md:block md:h-[70px] md:w-[122px] lg:w-full desktop:mt-2 desktop:h-full desktop:w-[266px]"
+														style={{
+															backgroundColor:
+																selectedMainCategory?.color,
+															border: selectedMainCategory?.color
+																? ''
+																: '2px solid gray'
+														}}
+													>
+														<div className="md:absolute md:bottom-0 md:right-0">
+															<div className="relative h-[38px] w-[38px] md:h-[30px] md:w-[30px] desktop:h-[60px] desktop:w-[60px]">
+																<ImageWithErrorHandler
+																	key={
+																		selectedMainCategory?.category_search_image
+																	}
+																	src={
+																		selectedMainCategory?.category_search_image
+																	}
+																	alt={getLocaleText(
+																		selectedMainCategory?.title || {},
+																		router.locale
+																	)}
+																	fill={true}
+																/>
+															</div>
+														</div>
+													</div>
+												)}
+											</div>
 										)}
 									</div>
-								)}
-							</div>
 
-							{/* Category Slider for tablet and desktop  */}
-							{selectedCategories?.length > 0 ? (
-								<div className="hidden md:mt-[9px] md:block md:w-[402px] lg:ml-[13px] lg:mt-[35px] lg:mb-[25px] lg:h-[150px] lg:w-[838px]">
-									<TrendingCategorySlider
-										categories={[...selectedCategories]}
-										selectedCategoryIds={selectedCategoryList || []}
-										onTileClick={(categoryId, data) => {
-											const { id: mainCategoryId, title } =
-												data?.edges?.main_category;
-											setMainCategory(
-												mainCategoryId || '',
-												title?.en || ''
-											);
+									{/* Category Slider for tablet and desktop  */}
+									{selectedCategories?.length > 0 ? (
+										<div className="hidden md:mt-[4px] md:ml-[13px] md:block md:w-[384px] lg:mr-2 lg:!w-[72%] xl:mt-[12px] xl:!w-[624px] xl:pr-2 840px:w-[424px] 900px:w-[500px] 980px:!w-[640px] desktop:mt-[8px] desktop:mb-[8px] desktop:mr-1 desktop:!w-[840px] 3xl:!w-[1000px]">
+											<TrendingCategorySlider
+												categories={[...selectedCategories]}
+												selectedCategoryIds={selectedCategoryList || []}
+												onTileClick={(categoryId, data) => {
+													const { id: mainCategoryId, title } =
+														data?.edges?.main_category;
+													setMainCategory(
+														mainCategoryId || '',
+														title?.en || ''
+													);
 
-											const params = setCategory(
-												categoryId,
-												data?.title?.en
-											);
+													const params = setCategory(
+														categoryId,
+														data?.title?.en
+													);
 
-											navigateWithShallow(params?.payload);
-										}}
-									/>
+													navigateWithShallow(params?.payload);
+												}}
+												className="md:mr-6 lg:mr-7 desktop:mr-8"
+											/>
+										</div>
+									) : (
+										<p className="flex w-full items-center justify-center text-lg">
+											No categories available
+										</p>
+									)}
 								</div>
-							) : (
-								<p className="flex w-full items-center justify-center text-lg">
-									No categories available
-								</p>
 							)}
+						</div>
 
-							{/* For small screen only */}
-							<div className="bg-[#E5E5E5] py-1 md:hidden">
-								<TrendingCategorySliderMobile
-									categories={selectedCategories || []}
-									selectedCategoryList={selectedCategoryList}
-									onTilePressed={(subCategory) => {
-										const { id: mainCategoryId, title } =
-											subCategory?.edges?.main_category;
-										setMainCategory(
-											mainCategoryId || '',
-											title?.en || ''
-										);
-
-										const params = setCategory(
-											subCategory.id,
-											subCategory?.title?.en
-										);
-										navigateWithShallow(params?.payload);
-									}}
-								/>
+						{/*If no any product in the product list - Speed your search up!! RFQ Card  */}
+						{products?.length <= 0 && (
+							<div className="hidden md:block">
+								<RFQCard size="lg" />
 							</div>
-						</div>
-					)}
+						)}
 
-					{/*If no any product in the product list - Speed your search up!! RFQ Card  */}
-					{products?.length <= 0 && (
-						<div className="hidden md:block">
-							<RFQCard size="lg" />
-						</div>
-					)}
-
-					{/* Product List */}
-					<div className="space-y-4 md:space-y-8">
-						{products?.length > 0 && (
+						{/* Product List */}
+						<div className="mt-[12px]">
 							<ProductList
 								products={products}
 								onCompareClick={addProductToCompareList}
 							/>
-						)}
-					</div>
+						</div>
 
-					{/* If product are available in the product list - Submit RFQ Card */}
-					<div className="mt-4 md:mt-4">
-						{products?.length > 0 && <MiniRFQCard size="xs" />}
-					</div>
+						{/* If product are available in the product list - Submit RFQ Card */}
+						<div className="mt-4 hidden md:mt-4 desktop:block">
+							{products?.length > 0 && <MiniRFQCard size="xs" />}
+						</div>
 
-					{/* Pagination */}
-					{/* <div className="col-span-12 hidden justify-center md:flex ">
-						<div className="flex space-x-3 font-semibold text-gray md:text-[20px] lg:text-[25px]">
+						{/* Pagination */}
+						{/* <div className="col-span-12 hidden justify-center md:flex ">
+						<div className="flex space-x-3 font-semibold text-gray md:text-[20px] desktop:text-[25px]">
 							<p>{`<`}</p>
 							<p>1</p>
 							<p>of</p>
@@ -536,16 +629,17 @@ const ProductSearchPage: NextPage<
 							<p>{`>`}</p>
 						</div>
 					</div> */}
-				</div>
+					</div>
 
-				{/* Compare */}
-				{compareProducts.length > 0 && (
-					<CompareProductList
-						products={compareProducts}
-						onClearAllClick={removeAllProductFromCompareList}
-						onRemoveCompareProduct={removeProductFromCompareList}
-					/>
-				)}
+					{/* Compare */}
+					{compareProducts.length > 0 && (
+						<CompareProductList
+							products={compareProducts}
+							onClearAllClick={removeAllProductFromCompareList}
+							onRemoveCompareProduct={removeProductFromCompareList}
+						/>
+					)}
+				</div>
 			</div>
 		</div>
 	);

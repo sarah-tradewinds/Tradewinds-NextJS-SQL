@@ -3,21 +3,40 @@ import {
 	InferGetServerSidePropsType,
 	NextPage
 } from 'next';
+import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 
 // Third party packages
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // components
+import Button from 'components/common/form/button';
 import ProductDetailsTile from 'components/product-details/product-details-tile';
 
-import Button from 'components/common/form/button';
-import SimilarProductList from 'components/product-details/similar-product-list';
+const ProductDetailsTabContainer = dynamic(
+	() =>
+		import(
+			'components/product-details/product-details-tab/product-details-tab-container'
+		)
+);
+
+const ProductReviewsDetailsTab = dynamic(
+	() =>
+		import(
+			'components/product-details/product-details-tab/product-reviews-details-tab'
+		)
+);
+const CompanyProfileTab = dynamic(
+	() =>
+		import(
+			'components/product-details/product-details-tab/company-profile-tab'
+		)
+);
+const SimilarProductList = dynamic(
+	() => import('components/product-details/similar-product-list')
+);
 
 // lib
-import CompanyProfileTab from 'components/product-details/product-details-tab/company-profile-tab';
-import ProductDetailsTabContainer from 'components/product-details/product-details-tab/product-details-tab-container';
-import ProductReviewsDetailsTab from 'components/product-details/product-details-tab/product-reviews-details-tab';
 import {
 	BUYER_DASHBOARD_ACTIONS,
 	BUYER_DASHBOARD_PAGES,
@@ -184,7 +203,7 @@ const ProductDetailsPage: NextPage<
 	}; // End of submitReviewHandler function
 
 	return (
-		<div className="pb-16 md:container md:space-y-8">
+		<div className="lg::space-y-[51px] pb-16 md:space-y-[18px] lg:container desktop:w-[1512px] desktop:space-y-[32px]">
 			<ProductDetailsTile
 				product={productData}
 				onVariantClick={(variantId) => {
@@ -210,7 +229,7 @@ const ProductDetailsPage: NextPage<
 			/>
 
 			{/* Tabs */}
-			<div className="md:-ml-[33px]">
+			<div className="tablet:-ml-[33px]s">
 				<ProductDetailsTabContainer
 					product={productData}
 					reviews={productReviewList || []}
@@ -220,7 +239,8 @@ const ProductDetailsPage: NextPage<
 					isReviewLoading={isReviewLoading}
 				/>
 
-				<div className="bg-white md:hidden">
+				{/* For Mobile screen only */}
+				<div className="bg-white tablet:hidden">
 					<ProductReviewsDetailsTab
 						reviews={productReviewList}
 						reviewAnalytics={productReviewAnalytics || {}}
@@ -238,7 +258,7 @@ const ProductDetailsPage: NextPage<
 
 			{/* Similar Product */}
 			{similarProducts?.length > 0 && (
-				<div className="lg:h-[334.09px]s hidden md:block">
+				<div className="hidden md:mx-[8.6px] md:block desktop:mx-[24px]">
 					<SimilarProductList
 						title="Similar Product"
 						similarProducts={similarProducts || []}
@@ -248,7 +268,7 @@ const ProductDetailsPage: NextPage<
 			)}
 
 			{/* Fixed container for small screen only */}
-			<div className="flexs fixed left-0 right-0 bottom-0 z-[2000] hidden justify-around bg-primary-main py-6 md:hidden">
+			<div className="fixed left-0 right-0 bottom-0 z-[2000] hidden justify-around bg-primary-main py-6 tablet:hidden">
 				<Button
 					variant="special"
 					href={generateBuyerDashboardUrl({
@@ -290,7 +310,9 @@ export const getServerSideProps: GetServerSideProps = async ({
 
 	try {
 		const productId = (params as any).slug;
+
 		const product = (await getProductById(productId)) || {};
+		console.log('productproductproductproduct =', product, productId);
 
 		if (!product || !product?.id) {
 			return notFound;

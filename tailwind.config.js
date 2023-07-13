@@ -37,7 +37,18 @@ module.exports = {
 			light_yellow: '#EEAD20',
 			gray: '#575858',
 			border: '#DCDBDB',
-			// green: '#37B34A',
+			dark_brown: '#712A10',
+			bg_input: '#fffbfb',
+			beauty: '#E1DDDD',
+			dark_gray: '#69738C',
+			bg_light_gray: '#DEDFE0',
+			light_gray: '#E2DED9',
+			bg_gray: '#D9D9D9',
+			bg_light_pink: '#EBDEDA',
+			bg_blue: '#00B2C7',
+			bg_light_blue: '#BBD3DD',
+			bg_gray_medium: '#93A799',
+			light_green: '#37B34A',
 			green: '#35B34A',
 			cyan: '#33A7DF',
 
@@ -45,32 +56,40 @@ module.exports = {
 			'agri-main': '#C4CE7F',
 			'header-bar': '#EDD3A9'
 		},
-		screens: {
-			// sm: '640px',
-			// md: '768px',
-			// lg: '1024px',
-			// xl: '1280px',
-			// '2xl': '1536px',
-			// '4k': '2560px',
-			// mobile: '320px',
-			// tablet: '744px',
-			// desktop: '1512px'
-			sm: '640px',
-			md: '744px',
-			lg: '1512px'
-		},
-		// container: {
-		//  screens: {
-		//      md: '744px',
-		//      lg: '1512px'
-		//  }
+		// screens: {
+		// 	sm: '640px',
+		// 	md: '768px',
+		// 	lg: '1024px',
+		// 	xl: '1280px',
+		// 	'512': '512px',
+		// 	'2xl': '1536px',
+		// 	'4k': '2560px',
+		// 	mobile: '320px',
+		// 	tablet: '744px',
+		// 	desktop: '1512px'
+		// 	// 	sm: '640px',
+		// 	// 	md: '744px',
+		// 	// 	lg: '1512px'
+		// 	// },
+		// 	// container: {
+		// 	//  screens: {
+		// 	//      md: '744px',
+		// 	//      lg: '1512px'
+		// 	//  }
 		// },
 		container: {
 			center: true
 		},
 		extend: {
 			screens: {
-				pc: { raw: '(max-width: 640px)' }
+				pc: { raw: '(max-width: 640px)' },
+				mobile: '320px',
+				tablet: '744px',
+				'840px': '840px',
+				'900px': '900px',
+				'980px': '980px',
+				desktop: '1512px',
+				'3xl': '1700px'
 			},
 			boxShadow: {
 				'mega-menu': '2px 0px 4px rgba(0, 0, 0, 0.25)'

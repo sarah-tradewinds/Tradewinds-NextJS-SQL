@@ -9,7 +9,8 @@ import TrendingCategoryTile from './trending-category-tile';
 const TrendingCatagories: React.FC<{
 	categories: any[];
 	onTileClick?: (category: any) => void;
-}> = ({ categories, onTileClick }) => {
+	className?: string;
+}> = ({ categories, onTileClick, className }) => {
 	const [currentSlide, setCurrentSlide] = useState(0);
 	const [loaded, setLoaded] = useState(false);
 	const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
@@ -35,7 +36,9 @@ const TrendingCatagories: React.FC<{
 
 	return (
 		<>
-			<div className="mt-[20px] hidden gap-4 md:grid md:grid-cols-2 lg:grid-cols-4">
+			<div
+				className={`mt-[20px] hidden gap-4 md:grid md:grid-cols-2 lg:grid-cols-4 ${className}`}
+			>
 				{categories?.map((category, index) => (
 					<TrendingCategoryTile
 						key={category?.id}

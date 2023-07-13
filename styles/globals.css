@@ -5,10 +5,12 @@
 
 @layer components {
 
+  .mobile-nav-link {
+    @apply relative cursor-pointer border-b-2 border-[#D1D1CF] pb-2 text-[15px] font-semibold leading-[18.29px] text-primary-main
+  }
+
   .nav-link {
-    cursor: pointer;
-    position: relative;
-    @apply text-primary-main md:dark:text-accent-secondary-eco md:px-2 md:border-b-0 text-[15px] md:text-xs lg:text-[18px] lg:leading-[22px] md:leading-[15px] md:font-normal md:w-auto md:py-0 md:my-0 font-semibold w-10/12 py-2 my-2 border-b-[0.5px] border-[#D1D1CF] leading-[18px]
+    @apply md:text-[#575858] md:dark:text-accent-secondary-eco md:px-2 md:text-[10.8px] lg:text-[14.41px] md:my-4 md:border-r-[0.5px] md:border-[#575858] lg:leading-[17.57px] xl:text-[18px] xl:leading-[21.94px]
   }
 
   .nav-link::after {
@@ -23,13 +25,8 @@
     transition: all 0.3s ease-in-out;
   }
 
-  .nav-link:hover::after {
-    width: 100%;
-    opacity: 1;
-  }
-
   .btn-primary {
-    @apply py-2 px-4 bg-accent-orange text-white font-semibold rounded-lg shadow-md hover:bg-accent-orange focus:outline-none focus:ring-2 focus:ring-accent-orange focus:ring-opacity-75;
+    @apply py-2 px-4s bg-accent-orange text-white font-semibold rounded-lg shadow-md hover:bg-accent-orange focus:outline-none focus:ring-2 focus:ring-accent-orange focus:ring-opacity-75;
   }
 
   .scrollbar-hide::-webkit-scrollbar {

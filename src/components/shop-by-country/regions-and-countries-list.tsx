@@ -16,7 +16,17 @@ const RegionsAndCountriesList: React.FC<{
 		<>
 			{regionsAndCountries?.map((regionAndCountries: any) => {
 				const countries =
-					regionAndCountries?.edges?.region_country || [];
+					regionAndCountries?.edges?.region_country?.sort(
+						(a: any, b: any) => {
+							if (a?.name?.en < b?.name?.en) {
+								return -1;
+							}
+							if (a?.name?.en > b?.name?.en) {
+								return 1;
+							}
+							return 0;
+						}
+					) || [];
 
 				return (
 					<RegionAndCountriesTile

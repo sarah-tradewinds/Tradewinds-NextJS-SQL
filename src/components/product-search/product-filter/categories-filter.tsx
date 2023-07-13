@@ -345,7 +345,7 @@ const CategoryCollapse: React.FC<{
 			<label
 				htmlFor={id}
 				onClick={onClick}
-				className={`flex cursor-pointer items-center space-x-1 text-left text-gray md:text-[12px] md:leading-[15px] lg:text-[15px] lg:leading-[22px] ${
+				className={`flex cursor-pointer items-center space-x-1 text-left text-gray md:text-[12px] md:leading-[15px] lg:text-[12px] xl:text-[15px] xl:leading-[22px] ${
 					isOpen ? 'font-semibold' : ''
 				}`}
 			>

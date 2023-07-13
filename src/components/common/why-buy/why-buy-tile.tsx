@@ -23,9 +23,9 @@ const WhyBuyTile: React.FC<WhyBuyTileProps> = (props) => {
 
 	return (
 		<div
-			className={`flex flex-col items-center text-white ${containerClassName}`}
+			className={` block flex-col items-center text-white sm:flex ${containerClassName}`}
 		>
-			<div className={`relative h-[110px] w-[110px] ${imageClassName}`}>
+			<div className={`relative  ${imageClassName}`}>
 				<ImageWithErrorHandler
 					src={imageUrl}
 					alt={alt || title}
@@ -33,10 +33,18 @@ const WhyBuyTile: React.FC<WhyBuyTileProps> = (props) => {
 				/>
 			</div>
 			<div
-				className={`mt-3 space-y-1 text-center ${contentContainerClassName}`}
+				className={` text-left sm:text-center ${contentContainerClassName}`}
 			>
-				<p>{title}</p>
-				<p className="text-xs">{subtitle}</p>
+				<p
+					className={` text-[12px] font-semibold sm:text-[12px] md:text-[15px] lg:text-[15px] desktop:text-[25px]`}
+				>
+					{title}
+				</p>
+				<p
+					className={` text-[10px] font-semibold leading-[14px] sm:text-[10px] sm:leading-[12px] md:text-[10px] md:leading-[14px] lg:text-[12px] desktop:text-[18px] desktop:leading-[30px]`}
+				>
+					{subtitle}
+				</p>
 			</div>
 		</div>
 	);

@@ -24,6 +24,7 @@ const UserReviewAndRatingTile: React.FC<
 					<RatingStars
 						starNumber={5}
 						rating={rating}
+						className="!h-[17.12px] !w-[17.74px]"
 						selectedClassName="text-secondary"
 					/>
 					<p className="text-[13px] text-gray">{rating} out of 5</p>

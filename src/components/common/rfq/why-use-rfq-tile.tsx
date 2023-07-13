@@ -26,11 +26,11 @@ const WhyUseRFQTile: React.FC<WhyUseRFQTileProps> = (props) => {
 			}`}
 		>
 			<div
-				className={`relative h-24 w-32 ${
+				className={`relative  ${
 					imageContainerClassName
 						? imageContainerClassName
 						: 'bg-accent-primary-main'
-				} p-4`}
+				} `}
 			>
 				<ImageWithErrorHandler
 					src={imageUrl}
@@ -39,7 +39,7 @@ const WhyUseRFQTile: React.FC<WhyUseRFQTileProps> = (props) => {
 				/>
 			</div>
 			<p
-				className={`mx-4 text-[18px] font-semibold ${
+				className={`text-[18px] font-semibold ${
 					textClassName ? textClassName : 'text-accent-primary-main'
 				}`}
 			>

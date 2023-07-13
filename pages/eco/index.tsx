@@ -1,11 +1,16 @@
+import {
+	GetServerSideProps,
+	InferGetServerSidePropsType,
+	NextPage
+} from 'next';
+import Link from 'next/link';
+
 // Third party packages
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import useSWR from 'swr';
 
 // components
 import Button from 'components/common/form/button';
-import AddBanner from 'components/home/ads-banner';
-import CategorySubCategoriesSection from 'components/home/category-sub-categories-section';
 import CountrySlider from 'components/home/country-slider';
 import Hero from 'components/home/hero';
 
@@ -14,44 +19,33 @@ import {
 	getCardAList,
 	getCardB,
 	getHeroCarousels,
-	getHomeAdvertisements,
 	getHomeCountries
 } from 'lib/home.lib';
-import {
-	GetServerSideProps,
-	GetStaticProps,
-	InferGetStaticPropsType,
-	NextPage
-} from 'next';
 
+import Seo from 'components/common/seo';
+import HomeCategorySubCategoriesSection from 'components/home/home-category-sub-categories-section';
 import { getEcoHomeMainCategoriesAndCategories } from 'lib/eco/eco-home.lib';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useHomeStore } from 'store/home';
 import { CatSubCatSectionType } from 'types/home';
-import { getProductSearchURL } from 'utils/common.util';
 
-const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
-	props
-) => {
+// const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
+const HomePage: NextPage<
+	InferGetServerSidePropsType<GetServerSideProps>
+> = (props) => {
 	const {
+		// heroCarousels = [],
 		cardAList = [],
 		cardBData = {},
-		ecoHomeMainCategoriesAndCategories = [],
+		homeMainCategoriesAndCategories = [],
 		is_eco
 	} = props;
 
 	// Fetching Hero carousel
 	const { data: heroCarousels = [], error: heroCarouselsError } =
-		useSWR(`//cms/carousel?isEco=${true}`, () =>
-			getHeroCarousels(true)
-		);
-
-	// Fetching Advertisement
-	const { data: homeAdvertisements = [], error } = useSWR(
-		'/advertisement/getalladvertisement',
-		getHomeAdvertisements
-	);
+		useSWR(`/cms/carousel?isEco=${true}`, () => getHeroCarousels(true));
 
 	// Fetching Countries
 	const {
@@ -71,24 +65,9 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 		}
 	}, [is_eco]);
 
-	// const searchCategoriesBanner = (
-	// 	<div className="flex items-center justify-center bg-accent-primary-main p-4 text-white dark:bg-accent-primary-eco md:p-8 lg:p-14">
-	// 		<h3 className="text-[21px] leading-[26px] md:mr-8 md:text-[48px] md:leading-[44px] lg:whitespace-nowrap lg:text-[72px]">
-	// 			Search from 6,500 categories
-	// 		</h3>
-	// 		<Button
-	// 			href={`/6500-categories?is_eco=${true}`}
-	// 			variant="special"
-	// 			className="whitespace-nowrap !px-4"
-	// 		>
-	// 			Search More
-	// 			{' >'}
-	// 		</Button>
-	// 	</div>
-	// );
 	const searchCategoriesAndTrendingBanner = (
 		<div className="grid gap-4 lg:grid-cols-2">
-			<div className="flex h-[78.75px] items-center bg-accent-primary-main p-3 text-white dark:bg-header-bar md:space-y-2 lg:h-[143px] lg:flex-col lg:p-0">
+			<div className="flex h-[78.75px] items-center bg-accent-primary-eco p-3 text-white dark:bg-header-bar md:space-y-2 lg:h-[143px] lg:flex-col lg:p-0">
 				<h3 className="text-[21px] font-semibold leading-[26px] md:text-[35px] lg:text-center lg:text-[35px] lg:leading-[43px]">
 					{'search_from'}
 					<span className="inline-block lg:mx-3 lg:text-[60px] lg:leading-[73px]">
@@ -123,81 +102,117 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 			</div>
 		</div>
 	);
-	const router = useRouter();
 
-	let isReverse = false;
+	const router = useRouter();
+	const { t } = useTranslation();
 
 	return (
 		<>
-			<Hero
-				hcd={heroCarousels}
-				cardAList={cardAList}
-				cardBData={cardBData}
+			<Seo
+				title={t('home:meta_title')}
+				description={t('home:meta_description')}
 			/>
+			<div className="3xl:container 3xl:w-[1700px]">
+				<Hero
+					hcd={heroCarousels}
+					cardAList={cardAList}
+					cardBData={cardBData}
+				/>
 
-			{/* Category and sub categories */}
-			{/* <div className="mt-12 space-y-12 md:mt-0 md:space-y-8 md:px-4 lg:px-8"> */}
-			<div className="md:container">
-				<div className="mt-12 md:mt-48 lg:-mt-14">
-					<div className="space-y-[41px] lg:mx-[23px] lg:space-y-[27px]">
-						{ecoHomeMainCategoriesAndCategories?.cat_section &&
-							ecoHomeMainCategoriesAndCategories?.cat_section?.map(
-								(homeCategory: CatSubCatSectionType, index: number) => {
+				<div className="mt-[27px] lg:container">
+					{/* Category and sub categories */}
+					<div className="mx-2 space-y-[33px] sm:mx-4 sm:space-y-[42px] md:space-y-[20px] desktop:space-y-[27px]">
+						{homeMainCategoriesAndCategories?.cat_section &&
+							homeMainCategoriesAndCategories?.cat_section?.map(
+								(
+									homeMainCategoryAndCategories: CatSubCatSectionType,
+									index: number
+								) => {
 									const canIDisplayFlags = Math.floor(
-										ecoHomeMainCategoriesAndCategories?.cat_section
+										homeMainCategoriesAndCategories?.cat_section
 											?.length / 2
 									);
 
-									if (index !== 0) {
-										isReverse = !isReverse;
-									}
-
 									return (
 										<>
-											<CategorySubCategoriesSection
-												key={homeCategory.main_category.id}
-												catSubCat={homeCategory}
-												isReverse={isReverse}
+											<HomeCategorySubCategoriesSection
+												key={
+													homeMainCategoryAndCategories.main_category.id
+												}
+												catSubCat={homeMainCategoryAndCategories}
 												isCustom={
-													ecoHomeMainCategoriesAndCategories.is_custom
+													homeMainCategoriesAndCategories.is_custom
 												}
 											/>
 
 											{/*  Search Categories Banner */}
 											{canIDisplayFlags === index && (
-												<div className="my-8 hidden md:block">
-													{searchCategoriesAndTrendingBanner}
+												<div className="hidden md:block">
+													<div className="bg-accent-eco flex items-center  text-white dark:bg-accent-primary-eco md:h-[85.8px] lg:h-[114.51px] lg:justify-between xl:h-[143px]">
+														<h3 className="text-[33px] font-semibold md:ml-[26.4px] lg:text-[55px] lg:leading-[46px] xl:leading-[67.05px] desktop:text-[72px] desktop:leading-[87.77px]">
+															{t('home:search_from')} 6500{' '}
+															{t('home:categories')}
+														</h3>
+														<Link
+															href={`/categories?is_eco`}
+															className="flex items-center justify-center bg-secondary md:ml-[33.4px] md:h-[28.8px] md:w-[141.6px] md:text-[12.6px] md:font-semibold lg:mr-[67.27px] lg:h-[38.44px] lg:w-[188.98px] lg:text-[16.82px] lg:leading-[20.5px] xl:h-[48px] xl:w-[236px] xl:text-[21px] xl:leading-[25.6px]"
+														>
+															{t('common:search_more')}
+															<span className="hidden md:inline-block lg:pl-2">
+																{' >'}
+															</span>
+														</Link>
+													</div>
 												</div>
 											)}
 										</>
 									);
 								}
 							)}
+
+						{/*  Search Categories Banner */}
+						<Link
+							href={`/categories?is_eco=${true}`}
+							className="flex h-[67px] w-full items-center justify-center rounded-md bg-accent-primary-eco text-[21px] font-semibold text-white md:hidden"
+						>
+							Explore all Categories
+						</Link>
+
+						<div className="hidden h-[79px] w-full overflow-hidden rounded-md sm:block md:h-[102px] lg:h-[136.13px] xl:h-[170px]">
+							<CountrySlider
+								key={homeCountries?.length}
+								countries={homeCountries}
+								onCountryClick={(country) => {
+									router.push(
+										`/product-search?region=${country?.region_id}_${
+											country?.edges?.region?.name?.en
+										}&country=${country?.id}_${country?.name?.en || ''}`
+									);
+								}}
+								isLoading={isCountriesValidating && !homeCountries}
+								className="overflow-hidden md:!rounded-md"
+							/>
+						</div>
 					</div>
 
 					{/*  Search Categories Banner */}
-					{/* <div className="my-8 md:hidden"> */}
-					<div className="my-[30px] md:hidden">
+					<div className="mb-[45.25px] mt-[30px] hidden md:my-[30px] md:hidden">
 						{searchCategoriesAndTrendingBanner}
 					</div>
 
 					{/* Shop by country and ads */}
 					<div className="space-y-8 lg:mx-[23px]">
 						{/* Shop by country */}
-						<div className="mt-[30px] h-[78.75px] md:h-[81px] lg:h-[168px]">
+						<div className="mt-[30px] h-[78.75px] sm:hidden md:h-[81px] lg:h-[168px]">
 							<CountrySlider
 								key={homeCountries?.length}
 								countries={homeCountries}
 								onCountryClick={(country) => {
-									getProductSearchURL(router, {
-										region: `${country?.region?.id}_${country?.region?.name}`,
-										country: `${country?.id}_${country?.name?.en || ''}`
-									});
-									// router.push(
-									// 	`/product-search?region=${country?.region?.id}_${
-									// 		country?.region?.name
-									// 	}&country=${country?.id}_${country?.name?.en || ''}`
-									// );
+									router.push(
+										`/product-search?region=${country?.region_id}_${
+											country?.edges?.region?.name?.en
+										}&country=${country?.id}_${country?.name?.en || ''}`
+									);
 								}}
 								isLoading={isCountriesValidating && !homeCountries}
 								className="overflow-hidden md:!rounded-md"
@@ -205,14 +220,14 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 						</div>
 
 						{/* Bottom ADS Banner */}
-						<div className="mt-[30px] grid grid-cols-2">
+						{/* <div className="mt-[30px] grid grid-cols-2">
 							{homeAdvertisements.map((advertisement: any) => (
 								<AddBanner
 									key={advertisement.id}
 									iframe_code={advertisement.i_frame_code}
 								/>
 							))}
-						</div>
+						</div> */}
 					</div>
 				</div>
 			</div>
@@ -222,22 +237,30 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 
 export default HomePage;
 
+// export const getStaticProps: GetStaticProps = async ({ locale }) => {
 export const getServerSideProps: GetServerSideProps = async ({
 	locale
 }) => {
 	try {
+		// const heroCarousels = await getHeroCarousels(true);
+		// console.log(
+		// 	'heroCarousels-heroCarousels-heroCarousels =',
+		// 	heroCarousels
+		// );
 		const cardAList = await getCardAList(true);
 		const cardBData = await getCardB(true);
-		const ecoHomeMainCategoriesAndCategories =
+		const homeMainCategoriesAndCategories =
 			await getEcoHomeMainCategoriesAndCategories();
 
 		return {
 			props: {
 				...(await serverSideTranslations(locale || 'en')),
+
+				// heroCarousels,
 				cardAList,
 				cardBData,
-				ecoHomeMainCategoriesAndCategories:
-					ecoHomeMainCategoriesAndCategories ?? {
+				homeMainCategoriesAndCategories:
+					homeMainCategoriesAndCategories ?? {
 						cat_section: [],
 						is_custom: true
 					},
@@ -248,9 +271,11 @@ export const getServerSideProps: GetServerSideProps = async ({
 		return {
 			props: {
 				...(await serverSideTranslations(locale || 'en')),
+
+				heroCarousels: [],
 				cardAList: [],
 				cardBData: {},
-				ecoHomeMainCategoriesAndCategories: {
+				homeMainCategoriesAndCategories: {
 					cat_section: [],
 					is_custom: true
 				},

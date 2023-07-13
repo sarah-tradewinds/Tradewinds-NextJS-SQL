@@ -1,15 +1,23 @@
-import { Popover } from '@headlessui/react';
-import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import { getHomeCountries } from 'lib/home.lib';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+
+// Third party packages
+import { Popover } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import useSWR from 'swr';
-import { getFilterValueFromQuery } from 'utils/common.util';
+
+// components
 import Button from '../common/form/button';
 import CountrySearchDropdown, {
 	ICountry
 } from './country-search-dropdown';
 import MinMaxPicker from './product-filter/min-max-picker.components';
+
+// libs
+import { getHomeCountries } from 'lib/home.lib';
+
+// util
+import { getFilterValueFromQuery } from 'utils/common.util';
 
 interface ProductSearchFilterBarProps {
 	onCountryChange?: (id?: string, name?: string) => void;
@@ -76,17 +84,14 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 		useSWR('/region_country/all', getHomeCountries);
 
 	const dropDownSelect =
-		'outline-none border-2 border-gray/20 md:h-[18px] lg:h-9 w-[84px] lg:w-[202px] font-semibold md:text-[10px] md:leading-[22px]';
+		'relative flex items-center justify-center outline-none border-[1.27px] border-[#DCDBDB] md:h-[18px] lg:h-[15.43px] w-[84px] lg:w-[133.7px] desktop:w-[195.89px] desktop:h-[22.6px] rounded-full font-semibold md:text-[10px] md:leading-[22px]';
 
 	const chevronDownIcon = (
 		<ChevronDownIcon className="hidden h-6 w-6 text-[#E1DDDD] lg:block" />
 	);
 
 	return (
-		<div
-			// className="hidden justify-between rounded-md border border-gray/10 bg-white p-2 shadow-lg md:flex lg:p-4"
-			className="hidden justify-between rounded-md border border-gray/10 bg-white shadow-lg md:flex md:h-8 md:py-[7px] md:pl-[9px] md:pr-2 lg:h-[54px] lg:pl-[13px] lg:pr-[14px] lg:pt-2 lg:pb-[10px]"
-		>
+		<div className="hidden justify-between rounded-md border border-gray/10 bg-white shadow-lg md:flex md:h-8 md:py-[7px] md:pl-[9px] md:pr-2 lg:h-[54px] lg:pl-[13px] lg:pr-[14px] lg:pt-2 lg:pb-[10px] xl:pl-[49px] xl:pr-[24.67px]">
 			{/* Live Buy/ Ready to ship - checkbox */}
 			<label className="flex cursor-pointer items-center">
 				<input
@@ -102,12 +107,12 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 				/>
 				{/* For large screen */}
 				<p className="ml-2 font-semibold text-gray">
-					<span className="hidden text-[15px] lg:block lg:leading-[18px]">
+					<span className="hidden text-[15px] lg:block lg:text-[12px] lg:leading-[14.63px] xl:text-[15px] xl:leading-[18.29px]">
 						Live Buy/ Ready to ship
 					</span>
 
 					{/* For medium screen */}
-					<span className="block text-[10px] lg:hidden">
+					<span className="block text-[10px] font-semibold lg:hidden">
 						Ready to ship
 					</span>
 				</p>
@@ -126,13 +131,13 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 						});
 					}}
 				/>
-				<p className="ml-2 text-[10px] font-semibold text-gray lg:text-[15px] lg:leading-[18px]">
+				<p className="ml-2 text-[10px] font-semibold text-gray lg:text-[12px] lg:leading-[14.63px] xl:text-[15px] xl:leading-[18.29px]">
 					Customizable
 				</p>
 			</label>
 
 			{/* Country - dropdown */}
-			<div className="relative flex items-center">
+			<div className="relative flex items-center lg:hidden">
 				<label
 					htmlFor="country"
 					className="mr-2 text-[10px] font-semibold leading-[22px] text-gray lg:text-[15px]"
@@ -151,19 +156,17 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 
 			{/* Min. Order - dropdown */}
 			<div className="relative flex items-center">
-				<p className="mr-2 whitespace-nowrap text-[10px] font-semibold text-gray lg:text-[15px]">
+				<p className="mr-2 whitespace-nowrap text-[10px] font-semibold text-gray lg:text-[12px] lg:leading-[14.63px] xl:text-[15px] xl:leading-[18.29px]">
 					Min. Order
 				</p>
 
 				<Popover className="relative">
-					<Popover.Button
-						className={`px-2s flex items-center justify-center ${dropDownSelect}`}
-					>
+					<Popover.Button className={dropDownSelect}>
 						<span>
-							{minOrder}-{maxOrder}
+							{minOrder} - {maxOrder}
 						</span>
 
-						{chevronDownIcon}
+						<span className="absolute right-1">{chevronDownIcon}</span>
 					</Popover.Button>
 
 					<Popover.Panel className="absolute -right-0 z-10 mt-1 w-auto bg-black">
@@ -208,18 +211,16 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 
 			{/* Dollar - dropdown */}
 			<div className="relative flex items-center">
-				<p className="mr-2 whitespace-nowrap text-[10px] font-semibold text-gray lg:text-[15px]">
+				<p className="mr-2 whitespace-nowrap text-[10px] font-semibold text-gray lg:text-[12px] lg:leading-[14.63px] xl:text-[15px] xl:leading-[18.29px]">
 					$$$
 				</p>
 
 				<Popover className="relative">
-					<Popover.Button
-						className={`flex items-center justify-center px-2 ${dropDownSelect}`}
-					>
+					<Popover.Button className={dropDownSelect}>
 						<span>
-							{minPrice}-{maxPrice}
+							${minPrice} - ${maxPrice}
 						</span>
-						{chevronDownIcon}
+						<span className="absolute right-1">{chevronDownIcon}</span>
 					</Popover.Button>
 
 					<Popover.Panel className="absolute -right-8 z-10 w-auto bg-black">

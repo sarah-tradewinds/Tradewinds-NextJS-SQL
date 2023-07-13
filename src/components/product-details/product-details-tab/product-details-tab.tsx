@@ -51,27 +51,28 @@ const ProductDetailsTab: React.FC<{
 			? false
 			: true;
 
+	const headingClassName =
+		'border-b-2 pb-[2px] sm:borer-b-1 text-gray  xl:border-b-2 xl:pb-[8px] border-[#C4C4C4] text-[15px] capitalize font-semibold leading-[18.29px] lg:text-[21px] md:text-[12px] md:leading-[14.63px] lg:text-[15px] lg:leading-[18.29px] xl:text-[21px] xl:leading-[25.6px] md:uppercase lg:leading-6  lg:border-b-[1.37px] lg:pb-[5.33]';
+
 	return (
-		<div className="space-y-8 bg-white p-4 md:space-y-8 md:p-8">
+		<div className="space-y-8 bg-white p-4 pt-[32px] md:space-y-8 md:pt-[24px]">
 			{/* DESCRIPTIVE DETAILS */}
 			<div>
-				<p className="border-b-2 border-t-2 border-[#C4C4C4] pb-2 text-lg font-semibold leading-[22px] text-primary-main md:border-t-0 md:text-xl md:text-[21px] md:uppercase md:leading-6 md:text-gray">
-					{t('DESCRIPTIVE DETAILS')}
-				</p>
+				<p className={headingClassName}>{t('Descriptive Details')}</p>
 
 				{/* Product details body */}
 				<div
-					className={`space-y-8 md:p-4 ${productDetailsContainerClassName}`}
+					className={`mt-1 space-y-8 md:p-[6.69px]  ${productDetailsContainerClassName}`}
 				>
-					<p className="flex justify-between  space-x-8 text-[15px] text-gray md:text-[18px]">
+					<p className="flex justify-between space-x-8 text-[12px] text-gray md:text-[10px] md:leading-[19.57px] lg:text-[12px] lg:leading-[26.08px] xl:text-[18px] xl:leading-[38px]">
 						{seoDescription}
 					</p>
 				</div>
 			</div>
 
-			{/* product_details */}
+			{/* product details */}
 			<div>
-				<p className="border-b-2 border-t-2 border-[#C4C4C4] pb-2 text-lg font-semibold leading-[22px] text-primary-main md:border-t-0 md:text-xl md:text-[21px] md:uppercase md:leading-6 md:text-gray">
+				<p className={headingClassName}>
 					{t('common:product_details')}
 				</p>
 
@@ -79,9 +80,9 @@ const ProductDetailsTab: React.FC<{
 				{productDetailItems.length > 0 &&
 				(productDetailItems as any)?.[0]?.key?.en ? (
 					<div
-						className={`flex flex-col md:flex-row md:justify-between md:p-4 ${productDetailsContainerClassName}`}
+						className={`flex flex-col md:justify-between md:p-[6.69px] ${productDetailsContainerClassName}`}
 					>
-						<div className="space-y-2">
+						<div className="ml-1 mt-[7px] space-y-1 md:mt-[6.69px] md:columns-2">
 							{productDetailItems?.map((productDetailItem: any) => {
 								const key = getLocaleText(
 									productDetailItem.key || {},
@@ -94,9 +95,11 @@ const ProductDetailsTab: React.FC<{
 								return (
 									<p
 										key={key}
-										className="flex flex-col text-[15px] text-gray md:flex-row md:justify-between md:space-x-8 md:text-[18px]"
+										className="flex flex-col text-left text-[12px] leading-[21px] text-gray md:flex-row md:text-[10px] md:leading-[19.57px] lg:text-[12px] lg:leading-[26.08px] xl:text-[18px] xl:leading-[38px]"
 									>
-										<span className="font-semibold">{key}: </span>
+										<span className="min-w-[124px] font-semibold">
+											{key}:{' '}
+										</span>
 										<span>{value}</span>{' '}
 									</p>
 								);
@@ -112,13 +115,11 @@ const ProductDetailsTab: React.FC<{
 
 			{/* PRODUCT INFORMATION */}
 			<div>
-				<p className="border-b-2 border-t-2 border-[#C4C4C4] pb-2 text-lg font-semibold leading-[22px] text-primary-main md:border-t-0 md:text-xl md:text-[21px] md:uppercase md:leading-6 md:text-gray">
-					{t('PRODUCT INFORMATION')}
-				</p>
+				<p className={headingClassName}>{t('Product Information')}</p>
 
 				{/* Product information body */}
 				<ul
-					className={`space-y-2 md:p-4 lg:text-[18px] lg:leading-[38px] ${productDetailsContainerClassName}`}
+					className={`mt-1 space-y-2 text-[12px] leading-[18.29px] md:p-[6.69px] md:text-[10px] md:leading-[19.57px] lg:text-[12px] lg:leading-[26.08px] xl:text-[18px] xl:leading-[38px] ${productDetailsContainerClassName}`}
 				>
 					{/* IS ECO */}
 					{product?.is_eco && (
@@ -126,14 +127,18 @@ const ProductDetailsTab: React.FC<{
 							<span className="text-gray md:w-[200px] md:font-semibold">
 								ECO:
 							</span>
-							<ImageWithErrorHandler
-								src="/static/icons/eco-icon.png"
-								alt="eco icon"
-								width={40}
-								height={40}
-							/>
+							<div className="relative h-[30px] w-[30px]">
+								<ImageWithErrorHandler
+									src="/static/icons/eco-icon.png"
+									alt="eco icon"
+									// width={40}
+									// height={40}
+									fill={true}
+								/>
+							</div>
 						</li>
 					)}
+
 					{/* Main Category */}
 					<li className="flex flex-col md:flex-row md:items-center md:space-x-0">
 						<span className="text-gray md:w-[200px] md:font-semibold">
@@ -202,7 +207,7 @@ const ProductDetailsTab: React.FC<{
 												<div className="w-[280px] md:w-[306px]">
 													{verification_type}
 												</div>
-												<div className="relative h-[30px] w-[162px]">
+												<div className="relative hidden h-[30px] w-[162px] md:block">
 													<ImageWithErrorHandler
 														src="/tradewinds-horizontal-logo.png"
 														alt=""
@@ -228,12 +233,12 @@ const ProductDetailsTab: React.FC<{
 									{certifications?.map((certificate: any) => (
 										<div
 											key={certificate?.name}
-											className="flex items-center justify-between space-x-4 text-[15px] text-gray md:text-[18px]"
+											className="flex items-center justify-between space-x-4 text-[15px] text-gray lg:text-[18px]"
 										>
 											<span className="font-semibold capitalize">
 												{certificate?.name}:
 											</span>
-											<div className="relative h-[30px] w-[162px]">
+											<div className="relative hidden h-[30px] w-[162px] md:block">
 												<ImageWithErrorHandler
 													src="/tradewinds-horizontal-logo.png"
 													alt=""
@@ -251,15 +256,13 @@ const ProductDetailsTab: React.FC<{
 
 			{/* PRODUCT DIMENSIONS  */}
 			<div className={dimensionContainerClassName}>
-				<p className="border-b-2 border-[#C4C4C4] pb-1 text-lg font-semibold leading-[22px] text-primary-main md:text-[21px] md:uppercase md:leading-6 md:text-gray">
-					{t('PRODUCT DIMENSIONS')}
-				</p>
+				<p className={headingClassName}>{t('Product Dimensions')}</p>
 				{isProductDimensionAvailable ? (
-					<div className="flex justify-between md:p-4">
+					<div className="mt-1 flex justify-between md:p-[6.69px]">
 						<div className="space-y-2">
 							{product_dimension?.product_length && (
-								<p className="flex justify-between space-x-8 text-[15px] text-gray md:text-[18px]">
-									<span className="font-semibold">
+								<p className="flex space-x-8 text-[12px] text-gray md:text-[10px] md:leading-[19.57px] lg:text-[12px] lg:leading-[26.08px] xl:text-[18px] xl:leading-[38px]">
+									<span className="w-[124px] font-semibold xl:w-[180px]">
 										{t('common:product')} {t('common:length')}:
 									</span>
 									<span>
@@ -269,8 +272,8 @@ const ProductDetailsTab: React.FC<{
 								</p>
 							)}
 							{product_dimension?.product_width && (
-								<p className="flex justify-between space-x-8 text-[15px] text-gray md:text-[18px]">
-									<span className="font-semibold">
+								<p className="flex space-x-8 text-[12px] text-gray md:text-[10px] md:leading-[19.57px] lg:text-[12px] lg:leading-[26.08px] xl:text-[18px] xl:leading-[38px]">
+									<span className="w-[124px] font-semibold xl:w-[180px]">
 										{t('common:product')} {t('common:width')}:
 									</span>
 									<span>
@@ -280,8 +283,8 @@ const ProductDetailsTab: React.FC<{
 								</p>
 							)}
 							{product_dimension?.product_height && (
-								<p className="flex justify-between space-x-8 text-[15px] text-gray md:text-[18px]">
-									<span className="font-semibold">
+								<p className="flex space-x-8 text-[12px] text-gray md:text-[10px] md:leading-[19.57px] lg:text-[12px] lg:leading-[26.08px] xl:text-[18px] xl:leading-[38px]">
+									<span className="w-[124px] font-semibold xl:w-[180px]">
 										{t('common:product')} {t('common:height')}:
 									</span>
 									<span>
@@ -291,8 +294,8 @@ const ProductDetailsTab: React.FC<{
 								</p>
 							)}
 							{product_dimension?.product_weight && (
-								<p className="flex justify-between space-x-8 text-[15px] text-gray md:text-[18px]">
-									<span className="font-semibold">
+								<p className="flex space-x-8 text-[12px] text-gray md:text-[10px] md:leading-[19.57px] lg:text-[12px] lg:leading-[26.08px] xl:text-[18px] xl:leading-[38px]">
+									<span className="w-[124px] font-semibold xl:w-[180px]">
 										{t('common:product')} {t('common:weight')}:
 									</span>
 									<span>
@@ -302,8 +305,10 @@ const ProductDetailsTab: React.FC<{
 								</p>
 							)}
 							{product_dimension?.notes && (
-								<p className="flex justify-between space-x-8 text-[15px] text-gray md:text-[18px]">
-									<span className="font-semibold">{t('Notes')}:</span>
+								<p className="flex space-x-8 text-[12px] text-gray md:text-[10px] md:leading-[19.57px] lg:text-[12px] lg:leading-[26.08px] xl:text-[18px] xl:leading-[38px]">
+									<span className="w-[124px] font-semibold">
+										{t('Notes')}:
+									</span>
 									<span>{product_dimension?.notes}</span>
 								</p>
 							)}

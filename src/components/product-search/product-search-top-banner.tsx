@@ -25,16 +25,13 @@ const ProductSearchTopBanner: React.FC<ProductSearchTopBannerProps> = (
 	} = props;
 
 	return (
-		<div className="relative h-[103px] w-full md:h-[111.99px] lg:h-[227.59px]">
+		<div className="relative h-[103px] w-full md:h-[116px] lg:h-[228px] desktop:h-[227.59px]">
 			{/* <Image */}
 			<ImageWithErrorHandler
 				key={imageUrl}
 				src={imageUrl}
 				alt={text || ''}
 				fill={true}
-				className={`${
-					imageUrl === '/coming-soon.png' ? 'object-contain' : ''
-				}`}
 			/>
 
 			{text && (
@@ -42,7 +39,7 @@ const ProductSearchTopBanner: React.FC<ProductSearchTopBannerProps> = (
 					className={`${getAlignmentClassName(
 						horizontal,
 						vertical
-					)} absolute font-semibold text-white md:w-[304px] md:text-[27.125px] md:leading-[33px] lg:w-[618px] lg:text-[55.125px] lg:leading-[67px]`}
+					)} absolute font-semibold text-white md:w-[304px] md:text-[27.125px] md:leading-[33px] desktop:w-[618px] desktop:text-[55.125px] desktop:leading-[67px]`}
 					style={{
 						color: textColor
 					}}

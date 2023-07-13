@@ -2,13 +2,17 @@ const { PHASE_DEVELOPMENT_SERVER } = require('next/constants.js');
 
 // Third party packages
 const { i18n } = require('./next-i18next.config.js');
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+	enabled: process.env.ANALYZE === 'true'
+});
 
 const nextConfig = (phase) => {
 	/* development only config options here */
 	if (phase === PHASE_DEVELOPMENT_SERVER) {
-		return {
+		return withBundleAnalyzer({
 			i18n,
 			reactStrictMode: true,
+			output: 'standalone',
 			env: {
 				SITE_URL: 'http://localhost:3000',
 
@@ -22,8 +26,8 @@ const nextConfig = (phase) => {
 					'https://white-ocean-019fe600f.2.azurestaticapps.net/#',
 
 				API_BASE_URL:
-					// 'https://tradewinds-sql-preprod-as.azurewebsites.net',
-					'https://tradewinds-production-sql-as.azurewebsites.net',
+					'https://tradewinds-sql-preprod-as.azurewebsites.net',
+				// 'https://tradewinds-production-sql-as.azurewebsites.net',
 
 				STRIPE_PUBLISHABLE_KEY:
 					'pk_test_51JAhKFCQTcpcYTusSG85R25JWHRXIbw9mg6bn2mJAIncKhAhXpxvAemulgavKUw0iv4J1ygM6zSWGbthNAMWGftk00Jzzmiqcs'
@@ -40,29 +44,31 @@ const nextConfig = (phase) => {
 					'localhost'
 				]
 			}
-		};
+		});
 	}
 
 	/* config options for all phases except development here */
-	return {
+	return withBundleAnalyzer({
 		i18n,
 		reactStrictMode: true,
+		output: 'standalone',
 		env: {
-			// SITE_URL:
-			// 	'https://tradewindsmppreprodshoppingsite.azurewebsites.net',
+			// SITE_URL: 'https://www.tradewindsmarketplace.com',
 
 			// BUYER_DASHBOARD_SITE_URL:
-			// 	'https://white-ocean-019fe600f.2.azurestaticapps.net/#',
+			// 	'https://www.dashboard.tradewindsmarketplace.com/#',
 
 			// BDM_DASHBOARD_SITE_URL:
-			// 	'https://white-ocean-019fe600f.2.azurestaticapps.net/#',
+			// 	'https://www.dashboard.tradewindsmarketplace.com/#',
 
 			// SELLER_DASHBOARD_SITE_URL:
-			// 	'https://white-ocean-019fe600f.2.azurestaticapps.net/#',
+			// 	'https://www.dashboard.tradewindsmarketplace.com/#',
 
 			// API_BASE_URL:
-			// 	'https://tradewinds-sql-preprod-as.azurewebsites.net',
+			// 	'https://tradewinds-production-sql-as.azurewebsites.net',
 
+			// # PRE-PROD
+			// SITE_URL: 'http://localhost:3000',
 			SITE_URL:
 				'https://tradewindsmp-productionshoppingsite.azurewebsites.net',
 
@@ -91,7 +97,7 @@ const nextConfig = (phase) => {
 				'picsum.photos'
 			]
 		}
-	};
+	});
 }; // End of nextConfig function
 
 module.exports = nextConfig;

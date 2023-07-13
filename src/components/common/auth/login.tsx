@@ -146,11 +146,13 @@ const Login: React.FC = () => {
 	return (
 		<Modal
 			open={isLoginOpen}
-			className="top-14  !z-[51000] transform md:top-40 md:mx-4 md:mx-20 lg:left-1/2 lg:top-1/2 lg:mx-0 lg:-translate-x-1/2 lg:-translate-y-1/2"
+			// className="top-14  !z-[51000] transform md:top-40  md:mx-20 lg:left-1/2 lg:top-1/2 lg:mx-0 lg:-translate-x-1/2 lg:-translate-y-1/2"
+			// className="top-14  !z-[51000] transform md:top-40  md:mx-20 lg:left-1/2 lg:top-1/2 lg:mx-0 lg:-translate-x-1/2 lg:-translate-y-1/2"
+			className="!top-1/2 !left-1/2 !z-[51000] !-translate-y-1/2 !-translate-x-1/2"
 			overlayClassName="!z-[51000]"
 			onClose={setIsLoginOpen}
 		>
-			<div className="ml-2 flex  items-center justify-center">
+			<div className="ml-2s flex items-center justify-center">
 				<div className="flex justify-center rounded-md bg-white shadow-md md:mt-12 md:w-[740px] md:py-4 lg:mr-[43px] lg:h-[905px] lg:w-[1204px] lg:justify-start lg:pl-[66px]">
 					{/* <div className="flex h-[640px] flex-col items-center border-gray/40 py-8 md:h-auto lg:w-full lg:border-r lg:py-0 lg:pr-[24px]"> */}
 					<div className="flex h-[640px] w-[300px] flex-col items-center border-gray/40 py-8 md:h-auto lg:w-full lg:border-r lg:py-0 lg:pr-[24px]">
@@ -160,46 +162,47 @@ const Login: React.FC = () => {
 
 						<div className="flex w-full justify-center border-b border-gray/40 pb-[7px] text-lg">
 							<form className="w-full px-4 md:w-[346px] md:px-0">
-								<div className="mt-[41px] mb-[27px] space-x-[10px] text-center font-normal text-label_gray">
-									<label>I am a...</label>
-									<label>
-										<span className=" mr-[7px]">
-											<input
-												className=" inline-block h-[23px] w-[23px] border align-text-top "
-												type="radio"
-												name="myRadio"
-												value="Buyer"
-												onChange={handleRadioChange}
-												defaultChecked
-											/>
-										</span>
-										Buyer
-									</label>
-									<label>
-										<span className=" mr-[7px]">
-											<input
-												className=" inline-block h-[23px] w-[23px] align-text-top"
-												type="radio"
-												name="myRadio"
-												value="Seller"
-												onChange={handleRadioChange}
-											/>
-										</span>
-										Seller
-									</label>
-
-									<label>
-										<span className=" mr-[7px]">
-											<input
-												className=" inline-block h-[23px] w-[23px] align-text-top"
-												type="radio"
-												name="myRadio"
-												value="BDM"
-												onChange={handleRadioChange}
-											/>
-										</span>
-										BDM
-									</label>
+								<div className="mt-[41px] mb-[27px] font-normal text-label_gray sm:space-x-[10px] md:space-x-0 lg:flex lg:items-center lg:space-x-2 xl:space-x-3">
+									<p>I am a...</p>
+									<div className="flex justify-between lg:space-x-2 xl:space-x-3">
+										<label>
+											<span className="mr-[7px]">
+												<input
+													className=" inline-block h-[23px] w-[23px] border align-text-top "
+													type="radio"
+													name="myRadio"
+													value="Buyer"
+													onChange={handleRadioChange}
+													defaultChecked
+												/>
+											</span>
+											Buyer
+										</label>
+										<label>
+											<span className=" mr-[7px]">
+												<input
+													className=" inline-block h-[23px] w-[23px] align-text-top"
+													type="radio"
+													name="myRadio"
+													value="Seller"
+													onChange={handleRadioChange}
+												/>
+											</span>
+											Seller
+										</label>
+										<label>
+											<span className=" mr-[7px]">
+												<input
+													className=" inline-block h-[23px] w-[23px] align-text-top"
+													type="radio"
+													name="myRadio"
+													value="BDM"
+													onChange={handleRadioChange}
+												/>
+											</span>
+											BDM
+										</label>
+									</div>
 								</div>
 								<Input
 									name="email"

@@ -1,5 +1,5 @@
 import Image, { ImageProps } from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface ImageWithErrorHandlerProps extends ImageProps {
 	// src: string;
@@ -17,7 +17,7 @@ const ImageWithErrorHandler: React.FC<ImageWithErrorHandlerProps> = (
 ) => {
 	const {
 		src,
-		alt,
+		alt = '',
 		fill,
 		width,
 		height,
@@ -26,45 +26,82 @@ const ImageWithErrorHandler: React.FC<ImageWithErrorHandlerProps> = (
 		className
 	} = props;
 
-	const imageSrc = src?.toString()?.toLowerCase() || '';
+	const isValidUrl = (url: string) => {
+		try {
+			new URL(url?.toString());
+			return true;
+		} catch (error) {
+			// if (alt === 'cat-banner') {
+			// 	console.log('imageUrlimageUrlimageUrl =', {
+			// 		alt,
+			// 		url
+			// 	});
+			// }
+			const [isRelativePath] = url ? url?.split('/') : [];
+			if (isRelativePath === '') {
+				return true;
+			}
+			return false;
+		}
+	}; // End of isValidUrl function
 
-	const [slashFirst] = imageSrc?.split('/');
-	const [httpFirst] = imageSrc?.split('http');
-	const [httpsFirst] = imageSrc?.split('https');
+	// const imageSrc = src?.toString()?.toLowerCase() || '';
 
-	let isImageUrlIsInCorrectFormat = true;
-	if (
-		imageSrc &&
-		slashFirst !== '' &&
-		httpFirst !== '' &&
-		httpsFirst !== ''
-	) {
-		isImageUrlIsInCorrectFormat = false;
-	}
+	// const [slashFirst] = imageSrc?.split('/');
+	// const [httpFirst] = imageSrc?.split('http');
+	// const [httpsFirst] = imageSrc?.split('https');
+
+	// let isImageUrlIsInCorrectFormat = true;
+	// if (
+	// 	imageSrc &&
+	// 	slashFirst !== '' &&
+	// 	(httpFirst !== '' || httpsFirst !== '')
+	// ) {
+	// 	isImageUrlIsInCorrectFormat = false;
+	// }
 
 	const [imageUrl, setImageUrl] = useState(src || defaultImageUrl);
+
+	useEffect(() => {
+		setImageUrl(src);
+	}, [src]);
 
 	const onErrorHandler = () => {
 		setImageUrl(errorImageUrl);
 	}; // End of onErrorHandler method
 
-	// console.log('imageUrlimageUrlimageUrl =', alt, {
-	// 	isImageUrlIsInCorrectFormat,
-	// 	imageUrl,
-	// 	src
-	// });
+	// if (alt === 'cat-banner') {
+	// 	console.log(
+	// 		'imageUrlimageUrlimageUrl =',
+	// 		alt,
+	// 		isValidUrl(imageUrl?.toString()),
+	//     {
+	// 			src,
+	// 			imageUrl
+	// 		}
+
+	// 		// imageSrc?.split('/'),
+	// 		// imageSrc?.split('http'),
+	// 		// imageSrc?.split('https'),
+	// 		// new URL(''),
+	// 		// imageSrc,
+	// 		// {
+	// 		// 	isImageUrlIsInCorrectFormat,
+	// 		// 	imageUrl,
+	// 		// 	src
+	// 		// }
+	// 	);
+	// }
 
 	return (
 		<Image
 			{...props}
-			src={isImageUrlIsInCorrectFormat ? imageUrl : defaultImageUrl}
+			key={imageUrl?.toString()}
+			src={
+				isValidUrl(imageUrl?.toString()) ? imageUrl : defaultImageUrl
+			}
 			alt={alt || ''}
 			onError={onErrorHandler}
-			// fill={fill}
-			// width={width}
-			// height={height}
-			// className={className}
-			// actions
 		/>
 	);
 }; // End of ImageWithErrorHandler

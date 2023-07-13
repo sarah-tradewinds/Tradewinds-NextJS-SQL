@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 // components
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 
@@ -5,7 +7,6 @@ interface CardBProps {
 	imageUrl: string;
 	alt?: string;
 	title: string;
-	name: string;
 	subtitle: string;
 	description: string;
 	href: string;
@@ -17,7 +18,6 @@ const CardB: React.FC<CardBProps> = (props) => {
 		title,
 		imageUrl,
 		alt,
-		name,
 		subtitle,
 		description,
 		href,
@@ -25,39 +25,24 @@ const CardB: React.FC<CardBProps> = (props) => {
 	} = props;
 
 	return (
-		<div className="flex h-[153px] w-[203px] flex-col rounded-md bg-secondary p-3 transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg md:h-[240px] md:w-[226px] md:p-0 lg:h-[352px] lg:w-[466px]">
-			<h2 className="md:leading[24px] font-mont text-[15px] font-bold capitalize leading-[18px] text-primary-main dark:text-accent-secondary-eco md:ml-[10.48px] md:mt-[3px] md:pt-[3px] md:text-[20px] lg:ml-[18px] lg:mt-[8px] lg:h-[66px] lg:pt-[3px] lg:text-[25px] lg:leading-[30px]">
-				{title}
+		<div className="h-[153px] w-[203px] overflow-hidden rounded-md bg-gradient-to-r from-[#E7CA00] to-[#E8A30E] sm:h-[203px] sm:w-[245px] lg:h-[244.24px] lg:w-[325.92px] xl:h-[305px] xl:w-[405.73px] desktop:h-[352px] desktop:w-[466px]">
+			<h2 className="ml-[14px] mt-[5.5px] text-[18px] font-semibold leading-[21.94px] text-gray dark:text-primary-eco sm:pt-[4px] lg:text-[21px] lg:leading-[25.6px] xl:ml-[29.85px] xl:text-[25px] xl:leading-[30.48px] desktop:ml-[34px]">
+				<Link href={href}>{title}</Link>
 			</h2>
-			<div className="mt-2 flex h-full items-center md:mt-[6.04px]">
-				<div>
-					<div className="relative md:ml-[9.48px] md:h-[52.66px] md:w-[60px] lg:mt-[10px] lg:ml-[21px] lg:h-[129.2px] lg:w-[147.2px] ">
-						<ImageWithErrorHandler
-							src={imageUrl}
-							alt={alt || ''}
-							fill={true}
-						/>
-					</div>
+
+			<div className="justify-centers mt-[12px] ml-[11px] flex items-center space-x-[12px] sm:mt-[29.51px] sm:justify-start sm:space-x-[24.11px] lg:mt-[16.4px] lg:ml-[14.69px] lg:space-x-[32.17px] xl:mt-[40.52px] xl:ml-[18.28px] xl:space-x-[40.05px] desktop:mt-[51px] desktop:ml-[21px] desktop:space-x-[46px]">
+				<div className="relative h-[76.75px] w-[72.32px] lg:h-[96.52px] lg:w-[102.43px] xl:h-[127.91px] xl:w-[120.15px] desktop:h-[147.62px] desktop:w-[138px]">
+					<ImageWithErrorHandler
+						src={imageUrl}
+						alt={alt || ''}
+						fill={true}
+					/>
 				</div>
 
-				<div className="flex-cols flex lg:ml-2">
-					<p className="font-mont text-[12px] text-white md:text-[13px] md:leading-4 lg:text-xs lg:leading-[20px]">
-						{subtitle}
-					</p>
-					{/* <Button
-						href={href}
-						variant="buyer"
-						className="!mt-2 !flex !min-h-[25.95px] !items-center !justify-center whitespace-nowrap !px-0 !py-0 shadow-lg transition-colors duration-300 ease-in-out hover:bg-accent-secondary-main/70 lg:!mt-3 lg:block lg:h-[25.95px] lg:!w-[138.39px] lg:!text-[18px] lg:!leading-[22px]"
-					>
-						{buttonText || 'Learn More'}
-					</Button> */}
-				</div>
+				<p className="w-[121.58px] text-[10px] text-white sm:block lg:w-[162.26px] lg:text-[14.41px] lg:leading-[17.57px] xl:w-[202px] xl:text-[18px] xl:leading-[21.94px] desktop:w-[232px] desktop:text-[21px] desktop:leading-[25.6px]">
+					{subtitle}
+				</p>
 			</div>
-
-			{/* <p className="font-mont text-gray md:mt-[16.92px] md:ml-[10.48px] md:mr-[14.05px] md:text-[16px] md:leading-5 lg:mt-[23px] lg:text-lg lg:leading-[22px] pc:hidden">
-				<span className="text-home font-mont font-bold dark:text-accent-secondary-eco md:break-all"></span>
-				{description}
-			</p> */}
 		</div>
 	);
 };

@@ -24,12 +24,14 @@ import SkeletonProductTile from './skeleton-product-tile';
 interface ProductListProps {
 	isLoading?: boolean;
 	products: any[];
+	className?: string;
 	onCompareClick: (payload: any) => any;
 }
 
 const ProductList: React.FC<ProductListProps> = ({
 	isLoading,
 	products,
+	className,
 	onCompareClick
 }) => {
 	const { locale, push } = useRouter();
@@ -141,7 +143,9 @@ const ProductList: React.FC<ProductListProps> = ({
 				]}
 			/>
 
-			<div className="grid grid-cols-1 gap-y-1 md:gap-y-[15px] lg:gap-[27px]">
+			<div
+				className={`mx-[9px] grid grid-cols-1 gap-y-[14px] sm:mx-[10px] sm:mt-[19px] sm:gap-y-[20px] md:mx-0 md:mt-[10px] md:gap-y-[15px] xl:gap-[26px] ${className}`}
+			>
 				{products.map((product, index) => {
 					console.log('product-product-product = ', product);
 
@@ -276,14 +280,14 @@ const ProductList: React.FC<ProductListProps> = ({
 								</div>
 							)}
 
-							<div className="w-full md:hidden">
+							<div className="w-full sm:hidden">
 								<MobileProductTile
 									{...productData}
 									onClick={navigateWithShallow}
 								/>
 							</div>
 
-							<div className="hidden md:block">
+							<div className="hidden sm:block">
 								<ProductTile
 									{...productData}
 									onClick={navigateWithShallow}

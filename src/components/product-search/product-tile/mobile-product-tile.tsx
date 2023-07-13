@@ -41,7 +41,7 @@ interface MobileProductTileProps {
 	onCartClick?: () => any;
 	onMessageVendorClick?: () => any;
 	onClick?: () => any;
-  
+
 	isInCompareList?: boolean;
 	isVerified?: boolean;
 	isLive?: boolean;
@@ -100,7 +100,8 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 			imageUrl={country?.imageUrl}
 			alt={country?.name}
 			title={country?.name}
-			imageContainerClassName="!w-[14px] !h-[10px]"
+			titleClassName="leading-[12.19px]"
+			imageContainerClassName="!w-[13.13px] !h-[10px]"
 		/>,
 		// isReadyToShip
 		isReadyToShip && (
@@ -109,6 +110,8 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 				imageUrl={metadataList[1].imageUrl}
 				alt={`${t('common:live_buy')}/${t('common:ready_to_ship')}`}
 				title={`${t('common:live_buy')} / ${t('common:ready_to_ship')}`}
+				titleClassName="leading-[12.19px]"
+				imageContainerClassName="!w-[13.13px] !h-[10px]"
 			/>
 		),
 		// compare
@@ -154,25 +157,26 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 		</div>
 	];
 
+	const isSalePriceAvailable = isSaleOn && !isBulkPricing;
+
 	return (
 		<div
-			className={`h-[118px] w-screen bg-white pt-2 ${
-				isEco ? 'border-2 border-accent-success' : ''
-			}`}
+			className={`w-full overflow-hidden rounded-md bg-white ${
+				isEco ? 'border-1 border-accent-success' : ''
+			} ${isSalePriceAvailable ? 'h-[132px]' : 'h-[118px]'}`}
 		>
-			<div className="flex space-x-2">
+			{/* Image and Info */}
+			<div className="flex ">
 				{/* Image Container  */}
-				<div className="relative h-[78px] !w-[120px]">
-					{/* <Link href={`/product/${slug}`}> */}
-						<div className="cursor-pointer relative h-full w-[120px] md:mt-5 md:h-[97px] lg:mt-0 lg:h-full" onClick={onClick}>
-							<ImageWithErrorHandler
-								src={imageUrl}
-								alt={alt || ''}
-								fill={true}
-								className="object-contain"
-							/>
-						</div>
-					{/* </Link> */}
+				<div className="relative flex w-[124px] items-center justify-center">
+					<div className="relative ml-[8px] mt-[8px] mr-[34px] flex h-[81px] w-[79px] items-center justify-center">
+						<ImageWithErrorHandler
+							src={imageUrl}
+							alt={alt || ''}
+							fill={true}
+							className="object-contain"
+						/>
+					</div>
 
 					{isEco && (
 						<div className="absolute top-2 left-2 lg:top-0">
@@ -186,43 +190,41 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 					)}
 				</div>
 
-				<div className="w-auto">
+				<div className="mt-[9px]">
 					{/* Product Info and keywords*/}
 					<Link
 						href={`/product/${slug}`}
-						className="text-[12px] leading-[15px] text-primary-main line-clamp-1"
+						className="text-[12px] leading-[14.63px] text-gray line-clamp-1"
 					>
 						{name}
 					</Link>
 
 					{/* Product name, description and keywords container */}
-					<div className="-mt-1s">
-						<h3 className="flex items-center text-xs font-semibold leading-[15px]">
-							{isSaleOn && !isBulkPricing ? (
-								<>
-									<span className="text-accent-error">
-										Sale ${salePrice}/piece
-									</span>
-									<span className="pl-2 text-gray line-through">
+					<div>
+						{/* Product Price */}
+						<div className="flex text-[12px] font-semibold leading-[14.63px] text-primary-main">
+							{isSalePriceAvailable ? (
+								<p className="flex flex-col">
+									<span className="">Sale ${salePrice}/piece</span>
+									<span className="text-gray line-through">
 										${productPrice}/piece
 									</span>
-								</>
+								</p>
 							) : (
-								<span className="text-primary-main">
-									{displayPrice} /piece
-								</span>
+								<span className="text-gray">{displayPrice} /piece</span>
 							)}
-						</h3>
+						</div>
 
+						{/* Minimum Order Quantity */}
 						{minOrderQuantity > 0 && (
-							<h4 className="text-xs leading-[15px] text-primary-main">
+							<h4 className="text-[12px] leading-[14.63px] text-gray">
 								{minOrderQuantity} {t('common:piece')} /
 								{t('common:min_order')}
 							</h4>
 						)}
 					</div>
 
-					<div className="mt-[5px]">
+					<div className="mt-[7px] ml-[3px] flex flex-col space-y-[4px]">
 						{metadataTileList[0]}
 						{metadataTileList[1]}
 					</div>
@@ -231,14 +233,13 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 
 			{/* Remaining metadata */}
 			<div className="flex items-center space-x-2">
-				<div className="ml-2 w-[63px]">
-					<RatingStars
-						starNumber={5}
-						rating={totalRateCount}
-						className="text-gray"
-						selectedClassName="text-secondary"
-					/>
-				</div>
+				<RatingStars
+					starNumber={5}
+					rating={totalRateCount}
+					containerClassName="space-x-[3.22px]"
+					className="!h-[10.2px] !w-[10.2px] text-gray"
+					selectedClassName="text-secondary"
+				/>
 				<div className="relative h-[23px] w-[36px]">
 					<ImageWithErrorHandler
 						src="/twmp-verified.png"
@@ -246,8 +247,10 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 						fill={true}
 					/>
 				</div>
-				{metadataTileList[2]}
-				{metadataTileList[3]}
+				<div className="flex items-center space-x-[15px] pl-2">
+					{metadataTileList[2]}
+					{metadataTileList[3]}
+				</div>
 			</div>
 		</div>
 	);

@@ -4,7 +4,6 @@ import { Fragment, useEffect, useState } from 'react';
 import { HiSparkles } from 'react-icons/hi';
 
 // components
-import Button from 'components/common/form/button';
 import Input from 'components/common/form/input';
 import { useAuthStore } from 'store/auth';
 
@@ -209,27 +208,28 @@ const SignUp: React.FC = () => {
 	return (
 		<Modal
 			open={isSignUpOpen}
-			className="top-14 !z-[51000] mx-4 transform md:top-40 md:mx-20 lg:left-1/2 lg:top-1/2 lg:mx-0 lg:-translate-x-1/2 lg:-translate-y-1/2"
+			className="left-1/2 top-1/2 !z-[51000] mx-0 -translate-x-1/2 -translate-y-1/2 transform"
+			// className="left-1/2 !z-[51000] -translate-x-1/2 transform"
 			onClose={setIsSignUpOpen}
 			overlayClassName="!z-[51000]"
 		>
-			<div className="ml-2 flex  items-center justify-center">
+			<div className=" flex  items-center justify-center">
 				{!signupResult.result ? (
-					<div className="flex justify-center rounded-md bg-white shadow-md md:mt-12 md:w-[740px] md:py-4 lg:w-[1000px] lg:justify-start lg:px-16">
-						<div className="flex h-[640px] flex-col items-center overflow-auto border-gray/40 py-8 md:h-auto lg:w-full lg:border-r lg:py-0 lg:pr-24">
-							<h2 className="mb-8 border-b border-gray/40 pb-4 text-3xl font-semibold text-black md:text-4xl">
+					<div className="flex h-[513px] w-[290px] justify-center rounded-md bg-white pr-[15px]  pl-[15px] shadow-md sm:h-[530px] sm:w-[450px]  sm:pr-[18px] sm:pl-[18px] md:!h-[693px] md:!w-[720px]  md:!pr-[40px] md:!pl-[46px]">
+						<div className="flex  h-[513px] w-full flex-col items-center overflow-auto border-gray/40 pt-[20px] pb-[10px] pr-[0px] sm:h-[530px] sm:w-full sm:pt-[23px] sm:pb-[15px] sm:pr-[0px] md:!h-[675px] md:!w-full md:!border-r  md:!pt-0 md:!pb-[20px] md:!pr-[51px]">
+							<p className="hidden border-b border-gray/40 text-center font-semibold text-black sm:hidden md:!mb-[27px] md:!mt-[61px] md:!block md:!w-full md:!pb-[13px] md:!text-[25px]  md:!leading-[30px]">
 								{t('auth:create_an_account')}
-							</h2>
+							</p>
 
-							<div className="flex w-full justify-center border-b border-gray/40 pb-4">
-								<form className="space-y-4 px-8 lg:w-[360px] lg:px-0">
+							<div className="flex w-full justify-center ">
+								<form className=" w-full space-y-[9px]  sm:w-[414px] md:!w-[285px]">
 									<Input
 										name="first_name"
 										placeholder={t('auth:give_name')}
 										icon={<HiSparkles />}
 										isSmall={true}
 										required={true}
-										className="w-full"
+										className=" w-full"
 										invalid={error?.first_name}
 										onChange={(e: React.FormEvent<HTMLInputElement>) =>
 											onChange(
@@ -385,8 +385,8 @@ const SignUp: React.FC = () => {
 											{error?.confirm_password}
 										</span>
 									)}
-									<div className="mx-2  text-gray">
-										<div className="flex space-x-2">
+									<div className=" ml-[15px] text-gray sm:ml-[20px] md:!ml-[25px]">
+										<div className=" mt-[7px] flex space-x-[16px] sm:mt-[7px] sm:space-x-[16px] md:!mt-[9px] md:!space-x-[18px]">
 											<Input
 												name="is_subscribe_to_email"
 												type="checkbox"
@@ -399,12 +399,12 @@ const SignUp: React.FC = () => {
 											/>
 											<label
 												htmlFor="is_subscribe_to_email"
-												className="text-sm"
+												className="text-[12px]"
 											>
 												{t('auth:send_me_occasional_emails_about_twm')}
 											</label>
 										</div>
-										<div className="flex space-x-2">
+										<div className="mt-[7px] flex space-x-[16px] sm:mt-[7px] sm:space-x-[16px] md:!mt-[9px] md:!space-x-[18px]">
 											<Input
 												name="is_accept_to_terms"
 												type="checkbox"
@@ -423,9 +423,8 @@ const SignUp: React.FC = () => {
 											</label>
 										</div>
 									</div>
-									<Button
-										variant="product"
-										className="w-full"
+									<button
+										className="ml-0 h-[35px] w-full rounded-md bg-light_green text-center text-[15px] text-white sm:ml-[78px] sm:h-[31px] sm:w-[257px] sm:text-[15px] md:!ml-0 md:!h-[35px] md:!w-full md:!text-[18px]"
 										disabled={loading}
 										onClick={(e: React.MouseEvent<HTMLElement>) =>
 											createUser(e)
@@ -433,7 +432,7 @@ const SignUp: React.FC = () => {
 									>
 										{loading ? BUTTON_SPINNER : null}{' '}
 										<>{t('auth:create_my_account')}</>
-									</Button>
+									</button>
 
 									{signupResult.signupDone && !signupResult?.result && (
 										<span
@@ -451,36 +450,38 @@ const SignUp: React.FC = () => {
 								</form>
 							</div>
 							<div>
-								<Button
-									className="mt-4 rounded-lg border border-accent-primary-main !text-accent-primary-main"
+								<button
+									className="ml-0 mt-[20px] h-[35px]  w-[260px] rounded-md bg-cyan text-center text-[12px] text-white sm:mt-[20px] sm:h-[31px] sm:w-[257px] sm:text-[15px] md:!mt-[23px] md:!h-[35px] md:!w-[278px] md:!text-[12px]"
 									onClick={() => {
 										authStore.setIsSignUpOpen();
 										authStore.setIsLoginOpen();
 									}}
 								>
 									{t('auth:already_have_an_account_log_in')}
-								</Button>
+								</button>
 							</div>
 						</div>
 
 						{/* Logos */}
-						<div className="hidden w-full flex-col items-center justify-center lg:flex">
-							<div className="relative h-[260px] w-[260px]">
-								<ImageWithErrorHandler
-									src="/TW-Create an account page-02.png"
-									alt=""
-									fill={true}
-									className="object-contain"
-								/>
-							</div>
+						<div className="hidden w-full flex-col items-end justify-center  sm:hidden md:!flex">
+							<div className="space-y-[31px]">
+								<div className="relative mx-auto h-[170px]  w-[129px]">
+									<ImageWithErrorHandler
+										src="/TW-Create an account page-02.png"
+										alt=""
+										fill={true}
+										className="object-contain"
+									/>
+								</div>
 
-							<div className="relative h-[260px] w-[260px]">
-								<ImageWithErrorHandler
-									src="/TW-Create an account page-03.png"
-									alt=""
-									fill={true}
-									className="object-contain"
-								/>
+								<div className="relative h-[123px] w-[217px]">
+									<ImageWithErrorHandler
+										src="/TW-Create an account page-03.png"
+										alt=""
+										fill={true}
+										className="object-contain"
+									/>
+								</div>
 							</div>
 						</div>
 					</div>

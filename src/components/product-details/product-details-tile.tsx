@@ -27,6 +27,7 @@ import {
 	sendMessageToSeller
 } from 'lib/common.lib';
 import { useTranslation } from 'next-i18next';
+import Image from 'next/image';
 import { useState } from 'react';
 import {
 	MdBookmark,
@@ -245,6 +246,7 @@ const ProductDetailsTile: React.FC<{
 	const images = product?.images?.length
 		? product?.images
 		: selectedVariant?.images || [];
+
 	const masterImageUrl = images?.[0];
 
 	const options: { [key: string]: any } = {};
@@ -449,6 +451,114 @@ const ProductDetailsTile: React.FC<{
 	const productDescription =
 		getLocaleText(description || {}, locale) || '';
 
+	// Start Handlers
+	const sendMessageVendorHandler = () => {}; // End of sendMessageVendorHandler
+
+	// const sendMessageVendorHandler = () => {
+
+	// }// End of sendMessageVendorHandler
+	// End Handlers
+
+	const messageVendor = (
+		<button
+			onClick={() => setIsMessageVendorPopupOpen(true)}
+			className="relative mt-[14.18px] flex h-[32.5px] w-[239.67px] items-center justify-center rounded-lg border-[1.74px] border-[#33A7DF] sm:mt-0 sm:h-[12.17px] sm:w-[89.75px] sm:rounded-sm md:h-[14.6px] md:w-[107.69px] lg:h-[15.65px] lg:w-[114.85px] xl:h-[23px]  xl:w-[169.64px] desktop:rounded-md"
+		>
+			<div className="absolute left-0 top-0 bottom-0 flex h-full w-[32px] items-center justify-center bg-cyan sm:w-[16px]">
+				<div className="relative h-[22.02px] w-[24px] sm:h-[8.32px] sm:w-[9.77px]">
+					<Image
+						src="/icons/message-vendor-white-outline-icon.svg"
+						alt="message-vendor-white-outline-icon"
+						fill={true}
+					/>
+				</div>
+			</div>
+
+			<p className="ml-[24px] text-[19.6px] font-semibold leading-[23.89px] text-cyan sm:ml-[16.28px] sm:text-[7.34px] sm:leading-[8.95px] lg:text-[9.44px] lg:leading-[11.51px] xl:text-[13.87px] xl:leading-[16.91px]">
+				Message Vendor
+			</p>
+		</button>
+	);
+
+	const submitRFQ = (
+		<button className="relative flex items-center rounded-lg border-[1.74px] border-[#33A7DF] sm:rounded-sm lg:h-[15.65px] lg:w-[114.85px] xl:h-[23px] xl:w-[169.64px] desktop:rounded-md">
+			<div className="absolute top-0 bottom-0 flex h-full w-[31.08px] items-center justify-center bg-cyan sm:w-[9.77px] lg:w-[16px]">
+				<div className="relative h-[22.02px] w-[24px] sm:h-[8.32px] sm:w-[9.77px]">
+					<Image
+						src="/icons/message-vendor-white-outline-icon.svg"
+						alt="message-vendor-white-outline-icon"
+						fill={true}
+					/>
+				</div>
+			</div>
+
+			<span className="ml-[62.17px] text-[19.6px] font-semibold leading-[23.89px] text-cyan sm:ml-[16.28px] sm:text-[7.34px] sm:leading-[8.95px] lg:ml-[32px] lg:text-[9.44px] lg:leading-[11.51px] xl:text-[13.87px] xl:leading-[16.91px]">
+				Submit RFQ
+			</span>
+		</button>
+	);
+
+	const baseButtonClass =
+		'flex h-[32.5px] w-[239.67px] items-center justify-center sm:h-[12.17px] md:w-[107.69px] md:h-[14.6px] sm:w-[89.75px] lg:w-[114.85px] lg:h-[15.65px] rounded-lg sm:rounded-sm desktop:rounded-md xl:w-[169.64px] xl:h-[23px]';
+
+	const actionButtons = (
+		<div className="-mt-4 flex flex-col items-center space-y-[22.01px] sm:flex-row sm:space-x-[30.35px] sm:space-y-0">
+			{/* Message Vendor */}
+			<div className="hidden sm:block">{messageVendor}</div>
+
+			{/* Submit RFQ button */}
+			<button
+				className={`${baseButtonClass} bg-gradient-to-r from-[#E7CA00] via-[#E8A30E] to-[#E8A30E] sm:h-[12.17px]`}
+			>
+				<div className="flex items-center space-x-[8.79px]">
+					<div className="relative h-[24.02px] w-[31.08px] sm:h-[8.99px] sm:w-[11.64px]">
+						<Image
+							src="/icons/rfq-white-outline-icon.svg"
+							alt="rfq-white-outline-icon"
+							fill={true}
+						/>
+					</div>
+
+					<span className="text-[19.6px] font-semibold leading-[23.89px] text-white sm:text-[7.34px] sm:leading-[8.95px] lg:text-[9.44px] lg:leading-[11.51px] xl:text-[13.87px] xl:leading-[16.91px]">
+						Submit an RFQ
+					</span>
+				</div>
+			</button>
+
+			{/* ADD to Cart button */}
+			<button
+				onClick={onAddToCart}
+				className={`${baseButtonClass} border-[1.41px] border-[#37B04A]`}
+			>
+				<div className="flex items-center space-x-[8.79px]">
+					<div className="relative h-[24.02px] w-[31.08px] sm:h-[8.99px] sm:w-[11.64px] lg:h-[11.57px] lg:w-[14.29px]">
+						<Image
+							src="/icons/cart-green-outline-icon.svg"
+							alt="cart-icon"
+							fill={true}
+						/>
+					</div>
+					<span className="text-[19.6px] font-semibold leading-[23.89px] text-[#37B04A] sm:text-[7.34px] sm:leading-[8.95px] lg:text-[9.44px] lg:leading-[11.51px] xl:text-[13.87px] xl:leading-[16.91px]">
+						Add to Cart
+					</span>
+				</div>
+			</button>
+		</div>
+	);
+
+	const productFeatures = (
+		<ul className="ml-6 list-disc">
+			{product_features?.map((productFeature: any) => (
+				<li
+					key={productFeature?.en}
+					className="text-[12px] leading-[22px] text-[#575858] md:text-[10px] md:leading-[13.23px] lg:text-[12px] lg:leading-[14.97px] xl:text-[15px] xl:leading-[22px]"
+				>
+					{getLocaleText(productFeature, locale)}
+				</li>
+			))}
+		</ul>
+	);
+
 	return (
 		<>
 			<MessageVendorPopup
@@ -473,31 +583,31 @@ const ProductDetailsTile: React.FC<{
 				}}
 			/>
 
-			<div className="grid grid-cols-12 gap-y-8 bg-white md:gap-8">
+			<div className="justify-end bg-white sm:flex sm:flex-row-reverse md:flex-row md:justify-start">
 				{/* Images container */}
 				<ImageContainer
 					key={masterImageUrl}
-					className="col-span-12 md:first-letter:p-8 lg:col-span-5"
+					className="pt-[7px] md:pt-[5px] desktop:ml-[48px]"
 					imageUrl={masterImageUrl}
 					alt=""
 					thumbnails={images || []}
 				/>
 
 				{/* Product details */}
-				<div className="col-span-12 overflow-y-auto px-5 md:py-8 md:pl-20 lg:col-span-7 lg:h-[786px] lg:p-8">
+				<div className="mt-[16px] ml-[13px] mr-[13px] sm:w-[345px] md:ml-[40.49px] md:mr-[19.35px] md:w-[392.04px] lg:mr-[41.61px] lg:!w-[540px] xl:!w-[652px] 840px:w-auto desktop:ml-[164px]">
 					{/* Product name and sku info */}
 					<div className="flex items-center justify-between">
-						<h1 className="text-[18px] font-semibold capitalize leading-[22px] text-primary-main md:text-[30px] md:leading-[37px]">
+						<h1 className="text-[18px] font-semibold capitalize leading-[21.94px] text-gray sm:text-[15px] sm:leading-[18.29px] md:text-[18px] md:leading-[21.94px] lg:text-[20px] lg:leading-[24.38px] xl:text-[30px] xl:leading-[36.57px]">
 							{productName}
 						</h1>
-						<p className="hidden text-[25px] font-semibold uppercase text-gray/40 md:block">
+						<p className="hidden font-semibold uppercase  text-gray/40 lg:block lg:text-[20px] lg:leading-[24.38px] xl:text-[30px] xl:leading-[36.57px]">
 							{inventory?.sku}
 						</p>
 					</div>
 
 					{/* Price and quantity info */}
-					<div className="my-2 flex justify-between text-[12px] font-semibold text-primary-main md:mt-[13px]">
-						<h3 className="flex items-center space-x-8 text-xs font-semibold capitalize leading-[15px] md:text-[21px] md:leading-[26px]">
+					<div className="my-2 flex justify-between text-[12px] font-semibold text-primary-main sm:mt-0 sm:items-center sm:justify-start sm:space-x-4 sm:text-[10.83px] sm:leading-[13.21px] md:mt-[13px]">
+						<h3 className="flex items-center space-x-8 text-xs font-semibold capitalize leading-[15px] sm:space-x-2 md:text-[13px] md:leading-[15.85px] lg:text-[15px] lg:leading-[18.29px] xl:text-[21px] xl:leading-[25.6px]">
 							{selectedVariant?.is_on_sale && !is_bulk_pricing ? (
 								<>
 									<span className="text-accent-error">
@@ -516,19 +626,20 @@ const ProductDetailsTile: React.FC<{
 						</h3>
 
 						{minOrderQuantity > 0 && (
-							<div className="text-xs font-semibold capitalize leading-[15px] md:text-[21px] md:leading-[26px]">
+							<div className="text-xs font-semibold capitalize leading-[15px] text-gray sm:flex sm:items-center sm:space-x-2 sm:text-[10.83px] sm:leading-[13.21px] md:space-x-4 md:text-[13px] md:leading-[15.85px] lg:text-[15px] lg:leading-[18.29px] xl:text-[21px] xl:leading-[25.6px]">
 								<h4>
-									{/* {minOrderQuantity} {t('common:piece')} / */}
 									{minOrderQuantity} {minOrderQuantityUnit} /
 									{t('common:min_order')}
 								</h4>
-								<p>Lead Time: {product?.lead_time}</p>
+								<p className="hidden sm:block">
+									Lead Time: {product?.lead_time}
+								</p>
 							</div>
 						)}
 					</div>
 
 					{/* Metadata list */}
-					<div className="mt-2 grid grid-cols-2 gap-[15px] text-gray md:grid-cols-3">
+					<div className="mt-2 grid grid-cols-2 gap-[15px] text-gray sm:grid-cols-3 sm:gap-[8px] md:grid-cols-3">
 						{/* country of origin */}
 						{metadataTileLists[0]}
 						{/* isReadyToShip */}
@@ -544,22 +655,24 @@ const ProductDetailsTile: React.FC<{
 					</div>
 
 					{/* Rating, review count and verified Image */}
-					<div className="mt-[28px] hidden items-center pb-4 md:flex">
-						<div className="flex items-center md:mr-[79px]">
+					<div className="mt-[28px] hidden items-center md:mt-[10.25px] md:flex md:justify-between lg:pr-[32px]">
+						<div className="md:mr-[79px]s flex items-center">
 							<RatingStars
 								starNumber={5}
 								rating={total_rate_count}
-								containerClassName="w-[149px] justify-between"
-								className="h-[23.7px] w-[23.7px] text-gray"
+								containerClassName="w-[149px] md:w-[89.59px] lg:w-[101.37px] lg:h-[16.13px] xl:w-[149px] xl:h-[23.7px] justify-betweens md:space-x-[4.58px]"
+								className="h-[23.7px] w-[23.7px] text-gray md:h-[14.25px] md:w-[14.25px]"
 								selectedClassName="text-secondary"
 							/>
-							<p className="text-center text-[13px] leading-4 text-secondary md:ml-[7px]">
+							<p className="text-center text-[13px] leading-4 text-secondary md:ml-[7px] md:text-[7.82px] md:leading-[9.53px] lg:text-[8.84px] lg:leading-[10.78px] xl:text-[13px] xl:leading-[15.85px]">
 								{total_review_count} {t('common:reviews')}
 							</p>
 						</div>
 
+						<div className="hidden lg:block">{submitRFQ}</div>
+
 						{/* {!is_verified && ( */}
-						<div className="relative h-[30px] w-[162px]">
+						<div className="relative h-[30px] w-[162px] md:h-[17.42px] md:w-[97.43px]">
 							<ImageWithErrorHandler
 								src="/tradewinds-horizontal-logo.png"
 								alt=""
@@ -568,7 +681,7 @@ const ProductDetailsTile: React.FC<{
 						</div>
 						{/* )} */}
 
-						{is_eco && (
+						{/* {is_eco && (
 							<div className="ml-20 flex items-center space-x-2">
 								<ImageWithErrorHandler
 									src="/static/icons/eco-icon.png"
@@ -578,57 +691,78 @@ const ProductDetailsTile: React.FC<{
 								/>
 								<span className="font-semibold text-green">ECO</span>
 							</div>
-						)}
+						)} */}
+					</div>
+
+					{/* Message Vendor button only for mobile*/}
+					<div className="flex justify-center sm:hidden">
+						{messageVendor}
 					</div>
 
 					{/* Product name and description */}
-					<div className="mt-[15px] border-t-2 border-[#DEDFE0] pt-[13px] md:border-b-2 md:pt-[19px] md:pb-[25.64px]">
+					<div className="mt-[15px] border-b border-[#DEDFE0] pt-[13px] pb-[25.64px] sm:border-none sm:pb-0 md:border-t-[1.2px] md:pt-[19px]">
 						<div className="flex items-start">
-							<h2 className="overflow-clips h-[49px]s whitespace-pre-wrap text-xs leading-[22px] text-gray md:text-[15px]">
-								{productDescription?.length > 150
-									? productDescription?.substring(
-											0,
-											isProductDescriptionSectionExpanded
-												? productDescription?.length
-												: 150
-									  )
-									: productDescription}
+							{/* For Small Screen */}
+							<div className="sm:hidden">
+								<h2 className="text-[12px] leading-[22px] text-gray">
+									<span className="font-semibold">{productName}:</span>
+									<span>{productDescription}</span>
+								</h2>
+								{productFeatures}
+							</div>
 
-								{productDescription?.length > 150 && (
-									<button
-										className="pl-2 text-[15px] font-bold text-cyan"
-										onClick={() =>
-											setIsProductDescriptionSectionExpanded(
-												(prevState) => !prevState
-											)
-										}
-									>
-										{isProductDescriptionSectionExpanded
-											? 'Less'
-											: 'More'}
-									</button>
-								)}
+							{/* For Large Screen */}
+							<h2 className="h-[49px]s hidden whitespace-pre-wrap text-xs leading-[22px] text-gray sm:block md:block md:text-[10px] md:leading-[13.23px] lg:text-[12px] lg:leading-[14.97px] xl:text-[15px] xl:leading-[22px]">
+								<span className="font-semibold capitalize">
+									{productName}:{' '}
+								</span>
+								<span>
+									{productDescription?.length > 150
+										? productDescription?.substring(
+												0,
+												isProductDescriptionSectionExpanded
+													? productDescription?.length
+													: 150
+										  )
+										: productDescription}
+
+									{productDescription?.length > 150 && (
+										<button
+											className="pl-2 font-bold text-cyan"
+											onClick={() =>
+												setIsProductDescriptionSectionExpanded(
+													(prevState) => !prevState
+												)
+											}
+										>
+											{isProductDescriptionSectionExpanded
+												? 'Less'
+												: 'More'}
+										</button>
+									)}
+								</span>
 							</h2>
 
 							{productDescription?.length > 150 && (
-								<Button
+								<button
 									onClick={() =>
 										setIsProductDescriptionSectionExpanded(
 											(prevState) => !prevState
 										)
 									}
+									className="hidden outline-none sm:block"
 								>
 									{isProductDescriptionSectionExpanded ? (
-										<ChevronDownIcon className="h-10 w-10 text-gray" />
+										<ChevronDownIcon className="h-10 w-10 text-gray sm:h-5 sm:w-5" />
 									) : (
-										<ChevronLeftIcon className="h-10 w-10 text-gray" />
+										<ChevronLeftIcon className="h-10 w-10 text-gray sm:h-5 sm:w-5" />
 									)}
-								</Button>
+								</button>
 							)}
 						</div>
 
 						{/* Actions */}
-						<div className="mt-[25px] hidden items-center space-x-2 md:flex">
+						<div className="mt-[25px] hidden items-center space-x-2 md:mt-[12.96px]">
 							{/* cart */}
 							<div title={!is_live ? 'Message Vendor' : ''}>
 								<Button
@@ -682,87 +816,95 @@ const ProductDetailsTile: React.FC<{
 						</div>
 					</div>
 
+					{/* Action Buttons only for medium and large device */}
+					<div className="hidden border-b border-[#DEDFE0] pb-[19.3px] sm:mt-[33.77px] sm:block">
+						{actionButtons}
+					</div>
+
 					{/* Additional info */}
-					<div className="md:mt-[21px]s hidden space-y-4 md:block">
+					<div className="md:block">
 						{/* Bulk Pricing */}
-						<div ref={sliderRef} className="keen-slider">
-							{is_bulk_pricing &&
-								bulk_pricing?.map((bulkPrice: any, index: any) => (
-									<div
-										key={`${bulkPrice.range}_${bulkPrice.price}_${index}`}
-										className="keen-slider__slide"
-									>
-										<p className="text-primary-main md:text-lg ">
-											<span className="font-semibold">
-												{bulkPrice.start_range}-{bulkPrice.end_range}
-												{/* {bulkPrice.range} */}
-											</span>{' '}
-											{t('common:piece')}= ${bulkPrice.price}
-										</p>
-									</div>
-								))}
-						</div>
-
-						{/* Variants Options And Values */}
-						{updatedOptionsAndValueLists?.map(
-							(optionAndValueList: any, index: number) => {
-								if (!optionAndValueList) {
-									return null;
-								}
-
-								const {
-									id,
-									name,
-									values = []
-								} = optionAndValueList || {};
-								const showImage = index === 0;
-
-								const filteredOptionAndValue =
-									selectedOptionAndValue?.[id];
-								console.log(
-									'filteredOptionAndValue =',
-									filteredOptionAndValue
-								);
-								const selectedOptionValue =
-									filteredOptionAndValue?.value?.name || '';
-
-								return (
-									<ProductOptionsValuesAccordion
-										key={index}
-										productVariants={variants || []}
-										showImage={showImage}
-										selectedOptionAndValue={selectedOptionAndValue}
-										optionAndValues={optionAndValueList}
-										onOptionAndValueSelect={onOptionAndValueSelect}
-									/>
-								);
-							}
-						)}
-
-						{/* Product Feature */}
-						{product_features?.length > 0 && (
-							<div>
-								<p className="text-[15px] font-semibold leading-[22px] text-[#575858]">
-									Product features:
-								</p>
-								<ul className="ml-6 list-disc text-[15px] leading-[22px] text-[#575858]">
-									{product_features?.map((productFeature: any) => (
-										<li key={productFeature?.en}>
-											{getLocaleText(productFeature, locale)}
-										</li>
+						{is_bulk_pricing && (
+							<div className="mb-2 sm:w-[345px] md:w-[392.04px] lg:!w-[540px] 840px:w-auto">
+								<div ref={sliderRef} className="keen-slider">
+									{bulk_pricing?.map((bulkPrice: any, index: any) => (
+										<div
+											key={`${bulkPrice.range}_${bulkPrice.price}_${index}`}
+											className="keen-slider__slide"
+										>
+											<p className="whitespace-nowrap text-primary-main md:text-lg">
+												<span className="font-semibold">
+													{bulkPrice.start_range}-{bulkPrice.end_range}
+												</span>{' '}
+												{t('common:piece')}= ${bulkPrice.price}
+											</p>
+										</div>
 									))}
-								</ul>
+								</div>
 							</div>
 						)}
 
-						<p className="text-[21px] leading-[26px] text-primary-main">
+						{/* Variants Options And Values */}
+						<div className="">
+							{updatedOptionsAndValueLists?.map(
+								(optionAndValueList: any, index: number) => {
+									if (!optionAndValueList) {
+										return null;
+									}
+
+									const { id } = optionAndValueList || {};
+									const showImage = index === 0;
+
+									const filteredOptionAndValue =
+										selectedOptionAndValue?.[id];
+
+									const isLastItem =
+										updatedOptionsAndValueLists?.length === index + 1;
+
+									return (
+										<div
+											key={index}
+											className={`mt-1 border-b border-[#DEDFE0] pb-[15.95px] md:border-b-[1.2px] lg:border-b-[1.36px] xl:border-b-2 ${
+												isLastItem ? '!border-none' : ''
+											}`}
+										>
+											<ProductOptionsValuesAccordion
+												key={index}
+												productVariants={variants || []}
+												showImage={showImage}
+												selectedOptionAndValue={selectedOptionAndValue}
+												optionAndValues={optionAndValueList}
+												onOptionAndValueSelect={onOptionAndValueSelect}
+											/>
+										</div>
+									);
+								}
+							)}
+						</div>
+
+						{/* Action Buttons */}
+						<div className="space-y-[22.01px]s flex flex-col items-center sm:hidden">
+							{actionButtons}
+						</div>
+
+						{/* Product Feature */}
+						{product_features?.length > 0 && (
+							<div className="hidden sm:block md:pb-[16px]">
+								<p className="font-semibold leading-[22px] text-[#575858] sm:text-[12px] sm:leading-[14.63px] md:text-[10px] md:leading-[13.23px] lg:text-[15px]">
+									Product features:
+								</p>
+								<div>{productFeatures}</div>
+							</div>
+						)}
+
+						{/* <p className="hidden text-[21px] leading-[26px] text-primary-main xl:block">
 							<span className="font-semibold capitalize">
 								{t('common:customizable')}:
 							</span>{' '}
 							<span>
 								{is_customizable ? t('common:yes') : t('common:no')}
 							</span>
-						</p>
+						</p> */}
 					</div>
 				</div>
 			</div>

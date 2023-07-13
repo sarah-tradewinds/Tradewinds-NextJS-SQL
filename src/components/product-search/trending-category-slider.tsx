@@ -12,6 +12,8 @@ const TrendingCategorySlider: React.FC<{
 	onTileClick?: (categoryId: string, data: any) => any;
 	className?: string;
 	selectedTitleClassName?: string;
+	slideContainerClassName?: string;
+	numOfSlidesToShow?: number;
 }> = (props) => {
 	const slider = useRef(null);
 	const router = useRouter();
@@ -23,17 +25,35 @@ const TrendingCategorySlider: React.FC<{
 		onTileClick,
 		selectedCategoryIds,
 		className,
-		selectedTitleClassName = ''
+		selectedTitleClassName = '',
+		slideContainerClassName,
+		numOfSlidesToShow
 	} = props;
 
-	let slideToShow = 2;
-	if (deviceWidth >= 1512) {
-		slideToShow = 3;
+	let slidesToShow = 2;
+	if (deviceWidth >= 1700) {
+		slidesToShow = 3.4;
+	} else if (deviceWidth >= 1512) {
+		slidesToShow = 3;
+	} else if (deviceWidth >= 1280) {
+		slidesToShow = 2;
+	} else if (deviceWidth >= 1024) {
+		slidesToShow = 3;
+	} else if (deviceWidth >= 950) {
+		slidesToShow = 2.8;
+	} else if (deviceWidth >= 900) {
+		slidesToShow = 2.6;
+	} else if (deviceWidth >= 830) {
+		slidesToShow = 2.1;
+	}
+
+	if (numOfSlidesToShow) {
+		slidesToShow = numOfSlidesToShow;
 	}
 
 	const settings = {
-		slidesToShow: slideToShow,
-		slidesToScroll: 3,
+		slidesToShow: slidesToShow,
+		slidesToScroll: slidesToShow,
 		speed: 500,
 		rows: 2,
 		arrows: false,
@@ -64,15 +84,15 @@ const TrendingCategorySlider: React.FC<{
 	];
 
 	return (
-		<div className="relative w-full">
+		<div className="relative w-full md:h-[80.85px] lg:h-[107.21px] xl:h-[156px] desktop:h-[159px]">
 			<button
-				className={`absolute top-1/2 -left-1 flex -translate-y-1/2 transform items-center justify-center !rounded-full border border-gray !px-0 !py-0 !text-gray md:!h-[22px] md:!w-[22px] lg:left-4 lg:!h-[33px] lg:!w-[33px] lg:border-2`}
+				className={`absolute top-1/2 -left-1 flex -translate-y-1/2 transform items-center justify-center !rounded-full border border-gray !px-0 !py-0 !text-gray tablet:!h-[22px] tablet:!w-[22px] desktop:left-0 desktop:!h-[33px] desktop:!w-[33px] desktop:border-2`}
 				onClick={() => (slider?.current as any)?.slickPrev()}
 			>
 				<MdChevronLeft className="h-full w-full" />
 			</button>
 
-			<div className={`md:ml-6 lg:ml-14 ${className}`}>
+			<div className={`tablet:ml-6 desktop:ml-10 ${className}`}>
 				<Slider ref={slider} {...settings}>
 					{updatedCategories?.map((subCat: any) => {
 						const { categories: category } = subCat as any;
@@ -90,14 +110,15 @@ const TrendingCategorySlider: React.FC<{
 						return (
 							<div
 								key={subCat.id}
-								className="transform cursor-pointer transition duration-300 ease-in-out hover:-translate-y-2"
+								className={`transform cursor-pointer transition duration-300 ease-in-out hover:-translate-y-2 lg:mb-[26.3px] xl:mb-[39px] ${slideContainerClassName}`}
 								onClick={() =>
 									onTileClick?.(categoryData?.id, categoryData)
 								}
 							>
 								<div className="flex items-center">
-									<div className="relative h-[30px] w-[30px] md:mr-[6px] lg:mr-[7px] lg:h-[60px] lg:w-[60px] lg:leading-[18px]">
+									<div className="relative min-h-[30px] min-w-[30px] lg:min-h-[40.46px] lg:min-w-[40.46px] xl:min-h-[60px] xl:min-w-[60px] tablet:mr-[6px] desktop:mr-[7px]">
 										<ImageWithErrorHandler
+											key={categoryData.image}
 											src={categoryData.image}
 											alt="bean"
 											fill={true}
@@ -106,7 +127,7 @@ const TrendingCategorySlider: React.FC<{
 									</div>
 
 									<p
-										className={`md:pb-1 md:text-[10px] md:leading-3 lg:text-[15px] lg:font-semibold ${
+										className={`flex items-center text-gray md:h-[36px] lg:h-[36.28px] lg:leading-[12.33] lg:text-[10.11] xl:h-[54px] xl:!text-[15px] xl:!leading-[18.29px] tablet:pb-1 tablet:text-[10px] tablet:leading-3 ${
 											isSelected
 												? 'border-b-4 border-secondary ' +
 												  selectedTitleClassName
@@ -114,6 +135,8 @@ const TrendingCategorySlider: React.FC<{
 										}`}
 									>
 										{subCategoryTitle}
+										{/* Electronic Components, Accessories &
+										Telecommunication */}
 									</p>
 								</div>
 							</div>
@@ -123,7 +146,7 @@ const TrendingCategorySlider: React.FC<{
 			</div>
 
 			<button
-				className={`absolute right-0 top-1/2 flex -translate-y-1/2 transform items-center justify-center !rounded-full border border-gray/80 !px-0 !py-0 !text-gray/80 md:!h-[22px] md:!w-[22px] lg:!h-[33px] lg:!w-[33px] lg:border-2`}
+				className={`absolute right-0 top-1/2 flex -translate-y-1/2 transform items-center justify-center !rounded-full border border-gray/80 !px-0 !py-0 !text-gray/80 2xl:right-0 tablet:!h-[22px] tablet:!w-[22px] desktop:!h-[33px] desktop:!w-[33px] desktop:border-2`}
 				onClick={() => (slider?.current as any)?.slickNext()}
 			>
 				<MdChevronRight className="h-full w-full" />
