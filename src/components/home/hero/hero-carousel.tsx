@@ -59,7 +59,7 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 							)}`}
 						>
 							<p
-								className="text-[24px] font-semibold lg:text-[56px] lg:leading-[69px]"
+								className="text-[24px] font-semibold lg:text-[72px] lg:leading-[88px]"
 								style={{ color: item?.color }}
 							>
 								{getLocaleText(item?.title || {}, locale)}
@@ -71,11 +71,7 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 								{getLocaleText(item?.description || {}, locale)}
 							</p>
 							<div className="flex">
-								<Button
-									href={item.action?.slug}
-									className=" lg:!h-[42px] lg:!w-[290px] lg:!text-[29px]"
-									variant="buyer"
-								>
+									<Button href={item.action?.slug} variant="buyer">
 									{getLocaleText(item?.btn_text || {}, locale)}
 								</Button>
 							</div>

@@ -614,7 +614,7 @@ const ProductDetailsTile: React.FC<{
 										Sale ${selectedVariant?.sales_price}/
 										{minOrderQuantityUnit}
 									</span>
-									<span className="text-gray line-through">
+									<span className="text-primary-main line-through xl:text-gray">
 										${product_price}/{minOrderQuantityUnit}
 									</span>
 								</>
@@ -626,7 +626,7 @@ const ProductDetailsTile: React.FC<{
 						</h3>
 
 						{minOrderQuantity > 0 && (
-							<div className="text-xs font-semibold capitalize leading-[15px] text-gray sm:flex sm:items-center sm:space-x-2 sm:text-[10.83px] sm:leading-[13.21px] md:space-x-4 md:text-[13px] md:leading-[15.85px] lg:text-[15px] lg:leading-[18.29px] xl:text-[21px] xl:leading-[25.6px]">
+							<div className="text-xs font-semibold capitalize leading-[15px] text-primary-main line-through sm:flex sm:items-center sm:space-x-2 sm:text-[10.83px] sm:leading-[13.21px] md:space-x-4 md:text-[13px] md:leading-[15.85px] lg:text-[15px] lg:leading-[18.29px] xl:text-[21px] xl:leading-[25.6px] xl:text-gray">
 								<h4>
 									{minOrderQuantity} {minOrderQuantityUnit} /
 									{t('common:min_order')}

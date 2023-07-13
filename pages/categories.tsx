@@ -97,7 +97,7 @@ const Categories: NextPage<InferGetStaticPropsType<GetStaticProps>> = ({
 								>
 									<div
 										key={mainCategoryAndCategories?.id}
-										className="flex flex-col items-center space-y-[5px]"
+										className="mt-[12px] flex flex-col items-center space-y-[5px]"
 									>
 										{/* Image */}
 										<div className="relative h-[24px] w-[24px] sm:h-[55px] sm:w-[55px]">
@@ -109,7 +109,7 @@ const Categories: NextPage<InferGetStaticPropsType<GetStaticProps>> = ({
 												fill={true}
 											/>
 										</div>
-										<p className="text-[10px] leading-[12.19px] text-gray sm:text-[14px] sm:font-semibold sm:leading-[17.07px]">
+										<p className="text-center text-[10px] leading-[12.19px] text-gray line-clamp-2 sm:text-[12px] sm:font-semibold sm:leading-[14.63px]">
 											{getLocaleText(
 												mainCategoryAndCategories?.title || {},
 												locale

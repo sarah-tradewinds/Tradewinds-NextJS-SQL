@@ -211,7 +211,7 @@ const CategoriesPage: NextPage<
 	return (
 		<div className="relative">
 			{/* Image */}
-			<div className="relative">
+			<div className="relative 3xl:container ">
 				<div className="h-[280px] w-full bg-[url(/images/6500-categories-banner.svg)] bg-center bg-no-repeat md:h-[440px] lg:h-[706px]"></div>
 
 				<div className="absolute top-8 ml-[15px] sm:top-[74px] desktop:mt-[90px] desktop:ml-[116px]">
@@ -297,19 +297,21 @@ const CategoriesPage: NextPage<
 
 											{/* Categories */}
 											<div className="mt-1">
-												{categories.map((category: any) => {
-													return (
-														<p
-															key={category.title.en}
-															className="cursor-pointer hover:text-cyan hover:underline"
-															onClick={() => {
-																generateUrl(category);
-															}}
-														>
-															{category.title.en}
-														</p>
-													);
-												})}
+												{slicedAnUnslicedCategories.map(
+													(category: any) => {
+														return (
+															<p
+																key={category.title.en}
+																className="cursor-pointer hover:text-cyan hover:underline"
+																onClick={() => {
+																	generateUrl(category);
+																}}
+															>
+																{category.title.en}
+															</p>
+														);
+													}
+												)}
 											</div>
 										</div>
 									);
