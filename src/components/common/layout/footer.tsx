@@ -1,5 +1,7 @@
 // Third party packages
 import { useTranslation } from 'next-i18next';
+import Link from 'next/link';
+import React from 'react';
 
 // store
 import { useHomeStore } from 'store/home';
@@ -41,38 +43,61 @@ const Footer: React.FC = () => {
 				<div className="ml-7 mr-[20px] grid-cols-3 grid-rows-2 pt-[57px] text-lg md:grid lg:mb-[40px] lg:flex lg:justify-between lg:pl-[74px] lg:pr-[74px]">
 					<div className=" mb-[28px] h-[116px] w-[203px]">
 						<p className=" text-xl font-bold">Customer services</p>
-						<p className=" ">
-							Help Center <br /> File a dispute <br /> Policies & rules
-						</p>
+						<p>Help Center</p>
+						<p>File a dispute</p>
+						<p>Policies & rules</p>
 					</div>
 					<div className=" mb-[28px] h-[146px] w-[166px]">
 						<p className=" text-xl font-bold">About us</p>
-						<p>
-							About TWMP.com <br /> About TWMP ECO <br /> TWMP
-							non-profit <br /> Sitemap
-						</p>
+						<p>About TWMP.com</p>
+						<p>About TWMP ECO</p>
+						<p>TWMP non-profit</p>
+						<p> Sitemap</p>
 					</div>
 					<div className=" mb-[28px] h-[176px] w-[245px]">
 						<p className=" text-xl font-bold">Source on Tradewinds</p>
-						<p>
-							Why Buy on Tradewinds <br /> Buyer Platform Features{' '}
-							<br /> All Categories <br /> Request for Quotation
-							<br /> Ready to Ship
-						</p>
+						<Link
+							href={isEco ? '/eco/why-buy' : '/why-buy'}
+							className=" hover:text-accent-primary-main"
+						>
+							{' '}
+							Why Buy on Tradewinds
+						</Link>
+
+						<p> Buyer Platform Features</p>
+						<Link
+							href={'/6500-categories'}
+							className=" hover:text-accent-primary-main"
+						>
+							{' '}
+							All Categories
+						</Link>
+						<p> Request for Quotation</p>
+						<p>Ready to Ship</p>
 					</div>
 					<div className=" mb-[28px] h-[86px] w-[211px]">
 						<p className=" text-xl font-bold">Sell on TWMP.com</p>
-						<p>
-							Why sell on TWMP <br /> Seller platform features
-						</p>
+
+						<Link
+							href={
+								isEco
+									? '/eco/why-sell-on-tradewinds'
+									: '/why-sell-on-tradewinds'
+							}
+							className=" hover:text-accent-primary-main"
+						>
+							{' '}
+							Why sell on TWMP
+						</Link>
+						<p>Seller platform features</p>
 					</div>
 					<div className=" mb-[28px] h-[218px] w-[223px]">
 						<p className=" text-xl font-bold">Help Center</p>
-						<p>
-							Account Questions <br /> Sourcing Questions <br />{' '}
-							Negotiation Questions <br /> Ordering Questions <br />{' '}
-							After Sales Questions
-						</p>
+						<p>Account Questions</p>
+						<p>Sourcing Questions</p>
+						<p> Negotiation Questions</p>
+						<p>Ordering Questions</p>
+						<p>After Sales Questions</p>
 					</div>
 				</div>
 				<div className=" ml-7 mr-[20px] mb-12 flex flex-col space-y-6 text-left text-lg md:mr-[30px] md:-mt-10 md:text-center lg:-mt-[30px] lg:h-[200px] lg:text-center">
