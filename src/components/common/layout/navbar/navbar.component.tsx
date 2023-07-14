@@ -87,9 +87,9 @@ const Header = (props: any) => {
 				}`}
 			>
 				<div className="md:mt-3">
-					{/* <AiOutlineShoppingCart className="h-[12.32px] w-[15.1px] text-white lg:h-[16.45px] lg:w-[20.15px]" /> */}
 					<CartIcon
 						count={totalItemCartItem}
+						onClick={() => router.push('/cart')}
 						iconClassName={`xl:!w-6 xl:!h-6 ${
 							isAuth ? 'md:!w-4 md:!h-4' : '!w-6 !h-6'
 						}`}

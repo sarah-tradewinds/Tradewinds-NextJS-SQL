@@ -35,7 +35,7 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 		>
 			{heroCarouselData.map((item, index) => (
 				<div
-					className="keen-slider__slide bg-errors relative h-[248px] w-full sm:h-[278px] md:h-[277.8px] lg:h-[463px] xl:h-[536px] desktop:h-[623px]"
+					className="keen-slider__slide relative h-[248px] w-full sm:h-[278px] md:h-[277.8px] lg:h-[463px] xl:h-[536px] desktop:h-[623px]"
 					key={item.id || index}
 				>
 					{/* Image */}
@@ -71,7 +71,7 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 								{getLocaleText(item?.description || {}, locale)}
 							</p>
 							<div className="flex">
-									<Button href={item.action?.slug} variant="buyer">
+								<Button href={item.action?.slug} variant="buyer">
 									{getLocaleText(item?.btn_text || {}, locale)}
 								</Button>
 							</div>

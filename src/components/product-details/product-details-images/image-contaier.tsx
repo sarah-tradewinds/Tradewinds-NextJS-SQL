@@ -13,10 +13,17 @@ interface ImageContainerProps {
 	alt: string;
 	thumbnails: string[];
 	className?: string;
+	onThumbnailImagePressed?: () => void;
 }
 
 const ImageContainer: React.FC<ImageContainerProps> = (props) => {
-	const { imageUrl, alt, thumbnails, className } = props;
+	const {
+		imageUrl,
+		alt,
+		thumbnails,
+		className,
+		onThumbnailImagePressed
+	} = props;
 
 	const [selectedImageUrl, setSelectedImageUrl] = useState(imageUrl);
 
@@ -83,9 +90,10 @@ const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 			<div className="ml-[18px] mr-[13px] sm:mt-[2.11px]">
 				<ThumbnailList
 					thumbnails={thumbnails}
-					onImageSelect={(thumbnailImageUrl) =>
-						setSelectedImageUrl(thumbnailImageUrl || imageUrl)
-					}
+					onImageSelect={(thumbnailImageUrl) => {
+						setSelectedImageUrl(thumbnailImageUrl || imageUrl);
+						onThumbnailImagePressed?.();
+					}}
 				/>
 			</div>
 		</div>

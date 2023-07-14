@@ -316,10 +316,10 @@ const CompanyProfileTab: React.FC<{
 
 								{/* About */}
 								<div className="mb-10 mt-4 sm:mt-[35px] lg:mt-16">
-									<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18.29px] text-gray md:text-[21px]">
+									<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18.29px] text-gray md:text-[21px] md:leading-6">
 										{t('common:about')}
 									</h2>
-									<p className="mt-1 text-[12px] leading-[14.63px] text-gray md:text-[18px]">
+									<p className="mt-1 text-[12px] leading-[14.63px] text-gray md:text-[18px]  md:leading-7">
 										{seller?.about_us || store_front?.about_information}
 									</p>
 								</div>

@@ -54,7 +54,7 @@ const ProductDetailsTile: React.FC<{
 		selectedVariantId
 	} = props;
 
-	const [selected, setSelected] = useState<any>({});
+	// const [selected, setSelected] = useState<any>({});
 	const [isMessageVendorPopupOpen, setIsMessageVendorPopupOpen] =
 		useState(false);
 
@@ -122,12 +122,12 @@ const ProductDetailsTile: React.FC<{
 		bulk_pricing
 	});
 
-	const country = seller_country
-		? {
-				name: getLocaleText(seller_country[0]?.name || '', locale),
-				imageUrl: seller_country[0]?.url || ''
-		  } || {}
-		: {};
+	// const country = seller_country
+	// 	? {
+	// 			name: getLocaleText(seller_country[0]?.name || '', locale),
+	// 			imageUrl: seller_country[0]?.url || ''
+	// 	  } || {}
+	// 	: {};
 
 	const sellerCountry =
 		product?.edges?.sellers?.edges?.country?.edges
@@ -243,11 +243,14 @@ const ProductDetailsTile: React.FC<{
 		</div>
 	];
 
-	const images = product?.images?.length
-		? product?.images
-		: selectedVariant?.images || [];
+	// const images = product?.images?.length
+	// 	? product?.images
+	// 	: selectedVariant?.images || [];
 
-	const masterImageUrl = images?.[0];
+	// const masterImageUrl = images?.[0];
+
+	const images = defaultVariant?.images || [];
+	const masterImageUrl = selectedVariant?.images?.[0] || '';
 
 	const options: { [key: string]: any } = {};
 	for (const variant of variants) {
@@ -481,7 +484,23 @@ const ProductDetailsTile: React.FC<{
 	);
 
 	const submitRFQ = (
-		<button className="relative flex items-center rounded-lg border-[1.74px] border-[#33A7DF] sm:rounded-sm lg:h-[15.65px] lg:w-[114.85px] xl:h-[23px] xl:w-[169.64px] desktop:rounded-md">
+		<button
+			onClick={() => {
+				if (!isAuth) {
+					setIsLoginOpen();
+				} else {
+					router.push(
+						`${generateBuyerDashboardUrl({
+							redirect_to: BUYER_DASHBOARD_PAGES.buyer_rfq,
+							action: BUYER_DASHBOARD_ACTIONS.create_rfq,
+							access_key: customerData.access.token,
+							refresh_key: customerData.refresh.token
+						})}`
+					);
+				}
+			}}
+			className="relative flex items-center rounded-lg border-[1.74px] border-[#33A7DF] sm:rounded-sm lg:h-[15.65px] lg:w-[114.85px] xl:h-[23px] xl:w-[169.64px] desktop:rounded-md"
+		>
 			<div className="absolute top-0 bottom-0 flex h-full w-[31.08px] items-center justify-center bg-cyan sm:w-[9.77px] lg:w-[16px]">
 				<div className="relative h-[22.02px] w-[24px] sm:h-[8.32px] sm:w-[9.77px]">
 					<Image
@@ -508,6 +527,20 @@ const ProductDetailsTile: React.FC<{
 
 			{/* Submit RFQ button */}
 			<button
+				onClick={() => {
+					if (!isAuth) {
+						setIsLoginOpen();
+					} else {
+						router.push(
+							`${generateBuyerDashboardUrl({
+								redirect_to: BUYER_DASHBOARD_PAGES.buyer_rfq,
+								action: BUYER_DASHBOARD_ACTIONS.create_rfq,
+								access_key: customerData.access.token,
+								refresh_key: customerData.refresh.token
+							})}`
+						);
+					}
+				}}
 				className={`${baseButtonClass} bg-gradient-to-r from-[#E7CA00] via-[#E8A30E] to-[#E8A30E] sm:h-[12.17px]`}
 			>
 				<div className="flex items-center space-x-[8.79px]">
@@ -591,6 +624,12 @@ const ProductDetailsTile: React.FC<{
 					imageUrl={masterImageUrl}
 					alt=""
 					thumbnails={images || []}
+					onThumbnailImagePressed={() => {
+						if (selectedVariantId != defaultVariant?.id) {
+							onVariantClick('');
+							setSelectedOptionAndValue({});
+						}
+					}}
 				/>
 
 				{/* Product details */}
@@ -626,7 +665,7 @@ const ProductDetailsTile: React.FC<{
 						</h3>
 
 						{minOrderQuantity > 0 && (
-							<div className="text-xs font-semibold capitalize leading-[15px] text-primary-main line-through sm:flex sm:items-center sm:space-x-2 sm:text-[10.83px] sm:leading-[13.21px] md:space-x-4 md:text-[13px] md:leading-[15.85px] lg:text-[15px] lg:leading-[18.29px] xl:text-[21px] xl:leading-[25.6px] xl:text-gray">
+							<div className="text-xs font-semibold capitalize leading-[15px] text-primary-main sm:flex sm:items-center sm:space-x-2 sm:text-[10.83px] sm:leading-[13.21px] md:space-x-4 md:text-[13px] md:leading-[15.85px] lg:text-[15px] lg:leading-[18.29px] xl:text-[21px] xl:leading-[25.6px] xl:text-gray">
 								<h4>
 									{minOrderQuantity} {minOrderQuantityUnit} /
 									{t('common:min_order')}
@@ -669,7 +708,7 @@ const ProductDetailsTile: React.FC<{
 							</p>
 						</div>
 
-						<div className="hidden lg:block">{submitRFQ}</div>
+						{/* <div className="hidden lg:block">{submitRFQ}</div> */}
 
 						{/* {!is_verified && ( */}
 						<div className="relative h-[30px] w-[162px] md:h-[17.42px] md:w-[97.43px]">
@@ -855,8 +894,8 @@ const ProductDetailsTile: React.FC<{
 									const { id } = optionAndValueList || {};
 									const showImage = index === 0;
 
-									const filteredOptionAndValue =
-										selectedOptionAndValue?.[id];
+									// const filteredOptionAndValue =
+									// 	selectedOptionAndValue?.[id];
 
 									const isLastItem =
 										updatedOptionsAndValueLists?.length === index + 1;
