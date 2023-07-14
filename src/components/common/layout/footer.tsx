@@ -66,7 +66,11 @@ const Footer: React.FC = () => {
 
 						<p> Buyer Platform Features</p>
 						<Link
-							href={'/6500-categories'}
+							href={
+								isEco
+									? '/6500-categories?is_eco=${true}'
+									: '/6500-categories'
+							}
 							className=" hover:text-accent-primary-main"
 						>
 							{' '}
