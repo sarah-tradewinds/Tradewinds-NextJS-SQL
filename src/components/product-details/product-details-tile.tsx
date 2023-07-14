@@ -59,7 +59,11 @@ const ProductDetailsTile: React.FC<{
 		useState(false);
 
 	const [sliderRef] = useKeenSlider<HTMLDivElement>({
-		slides: { perView: 4, spacing: 16 }
+		// slides: { perView: 4, spacing: 16 }
+		loop: false,
+		mode: 'snap',
+		rtl: false,
+		slides: { perView: 'auto' }
 	});
 	const [
 		isProductDescriptionSectionExpanded,
@@ -864,14 +868,14 @@ const ProductDetailsTile: React.FC<{
 					<div className="md:block">
 						{/* Bulk Pricing */}
 						{is_bulk_pricing && (
-							<div className="mb-2 sm:w-[345px] md:w-[392.04px] lg:!w-[540px] 840px:w-auto">
+							<div className="mb-2 sm:w-[345px] md:w-[392.04px] lg:!w-[540px] xl:!w-[580px] 840px:w-auto">
 								<div ref={sliderRef} className="keen-slider">
 									{bulk_pricing?.map((bulkPrice: any, index: any) => (
 										<div
 											key={`${bulkPrice.range}_${bulkPrice.price}_${index}`}
-											className="keen-slider__slide"
+											className="keen-slider__slide !min-w-max"
 										>
-											<p className="whitespace-nowrap text-primary-main md:text-lg">
+											<p className="mr-2 whitespace-nowrap text-primary-main md:text-lg">
 												<span className="font-semibold">
 													{bulkPrice.start_range}-{bulkPrice.end_range}
 												</span>{' '}
