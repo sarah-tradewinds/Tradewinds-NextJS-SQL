@@ -48,8 +48,6 @@ const HomePage: NextPage<
 		() => getHeroCarousels(false)
 	);
 
-	console.log('[heroCarousels] =', heroCarousels);
-
 	// Fetching Countries
 	const { data: homeCountries, isValidating: isCountriesValidating } =
 		useSWR(
