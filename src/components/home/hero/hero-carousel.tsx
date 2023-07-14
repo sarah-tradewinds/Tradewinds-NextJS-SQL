@@ -71,7 +71,11 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 								{getLocaleText(item?.description || {}, locale)}
 							</p>
 							<div className="flex">
-								<Button href={item.action?.slug} variant="buyer">
+								<Button
+									href={item.action?.slug}
+									variant="buyer"
+									style={{ backgroundColor: item?.btn_color }}
+								>
 									{getLocaleText(item?.btn_text || {}, locale)}
 								</Button>
 							</div>

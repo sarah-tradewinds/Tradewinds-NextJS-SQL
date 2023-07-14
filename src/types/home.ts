@@ -9,6 +9,7 @@ type HeroCarouselType = {
 	description?: any;
 	action?: any;
 	btn_text?: string;
+	btn_color?: string;
 	color?: string;
 	horizonatal_alignment?: string;
 	vertical_alignment?: string;
