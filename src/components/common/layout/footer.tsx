@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
 				>
 					{t('back_to_top')}
 				</button>
-				<div className="absolute -bottom-7 rounded-full bg-[#30AAE1] p-2 dark:bg-bg-eco ">
+				<div className="absolute -bottom-7 rounded-full bg-[#30AAE1] p-2 dark:bg-header-bar ">
 					<img
 						alt="..."
 						src={
