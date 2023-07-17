@@ -220,7 +220,10 @@ const MainCategoryCard: React.FC<MainCategoryCardProps> = (props) => {
 
 	return (
 		<div className="bg-errors relative flex flex-col md:h-[198px] lg:h-[200px] xl:h-[256px] desktop:h-[288px]">
-			<h3 className="ml-[15.69px] pt-[19px] text-[18px] font-semibold text-gray md:w-[169px] lg:ml-[29.23px] lg:w-[237px] lg:pt-[16.44px] lg:text-[21px] xl:ml-[36.51px] xl:w-[296.36px] xl:pt-[20.53px]  desktop:ml-[43px] desktop:w-[349.08px] desktop:pt-[23px] desktop:text-[25px]">
+			<h3
+				onClick={onPressed}
+				className="ml-[15.69px] cursor-pointer pt-[19px] text-[18px] font-semibold text-gray md:w-[169px] lg:ml-[29.23px] lg:w-[237px] lg:pt-[16.44px] lg:text-[21px] xl:ml-[36.51px] xl:w-[296.36px] xl:pt-[20.53px]  desktop:ml-[43px] desktop:w-[349.08px] desktop:pt-[23px] desktop:text-[25px]"
+			>
 				{title}
 			</h3>
 			{/*Category Image and CTA  */}

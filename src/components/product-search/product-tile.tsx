@@ -149,7 +149,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 					{isInCompareList ? (
 						<MdBookmark className="text-[#FC5267]" />
 					) : (
-						<MdOutlineBookmarkBorder className="text-accent-primary-main" />
+						<MdOutlineBookmarkBorder className="text-bg_blue" />
 					)}
 				</div>
 			}
@@ -157,7 +157,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 			title={t('common:compare')}
 			onClick={onCompareClick}
 			className="cursor-pointer !space-x-1"
-			titleClassName="xl:text-cyan lg:!text-[10px] xl:!text-[13px] xl:!leading-[15.85px]"
+			titleClassName="xl:text-cyan lg:!text-[10px] text-bg_blue xl:!text-[13px] xl:!leading-[15.85px]"
 		/>,
 		// Customizable
 		<MetadataTile
@@ -195,7 +195,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 				icon={
 					<div
 						className={`text-[20px] md:text-[24] desktop:pl-[2px] desktop:text-[24px] ${
-							isLive ? 'text-accent-primary-main' : 'text-gray/40'
+							isLive ? 'text-bg_blue' : 'text-gray/40'
 						}`}
 					>
 						<MdOutlineShoppingCart />
@@ -208,7 +208,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 				}`}
 				onClick={isLive ? onCartClick : undefined}
 				// titleClassName="desktop:text-cyan lg:!text-[10px]"
-				titleClassName="xl:text-cyan lg:!text-[10px] sm:!text-[12px] sm:!leading-[14.63px] xl:!text-[13px] xl:!leading-[15.85px]"
+				titleClassName="xl:text-cyan lg:!text-[10px] sm:!text-[12px] text-bg_blue sm:!leading-[14.63px] xl:!text-[13px] xl:!leading-[15.85px]"
 			/>
 		</div>
 	];

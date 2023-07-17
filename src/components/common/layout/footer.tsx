@@ -20,20 +20,20 @@ const Footer: React.FC = () => {
 
 	return (
 		<footer className="bg-accent-primary-main font-montserrat dark:bg-header-bar md:bg-header-bar lg:sm:bg-accent-primary-main">
-			<div className="relative flex h-[80px] flex-col items-center justify-center bg-cyan md:items-center md:justify-center">
+			<div className="relative flex h-[80px] flex-col items-center justify-center bg-cyan dark:bg-header-bar md:items-center md:justify-center">
 				<button
 					onClick={goToTop}
 					className="mb-6 text-center font-semibold text-white dark:text-accent-secondary-eco"
 				>
 					{t('back_to_top')}
 				</button>
-				<div className="absolute -bottom-7 rounded-full bg-accent-primary-main p-2 dark:bg-bg-eco md:bg-header-bar lg:bg-accent-primary-main">
+				<div className="absolute -bottom-7 rounded-full bg-[#30AAE1] p-2 dark:bg-header-bar ">
 					<img
 						alt="..."
 						src={
 							isEco
 								? '/eco-tradewinds.png'
-								: '/static/images/EcoPage/footerlogo.png'
+								: '/static/images/EcoPage/footer_logo_latest.png'
 						}
 						className=""
 					/>

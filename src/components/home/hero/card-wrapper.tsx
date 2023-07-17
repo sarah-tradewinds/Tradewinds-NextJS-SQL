@@ -81,7 +81,15 @@ const CardWrapper: React.FC<{
 								locale
 							)}
 							imageUrl={cardAData.image}
-							href="/why-sell-on-tradewinds"
+							href={
+								index == 0
+									? isEco
+										? '/eco/why-sell-on-tradewinds'
+										: '/why-sell-on-tradewinds'
+									: isEco
+									? '/eco/why-sell-on-tradewinds'
+									: '/eco'
+							}
 						/>
 					</div>
 				))}
@@ -99,7 +107,7 @@ const CardWrapper: React.FC<{
 							locale
 						)}
 						buttonText={getLocaleText(cardBData.btn_text || {}, locale)}
-						href={cardBData.slug?.en}
+						href={'/what-is-rfq' || cardBData.slug?.en}
 						alt={cardBData.title?.en}
 					/>
 				</div>

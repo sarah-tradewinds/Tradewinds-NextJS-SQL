@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic';
 
 // Third party packages
 import { useTranslation } from 'next-i18next';
+import { useHomeStore } from 'store/home';
 
 // components
 const MegaMenu = dynamic(
@@ -27,6 +28,10 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = (props) => {
 	const { isOpen, onClose } = props;
+	const { isEco, setIsEco } = useHomeStore(({ isEco, setIsEco }) => ({
+		isEco,
+		setIsEco
+	}));
 
 	const { isAuth, customerData, logout } = useAuthStore((state) => ({
 		isAuth: state.isAuth,
@@ -65,7 +70,11 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
 				{t('eco_text')}
 			</NavLink>
 			<NavLink
-				href="/why-sell-on-tradewinds"
+				href={
+					isEco
+						? '/eco/why-sell-on-tradewinds'
+						: '/why-sell-on-tradewinds'
+				}
 				className="mobile-nav-link"
 				activeClassName="underline font-semibold"
 				onClick={onClose}
@@ -74,7 +83,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
 			</NavLink>
 
 			<NavLink
-				href="/why-buy"
+				href={isEco ? '/eco/why-buy' : '/why-buy'}
 				className="mobile-nav-link"
 				activeClassName="underline font-semibold"
 				onClick={onClose}

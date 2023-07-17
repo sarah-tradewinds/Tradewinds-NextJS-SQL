@@ -146,11 +146,11 @@ const Layout: React.FC<{ productName?: string; seo: any }> = (
 									alt="home icon"
 									width={29}
 									height={20}
-									onClick={() =>
-										setIsProductFilterSliderOpen(
-											(prevState) => !prevState
-										)
-									}
+									// onClick={() =>
+									// 	setIsProductFilterSliderOpen(
+									// 		(prevState) => !prevState
+									// 	)
+									// }
 								/>
 							</Link>
 

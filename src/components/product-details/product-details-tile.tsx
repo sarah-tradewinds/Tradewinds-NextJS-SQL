@@ -653,17 +653,19 @@ const ProductDetailsTile: React.FC<{
 						<h3 className="flex items-center space-x-8 text-xs font-semibold capitalize leading-[15px] sm:space-x-2 md:text-[13px] md:leading-[15.85px] lg:text-[15px] lg:leading-[18.29px] xl:text-[21px] xl:leading-[25.6px]">
 							{selectedVariant?.is_on_sale && !is_bulk_pricing ? (
 								<>
-									<span className="text-accent-error">
+									<span className="sm:text-price_red">
 										Sale ${selectedVariant?.sales_price}/
 										{minOrderQuantityUnit}
 									</span>
-									<span className="text-primary-main line-through xl:text-gray">
+									<span className="text-primary-main line-through sm:text-gray">
 										${product_price}/{minOrderQuantityUnit}
 									</span>
 								</>
 							) : (
 								<>
-									{displayPrice} /{minOrderQuantityUnit}
+									<span className=" desktop:text-price_red">
+										{displayPrice} /{minOrderQuantityUnit}
+									</span>
 								</>
 							)}
 						</h3>
