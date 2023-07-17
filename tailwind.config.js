@@ -24,6 +24,7 @@ module.exports = {
 			'primary-eco': '#49590F',
 
 			error: '#f23030',
+			price_red: '#EF5151',
 			success: '#166b22',
 			secondary: '#F6AB33',
 			'accent-primary-eco': '#E0CAB0',

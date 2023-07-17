@@ -122,13 +122,13 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 					{isInCompareList ? (
 						<MdBookmark className="text-[#FC5267]" />
 					) : (
-						<MdOutlineBookmarkBorder className="text-accent-primary-main" />
+						<MdOutlineBookmarkBorder className="text-bg_blue" />
 					)}
 				</div>
 			}
 			alt={t('common:compare')}
 			title={t('common:compare')}
-			titleClassName="text-accent-primary-main"
+			titleClassName="text-bg_blue"
 			onClick={onCompareClick}
 			className="cursor-pointer"
 		/>,
@@ -142,7 +142,7 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 				icon={
 					<div
 						className={`text-[20px] md:text-[24] ${
-							isLive ? 'text-accent-primary-main' : 'text-gray/40'
+							isLive ? 'text-bg_blue' : 'text-gray/40'
 						}`}
 					>
 						<MdOutlineShoppingCart />
@@ -150,7 +150,7 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 				}
 				alt={t('common:save')}
 				title={t('cart')}
-				titleClassName="text-accent-primary-main"
+				titleClassName="text-bg_blue"
 				className={isLive ? 'cursor-pointer' : 'cursor-not-allowed'}
 				onClick={isLive ? onCartClick : undefined}
 			/>
@@ -206,7 +206,7 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 							{isSalePriceAvailable ? (
 								<p className="flex flex-col">
 									<span className="">Sale ${salePrice}/piece</span>
-									<span className="text-gray line-through">
+									<span className=" line-through">
 										${productPrice}/piece
 									</span>
 								</p>

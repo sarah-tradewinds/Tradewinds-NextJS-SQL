@@ -37,26 +37,29 @@ const CategoryCollapse: React.FC<CategoryCollapseProps> = (props) => {
 				<div className="flex items-center space-x-4">
 					<button
 						onClick={() => setIsOpen((prevState) => !prevState)}
-						className="text-[26px] text-primary-main outline-none"
+						className="text-[26px] text-gray outline-none"
 					>
 						{isOpen ? <HiMinusCircle /> : <HiPlusCircle />}
 					</button>
-					<p onClick={onTitleClick} className="text-[18px] font-semibold text-primary-main">
+					<p
+						onClick={onTitleClick}
+						className="text-[18px] font-semibold text-gray"
+					>
 						{title}
 					</p>
 				</div>
 
-        {/* Image container */}
-        <div className="relative w-20 h-full">
-				<div className="absolute right-0 top-1/2 transform -translate-y-1/2">
-					<ImageWithErrorHandler
-						src={imageUrl}
-						alt=""
-						width={80}
-						height={80}
-						className="h-20 w-20"
-					/>
-				</div>
+				{/* Image container */}
+				<div className="relative h-full w-20">
+					<div className="absolute right-0 top-1/2 -translate-y-1/2 transform">
+						<ImageWithErrorHandler
+							src={imageUrl}
+							alt=""
+							width={80}
+							height={80}
+							className="h-[67px] w-20"
+						/>
+					</div>
 				</div>
 			</div>
 
