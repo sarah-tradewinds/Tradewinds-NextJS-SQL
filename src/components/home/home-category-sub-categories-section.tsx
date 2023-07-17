@@ -183,7 +183,7 @@ const HomeCategorySubCategoriesSection: React.FC<
 					onPressed={onMainCategoryPressed}
 				/>
 
-				<div className="md:w-[506.48px]s bg-errors relative md:ml-[31.84px] md:mt-[19.16px] md:w-[68%] lg:!w-[68%] xl:mt-[25px] 900px:w-[72%] desktop:mt-[28px]">
+				<div className="bg-errors relative md:ml-[31.84px] md:mt-[17.16px] md:w-[68%] lg:!w-[68%] xl:mt-[23px] 900px:w-[72%] desktop:mt-[26px]">
 					<HomeCategorySlider
 						categories={categories || []}
 						onTileClick={(categoryId, data) =>

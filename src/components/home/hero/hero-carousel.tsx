@@ -1,7 +1,6 @@
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import Button from 'components/common/form/button';
 import { useKeenSlider } from 'keen-slider/react';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { HeroCarouselType } from 'types/home';
 import {
@@ -39,27 +38,26 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 					key={item.id || index}
 				>
 					{/* Image */}
-					<Link href={item.link || '/'}>
-						<div className="relative h-full w-full">
-							<ImageWithErrorHandler
-								src={item.image}
-								alt={item.title?.en || item.order?.toString()}
-								fill={true}
-								className="object-cover"
-							/>
-						</div>
-					</Link>
+
+					<div className="relative h-full w-full">
+						<ImageWithErrorHandler
+							src={item.image}
+							alt={item.title?.en || item.order?.toString()}
+							fill={true}
+							className="object-cover"
+						/>
+					</div>
 
 					{item.title?.en && (
 						<div
-							className={`w-[90%]s absolute z-[4] mb-10 w-fit space-y-2 p-4 md:w-auto lg:mb-12 xl:mb-16 desktop:mb-20 ${getAlignmentClassName(
+							className={`absolute z-[4] mb-10 w-fit space-y-2 p-4 sm:!w-[60%] lg:mb-12 xl:mb-16 desktop:mb-20 ${getAlignmentClassName(
 								(item.horizonatal_alignment ||
 									'left') as xAxisAlignment,
 								(item.vertical_alignment || 'center') as yAxisAlignment
 							)}`}
 						>
 							<p
-								className="text-[24px] font-semibold lg:text-[72px] lg:leading-[88px]"
+								className="lg:text-[72px]s lg:leading-[88px]s text-[24px] font-semibold lg:!text-6xl"
 								style={{ color: item?.color }}
 							>
 								{getLocaleText(item?.title || {}, locale)}
@@ -72,7 +70,10 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 							</p>
 							<div className="flex">
 								<Button
-									href={item.action?.slug}
+									href={
+										item.action?.slug ||
+										'/product-search?main_category=e6bf3b93-05d5-4958-aaf9-bd6c0809fca2_Agriculture'
+									}
 									variant="buyer"
 									style={{ backgroundColor: item?.btn_color }}
 								>

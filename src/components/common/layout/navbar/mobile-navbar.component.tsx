@@ -173,7 +173,7 @@ const MobileHeader = (props: any) => {
 	);
 
 	return (
-		<header className="sticky top-0 z-[10000] flex h-[50.06px] w-full items-center justify-between bg-gradient-to-r from-[#37B34A] via-cyan to-primary-main px-5 dark:bg-primary-eco md:hidden">
+		<header className="sticky top-0 z-[10000] flex h-[50.06px] w-full items-center justify-between bg-gradient-to-r from-[#37B34A] via-cyan to-primary-main px-5 dark:from-primary-eco dark:via-primary-eco dark:to-primary-eco md:hidden">
 			{/* Menu icon */}
 			<button
 				type="button"

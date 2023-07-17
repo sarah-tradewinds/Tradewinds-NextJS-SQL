@@ -8,6 +8,7 @@ import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import Button from 'components/common/form/button';
 import useDeviceSize from 'hooks/use-device-size.hooks';
+import Link from 'next/link';
 import Slider from 'react-slick';
 import { getLocaleText } from 'utils/get_locale_text';
 
@@ -71,9 +72,12 @@ const CollectionSliderOld: React.FC<CollectionSliderOldProps> = (
 					className="relative mb-4 mr-4 !h-[92px] !w-[139.25px] border-[2px] border-[#C4C4C4] md:mr-0 md:!h-[92px] md:!w-[144.12px] lg:mb-7 lg:!h-[134px] lg:!w-[239px]"
 				>
 					<div className="flex h-full w-full flex-col justify-between p-2">
-						<p className="text-xs leading-[15px]">
+						<Link
+							href={`/product/${product?.id}`}
+							className="text-xs leading-[15px]"
+						>
 							{getLocaleText(product?.name || {}, router.locale)}{' '}
-						</p>
+						</Link>
 
 						{/* Icon or Image */}
 						<div className="flex space-x-2">

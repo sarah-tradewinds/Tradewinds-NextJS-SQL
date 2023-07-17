@@ -75,7 +75,7 @@ const HomeCategorySlider: React.FC<HomeCategorySliderProps> = (
 					return (
 						<div
 							key={categoryData.id}
-							className="mb-[7.1px] pr-[8.84px]"
+							className="mb-[7.1px] mt-[2px] pr-[8.84px] transition-all hover:-translate-y-[2px]"
 						>
 							<SubCategoryCard
 								key={categoryData.id}
@@ -123,10 +123,7 @@ const SubCategoryCard: React.FC<SubCategoryCardProps> = (props) => {
 		>
 			<h4
 				onClick={onTileClick}
-				// className={`mt-[9.74px] ml-[6.12px] w-[76%] cursor-pointer text-gray md:text-[15px] md:leading-[18.29px] lg:w-[78%] desktop:text-[18px] desktop:leading-[21.94px] ${
-				// 	title?.length >= 20 ? 'text-[12px]' : 'text-[14px]'
-				// }`}
-				className={`text-[14px]s mt-[9.74px] ml-[6.12px] w-[76%] font-semibold text-gray lg:w-[78%] lg:text-[13px] ${
+				className={`mt-[9.74px] ml-[6.12px] w-[76%] cursor-pointer font-semibold text-gray lg:w-[78%] lg:text-[13px] ${
 					title?.length >= 20 ? 'text-[12px]' : 'text-[14px]'
 				}`}
 			>
@@ -154,8 +151,8 @@ const SubCategoryCard: React.FC<SubCategoryCardProps> = (props) => {
 			</div>
 
 			{/* Sub category Image */}
-			<div className="absolute bottom-0 right-0">
-				<div className="relative h-[80.08px] w-[80.08px] xl:h-[100px] xl:w-[100px] desktop:h-[120px] desktop:w-[120px]">
+			<div className="absolute bottom-[1px] right-0">
+				<div className="relative h-[80.08px] w-[80.08px] overflow-hidden xl:h-[100px] xl:w-[100px] desktop:h-[120px] desktop:w-[120px]">
 					<ImageWithErrorHandler
 						src={imageUrl}
 						alt={title}

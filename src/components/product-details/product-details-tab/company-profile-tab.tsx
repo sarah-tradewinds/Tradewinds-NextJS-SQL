@@ -166,7 +166,7 @@ const CompanyProfileTab: React.FC<{
 
 				<div className="bg-white p-4 md:mx-8">
 					<Tab.Group>
-						<Tab.List className="hidden space-x-16 border-b border-gray/40 text-[18px] text-gray/40 md:border-t-0 md:text-[25px] lg:leading-[30px]">
+						<Tab.List className="hidden space-x-16 border-b border-gray/40 text-[18px] text-gray/40 md:block md:border-t-0 md:text-[25px] lg:leading-[30px]">
 							<Tab
 								className={({ selected }: { selected: boolean }) =>
 									`font-semibold ${selected ? 'text-primary-main' : ''}`
