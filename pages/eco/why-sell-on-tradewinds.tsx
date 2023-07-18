@@ -25,7 +25,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 	return (
 		<>
 			<Seo title="Why sell on tradewinds" description="" />
-			<div className=" overflow-x-hidden bg-error ">
+			<div className=" overflow-x-hidden ">
 				<div>
 					{/* Header */}
 					<div className=" w-full bg-header-bar">
