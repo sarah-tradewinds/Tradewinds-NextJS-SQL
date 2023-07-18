@@ -4,7 +4,7 @@ import { axiosInstance } from 'utils/axios-instance.utils';
 
 export const useGetCountries = () => {
 	const { data, isLoading, isValidating, error } = useSWR(
-		'/cms/country?limit=100000',
+		'/cms/country?limit=10000',
 		axiosInstance.get
 	);
 
@@ -17,7 +17,7 @@ export const useGetCountries = () => {
 };
 
 export const useGetStateByCountryId = (countryId: string) => {
-	const endpoint = `cms/state/country/${countryId}?limit=100000`;
+	const endpoint = `cms/state/country/${countryId}?limit=10000`;
 	return useSWR(endpoint, async () => {
 		try {
 			const { data } = await axiosInstance.get(endpoint);
@@ -29,7 +29,7 @@ export const useGetStateByCountryId = (countryId: string) => {
 }; // End of useGetStateByCountryId
 
 export const useGetCityByStateId = (stateId: string) => {
-	const endpoint = `cms/city/state/${stateId}?limit=100000`;
+	const endpoint = `cms/city/state/${stateId}?limit=10000`;
 	return useSWR(endpoint, async () => {
 		try {
 			const { data } = await axiosInstance.get(endpoint);
