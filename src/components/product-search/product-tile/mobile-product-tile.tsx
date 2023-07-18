@@ -175,6 +175,7 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 							alt={alt || ''}
 							fill={true}
 							className="object-contain"
+							onClick={onClick}
 						/>
 					</div>
 
