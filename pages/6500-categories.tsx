@@ -209,7 +209,7 @@ const CategoriesPage: NextPage<
 	);
 
 	return (
-		<div className="relative">
+		<div className="relative overflow-x-hidden">
 			{/* Image */}
 			<div className="relative 3xl:container ">
 				<div className="h-[280px] w-full bg-[url(/images/6500-categories-banner.svg)] bg-center bg-no-repeat md:h-[440px] lg:h-[706px]"></div>

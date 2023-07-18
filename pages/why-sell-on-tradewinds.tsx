@@ -70,7 +70,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 							{t('Benefits')}
 						</p>
 						<div className=" container mx-auto mt-[25px] block justify-center sm:mt-[15px] sm:flex sm:space-x-[20px] md:mt-[14px] md:space-x-[8px] lg:mt-[19px] lg:space-x-[11px] desktop:mt-[45px] desktop:space-x-[4px]">
-							<div className=" mx-auto h-[137px] w-[272px] text-left sm:h-[173px] sm:w-[180px] sm:text-center md:h-[160px] md:w-[225px] lg:h-[205px] lg:w-[300px] desktop:h-[279px] desktop:w-[445px] ">
+							<div className=" h-[137px] w-[272px] text-left sm:h-[173px] sm:w-[180px] sm:text-center md:h-[160px] md:w-[225px] lg:h-[205px] lg:w-[300px] desktop:h-[279px] desktop:w-[445px] ">
 								<div className=" relative h-[45px] w-[45px] sm:mx-auto sm:h-[46px] sm:w-[46px] md:h-[55px] md:w-[55px] lg:h-[74px] lg:w-[74px] desktop:h-[108px] desktop:w-[109px] ">
 									<ImageWithErrorHandler
 										src="/static/images/why-sell-on-tradewinds-images/global-img.png"
@@ -92,7 +92,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 									</p>
 								</div>
 							</div>
-							<div className="mx-auto h-[150px] w-[272px] text-left sm:h-[173px] sm:w-[180px] sm:text-center md:h-[160px] md:w-[225px] lg:h-[205px] lg:w-[300px] desktop:h-[279px] desktop:w-[445px] ">
+							<div className=" h-[150px] w-[272px] text-left sm:h-[173px] sm:w-[180px] sm:text-center md:h-[160px] md:w-[225px] lg:h-[205px] lg:w-[300px] desktop:h-[279px] desktop:w-[445px] ">
 								<div className=" relative mt-[30px] h-[40px] w-[40px] sm:mx-auto sm:mt-[5px] sm:h-[40px] sm:w-[40px] md:mt-[7px] md:h-[48px] md:w-[47px] lg:mt-[10px] lg:h-[64px] lg:w-[63px] desktop:mt-0 desktop:h-[108px] desktop:w-[109px] ">
 									<ImageWithErrorHandler
 										src="/static/images/why-sell-on-tradewinds-images/commer-img.png"
@@ -114,7 +114,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 									</p>
 								</div>
 							</div>
-							<div className="mx-auto h-[150px] w-[272px] text-left sm:h-[173px] sm:w-[180px] sm:text-center md:h-[160px] md:w-[225px] lg:h-[205px] lg:w-[300px] desktop:h-[279px] desktop:w-[445px] ">
+							<div className=" h-[150px] w-[272px] text-left sm:h-[173px] sm:w-[180px] sm:text-center md:h-[160px] md:w-[225px] lg:h-[205px] lg:w-[300px] desktop:h-[279px] desktop:w-[445px] ">
 								<div className=" relative mt-[30px] h-[45px] w-[45px] sm:mx-auto sm:-mt-[0px] sm:h-[46px] sm:w-[46px] md:mt-0 md:h-[55px] md:w-[55px] lg:mt-[0px] lg:h-[73px] lg:w-[73px] desktop:mt-0 desktop:h-[108px] desktop:w-[109px] ">
 									<ImageWithErrorHandler
 										src="/static/images/why-sell-on-tradewinds-images/sell_wholesale.png"
