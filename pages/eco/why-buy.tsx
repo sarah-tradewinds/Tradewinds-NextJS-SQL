@@ -17,7 +17,7 @@ const WhyBuyPage: NextPage = () => {
 		<>
 			<Seo title="Why buy page" description="" />
 
-			<div className="bg-header-bar sm:bg-header-bar md:bg-bg_light_pink lg:bg-bg_light_pink desktop:bg-bg_light_pink">
+			<div className="overflow-x-hidden bg-header-bar sm:bg-header-bar md:bg-bg_light_pink lg:bg-bg_light_pink desktop:bg-bg_light_pink">
 				{/* Header section */}
 				<Banner />
 				<div className=" sm:-mt-[45px] md:-mt-[23px] lg:-mt-[52px] desktop:-mt-[91px] ">

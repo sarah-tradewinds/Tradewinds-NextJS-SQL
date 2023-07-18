@@ -17,7 +17,7 @@ const CardA: React.FC<CardAProps> = (props) => {
 			href={href}
 			className="block h-[153px] w-[203px] overflow-hidden rounded-md bg-white sm:h-[203px] sm:w-[245px] lg:!h-[244.24px] lg:!w-[325.92px] xl:!h-[305px] xl:!w-[405.73px] desktop:!h-[352px] desktop:!w-[466px]"
 		>
-			<h2 className="ml-[9.15px] pt-[7px] text-[15px] font-semibold text-gray dark:text-primary-eco sm:pt-[4px] sm:text-[18px] lg:ml-[14.97px] lg:pt-[6px] lg:text-[21px] lg:leading-[25.6px] xl:ml-[19.06px] xl:pt-[12px] desktop:ml-[21px] desktop:pt-[14px] desktop:text-[25px] desktop:leading-[30.48px]">
+			<h2 className="ml-[9.15px] pt-[7px] text-[15px] font-semibold text-gray dark:text-gray sm:pt-[4px] sm:text-[18px] lg:ml-[14.97px] lg:pt-[6px] lg:text-[21px] lg:leading-[25.6px] xl:ml-[19.06px] xl:pt-[12px] desktop:ml-[21px] desktop:pt-[14px] desktop:text-[25px] desktop:leading-[30.48px]">
 				{title}
 			</h2>
 
@@ -29,7 +29,7 @@ const CardA: React.FC<CardAProps> = (props) => {
 				/>
 			</div>
 
-			<p className="hidden text-[10px] text-gray dark:text-primary-eco sm:block sm:pl-[14.87px] sm:pr-[11.82px] lg:mt-1 lg:pl-[17.49px] lg:text-[12.01px] lg:leading-[14.64px] xl:mt-[6.12px] xl:pl-[23.87px] xl:text-[15px] xl:leading-[18.29px] desktop:mt-[7px] desktop:pl-[27px] desktop:text-[18px] desktop:leading-[21.94px]">
+			<p className="hidden text-[10px] text-gray dark:text-gray sm:block sm:pl-[14.87px] sm:pr-[11.82px] lg:mt-1 lg:pl-[17.49px] lg:text-[12.01px] lg:leading-[14.64px] xl:mt-[6.12px] xl:pl-[23.87px] xl:text-[15px] xl:leading-[18.29px] desktop:mt-[7px] desktop:pl-[27px] desktop:text-[18px] desktop:leading-[21.94px]">
 				{subtitle}
 			</p>
 		</Link>
