@@ -153,18 +153,19 @@ const Login: React.FC = () => {
 			onClose={setIsLoginOpen}
 		>
 			<div className="ml-2s flex items-center justify-center">
-				<div className="flex justify-center rounded-md bg-white shadow-md md:mt-12 md:w-[740px] md:py-4 lg:mr-[43px] lg:h-[905px] lg:w-[1204px] lg:justify-start lg:pl-[66px]">
+				<div className="flex justify-center rounded-md bg-white shadow-md md:w-[740px] md:py-4 lg:mt-12 lg:mr-[43px] lg:h-[905px] lg:w-[1000px] lg:justify-start lg:pl-[66px] xl:w-[1204px]">
 					{/* <div className="flex h-[640px] flex-col items-center border-gray/40 py-8 md:h-auto lg:w-full lg:border-r lg:py-0 lg:pr-[24px]"> */}
-					<div className="flex h-[640px] w-[300px] flex-col items-center border-gray/40 py-8 md:h-auto lg:w-full lg:border-r lg:py-0 lg:pr-[24px]">
+					<div className="flex h-[640px] w-[300px] flex-col items-center border-gray/40 py-8 sm:w-[400px] md:h-auto lg:w-full lg:border-r lg:py-0 lg:pr-[24px]">
 						<h2 className="h-[67] w-full border-b border-gray/40 pb-4 text-center font-semibold text-gray md:mt-[188px] md:text-4xl lg:text-5xl">
 							{t('auth:welcome_back')}
 						</h2>
 
-						<div className="flex w-full justify-center border-b border-gray/40 pb-[7px] text-lg">
-							<form className="w-full px-4 md:w-[346px] md:px-0">
-								<div className="mt-[41px] mb-[27px] font-normal text-label_gray sm:space-x-[10px] md:space-x-0 lg:flex lg:items-center lg:space-x-2 xl:space-x-3">
+						<div className="flex w-full justify-center border-b border-gray/40 pb-[7px] text-[13px] sm:text-lg">
+							<form className="w-full px-4 md:w-[366px] md:px-0">
+								<div className="mt-[41px] mb-[27px] font-normal text-label_gray  ">
 									<p>I am a...</p>
-									<div className="flex justify-between lg:space-x-2 xl:space-x-3">
+
+									<div className=" flex justify-between  lg:space-x-2 xl:space-x-3">
 										<label>
 											<span className="mr-[7px]">
 												<input
@@ -200,7 +201,7 @@ const Login: React.FC = () => {
 													onChange={handleRadioChange}
 												/>
 											</span>
-											BDM
+											Business Agent
 										</label>
 									</div>
 								</div>
@@ -293,11 +294,6 @@ const Login: React.FC = () => {
 
 					{/* Logos */}
 					<div className="hidden w-full flex-col items-center justify-center lg:flex">
-						<div>
-							<p className=" text-sm text-label_gray">
-								TW Create an account page-02 1
-							</p>
-						</div>
 						<div className="relative h-[266px] w-[202px]">
 							<ImageWithErrorHandler
 								src="/TW-Create an account page-02.png"
