@@ -23,7 +23,7 @@ const Footer: React.FC = () => {
 			<div className="relative flex h-[80px] flex-col items-center justify-center bg-cyan dark:bg-header-bar md:items-center md:justify-center">
 				<button
 					onClick={goToTop}
-					className="mb-6 text-center font-semibold text-white dark:text-accent-secondary-eco"
+					className="mb-6 text-center font-semibold text-white dark:text-primary-eco"
 				>
 					{t('back_to_top')}
 				</button>

@@ -67,7 +67,7 @@ const HomePage: NextPage<
 
 	const searchCategoriesAndTrendingBanner = (
 		<div className="grid gap-4 md:h-[86px] md:grid-cols-2 lg:h-[126px] xl:h-[148px]">
-			<div className="flex items-center justify-center rounded-md bg-accent-primary-main dark:bg-accent-primary-eco">
+			<div className="flex items-center justify-center rounded-md bg-accent-primary-main dark:bg-header-bar 2xl:dark:bg-accent-primary-eco">
 				<Link
 					href="/categories"
 					className="space-y-1 text-center font-semibold text-white"

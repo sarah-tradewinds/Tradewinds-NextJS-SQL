@@ -68,7 +68,7 @@ const MainCategoryAndCategoriesTile: React.FC<
 				</div>
 			</div>
 
-			<div className="bg-[#E5E5E5] py-1">
+			<div className="bg-[#E5E5E5] py-1 dark:bg-header-bar">
 				<TrendingCategorySliderMobile
 					categories={selectedCategories || []}
 					selectedCategoryList={selectedCategoryList}

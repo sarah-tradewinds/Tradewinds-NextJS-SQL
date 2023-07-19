@@ -264,14 +264,14 @@ const CategoriesPage: NextPage<
 										</Link>
 									);
 								})}
-								<div className="h-[0.9px] w-[15.28px] bg-gray desktop:h-[1px] desktop:w-[140px]"></div>
+								<div className="hidden h-[0.9px] w-[15.28px] bg-gray sm:mr-2 sm:block  md:mr-3 desktop:h-[1px] desktop:w-[140px]"></div>
 								<div className="hidden desktop:block">
 									{actionButton}
 								</div>
 							</div>
 
 							{/* Categories in Alphabetic order */}
-							<div className="mt-[14.5px] sm:mt-[28.63px] sm:ml-[48px] sm:columns-2 xl:mt-[35px] desktop:columns-4">
+							<div className="mt-[14.5px] sm:mt-[28.63px] sm:ml-[48px] sm:columns-2 xl:mt-[35px] xl:columns-4">
 								{alphabetList.map((alphabet, index) => {
 									const categories = namesByLetter[alphabet] || [];
 

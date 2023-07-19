@@ -19,6 +19,7 @@ import { useCartStore } from 'store/cart-store-v2';
 
 const CartPage: NextPage = () => {
 	const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
+	console.log('isAddressModalOpen', isAddressModalOpen);
 	const [isMinimumQuantityModalOpen, setIsMinimumQuantityModalOpen] =
 		useState(false);
 	const [minimumQuantityErrorMessage, setMinimumQuantityErrorMessage] =
@@ -136,6 +137,7 @@ const CartPage: NextPage = () => {
 					// cartReviewHandler();
 				}}
 			/>
+
 			<ErrorPopup
 				title="Minimum Order Quantity"
 				description={minimumQuantityErrorMessage}
