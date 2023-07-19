@@ -95,19 +95,19 @@ const AddAddressModal = (props: {
 			open={isOpen}
 			onClose={() => {}}
 			overlayClassName="!bg-white top-[80px] z-[4000]"
-			className="!top-[128px] z-[4006] w-full"
+			className="!top-[80px] !z-[4006] w-full"
 		>
-			<div className="flex h-full items-center justify-center md:mt-16">
+			<div className="flex h-full items-center justify-center  md:mt-16">
 				<form
 					onSubmit={onSaveClick}
-					className="h-screen w-11/12 space-y-4 overflow-x-auto md:w-1/3"
+					className="h-screen w-11/12 space-y-4  overflow-x-auto lg:w-1/2"
 				>
-					<div className="grid grid-cols-12">
-						<label className="col-span-12 md:col-span-4">
+					<div className="grid  grid-cols-12">
+						<label className="col-span-12 md:col-span-3 lg:col-span-4">
 							Address Line 1
 						</label>
 
-						<div className="col-span-11 md:col-span-5">
+						<div className="col-span-11  md:col-span-5">
 							<Input
 								className="w-full"
 								name="address_line1"
@@ -117,7 +117,7 @@ const AddAddressModal = (props: {
 						</div>
 					</div>
 					<div className="grid grid-cols-12">
-						<label className="col-span-12 md:col-span-4">
+						<label className="col-span-12 md:col-span-3 lg:col-span-4">
 							Address Line 2
 						</label>
 						<div className="col-span-11 md:col-span-5">
@@ -130,7 +130,7 @@ const AddAddressModal = (props: {
 						</div>
 					</div>
 					<div className="grid grid-cols-12">
-						<label className="col-span-12 md:col-span-4">
+						<label className="col-span-12 md:col-span-3 lg:col-span-4">
 							Address Line 3
 						</label>
 						<div className="col-span-11 md:col-span-5">
@@ -143,7 +143,9 @@ const AddAddressModal = (props: {
 						</div>
 					</div>
 					<div className="grid grid-cols-12">
-						<label className="col-span-12 md:col-span-4">Zipcode</label>
+						<label className="col-span-12 md:col-span-3 lg:col-span-4">
+							Zipcode
+						</label>
 						<div className="col-span-11 md:col-span-5">
 							<Input
 								className="w-full"
@@ -154,7 +156,9 @@ const AddAddressModal = (props: {
 						</div>
 					</div>
 					<div className="grid grid-cols-12">
-						<label className="col-span-12 md:col-span-4">Country</label>
+						<label className="col-span-12 md:col-span-3 lg:col-span-4">
+							Country
+						</label>
 						<div className="col-span-11 md:col-span-5">
 							<SearchableDropDown
 								list={countries?.map((country: any) => ({
@@ -172,7 +176,9 @@ const AddAddressModal = (props: {
 						</div>
 					</div>
 					<div className="grid grid-cols-12">
-						<label className="col-span-12 md:col-span-4">State</label>
+						<label className="col-span-12 md:col-span-3 lg:col-span-4">
+							State
+						</label>
 						<div className="col-span-11 md:col-span-5">
 							<SearchableDropDown
 								list={stateList?.map((state: any) => ({
@@ -190,7 +196,9 @@ const AddAddressModal = (props: {
 						</div>
 					</div>
 					<div className="grid grid-cols-12">
-						<label className="col-span-12 md:col-span-4">City</label>
+						<label className="col-span-12 md:col-span-3 lg:col-span-4">
+							City
+						</label>
 						<div className="col-span-11 md:col-span-5">
 							<SearchableDropDown
 								list={cityList?.map((city: any) => ({
@@ -208,7 +216,7 @@ const AddAddressModal = (props: {
 						</div>
 					</div>
 					<div className="grid grid-cols-12">
-						<div className="col-span-12 md:col-span-4">
+						<div className="col-span-12 md:col-span-3 lg:col-span-4">
 							<Input
 								type="checkbox"
 								className="h-5 w-5"
@@ -222,7 +230,7 @@ const AddAddressModal = (props: {
 						</label>
 					</div>
 					<div className="grid grid-cols-12">
-						<div className="col-span-12 md:col-span-4">
+						<div className="col-span-12 md:col-span-3 lg:col-span-4">
 							<Input
 								type="checkbox"
 								className="h-5 w-5"

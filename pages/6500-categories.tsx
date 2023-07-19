@@ -264,7 +264,7 @@ const CategoriesPage: NextPage<
 										</Link>
 									);
 								})}
-								<div className="h-[0.9px] w-[15.28px] bg-gray desktop:h-[1px] desktop:w-[140px]"></div>
+								<div className="hidden h-[0.9px] w-[15.28px] bg-gray sm:mr-2 sm:block  md:mr-3 desktop:h-[1px] desktop:w-[140px]"></div>
 								<div className="hidden desktop:block">
 									{actionButton}
 								</div>

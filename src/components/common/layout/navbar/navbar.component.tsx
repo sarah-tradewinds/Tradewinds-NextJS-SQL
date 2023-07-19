@@ -222,7 +222,7 @@ const Header = (props: any) => {
 			</div>
 
 			{/* Bottom nav */}
-			<div className="flex items-center overflow-hidden bg-[#DEDFE0] md:h-[33px] xl:h-[44px]">
+			<div className="flex items-center overflow-hidden bg-[#DEDFE0] dark:bg-header-bar md:h-[33px] xl:h-[44px]">
 				<div className="bg-errors flex w-full items-center justify-between">
 					<div className="flex items-center md:ml-[5.9px]">
 						<div
@@ -230,7 +230,7 @@ const Header = (props: any) => {
 							onMouseEnter={() => setIsMegaMenuOpen(true)}
 							onMouseLeave={() => setIsMegaMenuOpen(false)}
 						>
-							<div className="nav-link flex items-center space-x-1 font-semibold outline-none dark:text-accent-secondary-eco">
+							<div className="nav-link flex items-center space-x-1 font-semibold outline-none ">
 								<span>{t('categories_text')} </span>
 								<span className="hidden md:inline-block">&gt;</span>
 							</div>
