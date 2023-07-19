@@ -51,7 +51,7 @@ const HomePage: NextPage<
 	// Fetching Countries
 	const { data: homeCountries, isValidating: isCountriesValidating } =
 		useSWR(
-			'/region/all/region-countries?limit=100000',
+			'/region/all/region-countries?limit=10000',
 			getHomeCountries
 		);
 

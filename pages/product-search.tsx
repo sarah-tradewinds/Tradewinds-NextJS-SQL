@@ -9,7 +9,6 @@ import { useEffect, useState } from 'react';
 
 // Third party packages
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import Skeleton from 'react-loading-skeleton';
 
 // components
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
@@ -86,13 +85,16 @@ const ProductSearchPage: NextPage<
 	] = useState(false);
 	const [selectedMainCategory, setSelectedMainCategory] =
 		useState<any>();
-	console.log('selectedMainCategory', selectedMainCategory);
 	const [selectedCategories, setSelectedCategories] = useState([]);
 
 	const [selectedCountry, setSelectedCountry] = useState<any>({
 		banner_image: props.countryBannerImageUrl || ''
 	});
 
+	console.log('selectedMainCategory-selectedCountry', {
+		selectedMainCategory,
+		selectedCountry
+	});
 	console.log(props);
 	const [isInitialFilterSet, setIsInitialFilterSet] = useState(false);
 
@@ -427,7 +429,9 @@ const ProductSearchPage: NextPage<
 											{},
 										router.locale
 									),
-									imageUrl: selectedMainCategory?.category_search_image,
+									imageUrl:
+										selectedMainCategory?.category_search_image ||
+										selectedCountry?.image,
 									backgroundColor: selectedMainCategory?.color
 								}}
 								selectedCategories={selectedCategories || []}
@@ -453,7 +457,6 @@ const ProductSearchPage: NextPage<
 										{/*Category Image */}
 										<div
 											className="relative flex h-full items-end md:w-full xl:mt-[8px]"
-											// style={{ backgroundColor }}
 											style={{
 												backgroundColor: selectedMainCategory?.color,
 												border: selectedMainCategory?.color
@@ -463,107 +466,24 @@ const ProductSearchPage: NextPage<
 										>
 											<div className="absolute bottom-0 right-0">
 												<div className="relative overflow-hidden md:h-[30px] md:w-[30px] lg:h-[40.77px] lg:w-[40.93px] xl:h-[60px] xl:w-[60px]">
-													<div className="absolute bottom-0 right-0">
-														<img
-															src={
-																selectedMainCategory?.category_search_image
-															}
-															alt={''}
-															className="h-auto w-auto object-contain"
-														/>
-														{/* <ImageWithErrorHandler
-															key={
-																selectedMainCategory?.category_search_image
-															}
-															src={
-																selectedMainCategory?.category_search_image
-															}
-															alt={getLocaleText(
-																selectedMainCategory?.title || {},
-																router.locale
-															)}
-															fill={true}
-														/> */}
-													</div>
+													<ImageWithErrorHandler
+														key={
+															selectedMainCategory?.category_search_image ||
+															selectedCountry?.image
+														}
+														src={
+															selectedMainCategory?.category_search_image ||
+															selectedCountry?.image
+														}
+														alt={getLocaleText(
+															selectedMainCategory?.title || {},
+															router.locale
+														)}
+														fill={true}
+													/>
 												</div>
 											</div>
 										</div>
-									</div>
-
-									<div
-										className="hidden h-[42px] w-full md:h-auto md:w-[122px] lg:w-[181.45px] desktop:w-[266px]"
-										style={{
-											backgroundColor:
-												deviceWidth >= 744
-													? ''
-													: selectedMainCategory?.color
-										}}
-									>
-										{isSelectedMainCategoryAndCategoriesLoading ? (
-											<div className="hidden md:block">
-												<Skeleton />
-												<Skeleton height="84px" />
-											</div>
-										) : (
-											<div className="flex h-[42px] items-center justify-between p-2 md:h-full md:flex-col md:items-start md:space-x-0 md:p-0">
-												<p className="text-[16px] font-semibold leading-5 text-gray md:text-[10px] md:leading-3 desktop:text-[21px] desktop:leading-[26px]">
-													{getLocaleText(
-														selectedMainCategory?.title ||
-															selectedCountry?.name ||
-															{},
-														router.locale
-													)}
-												</p>
-
-												{/* Country Image */}
-												{selectedCountry?.id &&
-													!selectedMainCategory?.id && (
-														<div className="relative h-[38px] w-[38px] md:h-full md:w-full">
-															<ImageWithErrorHandler
-																key={selectedCountry?.image}
-																src={selectedCountry?.image}
-																alt={getLocaleText(
-																	selectedCountry?.name || {},
-																	router.locale
-																)}
-																fill={true}
-																className="object-cover"
-															/>
-														</div>
-													)}
-
-												{selectedMainCategory?.id && (
-													<div
-														className="relative h-[38px] w-[38px] md:mt-1 md:block md:h-[70px] md:w-[122px] lg:w-full desktop:mt-2 desktop:h-full desktop:w-[266px]"
-														style={{
-															backgroundColor:
-																selectedMainCategory?.color,
-															border: selectedMainCategory?.color
-																? ''
-																: '2px solid gray'
-														}}
-													>
-														<div className="md:absolute md:bottom-0 md:right-0">
-															<div className="relative h-[38px] w-[38px] md:h-[30px] md:w-[30px] desktop:h-[60px] desktop:w-[60px]">
-																<ImageWithErrorHandler
-																	key={
-																		selectedMainCategory?.category_search_image
-																	}
-																	src={
-																		selectedMainCategory?.category_search_image
-																	}
-																	alt={getLocaleText(
-																		selectedMainCategory?.title || {},
-																		router.locale
-																	)}
-																	fill={true}
-																/>
-															</div>
-														</div>
-													</div>
-												)}
-											</div>
-										)}
 									</div>
 
 									{/* Category Slider for tablet and desktop  */}

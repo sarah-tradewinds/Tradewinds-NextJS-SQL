@@ -38,7 +38,6 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 					key={item.id || index}
 				>
 					{/* Image */}
-
 					<div className="relative h-full w-full">
 						<ImageWithErrorHandler
 							src={item.image}
@@ -71,7 +70,7 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 							<div className="flex">
 								<Button
 									href={
-										item.action?.slug ||
+										item.btn_link ||
 										'/product-search?main_category=e6bf3b93-05d5-4958-aaf9-bd6c0809fca2_Agriculture'
 									}
 									variant="buyer"

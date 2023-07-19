@@ -3,7 +3,7 @@ import { axiosInstance } from 'utils/axios-instance.utils';
 export const getMainCategories = async (isEco?: boolean) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/cms/main-category?limit=100000&alpha_sort=${true}&isEco=${isEco}`
+			`/cms/main-category?limit=10000&alpha_sort=${true}&isEco=${isEco}`
 		);
 		return data.data || [];
 	} catch (error) {
@@ -19,7 +19,7 @@ export const getCategoriesByMainCategoryId = async (
 ) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/cms/category?limit=100000&alpha_sort=${true}&mainCategoryId=${mainCategoryId}&country=${
+			`/cms/category?limit=10000&alpha_sort=${true}&mainCategoryId=${mainCategoryId}&country=${
 				countryName || ''
 			}`
 		);
@@ -37,7 +37,7 @@ export const getSubCategoriesByCategoryId = async (
 ) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/cms/sub-category?limit=100000&alpha_sort=${true}&categoryId=${categoryId}`
+			`/cms/sub-category?limit=10000&alpha_sort=${true}&categoryId=${categoryId}`
 		);
 		return data.data || [];
 	} catch (error) {
@@ -53,7 +53,7 @@ export const getSpecificCategoriesBySubCategoryId = async (
 ) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/cms/specific-category?limit=100000&alpha_sort=${true}&subCategoryId=${subCategoryId}`
+			`/cms/specific-category?limit=10000&alpha_sort=${true}&subCategoryId=${subCategoryId}`
 		);
 		return data.data || [];
 	} catch (error) {
@@ -69,7 +69,7 @@ export const getTrendingCategoriesByCountry = async (
 ) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/cms/category/trending?limit=100000&country=${countryName || ''}`
+			`/cms/category/trending?limit=10000&country=${countryName || ''}`
 		);
 		return data?.data || [];
 	} catch (error) {
@@ -95,7 +95,7 @@ export const getTrendingCategories = async () => {
 export const getCountries = async () => {
 	try {
 		const { data } = await axiosInstance.get(
-			'/region_country/all?limit=100000'
+			'/region_country/all?limit=10000'
 		);
 
 		return data.data || [];

@@ -26,8 +26,8 @@ const nextConfig = (phase) => {
 					'https://white-ocean-019fe600f.2.azurestaticapps.net/#',
 
 				API_BASE_URL:
-					// 'https://tradewinds-sql-preprod-as.azurewebsites.net',
-					'https://tradewinds-production-sql-as.azurewebsites.net',
+					'https://tradewinds-sql-preprod-as.azurewebsites.net',
+				// 'https://tradewinds-production-sql-as.azurewebsites.net',
 
 				STRIPE_PUBLISHABLE_KEY:
 					'pk_test_51JAhKFCQTcpcYTusSG85R25JWHRXIbw9mg6bn2mJAIncKhAhXpxvAemulgavKUw0iv4J1ygM6zSWGbthNAMWGftk00Jzzmiqcs'
@@ -54,7 +54,7 @@ const nextConfig = (phase) => {
 		output: 'standalone',
 		env: {
 			SITE_URL:
-				'https://tradewindsmp-productionshoppingsite.azurewebsites.net',
+				'https://tradewindsmppreprodshoppingsite.azurewebsites.net',
 
 			BUYER_DASHBOARD_SITE_URL:
 				'https://white-ocean-019fe600f.2.azurestaticapps.net/#',

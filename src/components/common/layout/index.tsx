@@ -67,7 +67,6 @@ const Layout: React.FC<{ productName?: string; seo: any }> = (
 		isAuthenticating: state.isAuthenticating
 	}));
 
-	// const fetchCart = useCartStore((state) => state.fetchCart);
 	const setCart = useCartStore((state) => state.setCart);
 
 	const { route } = useRouter();
