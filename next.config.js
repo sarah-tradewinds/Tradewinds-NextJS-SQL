@@ -54,7 +54,7 @@ const nextConfig = (phase) => {
 		output: 'standalone',
 		env: {
 			SITE_URL:
-				'https://tradewindsmp-productionshoppingsite.azurewebsites.net',
+				'https://tradewindsmppreprodshoppingsite.azurewebsites.net',
 
 			BUYER_DASHBOARD_SITE_URL:
 				'https://white-ocean-019fe600f.2.azurestaticapps.net/#',
