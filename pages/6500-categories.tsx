@@ -271,7 +271,7 @@ const CategoriesPage: NextPage<
 							</div>
 
 							{/* Categories in Alphabetic order */}
-							<div className="mt-[14.5px] sm:mt-[28.63px] sm:ml-[48px] sm:columns-2 xl:mt-[35px] desktop:columns-4">
+							<div className="mt-[14.5px] sm:mt-[28.63px] sm:ml-[48px] sm:columns-2 xl:mt-[35px] xl:columns-4">
 								{alphabetList.map((alphabet, index) => {
 									const categories = namesByLetter[alphabet] || [];
 

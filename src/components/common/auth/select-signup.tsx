@@ -42,54 +42,57 @@ const SelectSignUp: React.FC = () => {
 			overlayClassName="!z-[51000]"
 		>
 			<div className="ml-2 flex  items-center justify-center">
-				<div className="flex justify-center rounded-md bg-white shadow-md  md:h-[600px] md:w-[720px]">
-					<div className="overflow-hiden  flex h-[400px] w-[300px]  flex-col items-center border-r border-gray/40 px-[10px]  sm:mt-[50px] sm:h-[500px] sm:w-[450px] sm:border-r sm:px-[20px] ">
+				<div className="flex justify-center rounded-md bg-white shadow-md  md:h-[600px] md:w-[750px]">
+					<div className="overflow-hiden  flex h-[400px] w-[300px]  flex-col items-center border-r border-gray/40 px-[10px]  sm:mt-[50px] sm:h-[500px] sm:w-[480px] sm:border-r sm:px-[20px] ">
 						<h2 className=" mt-[30px] w-full border-b border-gray/40 text-center text-[20px] font-semibold text-gray sm:mt-[50px] sm:text-[35px]">
 							{t('auth:create_an_account')}
 						</h2>
 
 						<div className="flex w-full justify-center border-b border-gray/40 pb-[30px] not-italic sm:pb-[40px]">
-							<form className=" w-[300px]  sm:w-[340px]">
-								<div className="mt-[30px] mb-[27px] space-x-[10px] text-center text-sm font-normal text-label_gray sm:mt-[41px] sm:text-lg  ">
+							<form className=" w-[300px]  sm:w-[365px]">
+								<div className="mt-[30px] mb-[27px] text-left  text-[13px] font-normal text-label_gray sm:mt-[41px] sm:text-lg  ">
 									<label>I am a...</label>
-									<label>
-										<span className=" mr-[7px]">
-											<input
-												className=" inline-block h-[17px] w-[17px] border align-text-top sm:h-[23px] sm:w-[23px] "
-												type="radio"
-												name="myRadio"
-												value="Buyer"
-												onChange={handleRadioChange}
-												defaultChecked
-											/>
-										</span>
-										Buyer
-									</label>
-									<label>
-										<span className=" mr-[7px]">
-											<input
-												className=" inline-block h-[17px] w-[17px] align-text-top sm:h-[23px] sm:w-[23px]"
-												type="radio"
-												name="myRadio"
-												value="Seller"
-												onChange={handleRadioChange}
-											/>
-										</span>
-										Seller
-									</label>
+									<br />
+									<div className=" flex space-x-[10px]">
+										<label>
+											<span className=" mr-[7px]">
+												<input
+													className=" inline-block h-[17px] w-[17px] border align-text-top sm:h-[23px] sm:w-[23px] "
+													type="radio"
+													name="myRadio"
+													value="Buyer"
+													onChange={handleRadioChange}
+													defaultChecked
+												/>
+											</span>
+											Buyer
+										</label>
+										<label>
+											<span className=" mr-[7px]">
+												<input
+													className=" inline-block h-[17px] w-[17px] align-text-top sm:h-[23px] sm:w-[23px]"
+													type="radio"
+													name="myRadio"
+													value="Seller"
+													onChange={handleRadioChange}
+												/>
+											</span>
+											Seller
+										</label>
 
-									<label>
-										<span className=" mr-[7px]">
-											<input
-												className=" inline-block h-[17px] w-[17px] align-text-top sm:h-[23px] sm:w-[23px]"
-												type="radio"
-												name="myRadio"
-												value="BDM"
-												onChange={handleRadioChange}
-											/>
-										</span>
-										BDM
-									</label>
+										<label>
+											<span className=" mr-[7px]">
+												<input
+													className=" inline-block h-[17px] w-[17px] align-text-top sm:h-[23px] sm:w-[23px]"
+													type="radio"
+													name="myRadio"
+													value="BDM"
+													onChange={handleRadioChange}
+												/>
+											</span>
+											Business Agent
+										</label>
+									</div>
 								</div>
 								<Button
 									variant="product"
