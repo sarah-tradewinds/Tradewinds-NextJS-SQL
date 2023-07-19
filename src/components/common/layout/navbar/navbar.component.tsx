@@ -188,7 +188,7 @@ const Header = (props: any) => {
 
 	return (
 		<header
-			className={`sticky top-0 z-[10000] hidden w-full md:block md:h-[80px] lg:h-[96px] xl:h-[120px]`}
+			className={`sticky top-0 z-[10000] hidden w-full md:block md:h-[79px] lg:h-[94px] xl:h-[120px]`}
 		>
 			<div
 				className={`${

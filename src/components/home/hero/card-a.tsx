@@ -15,7 +15,7 @@ const CardA: React.FC<CardAProps> = (props) => {
 	return (
 		<Link
 			href={href}
-			className="block h-[153px] w-[203px] overflow-hidden rounded-md bg-white sm:h-[203px] sm:w-[245px] lg:!h-[244.24px] lg:!w-[325.92px] xl:!h-[305px] xl:!w-[405.73px] desktop:!h-[352px] desktop:!w-[466px]"
+			className="block transition-all hover:-translate-y-[2px] h-[153px] w-[203px] overflow-hidden rounded-md bg-white sm:h-[203px] sm:w-[245px] lg:!h-[244.24px] lg:!w-[325.92px] xl:!h-[305px] xl:!w-[405.73px] desktop:!h-[352px] desktop:!w-[466px]"
 		>
 			<h2 className="ml-[9.15px] pt-[7px] text-[15px] font-semibold text-gray dark:text-gray sm:pt-[4px] sm:text-[18px] lg:ml-[14.97px] lg:pt-[6px] lg:text-[21px] lg:leading-[25.6px] xl:ml-[19.06px] xl:pt-[12px] desktop:ml-[21px] desktop:pt-[14px] desktop:text-[25px] desktop:leading-[30.48px]">
 				{title}
