@@ -65,7 +65,8 @@ const nextConfig = (phase) => {
 				'https://www.dashboard.tradewindsmarketplace.com/#',
 
 			API_BASE_URL:
-				'https://tradewinds-production-sql-as.azurewebsites.net',
+				// 'https://tradewinds-production-sql-as.azurewebsites.net',
+				'https://tradewinds-sql-production-as.azurewebsites.net',
 
 			STRIPE_PUBLISHABLE_KEY:
 				'pk_live_51JAhKFCQTcpcYTus0nINDA07UHO9vC8tKxCUzQgYkZhsJuuwXjrVetP6guxJzrOIrvPowH9FpGpMIK3ZfxhqeAQc00AmdLhqZD'
