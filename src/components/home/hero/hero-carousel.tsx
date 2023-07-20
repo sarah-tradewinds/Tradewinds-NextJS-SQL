@@ -79,7 +79,7 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 
 					{item.title?.en && (
 						<div
-							className={`absolute z-[4] mb-10 w-fit space-y-2 p-4 sm:!w-[60%] lg:mb-12 xl:mb-16 desktop:mb-20 ${getAlignmentClassName(
+							className={`absolute z-[4] mb-10 w-fit space-y-2 p-4 sm:!max-w-[60%] lg:mb-12 xl:mb-16 desktop:mb-20 ${getAlignmentClassName(
 								(item.horizonatal_alignment ||
 									'left') as xAxisAlignment,
 								(item.vertical_alignment || 'center') as yAxisAlignment
