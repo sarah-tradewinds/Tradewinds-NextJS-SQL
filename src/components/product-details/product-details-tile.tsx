@@ -564,8 +564,10 @@ const ProductDetailsTile: React.FC<{
 
 			{/* ADD to Cart button */}
 			<button
-				onClick={onAddToCart}
-				className={`${baseButtonClass} border-[1.41px] border-[#37B04A]`}
+				onClick={is_live && isInStock ? onAddToCart : undefined}
+				className={`${baseButtonClass} ${
+					is_live && isInStock ? 'cursor-pointer' : 'cursor-not-allowed'
+				} border-[1.41px] border-[#37B04A]`}
 			>
 				<div className="flex items-center space-x-[8.79px]">
 					<div className="relative h-[24.02px] w-[31.08px] sm:h-[8.99px] sm:w-[11.64px] lg:h-[11.57px] lg:w-[14.29px]">
@@ -815,7 +817,9 @@ const ProductDetailsTile: React.FC<{
 									className={`!flex !items-center !space-x-2 !px-2 !text-[16px] !font-medium ${
 										!is_live ? '!cursor-not-allowed !opacity-60' : ''
 									}`}
-									onClick={is_live ? onAddToCart : undefined}
+									onClick={
+										is_live && isInStock ? onAddToCart : undefined
+									}
 								>
 									<MdOutlineShoppingCart className="h-6 w-6" />
 									<span>{t('common:add_to_cart')}</span>
