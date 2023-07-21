@@ -4,9 +4,11 @@ import {
 	OperationTailImage
 } from 'components/common/why-buy/why-buy-operation-tile';
 import WhyBuyTile from 'components/common/why-buy/why-buy-tile';
+import { useTranslation } from 'next-i18next';
 import { useAuthStore } from 'store/auth';
 function FeatureCommunication() {
 	const { setIsSignUpOpen } = useAuthStore();
+	const { t } = useTranslation('why_buy');
 	return (
 		<div>
 			{/* Why Buy points section only display on large screen*/}
@@ -17,29 +19,37 @@ function FeatureCommunication() {
 							imageClassName=" sm:w-[34px] sm:h-[35px] md:w-[39px] md:h-[41px]  lg:w-[52px] lg:h-[54px]  desktop:w-[80px] desktop:h-[84px] "
 							imageUrl="/static/images/WhyBuyImages/verified-seller.png"
 							contentContainerClassName="sm:w-[246px] sm:mt-[11px] md:w-[284px] md:mt-[13px] lg:w-[379px] lg:mt-[27px] desktop:w-[580px]  desktop:mt-[28px] "
-							title="Verified Seller"
-							subtitle="Discover a vast selection of products from trusted sellers across various industries."
+							title={t('verified_sellers')}
+							subtitle={t(
+								'discover_a_vast_selection_of_products_from_trusted_sellers_across_various_industries.'
+							)}
 						/>
 						<WhyBuyTile
 							imageClassName=" sm:w-[41px] sm:h-[41px] md:w-[48px] md:h-[48px]  lg:w-[64px] lg:h-[64px]  desktop:w-[98px] desktop:h-[98px] "
 							imageUrl="/static/images/WhyBuyImages/buy-with-confidence.png"
 							contentContainerClassName="sm:w-[244px] sm:mt-[12px] md:w-[281px] md:mt-[13px] lg:w-[374px] lg:mt-[18px] desktop:w-[572px] desktop:mt-[0px] "
-							title="Buy with confidence"
-							subtitle="At Tradewinds Marketplace, we prioritize your peace of mind when purchasing from new sellers online. Our platform employs robust tools and protocols to ensure a secure and reliable shopping experience, guaranteeing that you receive exactly what you ordered."
+							title={t('buy_with_confidence')}
+							subtitle={t(
+								'at_tradewinds_marketplace, we_prioritize_your_peace_of_mind when purchasing from new sellers online. Our platform employs robust tools and protocols to ensure a secure and reliable shopping experience, guaranteeing that you receive exactly what you ordered.'
+							)}
 						/>
 						<WhyBuyTile
 							imageClassName="sm:w-[47px] sm:h-[47px] md:w-[54px] md:h-[54px]  lg:w-[73px] lg:h-[73px]  desktop:w-[112px] desktop:h-[112px]"
 							imageUrl="/static/images/WhyBuyImages/sellers-come-to-you.png"
 							contentContainerClassName="sm:w-[233px] sm:mt-[7px] md:w-[268px] md:mt-[9px] lg:w-[358px] lg:mt-[12px] desktop:w-[548px] desktop:mt-[19px] "
-							title="Let the sellers come to you"
-							subtitle="Specify your requirements and submit them in the Request for Quotation (RFQ) marketplace. Receive quotes from multiple sellers, usually within 24 hours or less."
+							title={t('let_the_sellers_come_to_you')}
+							subtitle={t(
+								'specify_your_requirements_and_submit_them_in_the_Request_for_quotation (RFQ) marketplace. Receive quotes from multiple sellers, usually within 24 hours or less.'
+							)}
 						/>
 						<WhyBuyTile
 							imageClassName="sm:w-[35px] sm:h-[47px] md:w-[41px] md:h-[54px]  lg:w-[54px] lg:h-[73px] desktop:w-[82px] desktop:h-[112px] "
 							imageUrl="/static/images/WhyBuyImages/fexible-payment.png"
 							contentContainerClassName=" sm:w-[254px] sm:mt-[8px] md:w-[293px] md:mt-[9px] lg:w-[392px] lg:mt-[13px] desktop:w-[548px] desktop:mt-[20px] h-[19px]"
-							title="Flexible payment options"
-							subtitle="With TWMP, buyers can receive real-time financing assessments within seconds through our secure lending partners, Klarna and Afterpay."
+							title={t('flexible_payment_options')}
+							subtitle={t(
+								'with_twmp,_buyers_can_receive_real-time_financing_assessments_within_seconds through our secure lending partners, Klarna and Afterpay.'
+							)}
 						/>
 					</div>
 
@@ -48,7 +58,7 @@ function FeatureCommunication() {
 							onClick={setIsSignUpOpen}
 							className=" bg-secondary font-medium text-white sm:h-[25px] sm:w-[135px] sm:rounded-[5px] sm:text-[10px] md:h-[29px] md:w-[156px] md:rounded-[8px] md:text-[12px] lg:h-[39px] lg:w-[209px] lg:rounded-[10px] lg:text-[16px] desktop:h-[60px] desktop:w-[319px] desktop:rounded-[10px] desktop:text-[25px] "
 						>
-							Join Now
+							{t('common:join_now')}
 						</button>
 					</div>
 				</div>
@@ -59,29 +69,37 @@ function FeatureCommunication() {
 							imageClassName=" mt-[27px] w-[34px] h-[35px]  "
 							imageUrl="/static/images/WhyBuyImages/verified-seller.png"
 							contentContainerClassName=" mt-[11px] w-[247px] h-[61px] "
-							title="Verified Seller"
-							subtitle="Discover a vast selection of products from trusted sellers across various industries."
+							title={t('verified_sellers')}
+							subtitle={t(
+								'discover_a_vast_selection_of_products_from_trusted_sellers_across_various_industries.'
+							)}
 						/>
 						<WhyBuyTile
 							imageClassName=" mt-[54px] w-[47px] h-[47px] "
 							imageUrl="/static/images/WhyBuyImages/buy-with-confidence.png"
 							contentContainerClassName=" mt-[7px] w-[243px] h-[121px] "
-							title="Buy with confidence"
-							subtitle="At Tradewinds Marketplace, we prioritize your peace of mind when purchasing from new sellers online. Our platform employs robust tools and protocols to ensure a secure and reliable shopping experience, guaranteeing that you receive exactly what you ordered."
+							title={t('buy_with_confidence')}
+							subtitle={t(
+								'at_tradewinds_marketplace, we_prioritize_your_peace_of_mind when purchasing from new sellers online. Our platform employs robust tools and protocols to ensure a secure and reliable shopping experience, guaranteeing that you receive exactly what you ordered.'
+							)}
 						/>
 						<WhyBuyTile
 							imageClassName=" mt-[45px] w-[41px] h-[41px] "
 							imageUrl="/static/images/WhyBuyImages/sellers-come-to-you.png"
 							contentContainerClassName=" mt-[11px] w-[233px] h-[91px]"
-							title="Let the sellers come to you"
-							subtitle="Specify your requirements and submit them in the Request for Quotation (RFQ) marketplace. Receive quotes from multiple sellers, usually within 24 hours or less."
+							title={t('let_the_sellers_come_to_you')}
+							subtitle={t(
+								'specify_your_requirements_and_submit_them_in_the_Request_for_quotation (RFQ) marketplace. Receive quotes from multiple sellers, usually within 24 hours or less.'
+							)}
 						/>
 						<WhyBuyTile
 							imageClassName=" mt-[34px] h-[41px] w-[35px] "
 							imageUrl="/static/images/WhyBuyImages/fexible-payment.png"
 							contentContainerClassName=" mt-[8px] w-[255px] h-[77px]"
-							title="Flexible payment options"
-							subtitle="With TWMP, buyers can receive real-time financing assessments within seconds through our secure lending partners, Klarna and Afterpay."
+							title={t('flexible_payment_options')}
+							subtitle={t(
+								'with_twmp,_buyers_can_receive_real-time_financing_assessments_within_seconds through our secure lending partners, Klarna and Afterpay.'
+							)}
 						/>
 
 						<div className=" mt-[45px] -ml-[94px] text-center sm:mt-[39px] md:mt-[56px] lg:mt-[77px] desktop:mt-[82px]">
@@ -89,7 +107,7 @@ function FeatureCommunication() {
 								onClick={setIsSignUpOpen}
 								className="h-[25px] w-[135px] rounded-[5px] bg-secondary font-medium text-white sm:h-[25px] sm:w-[135px] sm:rounded-[5px] sm:text-[10px] md:h-[29px] md:w-[156px] md:rounded-[8px] md:text-[12px] lg:h-[39px] lg:w-[209px] lg:rounded-[10px] lg:text-[16px] desktop:h-[60px] desktop:w-[319px] desktop:rounded-[10px] desktop:text-[25px] "
 							>
-								Join Now
+								{t('common:join_now')}
 							</button>
 						</div>
 					</div>
@@ -99,11 +117,12 @@ function FeatureCommunication() {
 			<div className="container mx-auto w-[300px] justify-center bg-white !pb-[48px] pt-[1px] sm:w-[640px] sm:pt-[11px] md:w-[744px] md:pt-[13px] lg:w-[993px] lg:pt-[18px] desktop:w-[1487px] desktop:pt-[28px]">
 				<div className=" left-0 mt-[33px] flex flex-col pl-[20px] font-semibold text-gray sm:items-center">
 					<p className=" text-[18px] sm:text-[18px] md:text-[20px] lg:text-[25px] desktop:text-[50px] ">
-						Features
+						{t('features')}
 					</p>
 					<p className=" text-[12px] sm:text-[15px] md:text-[15px] lg:text-[18px] desktop:text-[25px]">
-						Innovative digital tools that transform the wholesale
-						experience
+						{t(
+							'innovative_digital_tools_that_transform_the_wholesale_experience'
+						)}
 					</p>
 				</div>
 
@@ -118,55 +137,59 @@ function FeatureCommunication() {
 					<div className="mt-[12px] h-[405px] w-[261px] space-y-[8px]  leading-[14px] sm:h-[332px] sm:w-[252px] sm:space-y-[4px] sm:leading-[12.2px] md:-mt-[10px] md:h-[333px] md:w-[247px] md:space-y-[5px] md:leading-[12px] lg:mt-0 lg:h-[408px] lg:w-[329px] lg:space-y-[8px] lg:leading-[16px] desktop:mt-0 desktop:h-[578px] desktop:w-[524px] desktop:space-y-[15px] desktop:leading-[24px]">
 						<p>
 							<span className=" text-[12px] font-semibold sm:text-[12px] md:text-[12px] lg:text-[15px] desktop:text-[24px]">
-								Optimize your procurement operations
+								{t('optimize_your_procurement_operations')}
 							</span>{' '}
 							<br />
 							<span className="text-[12px] font-normal sm:text-[10px] md:text-[10px] lg:text-[12px] desktop:text-[18px] ">
-								Transform your wholesale operations with innovative
-								digital tools.
+								{t(
+									'transform_your_wholesale_operations_with_innovative_digital_tools.'
+								)}
 							</span>
 						</p>
 						<p>
 							<span className="text-[12px] font-semibold sm:text-[12px] md:text-[12px] lg:text-[15px] desktop:text-[24px]">
-								Expand Your Procurement Horizons
+								{t('expand_your_procurement_horizons')}
 							</span>{' '}
 							<br />
 							<span className="text-[12px] font-normal sm:text-[10px] md:text-[10px] lg:text-[12px] desktop:text-[18px] ">
-								Unlock the Power of Diverse Procurement: Expand Your
-								Options, Maximize Your Potential, and Mitigate Risks of
-								Overreliance.
+								{t(
+									'unlock_the_Power_of_diverse_procurement: Expand Your Options, Maximize Your Potential, and Mitigate Risks of Overreliance.'
+								)}
 							</span>
 						</p>
 						<p>
 							<span className="text-[12px] font-semibold sm:text-[12px] md:text-[12px] lg:text-[15px] desktop:text-[24px]">
-								Explore a vast selection of products to suit your needs.
+								{t(
+									'explore_a_vast selection_of_products_to_suit_your_needs.'
+								)}
 							</span>{' '}
 							<br />
 							<span className="text-[12px] font-normal sm:text-[10px] md:text-[10px] lg:text-[12px] desktop:text-[18px] ">
-								Discover a diverse range of products on Tradewinds
-								Marketplace, offering buyers the freedom to select the
-								best sellers and items to meet their needs.
+								{t(
+									'discover_a_diverse_range_of_products_on_Tradewinds_marketplace,_offering buyers the freedom to select the best sellers and items to meet their needs.'
+								)}
 							</span>
 						</p>
 						<p>
 							<span className="text-[12px] font-semibold sm:text-[12px] md:text-[12px] lg:text-[15px] desktop:text-[24px]">
-								Flexible Buying Options 
+								{t('flexible_buying_options')}
 							</span>{' '}
 							<br />
 							<span className="text-[12px] font-normal sm:text-[10px] md:text-[10px] lg:text-[12px] desktop:text-[18px] ">
-								Buyers have the flexibility to purchase ready-to-ship
-								products with a simple click or directly engage with
-								sellers for price negotiation and customization options.
+								{t(
+									'buyers_have_the_flexibility_to_purchase_ready-to-ship products with a simple click or directly engage with sellers for price negotiation and customization options.'
+								)}
 							</span>
 						</p>
 						<p>
 							<span className="text-[12px] font-semibold sm:text-[12px] md:text-[12px] lg:text-[15px] desktop:text-[24px]">
-								Dynamic Pricing- Optimize your sales
+								{t('dynamic_pricing_Optimize_your_sales')}
 							</span>{' '}
 							<br />
 							<span className="text-[12px] font-normal sm:text-[10px] md:text-[10px] lg:text-[12px] desktop:text-[18px] ">
-								Negotiate Pricing, Explore Ladder Pricing, and Set
-								Minimum Order Quantities for Maximum Profitability.
+								{t(
+									'negotiate_pricing,_Explore_Ladder_Pricing, and Set Minimum Order Quantities for Maximum Profitability.'
+								)}
 							</span>
 						</p>
 					</div>
@@ -175,10 +198,10 @@ function FeatureCommunication() {
 				<div className=" mx-auto hidden rounded-[10px] bg-bg_gray text-gray sm:mt-[32px] sm:block sm:h-[409px] sm:w-[594px] md:mt-[12px] md:h-[363px] md:w-[655px] lg:mt-[59px] lg:h-[485px] lg:w-[875px] desktop:mt-[91px] desktop:h-[741px] desktop:w-[1337px]">
 					<div className="sm:h-[37px] sm:pt-[13px] md:h-[38px] md:pt-[9px] lg:h-[87px] lg:pt-[18px] desktop:h-[115px]  desktop:pt-[34px] ">
 						<p className=" text-center font-semibold sm:text-[18px] sm:leading-[20px] md:text-[18px] md:leading-[20px] lg:text-[25px] lg:leading-[30px] desktop:text-[50px] desktop:leading-[60px]  ">
-							Communication Center
+							{t('communication_center')}
 						</p>
 						<p className=" text-center sm:text-[12px] sm:leading-[13px] md:text-[13px] md:leading-[14px] lg:text-[18px] lg:leading-[22px] desktop:text-[25px] desktop:leading-[27px]">
-							Browse and Choose from Millions of products.
+							{t('browse_and_choose_from_millions_of_products')}
 						</p>
 					</div>
 					<div className="flex sm:mt-[24px] sm:space-x-[47px] md:mt-[18px] md:space-x-[50px] lg:mt-[21px] lg:space-x-[106px] desktop:mt-[21px] desktop:space-x-[150px] ">
@@ -207,20 +230,28 @@ function FeatureCommunication() {
 							</div>
 							<div className="sm:h-[316px] sm:w-[223px] sm:space-y-[10px] md:h-[290px] md:w-[257px] md:space-y-[12px] lg:h-[364px] lg:w-[310px] lg:space-y-[17px] desktop:h-[552px] desktop:w-[475px] desktop:space-y-[10px]">
 								<OperationTailContent
-									title="Messaging Center"
-									subtitle="Take control of Supplier interactions: Build Loyalty, track leads, and manage orders effortlessly in a centralized platform."
+									title={t('messaging_center')}
+									subtitle={t(
+										'take_control_of_supplier_interactions:_Build Loyalty, track leads, and manage orders effortlessly in a centralized platform.'
+									)}
 								/>
 								<OperationTailContent
-									title="Product inquiries"
-									subtitle="Seamless Connectivity: Connect with Sellers, Negotiate Pricing, Inquire about Products, and Personalize your Orders through Direct Messaging."
+									title={t('product_inquiries')}
+									subtitle={t(
+										'seamless_Connectivity:_Connect_with_Sellers,_Negotiate_Pricing, Inquire about Products, and Personalize your Orders through Direct Messaging.'
+									)}
 								/>
 								<OperationTailContent
-									title="Request for Quotation (RFQ)"
-									subtitle="Effortless Sourcing: Post an RFQ and proactively discover and connect with sellers offering the products you need."
+									title={t('common:request_for_quotation_rfq')}
+									subtitle={t(
+										'effortless_sourcing:_Post_an_RFQ_and_proactively_discover_and_connect with sellers offering the products you need.'
+									)}
 								/>
 								<OperationTailContent
-									title="Translation Tool"
-									subtitle="You could send a message to a seller in English and your message will automatically be translated to Spanish. When they message you back, the text will automatically be translated to your preferred language, whether it be English, Mandarin, Italian, French, etc."
+									title={t('translation_tool')}
+									subtitle={t(
+										'you_could_send_a_message_to_a_seller_in_english_and_your_message_will_automatically_be_translated_to_spanish'
+									)}
 								/>
 							</div>
 						</div>
@@ -249,20 +280,28 @@ function FeatureCommunication() {
 							</div>
 							<div className="sm:h-[296px] sm:w-[226px] sm:space-y-[10px] md:h-[249px] md:w-[232px] md:space-y-[12px] lg:h-[219px] lg:w-[310px] lg:space-y-[17px] desktop:h-[462px] desktop:w-[475px] desktop:space-y-[10px]">
 								<OperationTailContent
-									title="Order Management"
-									subtitle="Simplify your Workflow: Streamline every step in a single platform and leverage on-platform tools for a seamless and efficient process."
+									title={t('common:order_management')}
+									subtitle={t(
+										'simplify_your_Workflow:_Streamline_every_step_in a single platform and leverage on-platform tools for a seamless and efficient process.'
+									)}
 								/>
 								<OperationTailContent
-									title="Effortlessly Manage Invoices"
-									subtitle="Streamline the process of receiving, negotiating, and accepting invoices with utmost professionalism and minimal effort"
+									title={t('effortlessly_manage_invoices')}
+									subtitle={t(
+										'streamline_the_process_of_receiving, negotiating, and accepting invoices with utmost professionalism and minimal effort'
+									)}
 								/>
 								<OperationTailContent
-									title="Secure Processing"
-									subtitle="Ensure the safety of your transactions with robust processing protection."
+									title={t('secure_processing')}
+									subtitle={t(
+										'ensure_the_safety_of_your_transactions_with_robust_processing_protection.'
+									)}
 								/>
 								<OperationTailContent
-									title="Simplified Logistics and Fulfillment"
-									subtitle="Experience the convenience of flexible and cost-efficient shipping rates through Tradewinds Marketplace"
+									title={t('simplified_logistics_and_Fulfillment')}
+									subtitle={t(
+										'experience_the_convenience_of_flexible_and_cost-efficient shipping rates through Tradewinds Marketplace'
+									)}
 								/>
 							</div>
 						</div>
@@ -272,10 +311,10 @@ function FeatureCommunication() {
 				<div className=" block w-full pl-[16px] sm:hidden md:hidden lg:hidden desktop:hidden">
 					<div className=" h-[51px] w-[259px]">
 						<p className=" text-[18px] font-semibold  ">
-							Communication Center
+							{t('communication_center')}
 						</p>
 						<p className=" text-[12px]">
-							Browse and Choose from Millions of products.
+							{t('browse_and_choose_from_millions_of_products')}
 						</p>
 					</div>
 					<div className=" pr-[60px]">
@@ -285,8 +324,10 @@ function FeatureCommunication() {
 							imgClassname="w-[14px] h-[11px] mt-[22px]"
 						/>
 						<OperationTailContent
-							title="Messaging Center"
-							subtitle="Take control of Supplier interactions: Build Loyalty, track leads, and manage orders effortlessly in a centralized platform."
+							title={t('messaging_center')}
+							subtitle={t(
+								'take_control_of_supplier_interactions:_Build Loyalty, track leads, and manage orders effortlessly in a centralized platform.'
+							)}
 						/>
 						<OperationTailImage
 							imageUrl="/static/images/WhyBuyImages/product-inquiries.png"
@@ -294,8 +335,10 @@ function FeatureCommunication() {
 							imgClassname="w-[18px] h-[13px] mt-[18px]"
 						/>
 						<OperationTailContent
-							title="Product inquiries"
-							subtitle="Seamless Connectivity: Connect with Sellers, Negotiate Pricing, Inquire about Products, and Personalize your Orders through Direct Messaging."
+							title={t('product_inquiries')}
+							subtitle={t(
+								'seamless_Connectivity:_Connect_with_Sellers,_Negotiate_Pricing, Inquire about Products, and Personalize your Orders through Direct Messaging.'
+							)}
 						/>
 						<OperationTailImage
 							imageUrl="/static/images/why-sell-on-tradewinds-images/rfq-icon.png"
@@ -303,17 +346,22 @@ function FeatureCommunication() {
 							imgClassname="w-[15px] h-[13px] mt-[15px]"
 						/>
 						<OperationTailContent
-							title="Request for Quotation (RFQ)"
-							subtitle="Effortless Sourcing: Post an RFQ and proactively discover and connect with sellers offering the products you need."
+							title={t('common:request_for_quotation_rfq')}
+							subtitle={t(
+								'effortless_sourcing:_Post_an_RFQ_and_proactively_discover_and_connect with sellers offering the products you need.'
+							)}
 						/>
+
 						<OperationTailImage
 							imageUrl="/static/images/WhyBuyImages/translation-tool.png"
 							alt="Sustainably sourced"
 							imgClassname="w-[19px] h-[17px] mt-[15px] "
 						/>
 						<OperationTailContent
-							title="Translation Tool"
-							subtitle="You could send a message to a seller in English and your message will automatically be translated to Spanish. When they message you back, the text will automatically be translated to your preferred language, whether it be English, Mandarin, Italian, French, etc."
+							title={t('translation_tool')}
+							subtitle={t(
+								'you_could_send_a_message_to_a_seller_in_english_and_your_message_will_automatically_be_translated_to_spanish'
+							)}
 						/>
 
 						<OperationTailImage
@@ -322,17 +370,22 @@ function FeatureCommunication() {
 							imgClassname="mt-[15px] w-[16px] h-[16px]"
 						/>
 						<OperationTailContent
-							title="Order Management"
-							subtitle="Simplify your Workflow: Streamline every step in a single platform and leverage on-platform tools for a seamless and efficient process."
+							title={t('common:order_management')}
+							subtitle={t(
+								'simplify_your_Workflow:_Streamline_every_step_in a single platform and leverage on-platform tools for a seamless and efficient process.'
+							)}
 						/>
+
 						<OperationTailImage
 							imageUrl="/static/images/WhyBuyImages/effortlessly.png"
 							alt="Effortlessly Manage Invoices"
 							imgClassname=" mt-[10px] w-[10px] h-[14px]"
 						/>
 						<OperationTailContent
-							title="Effortlessly Manage Invoices"
-							subtitle="Streamline the process of receiving, negotiating, and accepting invoices with utmost professionalism and minimal effort"
+							title={t('effortlessly_manage_invoices')}
+							subtitle={t(
+								'streamline_the_process_of_receiving, negotiating, and accepting invoices with utmost professionalism and minimal effort'
+							)}
 						/>
 						<OperationTailImage
 							imageUrl="/static/images/why-sell-on-tradewinds-images/proccessing.png"
@@ -340,8 +393,10 @@ function FeatureCommunication() {
 							imgClassname="mt-[10px] w-[12px] h-[17px]"
 						/>
 						<OperationTailContent
-							title="Secure Processing"
-							subtitle="Ensure the safety of your transactions with robust processing protection."
+							title={t('secure_processing')}
+							subtitle={t(
+								'ensure_the_safety_of_your_transactions_with_robust_processing_protection.'
+							)}
 						/>
 						<OperationTailImage
 							imageUrl="/static/images/WhyBuyImages/logistics-and-fulfillment-img.png"
@@ -349,14 +404,16 @@ function FeatureCommunication() {
 							imgClassname="mt-[10px] w-[15px] h-[15px]"
 						/>
 						<OperationTailContent
-							title="Simplified Logistics and Fulfillment"
-							subtitle="Experience the convenience of flexible and cost-efficient shipping rates through Tradewinds Marketplace"
+							title={t('simplified_logistics_and_Fulfillment')}
+							subtitle={t(
+								'experience_the_convenience_of_flexible_and_cost-efficient shipping rates through Tradewinds Marketplace'
+							)}
 						/>
 					</div>
 				</div>
 				<div className=' container mx-auto h-[350px]  w-[300px] bg-[url("/static/images/WhyBuyImages/ready-to-grow-banner-phone.png")] pl-[22px] pt-[14px]  text-white sm:mt-[26px] sm:h-[349px] sm:w-[626px]  sm:bg-[url("/static/images/WhyBuyImages/ready-to-grow-banner.png")] sm:pl-[64px] sm:pt-[29px] md:mt-[18px] md:h-[403px]  md:w-[721px] md:pl-[74px] md:pt-[43px] lg:mt-[31px] lg:h-[538px]  lg:w-[963px] lg:pl-[99px] lg:pt-[45px]  desktop:mt-[48px]  desktop:h-[822px]  desktop:w-[1489px] desktop:pl-[164px] desktop:pt-[48px] '>
 					<p className=" h-[52px] w-[166px] text-[21px] font-semibold leading-[25px] sm:h-[52px] sm:w-[166px] sm:text-[21px] sm:leading-[25px] md:h-[60px] md:w-[191px] md:text-[24px] md:leading-[29px] lg:h-[80px] lg:w-[275px] lg:text-[33px] lg:leading-[38px] desktop:h-[122px] desktop:w-[389px] desktop:text-[50px] desktop:leading-[61px] ">
-						Ready to Grow Your Business?
+						{t('ready_to_Grow_Your_Business?')}
 					</p>
 					<div className="mt-[9px] h-[151px] w-[259px] text-[10px] leading-[12px] sm:mt-[8px] sm:h-[150px] sm:w-[297px] sm:text-[10px] sm:leading-[12px] md:mt-[9px] md:h-[173px] md:w-[432px] md:text-[12px] md:leading-[14px] lg:mt-[12px] lg:h-[231px] lg:w-[457px] lg:text-[16px] lg:leading-[19px] desktop:mt-[20px] desktop:h-[354px] desktop:w-[699px] desktop:text-[25px] desktop:leading-[30px]">
 						<p>
