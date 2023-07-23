@@ -241,7 +241,8 @@ const ProductDetailsTile: React.FC<{
 				className={`!space-x-1 md:!space-x-4 ${
 					is_live && isInStock ? 'cursor-pointer' : 'cursor-not-allowed'
 				}`}
-				onClick={is_live && isInStock ? onAddToCart : undefined}
+				// onClick={is_live && isInStock ? onAddToCart : undefined}
+				onClick={onAddToCart}
 				titleClassName="md:text-cyan md:text-[13px] md:leading-4"
 			/>
 		</div>
@@ -564,7 +565,8 @@ const ProductDetailsTile: React.FC<{
 
 			{/* ADD to Cart button */}
 			<button
-				onClick={is_live && isInStock ? onAddToCart : undefined}
+				// onClick={is_live && isInStock ? onAddToCart : undefined}
+				onClick={onAddToCart}
 				className={`${baseButtonClass} ${
 					is_live && isInStock ? 'cursor-pointer' : 'cursor-not-allowed'
 				} border-[1.41px] border-[#37B04A]`}
@@ -818,7 +820,8 @@ const ProductDetailsTile: React.FC<{
 										!is_live ? '!cursor-not-allowed !opacity-60' : ''
 									}`}
 									onClick={
-										is_live && isInStock ? onAddToCart : undefined
+										// is_live && isInStock ? onAddToCart : undefined
+										onAddToCart
 									}
 								>
 									<MdOutlineShoppingCart className="h-6 w-6" />

@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { useAuthStore } from 'store/auth';
 import { useCartStore } from 'store/cart-store-v2';
 
+import useNoLiveBuyPopupStore from 'store/no-live-buy-popup-store';
 import {
 	generateListByCount,
 	getDefaultProductAndProductVariants
@@ -59,6 +60,8 @@ const ProductList: React.FC<ProductListProps> = ({
 	const [minimumProductOrderQuantity, setMinimumProductOrderQuantity] =
 		useState<number>(0);
 	const [selectedProduct, setSelectedProduct] = useState<any>({});
+
+	const { setIsNoLiveBuyPopupOpen } = useNoLiveBuyPopupStore();
 
 	const addToCartDefaultProductVariantHandler = async (
 		product: any
@@ -176,12 +179,6 @@ const ProductList: React.FC<ProductListProps> = ({
 						bulk_pricing
 					});
 
-					console.log(
-						'product===product===product===product',
-						product?.id,
-						product?.edges
-					);
-
 					const {
 						main_categories,
 						categories,
@@ -244,6 +241,11 @@ const ProductList: React.FC<ProductListProps> = ({
 						totalRateCount: product.total_rate_count || 0,
 						onCompareClick: () => onCompareClick(product),
 						onCartClick: async () => {
+							if (!product.is_live) {
+								setIsNoLiveBuyPopupOpen(true);
+								return;
+							}
+
 							const minimumOrderQuantity =
 								product?.inventory?.minimum_order_quantity || 0;
 

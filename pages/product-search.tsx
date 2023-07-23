@@ -306,7 +306,7 @@ const ProductSearchPage: NextPage<
 			</div>
 
 			{/* ProductSearchFilterBar */}
-			<div className="top-[97px] z-20 hidden md:sticky md:ml-[9px] md:mr-[10px] md:block md:pt-[14.01px] lg:hidden desktop:top-[121px] desktop:ml-[26px] desktop:mr-[23px] desktop:pt-[18.14px]">
+			<div className="top-[97px] z-10 hidden md:sticky md:ml-[9px] md:mr-[10px] md:block md:pt-[14.01px] lg:hidden desktop:top-[121px] desktop:ml-[26px] desktop:mr-[23px] desktop:pt-[18.14px]">
 				{productSearchFilerComponent}
 			</div>
 
