@@ -219,10 +219,10 @@ const ProductDetailsPage: NextPage<
 				selectedVariantId={selectedVariantId}
 				totalReviewCount={productReviewList.length}
 				onAddToCart={async () => {
-					if (!productData?.is_live) {
-						setIsNoLiveBuyPopupOpen(true);
-						return;
-					}
+					// if (!productData?.is_live) {
+					// 	setIsNoLiveBuyPopupOpen(true);
+					// 	return;
+					// }
 					const { defaultVariant } =
 						getDefaultProductAndProductVariants(
 							productData?.edges?.product_variants || []
