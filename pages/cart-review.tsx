@@ -77,6 +77,15 @@ const CartReviewPage: NextPage = () => {
 
 	const totalCartItemCount = order_items?.length || 0;
 
+	// const getFullAddress = (addressObject: any) => {
+	// 	const { address_line1, address_line2, address_line3 } =
+	// 		addressObject;
+
+	// 	const locale = router.locale || 'en';
+
+	// 	const addressText = `${address_line1[locale] || ''}`;
+	// }; // End of getFullAddress
+
 	return (
 		<>
 			<Loader isOpen={isLoading} />
@@ -169,6 +178,25 @@ const CartReviewPage: NextPage = () => {
 										billing_address?.address_line1 || {},
 										router.locale
 									)}
+									{
+										shipping_address?.address_line2?.[
+											router.locale || 'en'
+										]
+									}
+
+									{
+										shipping_address?.edges?.city?.name?.[
+											router.locale || 'en'
+										]
+									}
+
+									{
+										shipping_address?.edges?.state?.name?.[
+											router.locale || 'en'
+										]
+									}
+									{shipping_address?.postal_code || '-'}
+									{shipping_address?.edges?.country?.name?.en || ''}
 								</p>
 							</div>
 							{/* Email */}
@@ -203,6 +231,25 @@ const CartReviewPage: NextPage = () => {
 										shipping_address?.address_line1 || {},
 										router.locale
 									)}
+									{
+										shipping_address?.address_line2?.[
+											router.locale || 'en'
+										]
+									}
+
+									{
+										shipping_address?.edges?.city?.name?.[
+											router.locale || 'en'
+										]
+									}
+
+									{
+										shipping_address?.edges?.state?.name?.[
+											router.locale || 'en'
+										]
+									}
+									{shipping_address?.postal_code || '-'}
+									{shipping_address?.edges?.country?.name?.en || ''}
 								</p>
 							</div>
 							{/* Email */}

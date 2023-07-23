@@ -258,7 +258,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 						<h3 className="text-[18px] font-semibold leading-[21.94px] text-primary-main">
 							{isSaleOn && !isBulkPricing ? (
 								<>
-									<span className="">
+									<span className="text-error">
 										Sale ${salePrice}/{minOrderQuantityUnit}
 									</span>
 									<span className="ml-2 inline-block line-through">
