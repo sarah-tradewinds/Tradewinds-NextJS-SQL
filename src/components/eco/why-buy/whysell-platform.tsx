@@ -24,7 +24,7 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 				<div>
 					<div className=" pt-[15px] text-center sm:pt-[13px] md:pt-[16px] lg:pt-[31px]  desktop:pt-[75px] ">
 						<p className="text-[15px] font-semibold leading-[18px] sm:text-[15px] sm:leading-[18px] md:text-[18px] md:leading-[20px] lg:text-[25px] lg:leading-[30px] desktop:text-[50px] desktop:leading-[60px]">
-							{t('Platform Features')}
+							{t('platform_features')}
 						</p>
 					</div>
 					<div className="mt-[20px] space-y-[20px] sm:mt-[19px]  sm:space-y-[41px] md:mt-[23px] md:space-y-[49px] lg:mt-[38px] lg:space-y-[65px] desktop:mt-[71px] desktop:space-y-[96px]">
@@ -33,7 +33,7 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 						>
 							<WhySellOnTWOperationTile
 								imageUrl="/static/images/why-sell-on-tradewinds-images/store-front-img.png"
-								title={t('Storefront')}
+								title={t('storefront')}
 								className=" pl-[4px] sm:pl-[20px] md:pl-[13px] lg:pl-[32px] desktop:pl-8"
 								containerClassName={leftSideClassName}
 							>
@@ -43,8 +43,8 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 											? '/eco/why-sell/personalized.png'
 											: '/static/images/why-sell-on-tradewinds-images/store-front.png'
 									}
-									title="Personalized Storefront"
-									subtitle={t('Showcase your products seamlessly.')}
+									title={t('personalized_storefront')}
+									subtitle={t('showcase_your_products_seamlessly')}
 									className=" "
 								/>
 								<WhySellOnTWOperationSubTile
@@ -53,9 +53,9 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 											? '/eco/why-sell/seo-optimization.png'
 											: '/static/images/why-sell-on-tradewinds-images/keyword-advertising.png'
 									}
-									title={t('SEO Optimization:')}
+									title={t('seo_optimization')}
 									subtitle={t(
-										'Optimize your product listings for SEO with valuable posting recommendations.'
+										'optimize_your_product_listings_for_SEO_with_valuable_posting_recommendations'
 									)}
 									className="  "
 								/>
@@ -65,9 +65,9 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 											? '/eco/why-sell/inventory-management.png'
 											: '/static/images/why-sell-on-tradewinds-images/inventory.png'
 									}
-									title={t('Inventory Management: ')}
+									title={t('inventory_management')}
 									subtitle={t(
-										'Track inventory from purchase to the sale of goods. individual sale.'
+										'track_inventory_from_purchase_to_the_sale_of_goods. individual sale.'
 									)}
 									className=" "
 								/>
@@ -88,7 +88,7 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 								}
 								title={t('common:messaging_center')}
 								subtitle={t(
-									'Engage with customers to build strong relationships.'
+									'engage_with_customers_to_build_strong_relationships'
 								)}
 								className=" "
 							/>
@@ -100,7 +100,7 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 								}
 								title={t('translation_tools')}
 								subtitle={t(
-									'Effortlessly communicate with translated conversations in your preferred languages.'
+									'effortlessly_communicate_with_translated_conversations_in_your_preferred_languages'
 								)}
 								className=" "
 							/>
@@ -111,7 +111,7 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 						>
 							<WhySellOnTWOperationTile
 								imageUrl="/static/images/why-sell-on-tradewinds-images/Order Management.png"
-								title={t('Order Management')}
+								title={t('common:order_management')}
 								className="pl-[4px] sm:pl-[20px] md:pl-[13px]  lg:pl-[32px] desktop:pl-8"
 								containerClassName={leftSideClassName}
 							>
@@ -121,9 +121,9 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 											? '/eco/why-sell/invoice.png'
 											: '/static/images/why-sell-on-tradewinds-images/invoice.png'
 									}
-									title={t('Invoice creation:')}
+									title={t('invoice_creation')}
 									subtitle={t(
-										'Effortlessly send stunning, professional invoices that impress.'
+										'effortlessly_send_stunning,_professional_invoices_that_impress'
 									)}
 									className="  "
 								/>
@@ -133,9 +133,9 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 											? '/eco/why-sell/processing.png'
 											: '/static/images/why-sell-on-tradewinds-images/proccessing.png'
 									}
-									title={t('Processing Protection:')}
+									title={t('processing_protection')}
 									subtitle={t(
-										'Enable secure transactions through Tradewinds Marketplace, fostering trust between buyers and sellers.'
+										'enable_secure_transactions_through_tradewinds_marketplace,_fostering_trust_between_buyers_and_sellers.'
 									)}
 									className=" "
 								/>
@@ -145,9 +145,9 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 											? '/eco/why-sell/logistics.png'
 											: '/static/images/why-sell-on-tradewinds-images/logistics.png'
 									}
-									title={t('Logistics: ')}
+									title={t('logistics: ')}
 									subtitle={t(
-										'Effortlessly streamline your logistics and fulfillment using our advanced Fulfillment Manager, allowing you to easily track every shipment and delivery while enjoying the convenience of automatic updates.'
+										'effortlessly_streamline_your_logistics_and_fulfillment_using_our_advanced_Fulfillment_Manager'
 									)}
 									className=" "
 								/>
@@ -156,7 +156,7 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 
 						<WhySellOnTWOperationTile
 							imageUrl="/static/images/why-sell-on-tradewinds-images/RFQ-tool.png"
-							title={t('RFQ Tool- "Request for Quotation"')}
+							title={t('rfq_tool-Request_for_quotation')}
 							className="pl-[4px] sm:pl-[20px] md:pl-[13px] lg:pl-[32px] desktop:pl-8"
 							containerClassName="md:pr-4 lg:pr-0 sm:flex-row-reverse md:flex-row-reverse  pb-8 lg:pb-0 lg:flex-row-reverse "
 						>
@@ -166,9 +166,9 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 										? '/eco/why-sell/seamlessly.png'
 										: '/static/images/why-sell-on-tradewinds-images/rfq-icon.png'
 								}
-								title={t('Seamlessly connect with buyers')}
+								title={t('seamlessly_connect_with_buyers')}
 								subtitle={t(
-									'Seeking your products and provide quotes to hot leads, revolutionizing your sales process for limitless business opportunities.'
+									'seeking_your_products_and_provide_quotes_to_hot_leads,_revolutionizing_your_sales_process for limitless business opportunities.'
 								)}
 								className="  "
 							/>
@@ -178,7 +178,7 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 						>
 							<WhySellOnTWOperationTile
 								imageUrl="/static/images/why-sell-on-tradewinds-images/Marketing-img.png"
-								title={t('Marketing')}
+								title={t('marketing')}
 								className="pl-[4px] sm:pl-[20px] md:pl-[13px]  lg:pl-[32px] desktop:pl-8"
 								containerClassName={leftSideClassName}
 							>
@@ -188,9 +188,9 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 											? '/eco/why-sell/sponsored.png'
 											: '/static/images/why-sell-on-tradewinds-images/sponsored-campaigns.png'
 									}
-									title={t('Sponsored campaigns:')}
+									title={t('sponsored_campaigns')}
 									subtitle={t(
-										'Increase traffic to your storefront and create interest for your products.'
+										'increase_traffic_to_your_storefront_and_create_interest_for_your_products'
 									)}
 									className="  "
 								/>
@@ -200,9 +200,9 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 											? '/eco/why-sell/seo-optimization.png'
 											: '/static/images/why-sell-on-tradewinds-images/keyword-advertising.png'
 									}
-									title={t('Keyword Advertising:')}
+									title={t('keyword_advertising')}
 									subtitle={t(
-										'Maximize your product visibility by targeting buyers based on their location, browsing history, and more. This helps your products appear higher in relevant searches, attracting more customers.'
+										'maximize_your_product_visibility_by_targeting_buyers_based_on_their_location,_browsing_history,_and more. This helps your products appear higher in relevant searches, attracting more customers.'
 									)}
 									className=" "
 								/>
@@ -212,9 +212,9 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 											? '/eco/why-sell/budget.png'
 											: '/static/images/why-sell-on-tradewinds-images/dynamic-pricing.png'
 									}
-									title={t('Budget Control:')}
+									title={t('budget_control')}
 									subtitle={t(
-										'Customize your advertising parameters to align with your preferred budget and achieve your marketing goals.'
+										'customize_your_advertising_parameters_to_align_with_your_preferred_budget_and_achieve_your marketing goals.'
 									)}
 								/>
 							</WhySellOnTWOperationTile>
@@ -233,7 +233,7 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 								}
 								title={t('dashboards')}
 								subtitle={t(
-									'Unleash the power of data visualization to track your store metrics, analyze historical data, and receive intelligent suggestions based on platform insights.'
+									'unleash_the_power_of_data_visualization_to_track_your_store_metrics,_analyze_historical data, and receive intelligent suggestions based on platform insights.'
 								)}
 								className=" "
 							/>
@@ -245,7 +245,7 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 								}
 								title={t('industry_analytics')}
 								subtitle={t(
-									'Gain valuable insights into product performance through in-depth demand analysis, trend evaluation, price comparisons, and more.'
+									'gain_valuable_insights_into_product_performance_through_in-depth_demand_analysis, trend evaluation, price comparisons, and more.'
 								)}
 								className=" "
 							/>

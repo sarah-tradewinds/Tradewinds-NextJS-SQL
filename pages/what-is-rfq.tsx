@@ -63,7 +63,7 @@ const WhatIsRFQPage: NextPage = () => {
 								onClick={submitRFQ}
 								className="  h-[22px]  w-[117px] rounded-[5px] bg-secondary text-[8px] font-medium sm:h-[22px] sm:w-[117px] sm:text-[8px] md:h-[26px] md:w-[140px] md:text-[10px] lg:h-[35px] lg:w-[187px] lg:text-[12px] desktop:h-[52px] desktop:w-[276px] desktop:text-[18px]"
 							>
-								Submit RFQ
+								{t('common:submit_rfq')}
 							</button>
 						</div>
 					</div>
@@ -73,16 +73,9 @@ const WhatIsRFQPage: NextPage = () => {
 					{/* For tablet and desktop */}
 					<div className=" container z-30 mx-auto hidden justify-center bg-[url('/static/images/RfqPageImages/why-use-rfq-bg.png')]  bg-cover bg-center bg-no-repeat sm:hidden md:-mt-[117px] md:block md:h-[490px] md:w-[768px] lg:-mt-[115px] lg:block lg:h-[616px] lg:w-[1025px] desktop:-mt-[163px] desktop:block desktop:h-[909px] desktop:w-[1512px]">
 						<p className=" mx-auto text-primary-main md:h-[93px] md:w-[579px] md:pt-[5px] md:text-[12px] md:leading-[14px] lg:h-[80px] lg:w-[773px] lg:pt-[13px] lg:text-[12px] lg:leading-[14px] desktop:h-[128px] desktop:w-[1141px] desktop:pt-[20px] desktop:text-[18px] desktop:leading-[21px]">
-							RFQs serve as a vital tool for buyers to identify sellers
-							that align with their needs. Experience the power of RFQs
-							on Tradewinds Marketplace, where you can connect with
-							vendors worldwide, request competitive prices, and expand
-							your international sourcing. With a diverse range of
-							suppliers at your fingertips, RFQs enable you to diversify
-							your sourcing strategies, discover new markets, and access
-							unique products. Unlock the potential of RFQs on
-							Tradewinds Marketplace and transform the way you source
-							and procure goods for your business.
+							{t(
+								'RFQs_serve_as_a_vital_tool_for_buyers_to_identify_sellers_that_align_with_their_needs._Experience the power of RFQs on Tradewinds Marketplace,'
+							)}
 						</p>
 						<div className=" flex items-center md:space-x-[205px] lg:space-x-[395px] desktop:space-x-[595px] ">
 							<p className=" font-semibold text-primary-main md:-mt-[15px] md:ml-[38px] md:w-[201px] md:text-[25px] lg:mt-[30px] lg:ml-[50px] lg:w-[220px] lg:text-[25px] desktop:mt-[0px] desktop:ml-[75px] desktop:w-[360px] desktop:text-[40px]">
@@ -119,20 +112,12 @@ const WhatIsRFQPage: NextPage = () => {
 					<div className=" container mx-auto block h-[617px] justify-center sm:flex sm:h-[339px] sm:space-x-[28px] md:hidden lg:hidden desktop:hidden">
 						<div className=" mt-[12px] ml-[21px] sm:mt-[41px] sm:ml-[19px]">
 							<p className=" h-[30px] w-[237px] text-[20px] sm:h-[37px] sm:w-[228px] ">
-								Why use RFQ?
+								{t('why_use_rfq')}
 							</p>
 							<p className=" h-[226px] w-[260px] text-[12px] leading-[14px] sm:h-[172px] sm:w-[341px] ">
-								RFQs serve as a vital tool for buyers to identify
-								sellers that align with their needs. Experience the
-								power of RFQs on Tradewinds Marketplace, where you can
-								connect with vendors worldwide, request competitive
-								prices, and expand your international sourcing. With a
-								diverse range of suppliers at your fingertips, RFQs
-								enable you to diversify your sourcing strategies,
-								discover new markets, and access unique products. Unlock
-								the potential of RFQs on Tradewinds Marketplace and
-								transform the way you source and procure goods for your
-								business.
+								{t(
+									'RFQs_serve_as_a_vital_tool_for_buyers_to_identify_sellers_that_align_with_their_needs._Experience the power of RFQs on Tradewinds Marketplace,'
+								)}
 							</p>
 						</div>
 						<div className="  flex space-x-[28px]  ">
@@ -175,10 +160,10 @@ const WhatIsRFQPage: NextPage = () => {
 								</div>
 							</div>
 							<div className="mt-[41px]  w-[174px] space-y-[39px] text-[12px]">
-								<p>Submit quote for your Custom Request</p>
-								<p>Receive responses from Multiple Suppliers</p>
-								<p>Choose the Right Supplier</p>
-								<p className=" pt-[15px]">Close deal</p>
+								<p>{t('submit_quote_for_your_custom_request')}</p>
+								<p>{t('receive_responses_from_multiple_suppliers')}</p>
+								<p>{t('choose_the_right_supplier')}</p>
+								<p className=" pt-[15px]">{t('close_deal')}</p>
 							</div>
 						</div>
 					</div>
@@ -198,7 +183,9 @@ const WhatIsRFQPage: NextPage = () => {
 						<div>
 							<div className="ml-[21px] sm:ml-[19px] md:-ml-[8px]  lg:-ml-[10px] desktop:-ml-[15px]">
 								<p className="mt-[30px] h-[75px] w-[244px] text-[20px] font-semibold leading-[25px] text-gray sm:mt-[33px] sm:h-[25px] sm:w-[606px] sm:text-[20px] sm:leading-[25px] md:mt-[31px] md:h-[60px] md:w-[371px] md:text-[25px] md:leading-[30px] lg:mt-[42px] lg:h-[60px] lg:w-[371px] lg:text-[25px] lg:leading-[30px] desktop:mt-[62px] desktop:h-[98px] desktop:w-[593px] desktop:text-[40px] desktop:leading-[48px]">
-									How should I send a RFQ on Tradewinds Marketplace?
+									{t(
+										'how_should_i_send_a_rfq_on_tradewinds_marketplace'
+									)}
 								</p>
 
 								<h4 className="text-left text-[12px] font-semibold leading-[15px] text-white sm:text-center sm:text-[12px] sm:leading-[15px] md:text-left md:text-[15px] md:leading-[18px] lg:text-left lg:text-[18px] lg:leading-[21px] desktop:text-left desktop:text-[24px] desktop:leading-[29px]">
@@ -209,52 +196,43 @@ const WhatIsRFQPage: NextPage = () => {
 								<div className=" h-[646px] w-[246px] space-y-[20px] text-[12px] text-white sm:h-[488px] sm:w-[371px] sm:space-y-[20px] sm:text-[12px] md:h-[383px] md:w-[297px] md:space-y-[5px] md:text-[12px] lg:h-[384px] lg:w-[395px] lg:space-y-[25px] lg:text-[12px] desktop:h-[540px] desktop:w-[584px] desktop:space-y-[30px] desktop:text-[18px] ">
 									<div>
 										<p className="text-[12px] font-semibold text-gray sm:text-[12px] md:text-[15px] lg:text-[18px] desktop:text-[25px] ">
-											Fill out RFQ form:
+											{t('fill_out_RFQ_form:')}
 										</p>
 										<div className="ml-[12px] mb-[30px] -space-y-[5px] sm:ml-[12px] sm:mb-[30px] sm:-space-y-[5px] md:ml-[12px] md:mb-[7px] md:-space-y-[10px] lg:ml-[12px] lg:mb-[7px] lg:-space-y-[10px] desktop:ml-[15px] desktop:mb-[10px] desktop:space-y-[0px] ">
 											<Point
-												content="Complete RFQ Form: Note: To enhance vendor
-											responses, ensure your provided information is
-											detailed for responses that are tailored and
-											relevant."
+												content={t(
+													'complete_RFQ_form:_Note:_To_enhance_vendor_responses,_ensure_your_provided_information_is_detailed for responses that are tailored and relevant.'
+												)}
 											/>
 
-											<Point
-												content="Complete Product information: Complete Product
-											information: Add additional notes. Eg. Multiple
-											colors, fabric needs etc."
-											/>
+											<Point content="complete_product_information:_complete_product_information:_Add_additional_notes._Eg._Multiple colors, fabric needs etc." />
 
-											<Point content="Review details and Submit" />
+											<Point content={t('review_details_and_submit')} />
 										</div>
 									</div>
 									<div>
 										<p className="text-[12px] font-semibold text-gray md:text-[15px] lg:text-[18px] desktop:text-[25px] ">
-											Review vendor responses:
+											{t('review_vendor_responses')}
 										</p>
 										<div className="ml-[12px] mb-[30px] -space-y-[5px]  sm:ml-[12px] sm:mb-[30px] sm:-space-y-[5px] md:ml-[12px] md:mb-[7px] md:-space-y-[10px] lg:ml-[12px] lg:mb-[10px] lg:-space-y-[10px] desktop:ml-[15px]  desktop:mb-[10px] desktop:space-y-[0px] ">
-											<Point content="Review vendor responses:" />
+											<Point content={t('review_vendor_responses')} />
 											<Point
-												content="Choose your preferred quote: Notify your chosen
-											vendor of your decision and next steps while
-											retaining a copy of the RFQ for future contractual
-											reference."
+												content={t(
+													'choose_your_preferred_quote:_Notify_your_chosen_vendor_of_your_decision_and_next steps while retaining a copy of the RFQ for future contractual reference.'
+												)}
 											/>
-											<Point content="Review details and Submit" />
+											<Point content={t('review_details_and_submit')} />
 										</div>
 									</div>
 									<div>
 										<p className="text-[12px] font-semibold text-gray md:text-[15px] lg:text-[18px] desktop:text-[25px] ">
-											Finalize the process:
+											{t('finalize_the_process:')}
 										</p>
 										<div className="ml-[12px] mb-[30px] -space-y-[5px] sm:ml-[12px] sm:mb-[30px] sm:-space-y-[5px] md:ml-[12px] md:mb-[7px] md:-space-y-[10px] lg:ml-[12px] lg:mb-[7px] lg:-space-y-[10px] desktop:ml-[15px] desktop:mb-[10px] desktop:space-y-[0px] ">
 											<Point
-												content="Finally, formalize the arrangement with the chosen
-											vendor to close out the process. Keep in mind that
-											an RFQ is not a contract and requires formal
-											agreement from both parties to be enforceable.
-											Notify other vendors of your decision to proceed
-											with a different vendor."
+												content={t(
+													'finally,_formalize_the_arrangement_with_the_chosen_vendor_to_close_out_the_process._Keep in mind that an RFQ is not a contract and requires formal agreement from both parties to be enforceable. Notify other vendors of your decision to proceed with a different vendor.'
+												)}
 											/>
 										</div>
 									</div>

@@ -419,24 +419,27 @@ function FeatureCommunication() {
 						<p>
 							<span className=" font-semibold">Start Buying</span>
 							<br />
-							Create an account
+							{t('auth:create_an_account')}
 							<br />
-							Negotiate deals, buy right away or Post a RFQ
+							{t('negotiate_deals,_buy_right_away_or_Post_a_RFQ')}
+
 							<br />
-							Respond to Suppliers
-							<br /> Procure Orders and payment
-							<br /> Receive Products
+							<span>
+								{t(
+									'respond_to_Suppliers_Procure_Orders_and_payment_Receive_Products'
+								)}
+							</span>
 						</p>
 						<p className="mt-[18px] sm:mt-[15px] md:mt-[18px] lg:mt-[20px] desktop:mt-[25px]">
 							<span className=" font-semibold">
-								Manage your account
+								{t('manage_your_account')}
 							</span>{' '}
 							<br />
-							Stay connected with Suppliers
-							<br />
-							Nurture your relationships
-							<br />
-							Optimize purchases
+							<span>
+								{t(
+									'stay_connected_with_Suppliers_Nurture_your_relationships_Optimize_purchases'
+								)}
+							</span>
 						</p>
 					</div>
 					<div className="ml-[9px] mt-[16pxpx] sm:ml-[22px] sm:mt-[8px] md:ml-[15px] md:mt-[9px] lg:mt-[13px] lg:ml-[33px] desktop:ml-[51px] desktop:mt-[20px]  ">
@@ -444,7 +447,7 @@ function FeatureCommunication() {
 							onClick={setIsSignUpOpen}
 							className=" h-[19px] w-[104px] rounded-[3px] bg-cyan text-[8px] sm:h-[11px] sm:w-[58px] sm:rounded-[3px] sm:text-[7px] md:h-[12px] md:w-[67px] md:rounded-[4px] md:text-[8px] lg:h-[17px] lg:w-[90px] lg:rounded-[5px] lg:text-[11px] desktop:h-[26px] desktop:w-[138px] desktop:rounded-[5px] desktop:text-[18px]"
 						>
-							Start Today
+							{t('start_today')}
 						</button>
 					</div>
 				</div>
