@@ -66,6 +66,11 @@ const ProductList: React.FC<ProductListProps> = ({
 	const addToCartDefaultProductVariantHandler = async (
 		product: any
 	) => {
+		if (!product.is_live) {
+			setIsNoLiveBuyPopupOpen(true);
+			return;
+		}
+
 		const { defaultVariant } = getDefaultProductAndProductVariants(
 			product?.edges?.product_variants || []
 		);
