@@ -30,6 +30,7 @@ interface CartItemProps {
 	variantCount: number;
 	onUpdate: (quantity: number, productId: string) => any;
 	onRemove?: () => any;
+	onMessageVendorClick?(): any;
 }
 
 const CartItem: React.FC<CartItemProps> = (props) => {
@@ -53,7 +54,8 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 		totalReviewCount,
 		variantCount,
 		onUpdate,
-		onRemove
+		onRemove,
+		onMessageVendorClick
 	} = props;
 
 	const [productQuantity, setProductQuantity] = useState(quantity || 1);
@@ -279,7 +281,10 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 
 			{/* Delete, save, ratings and isVerified */}
 			<div className="col-span-12 mt-2 items-center justify-between md:mt-4 md:flex">
-				<Button className="ml-6 hidden !border !text-primary-main md:block">
+				<Button
+					onClick={onMessageVendorClick}
+					className="ml-6 hidden !border !text-primary-main md:block"
+				>
 					{t('common:message_vendor')}
 				</Button>
 				<div className="flex justify-center space-x-4 text-accent-primary-main md:justify-start">

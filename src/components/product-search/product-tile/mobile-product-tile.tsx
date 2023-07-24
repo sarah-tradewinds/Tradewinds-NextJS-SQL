@@ -152,7 +152,8 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 				title={t('cart')}
 				titleClassName="text-bg_blue"
 				className={isLive ? 'cursor-pointer' : 'cursor-not-allowed'}
-				onClick={isLive ? onCartClick : undefined}
+				// onClick={isLive ? onCartClick : undefined}
+				onClick={onCartClick}
 			/>
 		</div>
 	];

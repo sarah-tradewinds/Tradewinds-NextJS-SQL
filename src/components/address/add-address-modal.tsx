@@ -73,17 +73,9 @@ const AddAddressModal = (props: {
 		e.preventDefault();
 
 		try {
-			// if (buyerAddress.is_default?.toString() === 'true') {
-			// 	buyerAddress.is_default = true;
-			// } else {
-			// 	buyerAddress.is_default = false;
-			// }
-
-			// if (buyerAddress.is_billing_address?.toString() === 'true') {
-			// 	buyerAddress.is_billing_address = true;
-			// } else {
-			// 	buyerAddress.is_billing_address = false;
-			// }
+			buyerAddress.first_name = firstName || '';
+			buyerAddress.last_name = lastName || '';
+			buyerAddress.buyer_id = customerData.buyerId || '';
 
 			await addAddress(buyerAddress);
 			onAddressAdded();

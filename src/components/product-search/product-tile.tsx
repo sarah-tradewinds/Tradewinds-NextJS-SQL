@@ -206,8 +206,8 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 				className={`!space-x-1 ${
 					isLive ? 'cursor-pointer' : 'cursor-not-allowed'
 				}`}
-				onClick={isLive ? onCartClick : undefined}
-				// titleClassName="desktop:text-cyan lg:!text-[10px]"
+				// onClick={isLive ? onCartClick : undefined}
+				onClick={onCartClick}
 				titleClassName="xl:text-cyan lg:!text-[10px] sm:!text-[12px] text-bg_blue sm:!leading-[14.63px] xl:!text-[13px] xl:!leading-[15.85px]"
 			/>
 		</div>
@@ -258,7 +258,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 						<h3 className="text-[18px] font-semibold leading-[21.94px] text-primary-main">
 							{isSaleOn && !isBulkPricing ? (
 								<>
-									<span className="">
+									<span className="text-error">
 										Sale ${salePrice}/{minOrderQuantityUnit}
 									</span>
 									<span className="ml-2 inline-block line-through">
@@ -306,7 +306,9 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 				</div>
 				<div className="flex flex-col space-y-1">
 					{metadataTileList[1]}
-					{metadataTileList[4]}
+					<div className={isLive ? '' : '-mt-5'}>
+						{metadataTileList[4]}
+					</div>
 				</div>
 				<div className="flex flex-col space-y-1">
 					{metadataTileList[2]}
