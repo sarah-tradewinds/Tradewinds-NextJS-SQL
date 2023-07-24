@@ -9,7 +9,7 @@ function ProductQualifications() {
 	return (
 		<div>
 			{/* Large screen */}
-			<div className=" container left-1/2 z-50 mx-auto hidden justify-center rounded-[12px]  bg-primary-eco text-center text-beauty sm:hidden sm:h-[313px] sm:w-[907px] sm:space-y-[15px] sm:pr-[36px] sm:pt-[16px] sm:pl-[25px] sm:text-[18px] sm:leading-[21px] md:block md:h-[260px] md:w-[680px] md:space-y-[13px] md:pr-[27px] md:pt-[12px] md:pl-[19px] md:text-[15px] md:leading-[18px] lg:block lg:h-[313px] lg:w-[907px] lg:space-y-[15px] lg:pr-[36px] lg:pt-[16px] lg:pl-[25px] lg:text-[18px] lg:leading-[21px] desktop:block desktop:h-[444px] desktop:w-[1330px] desktop:space-y-[20px] desktop:pr-[52px] desktop:pt-[37px] desktop:pl-[37px] desktop:text-[25px] desktop:leading-[30px] ">
+			<div className=" container left-1/2 z-50 mx-auto hidden justify-center rounded-[12px]  bg-primary-eco text-center text-beauty sm:hidden md:block md:h-[280px] md:w-[680px] md:space-y-[13px] md:pr-[27px] md:pt-[12px] md:pl-[19px] md:text-[15px] md:leading-[18px] lg:block lg:h-[313px] lg:w-[907px] lg:space-y-[15px] lg:pr-[36px] lg:pt-[16px] lg:pl-[25px] lg:text-[18px] lg:leading-[21px] desktop:block desktop:h-[444px] desktop:w-[1330px] desktop:space-y-[20px] desktop:pr-[52px] desktop:pt-[37px] desktop:pl-[37px] desktop:text-[25px] desktop:leading-[30px] ">
 				<p>
 					{t(
 						'embrace_sustainability_and_sell_with_purpose_on_Tradewinds_Eco._As_a_seller on Tradewinds Eco, you have the unique opportunity'
@@ -27,7 +27,7 @@ function ProductQualifications() {
 				</p>
 			</div>
 			{/* Mobile and tablet */}
-			<div className=" container left-1/2 z-50  mx-auto block h-[308px] w-[300px] justify-center space-y-[20px] rounded-[0px] bg-primary-eco  pr-[19px] pt-[13px] pl-[16px] text-left text-[12px] leading-[14px] text-beauty sm:block sm:h-[170px] sm:w-[566px]  sm:space-y-[15px] sm:rounded-[12px] sm:pr-[22px] sm:pt-[10px] sm:pl-[15px] sm:text-center sm:text-[12px] sm:leading-[15px] md:hidden lg:hidden desktop:hidden ">
+			<div className=" container left-1/2 z-50  mx-auto block h-[328px] w-[300px] justify-center space-y-[20px] rounded-[0px] bg-primary-eco  pr-[19px] pt-[13px] pl-[16px] text-left text-[12px] leading-[14px] text-beauty sm:block sm:h-[190px] sm:w-[566px]  sm:space-y-[15px] sm:rounded-[12px] sm:pr-[22px] sm:pt-[10px] sm:pl-[15px] sm:text-center sm:text-[12px] sm:leading-[15px] md:hidden lg:hidden desktop:hidden ">
 				<p>
 					{t(
 						'welcome_to_Tradewinds Marketplace,_your_ultimate_destination_for_global_trade_success._we_understand_the_importance of expanding your business beyond borders and reaching customers around the world. With our innovative platform, we provide a dynamic marketplace where sellers can thrive, and buyers can discover exceptional products.'
@@ -50,7 +50,7 @@ function ProductQualifications() {
 				</p>
 				<div className=" container mx-auto ml-[67px] mt-[14px] block justify-center space-x-0 sm:!ml-0 sm:mt-[34px] sm:!flex sm:space-x-[45px] md:mt-[20px] md:space-x-[52px] lg:mt-[30px] lg:space-x-[106px] desktop:mt-[51px] desktop:space-x-[100px]">
 					<div className=" flex space-x-[7px] sm:space-x-[7px] md:space-x-[9px] lg:space-x-[20px] desktop:space-x-[20px]">
-						<div className="mt-[6px] space-y-[17.5px] sm:mt-[6px] sm:space-y-[17.5px] md:mt-[6px] md:space-y-[20px] lg:mt-[6px] lg:space-y-[22px] desktop:mt-[12px] desktop:space-y-[45px]">
+						<div className="mt-[6px] space-y-[17.5px] sm:mt-[6px] sm:space-y-[17.5px] md:mt-[6px] md:space-y-[21.5px] lg:mt-[6px] lg:space-y-[22px] desktop:mt-[12px] desktop:space-y-[45px]">
 							<WhyBuyOperationTailImage
 								imageUrl="/eco/why-buy/organic.png"
 								alt="organic"

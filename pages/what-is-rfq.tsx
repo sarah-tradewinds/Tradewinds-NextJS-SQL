@@ -86,25 +86,25 @@ const WhatIsRFQPage: NextPage = () => {
 									imageUrl="/static/images/RfqPageImages/submit-request-img.png"
 									title={t('submit_quote_for_your_custom_request')}
 									imageContainerClassName=" md:ml-[60px] md:w-[62px] md:h-[58px] lg:ml-0 lg:w-[87px] lg:h-[70px] desktop:ml-0 desktop:w-[115px] desktop:h-[100px]"
-									textClassName=" md:text-[15px] md:ml-[20px] md:w-[198px] md:h-[34px] lg:text-[18px] lg:ml-[31px] lg:w-[209px] lg:h-[45px] desktop:w-[314px] desktop:h-[67px] desktop:ml-[46px] desktop:text-[25px]"
+									textClassName=" md:text-[15px] md:ml-[20px] md:w-[198px] lg:text-[18px] md:leading-[18px] lg:leading-[21px] lg:ml-[31px] lg:w-[209px]  desktop:w-[314px]  desktop:ml-[46px] desktop:leading-[30px] desktop:text-[25px]"
 								/>
 								<WhyUseRFQTile
 									imageUrl="/static/images/RfqPageImages/receive-response-img.png"
 									title={t('receive_responses_from_multiple_suppliers')}
-									imageContainerClassName="md:ml-[50px] md:w-[58px] md:h-[48px] lg:ml-0 lg:w-[77px] lg:h-[65px] desktop:ml-0 desktop:w-[115px] desktop:h-[96px]"
-									textClassName="md:text-[15px] md:ml-[30px] md:w-[198px] md:h-[34px] lg:text-[18px] lg:ml-[31px] lg:w-[246px] lg:h-[45px] desktop:w-[314px] desktop:h-[67px] desktop:ml-[46px] desktop:text-[25px]"
+									imageContainerClassName="md:ml-[50px] md:w-[58px] md:h-[48px] lg:ml-0 md:leading-[18px] lg:leading-[21px] lg:w-[77px] lg:h-[65px]  desktop:ml-0 desktop:w-[115px] desktop:h-[96px]"
+									textClassName="md:text-[15px] md:ml-[30px] md:w-[198px] desktop:leading-[30px] lg:text-[18px] lg:ml-[31px] lg:w-[246px] desktop:w-[314px] desktop:ml-[46px] desktop:text-[25px]"
 								/>
 								<WhyUseRFQTile
 									imageUrl="/static/images/RfqPageImages/why-use-rfq/choose-right-supplier.png"
 									title={t('choose_the_right_supplier')}
-									imageContainerClassName="mt-0 md:ml-[60px] md:w-[51px] md:h-[65px] lg:mt-[10px] lg:ml-0 lg:w-[69px] lg:h-[86px] desktop:ml-0 desktop:w-[102px] desktop:h-[128px]"
-									textClassName="md:text-[15px] md:ml-[30px] md:w-[198px] md:h-[34px] lg:text-[18px] lg:ml-[41px] lg:w-[209px] lg:h-[45px] desktop:w-[314px] desktop:h-[67px] desktop:ml-[51px] desktop:text-[25px]"
+									imageContainerClassName="mt-0 md:ml-[60px] md:w-[51px] md:h-[65px] md:leading-[18px] lg:leading-[21px] lg:mt-[10px] lg:ml-0 lg:w-[69px] lg:h-[86px] desktop:ml-0 desktop:w-[102px] desktop:h-[128px]"
+									textClassName="md:text-[15px] md:ml-[30px] md:w-[198px] desktop:leading-[30px] lg:text-[18px] lg:ml-[41px] lg:w-[209px] desktop:w-[314px] desktop:ml-[51px] desktop:text-[25px]"
 								/>
 								<WhyUseRFQTile
 									imageUrl="/static/images/RfqPageImages/why-use-rfq/close-deal.png"
 									title={t('close_deal')}
-									imageContainerClassName="md:ml-[60px] md:w-[65px] md:h-[58px] lg:ml-0 lg:w-[87px] lg:h-[77px] desktop:ml-0 desktop:w-[129px] desktop:h-[115px]"
-									textClassName="md:text-[15px] md:ml-[20px] md:w-[198px] md:h-[34px] lg:text-[18px] lg:ml-[31px] lg:w-[209px] lg:h-[45px] desktop:w-[314px] desktop:h-[67px] desktop:ml-[27px] desktop:text-[25px]"
+									imageContainerClassName="md:ml-[60px] md:w-[65px] md:h-[58px] md:leading-[18px] lg:leading-[21px] lg:ml-0 lg:w-[87px] lg:h-[77px] desktop:ml-0 desktop:w-[129px] desktop:h-[115px]"
+									textClassName="md:text-[15px] md:ml-[20px] md:w-[198px] desktop:leading-[30px] lg:text-[18px] lg:ml-[31px] lg:w-[209px] desktop:w-[314px] desktop:ml-[27px] desktop:text-[25px]"
 								/>
 							</div>
 						</div>
@@ -196,7 +196,7 @@ const WhatIsRFQPage: NextPage = () => {
 							<div className="ml-[22px] mt-[28px] leading-[14px] sm:ml-[180px] sm:mt-[30px] sm:leading-[14px] md:ml-[25px] md:mt-[14px] md:leading-[14px] lg:ml-[31px] lg:mt-[18px] lg:leading-[12.94px] desktop:ml-[51px] desktop:mt-[38px] desktop:leading-[21.94px]">
 								<div className=" h-[646px] w-[246px] space-y-[20px] text-[12px] text-white sm:h-[488px] sm:w-[371px] sm:space-y-[20px] sm:text-[12px] md:h-[383px] md:w-[297px] md:space-y-[5px] md:text-[12px] lg:h-[384px] lg:w-[395px] lg:space-y-[25px] lg:text-[12px] desktop:h-[540px] desktop:w-[584px] desktop:space-y-[30px] desktop:text-[18px] ">
 									<div>
-										<p className="text-[12px] font-semibold text-gray sm:text-[12px] md:text-[15px] lg:text-[18px] desktop:text-[25px] ">
+										<p className="text-[12px] font-semibold leading-[15px] text-gray sm:text-[12px] md:text-[15px] md:leading-[18px] lg:text-[18px] lg:leading-[22px] desktop:text-[25px] desktop:leading-[30px] ">
 											{t('fill_out_RFQ_form')}
 										</p>
 										<div className="ml-[12px] mb-[30px] -space-y-[5px] sm:ml-[12px] sm:mb-[30px] sm:-space-y-[5px] md:ml-[12px] md:mb-[7px] md:-space-y-[10px] lg:ml-[12px] lg:mb-[7px] lg:-space-y-[10px] desktop:ml-[15px] desktop:mb-[10px] desktop:space-y-[0px] ">
@@ -214,7 +214,7 @@ const WhatIsRFQPage: NextPage = () => {
 										</div>
 									</div>
 									<div>
-										<p className="text-[12px] font-semibold text-gray md:text-[15px] lg:text-[18px] desktop:text-[25px] ">
+										<p className="text-[12px] font-semibold leading-[15px] text-gray md:text-[15px] md:leading-[18px] lg:text-[18px] lg:leading-[22px] desktop:text-[25px] desktop:leading-[30px]">
 											{t('review_vendor_responses')}
 										</p>
 										<div className="ml-[12px] mb-[30px] -space-y-[5px]  sm:ml-[12px] sm:mb-[30px] sm:-space-y-[5px] md:ml-[12px] md:mb-[7px] md:-space-y-[10px] lg:ml-[12px] lg:mb-[10px] lg:-space-y-[10px] desktop:ml-[15px]  desktop:mb-[10px] desktop:space-y-[0px] ">
@@ -228,7 +228,7 @@ const WhatIsRFQPage: NextPage = () => {
 										</div>
 									</div>
 									<div>
-										<p className="text-[12px] font-semibold text-gray md:text-[15px] lg:text-[18px] desktop:text-[25px] ">
+										<p className="text-[12px] font-semibold leading-[15px] text-gray md:text-[15px] md:leading-[18px] lg:text-[18px] lg:leading-[22px] desktop:text-[25px] desktop:leading-[30px]">
 											{t('finalize_the_process')}
 										</p>
 										<div className="ml-[12px] mb-[30px] -space-y-[5px] sm:ml-[12px] sm:mb-[30px] sm:-space-y-[5px] md:ml-[12px] md:mb-[7px] md:-space-y-[10px] lg:ml-[12px] lg:mb-[7px] lg:-space-y-[10px] desktop:ml-[15px] desktop:mb-[10px] desktop:space-y-[0px] ">

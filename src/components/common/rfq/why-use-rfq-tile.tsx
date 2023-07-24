@@ -39,7 +39,7 @@ const WhyUseRFQTile: React.FC<WhyUseRFQTileProps> = (props) => {
 				/>
 			</div>
 			<p
-				className={`text-[18px] font-semibold ${
+				className={` align-middle text-[18px] font-semibold ${
 					textClassName ? textClassName : 'text-accent-primary-main'
 				}`}
 			>
