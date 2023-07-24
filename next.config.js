@@ -65,7 +65,6 @@ const nextConfig = (phase) => {
 				'https://www.dashboard.tradewindsmarketplace.com/#',
 
 			API_BASE_URL:
-				// 'https://tradewinds-production-sql-as.azurewebsites.net',
 				'https://tradewinds-sql-production-as.azurewebsites.net',
 
 			STRIPE_PUBLISHABLE_KEY:
