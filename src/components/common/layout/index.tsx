@@ -32,7 +32,6 @@ import { useEffect } from 'react';
 import { IoSpeedometerOutline } from 'react-icons/io5';
 import { MdOutlineMessage, MdPerson } from 'react-icons/md';
 
-import useDeviceSize from 'hooks/use-device-size.hooks';
 import { getCart } from 'lib/cart.lib';
 import { getAddresses } from 'lib/customer/addres.lib';
 import { useRouter } from 'next/router';
@@ -40,6 +39,7 @@ import { useState } from 'react';
 import { useAuthStore } from 'store/auth';
 import { useCartStore } from 'store/cart-store-v2';
 import { useHomeStore } from 'store/home';
+import useNoLiveBuyPopupStore from 'store/no-live-buy-popup-store';
 import { getLocaleText } from 'utils/get_locale_text';
 
 const Layout: React.FC<{ productName?: string; seo: any }> = (
@@ -71,7 +71,8 @@ const Layout: React.FC<{ productName?: string; seo: any }> = (
 
 	const { route } = useRouter();
 	const { routeChangeStart } = useRouteEvent();
-	const { deviceWidth, deviceType } = useDeviceSize();
+	const { isNoLiveBuyPopupOpen, setIsNoLiveBuyPopupOpen } =
+		useNoLiveBuyPopupStore();
 
 	useEffect(() => {
 		autoLogin();
@@ -114,6 +115,12 @@ const Layout: React.FC<{ productName?: string; seo: any }> = (
 				title={getLocaleText(seo?.title || {}, locale)}
 				description={getLocaleText(seo?.description || {}, locale)}
 			/>
+
+			{/* <NoLiveBuyPopup
+				open={isNoLiveBuyPopupOpen}
+				onClose={() => setIsNoLiveBuyPopupOpen(false)}
+				className="top-20 sm:top-32 md:top-24 lg:top-44 xl:top-40"
+			/> */}
 
 			<Loader
 				isOpen={routeChangeStart || isAuthenticating}

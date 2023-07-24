@@ -54,6 +54,7 @@ import {
 import { useRouter } from 'next/router';
 import { useAuthStore } from 'store/auth';
 import { useCartStore } from 'store/cart-store-v2';
+import useNoLiveBuyPopupStore from 'store/no-live-buy-popup-store';
 import { getDefaultProductAndProductVariants } from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
 
@@ -87,6 +88,8 @@ const ProductDetailsPage: NextPage<
 	const { addProductVariantToCart } = useCartStore((state) => ({
 		addProductVariantToCart: state.addProductVariantToCart
 	}));
+
+	const { setIsNoLiveBuyPopupOpen } = useNoLiveBuyPopupStore();
 
 	const { locale } = useRouter();
 
@@ -215,16 +218,20 @@ const ProductDetailsPage: NextPage<
 				}}
 				selectedVariantId={selectedVariantId}
 				totalReviewCount={productReviewList.length}
+				hideCartButton={!product.is_live}
 				onAddToCart={async () => {
+					if (!productData?.is_live) {
+						setIsNoLiveBuyPopupOpen(true);
+						return;
+					}
 					const { defaultVariant } =
 						getDefaultProductAndProductVariants(
 							productData?.edges?.product_variants || []
 						);
-					console.log(
-						'productDataproductDataproductData =',
+					addProductVariantToCart(
+						selectedVariantId || defaultVariant.id,
 						productData
 					);
-					addProductVariantToCart(defaultVariant.id, productData);
 				}}
 			/>
 

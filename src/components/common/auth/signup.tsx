@@ -502,8 +502,8 @@ const SignUp: React.FC = () => {
 							.
 							<br />
 							{t('auth:if_you_dont_see_it_you_may_need_to')}{' '}
-							<b>{t('auth:check_your_spam')}</b>
-							{t('common:folder')}.
+							<b>{t('auth:check_your_spam')} </b>
+							<span>{t('common:folder')}.</span>
 						</h4>
 
 						<h4 className="font-small mb-4 text-center font-bold text-primary-main">
