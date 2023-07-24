@@ -48,6 +48,7 @@ interface MobileProductTileProps {
 	isReadyToShip?: boolean;
 	isCustomizable?: boolean;
 	variantCount: number;
+	hideCartButton?: boolean;
 }
 
 const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
@@ -76,6 +77,7 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 		isReadyToShip,
 		isCustomizable,
 		variantCount,
+		hideCartButton,
 		onCartClick,
 		onMessageVendorClick,
 		onClick
@@ -133,29 +135,31 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 			className="cursor-pointer"
 		/>,
 		// add to cart
-		<div
-			key={t('common:save')}
-			title={!isLive ? 'Use message vendor' : ''}
-		>
-			<MetadataTile
+		!hideCartButton && (
+			<div
 				key={t('common:save')}
-				icon={
-					<div
-						className={`text-[20px] md:text-[24] ${
-							isLive ? 'text-bg_blue' : 'text-gray/40'
-						}`}
-					>
-						<MdOutlineShoppingCart />
-					</div>
-				}
-				alt={t('common:save')}
-				title={t('cart')}
-				titleClassName="text-bg_blue"
-				className={isLive ? 'cursor-pointer' : 'cursor-not-allowed'}
-				// onClick={isLive ? onCartClick : undefined}
-				onClick={onCartClick}
-			/>
-		</div>
+				title={!isLive ? 'Use message vendor' : ''}
+			>
+				<MetadataTile
+					key={t('common:save')}
+					icon={
+						<div
+							className={`text-[20px] md:text-[24] ${
+								isLive ? 'text-bg_blue' : 'text-gray/40'
+							}`}
+						>
+							<MdOutlineShoppingCart />
+						</div>
+					}
+					alt={t('common:save')}
+					title={t('cart')}
+					titleClassName="text-bg_blue"
+					className={isLive ? 'cursor-pointer' : 'cursor-not-allowed'}
+					// onClick={isLive ? onCartClick : undefined}
+					onClick={onCartClick}
+				/>
+			</div>
+		)
 	];
 
 	const isSalePriceAvailable = isSaleOn && !isBulkPricing;

@@ -43,12 +43,14 @@ const ProductDetailsTile: React.FC<{
 	totalReviewCount: number;
 	product: any;
 	selectedVariantId?: string;
+	hideCartButton?: boolean;
 	onVariantClick: (variantId: string) => any;
 	onAddToCart: () => any;
 }> = (props) => {
 	const {
 		totalReviewCount,
 		product = {},
+		hideCartButton,
 		onVariantClick,
 		onAddToCart,
 		selectedVariantId
@@ -222,6 +224,7 @@ const ProductDetailsTile: React.FC<{
 		<div
 			key={t('common:save')}
 			title={!is_live ? 'Use message vendor' : ''}
+			className={hideCartButton ? 'invisible' : ''}
 		>
 			<MetadataTile
 				key={t('common:save')}
@@ -569,7 +572,9 @@ const ProductDetailsTile: React.FC<{
 				onClick={onAddToCart}
 				className={`${baseButtonClass} ${
 					is_live && isInStock ? 'cursor-pointer' : 'cursor-not-allowed'
-				} border-[1.41px] border-[#37B04A]`}
+				} border-[1.41px] border-[#37B04A] ${
+					hideCartButton ? 'hidden' : ''
+				}`}
 			>
 				<div className="flex items-center space-x-[8.79px]">
 					<div className="relative h-[24.02px] w-[31.08px] sm:h-[8.99px] sm:w-[11.64px] lg:h-[11.57px] lg:w-[14.29px]">
@@ -818,7 +823,7 @@ const ProductDetailsTile: React.FC<{
 									variant="product"
 									className={`!flex !items-center !space-x-2 !px-2 !text-[16px] !font-medium ${
 										!is_live ? '!cursor-not-allowed !opacity-60' : ''
-									}`}
+									} ${hideCartButton ? 'hidden' : ''}`}
 									onClick={
 										// is_live && isInStock ? onAddToCart : undefined
 										onAddToCart

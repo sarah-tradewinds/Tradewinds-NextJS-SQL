@@ -191,6 +191,8 @@ const ProductList: React.FC<ProductListProps> = ({
 						specific_categories
 					} = product?.edges || {};
 
+					const hideCartButton = !product.is_live;
+
 					const navigateWithShallow = () => {
 						push(
 							{
@@ -244,6 +246,7 @@ const ProductList: React.FC<ProductListProps> = ({
 						)?.toLowerCase(),
 						totalReviewCount: product.total_review_count || 0,
 						totalRateCount: product.total_rate_count || 0,
+						hideCartButton,
 						onCompareClick: () => onCompareClick(product),
 						onCartClick: async () => {
 							if (!product.is_live) {
