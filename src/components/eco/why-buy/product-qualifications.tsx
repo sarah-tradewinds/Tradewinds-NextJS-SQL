@@ -48,7 +48,7 @@ function ProductQualifications() {
 						"we're_driven_by_the_belief_that_sustainability_is_the_only_future — and_what_we_do_now_matters._TWMP hosts sustainable, high-performing brands that meet our seven-point standard:"
 					)}
 				</p>
-				<div className=" container mx-auto ml-[67px] mt-[14px] block justify-center space-x-0 sm:!ml-0 sm:mt-[34px] sm:!flex sm:space-x-[45px] md:mt-[20px] md:space-x-[52px] lg:mt-[30px] lg:space-x-[106px] desktop:mt-[51px] desktop:space-x-[100px]">
+				<div className=" container mx-auto ml-[67px] mt-[24px] block justify-center space-x-0 sm:!ml-0 sm:mt-[34px] sm:!flex sm:space-x-[45px] md:mt-[20px] md:space-x-[52px] lg:mt-[30px] lg:space-x-[106px] desktop:mt-[51px] desktop:space-x-[100px]">
 					<div className=" flex space-x-[7px] sm:space-x-[7px] md:space-x-[9px] lg:space-x-[20px] desktop:space-x-[20px]">
 						<div className="mt-[6px] space-y-[17.5px] sm:mt-[6px] sm:space-y-[17.5px] md:mt-[6px] md:space-y-[21.5px] lg:mt-[6px] lg:space-y-[22px] desktop:mt-[12px] desktop:space-y-[45px]">
 							<WhyBuyOperationTailImage
