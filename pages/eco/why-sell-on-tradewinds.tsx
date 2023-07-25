@@ -63,7 +63,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 								<div className="block sm:!flex sm:space-x-[18px] md:space-x-[23px] lg:space-x-[42px] desktop:space-x-[69px]">
 									<KeyAdvantageComponent
 										imgUrl="/static/images/EcoPage/why-sell/targeted-audience.png"
-										imgClass="h-[34px] w-[26px] sm:h-[34px] sm:w-[26px] md:h-[44px] md:w-[34px] lg:h-[62px] lg:w-[47px] desktop:h-[103px] desktop:w-[78px]"
+										imgClass="h-[34px] w-[26px] sm:h-[34px] sm:w-[26px] md:h-[44px] md:w-[34px] lg:h-[62px] lg:w-[47px] desktop:h-[103px] desktop:-mb-[10px] desktop:w-[78px]"
 										title={t('targeted_audience')}
 										descriptionHead={t(
 											'access_to_a_targeted_audience:'
@@ -95,7 +95,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 										)}
 									/>
 								</div>
-								<div className="container mx-auto block justify-center sm:mt-[21px] sm:!flex sm:space-x-[32px] md:mt-[55px] md:space-x-[45px] lg:mt-[45px] lg:space-x-[60px] desktop:mt-[35px] desktop:space-x-[99px]">
+								<div className="container mx-auto block justify-center sm:mt-[21px] sm:!flex sm:space-x-[32px] md:mt-[55px] md:space-x-[45px] lg:mt-[45px] lg:space-x-[60px] desktop:mt-[50px] desktop:space-x-[99px]">
 									<KeyAdvantageComponent
 										imgUrl="/static/images/EcoPage/why-sell/dedicated-support.png"
 										imgClass="h-[35px] w-[35px] sm:h-[35px] sm:w-[35px] md:h-[45px] md:w-[45px] lg:h-[63px] lg:w-[63px] desktop:h-[105px] desktop:w-[104px]"
