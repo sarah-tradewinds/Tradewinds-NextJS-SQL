@@ -173,29 +173,29 @@ const CartReviewPage: NextPage = () => {
 								<p className="text-[18px] font-semibold text-accent-primary-main md:text-[25px]">
 									{t('cart:bill_to')}:
 								</p>
-								<p className="text-[15px] text-gray md:ml-16 md:text-[18px]">
+								<p className="space-x-1 text-[15px] text-gray md:ml-16 md:text-[18px]">
 									{getLocaleText(
 										billing_address?.address_line1 || {},
 										router.locale
-									)}
+									)}{' '}
 									{
 										shipping_address?.address_line2?.[
 											router.locale || 'en'
 										]
 									}
-
+									,{' '}
 									{
 										shipping_address?.edges?.city?.name?.[
 											router.locale || 'en'
 										]
 									}
-
+									,{' '}
 									{
 										shipping_address?.edges?.state?.name?.[
 											router.locale || 'en'
 										]
 									}
-									{shipping_address?.postal_code || '-'}
+									, {shipping_address?.postal_code || '-'}{' '}
 									{shipping_address?.edges?.country?.name?.en || ''}
 								</p>
 							</div>
@@ -230,25 +230,25 @@ const CartReviewPage: NextPage = () => {
 									{getLocaleText(
 										shipping_address?.address_line1 || {},
 										router.locale
-									)}
+									)}{' '}
 									{
 										shipping_address?.address_line2?.[
 											router.locale || 'en'
 										]
 									}
-
+									,{' '}
 									{
 										shipping_address?.edges?.city?.name?.[
 											router.locale || 'en'
 										]
 									}
-
+									,{' '}
 									{
 										shipping_address?.edges?.state?.name?.[
 											router.locale || 'en'
 										]
 									}
-									{shipping_address?.postal_code || '-'}
+									, {shipping_address?.postal_code || '-'}
 									{shipping_address?.edges?.country?.name?.en || ''}
 								</p>
 							</div>

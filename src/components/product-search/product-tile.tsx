@@ -47,6 +47,7 @@ interface ProductTileProps {
 	isReadyToShip?: boolean;
 	isCustomizable?: boolean;
 	variantCount: number;
+	hideCartButton?: boolean;
 }
 
 const ProductTile: React.FC<ProductTileProps> = (props) => {
@@ -74,7 +75,9 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 		isReadyToShip,
 		isCustomizable,
 		variantCount,
+		hideCartButton,
 		onCartClick,
+
 		onMessageVendorClick,
 		onClick
 	} = props;
@@ -130,7 +133,10 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 			className="!space-x-1"
 		/>,
 		// isReadyToShip
-		isReadyToShip && (
+		<div
+			key={`${t('common:live_buy')}/${t('common:ready_to_ship')}`}
+			className={!isReadyToShip ? 'invisible' : ''}
+		>
 			<MetadataTile
 				key={`${t('common:live_buy')}/${t('common:ready_to_ship')}`}
 				imageUrl={metadataList[1].imageUrl}
@@ -140,7 +146,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 				className="!space-x-1"
 				imageContainerClassName="desktop:!w-[22px] desktop:!h-[12.57px]"
 			/>
-		),
+		</div>,
 		// compare
 		<MetadataTile
 			key={metadataList[2].title}
@@ -188,7 +194,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 		<div
 			key={t('common:save')}
 			title={!isLive ? 'Use message vendor' : ''}
-			// titleClassName="lg:!text-[10px] sm:!text-[12px] sm:!leading-[14.63px]"
+			className={hideCartButton ? 'invisible' : ''}
 		>
 			<MetadataTile
 				key={t('common:save')}

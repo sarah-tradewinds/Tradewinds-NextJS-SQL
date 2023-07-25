@@ -218,6 +218,7 @@ const ProductDetailsPage: NextPage<
 				}}
 				selectedVariantId={selectedVariantId}
 				totalReviewCount={productReviewList.length}
+				hideCartButton={!product.is_live}
 				onAddToCart={async () => {
 					if (!productData?.is_live) {
 						setIsNoLiveBuyPopupOpen(true);
