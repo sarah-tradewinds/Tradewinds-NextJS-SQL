@@ -145,7 +145,7 @@ const Header = (props: any) => {
 								fill={true}
 							/>
 						</div>
-						<p className="md:text-[8px]">{t('common:dashboard')}</p>
+						<p className="md:text-[10px]">{t('common:dashboard')}</p>
 					</Link>
 
 					<Link
@@ -160,7 +160,7 @@ const Header = (props: any) => {
 						<div className="flex items-center justify-center text-center lg:mt-[12px] xl:mt-[16px]">
 							<BiMessageDetail size={25} />
 						</div>
-						<p className="text-primary-main md:text-[8px] md:leading-[15px]">
+						<p className="mx-1 text-primary-main md:text-[10px] md:leading-[15px]">
 							{t('navigation:submit_rfq_text')}
 						</p>
 					</Link>
@@ -169,14 +169,14 @@ const Header = (props: any) => {
 				<div className="flex items-center md:mr-[5.5px]">
 					<button
 						type="button"
-						className="flex flex-col items-center justify-center rounded-sm border bg-transparent text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary md:mr-[5.56px] md:!h-[42px] md:!w-[73px] md:text-[10.8px] md:!font-normal lg:!mr-[9px] lg:!w-[94px] lg:!border-2 lg:!border-secondary lg:!text-lg lg:leading-[22px]"
+						className="flex flex-col items-center justify-center rounded-sm border bg-transparent px-1 text-white transition duration-300 ease-in-out hover:border-secondary hover:bg-secondary md:mr-[5.56px] md:!h-[42px]  md:text-[10.8px] md:!font-normal lg:!mr-[9px]  lg:!border-2 lg:!border-secondary lg:!text-lg lg:leading-[22px]"
 						onClick={setIsSelectSignUpOpen}
 					>
 						{t('sign_up_text')}
 					</button>
 					<Button
 						variant="special"
-						className="rounded-none !px-0 py-0 transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08] md:!h-[42px] md:!w-[73px] md:text-[10.8px] md:!font-normal lg:!w-[94px] lg:!text-lg lg:leading-[22px]"
+						className="rounded-none !px-1 py-0 transition duration-300 ease-in-out hover:border-secondary hover:bg-[#e48f08] md:!h-[42px] md:text-[10.8px] md:!font-normal lg:!text-lg lg:leading-[22px]"
 						onClick={setIsLoginOpen}
 					>
 						{t('log_in_text')}
