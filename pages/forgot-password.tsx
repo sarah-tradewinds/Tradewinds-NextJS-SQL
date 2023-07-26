@@ -3,12 +3,12 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAuthStore } from 'store/auth';
 
-import { forgetPasswordChange } from 'components/common/auth/auth-services';
 import Button from 'components/common/form/button';
 import Seo from 'components/common/seo';
 import { forgetPasswordGenerateLink } from 'lib/customer/auth.lib';
 import { HiSparkles } from 'react-icons/hi';
 import { RiLockPasswordLine } from 'react-icons/ri';
+import { axiosInstance } from 'utils/axios-instance.utils';
 import ImageWithErrorHandler from '../src/components/common/elements/image-with-error-handler';
 
 const ForgotPassword = () => {
@@ -27,6 +27,7 @@ const ForgotPassword = () => {
 	const [loading, setLoading] = useState(false);
 	const router = useRouter();
 	const [token, setToken] = useState<string>('');
+	const [errorMessage, setErrorMessage] = useState('');
 
 	useEffect(() => {
 		setToken(router?.query?.verify_token as string);
@@ -46,35 +47,60 @@ const ForgotPassword = () => {
 		if (!validatePassword()) return;
 
 		setLoading(true);
+		setErrorMessage('');
 
-		const params = {
+		const data = {
 			new_password: password.p1,
 			confirm_password: password.p2
 		};
 
-		await forgetPasswordChange(params, token).then((response) => {
-			console.log('response', response);
-			if (response.status === 200)
-				setStatus({
-					...status,
-					isDone: true,
-					message: response.message,
-					result: true
-				});
-			else
-				setStatus({
-					...status,
-					isDone: true,
-					result: false,
-					message: response.message
-				});
+		try {
+			const response = await axiosInstance.post(
+				'auth/forgot_password_reset',
+				data
+			);
+			setStatus({
+				...status,
+				isDone: true,
+				message: '',
+				result: true
+			});
+		} catch (error: any) {
+			setErrorMessage(error?.response?.data?.message);
+			setStatus({
+				...status,
+				isDone: true,
+				result: false,
+				message: ''
+			});
+		} finally {
 			setLoading(false);
-		});
-	};
+		}
+
+		// await forgetPasswordChange(params, token).then((response) => {
+		// 	console.log('response', response);
+		// 	if (response.status === 200)
+		// 		setStatus({
+		// 			...status,
+		// 			isDone: true,
+		// 			message: response.message,
+		// 			result: true
+		// 		});
+		// 	else
+		// 		setStatus({
+		// 			...status,
+		// 			isDone: true,
+		// 			result: false,
+		// 			message: response.message
+		// 		});
+		// 	setLoading(false);
+		// });
+	}; // End of submitChangePassword
 
 	const submitPasswordResetRequest = async () => {
 		if (!email) return;
 		setLoading(true);
+		setErrorMessage('');
 		try {
 			const data = await forgetPasswordGenerateLink(email);
 			setStatus({
@@ -83,12 +109,14 @@ const ForgotPassword = () => {
 				isForgotEmailSent: true
 			});
 			setLoading(false);
-		} catch (error) {
+		} catch (error: any) {
+			setErrorMessage(error?.toString());
 			setStatus({
 				...status,
 				isForgotEmailSent: false,
 				message: (error as any).message
 			});
+		} finally {
 			setLoading(false);
 		}
 
@@ -182,7 +210,7 @@ const ForgotPassword = () => {
 
 			<div className="flex h-screen bg-bg-main">
 				{!token && !status.isForgotEmailSent && (
-					<div className=" m-auto">
+					<div className="m-auto">
 						<div className="flex justify-center rounded-md bg-white shadow-md md:mt-12 md:w-[740px] md:py-4 lg:w-[1000px] lg:justify-start lg:px-16">
 							<div className=" flex h-[640px] flex-col items-center overflow-auto border-gray/40 py-8 md:h-auto lg:w-full lg:border-r lg:py-0 lg:pr-24">
 								<div className=" my-auto">
@@ -192,20 +220,30 @@ const ForgotPassword = () => {
 
 									<div className="flex w-full justify-center border-b border-gray/40 pb-4">
 										<form className="space-y-4 px-8 lg:w-[360px] lg:px-0">
-											<h1>Please enter the registered email address</h1>
-											<Input
-												name="email"
-												type="email"
-												placeholder="Email*"
-												icon={<HiSparkles />}
-												className="w-full"
-												onChange={(
-													e: React.FormEvent<HTMLInputElement>
-												) => {
-													setEmail(e.currentTarget.value);
-													setStatus({ ...status, message: '' });
-												}}
-											/>
+											<div>
+												<h1>
+													Please enter the registered email address
+												</h1>
+												<Input
+													name="email"
+													type="email"
+													placeholder="Email*"
+													icon={<HiSparkles />}
+													className="w-full"
+													onChange={(
+														e: React.FormEvent<HTMLInputElement>
+													) => {
+														setEmail(e.currentTarget.value);
+														setStatus({ ...status, message: '' });
+													}}
+													invalid={errorMessage !== ''}
+												/>
+												{errorMessage && (
+													<p className="mt-1 text-xs text-error">
+														{errorMessage?.toString()}
+													</p>
+												)}
+											</div>
 
 											<Button
 												variant="product"
