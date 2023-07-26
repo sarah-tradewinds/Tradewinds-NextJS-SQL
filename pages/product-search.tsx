@@ -335,18 +335,18 @@ const ProductSearchPage: NextPage<
 									</div>
 
 									<p className="hidden text-white md:px-[6px] md:text-[18px] md:font-bold md:leading-[22px] lg:block lg:text-[16.86px] lg:leading-[20.55px] xl:text-[25px] xl:leading-[30.48px]">
-										Submit an RFQ for anything!
+										{t('submit_an_RFQ_for_anything!')}
 									</p>
 								</div>
 
-								<ul className="list-disc text-white md:ml-6 md:pt-[65.98px] md:text-[15px] md:font-semibold md:leading-[18px] lg:pt-[22px] xl:pt-[34px] xl:text-[25px] xl:leading-[30.48px]">
-									<li>One request</li>
-									<li>Receive multiple quotes</li>
-									<li>Responed</li>
-									<li>Close the deal</li>
+								<ul className="list-disc text-white md:ml-6 md:pt-[35.98px] md:text-[15px] md:font-semibold md:leading-[18px] lg:pt-[22px] xl:pt-[34px] xl:text-[25px] xl:leading-[30.48px]">
+									<li> {t('one_request')} </li>
+									<li>{t('receive_multiple_quotes')} </li>
+									<li>{t('responed')} </li>
+									<li>{t('close_the_deal')} </li>
 								</ul>
 
-								<div className="flex justify-center md:pt-[34px] xl:pt-[68px] desktop:justify-start desktop:pl-2">
+								<div className="flex justify-center  md:pt-[34px] xl:pt-[48px] desktop:justify-start desktop:pl-2">
 									<button
 										onClick={() => {
 											if (!isAuth) {
@@ -363,7 +363,7 @@ const ProductSearchPage: NextPage<
 												);
 											}
 										}}
-										className="flex items-center border-none bg-white outline-none md:h-[19.88px] md:w-[125px] md:rounded-md lg:h-[26.62px] lg:w-[167.36px] desktop:h-[39px] desktop:w-[245.2px] desktop:pl-1"
+										className="flex items-center border-none bg-white px-1 py-1 outline-none md:w-[125px] md:rounded-md  lg:w-[167.36px]  desktop:w-[245.2px] desktop:pl-1"
 									>
 										<div className="relative h-[15.8px] w-[18.35px] lg:ml-[4.72px] lg:h-[21.16px] lg:w-[24.57px] desktop:h-[31px] desktop:w-[36px]">
 											<ImageWithErrorHandler
@@ -512,7 +512,7 @@ const ProductSearchPage: NextPage<
 										</div>
 									) : (
 										<p className="flex w-full items-center justify-center text-lg">
-											No categories available
+											{t('no_categories_available')}
 										</p>
 									)}
 								</div>

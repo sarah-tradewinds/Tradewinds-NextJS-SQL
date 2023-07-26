@@ -79,7 +79,7 @@ const MiniRFQCard: React.FC<RFQCardProps> = (props) => {
 							: 'hidden'
 					}`}
 				>
-					<p>Submit an RFQ for anything!</p>
+					<p>{t('submit_an_RFQ_for_anything!')} </p>
 				</div>
 			</div>
 
@@ -96,7 +96,7 @@ const MiniRFQCard: React.FC<RFQCardProps> = (props) => {
 					}`}
 				>
 					<p className={`${size === 'xl' ? 'hidden' : 'block'}`}>
-						Submit an RFQ for anything!s
+						<p>{t('submit_an_RFQ_for_anything!')} </p>
 					</p>
 
 					<ul
@@ -110,16 +110,19 @@ const MiniRFQCard: React.FC<RFQCardProps> = (props) => {
 								: ''
 						}`}
 					>
-						<li className="md:col-span-8 lg:col-span-1">One request</li>
+						<li className="md:col-span-8 lg:col-span-1">
+							{' '}
+							{t('one_request')}
+						</li>
 						<li className="hidden md:col-span-4 md:list-item lg:col-span-1">
-							Responded
+							{t('responed')}
 						</li>
 						<li className="md:col-span-8 lg:col-span-1">
-							Receive multiple quotes
+							{t('receive_multiple_quotes')}
 						</li>
 						{/* <li className="hidden md:list-item lg:hidden">Responded</li> */}
 						<li className="hidden md:col-span-4 md:list-item lg:col-span-1">
-							Close the deal
+							{t('close_the_deal')}
 						</li>
 					</ul>
 				</div>
@@ -146,7 +149,7 @@ const MiniRFQCard: React.FC<RFQCardProps> = (props) => {
 						}}
 						className={`${
 							size === 'xs'
-								? 'flex !h-[29.74px] !w-[187px] items-center bg-white !px-2 !text-secondary md:!min-h-[29.74px] md:!w-[187px] md:!min-w-[187px] md:!px-0 md:!py-0 lg:!max-h-[39px] lg:!min-h-[39px] lg:!min-w-[245.2px] lg:!pl-2'
+								? 'flex !w-[187px] items-center bg-white py-1 !px-2 !text-secondary  md:!w-[187px] md:!min-w-[187px] md:!px-0 md:!py-0  lg:!min-w-[245.2px] lg:!pl-2'
 								: 'flex items-center bg-white !px-2 !text-secondary'
 						} ${
 							size === 'xl' ? 'lg:flex lg:w-full lg:justify-center' : ''
