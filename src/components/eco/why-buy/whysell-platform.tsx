@@ -107,7 +107,7 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 						</WhySellOnTWOperationTile>
 
 						<div
-							className={`${class1} h-[450px] rounded-[10px]  pl-[13px] pt-[20px] sm:h-[218px] sm:pl-[13px] sm:pt-[0px] md:h-[262px] md:pl-[15px] md:pt-[12px] lg:h-[310px] lg:pl-[19px] lg:pt-[39px] desktop:h-[456px] desktop:pl-[30px] desktop:pt-[58px]`}
+							className={`${class1} h-[460px] rounded-[10px]  pl-[13px] pt-[20px] sm:h-[238px] sm:pl-[13px] sm:pt-[0px] md:h-[292px] md:pl-[15px] md:pt-[12px] lg:h-[310px] lg:pl-[19px] lg:pt-[39px] desktop:h-[456px] desktop:pl-[30px] desktop:pt-[58px]`}
 						>
 							<WhySellOnTWOperationTile
 								imageUrl="/static/images/why-sell-on-tradewinds-images/Order Management.png"
@@ -174,7 +174,7 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 							/>
 						</WhySellOnTWOperationTile>
 						<div
-							className={`${class1} h-[457px] rounded-[10px]  pl-[13px] pt-[20px] sm:h-[237px] sm:pl-[13px] sm:pt-[0px] md:h-[285px] md:pl-[15px] md:pt-[12px] lg:h-[310px] lg:pl-[19px] lg:pt-[39px] desktop:h-[456px] desktop:pl-[30px] desktop:pt-[58px]`}
+							className={`${class1} h-[457px] rounded-[10px]  pl-[13px] pt-[20px] sm:h-[237px] sm:pl-[13px] sm:pt-[0px] md:h-[295px] md:pl-[15px] md:pt-[12px] lg:h-[310px] lg:pl-[19px] lg:pt-[39px] desktop:h-[456px] desktop:pl-[30px] desktop:pt-[58px]`}
 						>
 							<WhySellOnTWOperationTile
 								imageUrl="/static/images/why-sell-on-tradewinds-images/Marketing-img.png"

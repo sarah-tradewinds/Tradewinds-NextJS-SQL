@@ -36,7 +36,7 @@ function FeatureCommunication() {
 						<WhyBuyTile
 							imageClassName="sm:w-[47px] sm:h-[47px] md:w-[54px] md:h-[54px]  lg:w-[73px] lg:h-[73px]  desktop:w-[112px] desktop:h-[112px]"
 							imageUrl="/static/images/WhyBuyImages/sellers-come-to-you.png"
-							contentContainerClassName="sm:w-[233px] sm:mt-[7px] md:w-[268px] md:mt-[9px] lg:w-[358px] lg:mt-[12px] desktop:w-[548px] desktop:mt-[19px] "
+							contentContainerClassName="sm:w-[233px] sm:mt-[7px] md:w-[288px] md:mt-[9px] lg:w-[358px] lg:mt-[12px] desktop:w-[548px] desktop:mt-[19px] "
 							title={t('let_the_sellers_come_to_you')}
 							subtitle={t(
 								'specify_your_requirements_and_submit_them_in_the_Request_for_quotation (RFQ) marketplace. Receive quotes from multiple sellers, usually within 24 hours or less.'
@@ -53,7 +53,7 @@ function FeatureCommunication() {
 						/>
 					</div>
 
-					<div className=" text-center sm:mt-[39px] md:mt-[56px] lg:mt-[77px] desktop:mt-[82px]">
+					<div className=" text-center sm:mt-[20px] md:mt-[30px] lg:mt-[77px] desktop:mt-[82px]">
 						<button
 							onClick={setIsSignUpOpen}
 							className=" bg-secondary font-medium text-white sm:h-[25px] sm:w-[135px] sm:rounded-[5px] sm:text-[10px] md:h-[29px] md:w-[156px] md:rounded-[8px] md:text-[12px] lg:h-[39px] lg:w-[209px] lg:rounded-[10px] lg:text-[16px] desktop:h-[60px] desktop:w-[319px] desktop:rounded-[10px] desktop:text-[25px] "
@@ -105,7 +105,7 @@ function FeatureCommunication() {
 						<div className=" mt-[45px] -ml-[94px] text-center sm:mt-[39px] md:mt-[56px] lg:mt-[77px] desktop:mt-[82px]">
 							<button
 								onClick={setIsSignUpOpen}
-								className="h-[25px] w-[135px] rounded-[5px] bg-secondary font-medium text-white sm:h-[25px] sm:w-[135px] sm:rounded-[5px] sm:text-[10px] md:h-[29px] md:w-[156px] md:rounded-[8px] md:text-[12px] lg:h-[39px] lg:w-[209px] lg:rounded-[10px] lg:text-[16px] desktop:h-[60px] desktop:w-[319px] desktop:rounded-[10px] desktop:text-[25px] "
+								className="h-[25px] w-[135px] rounded-[5px] bg-secondary text-[10px] font-medium text-white sm:h-[25px] sm:w-[135px] sm:rounded-[5px] sm:text-[10px] md:h-[29px] md:w-[156px] md:rounded-[8px] md:text-[12px] lg:h-[39px] lg:w-[209px] lg:rounded-[10px] lg:text-[16px] desktop:h-[60px] desktop:w-[319px] desktop:rounded-[10px] desktop:text-[25px] "
 							>
 								{t('common:join_now')}
 							</button>
@@ -127,7 +127,7 @@ function FeatureCommunication() {
 				</div>
 
 				<div className="mx-auto block justify-center pl-[20px] text-gray sm:mt-[13px] sm:flex sm:space-x-[42px] sm:!pl-0 md:mt-[24px] md:space-x-[48px] lg:mt-[32px] lg:space-x-[64px] desktop:mt-[54px]  desktop:space-x-[99px] ">
-					<div className=" relative sm:h-[319px] sm:w-[299px] md:h-[283px] md:w-[345px] lg:h-[378px] lg:w-[460px]  desktop:h-[578px] desktop:w-[704px] ">
+					<div className=" relative sm:h-[319px] sm:w-[299px] md:h-[283px] md:w-[345px] lg:h-[378px] lg:w-[460px]  desktop:h-[620px] desktop:w-[704px] ">
 						<ImageWithErrorHandler
 							src="/static/images/WhyBuyImages/cart-img.png"
 							alt=""
@@ -195,7 +195,7 @@ function FeatureCommunication() {
 					</div>
 				</div>
 				{/* this is for large screen */}
-				<div className=" mx-auto hidden rounded-[10px] bg-bg_gray text-gray sm:mt-[32px] sm:block sm:h-[409px] sm:w-[594px] md:mt-[12px] md:h-[363px] md:w-[655px] lg:mt-[59px] lg:h-[485px] lg:w-[875px] desktop:mt-[91px] desktop:h-[741px] desktop:w-[1337px]">
+				<div className=" mx-auto hidden rounded-[10px] bg-bg_gray text-gray sm:mt-[62px] sm:block sm:h-[439px] sm:w-[594px] md:mt-[52px] md:h-[383px] md:w-[655px] lg:mt-[80px] lg:h-[485px] lg:w-[875px] desktop:mt-[91px] desktop:h-[741px] desktop:w-[1337px]">
 					<div className="sm:h-[37px] sm:pt-[13px] md:h-[38px] md:pt-[9px] lg:h-[87px] lg:pt-[18px] desktop:h-[115px]  desktop:pt-[34px] ">
 						<p className=" text-center font-semibold sm:text-[18px] sm:leading-[20px] md:text-[18px] md:leading-[20px] lg:text-[25px] lg:leading-[30px] desktop:text-[50px] desktop:leading-[60px]  ">
 							{t('communication_center')}
@@ -204,8 +204,8 @@ function FeatureCommunication() {
 							{t('browse_and_choose_from_millions_of_products')}
 						</p>
 					</div>
-					<div className="flex sm:mt-[24px] sm:space-x-[47px] md:mt-[18px] md:space-x-[50px] lg:mt-[21px] lg:space-x-[106px] desktop:mt-[21px] desktop:space-x-[150px] ">
-						<div className=" flex space-x-[10px] sm:ml-[30px] sm:space-x-[10px] md:ml-[22px] md:space-x-[12px] lg:ml-[30px] lg:space-x-[15px] desktop:ml-[40px]  desktop:space-x-[20px]">
+					<div className="flex sm:mt-[24px] sm:space-x-[15px] md:mt-[18px] md:space-x-[20px] lg:mt-[21px] lg:space-x-[30px] desktop:mt-[21px] desktop:space-x-[150px] ">
+						<div className=" flex space-x-[10px] sm:ml-[20px] sm:space-x-[10px] md:ml-[22px] md:space-x-[12px] lg:ml-[30px] lg:space-x-[15px] desktop:ml-[40px]  desktop:space-x-[20px]">
 							<div>
 								<OperationTailImage
 									imageUrl="/static/images/WhyBuyImages/messaging-center.png"
@@ -215,20 +215,20 @@ function FeatureCommunication() {
 								<OperationTailImage
 									imageUrl="/static/images/WhyBuyImages/product-inquiries.png"
 									alt="Biodegradable"
-									imgClassname="sm:mt-[54px] sm:w-[18px] sm:h-[13px] md:mt-[53px] md:w-[21px] md:h-[15px] lg:mt-[70px] lg:w-[28px] lg:h-[20px] desktop:mt-[80px] desktop:w-[44px] desktop:h-[31px]"
+									imgClassname="sm:mt-[67px] sm:w-[18px] sm:h-[13px] md:mt-[66px] md:w-[21px] md:h-[15px] lg:mt-[70px] lg:w-[28px] lg:h-[20px] desktop:mt-[110px] desktop:w-[44px] desktop:h-[31px]"
 								/>
 								<OperationTailImage
 									imageUrl="/static/images/why-sell-on-tradewinds-images/rfq-icon.png"
 									alt="Nontoxic"
-									imgClassname="sm:mt-[66px] sm:w-[15px] sm:h-[13px] md:mt-[50px] md:w-[17px] md:h-[13px] lg:mt-[60px] lg:w-[23px] lg:h-[20px] desktop:mt-[90px] desktop:w-[35px] desktop:h-[32px] "
+									imgClassname="sm:mt-[76px] sm:w-[15px] sm:h-[13px] md:mt-[60px] md:w-[17px] md:h-[13px] lg:mt-[60px] lg:w-[23px] lg:h-[20px] desktop:mt-[100px] desktop:w-[35px] desktop:h-[32px] "
 								/>
 								<OperationTailImage
 									imageUrl="/static/images/WhyBuyImages/translation-tool.png"
 									alt="Sustainably sourced"
-									imgClassname="sm:mt-[56px] sm:w-[19px] sm:h-[17px] md:mt-[53px] md:w-[20px] md:h-[18px] lg:mt-[65px] lg:w-[25px] lg:h-[17px] desktop:mt-[75px]  desktop:w-[36px] desktop:h-[36px] "
+									imgClassname="sm:mt-[66px] sm:w-[19px] sm:h-[17px] md:mt-[63px] md:w-[20px] md:h-[18px] lg:mt-[75px] lg:w-[25px] lg:h-[17px] desktop:mt-[95px]  desktop:w-[36px] desktop:h-[36px] "
 								/>
 							</div>
-							<div className="sm:h-[316px] sm:w-[223px] sm:space-y-[10px] md:h-[290px] md:w-[257px] md:space-y-[12px] lg:h-[364px] lg:w-[310px] lg:space-y-[17px] desktop:h-[552px] desktop:w-[475px] desktop:space-y-[10px]">
+							<div className="sm:h-[316px] sm:w-[253px] sm:space-y-[10px] md:h-[290px] md:w-[287px] md:space-y-[12px] lg:h-[364px] lg:w-[360px] lg:space-y-[17px] desktop:h-[552px] desktop:w-[475px] desktop:space-y-[10px]">
 								<OperationTailContent
 									title={t('messaging_center')}
 									subtitle={t(
@@ -265,12 +265,12 @@ function FeatureCommunication() {
 								<OperationTailImage
 									imageUrl="/static/images/WhyBuyImages/effortlessly.png"
 									alt="Effortlessly Manage Invoices"
-									imgClassname="sm:mt-[63px] sm:w-[10px] sm:h-[14px] md:mt-[45px] md:w-[12px] md:h-[16px] lg:mt-[55px] lg:w-[25px] lg:h-[25px] desktop:mt-[70px] desktop:w-[20px] desktop:h-[30px]"
+									imgClassname="sm:mt-[63px] sm:w-[10px] sm:h-[14px] md:mt-[56px] md:w-[12px] md:h-[16px] lg:mt-[55px] lg:w-[25px] lg:h-[25px] desktop:mt-[90px] desktop:w-[20px] desktop:h-[30px]"
 								/>
 								<OperationTailImage
 									imageUrl="/static/images/why-sell-on-tradewinds-images/proccessing.png"
 									alt="Secure Processing"
-									imgClassname="sm:mt-[53px] sm:w-[12px] sm:h-[17px] md:mt-[49px] md:w-[14px] md:h-[19px] lg:mt-[62px] lg:w-[16px] lg:h-[20px] desktop:mt-[80px] desktop:w-[30px] desktop:h-[40px] "
+									imgClassname="sm:mt-[63px] sm:w-[12px] sm:h-[17px] md:mt-[49px] md:w-[14px] md:h-[19px] lg:mt-[62px] lg:w-[16px] lg:h-[20px] desktop:mt-[80px] desktop:w-[30px] desktop:h-[40px] "
 								/>
 								<OperationTailImage
 									imageUrl="/static/images/WhyBuyImages/logistics-and-fulfillment-img.png"
@@ -278,7 +278,7 @@ function FeatureCommunication() {
 									imgClassname="sm:mt-[37px] sm:w-[15px] sm:h-[15px] md:mt-[38px] md:w-[17px] md:h-[17px] lg:mt-[48px] lg:w-[23px] lg:h-[23px] desktop:mt-[50px]  desktop:w-[36px] desktop:h-[36px] "
 								/>
 							</div>
-							<div className="sm:h-[296px] sm:w-[226px] sm:space-y-[10px] md:h-[249px] md:w-[232px] md:space-y-[12px] lg:h-[219px] lg:w-[310px] lg:space-y-[17px] desktop:h-[462px] desktop:w-[475px] desktop:space-y-[10px]">
+							<div className="sm:h-[296px] sm:w-[226px] sm:space-y-[10px] md:h-[249px] md:w-[242px] md:space-y-[12px] lg:h-[219px] lg:w-[350px] lg:space-y-[17px] desktop:h-[462px] desktop:w-[475px] desktop:space-y-[10px]">
 								<OperationTailContent
 									title={t('common:order_management')}
 									subtitle={t(
@@ -308,7 +308,7 @@ function FeatureCommunication() {
 					</div>
 				</div>
 				{/* This is for mobile */}
-				<div className=" block w-full pl-[16px] sm:hidden md:hidden lg:hidden desktop:hidden">
+				<div className=" mt-[70px] block w-full pl-[16px] sm:hidden ">
 					<div className=" h-[51px] w-[259px]">
 						<p className=" text-[18px] font-semibold  ">
 							{t('communication_center')}
@@ -412,40 +412,30 @@ function FeatureCommunication() {
 					</div>
 				</div>
 				<div className=' container mx-auto h-[350px]  w-[300px] bg-[url("/static/images/WhyBuyImages/ready-to-grow-banner-phone.png")] pl-[22px] pt-[14px]  text-white sm:mt-[26px] sm:h-[349px] sm:w-[626px]  sm:bg-[url("/static/images/WhyBuyImages/ready-to-grow-banner.png")] sm:pl-[64px] sm:pt-[29px] md:mt-[18px] md:h-[403px]  md:w-[721px] md:pl-[74px] md:pt-[43px] lg:mt-[31px] lg:h-[538px]  lg:w-[963px] lg:pl-[99px] lg:pt-[45px]  desktop:mt-[48px]  desktop:h-[822px]  desktop:w-[1489px] desktop:pl-[164px] desktop:pt-[48px] '>
-					<p className=" h-[52px] w-[166px] text-[21px] font-semibold leading-[25px] sm:h-[52px] sm:w-[166px] sm:text-[21px] sm:leading-[25px] md:h-[60px] md:w-[191px] md:text-[24px] md:leading-[29px] lg:h-[80px] lg:w-[275px] lg:text-[33px] lg:leading-[38px] desktop:h-[122px] desktop:w-[389px] desktop:text-[50px] desktop:leading-[61px] ">
+					<p className=" h-[52px] w-full text-[21px] font-semibold leading-[25px] sm:h-[52px] sm:w-[40%]  sm:text-[21px] sm:leading-[25px] md:h-[60px]  md:text-[24px] md:leading-[29px] lg:h-[80px] lg:text-[33px] lg:leading-[38px] desktop:h-[122px] desktop:text-[50px] desktop:leading-[61px] ">
 						{t('ready_to_Grow_Your_Business?')}
 					</p>
-					<div className="mt-[9px] h-[151px] w-[259px] text-[10px] leading-[12px] sm:mt-[8px] sm:h-[150px] sm:w-[297px] sm:text-[10px] sm:leading-[12px] md:mt-[9px] md:h-[173px] md:w-[432px] md:text-[12px] md:leading-[14px] lg:mt-[12px] lg:h-[231px] lg:w-[457px] lg:text-[16px] lg:leading-[19px] desktop:mt-[20px] desktop:h-[354px] desktop:w-[699px] desktop:text-[25px] desktop:leading-[30px]">
-						<p>
-							<span className=" font-semibold">Start Buying</span>
-							<br />
-							{t('auth:create_an_account')}
-							<br />
-							{t('negotiate_deals,_buy_right_away_or_Post_a_RFQ')}
+					<div className="mt-[9px] h-[151px] w-full text-[10px] leading-[12px] sm:mt-[8px] sm:h-[150px] sm:w-[80%] sm:text-[10px] sm:leading-[12px] md:mt-[9px] md:h-[173px] md:text-[12px] md:leading-[14px] lg:mt-[12px] lg:h-[231px] lg:text-[16px] lg:leading-[19px] desktop:mt-[20px] desktop:h-[354px] desktop:text-[25px] desktop:leading-[30px]">
+						<p className=" font-semibold">{t('start_buying')}</p>
+						<p>{t('auth:create_an_account')}</p>
+						<p>{t('negotiate_deals,_buy_right_away_or_Post_a_RFQ')}</p>
+						<p>{t('respond_to_Suppliers')}</p>
+						<p> {t('Procure_Orders_and_payment')} </p>
+						<p> {t('Receive_Products')} </p>
 
-							<br />
-							<span>
-								{t(
-									'respond_to_Suppliers_Procure_Orders_and_payment_Receive_Products'
-								)}
-							</span>
-						</p>
-						<p className="mt-[18px] sm:mt-[15px] md:mt-[18px] lg:mt-[20px] desktop:mt-[25px]">
-							<span className=" font-semibold">
+						<div className="mt-[18px] sm:mt-[15px] md:mt-[18px] lg:mt-[20px] desktop:mt-[25px]">
+							<p className=" font-semibold">
 								{t('manage_your_account')}
-							</span>{' '}
-							<br />
-							<span>
-								{t(
-									'stay_connected_with_Suppliers_Nurture_your_relationships_Optimize_purchases'
-								)}
-							</span>
-						</p>
+							</p>
+							<p>{t('stay_connected_with_Suppliers')}</p>
+							<p>{t('Nurture_your_relationships')}</p>
+							<p>{t('Optimize_purchases')}</p>
+						</div>
 					</div>
 					<div className="ml-[9px] mt-[16pxpx] sm:ml-[22px] sm:mt-[8px] md:ml-[15px] md:mt-[9px] lg:mt-[13px] lg:ml-[33px] desktop:ml-[51px] desktop:mt-[20px]  ">
 						<button
 							onClick={setIsSignUpOpen}
-							className=" h-[19px] w-[104px] rounded-[3px] bg-cyan text-[8px] sm:h-[11px] sm:w-[58px] sm:rounded-[3px] sm:text-[7px] md:h-[12px] md:w-[67px] md:rounded-[4px] md:text-[8px] lg:h-[17px] lg:w-[90px] lg:rounded-[5px] lg:text-[11px] desktop:h-[26px] desktop:w-[138px] desktop:rounded-[5px] desktop:text-[18px]"
+							className="rounded-[3px] bg-cyan px-[10px] py-[5px] text-[8px] sm:rounded-[3px] sm:text-[7px] md:rounded-[4px] md:text-[8px] lg:rounded-[5px] lg:text-[11px] desktop:rounded-[5px] desktop:text-[18px]"
 						>
 							{t('start_today')}
 						</button>

@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import {
 	axiosInstance,
 	proxyAxiosInstance
@@ -119,10 +120,10 @@ export const forgetPasswordGenerateLink = async (email: string) => {
 			...(data.data || {})
 		};
 	} catch (error) {
-		console.log('[forgetPasswordGenerateLink] =', error);
-		const { data } = (error as any).response || {};
+		const err = error as AxiosError;
+		const errorMessage = err?.response?.data?.message;
 		throw Error(
-			data?.message || 'Error occurred forgetPasswordGenerateLink'
+			errorMessage || 'Error occurred forgetPasswordGenerateLink'
 		);
 	}
 }; // End of forgetPasswordGenerateLink

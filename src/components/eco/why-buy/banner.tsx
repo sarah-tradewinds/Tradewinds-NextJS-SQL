@@ -12,13 +12,13 @@ function Banner() {
 					{t('why_buy_on_tradewinds_marketplace')}
 				</p>
 				{/* Content */}
-				<div className=" mt-[10px] w-[115px] text-[12px] font-semibold leading-[15px] text-primary-main sm:mt-[14px] sm:w-[221px] sm:text-[15px] sm:leading-[18px] md:mt-[10px] md:w-[321px] md:text-[15px] md:leading-[18px] lg:mt-[12px] lg:w-[227px] lg:text-[16px] lg:leading-[30px] desktop:mt-[25px] desktop:w-[348px] desktop:text-[25px] desktop:leading-[42px]  ">
+				<div className=" mt-[10px]  w-full text-[12px] font-semibold leading-[15px] text-primary-main sm:mt-[14px] sm:text-[15px] sm:leading-[18px] md:mt-[10px] md:text-[15px] md:leading-[18px] lg:mt-[12px]  lg:text-[16px] lg:leading-[30px] desktop:mt-[25px]  desktop:text-[25px] desktop:leading-[42px]  ">
 					<p>{t('verified_sellers')} </p>
 					<p>{t('cost_effective')} </p>
 					<p>{t('flexible_payment_options')} </p>
 					<p>{t('let_the_sellers_come_to_you')} </p>
 				</div>
-				<div className="mt-[0px] sm:mt-[23px] md:mt-[22px] lg:mt-[18px] desktop:mt-[25px] ">
+				<div className="-mt-[8px] sm:mt-[23px] md:mt-[22px] lg:mt-[18px] desktop:mt-[25px] ">
 					<button
 						onClick={setIsSignUpOpen}
 						className=" h-[13px] w-[73px] rounded-[4px] bg-secondary text-[6px] font-medium text-white sm:h-[29px] sm:w-[156px] sm:rounded-[5px] sm:text-[12px] md:h-[29px] md:w-[156px] md:rounded-[6px] md:text-[12px] lg:h-[39px] lg:w-[209px] lg:rounded-[8px] lg:text-[18px] desktop:h-[60px] desktop:w-[319px] desktop:rounded-[10px] desktop:text-[25px] "
