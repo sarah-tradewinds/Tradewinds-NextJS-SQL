@@ -103,7 +103,7 @@ const Header = (props: any) => {
 				{isAuth && (
 					<div className="group relative cursor-pointer md:mr-8 xl:mr-14">
 						<p
-							className="overflow-ellipsis whitespace-nowrap text-xs text-white md:w-[64px] md:text-xs md:leading-[15px] lg:text-[14.41px] lg:leading-[17.57px]"
+							className="overflow-ellipsis whitespace-nowrap text-xs text-white md:w-[64px] md:text-xs md:leading-[15px] lg:leading-[17.57px] lg:text-[14.4114.41px]"
 							onMouseEnter={() => setShowLogout(true)}
 						>
 							{`Hi, ${customerData.name.substring(0, 10)}`}

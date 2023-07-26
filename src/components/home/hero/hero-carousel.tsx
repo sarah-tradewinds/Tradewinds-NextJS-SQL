@@ -17,43 +17,43 @@ type Props = {
 const HeroCarousel = ({ heroCarouselData }: Props) => {
 	const { locale } = useRouter();
 
-
-	const [ref] = useKeenSlider<HTMLDivElement>({
-		loop: true,
-		slides: {
-			perView: 1
-		}
-	},
-	[
-      (slider) => {
-        let timeout: ReturnType<typeof setTimeout>
-        let mouseOver = false
-        function clearNextTimeout() {
-          clearTimeout(timeout)
-        }
-        function nextTimeout() {
-          clearTimeout(timeout)
-          if (mouseOver) return
-          timeout = setTimeout(() => {
-			slider?.next?.();
-          }, 2000)
-        }
-        slider?.on("created", () => {
-          slider?.container.addEventListener("mouseover", () => {
-            mouseOver = true
-            clearNextTimeout()
-          })
-          slider?.container.addEventListener("mouseout", () => {
-            mouseOver = false
-            nextTimeout()
-          })
-          nextTimeout()
-        })
-        slider?.on("dragStarted", clearNextTimeout)
-        slider?.on("animationEnded", nextTimeout)
-        slider?.on("updated", nextTimeout)
-      },
-    ]
+	const [ref] = useKeenSlider<HTMLDivElement>(
+		{
+			loop: true,
+			slides: {
+				perView: 1
+			}
+		},
+		[
+			(slider) => {
+				let timeout: ReturnType<typeof setTimeout>;
+				let mouseOver = false;
+				function clearNextTimeout() {
+					clearTimeout(timeout);
+				}
+				function nextTimeout() {
+					clearTimeout(timeout);
+					if (mouseOver) return;
+					timeout = setTimeout(() => {
+						slider?.next?.();
+					}, 2000);
+				}
+				slider?.on('created', () => {
+					slider?.container.addEventListener('mouseover', () => {
+						mouseOver = true;
+						clearNextTimeout();
+					});
+					slider?.container.addEventListener('mouseout', () => {
+						mouseOver = false;
+						nextTimeout();
+					});
+					nextTimeout();
+				});
+				slider?.on('dragStarted', clearNextTimeout);
+				slider?.on('animationEnded', nextTimeout);
+				slider?.on('updated', nextTimeout);
+			}
+		]
 	);
 
 	return (
@@ -86,7 +86,7 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 							)}`}
 						>
 							<p
-								className="lg:text-[72px]s lg:leading-[88px]s text-[24px] font-semibold lg:!text-6xl"
+								className=" lg:text-[72px]s lg:leading-[88px]s text-[20px] font-semibold  leading-[23px] sm:text-[24px] sm:leading-[27px] lg:!text-6xl"
 								style={{ color: item?.color }}
 							>
 								{getLocaleText(item?.title || {}, locale)}
