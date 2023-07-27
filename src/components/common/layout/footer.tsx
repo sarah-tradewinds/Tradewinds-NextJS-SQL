@@ -45,7 +45,7 @@ const Footer: React.FC = () => {
 				<div className="grid gap-y-8 pt-14 pl-8 pb-24 sm:grid-cols-2 lg:grid-cols-4">
 					<div className="flex flex-col">
 						<p className=" text-xl font-bold">Help Center</p>
-						<Link href="/help-center#faq">FAQ</Link>
+						<Link href="/help-center">FAQ</Link>
 						<Link href="/help-center#file-a-dispute">
 							File a dispute
 						</Link>
@@ -58,7 +58,7 @@ const Footer: React.FC = () => {
 						<p className=" text-xl font-bold">About us</p>
 						<Link href="/about-us">About TWMP</Link>
 						<Link href="/about-us#mission">Mission</Link>
-						<Link href="/about-us?is_eco=true">
+						<Link href="/about-us#about-tradewinds-eco">
 							About Tradewinds ECO
 						</Link>
 						<Link href="/sitemap.xml">Sitemap</Link>

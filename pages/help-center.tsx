@@ -213,7 +213,7 @@ const HelpCenter = () => {
 					</div>
 					<div className="text-sm">
 						<p className="">When will the supplier ship my order?</p>
-						<p>
+						<p id="file-a-dispute">
 							For live buy products, sellers typically ship within 72
 							hours. However, for custom items or products negotiated
 							through an invoice deal, the shipping timeline is
@@ -233,7 +233,7 @@ const HelpCenter = () => {
 				</section>
 
 				{/* After Sales Questions */}
-				<section className="space-y-4" id="file-a-dispute">
+				<section className="space-y-4">
 					{/* After Sales Questions */}
 					<div className="text-sm">
 						<h2 className="font-semibold">After Sales Questions</h2>
