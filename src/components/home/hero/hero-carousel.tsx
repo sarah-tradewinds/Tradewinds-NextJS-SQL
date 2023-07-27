@@ -97,7 +97,7 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 							>
 								{getLocaleText(item?.description || {}, locale)}
 							</p>
-							<div className="flex">
+							<div className="flex justify-center">
 								<Button
 									href={
 										item.btn_link ||
