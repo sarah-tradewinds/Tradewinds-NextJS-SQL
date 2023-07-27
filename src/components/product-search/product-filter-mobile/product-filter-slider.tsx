@@ -93,8 +93,8 @@ const ProductFilterSlider: React.FC<ProductFilterSliderProps> = (
 					/>
 				</label>
 				{/* Live Buy/ Ready to ship - checkbox */}
-				<label className="flex items-center justify-between">
-					<p className="text-[13.27px] font-semibold">
+				<label className="flex items-center  justify-between">
+					<p className="w-[165px] text-[13.27px] font-semibold">
 						{t('live_buy/_ready_to_ship')}
 					</p>
 					<input

@@ -288,7 +288,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 					</div>
 
 					{/* Metadata - For desktop only */}
-					<div className="hidden items-center justify-between lg:mt-[12.14px] lg:flex">
+					<div className="hidden items-center justify-between space-x-1 lg:mt-[12.14px] lg:flex">
 						<div className=" flex flex-col">
 							{metadataTileList[0]}
 							{metadataTileList[3]}
@@ -306,7 +306,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 			</div>
 
 			{/* Metadata - For sm and tablet only */}
-			<div className="flex items-center space-x-4 sm:mt-[17px] sm:ml-[25px] lg:hidden">
+			<div className="flex items-center space-x-2 sm:mt-[10px] sm:ml-[25px] sm:w-[72%] lg:hidden">
 				<div className="flex flex-col space-y-2">
 					{metadataTileList[0]}
 					{metadataTileList[3]}
