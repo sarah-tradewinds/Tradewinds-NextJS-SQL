@@ -39,32 +39,41 @@ const Footer: React.FC = () => {
 					/>
 				</div>
 			</div>
+
 			<div className=" h-[1597px] w-full bg-primary-main text-lg  text-white dark:bg-primary-eco md:h-[747px] lg:h-[517px] lg:bg-primary-main">
-				<div className="ml-7 mr-[20px] grid-cols-3 grid-rows-2 pt-[57px] text-lg md:grid lg:mb-[40px] lg:flex lg:justify-between lg:pl-[74px] lg:pr-[74px]">
-					<div className=" mb-[28px] h-[116px] w-[203px]">
-						<p className=" text-xl font-bold">Customer services</p>
-						<p>Help Center</p>
-						<p>File a dispute</p>
-						<p>Policies & rules</p>
+				{/* <div className="ml-7 mr-[20px] grid-cols-3 grid-rows-2 pt-[57px] text-lg md:grid lg:mb-[40px] lg:flex lg:justify-between lg:pl-[74px] lg:pr-[74px]"> */}
+				<div className="grid gap-y-8 pt-14 pl-8 pb-24 sm:grid-cols-2 lg:grid-cols-4">
+					<div className="flex flex-col">
+						<p className=" text-xl font-bold">Help Center</p>
+						<Link href="/help-center#faq">FAQ</Link>
+						<Link href="/help-center#file-a-dispute">
+							File a dispute
+						</Link>
+						<Link href="/help-center#privacy-policy">
+							Privacy Policy
+						</Link>
 					</div>
-					<div className=" mb-[28px] h-[146px] w-[166px]">
+
+					<div className="flex flex-col">
 						<p className=" text-xl font-bold">About us</p>
-						<p>About TWMP.com</p>
-						<p>About TWMP ECO</p>
-						<p>TWMP non-profit</p>
-						<p> Sitemap</p>
+						<Link href="/about-us">About TWMP</Link>
+						<Link href="/about-us#mission">Mission</Link>
+						<Link href="/about-us?is_eco=true">
+							About Tradewinds ECO
+						</Link>
+						<Link href="/sitemap.xml">Sitemap</Link>
 					</div>
-					<div className=" mb-[28px] h-[176px] w-[245px]">
+
+					<div className="flex flex-col">
 						<p className=" text-xl font-bold">Source on Tradewinds</p>
 						<Link
 							href={isEco ? '/eco/why-buy' : '/why-buy'}
 							className=" hover:text-accent-primary-main"
 						>
-							{' '}
 							Why Buy on Tradewinds
 						</Link>
 
-						<p> Buyer Platform Features</p>
+						<Link href="/why-buy">Buyer Platform Features</Link>
 						<Link
 							href={
 								isEco
@@ -73,14 +82,13 @@ const Footer: React.FC = () => {
 							}
 							className=" hover:text-accent-primary-main"
 						>
-							{' '}
-							All Categories
+							All Categories : A-Z
 						</Link>
-						<p> Request for Quotation</p>
-						<p>Ready to Ship</p>
+						<Link href="/what-is-rfq"> Request for Quotation</Link>
 					</div>
-					<div className=" mb-[28px] h-[86px] w-[211px]">
-						<p className=" text-xl font-bold">Sell on TWMP.com</p>
+
+					<div className="flex flex-col">
+						<p className="mt-2 text-xl font-bold">Sell on TWMP.com</p>
 
 						<Link
 							href={
@@ -90,20 +98,14 @@ const Footer: React.FC = () => {
 							}
 							className=" hover:text-accent-primary-main"
 						>
-							{' '}
 							Why sell on TWMP
 						</Link>
-						<p>Seller platform features</p>
-					</div>
-					<div className=" mb-[28px] h-[218px] w-[223px]">
-						<p className=" text-xl font-bold">Help Center</p>
-						<p>Account Questions</p>
-						<p>Sourcing Questions</p>
-						<p> Negotiation Questions</p>
-						<p>Ordering Questions</p>
-						<p>After Sales Questions</p>
+						<Link href="/why-sell-on-tradewinds">
+							Seller platform features
+						</Link>
 					</div>
 				</div>
+
 				<div className=" ml-7 mr-[20px] mb-12 flex flex-col space-y-6 text-left text-lg md:mr-[30px] md:-mt-10 md:text-center lg:-mt-[30px] lg:h-[200px] lg:text-center">
 					<div>
 						<p>

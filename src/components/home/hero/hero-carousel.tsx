@@ -70,10 +70,10 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 					{/* Image */}
 					<div className="relative h-full w-full">
 						<ImageWithErrorHandler
+							key={item.image}
 							src={item.image}
 							alt={item.title?.en || item.order?.toString()}
 							fill={true}
-							className="object-cover"
 						/>
 					</div>
 
