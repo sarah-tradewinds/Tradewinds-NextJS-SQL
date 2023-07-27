@@ -86,7 +86,7 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 							)}`}
 						>
 							<p
-								className="lg:text-[72px]s lg:leading-[88px]s text-[24px] font-semibold lg:!text-6xl"
+								className="lg:leading-[88px]s text-[24px] font-semibold lg:!text-[55px]"
 								style={{ color: item?.color }}
 							>
 								{getLocaleText(item?.title || {}, locale)}
@@ -97,7 +97,7 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 							>
 								{getLocaleText(item?.description || {}, locale)}
 							</p>
-							<div className="flex">
+							<div className="flex justify-center">
 								<Button
 									href={
 										item.btn_link ||
