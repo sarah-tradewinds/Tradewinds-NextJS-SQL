@@ -107,7 +107,7 @@ const CompanyProfileTab: React.FC<{
 			className="flex items-center border border-accent-primary-main !p-0 !pr-2 !text-accent-primary-main lg:px-2"
 		>
 			<MdOutlineMessage className="mr-1 block h-[40px] bg-accent-primary-main text-[24px] text-white lg:mr-2" />
-			Message Vendor
+			{t('message_vendor')}
 		</Button>
 	);
 
@@ -172,14 +172,14 @@ const CompanyProfileTab: React.FC<{
 									`font-semibold ${selected ? 'text-primary-main' : ''}`
 								}
 							>
-								Profile
+								{t('profile')}
 							</Tab>
 							<Tab
 								className={({ selected }: { selected: boolean }) =>
 									`font-semibold ${selected ? 'text-primary-main' : ''}`
 								}
 							>
-								Products
+								{t('products')}
 							</Tab>
 						</Tab.List>
 
@@ -189,7 +189,7 @@ const CompanyProfileTab: React.FC<{
 								{/* Only for mobile device */}
 								<div className="md:hidden">
 									<h3 className="border-b-2 border-[#C4C4C4] pb-[7px] text-[15px] font-semibold leading-[18.29px] text-gray">
-										Company Profile
+										{t('company_profile')}
 									</h3>
 									<div className="relative mt-[8.57px] h-[20.48px] w-[93.7px]">
 										<Image

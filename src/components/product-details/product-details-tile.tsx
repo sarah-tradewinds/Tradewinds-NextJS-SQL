@@ -210,6 +210,7 @@ const ProductDetailsTile: React.FC<{
 				</p>
 			}
 			titleClassName="md:text-[13px] md:leading-4"
+			imageContainerClassName="lg:!w-[22px] lg:!h-[20px]"
 		/>,
 		// variantCount
 		<MetadataTile
@@ -219,6 +220,7 @@ const ProductDetailsTile: React.FC<{
 			title={`${t('common:variants')} ${totalVariantCount || 0}`}
 			className="!space-x-1 md:!space-x-4"
 			titleClassName="md:text-[13px] md:leading-4"
+			imageContainerClassName="lg:!w-[19px] lg:!h-[13px]"
 		/>,
 		// add to cart
 		<div
@@ -473,10 +475,10 @@ const ProductDetailsTile: React.FC<{
 	const messageVendor = (
 		<button
 			onClick={() => setIsMessageVendorPopupOpen(true)}
-			className="relative mt-[14.18px] flex h-[32.5px] w-[239.67px] items-center justify-center rounded-lg border-[1.74px] border-[#33A7DF] sm:mt-0 sm:h-[12.17px] sm:w-[89.75px] sm:rounded-sm md:h-[14.6px] md:w-[107.69px] lg:h-[15.65px] lg:w-[114.85px] xl:h-[23px]  xl:w-[169.64px] desktop:rounded-md"
+			className="relative mt-[14.18px] flex w-[239.67px] items-center justify-center rounded-lg border-[1.74px] border-[#33A7DF] py-[2px] sm:mt-0 sm:w-[89.75px] sm:rounded-sm md:w-[107.69px] lg:w-[114.85px]  xl:w-[169.64px] desktop:rounded-md"
 		>
-			<div className="absolute left-0 top-0 bottom-0 flex h-full w-[32px] items-center justify-center bg-cyan sm:w-[16px]">
-				<div className="relative h-[22.02px] w-[24px] sm:h-[8.32px] sm:w-[9.77px]">
+			<div className="absolute left-0 top-0 bottom-0 flex h-full w-[32px] items-center justify-center bg-cyan sm:w-[16px] xl:w-[26px]">
+				<div className="relative h-[22.02px] w-[24px] sm:h-[8.32px] sm:w-[9.77px] xl:h-[14px] xl:w-[16px]">
 					<Image
 						src="/icons/message-vendor-white-outline-icon.svg"
 						alt="message-vendor-white-outline-icon"
@@ -486,7 +488,7 @@ const ProductDetailsTile: React.FC<{
 			</div>
 
 			<p className="ml-[24px] text-[19.6px] font-semibold leading-[23.89px] text-cyan sm:ml-[16.28px] sm:text-[7.34px] sm:leading-[8.95px] lg:text-[9.44px] lg:leading-[11.51px] xl:text-[13.87px] xl:leading-[16.91px]">
-				Message Vendor
+				{t('common:message_vendor')}
 			</p>
 		</button>
 	);
@@ -520,13 +522,13 @@ const ProductDetailsTile: React.FC<{
 			</div>
 
 			<span className="ml-[62.17px] text-[19.6px] font-semibold leading-[23.89px] text-cyan sm:ml-[16.28px] sm:text-[7.34px] sm:leading-[8.95px] lg:ml-[32px] lg:text-[9.44px] lg:leading-[11.51px] xl:text-[13.87px] xl:leading-[16.91px]">
-				Submit RFQ
+				{t('common:submit_rfq')}
 			</span>
 		</button>
 	);
 
 	const baseButtonClass =
-		'flex h-[32.5px] w-[239.67px] items-center justify-center sm:h-[12.17px] md:w-[107.69px] md:h-[14.6px] sm:w-[89.75px] lg:w-[114.85px] lg:h-[15.65px] rounded-lg sm:rounded-sm desktop:rounded-md xl:w-[169.64px] xl:h-[23px]';
+		'flex h-[32.5px] w-[239.67px] items-center justify-center sm:h-[12.17px] md:w-[107.69px] md:h-[14.6px] sm:w-[89.75px] lg:w-[114.85px] lg:h-[15.65px] rounded-lg sm:rounded-sm desktop:rounded-md xl:w-[184px] xl:h-[23px]';
 
 	const actionButtons = (
 		<div className="-mt-4 flex flex-col items-center space-y-[22.01px] sm:flex-row sm:space-x-[30.35px] sm:space-y-0">
@@ -549,10 +551,10 @@ const ProductDetailsTile: React.FC<{
 						);
 					}
 				}}
-				className={`${baseButtonClass} bg-gradient-to-r from-[#E7CA00] via-[#E8A30E] to-[#E8A30E] sm:h-[12.17px]`}
+				className={`${baseButtonClass} !h-full bg-gradient-to-r from-[#E7CA00] via-[#E8A30E] to-[#E8A30E] py-1`}
 			>
 				<div className="flex items-center space-x-[8.79px]">
-					<div className="relative h-[24.02px] w-[31.08px] sm:h-[8.99px] sm:w-[11.64px]">
+					<div className="relative h-[24.02px] w-[31.08px] sm:h-[8.99px] sm:w-[11.64px] lg:h-[17px] lg:w-[22px]">
 						<Image
 							src="/icons/rfq-white-outline-icon.svg"
 							alt="rfq-white-outline-icon"
@@ -560,8 +562,11 @@ const ProductDetailsTile: React.FC<{
 						/>
 					</div>
 
-					<span className="text-[19.6px] font-semibold leading-[23.89px] text-white sm:text-[7.34px] sm:leading-[8.95px] lg:text-[9.44px] lg:leading-[11.51px] xl:text-[13.87px] xl:leading-[16.91px]">
-						Submit an RFQ
+					<span
+						className="text-[19.6px] font-semibold leading-[23.89px] text-white sm:text-[7.34px] sm:leading-[8.95px] lg:text-[9.44px] lg:leading-[11.51px]
+						xl:w-[130px] xl:text-[13.87px] xl:leading-[16.91px]"
+					>
+						{t('submit_an_RFQ')}
 					</span>
 				</div>
 			</button>
@@ -570,7 +575,7 @@ const ProductDetailsTile: React.FC<{
 			<button
 				// onClick={is_live && isInStock ? onAddToCart : undefined}
 				onClick={onAddToCart}
-				className={`${baseButtonClass} ${
+				className={`w-full ${baseButtonClass} ${
 					is_live && isInStock ? 'cursor-pointer' : 'cursor-not-allowed'
 				} border-[1.41px] border-[#37B04A] ${
 					hideCartButton ? 'hidden' : ''
@@ -585,7 +590,7 @@ const ProductDetailsTile: React.FC<{
 						/>
 					</div>
 					<span className="text-[19.6px] font-semibold leading-[23.89px] text-[#37B04A] sm:text-[7.34px] sm:leading-[8.95px] lg:text-[9.44px] lg:leading-[11.51px] xl:text-[13.87px] xl:leading-[16.91px]">
-						Add to Cart
+						{t('common:add_to_cart')}
 					</span>
 				</div>
 			</button>
@@ -663,7 +668,7 @@ const ProductDetailsTile: React.FC<{
 							{selectedVariant?.is_on_sale && !is_bulk_pricing ? (
 								<>
 									<span className="sm:text-price_red">
-										Sale ${selectedVariant?.sales_price}/
+										{t('sale')} ${selectedVariant?.sales_price}/
 										{minOrderQuantityUnit}
 									</span>
 									<span className="text-primary-main line-through sm:text-gray">
@@ -686,7 +691,7 @@ const ProductDetailsTile: React.FC<{
 									{t('common:min_order')}
 								</h4>
 								<p className="hidden sm:block">
-									Lead Time: {product?.lead_time}
+									{t('lead_time')} {product?.lead_time}
 								</p>
 							</div>
 						)}
@@ -790,8 +795,8 @@ const ProductDetailsTile: React.FC<{
 											}
 										>
 											{isProductDescriptionSectionExpanded
-												? 'Less'
-												: 'More'}
+												? t('less')
+												: t('more')}
 										</button>
 									)}
 								</span>
@@ -948,7 +953,7 @@ const ProductDetailsTile: React.FC<{
 						{product_features?.length > 0 && (
 							<div className="hidden sm:block md:pb-[16px]">
 								<p className="font-semibold leading-[22px] text-[#575858] sm:text-[12px] sm:leading-[14.63px] md:text-[10px] md:leading-[13.23px] lg:text-[15px]">
-									Product features:
+									{t('product_features')}
 								</p>
 								<div>{productFeatures}</div>
 							</div>

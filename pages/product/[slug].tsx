@@ -7,6 +7,7 @@ import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 
 // Third party packages
+import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // components
@@ -69,6 +70,7 @@ const ProductDetailsPage: NextPage<
 	similarProducts = [],
 	orderedId
 }) => {
+	const { t } = useTranslation();
 	const router = useRouter();
 	const { pathname, query, push } = router;
 
@@ -267,7 +269,7 @@ const ProductDetailsPage: NextPage<
 			{similarProducts?.length > 0 && (
 				<div className="hidden md:mx-[8.6px] md:block desktop:mx-[24px]">
 					<SimilarProductList
-						title="Similar Product"
+						title={t('similar_product')}
 						similarProducts={similarProducts || []}
 						className="px-8"
 					/>
@@ -286,7 +288,7 @@ const ProductDetailsPage: NextPage<
 					})}
 					className="rounded-full px-4 !text-[15px]"
 				>
-					Submit RFQ
+					{t('common:submit_rfq')}
 				</Button>
 				<Button
 					variant="product"
@@ -298,7 +300,7 @@ const ProductDetailsPage: NextPage<
 					})}
 					className="rounded-full px-4 !text-[15px]"
 				>
-					Message Seller
+					{t('message_seller')}
 				</Button>
 			</div>
 		</div>
