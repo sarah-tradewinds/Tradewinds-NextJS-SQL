@@ -30,7 +30,7 @@ const MetadataTile: React.FC<MetadataTileProps> = (props) => {
 		>
 			{imageUrl && (
 				<div
-					className={`relative h-[12px] w-[16px] lg:h-[12px] lg:w-[15px] ${imageContainerClassName}`}
+					className={`relative h-[12px] w-[16px] lg:h-[12px] lg:w-[15px] xl:h-[16] xl:w-[24px] ${imageContainerClassName}`}
 				>
 					<ImageWithErrorHandler
 						src={imageUrl}
