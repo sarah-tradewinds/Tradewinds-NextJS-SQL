@@ -209,7 +209,7 @@ const ProductDetailsTile: React.FC<{
 					</span>
 				</p>
 			}
-			titleClassName="md:text-[13px] md:leading-4"
+			titleClassName=" md:text-[13px] md:leading-4"
 			imageContainerClassName="lg:!w-[22px] lg:!h-[20px]"
 		/>,
 		// variantCount
@@ -528,7 +528,7 @@ const ProductDetailsTile: React.FC<{
 	);
 
 	const baseButtonClass =
-		'flex h-[32.5px] w-[239.67px] items-center justify-center sm:h-[12.17px] md:w-[107.69px] md:h-[14.6px] sm:w-[89.75px] lg:w-[114.85px] lg:h-[15.65px] rounded-lg sm:rounded-sm desktop:rounded-md xl:w-[184px] xl:h-[23px]';
+		'flex h-[44px] w-[239.67px] sm:w-[239.67px] items-center justify-center sm:h-[19.17px] md:w-[107.69px] md:h-[14.6px] sm:w-[89.75px] lg:w-[134.85px] lg:h-[15.65px] rounded-lg sm:rounded-sm desktop:rounded-md xl:w-[184px] xl:h-[23px]';
 
 	const actionButtons = (
 		<div className="-mt-4 flex flex-col items-center space-y-[22.01px] sm:flex-row sm:space-x-[30.35px] sm:space-y-0">
@@ -551,10 +551,10 @@ const ProductDetailsTile: React.FC<{
 						);
 					}
 				}}
-				className={`${baseButtonClass} !h-full bg-gradient-to-r from-[#E7CA00] via-[#E8A30E] to-[#E8A30E] py-1`}
+				className={`${baseButtonClass} !h-full bg-gradient-to-r from-[#E7CA00] via-[#E8A30E] to-[#E8A30E] py-[2px]`}
 			>
 				<div className="flex items-center space-x-[8.79px]">
-					<div className="relative h-[24.02px] w-[31.08px] sm:h-[8.99px] sm:w-[11.64px] lg:h-[17px] lg:w-[22px]">
+					<div className="relative h-[24.02px] w-[31.08px] sm:h-[8.99px] sm:w-[11.64px] lg:h-[15px] lg:w-[22px]">
 						<Image
 							src="/icons/rfq-white-outline-icon.svg"
 							alt="rfq-white-outline-icon"
@@ -563,7 +563,7 @@ const ProductDetailsTile: React.FC<{
 					</div>
 
 					<span
-						className="text-[19.6px] font-semibold leading-[23.89px] text-white sm:text-[7.34px] sm:leading-[8.95px] lg:text-[9.44px] lg:leading-[11.51px]
+						className=" w-[190px] text-[19.6px] font-semibold leading-[23.89px] text-white sm:w-[70px] sm:text-[7.34px] sm:leading-[8.95px] md:w-[70px] lg:w-[90px] lg:text-[9.44px] lg:leading-[11.51px]
 						xl:w-[130px] xl:text-[13.87px] xl:leading-[16.91px]"
 					>
 						{t('submit_an_RFQ')}

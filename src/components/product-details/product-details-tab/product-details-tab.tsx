@@ -52,7 +52,7 @@ const ProductDetailsTab: React.FC<{
 			: true;
 
 	const headingClassName =
-		'border-b-2 pb-[2px] sm:borer-b-1 text-gray  xl:border-b-2 xl:pb-[8px] border-[#C4C4C4] text-[15px] capitalize font-semibold leading-[18.29px] lg:text-[21px] md:text-[12px] md:leading-[14.63px] lg:text-[15px] lg:leading-[18.29px] xl:text-[21px] xl:leading-[25.6px] md:uppercase lg:leading-6  lg:border-b-[1.37px] lg:pb-[5.33]';
+		'border-b-2 pb-[2px] sm:borer-b-1 text-gray  xl:border-b-2 xl:pb-[8px] border-[#C4C4C4] text-[15px] capitalize font-semibold leading-[18.29px] lg:text-[15px] md:text-[12px] md:leading-[14.63px] lg:text-[15px] lg:leading-[18.29px] xl:text-[21px] xl:leading-[25.6px] md:uppercase lg:leading-6  lg:border-b-[1.37px] lg:pb-[5.33]';
 
 	return (
 		<div className="space-y-8 bg-white p-4 pt-[32px] md:space-y-8 md:pt-[24px]">
@@ -233,12 +233,12 @@ const ProductDetailsTab: React.FC<{
 									{certifications?.map((certificate: any) => (
 										<div
 											key={certificate?.name}
-											className="flex items-center justify-between space-x-4 text-[15px] text-gray lg:text-[18px]"
+											className="flex items-center justify-between space-x-4 text-[10px] text-gray lg:text-[12px] xl:text-[18px]"
 										>
 											<span className="font-semibold capitalize">
 												{certificate?.name}:
 											</span>
-											<div className="relative hidden h-[30px] w-[162px] md:block">
+											<div className="relative hidden sm:h-[16px] sm:w-[100px] md:block md:h-[20px] md:w-[100px] lg:h-[30px] lg:w-[162px]">
 												<ImageWithErrorHandler
 													src="/tradewinds-horizontal-logo.png"
 													alt=""

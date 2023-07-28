@@ -132,7 +132,7 @@ const ProductReviewsDetailsTab: React.FC<{
 			<div className="space-y-4 bg-white p-4 md:p-8">
 				{/* Customer reviews and rating count */}
 				<div className="flex items-center border-b-2 border-[#C4C4C4] pb-2 md:space-x-4 md:border-t-0">
-					<h2 className="hidden text-[21px] font-semibold text-gray/40 md:block">
+					<h2 className="hidden font-semibold text-gray/40 md:block lg:text-[15px] xl:text-[21px]">
 						{t('common:customer_reviews')}
 					</h2>
 					<h2 className="text-[15px] font-semibold leading-[18.29px] text-gray md:hidden">
