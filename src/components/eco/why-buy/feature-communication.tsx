@@ -64,7 +64,7 @@ function FeatureCommunication() {
 				</div>
 				{/* This is for mobile */}
 				<div className=" block sm:hidden ">
-					<div className="  h-[822px] w-[300px] pl-[34px]">
+					<div className="  h-[822px] w-[300px] px-[30px]">
 						<WhyBuyTile
 							imageClassName=" mt-[27px] w-[34px] h-[35px]  "
 							imageUrl="/static/images/WhyBuyImages/verified-seller.png"
@@ -102,7 +102,7 @@ function FeatureCommunication() {
 							)}
 						/>
 
-						<div className=" mt-[45px] -ml-[94px] text-center sm:mt-[39px] md:mt-[56px] lg:mt-[77px] desktop:mt-[82px]">
+						<div className=" mx-auto mt-[45px]  text-center sm:mt-[39px] md:mt-[56px] lg:mt-[77px] desktop:mt-[82px]">
 							<button
 								onClick={setIsSignUpOpen}
 								className="h-[25px] w-[135px] rounded-[5px] bg-secondary text-[10px] font-medium text-white sm:h-[25px] sm:w-[135px] sm:rounded-[5px] sm:text-[10px] md:h-[29px] md:w-[156px] md:rounded-[8px] md:text-[12px] lg:h-[39px] lg:w-[209px] lg:rounded-[10px] lg:text-[16px] desktop:h-[60px] desktop:w-[319px] desktop:rounded-[10px] desktop:text-[25px] "

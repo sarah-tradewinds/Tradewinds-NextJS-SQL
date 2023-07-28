@@ -320,7 +320,7 @@ const Trending_page: NextPage<
 
 			{/* Banner image for trending only */}
 			<div className="3xl:container 3xl:w-[1512px]">
-				<div className="relative h-[241px] w-full md:h-[234px] lg:h-[228px] xl:h-[192.67px] desktop:h-[234px]">
+				<div className="bg-[url('/static/images/trending_images/what's trending page Header.png')] sm:bg-[url('/static/images/trending_images/what's trending page Header-large.png')] relative h-[241px] w-full md:h-[234px] lg:h-[228px] xl:h-[192.67px] desktop:h-[234px]">
 					<ImageWithErrorHandler
 						src="/images/what-is-trending.svg"
 						alt="what is trending banner"

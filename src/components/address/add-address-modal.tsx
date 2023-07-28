@@ -9,6 +9,7 @@ import {
 	useGetStateByCountryId
 } from 'hooks/data-fetching/use-countries.hooks';
 import { addAddress } from 'lib/customer/addres.lib';
+import { useTranslation } from 'next-i18next';
 import { Fragment, useState } from 'react';
 import { useAuthStore } from 'store/auth';
 
@@ -273,7 +274,7 @@ interface ISearchableDropDown {
 
 const SearchableDropDown: React.FC<ISearchableDropDown> = (props) => {
 	const { list = [], initialValue, onChange } = props;
-
+	const { t } = useTranslation();
 	const [selected, setSelected] = useState(initialValue);
 	const [query, setQuery] = useState('');
 
@@ -319,7 +320,7 @@ const SearchableDropDown: React.FC<ISearchableDropDown> = (props) => {
 					<Combobox.Options className="absolute z-[40002] mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
 						{filteredList.length === 0 && query !== '' ? (
 							<div className="text-gray-700 relative cursor-default select-none py-2 px-4">
-								Nothing found.
+								<p>{t('nothing_found')}</p>
 							</div>
 						) : (
 							filteredList.map((data) => (

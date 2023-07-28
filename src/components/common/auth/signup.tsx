@@ -536,7 +536,7 @@ export default SignUp;
 
 const CountryDropdown = (props: { onSelect?: (data: any) => void }) => {
 	const { onSelect } = props;
-
+	const { t } = useTranslation();
 	const [selected, setSelected] = useState([]);
 	const [query, setQuery] = useState('');
 
@@ -597,7 +597,7 @@ const CountryDropdown = (props: { onSelect?: (data: any) => void }) => {
 					<Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
 						{filteredCountries.length === 0 && query ? (
 							<div className="text-gray-700 relative cursor-default select-none py-2 px-4">
-								Nothing found.
+								{t('nothing_found')}
 							</div>
 						) : (
 							filteredCountries.map((country: any) => (

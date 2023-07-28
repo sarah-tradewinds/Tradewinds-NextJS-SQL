@@ -163,7 +163,7 @@ const CategoriesPage: NextPage<
 					<Combobox.Options className="absolute mt-1 max-h-60 w-full space-y-1 overflow-auto rounded-md bg-white p-2 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
 						{!searchQuery && (
 							<div className="text-gray-700 relative cursor-default select-none py-2 px-4">
-								Nothing found.
+								{t('nothing_found')}
 							</div>
 						)}
 
@@ -215,11 +215,11 @@ const CategoriesPage: NextPage<
 
 					<div className="absolute top-8 ml-[15px] sm:top-[74px] desktop:mt-[90px] desktop:ml-[116px]">
 						<p className="text-[25px] font-semibold leading-[30.26px] text-white sm:text-[43px] sm:leading-[52.04px] desktop:text-[59.05px] desktop:leading-[71.46px]">
-							Over 6,500 products
+							{t('over_6,500_products')}
 						</p>
 
 						<p className="w-[216px] text-[15px] font-semibold leading-[18.15px] text-white sm:text-[18px] sm:leading-[21.78px] md:w-auto  desktop:text-[29.13px] desktop:leading-[35.25px]">
-							Source from around the world in one place
+							{t('source_from_around_the_world_in_one_place')}
 						</p>
 					</div>
 				</div>

@@ -3,7 +3,7 @@ import { useState } from 'react';
 // components
 import { MinusCircleIcon } from '@heroicons/react/20/solid';
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
-
+import { useTranslation } from 'next-i18next';
 interface CategoryTileAccordionProps {
 	title: string;
 	imageUrl: string;
@@ -16,7 +16,7 @@ const CategoryTileAccordion: React.FC<CategoryTileAccordionProps> = (
 ) => {
 	const { title, imageUrl, backgroundColor, children, onTitleClick } =
 		props;
-
+	const { t } = useTranslation();
 	const [isOpen, setIsOpen] = useState(false);
 
 	const openAndCloseHandler = () => {
@@ -72,9 +72,9 @@ const CategoryTileAccordion: React.FC<CategoryTileAccordionProps> = (
 				>
 					<button
 						onClick={openAndCloseHandler}
-						className="absolute top-1/2 left-1/2 z-10 mt-[1px] hidden h-[12.26px] w-[54.47px] -translate-y-1/2 -translate-x-1/2 rounded-sm bg-primary-main text-[10.21px] font-semibold leading-[12.45px] text-white outline-none lg:block xl:h-[15.24px] xl:w-[67.72px]"
+						className="absolute top-1/2 left-1/2 z-10 mt-[0px] hidden h-[12.26px] w-[54.47px] -translate-y-1/2 -translate-x-1/2 rounded-sm bg-primary-main text-[10.21px] font-semibold leading-[12.45px] text-white outline-none lg:block xl:h-[15.24px] xl:w-[67.72px]"
 					>
-						{isOpen ? 'Less' : 'More'}
+						{isOpen ? t('less') : t('more')}
 					</button>
 				</div>
 			</div>
