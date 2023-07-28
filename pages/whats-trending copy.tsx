@@ -421,14 +421,14 @@ const Trending_page: NextPage<
 								</div>
 
 								<p className="text-white md:px-[6px] md:text-[18px] md:font-bold md:leading-[22px] lg:text-[25px] lg:leading-[30px]">
-									Submit an RFQ for anything!
+									{t('submit_an_RFQ_for_anything!')}
 								</p>
 							</div>
 
 							<ul className="list-disc text-white md:ml-6 md:text-[15px] md:font-semibold md:leading-[18px] lg:ml-7 lg:pt-[34px] lg:text-[25px] lg:leading-[30px]">
-								<li>One request</li>
-								<li>Receive multiple quotes</li>
-								<li>Responed</li>
+								<li> {t('one_request')}</li>
+								<li>{t('receive_multiple_quotes')}</li>
+								<li>{t('responed')}</li>
 								<li>Close the deal</li>
 							</ul>
 

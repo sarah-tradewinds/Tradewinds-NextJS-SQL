@@ -1,6 +1,7 @@
 import { Popover } from '@headlessui/react';
 import Button from 'components/common/form/button';
 import { getHomeCountries } from 'lib/home.lib';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
@@ -11,7 +12,6 @@ import {
 import CountrySearchDropdown from '../country-search-dropdown';
 import CategoriesFilter from '../product-filter/categories-filter';
 import MinMaxPicker from '../product-filter/min-max-picker.components';
-
 interface ProductFilterSliderProps {
 	isOpen?: boolean;
 	onClose?: () => void;
@@ -28,7 +28,7 @@ const ProductFilterSlider: React.FC<ProductFilterSliderProps> = (
 	const [maxOrder, setMaxOrder] = useState(100);
 	const [minPrice, setMinPrice] = useState(1);
 	const [maxPrice, setMaxPrice] = useState(100);
-
+	const { t } = useTranslation();
 	const router = useRouter();
 	const { push, query } = router;
 
@@ -63,7 +63,9 @@ const ProductFilterSlider: React.FC<ProductFilterSliderProps> = (
 		<div className={containerClassName}>
 			{/* Categories */}
 			<div>
-				<p className="text-[13.27px] font-semibold">Catagories</p>
+				<p className="text-[13.27px] font-semibold">
+					{t('catagories')}{' '}
+				</p>
 				<div className="h-[99.53px] overflow-auto rounded-md border-2 border-accent-primary-main p-4">
 					<CategoriesFilter />
 				</div>
@@ -72,7 +74,9 @@ const ProductFilterSlider: React.FC<ProductFilterSliderProps> = (
 			<div className="mt-6 space-y-4">
 				{/* Customizable - checkbox */}
 				<label className="flex items-center justify-between">
-					<p className="text-[13.27px] font-semibold">Customizable</p>
+					<p className="text-[13.27px] font-semibold">
+						{t('customizable')}
+					</p>
 					<input
 						type="checkbox"
 						checked={isCustomizable}
@@ -89,9 +93,9 @@ const ProductFilterSlider: React.FC<ProductFilterSliderProps> = (
 					/>
 				</label>
 				{/* Live Buy/ Ready to ship - checkbox */}
-				<label className="flex items-center justify-between">
-					<p className="text-[13.27px] font-semibold">
-						Live Buy/ Ready to ship
+				<label className="flex items-center  justify-between">
+					<p className="w-[165px] text-[13.27px] font-semibold">
+						{t('live_buy/_ready_to_ship')}
 					</p>
 					<input
 						type="checkbox"
@@ -111,7 +115,7 @@ const ProductFilterSlider: React.FC<ProductFilterSliderProps> = (
 
 				{/* Min order */}
 				<div className="text-[13.27px] font-semibold">
-					<p>Min. Order</p>
+					<p>{t('min._order')}</p>
 					{/* <p className="flex h-7 items-center justify-center rounded-md border-2 border-accent-primary-main p-4"></p> */}
 					<Popover className="relative">
 						<Popover.Button className="flex h-7 w-full items-center justify-center rounded-md border-2 border-accent-primary-main p-4">
@@ -140,7 +144,7 @@ const ProductFilterSlider: React.FC<ProductFilterSliderProps> = (
 												close();
 											}}
 										>
-											Cancel
+											{t('cancel')}
 										</Button>
 										<Button
 											className="!px-0 !text-primary-main"
@@ -152,7 +156,7 @@ const ProductFilterSlider: React.FC<ProductFilterSliderProps> = (
 												close();
 											}}
 										>
-											Select
+											{t('select')}
 										</Button>
 									</div>
 								</>
@@ -192,7 +196,7 @@ const ProductFilterSlider: React.FC<ProductFilterSliderProps> = (
 												close();
 											}}
 										>
-											Cancel
+											{t('cancel')}
 										</Button>
 										<Button
 											className="!px-0 !text-primary-main"
@@ -204,7 +208,7 @@ const ProductFilterSlider: React.FC<ProductFilterSliderProps> = (
 												close();
 											}}
 										>
-											Select
+											{t('select')}
 										</Button>
 									</div>
 								</>
@@ -216,7 +220,7 @@ const ProductFilterSlider: React.FC<ProductFilterSliderProps> = (
 				{/* Supplier Country / Region */}
 				<div className="text-[13.27px] font-semibold">
 					<p className="text-[13.27px] font-semibold">
-						Supplier Country / Region
+						{t('supplier_country')}/{t('region')}
 					</p>
 					<CountrySearchDropdown
 						countries={countries || []}
@@ -240,13 +244,13 @@ const ProductFilterSlider: React.FC<ProductFilterSliderProps> = (
 					className="!w-full !text-[13.27px]"
 					onClick={onClose}
 				>
-					Search
+					{t('search')}
 				</Button>
 				<Button
 					className="!w-full !text-[13.27px] !font-normal !text-accent-primary-main"
 					onClick={() => getProductSearchURL(router, {}, true)}
 				>
-					Reset Filters
+					{t('reset_filters')}
 				</Button>
 			</div>
 		</div>

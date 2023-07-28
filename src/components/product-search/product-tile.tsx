@@ -103,7 +103,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 	const messageVendorButton = (
 		<button
 			onClick={onMessageVendorClick}
-			className="flex h-[20px] items-center space-x-1 rounded border-[0.594234px] border-primary-main outline-none xl:h-[22.98px] xl:w-[138.32px] xl:border-[1.23px]"
+			className="mr-1 flex h-[30px] items-center space-x-1 rounded border-[0.594234px] border-primary-main outline-none  xl:w-[138.32px] xl:border-[1.23px]"
 		>
 			<div className="flex h-full w-[17.28px] justify-center bg-accent-primary-main xl:w-[26.4px]">
 				<div className="relative h-[20px] w-[12.08px] xl:w-[18px]">
@@ -115,8 +115,8 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 				</div>
 			</div>
 
-			<p className="text-[10px] text-accent-primary-main desktop:w-full desktop:text-xs">
-				Message Vendor
+			<p className="py-1 text-[10px] text-accent-primary-main desktop:w-full desktop:text-xs">
+				{t('message_vendor')}
 			</p>
 		</button>
 	);
@@ -129,7 +129,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 			alt={country?.name}
 			title={country?.name}
 			titleClassName="lg:!text-[10px] sm:!text-[12px] sm:!leading-[14.63px] xl:!text-[13px] xl:!leading-[15.85px]"
-			imageContainerClassName="!w-[14px] !h-[10px] desktop:!w-[23px] desktop:!h-[14px]"
+			imageContainerClassName="!w-[14px] !h-[10px] xl:!w-[23px] xl:!h-[14px] desktop:!w-[23px] desktop:!h-[14px]"
 			className="!space-x-1"
 		/>,
 		// isReadyToShip
@@ -169,6 +169,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 		<MetadataTile
 			key={t('common:customizable')}
 			className="!space-x-1"
+			imageContainerClassName="xl:!w-[22px] xl:!h-[20px]"
 			imageUrl={metadataList[3].imageUrl}
 			alt={t('common:customizable')}
 			title={
@@ -265,7 +266,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 							{isSaleOn && !isBulkPricing ? (
 								<>
 									<span className="text-error">
-										Sale ${salePrice}/{minOrderQuantityUnit}
+										{t('sale')} ${salePrice}/{minOrderQuantityUnit}
 									</span>
 									<span className="ml-2 inline-block line-through">
 										${productPrice}/{minOrderQuantityUnit}
@@ -287,16 +288,16 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 					</div>
 
 					{/* Metadata - For desktop only */}
-					<div className="hidden items-center justify-between lg:mt-[12.14px] lg:flex">
-						<div className="flex flex-col space-y-4">
+					<div className="hidden items-center justify-between space-x-1 lg:mt-[12.14px] lg:flex">
+						<div className=" flex flex-col">
 							{metadataTileList[0]}
 							{metadataTileList[3]}
 						</div>
-						<div className="flex flex-col space-y-4">
+						<div className=" flex flex-col">
 							{metadataTileList[1]}
 							{metadataTileList[4]}
 						</div>
-						<div className="flex flex-col space-y-3">
+						<div className=" flex flex-col">
 							{metadataTileList[2]}
 							{metadataTileList[5]}
 						</div>
@@ -305,7 +306,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 			</div>
 
 			{/* Metadata - For sm and tablet only */}
-			<div className="flex items-center space-x-4 sm:mt-[17px] sm:ml-[25px] lg:hidden">
+			<div className="flex items-center space-x-2 sm:mt-[10px] sm:ml-[25px] sm:w-[72%] lg:hidden">
 				<div className="flex flex-col space-y-2">
 					{metadataTileList[0]}
 					{metadataTileList[3]}

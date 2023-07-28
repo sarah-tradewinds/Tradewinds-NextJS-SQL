@@ -52,7 +52,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 								</button>
 							</div>
 						</div>
-						<div className=" absolute left-1/2 z-50 mt-[203px] h-[328px] w-[300px] -translate-x-1/2 space-y-[10px] rounded-none bg-dark_gray p-[14px] text-center text-[12px] leading-[15px]  text-beauty sm:mt-[232px] sm:h-[180px] sm:w-[566px] sm:space-y-[10px] sm:rounded-[12px] sm:p-[10px]  sm:text-[12px] sm:leading-[15px] md:mt-[269px] md:h-[220px] md:w-[680px] md:space-y-[15px] md:p-[15px]  md:text-[15px] md:leading-[18px] lg:mt-[373px] lg:h-[248px] lg:w-[907px] lg:space-y-[15px] lg:p-[20px]  lg:text-[18px] lg:leading-[21px] desktop:mt-[549px]  desktop:h-[358px]  desktop:w-[1336px]  desktop:space-y-[20px] desktop:p-[40px] desktop:text-[25px]  desktop:leading-[30px] ">
+						<div className=" absolute left-1/2 z-50 mt-[203px] h-[328px] w-[300px] -translate-x-1/2 space-y-[10px] rounded-none bg-dark_gray p-[14px] text-left text-[12px] leading-[15px] text-beauty  sm:mt-[232px] sm:h-[180px] sm:w-[566px] sm:space-y-[10px] sm:rounded-[12px] sm:p-[10px] sm:text-center  sm:text-[12px] sm:leading-[15px] md:mt-[269px] md:h-[220px] md:w-[680px] md:space-y-[15px] md:p-[15px]  md:text-[15px] md:leading-[18px] lg:mt-[373px] lg:h-[248px] lg:w-[907px] lg:space-y-[15px] lg:p-[20px]  lg:text-[18px] lg:leading-[21px] desktop:mt-[549px]  desktop:h-[358px]  desktop:w-[1336px]  desktop:space-y-[20px] desktop:p-[40px] desktop:text-[25px]  desktop:leading-[30px] ">
 							<p>
 								{t(
 									'welcome_to_tradewinds_Marketplace,_your_ultimate_destination'

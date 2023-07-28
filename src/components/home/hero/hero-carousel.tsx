@@ -86,7 +86,7 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 							)}`}
 						>
 							<p
-								className="lg:leading-[88px]s text-[24px] font-semibold lg:!text-[55px]"
+								className=" lg:text-[72px]s lg:leading-[88px]s text-[20px] font-semibold  leading-[23px] sm:text-[24px] sm:leading-[27px] lg:!text-6xl"
 								style={{ color: item?.color }}
 							>
 								{getLocaleText(item?.title || {}, locale)}

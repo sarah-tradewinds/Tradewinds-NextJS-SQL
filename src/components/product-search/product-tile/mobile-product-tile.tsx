@@ -168,7 +168,7 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 		<div
 			className={`w-full overflow-hidden rounded-md bg-white ${
 				isEco ? 'border-1 border-accent-success' : ''
-			} ${isSalePriceAvailable ? 'h-[132px]' : 'h-[118px]'}`}
+			} ${isSalePriceAvailable ? 'h-[155px]' : 'h-[118px]'}`}
 		>
 			{/* Image and Info */}
 			<div className="flex ">
@@ -253,7 +253,7 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 						fill={true}
 					/>
 				</div>
-				<div className="flex items-center space-x-[15px] pl-2">
+				<div className="flex items-center space-x-[10px] pl-1">
 					{metadataTileList[2]}
 					{metadataTileList[3]}
 				</div>

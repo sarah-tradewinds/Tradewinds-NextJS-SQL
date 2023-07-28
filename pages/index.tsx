@@ -82,10 +82,10 @@ const HomePage: NextPage<
 					href="/categories"
 					className="space-y-1 text-center font-semibold text-white"
 				>
-					<p className="md:text-[22.79px] md:leading-[17.78px] lg:text-[25.28px] lg:leading-[19.72px] xl:text-[31.48px] xl:leading-[24.56px]">
+					<p className="md:text-[22.79px] md:leading-[25.78px] lg:text-[25.28px] lg:leading-[27.72px] xl:text-[31.48px] xl:leading-[35.56px]">
 						{t('home:search_from')}
 					</p>
-					<p className="md:text-[37.6px] md:leading-[29.33px] lg:text-[41.71px] lg:leading-[32.54px] xl:text-[51.94px] xl:leading-[40.52px]">
+					<p className="md:text-[37.6px] md:leading-[40.33px] lg:text-[41.71px] lg:leading-[45.54px] xl:text-[51.94px] xl:leading-[55.52px]">
 						6,500 {t('home:categories')}
 					</p>
 				</Link>
@@ -97,7 +97,7 @@ const HomePage: NextPage<
 					href="/whats-trending"
 					className="font-semibold text-white md:mr-8 md:text-[21px] md:leading-[26px] lg:text-[28.72px] lg:leading-[35.56px] xl:text-[35.76px] xl:leading-[44.28px]"
 				>
-					{t('What’s Trending')}
+					{t('common:what’s_trending')}
 				</Link>
 			</div>
 		</div>
