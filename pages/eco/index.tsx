@@ -75,7 +75,7 @@ const HomePage: NextPage<
 					<p className="md:text-[22.79px] md:leading-[17.78px] lg:text-[25.28px] lg:leading-[19.72px] xl:text-[31.48px] xl:leading-[24.56px]">
 						{t('home:search_from')}
 					</p>
-					<p className="md:text-[37.6px] md:leading-[29.33px] lg:text-[41.71px] lg:leading-[32.54px] xl:text-[51.94px] xl:leading-[40.52px]">
+					<p className="md:text-[37.6px] md:leading-[40.33px] lg:text-[41.71px] lg:leading-[42.54px] xl:text-[51.94px] xl:leading-[53.52px]">
 						6,500 {t('home:categories')}
 					</p>
 				</Link>
@@ -87,7 +87,7 @@ const HomePage: NextPage<
 					href="/whats-trending"
 					className="font-semibold text-white md:mr-8 md:text-[21px] md:leading-[26px] lg:text-[28.72px] lg:leading-[35.56px] xl:text-[35.76px] xl:leading-[44.28px]"
 				>
-					{t('What’s Trending')}
+					{t('what’s_trending')}
 				</Link>
 			</div>
 		</div>
@@ -166,7 +166,7 @@ const HomePage: NextPage<
 							href="/categories"
 							className="flex h-[67px] w-full items-center justify-center rounded-md  bg-accent-primary-eco text-[21px] font-semibold text-white md:hidden"
 						>
-							Explore all Categories
+							{t('explore_all_categories')}
 						</Link>
 
 						{/* What’s Trending */}
@@ -174,7 +174,7 @@ const HomePage: NextPage<
 							href="/whats-trending"
 							className="flex h-[67px] w-full items-center justify-center rounded-md bg-[#6D1818] text-[21px] font-semibold text-white md:hidden"
 						>
-							What’s Trending
+							{t('what’s_trending')}
 						</Link>
 
 						<div className="hidden h-[79px] w-full overflow-hidden rounded-md sm:block md:h-[102px] lg:h-[136.13px] xl:h-[170px]">

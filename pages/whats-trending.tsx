@@ -329,7 +329,7 @@ const Trending_page: NextPage<
 					/>
 
 					<p className="absolute bottom-[26px] right-5 w-[117px] text-[25px] font-semibold leading-[30.48px] text-white md:hidden lg:bottom-1/2 lg:right-8 lg:block lg:w-auto lg:translate-y-1/2 lg:text-[48px] lg:leading-[58.51px] xl:text-[40.63px] xl:leading-[49.53px] desktop:text-[48px] desktop:leading-[58.51px]">
-						What’s Trending
+						{t('what’s_trending')}
 					</p>
 				</div>
 			</div>
@@ -356,7 +356,7 @@ const Trending_page: NextPage<
 							)}
 						</div>
 						<h2 className="text-center text-[20px] font-semibold leading-[24.38px] text-white">
-							Trending Categories
+							{t('trending_categories')}
 						</h2>
 					</div>
 
@@ -395,7 +395,9 @@ const Trending_page: NextPage<
 								<TrendingCategoryTile
 									key={'more'}
 									index=""
-									title={showMoreTrendingCategories ? 'Less' : 'More'}
+									title={
+										showMoreTrendingCategories ? t('less') : t('more')
+									}
 									backgroundColor="#33A7DF"
 									imageUrl="/images/blue-triangle.png"
 									onTileClick={() =>
@@ -409,7 +411,7 @@ const Trending_page: NextPage<
 								href="/categories"
 								className="flex h-[67px] w-full items-center justify-center rounded-md bg-accent-primary-main text-[21px] font-semibold text-white sm:hidden md:hidden"
 							>
-								Explore all Categories
+								{t('explore_all_categories')}
 							</Link>
 						</div>
 					)}
@@ -433,7 +435,7 @@ const Trending_page: NextPage<
 							)}
 						</div>
 						<h2 className="text-center text-[20px] font-semibold leading-[24.38px] text-white">
-							Trending Products
+							{t('trending_products')}
 						</h2>
 					</div>
 
@@ -494,7 +496,7 @@ const Trending_page: NextPage<
 
 							{/* RFQ CARD */}
 							<div className="hidden md:block  ">
-								<div className="w-full space-y-2 bg-gradient-to-r from-[#E7CA00] via-[#E8A30E] to-[#E8A30E] md:h-[321px] md:rounded-lg md:pt-2 lg:pl-[12.97px] xl:h-[475px] xl:pl-[19x]">
+								<div className="w-full space-y-2 bg-gradient-to-r from-[#E7CA00] via-[#E8A30E] to-[#E8A30E] md:h-[321px] md:rounded-lg md:pt-2  lg:pt-1 lg:pl-[12.97px] xl:h-[475px] xl:pl-[19x]">
 									{/* Image */}
 									<div className="lg:mt-[16.86px] lg:flex desktop:items-center ">
 										<div className="flex justify-center">
@@ -508,18 +510,18 @@ const Trending_page: NextPage<
 										</div>
 
 										<p className="hidden text-white md:px-[6px] md:text-[18px] md:font-bold md:leading-[22px] lg:block lg:text-[16.86px] lg:leading-[20.55px] xl:text-[25px] xl:leading-[30.48px]">
-											Submit an RFQ for anything!
+											{t('submit_an_RFQ_for_anything!')}
 										</p>
 									</div>
 
-									<ul className="list-disc text-white md:ml-6 md:pt-[65.98px] md:text-[15px] md:font-semibold md:leading-[18px] lg:pt-[22px] xl:pt-[34px] xl:text-[25px] xl:leading-[30.48px]">
-										<li>One request</li>
-										<li>Receive multiple quotes</li>
-										<li>Responed</li>
-										<li>Close the deal</li>
+									<ul className="list-disc text-white md:ml-6 md:pt-[35.98px] md:text-[15px] md:font-semibold md:leading-[18px] lg:pt-[5px] xl:pt-[12px] xl:text-[25px] xl:leading-[30.48px]">
+										<li>{t('one_request')} </li>
+										<li>{t('receive_multiple_quotes')} </li>
+										<li>{t('responed')} </li>
+										<li>{t('close_the_deal')} </li>
 									</ul>
 
-									<div className="flex justify-center md:pt-[34px] xl:pt-[68px] desktop:justify-start desktop:pl-2">
+									<div className="flex justify-center md:pt-[34px] lg:pt-[5px] xl:pt-[15px] desktop:justify-start desktop:pl-0">
 										<button
 											onClick={() => {
 												if (!isAuth) {
@@ -537,9 +539,9 @@ const Trending_page: NextPage<
 													);
 												}
 											}}
-											className="flex items-center border-none bg-white outline-none md:h-[19.88px] md:w-[125px] md:rounded-md lg:h-[26.62px] lg:w-[167.36px] desktop:h-[39px] desktop:w-[245.2px] desktop:pl-1"
+											className="flex items-center border-none bg-white py-[2px] outline-none md:w-[125px] md:rounded-md lg:w-[157.36px] desktop:mr-[4px] desktop:w-[245.2px] desktop:pl-1"
 										>
-											<div className="relative h-[15.8px] w-[18.35px] lg:ml-[4.72px] lg:h-[21.16px] lg:w-[24.57px] desktop:h-[31px] desktop:w-[36px]">
+											<div className="relative h-[15.8px] w-[18.35px] md:ml-[4.72px] lg:h-[21.16px] lg:w-[24.57px] desktop:h-[31px] desktop:w-[36px]">
 												<ImageWithErrorHandler
 													src="/static/rfq-orange.png"
 													alt="rfq orange icon"
@@ -570,18 +572,18 @@ const Trending_page: NextPage<
 													selected ? 'text-gray' : 'text-gray/20'
 												}`}
 											>
-												Catagories
+												{t('catagories')}
 											</span>
 										)}
 									</Tab>
-									<Tab className="h-[41px] w-[150px] rounded-t-xl bg-white text-center outline-none">
+									<Tab className="h-[41px] w-[150px] rounded-t-xl bg-white text-center outline-none desktop:w-[180px]">
 										{({ selected }: { selected: boolean }) => (
 											<span
 												className={`font-semibold md:text-[15px] md:leading-[18.15px] xl:text-[21.16px] xl:leading-[25.61px] desktop:text-[25px] desktop:leading-[30.26px] ${
 													selected ? 'text-gray' : 'text-gray/20'
 												}`}
 											>
-												Products
+												{t('products')}
 											</span>
 										)}
 									</Tab>
@@ -590,17 +592,17 @@ const Trending_page: NextPage<
 								<Tab.Panel>
 									<div className="-mt-[5px] flex w-full rounded-[10px] bg-white md:h-[183.27px] lg:h-[142.95px] xl:h-[177.13px] desktop:h-[209.23px]">
 										<div className="md:ml-[10px] md:mr-[10.01px] md:pt-[7px] lg:ml-[25px] lg:mr-[20.01px] lg:pt-[11px] desktop:pt-[12px]">
-											<p className="font-semibold text-primary-main md:w-[105px] md:text-[18px] md:leading-[21.94px] lg:w-auto lg:text-[15px] lg:leading-[18.29px] xl:text-[17.78px] xl:leading-[21.67px] desktop:text-[21px] desktop:leading-[25.6px]">
-												Trending Catagories
+											<p className="font-semibold text-primary-main md:w-[130px] md:text-[18px] md:leading-[21.94px] lg:w-auto lg:text-[15px] lg:leading-[18.29px] xl:text-[17.78px] xl:leading-[21.67px] desktop:text-[21px] desktop:leading-[25.6px]">
+												{t('trending_catagories')}
 											</p>
 
 											{/* Box */}
-											<div className="md:ml[18px] bg-primary-main md:h-[121.67px] md:w-[130.14px]  lg:mt-1 lg:h-[98.38px] lg:w-[181.73px] xl:h-[121.9px] xl:w-[225.19px] desktop:h-[144px] desktop:w-[266px]"></div>
+											<div className="md:ml[18px] bg-primary-main md:h-[121.67px] md:w-[130.14px]  lg:mt-1 lg:h-[98.38px] lg:w-[198.73px] xl:h-[121.9px] xl:w-[235.19px] desktop:h-[144px] desktop:w-[276px]"></div>
 										</div>
 
 										<div className="desktop:border-1 relative border-[0.77px] border-[#DCDBDB] md:mt-[50px] md:mr-[9.24px] md:h-[121.67px] md:w-full lg:mt-[12.98px] lg:h-[119.56px] lg:border-[0.68px] xl:h-[148.15px] xl:border-[0.85px] desktop:h-[175px]">
 											<p className="desktop:leading-[25.6px text-[16.17px] font-bold leading-[19.71px] text-primary-main md:ml-[10.78px] md:w-[121px] lg:text-[14.35px] lg:leading-[17.49px] xl:mt-[8.7px] xl:ml-[14.39px] xl:text-[17.78px] xl:leading-[21.67px] desktop:text-[21px]">
-												Undiscovered and rising
+												{t('undiscovered_and_rising')}
 											</p>
 
 											<ImageWithErrorHandler
@@ -624,8 +626,8 @@ const Trending_page: NextPage<
 								<Tab.Panel>
 									<div className="-mt-[5px] flex w-full rounded-[10px] bg-white md:h-[183.27px] lg:h-[142.95px] xl:h-[177.13px] desktop:h-[209.23px]">
 										<div className="md:ml-[10px] md:mr-[10.01px] md:pt-[7px] lg:ml-[12px] lg:mr-[5.84px] lg:pt-[11px] desktop:pt-[12px]">
-											<p className="font-semibold text-primary-main md:w-[105px] md:text-[18px] md:leading-[21.94px] lg:w-auto lg:text-[15px] lg:leading-[18.29px] xl:text-[17.78px] xl:leading-[21.67px] desktop:text-[21px] desktop:leading-[25.6px]">
-												Trending Products
+											<p className="font-semibold text-primary-main md:w-[130px] md:text-[18px] md:leading-[21.94px] lg:w-auto lg:text-[15px] lg:leading-[18.29px] xl:text-[17.78px] xl:leading-[21.67px] desktop:text-[21px] desktop:leading-[25.6px]">
+												{t('trending_products')}
 											</p>
 
 											{/* Box */}
@@ -664,7 +666,7 @@ const Trending_page: NextPage<
 											</div>
 										) : (
 											<p className="flex w-full items-center justify-center text-lg">
-												No categories available
+												{t('no_categories_available')}
 											</p>
 										)}
 									</div>
