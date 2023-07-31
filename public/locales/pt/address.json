@@ -1,1 +1,10 @@
-{"add_new_address":"ADICIONAR NOVO ENDEREÇO","billed_to":"Faturado para","billing_address":"ENDEREÇO DE COBRANÇA","please_select_billing_address":"Selecione o endereço de cobrança","please_select_shipping_address":"Por favor, selecione o endereço de entrega","select_shipping_and_billing_address":"Selecione o endereço de entrega e cobrança","shipping_address":"ENDEREÇO DE ENTREGA","ship_to":"Enviar para"}
+{
+    "set_entered_address_as_default_address?":"Definir o endereço inserido como endereço padrão?",
+    "is_the_ntered_address_your_illing_address?":"O endereço inserido é o seu endereço de cobrança?",
+    "city":"Cidade",
+    "state":"Estada",
+    "zipcode":"CEP",
+    "address_line":"Linha de endereço",
+    "close":"Fechar",
+    "proceed_to_cart_review":"Continuar para revisão do carrinho",
+    "add_new_address":"ADICIONAR NOVO ENDEREÇO","billed_to":"Faturado para","billing_address":"ENDEREÇO DE COBRANÇA","please_select_billing_address":"Selecione o endereço de cobrança","please_select_shipping_address":"Por favor, selecione o endereço de entrega","select_shipping_and_billing_address":"Selecione o endereço de entrega e cobrança","shipping_address":"ENDEREÇO DE ENTREGA","ship_to":"Enviar para"}

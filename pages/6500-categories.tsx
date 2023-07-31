@@ -137,7 +137,7 @@ const CategoriesPage: NextPage<
 			<div className="relative mt-1">
 				<div className="relative">
 					<Combobox.Input
-						placeholder="Search....."
+						placeholder={t('search')}
 						className="h-[27.55px] w-[273.59px] rounded-md border-[0.74px] border-[#DCDBDB] px-4 outline-none sm:h-[17.97px] sm:w-[145.57px] sm:rounded-sm md:h-[20px] md:w-[162px] md:border-[0.78px] lg:h-[20px] lg:w-[162px] lg:border-[1.04px]"
 						displayValue={(categoryByAlphabets: any) =>
 							categoryByAlphabets?.title?.en
@@ -230,7 +230,7 @@ const CategoriesPage: NextPage<
 						<div className="pl-2 sm:pl-[50px]">
 							<div className="flex h-[38.95px] w-[142.49px] items-center justify-center rounded-t-xl bg-white sm:h-[36.84px] sm:w-[289.34px] sm:justify-between sm:px-2 md:h-[41px] md:w-[322px] lg:h-[54.72px] lg:w-[322px] desktop:h-[41px] desktop:w-[446px]">
 								<button className="text-[17.1px] font-semibold leading-[20.69px] text-gray sm:text-[20px] sm:leading-[24.2px] md:text-[25px] md:leading-[30.26px] lg:w-[33.37px] lg:leading-[40.38px] desktop:text-[25px] desktop:leading-[30.26px]">
-									Categories
+									{t('catagories')}
 								</button>
 								<div className="hidden sm:block">{searchBar}</div>
 							</div>

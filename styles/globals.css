@@ -10,7 +10,7 @@
   }
 
   .nav-link {
-    @apply md:text-[#575858] md:dark:text-gray md:px-2 md:text-[9.8px] lg:text-[14px] md:my-4 md:border-r-[0.5px] md:border-[#575858] lg:leading-[17.57px] xl:text-[18px] xl:leading-[21.94px]
+    @apply md:text-[#575858] md:dark:text-gray md:px-2 md:text-[9.6px] lg:text-[14px] md:my-4 md:border-r-[0.5px] md:border-[#575858] lg:leading-[17.57px] xl:text-[18px] xl:leading-[21.94px]
   }
 
   .nav-link::after {

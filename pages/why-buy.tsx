@@ -22,7 +22,7 @@ const WhyBuyPage: NextPage = () => {
 				{/* Header section */}
 				<Banner />
 				<div>
-					<div className=" container mx-auto -mt-[5px] flex justify-center sm:-mt-[26px]  md:-mt-[26px] lg:-mt-[47px] desktop:-mt-[70px]">
+					<div className=" mx-auto -mt-[5px] flex justify-center sm:container sm:-mt-[26px]  md:-mt-[26px] lg:-mt-[47px] desktop:-mt-[70px]">
 						<FeatureCommunicationCenter />
 					</div>
 				</div>

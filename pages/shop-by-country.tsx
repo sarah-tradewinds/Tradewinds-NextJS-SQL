@@ -60,7 +60,7 @@ const ShopByCountryPage: NextPage<
 		<>
 			<Seo title="Search by country page" description="" />
 
-			<div className="container relative mx-auto  justify-center bg-white md:m-auto ">
+			<div className="container relative mx-auto  justify-center bg-bg-main md:m-auto ">
 				{/* Headers */}
 				<div className=" relative ">
 					<div className="container relative mx-auto h-[240px] w-[300px] justify-center bg-[url('/images/shop-by-country-banner.png')] bg-cover bg-no-repeat sm:h-[298px] sm:w-[640px] md:h-[238px] md:w-[768px] md:!bg-[url('/images/shop-by-country-banner.png')] lg:h-[318px] lg:w-[1025px] desktop:h-[436px] desktop:w-[1512px]">
@@ -70,10 +70,10 @@ const ShopByCountryPage: NextPage<
 					</div>
 				</div>
 
-				<div className="container">
+				<div className="container mx-auto justify-center">
 					{/* Island and flags */}
 					<div className=" hidden justify-center pb-[40px] sm:hidden md:mt-0 md:flex lg:mt-0 desktop:-mt-[16px]">
-						<div className="grid md:grid-cols-3 md:gap-x-[20px] md:gap-y-[123px] lg:grid-cols-4 lg:gap-x-[20px] lg:gap-y-[96px] desktop:grid-cols-4 desktop:gap-x-[30px] desktop:gap-y-[130px]">
+						<div className="grid md:grid-cols-3 md:gap-x-[28px] md:gap-y-[123px] lg:grid-cols-4 lg:gap-x-[30px] lg:gap-y-[96px] desktop:grid-cols-4 desktop:gap-x-[46px] desktop:gap-y-[130px]">
 							<RegionsAndCountriesList
 								regionsAndCountries={regionsAndCountries || []}
 								onCountryClick={(country) => {
@@ -107,7 +107,7 @@ const ShopByCountryPage: NextPage<
 									router.locale
 								)}
 							>
-								<div className="space-y-[30px] bg-white py-2 pl-[25px] sm:pl-[40px]">
+								<div className="space-y-[30px] bg-white py-2 pl-[30px] sm:pl-[60px]">
 									{countries?.map((country: any) => {
 										console.log('country', country);
 										return (

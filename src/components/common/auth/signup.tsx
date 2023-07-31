@@ -215,7 +215,7 @@ const SignUp: React.FC = () => {
 		>
 			<div className=" flex  items-center justify-center">
 				{!signupResult.result ? (
-					<div className="flex h-[513px] w-[290px] justify-center rounded-md bg-white pr-[15px]  pl-[15px] shadow-md sm:h-[530px] sm:w-[450px]  sm:pr-[18px] sm:pl-[18px] md:!h-[693px] md:!w-[720px]  md:!pr-[40px] md:!pl-[46px]">
+					<div className="flex h-[530px] w-[290px] justify-center rounded-md bg-white pr-[15px]  pl-[15px] shadow-md sm:h-[530px] sm:w-[450px]  sm:pr-[18px] sm:pl-[18px] md:!h-[693px] md:!w-[720px]  md:!pr-[40px] md:!pl-[46px]">
 						<div className="flex  h-[513px] w-full flex-col items-center overflow-auto border-gray/40 pt-[20px] pb-[10px] pr-[0px] sm:h-[530px] sm:w-full sm:pt-[23px] sm:pb-[15px] sm:pr-[0px] md:!h-[675px] md:!w-full md:!border-r  md:!pt-0 md:!pb-[20px] md:!pr-[51px]">
 							<p className="hidden border-b border-gray/40 text-center font-semibold text-black sm:hidden md:!mb-[27px] md:!mt-[61px] md:!block md:!w-full md:!pb-[13px] md:!text-[25px]  md:!leading-[30px]">
 								{t('auth:create_an_account')}
@@ -451,7 +451,7 @@ const SignUp: React.FC = () => {
 							</div>
 							<div>
 								<button
-									className="ml-0 mt-[20px] h-[35px]  w-[260px] rounded-md bg-cyan text-center text-[12px] text-white sm:mt-[20px] sm:h-[31px] sm:w-[257px] sm:text-[15px] md:!mt-[23px] md:!h-[35px] md:!w-[278px] md:!text-[12px]"
+									className="ml-0 mt-[20px] w-[260px] rounded-md bg-cyan py-2 text-center text-[12px] text-white sm:mt-[20px] sm:w-[257px] sm:text-[15px] md:!mt-[23px]  md:!w-[278px] md:!text-[12px]"
 									onClick={() => {
 										authStore.setIsSignUpOpen();
 										authStore.setIsLoginOpen();
@@ -507,7 +507,7 @@ const SignUp: React.FC = () => {
 						</h4>
 
 						<h4 className="font-small mb-4 text-center font-bold text-primary-main">
-							Still cannot find the email?
+							{t('still_cannot_find_the_email?')}
 						</h4>
 
 						<div className="mt-3 flex items-center justify-center">
@@ -515,14 +515,14 @@ const SignUp: React.FC = () => {
 								className={`rounded border border-[green] bg-[green] py-2 px-4 text-sm text-[white] hover:bg-opacity-75 focus:outline-none`}
 								onClick={() => resendMail(signupData?.email)}
 							>
-								Resend Email
+								{t('resend_email')}
 							</button>
 						</div>
 
 						<h4 className="font-small mt-8 text-center  text-primary-main">
-							Need help?{' '}
+							{t('need_help?')}{' '}
 							<span className="font-bold text-[green] underline">
-								<a href="#">Contact US</a>
+								<a href="#">{t('contact_us')} </a>
 							</span>
 						</h4>
 					</div>

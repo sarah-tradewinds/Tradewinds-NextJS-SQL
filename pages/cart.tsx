@@ -121,7 +121,7 @@ const CartPage: NextPage = () => {
 					/>
 				</div>
 				<Button variant="buyer" href="/">
-					Continue Shopping
+					{t('cart:continue_shopping')}
 				</Button>
 			</div>
 		);
