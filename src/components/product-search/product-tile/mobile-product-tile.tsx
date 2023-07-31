@@ -45,6 +45,7 @@ interface MobileProductTileProps {
 	isInCompareList?: boolean;
 	isVerified?: boolean;
 	isLive?: boolean;
+	isLiveBuy?: boolean;
 	isReadyToShip?: boolean;
 	isCustomizable?: boolean;
 	variantCount: number;
@@ -74,6 +75,7 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 		isInCompareList,
 		isVerified,
 		isLive,
+		isLiveBuy,
 		isReadyToShip,
 		isCustomizable,
 		variantCount,
@@ -145,7 +147,7 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 					icon={
 						<div
 							className={`text-[20px] md:text-[24] ${
-								isLive ? 'text-bg_blue' : 'text-gray/40'
+								isLiveBuy ? 'text-bg_blue' : 'text-gray/40'
 							}`}
 						>
 							<MdOutlineShoppingCart />
@@ -154,8 +156,9 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 					alt={t('common:save')}
 					title={t('cart')}
 					titleClassName="text-bg_blue"
-					className={isLive ? 'cursor-pointer' : 'cursor-not-allowed'}
-					// onClick={isLive ? onCartClick : undefined}
+					className={
+						isLiveBuy ? 'cursor-pointer' : 'cursor-not-allowed'
+					}
 					onClick={onCartClick}
 				/>
 			</div>
@@ -168,7 +171,7 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 		<div
 			className={`w-full overflow-hidden rounded-md bg-white ${
 				isEco ? 'border-1 border-accent-success' : ''
-			} ${isSalePriceAvailable ? 'h-[132px]' : 'h-[118px]'}`}
+			} ${isSalePriceAvailable ? 'h-[155px]' : 'h-[118px]'}`}
 		>
 			{/* Image and Info */}
 			<div className="flex ">
@@ -253,7 +256,7 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 						fill={true}
 					/>
 				</div>
-				<div className="flex items-center space-x-[15px] pl-2">
+				<div className="flex items-center space-x-[10px] pl-1">
 					{metadataTileList[2]}
 					{metadataTileList[3]}
 				</div>

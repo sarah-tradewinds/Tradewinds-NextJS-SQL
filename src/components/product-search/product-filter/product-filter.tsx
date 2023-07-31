@@ -24,15 +24,15 @@ const ProductFilter: React.FC<ProductFilterProps> = (props) => {
 				<CategoriesFilter />
 
 				<div className="mt-2 space-y-2">
-					<button className="flex w-full lg:w-[154px] xl:w-[225.12px] xl:h-[36.96] items-center justify-center rounded-md bg-cyan text-[10px] font-semibold text-white outline-none md:h-[22px] lg:h-[25px] lg:text-[11.33px] lg:leading-[24.92px] xl:text-[16.8px] xl:leading-[37px]">
-						Search
+					<button className="flex w-full items-center justify-center rounded-md bg-cyan text-[10px] font-semibold text-white outline-none md:h-[22px] lg:h-[25px] lg:w-[154px] lg:text-[11.33px] lg:leading-[24.92px] xl:h-[36.96] xl:w-[225.12px] xl:text-[16.8px] xl:leading-[37px]">
+						{t('search')}
 					</button>
 
 					<button
 						onClick={() => getProductSearchURL(router, {}, true)}
 						className="w-full items-center bg-transparent px-2 text-center text-[10px] leading-[22px] text-cyan lg:text-[11.33px] lg:leading-[24.92px] xl:text-[16.8px] xl:leading-[37px]"
 					>
-						Reset Filters
+						{t('reset_filters')}
 					</button>
 				</div>
 			</div>

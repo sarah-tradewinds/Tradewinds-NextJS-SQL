@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 // Third party packages
 import { Popover } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
+import { useTranslation } from 'next-i18next';
 import useSWR from 'swr';
 
 // components
@@ -37,7 +38,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 		onCustomizableChange,
 		onLiveBuyReadyToShipChange
 	} = props;
-
+	const { t } = useTranslation();
 	const [isCustomizable, setIsCustomizable] = useState(false);
 	const [isReadyToShip, setIsReadyToShip] = useState(false);
 	const [minOrder, setMinOrder] = useState(1);
@@ -107,13 +108,13 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 				/>
 				{/* For large screen */}
 				<p className="ml-2 font-semibold text-gray">
-					<span className="hidden text-[15px] lg:block lg:text-[12px] lg:leading-[14.63px] xl:text-[15px] xl:leading-[18.29px]">
-						Live Buy/ Ready to ship
+					<span className="hidden text-[15px] lg:block lg:text-[12px] lg:leading-[14.63px] xl:text-[14.5px] xl:leading-[17.29px]">
+						{t('live_buy/_ready_to_ship')}
 					</span>
 
 					{/* For medium screen */}
 					<span className="block text-[10px] font-semibold lg:hidden">
-						Ready to ship
+						{t('ready_to_ship')}
 					</span>
 				</p>
 			</label>
@@ -131,8 +132,8 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 						});
 					}}
 				/>
-				<p className="ml-2 text-[10px] font-semibold text-gray lg:text-[12px] lg:leading-[14.63px] xl:text-[15px] xl:leading-[18.29px]">
-					Customizable
+				<p className="ml-2 text-[10px] font-semibold text-gray lg:text-[12px] lg:leading-[14.63px] xl:text-[14.5px] xl:leading-[17.29px]">
+					{t('customizable')}
 				</p>
 			</label>
 
@@ -142,7 +143,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 					htmlFor="country"
 					className="mr-2 text-[10px] font-semibold leading-[22px] text-gray lg:text-[15px]"
 				>
-					Country
+					{t('country')}
 				</label>
 				<CountrySearchDropdown
 					countries={countries || []}
@@ -155,14 +156,14 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 			</div>
 
 			{/* Min. Order - dropdown */}
-			<div className="relative flex items-center">
-				<p className="mr-2 whitespace-nowrap text-[10px] font-semibold text-gray lg:text-[12px] lg:leading-[14.63px] xl:text-[15px] xl:leading-[18.29px]">
-					Min. Order
+			<div className="relative mr-2 flex items-center">
+				<p className="mr-2 whitespace-nowrap text-[10px] font-semibold text-gray lg:text-[12px] lg:leading-[14.63px] xl:text-[14.5px] xl:leading-[17.29px]">
+					{t('min._order')}
 				</p>
 
 				<Popover className="relative">
 					<Popover.Button className={dropDownSelect}>
-						<span className=" text-[10px] text-gray lg:text-[12px] lg:leading-[14.63px] xl:text-[15px] xl:leading-[18.29px]">
+						<span className=" text-[10px] text-gray lg:text-[12px] lg:leading-[14.63px] xl:text-[14px] xl:leading-[17.29px]">
 							{minOrder} - {maxOrder}
 						</span>
 
@@ -191,7 +192,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 											close();
 										}}
 									>
-										Cancel
+										{t('cancel')}
 									</Button>
 									<Button
 										className="!text-primary-main"
@@ -200,7 +201,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 											close();
 										}}
 									>
-										Select
+										{t('select')}
 									</Button>
 								</div>
 							</>
@@ -211,13 +212,13 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 
 			{/* Dollar - dropdown */}
 			<div className="relative flex items-center">
-				<p className="mr-2 whitespace-nowrap text-[10px] font-semibold text-gray lg:text-[12px] lg:leading-[14.63px] xl:text-[15px] xl:leading-[18.29px]">
+				<p className="mr-2 whitespace-nowrap text-[10px] font-semibold text-gray lg:text-[12px] lg:leading-[14.63px] xl:text-[14.5px] xl:leading-[17.29px]">
 					$$$
 				</p>
 
 				<Popover className="relative">
 					<Popover.Button className={dropDownSelect}>
-						<span className="text-[10px] text-gray lg:text-[12px] lg:leading-[14.63px] xl:text-[15px] xl:leading-[18.29px]">
+						<span className="text-[10px] text-gray lg:text-[12px] lg:leading-[14.63px] xl:text-[14px] xl:leading-[17.29px]">
 							${minPrice} - ${maxPrice}
 						</span>
 						<span className="absolute right-1">{chevronDownIcon}</span>
@@ -245,7 +246,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 											close();
 										}}
 									>
-										Cancel
+										{t('cancel')}
 									</Button>
 									<Button
 										className="!text-primary-main"
@@ -254,7 +255,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 											close();
 										}}
 									>
-										Select
+										{t('select')}
 									</Button>
 								</div>
 							</>

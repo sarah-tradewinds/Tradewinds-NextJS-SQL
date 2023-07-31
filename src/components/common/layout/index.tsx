@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
 // Third party packages
+import { useTranslation } from 'next-i18next';
 
 // components
 import ImageWithErrorHandler from '../elements/image-with-error-handler';
@@ -46,6 +47,7 @@ const Layout: React.FC<{ productName?: string; seo: any }> = (
 	props
 ) => {
 	const { children, seo, productName } = props;
+	const { t } = useTranslation('auth');
 
 	const [isProductFilterSliderOpen, setIsProductFilterSliderOpen] =
 		useState(false);
@@ -179,10 +181,10 @@ const Layout: React.FC<{ productName?: string; seo: any }> = (
 						{!isAuth && (
 							<div
 								onClick={setIsLoginOpen}
-								className="mr-2 flex h-[51px] w-[58px] flex-col items-center justify-center bg-accent-primary-main"
+								className="mr-2 flex h-[51px] flex-col items-center justify-center bg-accent-primary-main px-[6px]"
 							>
 								<MdPerson className="h-[25px] w-[25px] text-white" />
-								<p className="text-[12px] text-white">Sign In</p>
+								<p className="text-[12px] text-white">{t('login')}</p>
 							</div>
 						)}
 
@@ -212,7 +214,9 @@ const Layout: React.FC<{ productName?: string; seo: any }> = (
 									<div>
 										<IoSpeedometerOutline className="h-[24px] w-[35px]" />
 									</div>
-									<p className="text-[8px] text-white">Dashboard</p>
+									<p className="text-[8px] text-white">
+										{t('common:dashboard')}
+									</p>
 								</Button>
 
 								{/* what is rfq button */}
@@ -230,7 +234,7 @@ const Layout: React.FC<{ productName?: string; seo: any }> = (
 										<MdOutlineMessage className="h-[25px] w-[25px] text-primary-main" />
 									</div>
 									<p className="text-[8px] text-primary-main">
-										Submit RFQ
+										{t('common:submit_rfq')}
 									</p>
 								</Button>
 							</div>

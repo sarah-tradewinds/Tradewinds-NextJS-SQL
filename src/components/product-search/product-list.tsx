@@ -66,7 +66,7 @@ const ProductList: React.FC<ProductListProps> = ({
 	const addToCartDefaultProductVariantHandler = async (
 		product: any
 	) => {
-		if (!product.is_live) {
+		if (!product.is_live_buy) {
 			setIsNoLiveBuyPopupOpen(true);
 			return;
 		}
@@ -191,7 +191,7 @@ const ProductList: React.FC<ProductListProps> = ({
 						specific_categories
 					} = product?.edges || {};
 
-					const hideCartButton = !product.is_live;
+					const hideCartButton = !product.is_live_buy;
 
 					const navigateWithShallow = () => {
 						push(
@@ -249,7 +249,7 @@ const ProductList: React.FC<ProductListProps> = ({
 						hideCartButton,
 						onCompareClick: () => onCompareClick(product),
 						onCartClick: async () => {
-							if (!product.is_live) {
+							if (!product.is_live_buy) {
 								setIsNoLiveBuyPopupOpen(true);
 								return;
 							}
@@ -269,7 +269,8 @@ const ProductList: React.FC<ProductListProps> = ({
 						isInCompareList: product.isInCompareList,
 						isVerified: product.is_verified,
 						isLive: product.is_live,
-						isReadyToShip: product.is_live,
+						isLiveBuy: product?.is_live_buy,
+						isReadyToShip: product.is_live_buy,
 						// isReadyToShip: product.is_ready_to_ship,
 						isCustomizable: product.is_customizable,
 						variantCount: totalVariantCount || 0,
