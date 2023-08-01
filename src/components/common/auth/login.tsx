@@ -125,6 +125,11 @@ const Login: React.FC = () => {
 
 			setLoading(false);
 			setIsLoginOpen();
+			const redirectTo = localStorage.getItem('redirectTo');
+			if (redirectTo) {
+				router.replace(redirectTo);
+				localStorage.removeItem('redirectTo');
+			}
 		} catch (error) {
 			console.log('[loginUser] error =', error);
 			setLoginResult({
