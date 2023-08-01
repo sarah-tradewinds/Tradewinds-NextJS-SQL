@@ -534,8 +534,12 @@ const SignUp: React.FC = () => {
 
 export default SignUp;
 
-const CountryDropdown = (props: { onSelect?: (data: any) => void }) => {
-	const { onSelect } = props;
+export const CountryDropdown = (props: {
+	inputClassName?: string;
+	inputContainerClassName?: string;
+	onSelect?: (data: any) => void;
+}) => {
+	const { inputClassName, inputContainerClassName, onSelect } = props;
 	const { t } = useTranslation();
 	const [selected, setSelected] = useState([]);
 	const [query, setQuery] = useState('');
@@ -570,17 +574,19 @@ const CountryDropdown = (props: { onSelect?: (data: any) => void }) => {
 			}}
 		>
 			<div className="relative mt-1">
-				<div className="relative flex w-full items-center overflow-hidden rounded-md border-2 border-accent-primary-main pl-2">
+				<div
+					className={`relative flex w-full items-center overflow-hidden rounded-md border-2 border-accent-primary-main pl-2 ${inputContainerClassName}`}
+				>
 					<HiSparkles className="h-5 w-5" />
 					<Combobox.Input
 						placeholder="Country"
-						className="w-full py-1 pl-2 pr-4 outline-none focus:outline-none"
+						className={`w-full py-1 pl-2 pr-4 outline-none focus:outline-none ${inputClassName}`}
 						displayValue={(country: any) =>
 							getLocaleText(country.name || {}, locale)
 						}
 						onChange={(event) => setQuery(event.target.value)}
 					/>
-					<Combobox.Button className="w-10">
+					<Combobox.Button className="flex w-10 items-center justify-center">
 						<ChevronUpDownIcon
 							className="text-gray-400 h-5 w-5"
 							aria-hidden="true"
