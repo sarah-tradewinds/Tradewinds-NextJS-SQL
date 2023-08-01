@@ -20,11 +20,12 @@ const WhyBuyPage: NextPage = () => {
 			<Seo title="Why buy page" description="" />
 			<div className=" bg-bg-main ">
 				{/* Header section */}
-				<Banner />
-				<div>
-					<div className=" mx-auto -mt-[5px] flex justify-center sm:container sm:-mt-[26px]  md:-mt-[26px] lg:-mt-[47px] desktop:-mt-[70px]">
-						<FeatureCommunicationCenter />
-					</div>
+				<div className=" 3xl:container 3xl:mx-auto">
+					<Banner />
+				</div>
+
+				<div className=" -mt-[0px] flex justify-center sm:-mt-[26px] md:container md:mx-auto  md:-mt-[26px] lg:-mt-[47px] desktop:-mt-[70px]">
+					<FeatureCommunicationCenter />
 				</div>
 			</div>
 		</>
