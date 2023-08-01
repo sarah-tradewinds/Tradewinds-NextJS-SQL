@@ -52,13 +52,13 @@ const ProductDetailsTab: React.FC<{
 			: true;
 
 	const headingClassName =
-		'border-b-2 pb-[2px] sm:borer-b-1 text-gray  xl:border-b-2 xl:pb-[8px] border-[#C4C4C4] text-[15px] capitalize font-semibold leading-[18.29px] lg:text-[21px] md:text-[12px] md:leading-[14.63px] lg:text-[15px] lg:leading-[18.29px] xl:text-[21px] xl:leading-[25.6px] md:uppercase lg:leading-6  lg:border-b-[1.37px] lg:pb-[5.33]';
+		'border-b-2 pb-[2px] sm:borer-b-1 text-gray  xl:border-b-2 xl:pb-[8px] border-[#C4C4C4] text-[15px] capitalize font-semibold leading-[18.29px] lg:text-[15px] md:text-[12px] md:leading-[14.63px] lg:text-[15px] lg:leading-[18.29px] xl:text-[21px] xl:leading-[25.6px] md:uppercase lg:leading-6  lg:border-b-[1.37px] lg:pb-[5.33]';
 
 	return (
 		<div className="space-y-8 bg-white p-4 pt-[32px] md:space-y-8 md:pt-[24px]">
 			{/* DESCRIPTIVE DETAILS */}
 			<div>
-				<p className={headingClassName}>{t('Descriptive Details')}</p>
+				<p className={headingClassName}>{t('descriptive_details')}</p>
 
 				{/* Product details body */}
 				<div
@@ -108,14 +108,14 @@ const ProductDetailsTab: React.FC<{
 					</div>
 				) : (
 					<p className="mt-4 md:mt-8">
-						Product Details is not available
+						{t('product_details_is_not_available')}
 					</p>
 				)}
 			</div>
 
 			{/* PRODUCT INFORMATION */}
 			<div>
-				<p className={headingClassName}>{t('Product Information')}</p>
+				<p className={headingClassName}>{t('product_information')}</p>
 
 				{/* Product information body */}
 				<ul
@@ -125,7 +125,7 @@ const ProductDetailsTab: React.FC<{
 					{product?.is_eco && (
 						<li className="flex items-center space-x-2 md:space-x-0">
 							<span className="text-gray md:w-[200px] md:font-semibold">
-								ECO:
+								{t('navigation:eco_text')}:
 							</span>
 							<div className="relative h-[30px] w-[30px]">
 								<ImageWithErrorHandler
@@ -142,7 +142,7 @@ const ProductDetailsTab: React.FC<{
 					{/* Main Category */}
 					<li className="flex flex-col md:flex-row md:items-center md:space-x-0">
 						<span className="text-gray md:w-[200px] md:font-semibold">
-							Main Category:
+							{t('main_category')}
 						</span>
 						<span className="text-black">
 							{getLocaleText(main_categories?.title || {}, locale)}
@@ -153,7 +153,7 @@ const ProductDetailsTab: React.FC<{
 					{categories?.title && (
 						<li className="flex flex-col md:flex-row md:items-center md:space-x-0">
 							<span className="text-gray md:w-[200px] md:font-semibold">
-								Category:
+								{t('category')}
 							</span>
 							<span className="text-black">
 								{getLocaleText(categories?.title || {}, locale)}
@@ -165,7 +165,7 @@ const ProductDetailsTab: React.FC<{
 					{sub_categories?.title && (
 						<li className="flex flex-col md:flex-row md:items-center md:space-x-0">
 							<span className="text-gray md:w-[200px] md:font-semibold">
-								Sub Category:
+								{t('sub_category')}
 							</span>
 							<span className="text-black">
 								{getLocaleText(sub_categories?.title || {}, locale)}
@@ -177,7 +177,7 @@ const ProductDetailsTab: React.FC<{
 					{specific_categories?.title && (
 						<li className="flex flex-col md:flex-row md:items-center md:space-x-0">
 							<span className="text-gray md:w-[200px] md:font-semibold">
-								Specific Category:
+								{t('specific_category')}
 							</span>
 							<span className="text-black">
 								{getLocaleText(
@@ -192,7 +192,7 @@ const ProductDetailsTab: React.FC<{
 					{product?.is_eco && product?.eco_verifications?.length > 0 && (
 						<div>
 							<p className="text-gray md:font-semibold">
-								Eco Verifications:
+								{t('eco_verifications')}
 							</p>
 							<div className="space-y-2 pl-4">
 								{product?.eco_verifications?.map(
@@ -233,12 +233,12 @@ const ProductDetailsTab: React.FC<{
 									{certifications?.map((certificate: any) => (
 										<div
 											key={certificate?.name}
-											className="flex items-center justify-between space-x-4 text-[15px] text-gray lg:text-[18px]"
+											className="flex items-center justify-between space-x-4 text-[10px] text-gray lg:text-[12px] xl:text-[18px]"
 										>
 											<span className="font-semibold capitalize">
 												{certificate?.name}:
 											</span>
-											<div className="relative hidden h-[30px] w-[162px] md:block">
+											<div className="relative hidden sm:h-[16px] sm:w-[100px] md:block md:h-[20px] md:w-[100px] lg:h-[30px] lg:w-[162px]">
 												<ImageWithErrorHandler
 													src="/tradewinds-horizontal-logo.png"
 													alt=""
@@ -256,7 +256,7 @@ const ProductDetailsTab: React.FC<{
 
 			{/* PRODUCT DIMENSIONS  */}
 			<div className={dimensionContainerClassName}>
-				<p className={headingClassName}>{t('Product Dimensions')}</p>
+				<p className={headingClassName}>{t('product_dimensions')}</p>
 				{isProductDimensionAvailable ? (
 					<div className="mt-1 flex justify-between md:p-[6.69px]">
 						<div className="space-y-2">
@@ -316,7 +316,7 @@ const ProductDetailsTab: React.FC<{
 					</div>
 				) : (
 					<p className="mt-4 md:mt-8">
-						Product Dimensions is not available
+						{t('product_dimensions_is_not_available')}
 					</p>
 				)}
 			</div>

@@ -3,6 +3,7 @@
 // components
 import CountryFlagTile from 'components/common/search-by-country/country-flag-tile';
 import LocationHolder from 'components/common/search-by-country/location-holder';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { HiMinusCircle, HiPlusCircle } from 'react-icons/hi';
@@ -30,6 +31,7 @@ const RegionAndCountriesTile: React.FC<RegionAndCountriesTileProps> = (
 		onCountryTileClick
 	} = props;
 
+	const { t } = useTranslation('search_by_country');
 	const [isExpanded, setIsExpanded] = useState(false);
 	const { locale } = useRouter();
 
@@ -69,7 +71,7 @@ const RegionAndCountriesTile: React.FC<RegionAndCountriesTileProps> = (
 
 			{countryLength <= 3 && (
 				<p className=" font-semibold text-accent-primary-main md:mt-[25px] md:text-[18px] lg:mt-[25px] lg:text-[18px] desktop:mt-4  desktop:text-[21px]">
-					More Coming Soon
+					{t('more_coming_soon')}
 				</p>
 			)}
 

@@ -66,8 +66,10 @@ const CartPage: NextPage = () => {
 	const cartReviewHandler = async () => {
 		if (!isAuth) {
 			setIsLoginOpen();
+			localStorage.setItem('redirectTo', '/cart');
 			return;
 		}
+		localStorage.removeItem('redirectTo');
 
 		if (minimumQuantityErrorMessage) {
 			setIsMinimumQuantityModalOpen(true);
@@ -121,7 +123,7 @@ const CartPage: NextPage = () => {
 					/>
 				</div>
 				<Button variant="buyer" href="/">
-					Continue Shopping
+					{t('cart:continue_shopping')}
 				</Button>
 			</div>
 		);

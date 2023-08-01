@@ -44,18 +44,18 @@ const Footer: React.FC = () => {
 				{/* <div className="ml-7 mr-[20px] grid-cols-3 grid-rows-2 pt-[57px] text-lg md:grid lg:mb-[40px] lg:flex lg:justify-between lg:pl-[74px] lg:pr-[74px]"> */}
 				<div className="grid gap-y-8 pt-14 pl-8 pb-24 sm:grid-cols-2 lg:grid-cols-4">
 					<div className="flex flex-col">
-						<p className=" text-xl font-bold">Help Center</p>
+						<p className=" text-xl font-bold">{t('help_center')} </p>
 						<Link href="/help-center">FAQ</Link>
 						<Link href="/help-center#file-a-dispute">
-							File a dispute
+							{t('file_a_dispute')}
 						</Link>
 						<Link href="/help-center#privacy-policy">
-							Privacy Policy
+							{t('privacy_policy')}
 						</Link>
 					</div>
 
 					<div className="flex flex-col">
-						<p className=" text-xl font-bold">About us</p>
+						<p className=" text-xl font-bold">{t('about_us')} </p>
 						<Link href="/about-us">About TWMP</Link>
 						<Link href="/about-us#mission">Mission</Link>
 						<Link href="/about-us#about-tradewinds-eco">

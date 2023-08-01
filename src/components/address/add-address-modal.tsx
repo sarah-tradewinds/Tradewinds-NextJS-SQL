@@ -3,12 +3,14 @@ import { ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import Button from 'components/common/form/button';
 import Input from 'components/common/form/input';
 import { Modal } from 'components/common/modal/modal';
+
 import {
 	useGetCityByStateId,
 	useGetCountries,
 	useGetStateByCountryId
 } from 'hooks/data-fetching/use-countries.hooks';
 import { addAddress } from 'lib/customer/addres.lib';
+import { useTranslation } from 'next-i18next';
 import { Fragment, useState } from 'react';
 import { useAuthStore } from 'store/auth';
 
@@ -21,7 +23,7 @@ const AddAddressModal = (props: {
 	const { customerData } = useAuthStore((state) => ({
 		customerData: state.customerData
 	}));
-
+	const { t } = useTranslation('address');
 	const [firstName, lastName] = customerData.name?.split(' ') || [
 		'',
 		''
@@ -96,7 +98,8 @@ const AddAddressModal = (props: {
 				>
 					<div className="grid  grid-cols-12">
 						<label className="col-span-12 md:col-span-3 lg:col-span-4">
-							Address Line 1
+							<span>{t('address_line')} </span>
+							<span> 1</span>
 						</label>
 
 						<div className="col-span-11  md:col-span-5">
@@ -110,7 +113,8 @@ const AddAddressModal = (props: {
 					</div>
 					<div className="grid grid-cols-12">
 						<label className="col-span-12 md:col-span-3 lg:col-span-4">
-							Address Line 2
+							<span>{t('address_line')} </span>
+							<span> 2</span>
 						</label>
 						<div className="col-span-11 md:col-span-5">
 							<Input
@@ -123,7 +127,8 @@ const AddAddressModal = (props: {
 					</div>
 					<div className="grid grid-cols-12">
 						<label className="col-span-12 md:col-span-3 lg:col-span-4">
-							Address Line 3
+							<span>{t('address_line')} </span>
+							<span> 3</span>
 						</label>
 						<div className="col-span-11 md:col-span-5">
 							<Input
@@ -136,7 +141,7 @@ const AddAddressModal = (props: {
 					</div>
 					<div className="grid grid-cols-12">
 						<label className="col-span-12 md:col-span-3 lg:col-span-4">
-							Zipcode
+							{t('zipcode')}
 						</label>
 						<div className="col-span-11 md:col-span-5">
 							<Input
@@ -149,7 +154,7 @@ const AddAddressModal = (props: {
 					</div>
 					<div className="grid grid-cols-12">
 						<label className="col-span-12 md:col-span-3 lg:col-span-4">
-							Country
+							{t('common:country')}
 						</label>
 						<div className="col-span-11 md:col-span-5">
 							<SearchableDropDown
@@ -169,7 +174,7 @@ const AddAddressModal = (props: {
 					</div>
 					<div className="grid grid-cols-12">
 						<label className="col-span-12 md:col-span-3 lg:col-span-4">
-							State
+							{t('state')}
 						</label>
 						<div className="col-span-11 md:col-span-5">
 							<SearchableDropDown
@@ -189,7 +194,7 @@ const AddAddressModal = (props: {
 					</div>
 					<div className="grid grid-cols-12">
 						<label className="col-span-12 md:col-span-3 lg:col-span-4">
-							City
+							{t('city')}
 						</label>
 						<div className="col-span-11 md:col-span-5">
 							<SearchableDropDown
@@ -218,7 +223,7 @@ const AddAddressModal = (props: {
 							/>
 						</div>
 						<label className="col-span-8">
-							Is the Entered Address your Billing Address?
+							{t('is_the_ntered_address_your_illing_address?')}
 						</label>
 					</div>
 					<div className="grid grid-cols-12">
@@ -232,19 +237,19 @@ const AddAddressModal = (props: {
 							/>
 						</div>
 						<label className="col-span-8">
-							Set Entered Address as Default Address?
+							{t('set_entered_address_as_default_address?')}
 						</label>
 					</div>
 
 					<div className="flex space-x-2 pb-40 pt-16 md:justify-center">
 						<Button type="submit" variant="buyer">
-							Save
+							{t('common:save')}
 						</Button>
 						<Button
 							className="border border-cyan !text-cyan"
 							onClick={onCancel}
 						>
-							Cancel
+							{t('common:cancel')}
 						</Button>
 					</div>
 				</form>
@@ -273,7 +278,7 @@ interface ISearchableDropDown {
 
 const SearchableDropDown: React.FC<ISearchableDropDown> = (props) => {
 	const { list = [], initialValue, onChange } = props;
-
+	const { t } = useTranslation();
 	const [selected, setSelected] = useState(initialValue);
 	const [query, setQuery] = useState('');
 
@@ -319,7 +324,7 @@ const SearchableDropDown: React.FC<ISearchableDropDown> = (props) => {
 					<Combobox.Options className="absolute z-[40002] mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
 						{filteredList.length === 0 && query !== '' ? (
 							<div className="text-gray-700 relative cursor-default select-none py-2 px-4">
-								Nothing found.
+								<p>{t('nothing_found')}</p>
 							</div>
 						) : (
 							filteredList.map((data) => (

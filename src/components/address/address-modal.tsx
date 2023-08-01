@@ -1,5 +1,6 @@
 import { Tab } from '@headlessui/react';
 import { getAddresses } from 'lib/customer/addres.lib';
+import { useTranslation } from 'next-i18next';
 import { useEffect, useState } from 'react';
 import { useAuthStore } from 'store/auth';
 import Button from '../common/form/button';
@@ -9,7 +10,7 @@ import AddressList from './address-list';
 
 const AddressModal: React.FC<ModalProps> = (props) => {
 	const { open, onClose } = props;
-
+	const { t } = useTranslation('address');
 	const [shippingAddresses, setShippingAddresses] = useState<any[]>([]);
 	const [billingAddresses, setBillingAddresses] = useState<any[]>([]);
 	const [selectedShippingAddressId, setSelectedShippingAddressId] =
@@ -119,12 +120,12 @@ const AddressModal: React.FC<ModalProps> = (props) => {
 
 	const gotoCartReview = () => {
 		if (!selectedShippingAddressId) {
-			setErrorMessage('Please Select Shipping Address');
+			setErrorMessage('please_select_shipping_address');
 			return;
 		}
 
 		if (!selectedBillingAddressId) {
-			setErrorMessage('Please Select Billing Address');
+			setErrorMessage('please_select_billing_address');
 			return;
 		}
 
@@ -154,13 +155,13 @@ const AddressModal: React.FC<ModalProps> = (props) => {
 				<div className="mx-4 pr-4 lg:mx-8 lg:mt-8">
 					<div className="mb-6 items-center justify-between md:flex">
 						<h1 className="text-lg font-semibold md:text-[24px] lg:text-[32px] xl:text-[40px]">
-							Select Shipping and Billing Address
+							{t('select_shipping_and_billing_address')}
 						</h1>
 						<Button
 							onClick={() => setIsAddAddressModalOpen(true)}
 							className="mt-4 !h-10 !w-full border border-accent-primary-main !py-0 !px-2 !text-accent-primary-main md:mt-0 md:!h-[40px] md:!w-[240px] md:rounded-none"
 						>
-							+<span className="px-2">ADD NEW ADDRESS</span>
+							+<span className="px-2">{t('add_new_address')} </span>
 						</Button>
 					</div>
 
@@ -185,7 +186,7 @@ const AddressModal: React.FC<ModalProps> = (props) => {
 									}`
 								}
 							>
-								SHIPPING ADDRESS
+								{t('shipping_address')}
 							</Tab>
 							<Tab
 								className={({ selected }) =>
@@ -202,7 +203,7 @@ const AddressModal: React.FC<ModalProps> = (props) => {
 									}`
 								}
 							>
-								BILLING ADDRESS
+								{t('billing_address')}
 							</Tab>
 						</Tab.List>
 
@@ -230,7 +231,7 @@ const AddressModal: React.FC<ModalProps> = (props) => {
 							variant="buyer"
 							className="!w-full !rounded-none"
 						>
-							Proceed to Cart Review
+							{t('proceed_to_cart_review')}
 						</Button>
 
 						<Button
@@ -238,7 +239,7 @@ const AddressModal: React.FC<ModalProps> = (props) => {
 							onClick={closeModal}
 							className="!rounded-none"
 						>
-							Close
+							{t('close')}
 						</Button>
 					</div>
 				</div>

@@ -60,20 +60,20 @@ const ShopByCountryPage: NextPage<
 		<>
 			<Seo title="Search by country page" description="" />
 
-			<div className="container relative mx-auto  justify-center bg-white md:m-auto ">
+			<div className="container relative mx-auto  justify-center bg-bg-main md:m-auto ">
 				{/* Headers */}
 				<div className=" relative ">
-					<div className="container relative mx-auto h-[240px] w-[300px] justify-center bg-[url('/images/shop-by-country-banner.png')] bg-cover bg-no-repeat sm:h-[298px] sm:w-[640px] md:h-[238px] md:w-[768px] md:!bg-[url('/images/shop-by-country-banner.png')] lg:h-[318px] lg:w-[1025px] desktop:h-[436px] desktop:w-[1512px]">
+					<div className="container relative mx-auto h-[411px] w-[300px] justify-center bg-[url('/static/images/search-by-country-images/mobile-search-by-country-header.png')] bg-cover bg-center bg-no-repeat sm:h-[298px] sm:w-[640px] sm:bg-[url('/images/shop-by-country-banner.png')] md:h-[238px] md:w-[768px] md:!bg-[url('/images/shop-by-country-banner.png')] lg:h-[318px] lg:w-[1025px] desktop:h-[436px] desktop:w-[1512px]">
 						<p className=" absolute pl-[58px] pt-[31px] text-[32px] font-semibold text-white sm:pt-[83px] sm:pl-[202px] sm:text-[25px] md:pt-[85px] md:pl-[113px] md:text-[25px] lg:pt-[115px] lg:pl-[151px] lg:text-[40px] desktop:pt-[180px] desktop:pl-[332px] desktop:text-[96px]">
 							{t('shop_by_country')}
 						</p>
 					</div>
 				</div>
 
-				<div className="container">
+				<div className="container mx-auto justify-center">
 					{/* Island and flags */}
 					<div className=" hidden justify-center pb-[40px] sm:hidden md:mt-0 md:flex lg:mt-0 desktop:-mt-[16px]">
-						<div className="grid md:grid-cols-3 md:gap-x-[20px] md:gap-y-[123px] lg:grid-cols-4 lg:gap-x-[20px] lg:gap-y-[96px] desktop:grid-cols-4 desktop:gap-x-[30px] desktop:gap-y-[130px]">
+						<div className="grid md:grid-cols-3 md:gap-x-[28px] md:gap-y-[123px] lg:grid-cols-4 lg:gap-x-[30px] lg:gap-y-[96px] desktop:grid-cols-4 desktop:gap-x-[46px] desktop:gap-y-[130px]">
 							<RegionsAndCountriesList
 								regionsAndCountries={regionsAndCountries || []}
 								onCountryClick={(country) => {
@@ -91,7 +91,7 @@ const ShopByCountryPage: NextPage<
 				</div>
 			</div>
 			{/* for small device */}
-			<div className=" relative left-1/2 z-50 -mt-[83px] block w-[237px] -translate-x-1/2 transform rounded-md bg-white sm:-mt-[86px] sm:block sm:w-[447px] md:hidden">
+			<div className=" relative left-1/2 z-50 -mt-[250px] block w-[237px] -translate-x-1/2 transform rounded-md bg-white sm:-mt-[86px] sm:block sm:w-[447px] md:hidden">
 				<div className="mr-[28px] ml-[24px] space-y-[15px] py-[15px] sm:mr-[47px] sm:ml-[40px] sm:pt-[15px]">
 					{regionsAndCountries.map((regionAndCountries: any) => {
 						const countries =
@@ -107,7 +107,7 @@ const ShopByCountryPage: NextPage<
 									router.locale
 								)}
 							>
-								<div className="space-y-[30px] bg-white py-2 pl-[25px] sm:pl-[40px]">
+								<div className="space-y-[30px] bg-white py-2 pl-[30px] sm:pl-[60px]">
 									{countries?.map((country: any) => {
 										console.log('country', country);
 										return (

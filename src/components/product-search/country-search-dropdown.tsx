@@ -1,5 +1,6 @@
 import { Combobox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { Fragment, useEffect, useState } from 'react';
 import { LocalesType } from 'types/common.types';
@@ -37,7 +38,7 @@ const CountrySearchDropdown: React.FC<CountrySearchDropdownProps> = (
 	const [selected, setSelected] = useState<ICountry | undefined>(
 		defaultValue
 	);
-
+	const { t } = useTranslation();
 	const [query, setQuery] = useState('');
 
 	const router = useRouter();
@@ -112,7 +113,7 @@ const CountrySearchDropdown: React.FC<CountrySearchDropdownProps> = (
 						>
 							{filteredCountries.length === 0 && query !== '' ? (
 								<div className="text-gray-700 relative cursor-default select-none py-2 px-4">
-									Nothing found.
+									{t('nothing_found')}
 								</div>
 							) : (
 								filteredCountries.map((country) => (

@@ -107,7 +107,7 @@ const CompanyProfileTab: React.FC<{
 			className="flex items-center border border-accent-primary-main !p-0 !pr-2 !text-accent-primary-main lg:px-2"
 		>
 			<MdOutlineMessage className="mr-1 block h-[40px] bg-accent-primary-main text-[24px] text-white lg:mr-2" />
-			Message Vendor
+			{t('message_vendor')}
 		</Button>
 	);
 
@@ -166,20 +166,20 @@ const CompanyProfileTab: React.FC<{
 
 				<div className="bg-white p-4 md:mx-8">
 					<Tab.Group>
-						<Tab.List className="hidden space-x-16 border-b border-gray/40 text-[18px] text-gray/40 md:block md:border-t-0 md:text-[25px] lg:leading-[30px]">
+						<Tab.List className="hidden space-x-16 border-b border-gray/40 text-[18px] text-gray/40 md:block md:border-t-0 md:text-[15px] lg:text-[20px] lg:leading-[25px]">
 							<Tab
 								className={({ selected }: { selected: boolean }) =>
 									`font-semibold ${selected ? 'text-primary-main' : ''}`
 								}
 							>
-								Profile
+								{t('profile')}
 							</Tab>
 							<Tab
 								className={({ selected }: { selected: boolean }) =>
 									`font-semibold ${selected ? 'text-primary-main' : ''}`
 								}
 							>
-								Products
+								{t('products')}
 							</Tab>
 						</Tab.List>
 
@@ -189,9 +189,9 @@ const CompanyProfileTab: React.FC<{
 								{/* Only for mobile device */}
 								<div className="md:hidden">
 									<h3 className="border-b-2 border-[#C4C4C4] pb-[7px] text-[15px] font-semibold leading-[18.29px] text-gray">
-										Company Profile
+										{t('company_profile')}
 									</h3>
-									<div className="relative mt-[8.57px] h-[20.48px] w-[93.7px]">
+									<div className="relative mt-[8.57px] mb-2 h-[20.48px] w-[93.7px] sm:h-[20px] sm:w-[100px]">
 										<Image
 											src="/images/twmp-verified-horizontal.png"
 											alt="twmp-verified-horizontal"
@@ -210,7 +210,7 @@ const CompanyProfileTab: React.FC<{
 									<div className="grid grid-cols-12 md:mt-8 md:gap-8">
 										{/* Profile details */}
 										<div className="col-span-12 space-y-4 sm:col-span-8">
-											<p className="hidden flex-col text-[15px] md:flex-row md:space-x-8 md:text-[18px]">
+											<p className="hidden  text-[15px] text-gray md:flex md:space-x-8 md:text-[12px] lg:text-[15px] xl:text-[18px]">
 												<span className="font-semibold md:min-w-[148px]">
 													{t('common:campany_name')}:
 												</span>
@@ -222,7 +222,7 @@ const CompanyProfileTab: React.FC<{
 												</span>
 											</p>
 
-											<p className="flex flex-col text-[12px] leading-[21px] text-gray md:flex-row md:space-x-8 md:text-[18px]">
+											<p className="flex flex-col text-[12px] leading-[21px] text-gray md:flex-row md:space-x-8 md:text-[12px] lg:text-[15px] xl:text-[18px]">
 												<span className="font-semibold md:min-w-[148px]">
 													{t('common:country')}:
 												</span>
@@ -234,7 +234,7 @@ const CompanyProfileTab: React.FC<{
 												</span>
 											</p>
 
-											<p className="flex flex-col whitespace-pre-wrap text-[12px] leading-[21px] text-gray md:flex-row md:space-x-8 md:text-[18px]">
+											<p className="flex flex-col whitespace-pre-wrap text-[12px] leading-[21px] text-gray md:flex-row md:space-x-8 md:text-[12px] lg:text-[15px] xl:text-[18px]">
 												<span className="font-semibold md:min-w-[148px]">
 													{t('common:tw_page')}:
 												</span>
@@ -246,14 +246,14 @@ const CompanyProfileTab: React.FC<{
 												</Link>
 											</p>
 
-											<p className="flex flex-col text-[12px] leading-[21px] text-gray md:flex-row md:space-x-8 md:text-[18px]">
+											<p className="flex flex-col text-[12px] leading-[21px] text-gray md:flex-row md:space-x-8 md:text-[12px] lg:text-[15px] xl:text-[18px]">
 												<span className="font-semibold md:min-w-[148px]">
 													{t('common:established')}:
 												</span>
 												<span>{seller?.established}</span>
 											</p>
 
-											<p className="flex flex-col text-[12px] leading-[21px] text-gray md:flex-row md:space-x-8 md:text-[18px]">
+											<p className="flex flex-col text-[12px] leading-[21px] text-gray md:flex-row md:space-x-8 md:text-[12px] lg:text-[15px] xl:text-[18px]">
 												<span className="font-semibold md:min-w-[148px]">
 													{t('common:certification')}:
 												</span>
@@ -265,7 +265,7 @@ const CompanyProfileTab: React.FC<{
 														)
 														?.join(', ')}
 												</span>
-												<span className="relative h-[30px] w-[162px] ">
+												<span className="relative h-[20.48px] w-[93.7px] sm:h-[20px] sm:w-[100px] ">
 													{seller?.certificates !== undefined && (
 														<ImageWithErrorHandler
 															src="/tradewinds-horizontal-logo.png"
@@ -277,7 +277,7 @@ const CompanyProfileTab: React.FC<{
 											</p>
 
 											{/* Member Since */}
-											<p className="flex flex-col text-[12px] leading-[21px] text-gray md:flex-row md:space-x-8 md:text-[18px]">
+											<p className="flex flex-col text-[12px] leading-[21px] text-gray md:flex-row md:space-x-8 md:text-[12px] lg:text-[15px] xl:text-[18px]">
 												<span className="font-semibold md:min-w-[148px]">
 													{t('common:member_since')}:
 												</span>
@@ -294,7 +294,7 @@ const CompanyProfileTab: React.FC<{
 										{/* Tradewinds logo and message vendor button */}
 										<div className="hidden sm:col-span-4 md:flex">
 											<div className="flex justify-end ">
-												<div className="relative mr-4 h-[72px] w-[120px] md:m-8">
+												<div className="relative mr-4 md:mt-8 lg:mt-[50px] lg:h-[50px] lg:w-[90px] xl:mt-8 xl:h-[72px] xl:w-[120px]">
 													<ImageWithErrorHandler
 														src="/twmp-verified.png"
 														alt=""
@@ -302,7 +302,7 @@ const CompanyProfileTab: React.FC<{
 													/>
 												</div>
 											</div>
-											<div className="relative mt-16 hidden h-[22px] lg:block">
+											<div className="relative mt-14 hidden h-[22px] lg:block">
 												{messageVendorButton}
 											</div>
 										</div>
@@ -315,11 +315,11 @@ const CompanyProfileTab: React.FC<{
 								</div>
 
 								{/* About */}
-								<div className="mb-10 mt-4 sm:mt-[35px] lg:mt-16">
-									<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18.29px] text-gray md:text-[21px] md:leading-6">
+								<div className="mb-10 mt-4 sm:mt-[35px] md:text-[12px] lg:mt-16 lg:text-[15px] xl:text-[18px]">
+									<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18.29px] text-gray md:leading-[15px] md:text-[[12px]] lg:text-[15px] lg:leading-[18px] xl:text-[18px] xl:leading-[21px] ">
 										{t('common:about')}
 									</h2>
-									<p className="mt-1 text-[12px] leading-[14.63px] text-gray md:text-[18px]  md:leading-7">
+									<p className="mt-1 text-[12px] leading-[14.63px] text-gray md:text-[12px] md:leading-[15px] lg:text-[15px] lg:leading-[18px] xl:text-[18px]  xl:leading-[21px]">
 										{seller?.about_us || store_front?.about_information}
 									</p>
 								</div>
@@ -327,7 +327,7 @@ const CompanyProfileTab: React.FC<{
 								{/* Company Photos */}
 								{storeFrontDetails?.company_photos?.length !== 0 && (
 									<div className="mb-10">
-										<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18.29px] text-gray md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
+										<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18.29px] text-gray md:leading-[15px] md:text-[[12px]] lg:text-[15px] lg:leading-[18px] xl:text-[18px] xl:leading-[21px] ">
 											{t('common:company_images')} 
 										</h2>
 										<div className="mt-4 flex space-x-4">
@@ -354,7 +354,7 @@ const CompanyProfileTab: React.FC<{
 								{storeFrontDetails?.company_videos?.[0] !==
 									'Error occurred' && (
 									<div className="mb-10">
-										<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18.29px] text-gray md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
+										<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18.29px] text-gray md:leading-[15px] md:text-[[12px]] lg:text-[15px] lg:leading-[18px] xl:text-[18px] xl:leading-[21px] ">
 											{t('common:company_video')}
 										</h2>
 										<div className="mt-4 flex space-x-4">
@@ -390,7 +390,7 @@ const CompanyProfileTab: React.FC<{
 
 								{/* Featured Product */}
 								<div>
-									<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18.29px] text-gray md:text-xl md:leading-6 lg:text-[21px] lg:leading-[26px]">
+									<h2 className="border-b border-[#C4C4C4] text-[15px] font-semibold leading-[18.29px] text-gray md:leading-[15px] md:text-[[12px]] lg:text-[15px] lg:leading-[18px] xl:text-[18px] xl:leading-[21px] ">
 										{t('common:featured_product')}
 									</h2>
 									{featuredProducts?.length > 0 && (

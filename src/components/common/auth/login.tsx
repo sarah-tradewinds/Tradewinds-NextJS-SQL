@@ -52,7 +52,7 @@ const Login: React.FC = () => {
 		result: false
 	});
 	const router = useRouter();
-	const { t } = useTranslation();
+	const { t } = useTranslation('auth');
 
 	const { totalCartItems, cartItems } = useCartStore((state) => ({
 		cartItems: state.cartItems,
@@ -125,6 +125,11 @@ const Login: React.FC = () => {
 
 			setLoading(false);
 			setIsLoginOpen();
+			const redirectTo = localStorage.getItem('redirectTo');
+			if (redirectTo) {
+				router.replace(redirectTo);
+				localStorage.removeItem('redirectTo');
+			}
 		} catch (error) {
 			console.log('[loginUser] error =', error);
 			setLoginResult({
@@ -152,57 +157,64 @@ const Login: React.FC = () => {
 			overlayClassName="!z-[51000]"
 			onClose={setIsLoginOpen}
 		>
-			<div className="ml-2s flex items-center justify-center">
-				<div className="flex justify-center rounded-md bg-white shadow-md md:w-[740px] md:py-4 lg:mt-12 lg:mr-[43px] lg:h-[905px] lg:w-[1000px] lg:justify-start lg:pl-[66px] xl:w-[1204px]">
+			<div className="ml-2 flex items-center justify-center">
+				<div className="flex h-[530px] justify-center rounded-md bg-white shadow-md sm:h-[600px] md:h-[800px] md:w-[740px] md:py-4 lg:mt-12 lg:mr-[43px] lg:h-[850px] lg:w-[1000px] lg:justify-start lg:pl-[66px] xl:w-[1204px] desktop:h-[800px]">
 					{/* <div className="flex h-[640px] flex-col items-center border-gray/40 py-8 md:h-auto lg:w-full lg:border-r lg:py-0 lg:pr-[24px]"> */}
-					<div className="flex h-[640px] w-[300px] flex-col items-center border-gray/40 py-8 sm:w-[400px] md:h-auto lg:w-full lg:border-r lg:py-0 lg:pr-[24px]">
+					<div className="flex h-[640px] w-[300px] flex-col items-center border-gray/40 py-8 sm:w-[470px] md:h-auto lg:w-full lg:border-r lg:py-0 lg:pr-[24px]">
 						<h2 className="h-[67] w-full border-b border-gray/40 pb-4 text-center font-semibold text-gray md:mt-[188px] md:text-4xl lg:text-5xl">
 							{t('auth:welcome_back')}
 						</h2>
 
 						<div className="flex w-full justify-center border-b border-gray/40 pb-[7px] text-[13px] sm:text-lg">
-							<form className="w-full px-4 md:w-[366px] md:px-0">
+							<form className="w-full px-4 md:w-[300px] md:px-0 lg:w-[480px]">
 								<div className="mt-[41px] mb-[27px] font-normal text-label_gray  ">
-									<p>I am a...</p>
+									<p>{t('i_am_a...')}</p>
 
-									<div className=" flex justify-between  lg:space-x-2 xl:space-x-3">
-										<label>
-											<span className="mr-[7px]">
-												<input
-													className=" inline-block h-[23px] w-[23px] border align-text-top "
-													type="radio"
-													name="myRadio"
-													value="Buyer"
-													onChange={handleRadioChange}
-													defaultChecked
-												/>
-											</span>
-											Buyer
-										</label>
-										<label>
-											<span className=" mr-[7px]">
-												<input
-													className=" inline-block h-[23px] w-[23px] align-text-top"
-													type="radio"
-													name="myRadio"
-													value="Seller"
-													onChange={handleRadioChange}
-												/>
-											</span>
-											Seller
-										</label>
-										<label>
-											<span className=" mr-[7px]">
-												<input
-													className=" inline-block h-[23px] w-[23px] align-text-top"
-													type="radio"
-													name="myRadio"
-													value="BDM"
-													onChange={handleRadioChange}
-												/>
-											</span>
-											Business Agent
-										</label>
+									<div className=" block justify-between space-y-[2px] sm:flex sm:space-y-0 lg:space-x-2 xl:space-x-3">
+										<div className=" sm:w-[150px] md:w-[160px]">
+											<label>
+												<span className="mr-[7px]">
+													<input
+														className=" inline-block h-[18px] w-[18px] border align-text-top sm:h-[23px] sm:w-[23px] "
+														type="radio"
+														name="myRadio"
+														value="Buyer"
+														onChange={handleRadioChange}
+														defaultChecked
+													/>
+												</span>
+												{t('buyer')}
+											</label>
+										</div>
+										<div className=" sm:w-[150px] md:w-[150px]">
+											<label>
+												<span className=" mr-[7px]">
+													<input
+														className=" inline-block h-[18px] w-[18px] border align-text-top sm:h-[23px] sm:w-[23px]"
+														type="radio"
+														name="myRadio"
+														value="Seller"
+														onChange={handleRadioChange}
+													/>
+												</span>
+												{t('seller')}
+											</label>
+										</div>
+
+										<div className=" sm:w-[150px] md:w-[200px]">
+											<label>
+												<span className=" mr-[7px]">
+													<input
+														className=" inline-block h-[18px] w-[18px] border align-text-top sm:h-[23px] sm:w-[23px]"
+														type="radio"
+														name="myRadio"
+														value="BDM"
+														onChange={handleRadioChange}
+													/>
+												</span>
+												{t('business_agent')}
+											</label>
+										</div>
 									</div>
 								</div>
 								<Input
@@ -294,7 +306,7 @@ const Login: React.FC = () => {
 
 					{/* Logos */}
 					<div className="hidden w-full flex-col items-center justify-center lg:flex">
-						<div className="relative h-[266px] w-[202px]">
+						<div className="relative h-[266px] w-[202px] lg:h-[200px] lg:w-[159px] xl:h-[266px] xl:w-[202px]">
 							<ImageWithErrorHandler
 								src="/TW-Create an account page-02.png"
 								alt=""
@@ -303,7 +315,7 @@ const Login: React.FC = () => {
 							/>
 						</div>
 
-						<div className="relative mt-[20px] h-[280px] w-[495px]">
+						<div className="relative mt-[20px] h-[280px] w-[495px] lg:h-[153px] lg:w-[247px] xl:h-[280px] xl:w-[495px]">
 							<ImageWithErrorHandler
 								src="/TW-Create an account page-03.png"
 								alt=""

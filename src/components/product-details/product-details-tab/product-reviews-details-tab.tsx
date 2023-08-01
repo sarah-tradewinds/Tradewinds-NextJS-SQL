@@ -85,7 +85,7 @@ const ProductReviewsDetailsTab: React.FC<{
 	const writeReview = canCustomerWriteReviewForThisProduct && (
 		<div className="md:px-8">
 			<h3 className="border-[#C4C4C4] pb-2 text-lg font-semibold leading-[22px] text-gray md:border-b-2 md:text-[21px]">
-				Review this Product
+				{t('review_this_product')}
 			</h3>
 
 			<div className="mt-[6px] flex md:justify-center">
@@ -99,7 +99,7 @@ const ProductReviewsDetailsTab: React.FC<{
 						}
 					}}
 				>
-					Write a customer review
+					{t('write_a_customer_review')}
 				</button>
 			</div>
 		</div>
@@ -132,7 +132,7 @@ const ProductReviewsDetailsTab: React.FC<{
 			<div className="space-y-4 bg-white p-4 md:p-8">
 				{/* Customer reviews and rating count */}
 				<div className="flex items-center border-b-2 border-[#C4C4C4] pb-2 md:space-x-4 md:border-t-0">
-					<h2 className="hidden text-[21px] font-semibold text-gray/40 md:block">
+					<h2 className="hidden font-semibold text-gray/40 md:block lg:text-[15px] xl:text-[21px]">
 						{t('common:customer_reviews')}
 					</h2>
 					<h2 className="text-[15px] font-semibold leading-[18.29px] text-gray md:hidden">
@@ -163,7 +163,7 @@ const ProductReviewsDetailsTab: React.FC<{
 									selectedClassName="text-secondary"
 								/>
 								<p className="ml-[10.77px] text-[13px] leading-4 text-gray">
-									5 out of 5
+									{t('5_out_of_5')}
 								</p>
 							</div>
 						</div>
@@ -233,7 +233,7 @@ const ProductReviewsDetailsTab: React.FC<{
 						{reviews?.length > 3 && (
 							<div className="flex justify-center md:hidden">
 								<Button className="!text-[15px] !leading-[18px] !text-[#33A7DF]">
-									More
+									{t('more')}
 								</Button>
 							</div>
 						)}
