@@ -45,6 +45,7 @@ interface MobileProductTileProps {
 	isInCompareList?: boolean;
 	isVerified?: boolean;
 	isLive?: boolean;
+	isLiveBuy?: boolean;
 	isReadyToShip?: boolean;
 	isCustomizable?: boolean;
 	variantCount: number;
@@ -74,6 +75,7 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 		isInCompareList,
 		isVerified,
 		isLive,
+		isLiveBuy,
 		isReadyToShip,
 		isCustomizable,
 		variantCount,
@@ -145,7 +147,7 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 					icon={
 						<div
 							className={`text-[20px] md:text-[24] ${
-								isLive ? 'text-bg_blue' : 'text-gray/40'
+								isLiveBuy ? 'text-bg_blue' : 'text-gray/40'
 							}`}
 						>
 							<MdOutlineShoppingCart />
@@ -154,8 +156,9 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 					alt={t('common:save')}
 					title={t('cart')}
 					titleClassName="text-bg_blue"
-					className={isLive ? 'cursor-pointer' : 'cursor-not-allowed'}
-					// onClick={isLive ? onCartClick : undefined}
+					className={
+						isLiveBuy ? 'cursor-pointer' : 'cursor-not-allowed'
+					}
 					onClick={onCartClick}
 				/>
 			</div>

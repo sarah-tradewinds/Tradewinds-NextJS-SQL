@@ -44,6 +44,7 @@ interface ProductTileProps {
 	isInCompareList?: boolean;
 	isVerified?: boolean;
 	isLive?: boolean;
+	isLiveBuy?: boolean;
 	isReadyToShip?: boolean;
 	isCustomizable?: boolean;
 	variantCount: number;
@@ -72,6 +73,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 		onCompareClick,
 		isInCompareList,
 		isLive,
+		isLiveBuy,
 		isReadyToShip,
 		isCustomizable,
 		variantCount,
@@ -213,7 +215,6 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 				className={`!space-x-1 ${
 					isLive ? 'cursor-pointer' : 'cursor-not-allowed'
 				}`}
-				// onClick={isLive ? onCartClick : undefined}
 				onClick={onCartClick}
 				titleClassName="xl:text-cyan lg:!text-[10px] sm:!text-[12px] text-bg_blue sm:!leading-[14.63px] xl:!text-[13px] xl:!leading-[15.85px]"
 			/>
