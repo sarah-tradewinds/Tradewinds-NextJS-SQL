@@ -33,9 +33,9 @@ const Input: React.FC<InputProps> = (props) => {
 
 	const inputClassName = `rounded-md border-2 ${
 		isSmall ? 'py-1' : 'py-2'
-	} pl-8 pr-4 focus:outline-none ${
+	}  pr-4 focus:outline-none ${
 		invalid ? 'border-accent-error' : 'border-accent-primary-main'
-	} ${className}`;
+	} ${icon ? 'pl-8' : 'pl-2'} ${className}`;
 
 	return (
 		<div className={`relative ${containerClassName}`}>
@@ -50,9 +50,11 @@ const Input: React.FC<InputProps> = (props) => {
 				className={inputClassName}
 				checked={checked}
 			/>
-			<span className="absolute left-3 top-1/2 -translate-y-1/2 transform">
-				{icon}
-			</span>
+			{icon && (
+				<span className="absolute left-2 top-1/2 -translate-y-1/2 transform">
+					{icon}
+				</span>
+			)}
 		</div>
 	);
 };
