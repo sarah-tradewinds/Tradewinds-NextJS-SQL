@@ -22,7 +22,7 @@ const SelectSignUp: React.FC = () => {
 	const [loading, setLoading] = useState(false);
 	const { isSignUpOpen, setIsSignUpOpen } = useAuthStore();
 	const router = useRouter();
-	const { t } = useTranslation();
+	const { t } = useTranslation('auth');
 	const [selectedOption, setSelectedOption] = useState('Buyer');
 
 	const [open, setOpen] = useState(false);
@@ -42,83 +42,90 @@ const SelectSignUp: React.FC = () => {
 			overlayClassName="!z-[51000]"
 		>
 			<div className="ml-2 flex  items-center justify-center">
-				<div className="flex justify-center rounded-md bg-white shadow-md  md:h-[600px] md:w-[750px]">
-					<div className="overflow-hiden  flex h-[400px] w-[300px]  flex-col items-center border-r border-gray/40 px-[10px]  sm:mt-[50px] sm:h-[500px] sm:w-[480px] sm:border-r sm:px-[20px] ">
+				<div className="flex justify-center rounded-md bg-white shadow-md  md:h-[600px] md:w-[720px]  lg:w-[920px]">
+					<div className="overflow-hiden  flex h-[400px] w-[300px]  flex-col items-center border-r border-gray/40 px-[10px]  sm:mt-[50px] sm:h-[500px] sm:w-[480px] sm:border-r sm:px-[20px] md:w-[450px] lg:w-[600px] ">
 						<h2 className=" mt-[30px] w-full border-b border-gray/40 text-center text-[20px] font-semibold text-gray sm:mt-[50px] sm:text-[35px]">
 							{t('auth:create_an_account')}
 						</h2>
 
 						<div className="flex w-full justify-center border-b border-gray/40 pb-[30px] not-italic sm:pb-[40px]">
-							<form className=" w-[300px]  sm:w-[365px]">
-								<div className="mt-[30px] mb-[27px] text-left  text-[13px] font-normal text-label_gray sm:mt-[41px] sm:text-lg  ">
-									<label>I am a...</label>
+							<form className="w-[300px] sm:w-[510px]">
+								<div className=" mt-[30px] mb-[27px] text-left text-[13px] font-normal text-label_gray sm:mt-[41px] sm:text-center sm:text-lg  ">
+									<label>{t('i_am_a...')}</label>
 									<br />
-									<div className=" flex space-x-[10px]">
-										<label>
-											<span className=" mr-[7px]">
-												<input
-													className=" inline-block h-[17px] w-[17px] border align-text-top sm:h-[23px] sm:w-[23px] "
-													type="radio"
-													name="myRadio"
-													value="Buyer"
-													onChange={handleRadioChange}
-													defaultChecked
-												/>
-											</span>
-											Buyer
-										</label>
-										<label>
-											<span className=" mr-[7px]">
-												<input
-													className=" inline-block h-[17px] w-[17px] align-text-top sm:h-[23px] sm:w-[23px]"
-													type="radio"
-													name="myRadio"
-													value="Seller"
-													onChange={handleRadioChange}
-												/>
-											</span>
-											Seller
-										</label>
-
-										<label>
-											<span className=" mr-[7px]">
-												<input
-													className=" inline-block h-[17px] w-[17px] align-text-top sm:h-[23px] sm:w-[23px]"
-													type="radio"
-													name="myRadio"
-													value="BDM"
-													onChange={handleRadioChange}
-												/>
-											</span>
-											Business Agent
-										</label>
+									<div className="block justify-center sm:flex sm:space-x-[10px]">
+										<div className="  sm:w-[150px] md:w-[150px] lg:w-full">
+											<label>
+												<span className=" mr-[7px]">
+													<input
+														className=" inline-block h-[17px] w-[17px] border align-text-top sm:h-[23px] sm:w-[23px] "
+														type="radio"
+														name="myRadio"
+														value="Buyer"
+														onChange={handleRadioChange}
+														defaultChecked
+													/>
+												</span>
+												{t('buyer')}
+											</label>
+										</div>
+										<div className=" sm:w-[150px] md:w-[140px] lg:w-full">
+											<label>
+												<span className=" mr-[7px]">
+													<input
+														className=" inline-block h-[17px] w-[17px] align-text-top sm:h-[23px] sm:w-[23px]"
+														type="radio"
+														name="myRadio"
+														value="Seller"
+														onChange={handleRadioChange}
+													/>
+												</span>
+												{t('seller')}
+											</label>
+										</div>
+										<div className=" sm:w-[150px] md:w-[140px] lg:w-full">
+											<label>
+												<span className=" mr-[7px]">
+													<input
+														className=" inline-block h-[17px] w-[17px] align-text-top sm:h-[23px] sm:w-[23px]"
+														type="radio"
+														name="myRadio"
+														value="BDM"
+														onChange={handleRadioChange}
+													/>
+												</span>
+												{t('business_agent')}
+											</label>
+										</div>
 									</div>
 								</div>
-								<Button
-									variant="product"
-									className=" w-full"
-									disabled={loading}
-									// onClick={setIsSelectSignUpOpen}
-									onClick={() => {
-										setIsSelectSignUpOpen();
-										if (selectedOption === 'Buyer') {
-											setIsSignUpOpen();
-										} else if (selectedOption === 'Seller') {
-											window.open(
-												`${process.env.SELLER_DASHBOARD_SITE_URL}/${
-													isEco ? 'eco/' : ''
-												}seller-registration`
-											);
-										} else if (selectedOption === 'BDM') {
-											window.open(
-												`${process.env.BDM_DASHBOARD_SITE_URL}/bdm-registration`
-											);
-										}
-									}}
-								>
-									{loading ? BUTTON_SPINNER : null}{' '}
-									<>{t('auth:create_my_account')}</>
-								</Button>
+								<div className=" container mx-auto w-[220px] justify-center sm:w-[250px] md:w-[350px]">
+									<Button
+										variant="product"
+										className="w-full"
+										disabled={loading}
+										// onClick={setIsSelectSignUpOpen}
+										onClick={() => {
+											setIsSelectSignUpOpen();
+											if (selectedOption === 'Buyer') {
+												setIsSignUpOpen();
+											} else if (selectedOption === 'Seller') {
+												window.open(
+													`${process.env.SELLER_DASHBOARD_SITE_URL}/${
+														isEco ? 'eco/' : ''
+													}seller-registration`
+												);
+											} else if (selectedOption === 'BDM') {
+												window.open(
+													`${process.env.BDM_DASHBOARD_SITE_URL}/bdm-registration`
+												);
+											}
+										}}
+									>
+										{loading ? BUTTON_SPINNER : null}{' '}
+										<>{t('auth:create_my_account')}</>
+									</Button>
+								</div>
 							</form>
 						</div>
 						<div className="mt-[30px] sm:mt-[55px]">

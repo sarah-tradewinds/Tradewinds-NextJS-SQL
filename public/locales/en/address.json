@@ -1,1 +1,10 @@
-{"add_new_address":"ADD NEW ADDRESS","billed_to":"Billed to","billing_address":"BILLING ADDRESS","please_select_billing_address":"Please Select Billing Address","please_select_shipping_address":"Please Select Shipping Address","select_shipping_and_billing_address":"Select Shipping and Billing Address","shipping_address":"SHIPPING ADDRESS","ship_to":"Ship to"}
+{
+    "set_entered_address_as_default_address?":"Set Entered Address as Default Address?",
+    "is_the_ntered_address_your_illing_address?":"Is the Entered Address your Billing Address?",
+    "city":"City",
+    "state":"State",
+    "zipcode":"Zipcode",
+    "address_line":"Address Line",
+    "close":"Close",
+    "proceed_to_cart_review":"Proceed to Cart Review",
+    "add_new_address":"ADD NEW ADDRESS","billed_to":"Billed to","billing_address":"BILLING ADDRESS","please_select_billing_address":"Please Select Billing Address","please_select_shipping_address":"Please Select Shipping Address","select_shipping_and_billing_address":"Select Shipping and Billing Address","shipping_address":"SHIPPING ADDRESS","ship_to":"Ship to"}

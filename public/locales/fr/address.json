@@ -1,1 +1,10 @@
-{"add_new_address":"AJOUTER UNE NOUVELLE ADRESSE","billed_to":"Facturé à","billing_address":"ADRESSE DE FACTURATION","please_select_billing_address":"Veuillez sélectionner l'adresse de facturation","please_select_shipping_address":"Veuillez sélectionner l'adresse de livraison","select_shipping_and_billing_address":"Sélectionnez l'adresse de livraison et de facturation","shipping_address":"ADRESSE DE LIVRAISON","ship_to":"Envoyez à"}
+{
+    "set_entered_address_as_default_address?":"Définir l'adresse saisie comme adresse par défaut ?",
+    "is_the_ntered_address_your_illing_address?":"L'adresse saisie est-elle votre adresse de facturation ?",
+    "city":"Ville",
+    "state":"État",
+    "zipcode":"Code postal",
+    "address_line":"Ligne d'adresse",
+    "close":"Fermer",
+    "proceed_to_cart_review":"Passer à l'examen du panier",
+    "add_new_address":"AJOUTER UNE NOUVELLE ADRESSE","billed_to":"Facturé à","billing_address":"ADRESSE DE FACTURATION","please_select_billing_address":"Veuillez sélectionner l'adresse de facturation","please_select_shipping_address":"Veuillez sélectionner l'adresse de livraison","select_shipping_and_billing_address":"Sélectionnez l'adresse de livraison et de facturation","shipping_address":"ADRESSE DE LIVRAISON","ship_to":"Envoyez à"}

@@ -43,7 +43,7 @@ const MetadataTile: React.FC<MetadataTileProps> = (props) => {
 			{icon}
 
 			<span
-				className={`text-[10px] text-gray sm:text-[12px] lg:text-[13px] ${titleClassName}`}
+				className={`text-[10px] text-gray sm:text-[11px] lg:text-[13px] ${titleClassName}`}
 			>
 				{title}
 			</span>

@@ -69,7 +69,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 						<p className=" text-center text-[14px] font-semibold leading-[17px] sm:text-[15px] sm:leading-[18px] md:text-[18px] md:leading-[22px] lg:text-[25px] lg:leading-[30px] desktop:text-[50px] desktop:leading-[60px] ">
 							{t('benefits')}
 						</p>
-						<div className=" container mx-auto mt-[20px] block justify-center sm:mt-[15px] sm:flex sm:space-x-[18px] md:mt-[14px] md:space-x-[8px] lg:mt-[19px] lg:space-x-[11px] desktop:mt-[45px] desktop:space-x-[4px]">
+						<div className=" container mx-auto mt-[20px] block justify-center pl-[14px] sm:mt-[15px] sm:flex sm:space-x-[18px] sm:pl-0 md:mt-[14px] md:space-x-[8px] lg:mt-[19px] lg:space-x-[11px] desktop:mt-[45px] desktop:space-x-[4px]">
 							<div className=" h-[137px] w-[272px] text-left sm:h-[173px] sm:w-[186px] sm:text-center md:h-[160px] md:w-[225px] lg:h-[205px] lg:w-[300px] desktop:h-[279px] desktop:w-[445px] ">
 								<div className=" relative h-[45px] w-[45px] sm:mx-auto sm:h-[46px] sm:w-[46px] md:h-[55px] md:w-[55px] lg:h-[74px] lg:w-[74px] desktop:h-[108px] desktop:w-[109px] ">
 									<ImageWithErrorHandler

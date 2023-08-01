@@ -19,11 +19,11 @@ const supportedLocales = [
 	{
 		code: 'pt',
 		name: 'portuguese'
+	},
+	{
+		code: 'bn',
+		name: 'bengali'
 	}
-	// {
-	// 	code: 'bn',
-	// 	name: 'bengali'
-	// }
 ];
 
 const LanguageDropdown: React.FC = () => {

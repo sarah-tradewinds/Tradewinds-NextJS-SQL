@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 // Third party packages
+import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // components
@@ -26,6 +27,7 @@ const Categories: NextPage<InferGetStaticPropsType<GetStaticProps>> = ({
 }) => {
 	const { locale, push } = useRouter();
 	const { setMainCategory, setCategory } = useCategoryStore();
+	const { t } = useTranslation();
 
 	const [ref] = useKeenSlider<HTMLDivElement>({
 		slideChanged(slider) {
@@ -80,7 +82,7 @@ const Categories: NextPage<InferGetStaticPropsType<GetStaticProps>> = ({
 						fill={true}
 					/>
 					<p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform text-[21px] font-semibold leading-[25.6px] text-[#BBD3DD] lg:text-[48px] lg:leading-[58.51px] xl:text-[40.63px] xl:leading-[49.53px] desktop:text-[81px] desktop:leading-[98.74px]">
-						Categories
+						{t('catagories')}
 					</p>
 				</div>
 			</div>

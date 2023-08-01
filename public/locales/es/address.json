@@ -1,1 +1,10 @@
-{"add_new_address":"AGREGAR NUEVA DIRECCIÓN","billed_to":"Facturado a","billing_address":"DIRECCIÓN DE ENVIO","please_select_billing_address":"Seleccione la dirección de facturación","please_select_shipping_address":"Seleccione la dirección de envío","select_shipping_and_billing_address":"Seleccione la dirección de envío y facturación","shipping_address":"DIRECCIÓN DE ENVÍO","ship_to":"Envie a"}
+{
+    "set_entered_address_as_default_address?":"¿Establecer la dirección ingresada como dirección predeterminada?",
+    "is_the_ntered_address_your_illing_address?":"¿La dirección ingresada es su dirección de facturación?",
+    "city":"Ciudad",
+    "state":"Estado",
+    "zipcode":"Código postal",
+    "address_line":"Dirección",
+    "close":"Cerca",
+    "proceed_to_cart_review":"Proceder a la revisión del carrito",
+    "add_new_address":"AGREGAR NUEVA DIRECCIÓN","billed_to":"Facturado a","billing_address":"DIRECCIÓN DE ENVIO","please_select_billing_address":"Seleccione la dirección de facturación","please_select_shipping_address":"Seleccione la dirección de envío","select_shipping_and_billing_address":"Seleccione la dirección de envío y facturación","shipping_address":"DIRECCIÓN DE ENVÍO","ship_to":"Envie a"}
