@@ -12,8 +12,8 @@ function FeatureCommunication() {
 	return (
 		<div>
 			{/* Why Buy points section only display on large screen*/}
-			<div className=" z-50 mx-auto flex w-full justify-center bg-primary-main bg-center bg-no-repeat sm:h-[394px] sm:w-[640px] sm:bg-[url('/static/images/WhyBuyImages/whybuy-feature-bg.png')] md:h-[457px] md:w-[744px] lg:h-[610px] lg:w-[993px] desktop:h-[927px] desktop:w-[1487px]  desktop:bg-[url('/static/images/WhyBuyImages/why-buy-second-banner.png')]">
-				<div className="hidden sm:block md:block lg:block desktop:block">
+			<div className="z-50 flex w-full bg-primary-main bg-center bg-no-repeat sm:mx-auto sm:h-[394px] sm:w-[640px] sm:justify-center sm:bg-[url('/static/images/WhyBuyImages/whybuy-feature-bg.png')] md:h-[457px] md:w-[744px] lg:h-[610px] lg:w-[993px] desktop:h-[927px] desktop:w-[1487px]  desktop:bg-[url('/static/images/WhyBuyImages/why-buy-second-banner.png')]">
+				<div className="hidden sm:block ">
 					<div className=" grid grid-cols-2 sm:mt-[23px] sm:gap-y-[17px] sm:gap-x-[50px] md:mt-[29px] md:gap-y-[15px] md:gap-x-[56px] lg:mt-[39px] lg:gap-y-[40px] lg:gap-x-[80px] desktop:mt-[61px] desktop:gap-y-[95px] desktop:gap-x-[140px]">
 						<WhyBuyTile
 							imageClassName=" sm:w-[34px] sm:h-[35px] md:w-[39px] md:h-[41px]  lg:w-[52px] lg:h-[54px]  desktop:w-[80px] desktop:h-[84px] "
@@ -63,12 +63,12 @@ function FeatureCommunication() {
 					</div>
 				</div>
 				{/* This is for mobile */}
-				<div className=" block sm:hidden ">
-					<div className="  h-[822px] w-full px-[30px]">
+				<div className=" block w-screen sm:hidden">
+					<div className="  h-full px-[30px] pb-6">
 						<WhyBuyTile
 							imageClassName=" mt-[27px] w-[34px] h-[35px]  "
 							imageUrl="/static/images/WhyBuyImages/verified-seller.png"
-							contentContainerClassName=" mt-[11px] w-[247px] h-[61px] "
+							contentContainerClassName=" mt-[11px] w-[80%]"
 							title={t('verified_sellers')}
 							subtitle={t(
 								'discover_a_vast_selection_of_products_from_trusted_sellers_across_various_industries.'
@@ -77,7 +77,7 @@ function FeatureCommunication() {
 						<WhyBuyTile
 							imageClassName=" mt-[54px] w-[47px] h-[47px] "
 							imageUrl="/static/images/WhyBuyImages/buy-with-confidence.png"
-							contentContainerClassName=" mt-[7px] w-[243px] h-[121px] "
+							contentContainerClassName=" mt-[7px] w-[80%] "
 							title={t('buy_with_confidence')}
 							subtitle={t(
 								'at_tradewinds_marketplace, we_prioritize_your_peace_of_mind when purchasing from new sellers online. Our platform employs robust tools and protocols to ensure a secure and reliable shopping experience, guaranteeing that you receive exactly what you ordered.'
@@ -86,7 +86,7 @@ function FeatureCommunication() {
 						<WhyBuyTile
 							imageClassName=" mt-[45px] w-[41px] h-[41px] "
 							imageUrl="/static/images/WhyBuyImages/sellers-come-to-you.png"
-							contentContainerClassName=" mt-[11px] w-[233px] h-[91px]"
+							contentContainerClassName=" mt-[11px] w-[80%]"
 							title={t('let_the_sellers_come_to_you')}
 							subtitle={t(
 								'specify_your_requirements_and_submit_them_in_the_Request_for_quotation (RFQ) marketplace. Receive quotes from multiple sellers, usually within 24 hours or less.'
@@ -95,7 +95,7 @@ function FeatureCommunication() {
 						<WhyBuyTile
 							imageClassName=" mt-[34px] h-[41px] w-[35px] "
 							imageUrl="/static/images/WhyBuyImages/fexible-payment.png"
-							contentContainerClassName=" mt-[8px] w-[255px] h-[77px]"
+							contentContainerClassName=" mt-[8px] w-[80%]"
 							title={t('flexible_payment_options')}
 							subtitle={t(
 								'with_twmp,_buyers_can_receive_real-time_financing_assessments_within_seconds through our secure lending partners, Klarna and Afterpay.'
@@ -114,7 +114,7 @@ function FeatureCommunication() {
 				</div>
 			</div>
 
-			<div className=" w-[300px] justify-center bg-white !pb-[48px] pt-[1px] sm:w-[640px] sm:pt-[11px] md:container md:mx-auto md:w-[744px] md:pt-[13px] lg:w-[993px] lg:pt-[18px] desktop:w-[1487px] desktop:pt-[28px]">
+			<div className="mx-auto w-full justify-center bg-white !pb-[48px] pt-[1px] sm:w-[640px] sm:pt-[11px] md:container md:w-[744px] md:pt-[13px] lg:w-[993px] lg:pt-[18px] desktop:w-[1487px] desktop:pt-[28px]">
 				<div className=" left-0 mt-[33px] flex flex-col pl-[20px] font-semibold text-gray sm:items-center">
 					<p className=" text-[18px] sm:text-[18px] md:text-[20px] lg:text-[25px] desktop:text-[50px] ">
 						{t('features')}
@@ -129,12 +129,12 @@ function FeatureCommunication() {
 				<div className="mx-auto block justify-center pl-[20px] text-gray sm:mt-[13px] sm:flex sm:space-x-[42px] sm:!pl-0 md:mt-[24px] md:space-x-[48px] lg:mt-[32px] lg:space-x-[64px] desktop:mt-[54px]  desktop:space-x-[99px] ">
 					<div className=" relative sm:h-[319px] sm:w-[299px] md:h-[283px] md:w-[345px] lg:h-[378px] lg:w-[460px]  desktop:h-[620px] desktop:w-[704px] ">
 						<ImageWithErrorHandler
-							src="/static/images/WhyBuyImages/cart-img.png"
+							src="/static/images/WhyBuyImages/new-cart-img.png"
 							alt=""
 							fill={true}
 						/>
 					</div>
-					<div className="mt-[12px] h-[405px] w-[261px] space-y-[8px]  leading-[14px] sm:h-[332px] sm:w-[252px] sm:space-y-[4px] sm:leading-[12.2px] md:-mt-[10px] md:h-[333px] md:w-[247px] md:space-y-[5px] md:leading-[12px] lg:mt-0 lg:h-[408px] lg:w-[329px] lg:space-y-[8px] lg:leading-[16px] desktop:mt-0 desktop:h-[578px] desktop:w-[524px] desktop:space-y-[15px] desktop:leading-[24px]">
+					<div className="mt-[12px] mb-3 h-full w-[80%] space-y-[8px] leading-[14px]  sm:mb-0 sm:h-[332px] sm:w-[252px] sm:space-y-[4px] sm:leading-[12.2px] md:-mt-[10px] md:h-[333px] md:w-[247px] md:space-y-[5px] md:leading-[12px] lg:mt-0 lg:h-[408px] lg:w-[329px] lg:space-y-[8px] lg:leading-[16px] desktop:mt-0 desktop:h-[578px] desktop:w-[524px] desktop:space-y-[15px] desktop:leading-[24px]">
 						<p>
 							<span className=" text-[12px] font-semibold sm:text-[12px] md:text-[12px] lg:text-[15px] desktop:text-[24px]">
 								{t('optimize_your_procurement_operations')}
@@ -308,8 +308,8 @@ function FeatureCommunication() {
 					</div>
 				</div>
 				{/* This is for mobile */}
-				<div className=" mt-[70px] block w-full pl-[16px] sm:hidden ">
-					<div className=" h-[51px] w-[259px]">
+				<div className=" mt-[70px] mb-4 block w-[90%] pl-[16px] sm:hidden ">
+					<div className=" h-[51px]">
 						<p className=" text-[18px] font-semibold  ">
 							{t('communication_center')}
 						</p>
@@ -411,7 +411,7 @@ function FeatureCommunication() {
 						/>
 					</div>
 				</div>
-				<div className=' h-[350px] w-full bg-[url("/static/images/WhyBuyImages/ready-to-grow-banner-phone.png")]  pl-[22px] pt-[14px] text-white sm:mt-[26px]  sm:h-[349px] sm:w-[626px] sm:bg-[url("/static/images/WhyBuyImages/ready-to-grow-banner.png")] sm:pl-[64px]  sm:pt-[29px] md:container md:mx-auto md:mt-[18px] md:h-[403px]  md:w-[721px] md:pl-[74px] md:pt-[43px] lg:mt-[31px] lg:h-[538px]  lg:w-[963px] lg:pl-[99px] lg:pt-[45px]  desktop:mt-[48px]  desktop:h-[822px]  desktop:w-[1489px] desktop:pl-[164px] desktop:pt-[48px] '>
+				<div className=' bg-[url("/static/images/WhyBuyImages/ready-to-grow-banner-phone.png")]s mx-auto h-[350px] w-full bg-error  bg-[url("/static/images/WhyBuyImages/ready-to-grow-banner.png")] bg-no-repeat pl-[22px] pt-[14px]  text-white sm:mt-[26px] sm:h-[349px] sm:w-[626px]  sm:pl-[64px] sm:pt-[29px] md:container md:mt-[18px] md:h-[403px]  md:w-[721px] md:pl-[74px] md:pt-[43px] lg:mt-[31px] lg:h-[538px]  lg:w-[963px] lg:pl-[99px] lg:pt-[45px]  desktop:mt-[48px]  desktop:h-[822px]  desktop:w-[1489px] desktop:pl-[164px] desktop:pt-[48px] '>
 					<p className=" h-[52px] w-full text-[21px] font-semibold leading-[25px] sm:h-[52px] sm:w-[40%]  sm:text-[21px] sm:leading-[25px] md:h-[60px]  md:text-[24px] md:leading-[29px] lg:h-[80px] lg:text-[33px] lg:leading-[38px] desktop:h-[122px] desktop:text-[50px] desktop:leading-[61px] ">
 						{t('ready_to_Grow_Your_Business?')}
 					</p>

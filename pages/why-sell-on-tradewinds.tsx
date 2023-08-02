@@ -26,8 +26,8 @@ const WhySellOnTradewindsPage: NextPage = () => {
 			<div className=" bg-bg_light_gray ">
 				{/* Header */}
 
-				<div className=" h-[1126px] w-full sm:h-[729px] md:h-[775px] lg:h-[1016px] desktop:h-[1508px] ">
-					<div className="relative mx-auto h-[203px] w-[300px] bg-[url('/static/images/why-sell-on-tradewinds-images/why-sell-on-tradewinds-header.png')] bg-cover bg-center bg-no-repeat sm:h-[298px] sm:w-[640px] md:h-[358px] md:w-[768px] lg:h-[478px] lg:w-[1025px] desktop:h-[703px] desktop:w-[1512px]">
+				<div className=" w-full">
+					<div className="relative mx-auto h-[203px] w-full bg-[url('/static/images/why-sell-on-tradewinds-images/why-sell-on-tradewinds-header.png')] bg-cover bg-center bg-no-repeat sm:h-[298px]  md:h-[358px] lg:h-[478px] desktop:h-[703px] 3xl:container">
 						<div className="absolute inset-0 z-[1] bg-black opacity-40"></div>
 
 						{/* content */}
@@ -52,25 +52,26 @@ const WhySellOnTradewindsPage: NextPage = () => {
 								</button>
 							</div>
 						</div>
-						<div className=" absolute left-1/2 z-50 mt-[203px] h-[328px] w-[300px] -translate-x-1/2 space-y-[10px] rounded-none bg-dark_gray p-[14px] text-left text-[12px] leading-[15px] text-beauty  sm:mt-[232px] sm:h-[180px] sm:w-[566px] sm:space-y-[10px] sm:rounded-[12px] sm:p-[10px] sm:text-center  sm:text-[12px] sm:leading-[15px] md:mt-[269px] md:h-[220px] md:w-[680px] md:space-y-[15px] md:p-[15px]  md:text-[15px] md:leading-[18px] lg:mt-[373px] lg:h-[248px] lg:w-[907px] lg:space-y-[15px] lg:p-[20px]  lg:text-[18px] lg:leading-[21px] desktop:mt-[549px]  desktop:h-[358px]  desktop:w-[1336px]  desktop:space-y-[20px] desktop:p-[40px] desktop:text-[25px]  desktop:leading-[30px] ">
-							<p>
-								{t(
-									'welcome_to_tradewinds_Marketplace,_your_ultimate_destination'
-								)}
-							</p>
-							<p>
-								{t(
-									`whether_you're_a_seasoned_seller_looking_to_expand_your_market_reach_or_a_budding_entrepreneur_ready`
-								)}
-							</p>
-						</div>
 					</div>
-					<div className=" container mx-auto mt-[345px] w-[300px] justify-center text-primary-main sm:mt-[122px] sm:w-[640px] md:mt-[146px] md:w-[768px] lg:mt-[156px] lg:w-[950px] desktop:mt-[242px] desktop:w-[1340px]">
-						<p className=" text-center text-[14px] font-semibold leading-[17px] sm:text-[15px] sm:leading-[18px] md:text-[18px] md:leading-[22px] lg:text-[25px] lg:leading-[30px] desktop:text-[50px] desktop:leading-[60px] ">
-							{t('benefits')}
+
+					<div className="relative z-[50000] w-full space-y-[10px] rounded-none bg-dark_gray p-[14px] text-left text-[12px] leading-[15px] text-beauty sm:container sm:mx-auto sm:-mt-[70px]  sm:h-[180px] sm:w-[566px] sm:justify-center sm:space-y-[10px] sm:rounded-[12px] sm:p-[10px] sm:text-center  sm:text-[12px] sm:leading-[15px] md:-mt-[79px] md:h-[220px] md:w-[680px] md:space-y-[15px] md:p-[15px]  md:text-[15px] md:leading-[18px] lg:-mt-[105px] lg:h-[248px] lg:w-[907px] lg:space-y-[15px] lg:p-[20px]  lg:text-[18px] lg:leading-[21px] desktop:-mt-[154px]  desktop:h-[358px]  desktop:w-[1336px]  desktop:space-y-[20px] desktop:p-[40px] desktop:text-[25px]  desktop:leading-[30px] ">
+						<p>
+							{t(
+								'welcome_to_tradewinds_Marketplace,_your_ultimate_destination'
+							)}
 						</p>
-						<div className=" container mx-auto mt-[20px] block justify-center pl-[14px] sm:mt-[15px] sm:flex sm:space-x-[18px] sm:pl-0 md:mt-[14px] md:space-x-[8px] lg:mt-[19px] lg:space-x-[11px] desktop:mt-[45px] desktop:space-x-[4px]">
-							<div className=" h-[137px] w-[272px] text-left sm:h-[173px] sm:w-[186px] sm:text-center md:h-[160px] md:w-[225px] lg:h-[205px] lg:w-[300px] desktop:h-[279px] desktop:w-[445px] ">
+						<p>
+							{t(
+								`whether_you're_a_seasoned_seller_looking_to_expand_your_market_reach_or_a_budding_entrepreneur_ready`
+							)}
+						</p>
+					</div>
+					<p className="mt-[22px] text-center text-[14px] font-semibold leading-[17px] text-primary-main sm:text-[15px] sm:leading-[18px] md:text-[18px] md:leading-[22px] lg:text-[25px] lg:leading-[30px] desktop:text-[50px] desktop:leading-[60px] ">
+						{t('benefits')}
+					</p>
+					<div className="  mb-5 w-[80%] text-primary-main  sm:container sm:mx-auto sm:w-[640px] sm:justify-center  md:w-[768px] lg:w-[950px] desktop:w-[1340px]">
+						<div className=" mt-[20px] block space-y-[40px] pl-[14px] sm:container sm:mx-auto sm:mt-[15px] sm:flex sm:justify-center sm:space-y-0 sm:space-x-[18px] sm:pl-0 md:mt-[14px] md:space-x-[8px] lg:mt-[19px] lg:space-x-[11px] desktop:mt-[45px] desktop:space-x-[4px]">
+							<div className="  w-full text-left sm:h-[173px] sm:w-[186px] sm:space-y-0 sm:text-center md:h-[160px] md:w-[225px] lg:h-[205px] lg:w-[300px] desktop:h-[279px] desktop:w-[445px] ">
 								<div className=" relative h-[45px] w-[45px] sm:mx-auto sm:h-[46px] sm:w-[46px] md:h-[55px] md:w-[55px] lg:h-[74px] lg:w-[74px] desktop:h-[108px] desktop:w-[109px] ">
 									<ImageWithErrorHandler
 										src="/static/images/why-sell-on-tradewinds-images/global-img.png"
@@ -78,7 +79,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 										fill={true}
 									/>
 								</div>
-								<div className=" mt-[7px] sm:mt-[11px] md:mt-[12px] lg:mt-[17px] desktop:mt-[20px] ">
+								<div className=" mt-[7px] sm:!mt-[11px] md:mt-[12px] lg:mt-[17px] desktop:mt-[20px] ">
 									<p className=" text-[12px] font-bold sm:text-[12px] md:text-[11px] lg:text-[15px] desktop:text-[23px] ">
 										{t('global_exposure')}
 									</p>
@@ -92,7 +93,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 									</p>
 								</div>
 							</div>
-							<div className=" h-[150px] w-[272px] text-left sm:h-[173px] sm:w-[210px] sm:text-center md:h-[160px] md:w-[225px] lg:h-[205px] lg:w-[300px] desktop:h-[279px] desktop:w-[445px] ">
+							<div className=" w-full text-left sm:h-[173px] sm:w-[210px] sm:text-center md:h-[160px] md:w-[225px] lg:h-[205px] lg:w-[300px] desktop:h-[279px] desktop:w-[445px] ">
 								<div className=" relative mt-[30px] h-[40px] w-[40px] sm:mx-auto sm:mt-[5px] sm:h-[40px] sm:w-[40px] md:mt-[7px] md:h-[48px] md:w-[47px] lg:mt-[10px] lg:h-[64px] lg:w-[63px] desktop:mt-0 desktop:h-[108px] desktop:w-[109px] ">
 									<ImageWithErrorHandler
 										src="/static/images/why-sell-on-tradewinds-images/commer-img.png"
@@ -114,7 +115,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 									</p>
 								</div>
 							</div>
-							<div className=" h-[150px] w-[272px] text-left sm:h-[173px] sm:w-[200px] sm:text-center md:h-[160px] md:w-[225px] lg:h-[205px] lg:w-[300px] desktop:h-[279px] desktop:w-[445px] ">
+							<div className="text-left sm:h-[173px] sm:w-[200px] sm:text-center md:h-[160px] md:w-[225px] lg:h-[205px] lg:w-[300px] desktop:h-[279px] desktop:w-[445px] ">
 								<div className=" relative mt-[30px] h-[45px] w-[45px] sm:mx-auto sm:-mt-[0px] sm:h-[46px] sm:w-[46px] md:mt-0 md:h-[55px] md:w-[55px] lg:mt-[0px] lg:h-[73px] lg:w-[73px] desktop:mt-0 desktop:h-[108px] desktop:w-[109px] ">
 									<ImageWithErrorHandler
 										src="/static/images/why-sell-on-tradewinds-images/sell_wholesale.png"
@@ -137,22 +138,23 @@ const WhySellOnTradewindsPage: NextPage = () => {
 								</div>
 							</div>
 						</div>
-						<div className=" hidden text-center sm:mt-[51px] sm:block md:mt-[33px] lg:mt-[60px] desktop:mt-[95px] ">
-							<button
-								onClick={gotoSellerSignup}
-								className=" rounded-[7px] bg-cyan font-normal text-white sm:h-[25px] sm:w-[135px] sm:text-[12.5px] md:h-[31px] md:w-[162px] md:text-[15px] lg:h-[40px] lg:w-[216px] lg:text-[16px] desktop:h-[60px] desktop:w-[319px] desktop:text-[25px] "
-							>
-								{t('common:join_now')}
-							</button>
-						</div>
+					</div>
+					<div className=" mb-4 hidden text-center sm:mt-[51px] sm:block md:mt-[33px] lg:mb-8 lg:mt-[60px] desktop:mt-[95px] ">
+						<button
+							onClick={gotoSellerSignup}
+							className=" rounded-[7px] bg-cyan font-normal text-white sm:h-[25px] sm:w-[135px] sm:text-[12.5px] md:h-[31px] md:w-[162px] md:text-[15px] lg:h-[40px] lg:w-[216px] lg:text-[16px] desktop:h-[60px] desktop:w-[319px] desktop:text-[25px] "
+						>
+							{t('common:join_now')}
+						</button>
 					</div>
 				</div>
-
-				<WhySellPlatform
-					mainClass="text-primary-main bg-white"
-					class1="bg-bg-main"
-					case1={false}
-				/>
+				<div className=" h-full">
+					<WhySellPlatform
+						mainClass="text-primary-main bg-white"
+						class1="bg-bg-main"
+						case1={false}
+					/>
+				</div>
 			</div>
 		</>
 	);

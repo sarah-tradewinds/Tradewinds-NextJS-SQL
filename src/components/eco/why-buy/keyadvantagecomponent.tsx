@@ -30,11 +30,11 @@ const KeyAdvantageComponent: React.FC<keyprops> = (props) => {
 				</div>
 			</div>
 			{/* For Mobile */}
-			<div className=" mt-[31px] block text-left sm:hidden md:hidden lg:hidden desktop:hidden ">
+			<div className=" mt-[31px] block text-left sm:hidden ">
 				<div className={`${imgClass} relative  `}>
 					<ImageWithErrorHandler src={imgUrl} alt="" fill={true} />
 				</div>
-				<div className="mt-[10px] h-[101px] w-[250px]  ">
+				<div className="mt-[10px] h-[101px] w-[90%]  ">
 					<p className=" text-[12px] font-bold ">{title}</p>
 					<p className="mt-[5px] text-[10px] leading-[12px] ">
 						<span className=" font-semibold">{descriptionHead}</span>

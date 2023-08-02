@@ -11,7 +11,10 @@ const Point: React.FC<PointProps> = (props) => {
 					.
 				</div>
 			</div>
-			<p className=" ml-[10px]  "> {content}</p>
+			<p className=" ml-[10px] leading-[22px] desktop:text-[18px] ">
+				{' '}
+				{content}
+			</p>
 		</div>
 	);
 };

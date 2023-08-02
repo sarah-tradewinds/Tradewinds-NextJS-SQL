@@ -60,10 +60,10 @@ const ShopByCountryPage: NextPage<
 		<>
 			<Seo title="Search by country page" description="" />
 
-			<div className="container relative mx-auto  justify-center bg-bg-main md:m-auto ">
+			<div className="relative bg-bg-main sm:container  sm:mx-auto sm:justify-center md:m-auto ">
 				{/* Headers */}
 				<div className=" relative ">
-					<div className="container relative mx-auto h-[411px] w-[300px] justify-center bg-[url('/static/images/search-by-country-images/mobile-search-by-country-header.png')] bg-cover bg-center bg-no-repeat sm:h-[298px] sm:w-[640px] sm:bg-[url('/images/shop-by-country-banner.png')] md:h-[238px] md:w-[768px] md:!bg-[url('/images/shop-by-country-banner.png')] lg:h-[318px] lg:w-[1025px] desktop:h-[436px] desktop:w-[1512px]">
+					<div className="relative h-[411px] w-full bg-[url('/static/images/search-by-country-images/mobile-search-by-country-header.png')] bg-cover bg-center bg-no-repeat sm:container sm:mx-auto sm:h-[298px] sm:justify-center sm:bg-[url('/images/shop-by-country-banner.png')] md:h-[238px] md:!bg-[url('/images/shop-by-country-banner.png')] lg:h-[318px] desktop:h-[436px] 3xl:container">
 						<p className=" absolute pl-[58px] pt-[31px] text-[32px] font-semibold text-white sm:pt-[83px] sm:pl-[202px] sm:text-[25px] md:pt-[85px] md:pl-[113px] md:text-[25px] lg:pt-[115px] lg:pl-[151px] lg:text-[40px] desktop:pt-[180px] desktop:pl-[332px] desktop:text-[96px]">
 							{t('shop_by_country')}
 						</p>
@@ -91,48 +91,50 @@ const ShopByCountryPage: NextPage<
 				</div>
 			</div>
 			{/* for small device */}
-			<div className=" relative left-1/2 z-50 -mt-[250px] block w-[237px] -translate-x-1/2 transform rounded-md bg-white sm:-mt-[86px] sm:block sm:w-[447px] md:hidden">
-				<div className="mr-[28px] ml-[24px] space-y-[15px] py-[15px] sm:mr-[47px] sm:ml-[40px] sm:pt-[15px]">
-					{regionsAndCountries.map((regionAndCountries: any) => {
-						const countries =
-							regionAndCountries?.edges?.region_country || [];
-						const regionId = regionAndCountries.id;
+			<div className="ml-[33px] mr-[30px] sm:mr-[97px] sm:ml-[96px] ">
+				<div className=" relative -mt-[250px] block w-full rounded-md bg-white sm:-mt-[86px] sm:block sm:w-full md:hidden">
+					<div className="mr-[28px] ml-[24px] space-y-[15px] py-[15px] sm:mr-[47px] sm:ml-[40px] sm:pt-[15px]">
+						{regionsAndCountries.map((regionAndCountries: any) => {
+							const countries =
+								regionAndCountries?.edges?.region_country || [];
+							const regionId = regionAndCountries.id;
 
-						return (
-							<CountryCollapse
-								key={regionId}
-								leading={countries?.length}
-								title={getLocaleText(
-									regionAndCountries.name || {},
-									router.locale
-								)}
-							>
-								<div className="space-y-[30px] bg-white py-2 pl-[30px] sm:pl-[60px]">
-									{countries?.map((country: any) => {
-										console.log('country', country);
-										return (
-											<CountryFlagTile
-												key={country.id}
-												title={getLocaleText(
-													country.name || {},
-													router.locale
-												)}
-												imageUrl={country?.image}
-												onClick={() => {
-													countryClickHandler(
-														regionId,
-														regionAndCountries?.name,
-														country.id,
-														country.name?.en
-													);
-												}}
-											/>
-										);
-									})}
-								</div>
-							</CountryCollapse>
-						);
-					})}
+							return (
+								<CountryCollapse
+									key={regionId}
+									leading={countries?.length}
+									title={getLocaleText(
+										regionAndCountries.name || {},
+										router.locale
+									)}
+								>
+									<div className="space-y-[30px] bg-white py-2 pl-[30px] sm:pl-[60px]">
+										{countries?.map((country: any) => {
+											console.log('country', country);
+											return (
+												<CountryFlagTile
+													key={country.id}
+													title={getLocaleText(
+														country.name || {},
+														router.locale
+													)}
+													imageUrl={country?.image}
+													onClick={() => {
+														countryClickHandler(
+															regionId,
+															regionAndCountries?.name,
+															country.id,
+															country.name?.en
+														);
+													}}
+												/>
+											);
+										})}
+									</div>
+								</CountryCollapse>
+							);
+						})}
+					</div>
 				</div>
 			</div>
 		</>

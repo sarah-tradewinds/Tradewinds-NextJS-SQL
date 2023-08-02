@@ -23,7 +23,7 @@ const WhyBuyPage: NextPage = () => {
 				<div className=" sm:-mt-[45px] md:-mt-[23px] lg:-mt-[52px] desktop:-mt-[91px] ">
 					<ProductQualifications />
 				</div>
-				<div className=" container mx-auto justify-center">
+				<div className=" sm:container sm:mx-auto sm:justify-center">
 					<FeatureCommunication />
 				</div>
 			</div>

@@ -6,8 +6,8 @@ function WhyBuyBanner() {
 	const { t } = useTranslation('why_buy');
 	const { setIsSignUpOpen } = useAuthStore();
 	return (
-		<div className=" container mx-auto h-[207px] w-[300px] justify-center  bg-[url('/static/images/WhyBuyImages/why-buy-header.png')] bg-cover bg-no-repeat sm:h-[343px] sm:w-[640px] md:h-[343px] md:w-[768px] lg:h-[458px] lg:w-[1025px] desktop:h-[703px] desktop:w-full">
-			<div className=" pt-[10px] pl-[70px] sm:pt-[19px] sm:pl-[381px] md:pt-[36px]  md:pl-[390px] lg:pt-[110px]  lg:pl-[521px] desktop:pt-[129px]  desktop:pl-[768px] ">
+		<div className="  l h-[207px] w-full bg-[url('/static/images/WhyBuyImages/why-buy-header.png')] bg-cover bg-no-repeat sm:h-[343px] md:h-[343px] lg:h-[458px] desktop:h-[703px] 3xl:container">
+			<div className=" pt-[10px] pl-[20%] sm:pt-[19px] sm:pl-[381px] md:pt-[36px]  md:pl-[390px] lg:pt-[110px]  lg:pl-[521px] desktop:pt-[129px]  desktop:pl-[768px] ">
 				<p className="  text-[15px] font-semibold leading-[18px] text-gray sm:text-[18px] sm:leading-[25px] md:text-[25px] md:leading-[27px] lg:text-[32px] lg:leading-[33px] desktop:text-[50px] desktop:leading-[51px] ">
 					{t('why_buy_on_tradewinds_marketplace')}
 				</p>
