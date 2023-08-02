@@ -129,7 +129,7 @@ function FeatureCommunication() {
 				<div className="mx-auto block justify-center pl-[20px] text-gray sm:mt-[13px] sm:flex sm:space-x-[42px] sm:!pl-0 md:mt-[24px] md:space-x-[48px] lg:mt-[32px] lg:space-x-[64px] desktop:mt-[54px]  desktop:space-x-[99px] ">
 					<div className=" relative sm:h-[319px] sm:w-[299px] md:h-[283px] md:w-[345px] lg:h-[378px] lg:w-[460px]  desktop:h-[620px] desktop:w-[704px] ">
 						<ImageWithErrorHandler
-							src="/static/images/WhyBuyImages/cart-img.png"
+							src="/static/images/WhyBuyImages/new-cart-img.png"
 							alt=""
 							fill={true}
 						/>
