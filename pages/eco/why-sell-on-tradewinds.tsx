@@ -29,7 +29,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 				<div>
 					{/* Header */}
 					<div className=" w-full bg-header-bar">
-						<div className="relative mx-auto h-[203px] w-[300px] bg-[url('/static/images/why-sell-on-tradewinds-images/why-sell-on-tradewinds-header.png')] bg-cover bg-center bg-no-repeat  sm:h-[298px] sm:w-[640px] md:h-[358px] md:w-[768px] lg:h-[478px] lg:w-[1025px] desktop:h-[703px] desktop:w-[1512px]">
+						<div className="relative mx-auto h-[203px] w-full bg-[url('/static/images/why-sell-on-tradewinds-images/why-sell-on-tradewinds-header.png')] bg-cover bg-center bg-no-repeat sm:h-[298px]  md:h-[358px] lg:h-[478px] desktop:h-[703px] 3xl:container">
 							<div className="absolute inset-0 z-[1] bg-black opacity-40"></div>
 							<div className="absolute z-[50] ml-[16px] mt-[19px] text-white sm:ml-[36px] sm:mt-[60px] md:ml-[44px] md:mt-[35px] lg:ml-[59px] lg:mt-[58px] desktop:ml-[87px] desktop:mt-[137px]">
 								<p className="w-[70%] text-[15px] font-semibold leading-[18px] sm:w-[283px] sm:text-[15px] sm:leading-[18px] md:w-[273px] md:text-[24px] md:leading-[29px] lg:w-[380px] lg:text-[32px] lg:leading-[39px] desktop:w-[566px] desktop:text-[50px] desktop:leading-[51px]">
@@ -55,11 +55,11 @@ const WhySellOnTradewindsPage: NextPage = () => {
 								<ProductQualifications />
 							</div>
 						</div>
-						<div className=" container relative mx-auto mt-[755px] h-[975px] w-[300px] justify-center bg-header-bar text-gray sm:mt-[447px] sm:h-[526px] sm:w-[640px] md:mt-[550px] md:h-[680px] md:w-[768px] lg:mt-[708px] lg:h-[780px] lg:w-[1025px] desktop:mt-[1015px] desktop:h-[1189px] desktop:w-[1512px]">
-							<p className="container mx-auto w-[300px] pt-[22px] text-center text-[15px] font-semibold leading-[18px] text-dark_brown sm:w-[563px] sm:pt-[35px] sm:text-[15px] sm:leading-[18px] md:w-[768px] md:pt-[39px] md:text-[18px] md:leading-[21px] lg:w-[1025px] lg:pt-[21px] lg:text-[30px] lg:leading-[37px] desktop:w-[753px] desktop:pt-[136px] desktop:text-[50px] desktop:leading-[60px] ">
+						<div className=" relative mt-[670px] h-[975px] w-full bg-header-bar text-gray sm:container sm:mx-auto sm:mt-[447px] sm:h-[526px] sm:w-[640px] sm:justify-center md:mt-[550px] md:h-[680px] md:w-[768px] lg:mt-[708px] lg:h-[780px] lg:w-[1025px] desktop:mt-[1015px] desktop:h-[1189px] desktop:w-[1512px]">
+							<p className="w-full pt-[22px] text-center text-[15px] font-semibold leading-[18px] text-dark_brown sm:container sm:mx-auto sm:w-[563px] sm:pt-[35px] sm:text-[15px] sm:leading-[18px] md:w-[768px] md:pt-[39px] md:text-[18px] md:leading-[21px] lg:w-[1025px] lg:pt-[21px] lg:text-[30px] lg:leading-[37px] desktop:w-[753px] desktop:pt-[136px] desktop:text-[50px] desktop:leading-[60px] ">
 								{t('key_advantages_of_selling_on_tradewinds_eco')}
 							</p>
-							<div className=" absolute left-1/2 mt-[0px] -translate-x-1/2 sm:mt-[30px] md:mt-[38px] lg:mt-[38px] desktop:mt-[70px] ">
+							<div className="absolute ml-[32px] mt-[0px] sm:left-1/2 sm:ml-0 sm:mt-[30px] sm:-translate-x-1/2 md:mt-[38px] lg:mt-[38px] desktop:mt-[70px] ">
 								<div className="block sm:!flex sm:space-x-[18px] md:space-x-[23px] lg:space-x-[42px] desktop:space-x-[69px]">
 									<KeyAdvantageComponent
 										imgUrl="/static/images/EcoPage/why-sell/targeted-audience.png"
@@ -95,7 +95,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 										)}
 									/>
 								</div>
-								<div className="container mx-auto block justify-center sm:mt-[21px] sm:!flex sm:space-x-[32px] md:mt-[55px] md:space-x-[45px] lg:mt-[65px] lg:space-x-[60px] desktop:mt-[50px] desktop:space-x-[99px]">
+								<div className="block sm:container sm:mx-auto sm:mt-[21px] sm:!flex sm:justify-center sm:space-x-[32px] md:mt-[55px] md:space-x-[45px] lg:mt-[65px] lg:space-x-[60px] desktop:mt-[50px] desktop:space-x-[99px]">
 									<KeyAdvantageComponent
 										imgUrl="/static/images/EcoPage/why-sell/dedicated-support.png"
 										imgClass="h-[35px] w-[35px] sm:h-[35px] sm:w-[35px] md:h-[45px] md:w-[45px] lg:h-[63px] lg:w-[63px] desktop:h-[105px] desktop:w-[104px]"

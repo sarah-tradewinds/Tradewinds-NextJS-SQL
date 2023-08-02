@@ -18,7 +18,7 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 	const { t } = useTranslation('why_sell_on_tw');
 	return (
 		<div
-			className={`${mainClass} mx-auto w-[300px]  pb-[40px]  sm:w-[620px] md:w-[745px] lg:w-[994px] desktop:w-[1466px]`}
+			className={`${mainClass} mx-auto w-full  pb-[40px]  sm:w-[620px] md:w-[745px] lg:w-[994px] desktop:w-[1466px]`}
 		>
 			<div className="container mx-auto w-[277px]  sm:w-[566px] md:w-[680px] lg:w-[907px] desktop:w-[1336px]">
 				<div>

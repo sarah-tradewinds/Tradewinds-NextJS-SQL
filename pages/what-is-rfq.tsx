@@ -50,7 +50,7 @@ const WhatIsRFQPage: NextPage = () => {
 
 			<div className="">
 				{/* Header */}
-				<div className="container mx-auto h-[135px] w-[300px] justify-center bg-[url('/static/images/RfqPageImages/header-img-what-rfq.png')] bg-cover bg-no-repeat sm:h-[284px] sm:w-[640px] md:h-[341px] md:w-[768px] lg:h-[456px] lg:w-[1025px] desktop:h-[673px] desktop:w-[1512px] ">
+				<div className=" h-[135px] bg-[url('/static/images/RfqPageImages/header-img-what-rfq.png')] bg-cover bg-no-repeat sm:h-[284px] md:h-[341px] lg:h-[456px] desktop:h-[673px] 3xl:container ">
 					<div className=" pl-[14px] pt-[4px] text-white sm:pl-[17px] sm:pt-[51px] md:pl-[21px] md:pt-[62px] lg:pl-[27px] lg:pt-[83px] desktop:pl-[50px]  desktop:pt-[123px]">
 						<p className=" h-[47px] w-[278px] text-[20px] font-semibold leading-[24px] text-secondary sm:h-[66px] sm:w-[343px] sm:text-[27px] sm:leading-[33px] md:h-[80px] md:w-[60%] md:text-[32px] md:leading-[39px] lg:h-[106px]  lg:text-[43px] lg:leading-[52px] desktop:h-[150px]  desktop:text-[64px] desktop:leading-[78px] ">
 							{t('one_request_multiple_quotes')}
@@ -72,7 +72,7 @@ const WhatIsRFQPage: NextPage = () => {
 				<div className="">
 					{/* For tablet and desktop */}
 					<div className=" container z-30 mx-auto hidden justify-center bg-[url('/static/images/RfqPageImages/why-use-rfq-bg.png')]  bg-cover bg-center bg-no-repeat sm:hidden md:-mt-[117px] md:block md:h-[490px] md:w-[768px] lg:-mt-[115px] lg:block lg:h-[616px] lg:w-[1025px] desktop:-mt-[163px] desktop:block desktop:h-[909px] desktop:w-[1512px]">
-						<p className=" mx-auto text-primary-main md:h-[93px] md:w-[630px] md:pt-[5px] md:text-[10px] md:leading-[13px] lg:h-[80px] lg:w-[773px] lg:pt-[13px] lg:text-[12px] lg:leading-[14px] desktop:h-[128px] desktop:w-[1141px] desktop:pt-[20px] desktop:text-[18px] desktop:leading-[21px]">
+						<p className=" mx-auto text-primary-main md:h-[93px] md:w-[630px] md:pt-[5px] md:text-[10px] md:leading-[13px] lg:h-[80px] lg:w-[773px] lg:pt-[13px] lg:text-[12px] lg:leading-[14px] desktop:h-[128px] desktop:w-[1141px] desktop:pt-[20px] desktop:text-[18px] desktop:leading-[23px]">
 							{t(
 								'RFQs_serve_as_a_vital_tool_for_buyers_to_identify_sellers_that_align_with_their_needs._Experience the power of RFQs on Tradewinds Marketplace,'
 							)}
@@ -110,12 +110,12 @@ const WhatIsRFQPage: NextPage = () => {
 						</div>
 					</div>
 					{/* Only for Mobile */}
-					<div className=" container mx-auto block h-[617px] justify-center sm:flex sm:h-[339px] sm:space-x-[28px] md:hidden ">
-						<div className=" mt-[12px] ml-[21px] sm:mt-[41px] sm:ml-[19px]">
-							<p className=" h-[30px] w-[237px] text-[20px] sm:h-[37px] sm:w-[228px] ">
+					<div className=" block h-full pb-10 sm:container sm:mx-auto sm:flex sm:h-[339px] sm:justify-center sm:space-x-[28px] sm:pb-0 md:hidden ">
+						<div className=" mx-[21px] mt-[12px] sm:mt-[41px] sm:ml-[19px]">
+							<p className=" h-[30px] w-full text-[20px] sm:h-[37px] sm:w-[228px] ">
 								{t('common:why_use_rfq')}
 							</p>
-							<p className=" h-[226px] w-[260px] text-[12px] leading-[14px] sm:h-[172px] sm:w-[341px] ">
+							<p className=" w-full text-[12px] leading-[14px] sm:h-[172px] sm:w-[341px] ">
 								{t(
 									'RFQs_serve_as_a_vital_tool_for_buyers_to_identify_sellers_that_align_with_their_needs._Experience the power of RFQs on Tradewinds Marketplace,'
 								)}
@@ -170,7 +170,7 @@ const WhatIsRFQPage: NextPage = () => {
 					</div>
 
 					{/* RFQ Sending Process */}
-					<div className="container mx-auto flex w-[300px] justify-center overflow-hidden bg-[url('/static/images/RfqPageImages/rfq-bg.png')] sm:w-[640px] md:w-[768px] lg:w-[1025px] desktop:w-[1512px]">
+					<div className="flex w-full justify-center overflow-hidden bg-[url('/static/images/RfqPageImages/rfq-bg.png')] sm:container sm:mx-auto sm:w-[640px] md:w-[768px] lg:w-[1025px] desktop:w-[1512px]">
 						<div className="relative hidden md:-ml-[20px] md:block md:h-[650px] md:w-[413px] lg:-ml-[29px] lg:block lg:h-[601px] lg:w-[551px] desktop:-ml-[29px] desktop:block desktop:h-[888px] desktop:w-[814px]">
 							<ImageWithErrorHandler
 								src="/static/images/RfqPageImages/rfq-main-img.png"
@@ -183,7 +183,7 @@ const WhatIsRFQPage: NextPage = () => {
 						{/* content */}
 						<div>
 							<div className="ml-[21px] sm:ml-[19px] md:-ml-[8px]  lg:-ml-[10px] desktop:-ml-[15px]">
-								<p className="mt-[30px] h-[95px] w-[280px] text-[20px] font-semibold leading-[25px] text-gray sm:mt-[33px] sm:h-[50px] sm:w-[606px] sm:text-[20px] sm:leading-[25px] md:mt-[31px] md:h-[90px] md:w-[430px] md:text-[25px] md:leading-[30px] lg:mt-[42px] lg:h-[60px] lg:w-[531px] lg:text-[25px] lg:leading-[30px] desktop:mt-[62px] desktop:h-[98px] desktop:w-[723px] desktop:text-[32px] desktop:leading-[48px]">
+								<p className="mt-[30px] w-full text-[20px] font-semibold leading-[25px] text-gray sm:mt-[33px] sm:h-[50px] sm:w-[606px] sm:text-[20px] sm:leading-[25px] md:mt-[31px] md:h-[90px] md:w-[430px] md:text-[25px] md:leading-[30px] lg:mt-[42px] lg:h-[60px] lg:w-[531px] lg:text-[25px] lg:leading-[30px] desktop:mt-[62px] desktop:h-[98px] desktop:w-[723px] desktop:text-[32px] desktop:leading-[48px]">
 									{t(
 										'how_should_i_send_a_rfq_on_tradewinds_marketplace'
 									)}
@@ -194,7 +194,7 @@ const WhatIsRFQPage: NextPage = () => {
 								</h4>
 							</div>
 							<div className="ml-[22px] mt-[28px] leading-[14px] sm:ml-[180px] sm:mt-[30px] sm:leading-[14px] md:ml-[25px] md:mt-[14px] md:leading-[14px] lg:ml-[31px] lg:mt-[18px] lg:leading-[12.94px] desktop:ml-[51px] desktop:mt-[38px] desktop:leading-[21.94px]">
-								<div className=" h-[646px] w-[246px] space-y-[20px] text-[12px] text-white sm:h-[488px] sm:w-[371px] sm:space-y-[20px] sm:text-[12px] md:h-[383px] md:w-[297px] md:space-y-[5px] md:text-[12px] lg:h-[384px] lg:w-[395px] lg:space-y-[25px] lg:text-[12px] desktop:h-[540px] desktop:w-[584px] desktop:space-y-[30px] desktop:text-[18px] ">
+								<div className=" w-[80%] space-y-[20px] text-[12px] text-white sm:h-[488px] sm:w-[371px] sm:space-y-[20px] sm:text-[12px] md:h-[383px] md:w-[297px] md:space-y-[5px] md:text-[12px] lg:h-[384px] lg:w-[395px] lg:space-y-[25px] lg:text-[12px] desktop:h-[540px] desktop:w-[584px] desktop:space-y-[30px]  ">
 									<div>
 										<p className="text-[12px] font-semibold leading-[15px] text-gray sm:text-[12px] md:text-[15px] md:leading-[18px] lg:text-[18px] lg:leading-[22px] desktop:text-[25px] desktop:leading-[30px] ">
 											{t('fill_out_RFQ_form')}
