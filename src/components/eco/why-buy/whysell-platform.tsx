@@ -20,14 +20,14 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 		<div
 			className={`${mainClass} mx-auto w-full  pb-[40px]  sm:w-[620px] md:w-[745px] lg:w-[994px] desktop:w-[1466px]`}
 		>
-			<div className="container mx-auto w-[277px]  sm:w-[566px] md:w-[680px] lg:w-[907px] desktop:w-[1336px]">
+			<div className="w-[277px]s mx-auto sm:w-[566px]  md:container md:w-[680px] lg:w-[907px] desktop:w-[1336px]">
 				<div>
 					<div className=" pt-[15px] text-center sm:pt-[13px] md:pt-[16px] lg:pt-[31px]  desktop:pt-[75px] ">
 						<p className="text-[15px] font-semibold leading-[18px] sm:text-[15px] sm:leading-[18px] md:text-[18px] md:leading-[20px] lg:text-[25px] lg:leading-[30px] desktop:text-[50px] desktop:leading-[60px]">
 							{t('platform_features')}
 						</p>
 					</div>
-					<div className="mt-[20px] space-y-[20px] sm:mt-[19px]  sm:space-y-[41px] md:mt-[23px] md:space-y-[49px] lg:mt-[38px] lg:space-y-[65px] desktop:mt-[71px] desktop:space-y-[96px]">
+					<div className="mt-[20px] space-y-[20px] sm:mt-[19px] sm:space-y-[41px] md:mt-[23px] md:space-y-[49px] lg:mt-[38px] lg:space-y-[65px] desktop:mt-[71px] desktop:space-y-[96px]">
 						<div
 							className={`${class1} h-[375px] rounded-[10px] pl-[13px] pt-[20px] sm:h-[193px] sm:pl-[13px] sm:pt-[25px] md:h-[232px] md:pl-[15px] md:pt-[29px] lg:h-[310px] lg:pl-[19px] lg:pt-[39px] desktop:h-[456px] desktop:pl-[30px] desktop:pt-[58px]`}
 						>
@@ -173,6 +173,7 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 								className="  "
 							/>
 						</WhySellOnTWOperationTile>
+
 						<div
 							className={`${class1} h-[457px] rounded-[10px]  pl-[13px] pt-[20px] sm:h-[237px] sm:pl-[13px] sm:pt-[0px] md:h-[295px] md:pl-[15px] md:pt-[12px] lg:h-[310px] lg:pl-[19px] lg:pt-[39px] desktop:h-[456px] desktop:pl-[30px] desktop:pt-[58px]`}
 						>
@@ -219,6 +220,7 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 								/>
 							</WhySellOnTWOperationTile>
 						</div>
+
 						<WhySellOnTWOperationTile
 							imageUrl="/static/images/why-sell-on-tradewinds-images/analytics-img.png"
 							title={t('common:analytics')}
