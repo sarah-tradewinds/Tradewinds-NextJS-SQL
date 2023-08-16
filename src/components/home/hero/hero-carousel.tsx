@@ -77,7 +77,7 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 								src={item.image}
 								alt={item.title?.en || item.order?.toString()}
 								fill={true}
-								className="object-cover md:object-contain"
+								className="object-cover md:object-fill"
 							/>
 						</div>
 

@@ -86,10 +86,10 @@ const ShopByCountryPage: NextPage<
 								}}
 							/>
 						</div>
-						{console.log('regionsAndCountries', regionsAndCountries)}
 					</div>
 				</div>
 			</div>
+
 			{/* for small device */}
 			<div className="ml-[33px] mr-[30px] sm:mr-[97px] sm:ml-[96px] ">
 				<div className=" relative -mt-[250px] block w-full rounded-md bg-white sm:-mt-[86px] sm:block sm:w-full md:hidden">
@@ -110,7 +110,6 @@ const ShopByCountryPage: NextPage<
 								>
 									<div className="space-y-[30px] bg-white py-2 pl-[30px] sm:pl-[60px]">
 										{countries?.map((country: any) => {
-											console.log('country', country);
 											return (
 												<CountryFlagTile
 													key={country.id}
