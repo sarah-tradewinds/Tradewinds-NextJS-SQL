@@ -77,6 +77,7 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 								src={item.image}
 								alt={item.title?.en || item.order?.toString()}
 								fill={true}
+								className="object-cover md:object-fill"
 							/>
 						</div>
 
@@ -114,6 +115,7 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 										}
 										variant="buyer"
 										style={{ backgroundColor: item?.btn_color }}
+										className="!whitespace-nowrap"
 									>
 										{getLocaleText(item?.btn_text || {}, locale)}
 									</Button>

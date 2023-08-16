@@ -320,13 +320,14 @@ const Trending_page: NextPage<
 
 			{/* Banner image for trending only */}
 			<div className="3xl:container 3xl:w-[1512px]">
-				<div className="bg-[url('/static/images/trending_images/what's trending page Header.png')] sm:bg-[url('/static/images/trending_images/what's trending page Header-large.png')] relative h-[241px] w-full md:h-[234px] lg:h-[228px] xl:h-[192.67px] desktop:h-[234px]">
-					<ImageWithErrorHandler
+				{/* <div className="sm:bg-[url('/static/images/trending_images/what's trending page Header-large.png')] relative h-[241px] w-full bg-[url('/images/what-is-trending-xs.svg')] md:h-[234px] lg:h-[228px] xl:h-[192.67px] desktop:h-[234px]"> */}
+				<div className="relative -mt-1 h-[241px] w-full bg-[url('/images/what-is-trending-xs.svg')] bg-cover bg-center bg-no-repeat sm:bg-[url('/images/what-is-trending-sm.svg')] sm:bg-left-top md:h-[234px] md:bg-[url('/images/what-is-trending.svg')] lg:h-[228px] xl:h-[192.67px] desktop:h-[234px]">
+					{/* <ImageWithErrorHandler
 						src="/images/what-is-trending.svg"
 						alt="what is trending banner"
 						fill={true}
 						className="bg-left object-cover"
-					/>
+					/> */}
 
 					<p className="absolute bottom-[26px] right-5 w-[117px] text-[25px] font-semibold leading-[30.48px] text-white md:hidden lg:bottom-1/2 lg:right-8 lg:block lg:w-auto lg:translate-y-1/2 lg:text-[48px] lg:leading-[58.51px] xl:text-[40.63px] xl:leading-[49.53px] desktop:text-[48px] desktop:leading-[58.51px]">
 						{t('what’s_trending')}

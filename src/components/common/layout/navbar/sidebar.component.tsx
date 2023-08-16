@@ -17,6 +17,7 @@ import {
 } from 'data/buyer/buyer-actions';
 
 // stores
+import LanguageDropdown from 'components/common/elements/lang-menu';
 import NavLink from 'components/common/elements/nav-link';
 import { useAuthStore } from 'store/auth';
 import { useCartStore } from 'store/cart-store-v2';
@@ -44,7 +45,7 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
 	const { t } = useTranslation('navigation');
 
 	let sidebarClassName =
-		'fixed top-[78px] shadow-xl z-10 flex h-[365px] w-[181px] flex-col space-y-4 rounded-r-md bg-white px-2 pt-4 pb-4 transform transition-all duration-300';
+		'fixed top-[78px] shadow-xl z-10 flex h-[365px]s w-[181px] flex-col space-y-4 rounded-r-md bg-white px-2 pt-4 pb-4 transform transition-all duration-300';
 	if (isOpen) {
 		sidebarClassName = `${sidebarClassName} -translate-x-[22px] opacity-100`;
 	} else {
@@ -121,8 +122,12 @@ const Sidebar: React.FC<SidebarProps> = (props) => {
 					activeClassName="underline font-semibold"
 					onClick={onClose}
 				>
-					{t('dashboard')}
+					{t('Dashboard')}
 				</NavLink>
+
+				<div className="mobile-nav-link relative">
+					<LanguageDropdown />
+				</div>
 
 				{isAuth && (
 					<NavLink
