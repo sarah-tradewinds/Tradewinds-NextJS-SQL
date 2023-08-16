@@ -16,7 +16,6 @@ import Seo from 'components/common/seo';
 import ProductFilter from 'components/product-search/product-filter/product-filter';
 import ProductList from 'components/product-search/product-list';
 import ProductSearchFilterBar from 'components/product-search/product-search-filter-bar';
-import RFQCard from 'components/product-search/rfq-card.components';
 import MiniRFQCard from 'components/product-search/rfq-mini-card.components';
 
 const MainCategoryAndCategoriesTile = dynamic(
@@ -54,6 +53,7 @@ import {
 	generateBuyerDashboardUrl
 } from 'data/buyer/buyer-actions';
 
+import RFQCard from 'components/product-search/rfq-card.components';
 import {
 	getProducts,
 	getSelectedMainCategoryAndCategories
@@ -346,7 +346,7 @@ const ProductSearchPage: NextPage<
 									<li>{t('close_the_deal')} </li>
 								</ul>
 
-								<div className="flex justify-center  md:pt-[34px] xl:pt-[48px] desktop:justify-start desktop:pl-2">
+								<div className="flex justify-center md:pt-[34px] xl:pt-[48px] desktop:justify-start desktop:pl-2">
 									<button
 										onClick={() => {
 											if (!isAuth) {
@@ -521,8 +521,13 @@ const ProductSearchPage: NextPage<
 
 						{/*If no any product in the product list - Speed your search up!! RFQ Card  */}
 						{products?.length <= 0 && (
-							<div className="hidden md:block">
-								<RFQCard size="lg" />
+							<div className="my-5 md:my-0">
+								<div className="hidden md:block">
+									<RFQCard size="lg" />
+								</div>
+								<div className="px-4 md:hidden">
+									<MiniRFQCard size="xs" />
+								</div>
 							</div>
 						)}
 
