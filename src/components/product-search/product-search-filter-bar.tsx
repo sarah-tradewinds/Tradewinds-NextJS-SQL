@@ -40,7 +40,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 	} = props;
 	const { t } = useTranslation();
 	const [isCustomizable, setIsCustomizable] = useState(false);
-	const [isReadyToShip, setIsReadyToShip] = useState(false);
+	const [isLiveBuy, setIsLiveBuyShip] = useState(false);
 	const [minOrder, setMinOrder] = useState(1);
 	const [maxOrder, setMaxOrder] = useState(100);
 	const [minPrice, setMinPrice] = useState(1);
@@ -55,7 +55,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 		const filterValue = getFilterValueFromQuery(query);
 		console.log(filterValue);
 		setIsCustomizable(filterValue.is_customizable);
-		setIsReadyToShip(filterValue.is_ready_to_ship);
+		setIsLiveBuyShip(filterValue.is_live_buy);
 
 		// order
 		setMinOrder(+(filterValue.minimum_order || 1));
@@ -97,10 +97,10 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 			<label className="flex cursor-pointer items-center">
 				<input
 					type="checkbox"
-					checked={isReadyToShip}
+					checked={isLiveBuy}
 					className="!rounded-none md:scale-125"
 					onChange={() => {
-						setIsReadyToShip((prevState) => {
+						setIsLiveBuyShip((prevState) => {
 							onLiveBuyReadyToShipChange?.(!prevState);
 							return !prevState;
 						});
