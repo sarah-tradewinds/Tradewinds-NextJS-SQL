@@ -270,8 +270,8 @@ const ProductSearchPage: NextPage<
 			onCustomizableChange={(isCustomizable) => {
 				getProductSearchURL(router, { isCustomizable });
 			}}
-			onLiveBuyReadyToShipChange={(isReadyToShip) => {
-				getProductSearchURL(router, { isReadyToShip });
+			onLiveBuyReadyToShipChange={(isLiveBuy) => {
+				getProductSearchURL(router, { is_live_buy: isLiveBuy });
 			}}
 		/>
 	);
