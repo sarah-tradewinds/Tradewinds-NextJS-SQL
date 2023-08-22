@@ -67,17 +67,15 @@ const CollectionSliderOld: React.FC<CollectionSliderOldProps> = (
 				product?.edges?.product_variants?.[0]?.images?.[0] || '';
 
 			return (
-				<div
+				<Link
 					key={product?.id}
+					href={`/product/${product?.id}`}
 					className="relative mb-4 mr-4 !h-[92px] !w-[139.25px] border-[2px] border-[#C4C4C4] md:mr-0 md:!h-[92px] md:!w-[144.12px] lg:mb-7 lg:!h-[134px] lg:!w-[239px]"
 				>
 					<div className="flex h-full w-full flex-col justify-between p-2">
-						<Link
-							href={`/product/${product?.id}`}
-							className="text-xs leading-[15px]"
-						>
+						<p className="text-xs leading-[15px]">
 							{getLocaleText(product?.name || {}, router.locale)}{' '}
-						</Link>
+						</p>
 
 						{/* Icon or Image */}
 						<div className="flex space-x-2">
@@ -109,7 +107,7 @@ const CollectionSliderOld: React.FC<CollectionSliderOldProps> = (
 							/>
 						</div>
 					</div>
-				</div>
+				</Link>
 			);
 		}) || [];
 
