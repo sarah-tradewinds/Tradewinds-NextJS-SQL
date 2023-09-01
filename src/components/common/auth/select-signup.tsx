@@ -55,56 +55,51 @@ const SelectSignUp: React.FC = () => {
 							<form className="w-[300px] sm:w-[510px]">
 								<div className="mt-[30px] mb-[27px] flex items-center text-left text-[13px] font-normal text-label_gray sm:mt-[41px] sm:text-center sm:text-lg">
 									{/* <br /> */}
-									<div className="sm:justify-centers w-full items-center space-y-1 sm:flex sm:space-y-0 sm:space-x-8 md:space-x-4 lg:space-x-8">
-										<label className="whitespace-nowrap">
+									<div className="flex w-full items-center justify-center space-x-4 lg:space-x-8">
+										{/* <label className="whitespace-nowrap">
 											{t('i_am_a...')}
-										</label>
+										</label> */}
 
-										<div className="sm:w-[150px]s md:w-[150px]s lg:w-fulls">
-											<label>
-												<span className=" mr-[7px]">
-													<input
-														className=" inline-block h-[17px] w-[17px] border align-text-top sm:h-[23px] sm:w-[23px] "
-														type="radio"
-														name="myRadio"
-														value="Buyer"
-														onChange={handleRadioChange}
-														defaultChecked
-													/>
-												</span>
-												{t('buyer')}
-											</label>
-										</div>
-										<div className=" sm:w-[150px]s md:w-[140px]s lg:w-fulls">
-											<label>
-												<span className=" mr-[7px]">
-													<input
-														className=" inline-block h-[17px] w-[17px] align-text-top sm:h-[23px] sm:w-[23px]"
-														type="radio"
-														name="myRadio"
-														value="Seller"
-														onChange={handleRadioChange}
-													/>
-												</span>
-												{t('seller')}
-											</label>
-										</div>
-										<div className=" md:w-[140px]s lg:w-fulls sm:w-[150px]s">
-											<label className="flex items-center space-x-2 md:flex-col lg:flex-row">
-												<span className="smr-[7px]">
-													<input
-														className=" inline-block h-[17px] w-[17px] align-text-top sm:h-[23px] sm:w-[23px]"
-														type="radio"
-														name="myRadio"
-														value="BDM"
-														onChange={handleRadioChange}
-													/>
-												</span>
-												<span className="whitespace-nowrap">
-													{t('business_agent')}
-												</span>
-											</label>
-										</div>
+										<label>
+											<span className="mr-[7px]">
+												<input
+													className=" inline-block h-[17px] w-[17px] border align-text-top sm:h-[23px] sm:w-[23px] "
+													type="radio"
+													name="myRadio"
+													value="Buyer"
+													onChange={handleRadioChange}
+													defaultChecked
+												/>
+											</span>
+											{t('buyer')}
+										</label>
+										<label>
+											<span className=" mr-[7px]">
+												<input
+													className=" inline-block h-[17px] w-[17px] align-text-top sm:h-[23px] sm:w-[23px]"
+													type="radio"
+													name="myRadio"
+													value="Seller"
+													onChange={handleRadioChange}
+												/>
+											</span>
+											{t('seller')}
+										</label>
+										<label className="flex items-center space-x-2">
+											<span className="smr-[7px]">
+												<input
+													className=" inline-block h-[17px] w-[17px] align-text-top sm:h-[23px] sm:w-[23px]"
+													type="radio"
+													name="myRadio"
+													value="BDM"
+													onChange={handleRadioChange}
+												/>
+											</span>
+											<span className="whitespace-nowrap">
+												{/* {t('business_agent')} */}
+												BA
+											</span>
+										</label>
 									</div>
 								</div>
 								<div className="container mx-auto w-[220px] justify-center sm:w-[250px] md:w-[350px]">
@@ -150,10 +145,10 @@ const SelectSignUp: React.FC = () => {
 							</Button>
 							<p
 								className="mt-[24px] cursor-pointer text-center text-sm text-accent-primary-main "
-								// onClick={() => {
-								// 	// setIsLoginOpen();
-								// 	router.push('/forgot-password');
-								// }}
+								onClick={() => {
+									// setIsLoginOpen();
+									router.push('/forgot-password');
+								}}
 							>
 								{t('auth:forgot_password')}?
 							</p>
