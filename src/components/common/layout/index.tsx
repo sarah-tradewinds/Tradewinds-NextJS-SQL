@@ -139,6 +139,7 @@ const Layout: React.FC<{ productName?: string; seo: any }> = (
 				<SelectSignUpPage />
 				<SignUpPage />
 				<Login />
+
 				<main className="tablet:scale-[0.85]s tablet:transforms bg-bg-main pb-8 dark:bg-bg-eco">
 					{children}
 				</main>

@@ -273,6 +273,9 @@ const ProductSearchPage: NextPage<
 			onLiveBuyReadyToShipChange={(isReadyToShip) => {
 				getProductSearchURL(router, { isReadyToShip });
 			}}
+			ProductPriceSort={(price) => {
+				getProductSearchURL(router, { price });
+			}}
 		/>
 	);
 

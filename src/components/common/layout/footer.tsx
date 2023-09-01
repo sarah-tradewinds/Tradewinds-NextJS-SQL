@@ -29,15 +29,37 @@ const Footer: React.FC = () => {
 				onClose={() => setIsContactUsPopupOpen(false)}
 			/>
 
-			<footer className="bg-accent-primary-main font-montserrat dark:bg-header-bar md:bg-header-bar lg:sm:bg-accent-primary-main">
-				<div className="relative flex h-[80px] flex-col items-center justify-center bg-cyan dark:bg-header-bar md:items-center md:justify-center">
+			<footer className="bg-accent-primary-main font-montserrat  dark:bg-header-bar md:bg-header-bar lg:sm:bg-accent-primary-main ">
+				<div className="relative  flex h-[80px] flex-col items-center justify-center bg-cyan dark:bg-header-bar md:items-center md:justify-center">
+					<div className="absolute float-left flex items-center space-x-[21px] sm:space-x-[26px] md:left-[17px] md:space-x-[12px] lg:left-[13px] lg:space-x-[20px] xl:left-[21px] xl:space-x-[23px] ">
+						<p className=" text-[15px] font-bold leading-[18px] text-white sm:text-[18px] sm:leading-[23px] md:text-[9px] md:leading-[10.97px] lg:text-[15px] lg:leading-[18.29px] xl:text-[21px] xl:leading-[25px] ">
+							Follow us
+						</p>
+						<div className=" flex space-x-[15px] sm:space-x-[18px] md:space-x-[9px] lg:space-x-[15px] xl:space-x-[20px]">
+							<img
+								alt="insta"
+								src="/icons/insta.png"
+								className=" h-[31px] w-[31px] sm:h-[38px] sm:w-[38px] md:h-[18px] md:w-[18px] lg:h-[30px] lg:w-[30px] xl:h-[40px] xl:w-[40px] "
+							/>
+							<img
+								alt="facebook"
+								src="/icons/facebook.png"
+								className="h-[31px] w-[31px] sm:h-[38px] sm:w-[38px] md:h-[18px] md:w-[18px] lg:h-[30px] lg:w-[30px] xl:h-[40px] xl:w-[40px]"
+							/>
+							<img
+								alt="linkedin"
+								src="/icons/linkedin.png"
+								className="h-[31px] w-[31px] sm:h-[38px] sm:w-[38px] md:h-[18px] md:w-[18px] lg:h-[30px] lg:w-[30px] xl:h-[40px] xl:w-[40px]"
+							/>
+						</div>
+					</div>
 					<button
 						onClick={goToTop}
-						className="mb-6 text-center font-semibold text-white dark:text-primary-eco"
+						className="mb-6 hidden text-center font-semibold text-white dark:text-primary-eco md:block"
 					>
 						{t('back_to_top')}
 					</button>
-					<div className="absolute -bottom-7 rounded-full bg-[#30AAE1] p-2 dark:bg-header-bar ">
+					<div className="absolute -bottom-7 hidden rounded-full bg-[#30AAE1] p-2 dark:bg-header-bar md:block ">
 						<img
 							alt="..."
 							src={
