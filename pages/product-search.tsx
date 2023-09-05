@@ -100,7 +100,7 @@ const ProductSearchPage: NextPage<
 
 	const router = useRouter();
 	const { push, query } = router;
-
+	console.log('Quearyparameter', query);
 	const { main_category } = query;
 	const [categoryId] = getIdAndName((query.category || '') as string);
 
@@ -273,8 +273,8 @@ const ProductSearchPage: NextPage<
 			onLiveBuyReadyToShipChange={(isLiveBuy) => {
 				getProductSearchURL(router, { is_live_buy: isLiveBuy });
 			}}
-			ProductPriceSort={(price) => {
-				getProductSearchURL(router, { price });
+			ProductSortType={(price) => {
+				getProductSearchURL(router, { sort_price: price });
 			}}
 		/>
 	);
@@ -584,7 +584,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 	);
 
 	const filterValue = getFilterValueFromQuery(query);
-
+	console.log('ALLLfilterValue', filterValue);
 	const products = await getProducts({
 		...filterValue
 	});

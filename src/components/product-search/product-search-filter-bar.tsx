@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 // Third party packages
-import { Popover } from '@headlessui/react';
+import { Menu, Popover } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useTranslation } from 'next-i18next';
 import useSWR from 'swr';
@@ -26,7 +26,7 @@ interface ProductSearchFilterBarProps {
 	onPriceChange?: (minPrice?: number, maxPrice?: number) => void;
 	onCustomizableChange?: (isCustomizable: boolean) => void;
 	onLiveBuyReadyToShipChange?: (value: boolean) => void;
-	ProductPriceSort?: (Value: string) => void;
+	ProductSortType?: (sort_Type: any) => void;
 }
 
 const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
@@ -38,7 +38,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 		onPriceChange,
 		onCustomizableChange,
 		onLiveBuyReadyToShipChange,
-		ProductPriceSort
+		ProductSortType
 	} = props;
 	const { t } = useTranslation();
 	const [isCustomizable, setIsCustomizable] = useState(false);
@@ -47,7 +47,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 	const [maxOrder, setMaxOrder] = useState(100);
 	const [minPrice, setMinPrice] = useState(1);
 	const [maxPrice, setMaxPrice] = useState(100);
-	const [sortPrice, setSortPrice] = useState('');
+	const [sortType, setSortType] = useState('');
 	const [selectedCountry, setSelectedCountry] = useState<
 		ICountry | undefined
 	>();
@@ -59,6 +59,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 		console.log(filterValue);
 		setIsCustomizable(filterValue.is_customizable);
 		setIsLiveBuyShip(filterValue.is_live_buy);
+		setSortType(filterValue.sort_price);
 
 		// order
 		setMinOrder(+(filterValue.minimum_order || 1));
@@ -105,6 +106,24 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 	// 	}
 	// };
 	// sortBy();
+	const sortingBy = [
+		{
+			sort: 'low_to_high',
+			name: 'Price: Low to High'
+		},
+		{
+			sort: 'high_to_low',
+			name: 'Price: High to Low'
+		},
+		{
+			sort: 'low_to_high',
+			name: 'MOQ: Low to High'
+		},
+		{
+			sort: 'high_to_low',
+			name: 'MOQ: High to Low'
+		}
+	];
 
 	console.log('activeField', field);
 	return (
@@ -170,7 +189,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 					optionsContainerClassName="w-[202px] sw-full"
 				/>
 			</div>
-			<div>
+			{/* <div>
 				<div
 					onClick={() => setActive(true)}
 					className=" cursor-pointer"
@@ -217,10 +236,11 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 						MOQ: High to Low
 					</option>
 				</section>
-				{/* <div className=" ">
+				 <div className=" ">
 						<ProductSort />
-					</div> */}
-			</div>
+					</div> 
+			</div>  */}
+
 			{/* Min. Order - dropdown */}
 			<div className="relative mr-2 flex items-center">
 				<p className="mr-2 whitespace-nowrap text-[10px] font-semibold text-gray lg:text-[12px] lg:leading-[14.63px] xl:text-[14.5px] xl:leading-[17.29px]">
@@ -328,6 +348,37 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 						)}
 					</Popover.Panel>
 				</Popover>
+			</div>
+			<div className="z-50 mt-2 ">
+				<Menu as="div" className="relative inline-block text-left">
+					<div>
+						<Menu.Button className=" flex w-[150px] items-center font-semibold text-gray md:text-[10.8px] md:font-normal md:leading-[13.17px] lg:text-[14.5px] lg:leading-[17.57px]">
+							<p className="font-semibold">Sort</p>
+						</Menu.Button>
+					</div>
+
+					<Menu.Items className="divide-gray-100 absolutes mt-2 origin-top-right divide-y rounded-md bg-white px-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none md:right-1">
+						<div className="px-1">
+							{sortingBy.map(({ sort, name }) => {
+								return (
+									<Menu.Item key={sort}>
+										<button
+											onClick={() => ProductSortType?.(sort)}
+											className={`my-2 block text-sm capitalize `}
+											// 	locale === code
+											// 		? 'font-semibold text-primary-main'
+											// 		: ''
+											// }`}
+											// className=" block"
+										>
+											{name}
+										</button>
+									</Menu.Item>
+								);
+							})}
+						</div>
+					</Menu.Items>
+				</Menu>
 			</div>
 		</div>
 	);
