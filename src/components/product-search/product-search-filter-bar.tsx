@@ -8,7 +8,6 @@ import { useTranslation } from 'next-i18next';
 import useSWR from 'swr';
 
 // components
-import { useAuthStore } from 'store/auth';
 import Button from '../common/form/button';
 import CountrySearchDropdown, {
 	ICountry
@@ -53,7 +52,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 	>();
 
 	const { query } = useRouter();
-	const { setIsProductSort } = useAuthStore();
+
 	useEffect(() => {
 		const filterValue = getFilterValueFromQuery(query);
 		console.log(filterValue);
@@ -189,57 +188,6 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 					optionsContainerClassName="w-[202px] sw-full"
 				/>
 			</div>
-			{/* <div>
-				<div
-					onClick={() => setActive(true)}
-					className=" cursor-pointer"
-					// onClick={setIsProductSort}
-				>
-					<img
-						alt="sort"
-						src="/icons/sort-icon.png"
-						className=" h-[31px] w-[31px] sm:h-[38px] sm:w-[38px] md:h-[18px] md:w-[18px] lg:h-[30px] lg:w-[30px] xl:h-[40px] xl:w-[40px] "
-					/>
-				</div>
-				<section
-					onClick={() => setActive(false)}
-					className={` absolute z-50 cursor-pointer rounded-md border border-black/50 bg-white  ${
-						active ? 'block' : 'hidden'
-					}`}
-				>
-					<option
-						onClick={() => {
-							ProductPriceSort?.('high_to_low');
-							close();
-						}}
-						// onClick={activeField}
-						className="border-b border-black/20 p-1 font-medium hover:bg-black/10 "
-					>
-						Price: Low to High
-					</option>
-					<option
-						onClick={activeField}
-						className="border-b border-black/20 p-1 font-medium hover:bg-black/10"
-					>
-						Price: High to Low
-					</option>
-					<option
-						onClick={activeField}
-						className="border-b border-black/20 p-1 font-medium hover:bg-black/10"
-					>
-						MOQ: Low to High
-					</option>
-					<option
-						onClick={activeField}
-						className="p-1 font-medium hover:bg-black/10 "
-					>
-						MOQ: High to Low
-					</option>
-				</section>
-				 <div className=" ">
-						<ProductSort />
-					</div> 
-			</div>  */}
 
 			{/* Min. Order - dropdown */}
 			<div className="relative mr-2 flex items-center">
@@ -349,7 +297,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 					</Popover.Panel>
 				</Popover>
 			</div>
-			<div className="z-50 md:-mt-[5px] md:ml-[2px]   lg:mt-[4px] lg:ml-[4px] xl:ml-[6px] desktop:mt-[6px] desktop:ml-2 ">
+			<div className="z-50 md:-mt-[5px] md:ml-[2px]   lg:mt-[4px] lg:ml-[6px] xl:ml-[6px] desktop:mt-[6px] desktop:ml-2 ">
 				<Menu
 					as="div"
 					className="relative inline-block text-left md:w-[90px] lg:w-[120px] xl:w-[120px] desktop:w-[155px]"

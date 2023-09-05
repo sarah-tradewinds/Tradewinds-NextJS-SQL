@@ -1,4 +1,4 @@
-import { Popover } from '@headlessui/react';
+import { Menu, Popover } from '@headlessui/react';
 import Button from 'components/common/form/button';
 import { getHomeCountries } from 'lib/home.lib';
 import { useTranslation } from 'next-i18next';
@@ -28,14 +28,33 @@ const ProductFilterSlider: React.FC<ProductFilterSliderProps> = (
 	const [maxOrder, setMaxOrder] = useState(100);
 	const [minPrice, setMinPrice] = useState(1);
 	const [maxPrice, setMaxPrice] = useState(100);
+	const [sortType, setSortType] = useState('');
 	const { t } = useTranslation();
 	const router = useRouter();
 	const { push, query } = router;
-
+	const sortingBy = [
+		{
+			sort: 'price_low_to_high',
+			name: 'Price: Low to High'
+		},
+		{
+			sort: 'price_high_to_low',
+			name: 'Price: High to Low'
+		},
+		{
+			sort: 'moq_low_to_high',
+			name: 'MOQ: Low to High'
+		},
+		{
+			sort: 'moq_high_to_low',
+			name: 'MOQ: High to Low'
+		}
+	];
 	useEffect(() => {
 		const filterValue = getFilterValueFromQuery(query);
 		setIsCustomizable(filterValue.is_customizable);
 		setIsLiveBuy(filterValue.is_live_buy);
+		setSortType(filterValue.sort_type);
 
 		// order
 		setMinOrder(+(filterValue.minimum_order || minOrder));
@@ -70,8 +89,46 @@ const ProductFilterSlider: React.FC<ProductFilterSliderProps> = (
 					<CategoriesFilter />
 				</div>
 			</div>
+			<div className="z-50 mt-4 ">
+				<Menu as="div" className=" inline-block text-left ">
+					<div>
+						<Menu.Button className=" flex items-center text-[13.27px] font-semibold text-black ">
+							<p className="font-semibold">Sort</p>
+						</Menu.Button>
+					</div>
 
-			<div className="mt-6 space-y-4">
+					<Menu.Items className="divide-gray-100  mt-2 w-full origin-top-right divide-y rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none md:right-1">
+						<div className=" p-2">
+							{sortingBy.map(({ sort, name }) => {
+								return (
+									<Menu.Item key={sort}>
+										<button
+											// onClick={() => ProductSortType?.(sort)}
+											// onClick={() => setSortType(sort)}
+											onClick={() => {
+												getProductSearchURL(router, {
+													sort_type: sort
+												});
+												close();
+											}}
+											className={` my-1 block text-[11px] capitalize leading-[13px] hover:text-primary-main `}
+											// 	locale === code
+											// 		? 'font-semibold text-primary-main'
+											// 		: ''
+											// }`}
+											// className=" block"
+										>
+											{name}
+										</button>
+									</Menu.Item>
+								);
+							})}
+						</div>
+					</Menu.Items>
+				</Menu>
+			</div>
+
+			<div className="mt-4 space-y-4">
 				{/* Customizable - checkbox */}
 				<label className="flex items-center justify-between">
 					<p className="text-[13.27px] font-semibold">
