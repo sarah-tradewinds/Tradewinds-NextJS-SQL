@@ -51,10 +51,7 @@ export const getProductReviewAnalyticsByProductId = async (
 
 export const getSellerDetailsBySellerId = async (sellerId: string) => {
 	try {
-		const { data } = await axiosInstance.get(
-			// `/seller/profile/${sellerId}`
-			`/seller/${sellerId}`
-		);
+		const { data } = await axiosInstance.get(`/seller/${sellerId}`);
 		return data.data || {};
 	} catch (error) {
 		console.log('[getSellerDetailsBySellerId] =', error);
@@ -62,6 +59,21 @@ export const getSellerDetailsBySellerId = async (sellerId: string) => {
 		return {};
 	}
 }; // End of getSellerDetailsBySellerId
+
+export const getSellerDetailsByStoreSlug = async (
+	storeSlug: string
+) => {
+	try {
+		const { data } = await axiosInstance.get(
+			`/seller/store-slug/${storeSlug}`
+		);
+		return data.data || {};
+	} catch (error) {
+		console.log('[getSellerDetailsByStoreSlug] =', error);
+		const { data, status } = (error as any).response || {};
+		return {};
+	}
+}; // End of getSellerDetailsByStoreSlug
 
 export const getSellerStorefrontDetailsSellerId = async (
 	sellerId: string
@@ -170,9 +182,10 @@ export const getProductsWithCollectionBySellerId = async (
 
 export const getOrderIdByProductId = async (productId: string) => {
 	try {
-		const { data } = await axiosInstance.get(`/order/product/${productId}`);
+		const { data } = await axiosInstance.get(
+			`/order/product/${productId}`
+		);
 
-		
 		console.log('reviewId =', data?.data);
 
 		return data.data || {};

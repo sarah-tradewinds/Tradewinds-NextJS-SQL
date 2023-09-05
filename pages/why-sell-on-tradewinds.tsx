@@ -46,7 +46,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 							<div className="mt-[24px] ml-[37px] sm:mt-[17px] sm:ml-[24px] md:mt-[18px] md:ml-[30px] lg:mt-[34px] lg:ml-[39px] desktop:mt-[29px] desktop:ml-[58px]">
 								<button
 									onClick={gotoSellerSignup}
-									className=" h-[13px] w-[73px] rounded-sm bg-cyan text-[6px] font-medium sm:h-[25px] sm:w-[135px] sm:text-[10px] md:h-[30px] md:w-[162px] md:text-[13px] lg:h-[40px] lg:w-[216px] lg:text-[17px] desktop:h-[60px] desktop:w-[319px] desktop:text-[25px] "
+									className="h-[13px] w-[73px] rounded-lg bg-cyan text-[6px] font-medium sm:h-[25px] sm:w-[135px] sm:text-[10px] md:h-[30px] md:w-[162px] md:text-[13px] lg:h-[40px] lg:w-[216px] lg:text-[17px] desktop:h-[60px] desktop:w-[319px] desktop:text-[25px]"
 								>
 									{t('common:join_now')}
 								</button>

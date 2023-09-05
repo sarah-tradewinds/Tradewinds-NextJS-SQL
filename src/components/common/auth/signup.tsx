@@ -37,9 +37,12 @@ const SignUp: React.FC = () => {
 	const { t } = useTranslation();
 	const [signupResult, setSignupResult] = useState({
 		message: '',
+		isError: false,
 		result: false,
 		signupDone: false
 	});
+
+	console.log('signupResult =', signupResult);
 
 	const mandatoryFields = [
 		'first_name',
@@ -65,11 +68,6 @@ const SignUp: React.FC = () => {
 	}, [signupData]);
 
 	const onChange = (field: string, value: string) => {
-		// setSignupData({
-		// 	...signupData,
-		// 	[field]: value
-		// });
-
 		setSignupData((prevState: any) => ({
 			...prevState,
 			[field]: value
@@ -89,6 +87,9 @@ const SignUp: React.FC = () => {
 					signupData[field].toString().length < 10)
 			) {
 				error['phone_number'] = true;
+				errorFound = true;
+			} else if (field === 'country_id' && !signupData[field]) {
+				error['country_id'] = true;
 				errorFound = true;
 			} else {
 				if (
@@ -131,16 +132,6 @@ const SignUp: React.FC = () => {
 			return false;
 		}
 
-		// if (signupData?.password?.length < 8) {
-		// 	setError({
-		// 		...error,
-		// 		password: t(
-		// 			'auth:password_should_be_at_least_8_characters_long'
-		// 		)
-		// 	});
-		// 	return false;
-		// }
-
 		if (!regPassword.test(signupData?.password)) {
 			setError({
 				...error,
@@ -157,6 +148,8 @@ const SignUp: React.FC = () => {
 			return false;
 		}
 
+		// signupData['country_id']['message'] = 'Select country';
+
 		return true;
 	};
 
@@ -166,6 +159,7 @@ const SignUp: React.FC = () => {
 		setError({});
 		setSignupResult({
 			message: '',
+			isError: false,
 			result: false,
 			signupDone: false
 		});
@@ -177,6 +171,7 @@ const SignUp: React.FC = () => {
 		if ((error as any)?.hasError || Object.keys(error).length > 0) {
 			setSignupResult({
 				message: 'Error occurred',
+				isError: false,
 				result: false,
 				signupDone: false
 			});
@@ -191,13 +186,15 @@ const SignUp: React.FC = () => {
 			const data = await userSignup(signupData);
 			setSignupResult({
 				message: 'User created',
+				isError: false,
 				result: true,
 				signupDone: true
 			});
 			setLoading(false);
 		} catch (error) {
 			setSignupResult({
-				message: `Error: ${(error as any)?.message}`,
+				message: (error as any)?.message?.toString(),
+				isError: true,
 				result: false,
 				signupDone: false
 			});
@@ -215,11 +212,17 @@ const SignUp: React.FC = () => {
 		>
 			<div className=" flex  items-center justify-center">
 				{!signupResult.result ? (
-					<div className="flex h-[530px] w-[290px] justify-center rounded-md bg-white pr-[15px]  pl-[15px] shadow-md sm:h-[530px] sm:w-[450px]  sm:pr-[18px] sm:pl-[18px] md:!h-[693px] md:!w-[720px]  md:!pr-[40px] md:!pl-[46px]">
+					<div className="flex h-[530px] w-[290px] justify-center rounded-md bg-white pr-[15px] pl-[15px] shadow-md sm:h-[530px] sm:w-[450px]  sm:pr-[18px] sm:pl-[18px] md:!h-[693px] md:!w-[720px]  md:!pr-[40px] md:!pl-[46px]">
 						<div className="flex  h-[513px] w-full flex-col items-center overflow-auto border-gray/40 pt-[20px] pb-[10px] pr-[0px] sm:h-[530px] sm:w-full sm:pt-[23px] sm:pb-[15px] sm:pr-[0px] md:!h-[675px] md:!w-full md:!border-r  md:!pt-0 md:!pb-[20px] md:!pr-[51px]">
 							<p className="hidden border-b border-gray/40 text-center font-semibold text-black sm:hidden md:!mb-[27px] md:!mt-[61px] md:!block md:!w-full md:!pb-[13px] md:!text-[25px]  md:!leading-[30px]">
 								{t('auth:create_an_account')}
 							</p>
+
+							{signupResult?.isError && (
+								<p className="mb-2 text-sm text-error">
+									{signupResult?.message}
+								</p>
+							)}
 
 							<div className="flex w-full justify-center ">
 								<form className=" w-full space-y-[9px]  sm:w-[414px] md:!w-[285px]">
@@ -263,28 +266,14 @@ const SignUp: React.FC = () => {
 											{t('auth:please_enter_last_name')}
 										</span>
 									)}
-									{/* <Input
-										name="country"
-										placeholder={t('auth:country')}
-										icon={<HiSparkles />}
-										isSmall={true}
-										required={true}
-										className="w-full"
-										invalid={error?.country}
-										onChange={(e: React.FormEvent<HTMLInputElement>) =>
-											onChange(
-												e.currentTarget.name,
-												e.currentTarget.value
-											)
-										}
-									/> */}
+
 									<CountryDropdown
 										onSelect={(country) => {
 											onChange('country_id', country?.id);
 											onChange('phone_code', country?.phone_code);
 										}}
 									/>
-									{error?.country && (
+									{error?.country_id && (
 										<span className={`text-[12px] text-[red]`}>
 											{t('auth:please_enter_country')}
 										</span>
@@ -507,7 +496,7 @@ const SignUp: React.FC = () => {
 						</h4>
 
 						<h4 className="font-small mb-4 text-center font-bold text-primary-main">
-							{t('still_cannot_find_the_email?')}
+							{t('auth:still_cannot_find_the_email')}?
 						</h4>
 
 						<div className="mt-3 flex items-center justify-center">
@@ -515,14 +504,14 @@ const SignUp: React.FC = () => {
 								className={`rounded border border-[green] bg-[green] py-2 px-4 text-sm text-[white] hover:bg-opacity-75 focus:outline-none`}
 								onClick={() => resendMail(signupData?.email)}
 							>
-								{t('resend_email')}
+								{t('auth:resend_email')}
 							</button>
 						</div>
 
 						<h4 className="font-small mt-8 text-center  text-primary-main">
-							{t('need_help?')}{' '}
+							{t('auth:need_help')}?{' '}
 							<span className="font-bold text-[green] underline">
-								<a href="#">{t('contact_us')} </a>
+								<a href="#">{t('auth:contact_us')} </a>
 							</span>
 						</h4>
 					</div>

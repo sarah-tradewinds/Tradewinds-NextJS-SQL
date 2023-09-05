@@ -20,7 +20,7 @@ export const getProducts = async (params: {
 	is_eco?: boolean;
 	is_all_trending?: boolean;
 	is_customizable?: boolean;
-	is_ready_to_ship?: boolean;
+	is_live_buy?: boolean;
 	is_live?: boolean;
 	minimum_order?: string | number;
 	maximum_order?: string | number;

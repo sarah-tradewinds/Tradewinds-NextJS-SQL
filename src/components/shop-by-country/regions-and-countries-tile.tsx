@@ -69,11 +69,11 @@ const RegionAndCountriesTile: React.FC<RegionAndCountriesTileProps> = (
 				})}
 			</div>
 
-			{countryLength <= 3 && (
+			{/* {countryLength <= 3 && (
 				<p className=" font-semibold text-accent-primary-main md:mt-[25px] md:text-[18px] lg:mt-[25px] lg:text-[18px] desktop:mt-4  desktop:text-[21px]">
 					{t('more_coming_soon')}
 				</p>
-			)}
+			)} */}
 
 			{/* actions */}
 			{countryLength > 3 && (

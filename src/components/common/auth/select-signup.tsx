@@ -37,74 +37,76 @@ const SelectSignUp: React.FC = () => {
 	return (
 		<Modal
 			open={isSelectSignUpOpen}
-			className=" left-1/2 top-1/2 !z-[51000] -translate-x-1/2 -translate-y-1/2 transform "
+			className="left-1/2 top-1/2 !z-[51000] -translate-x-1/2 -translate-y-1/2 transform "
 			onClose={setIsSelectSignUpOpen}
 			overlayClassName="!z-[51000]"
 		>
 			<div className="ml-2 flex  items-center justify-center">
-				<div className="flex justify-center rounded-md bg-white shadow-md  md:h-[600px] md:w-[720px]  lg:w-[920px]">
-					<div className="overflow-hiden  flex h-[400px] w-[300px]  flex-col items-center border-r border-gray/40 px-[10px]  sm:mt-[50px] sm:h-[500px] sm:w-[480px] sm:border-r sm:px-[20px] md:w-[450px] lg:w-[600px] ">
-						<h2 className=" mt-[30px] w-full border-b border-gray/40 text-center text-[20px] font-semibold text-gray sm:mt-[50px] sm:text-[35px]">
-							{t('auth:create_an_account')}
-						</h2>
+				<div className="flex justify-center rounded-md bg-white shadow-md  md:h-[600px] md:w-[720px] lg:w-[924px]">
+					<div className="flex h-[400px] w-[300px]  flex-col items-center border-r border-gray/40 px-[10px] sm:mt-[50px] sm:h-[500px] sm:w-full sm:border-r sm:px-[20px] md:w-[450px] lg:w-[600px] ">
+						<div className="flex flex-col items-center">
+							<h2 className="mt-[30px] w-full text-center text-[20px] font-semibold text-gray sm:mt-[50px] sm:text-[35px]">
+								{t('auth:create_an_account')}
+							</h2>
+							<div className="h-[0.61px] w-16 bg-[#C4C4C4]"></div>
+						</div>
 
-						<div className="flex w-full justify-center border-b border-gray/40 pb-[30px] not-italic sm:pb-[40px]">
+						<div className="flex w-full justify-center pb-[30px] not-italic sm:pb-6">
 							<form className="w-[300px] sm:w-[510px]">
-								<div className=" mt-[30px] mb-[27px] text-left text-[13px] font-normal text-label_gray sm:mt-[41px] sm:text-center sm:text-lg  ">
-									<label>{t('i_am_a...')}</label>
-									<br />
-									<div className="block justify-center sm:flex sm:space-x-[10px]">
-										<div className="  sm:w-[150px] md:w-[150px] lg:w-full">
-											<label>
-												<span className=" mr-[7px]">
-													<input
-														className=" inline-block h-[17px] w-[17px] border align-text-top sm:h-[23px] sm:w-[23px] "
-														type="radio"
-														name="myRadio"
-														value="Buyer"
-														onChange={handleRadioChange}
-														defaultChecked
-													/>
-												</span>
-												{t('buyer')}
-											</label>
-										</div>
-										<div className=" sm:w-[150px] md:w-[140px] lg:w-full">
-											<label>
-												<span className=" mr-[7px]">
-													<input
-														className=" inline-block h-[17px] w-[17px] align-text-top sm:h-[23px] sm:w-[23px]"
-														type="radio"
-														name="myRadio"
-														value="Seller"
-														onChange={handleRadioChange}
-													/>
-												</span>
-												{t('seller')}
-											</label>
-										</div>
-										<div className=" sm:w-[150px] md:w-[140px] lg:w-full">
-											<label>
-												<span className=" mr-[7px]">
-													<input
-														className=" inline-block h-[17px] w-[17px] align-text-top sm:h-[23px] sm:w-[23px]"
-														type="radio"
-														name="myRadio"
-														value="BDM"
-														onChange={handleRadioChange}
-													/>
-												</span>
-												{t('business_agent')}
-											</label>
-										</div>
+								<div className="mt-[30px] mb-[27px] flex items-center text-left text-[13px] font-normal text-label_gray sm:mt-[41px] sm:text-center sm:text-lg">
+									{/* <br /> */}
+									<div className="flex w-full items-center justify-center space-x-4 lg:space-x-8">
+										{/* <label className="whitespace-nowrap">
+											{t('i_am_a...')}
+										</label> */}
+
+										<label>
+											<span className="mr-[7px]">
+												<input
+													className=" inline-block h-[17px] w-[17px] border align-text-top sm:h-[23px] sm:w-[23px] "
+													type="radio"
+													name="myRadio"
+													value="Buyer"
+													onChange={handleRadioChange}
+													defaultChecked
+												/>
+											</span>
+											{t('buyer')}
+										</label>
+										<label>
+											<span className=" mr-[7px]">
+												<input
+													className=" inline-block h-[17px] w-[17px] align-text-top sm:h-[23px] sm:w-[23px]"
+													type="radio"
+													name="myRadio"
+													value="Seller"
+													onChange={handleRadioChange}
+												/>
+											</span>
+											{t('seller')}
+										</label>
+										<label className="flex items-center space-x-2">
+											<span className="smr-[7px]">
+												<input
+													className=" inline-block h-[17px] w-[17px] align-text-top sm:h-[23px] sm:w-[23px]"
+													type="radio"
+													name="myRadio"
+													value="BDM"
+													onChange={handleRadioChange}
+												/>
+											</span>
+											<span className="whitespace-nowrap">
+												{/* {t('business_agent')} */}
+												BA
+											</span>
+										</label>
 									</div>
 								</div>
-								<div className=" container mx-auto w-[220px] justify-center sm:w-[250px] md:w-[350px]">
+								<div className="container mx-auto w-[220px] justify-center sm:w-[250px] md:w-[350px]">
 									<Button
 										variant="product"
 										className="w-full"
 										disabled={loading}
-										// onClick={setIsSelectSignUpOpen}
 										onClick={() => {
 											setIsSelectSignUpOpen();
 											if (selectedOption === 'Buyer') {
@@ -115,10 +117,12 @@ const SelectSignUp: React.FC = () => {
 														isEco ? 'eco/' : ''
 													}seller-registration`
 												);
+												setSelectedOption('Buyer');
 											} else if (selectedOption === 'BDM') {
 												window.open(
 													`${process.env.BDM_DASHBOARD_SITE_URL}/bdm-registration`
 												);
+												setSelectedOption('Buyer');
 											}
 										}}
 									>
@@ -128,7 +132,8 @@ const SelectSignUp: React.FC = () => {
 								</div>
 							</form>
 						</div>
-						<div className="mt-[30px] sm:mt-[55px]">
+						<div className="h-[0.61px] w-16 bg-[#C4C4C4]"></div>
+						<div className="mt-[30px] sm:mt-4">
 							<Button
 								className=" rounded-lg border border-accent-primary-main !text-accent-primary-main"
 								onClick={() => {
@@ -140,10 +145,10 @@ const SelectSignUp: React.FC = () => {
 							</Button>
 							<p
 								className="mt-[24px] cursor-pointer text-center text-sm text-accent-primary-main "
-								// onClick={() => {
-								// 	// setIsLoginOpen();
-								// 	router.push('/forgot-password');
-								// }}
+								onClick={() => {
+									// setIsLoginOpen();
+									router.push('/forgot-password');
+								}}
 							>
 								{t('auth:forgot_password')}?
 							</p>

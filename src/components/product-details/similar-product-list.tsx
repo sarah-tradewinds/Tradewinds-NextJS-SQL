@@ -64,7 +64,7 @@ const SimilarProductList: React.FC<SimilarProductListProps> = (
 						<div
 							key={similarProduct?.id}
 							onClick={() => push(`/product/${similarProduct?.id}`)}
-							className=""
+							className="cursor-pointer"
 						>
 							<div className="md:pb-[21.25px]">
 								<div className="relative h-[116.52px] w-[116.52px] lg:h-[155.29px] lg:w-[155.29px]">

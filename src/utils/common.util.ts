@@ -89,7 +89,7 @@ export const getFilterValueFromQuery = (query: any) => {
 		price_start,
 		price_end,
 		isCustomizable = undefined,
-		isReadyToShip = undefined,
+		is_live_buy = undefined,
 		minOrder,
 		maxOrder,
 		searchQuery,
@@ -111,10 +111,8 @@ export const getFilterValueFromQuery = (query: any) => {
 		price_start,
 		price_end,
 		query: (searchQuery || '') as string,
-		// is_eco: isEco || main_category ? false : filterBuyEco,
 		is_customizable: isCustomizable === 'true' ? true : false,
-		is_ready_to_ship: isReadyToShip === 'true' ? true : false,
-		// is_live: isLive,
+		is_live_buy: is_live_buy === 'true' ? true : false,
 		minimum_order: minOrder,
 		maximum_order: maxOrder
 	};

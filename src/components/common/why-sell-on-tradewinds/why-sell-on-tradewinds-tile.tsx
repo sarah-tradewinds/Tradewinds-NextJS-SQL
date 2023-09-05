@@ -29,21 +29,22 @@ export const WhySellOnTWOperationTile: React.FC<
 	return (
 		<>
 			<div
-				className={` block items-center sm:flex ${containerClassName}`}
+				className={`block items-center sm:flex ${containerClassName}`}
 			>
 				<div>
 					<div
-						className={`relative h-[148px] w-[255px] sm:h-[149px] sm:w-[255px] md:h-[177px] md:w-[306px] lg:h-[237px] lg:w-[409px] desktop:h-[350px] desktop:w-[603px] ${imageClassName}`}
+						className={`w-[255px]s relative h-[148px] sm:h-[149px] sm:w-[255px] md:h-[177px] md:w-[306px] lg:h-[237px] lg:w-[409px] desktop:h-[350px] desktop:w-[603px] ${imageClassName}`}
 					>
 						<ImageWithErrorHandler
 							src={imageUrl}
 							alt={title}
 							fill={true}
+							className="object-cover sm:object-contain"
 						/>
 					</div>
 				</div>
 
-				<div className={`  mt-4 ${className}`}>
+				<div className={`mt-4 ${className}`}>
 					<div className="text-[12px] sm:text-[12px] md:text-[16px] lg:text-[15px] desktop:text-[25px]">
 						<p className="font-semibold">{title}</p>
 						<p>{subtitle}</p>

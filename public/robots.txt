@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://tradewinds.vercel.app/
+Host: https://www.tradewindsmarketplace.com
 
 # Sitemaps
-Sitemap: https://tradewinds.vercel.app/sitemap.xml
+Sitemap: https://www.tradewindsmarketplace.com/sitemap.xml

@@ -25,7 +25,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 	return (
 		<>
 			<Seo title="Why sell on tradewinds" description="" />
-			<div className=" overflow-x-hidden ">
+			<div className="overflow-x-hidden ">
 				<div>
 					{/* Header */}
 					<div className=" w-full bg-header-bar">
@@ -45,7 +45,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 								<div className="mt-[14px] ml-[36px] sm:mt-[27px] sm:ml-[31px] md:mt-[13px] md:ml-[35px] lg:mt-[23px] lg:ml-[39px] desktop:mt-[30px] desktop:ml-[67px]">
 									<button
 										onClick={gotoSellerSignup}
-										className=" h-[13px] w-[73px] rounded-sm bg-secondary text-[6px] font-medium sm:h-[25px] sm:w-[135px] sm:rounded-sm sm:text-[10px] md:h-[30px] md:w-[162px] md:rounded-md md:text-[13px] lg:h-[40px] lg:w-[216px] lg:rounded-lg lg:text-[17px] desktop:h-[60px] desktop:w-[319px] desktop:rounded-lg desktop:text-[25px] "
+										className="h-[13px] w-[73px] rounded-sm bg-gradient-to-r from-[#E7CA00] to-[#E8A30E] text-[6px] font-medium sm:h-[25px] sm:w-[135px] sm:rounded-sm sm:text-[10px] md:h-[30px] md:w-[162px] md:rounded-md md:text-[13px] lg:h-[40px] lg:w-[216px] lg:rounded-lg lg:text-[17px] desktop:h-[60px] desktop:w-[319px] desktop:rounded-lg desktop:text-[25px]"
 									>
 										{t('common:join_now')}
 									</button>
@@ -55,7 +55,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 								<ProductQualifications />
 							</div>
 						</div>
-						<div className=" relative mt-[670px] h-[975px] w-full bg-header-bar text-gray sm:container sm:mx-auto sm:mt-[447px] sm:h-[526px] sm:w-[640px] sm:justify-center md:mt-[550px] md:h-[680px] md:w-[768px] lg:mt-[708px] lg:h-[780px] lg:w-[1025px] desktop:mt-[1015px] desktop:h-[1189px] desktop:w-[1512px]">
+						<div className="relative mt-[670px] h-[975px] w-full bg-header-bar text-gray sm:container sm:mx-auto sm:mt-[447px] sm:h-[526px] sm:w-[640px] sm:justify-center md:mt-[550px] md:h-[680px] md:w-[768px] lg:mt-[708px] lg:h-[780px] lg:w-[1025px] desktop:mt-[1015px] desktop:h-[1189px] desktop:w-[1512px]">
 							<p className="w-full pt-[22px] text-center text-[15px] font-semibold leading-[18px] text-dark_brown sm:container sm:mx-auto sm:w-[563px] sm:pt-[35px] sm:text-[15px] sm:leading-[18px] md:w-[768px] md:pt-[39px] md:text-[18px] md:leading-[21px] lg:w-[1025px] lg:pt-[21px] lg:text-[30px] lg:leading-[37px] desktop:w-[753px] desktop:pt-[136px] desktop:text-[50px] desktop:leading-[60px] ">
 								{t('key_advantages_of_selling_on_tradewinds_eco')}
 							</p>

@@ -151,15 +151,12 @@ const Login: React.FC = () => {
 	return (
 		<Modal
 			open={isLoginOpen}
-			// className="top-14  !z-[51000] transform md:top-40  md:mx-20 lg:left-1/2 lg:top-1/2 lg:mx-0 lg:-translate-x-1/2 lg:-translate-y-1/2"
-			// className="top-14  !z-[51000] transform md:top-40  md:mx-20 lg:left-1/2 lg:top-1/2 lg:mx-0 lg:-translate-x-1/2 lg:-translate-y-1/2"
 			className="!top-1/2 !left-1/2 !z-[51000] !-translate-y-1/2 !-translate-x-1/2"
 			overlayClassName="!z-[51000]"
 			onClose={setIsLoginOpen}
 		>
 			<div className="ml-2 flex items-center justify-center">
 				<div className="flex h-[530px] justify-center rounded-md bg-white shadow-md sm:h-[600px] md:h-[800px] md:w-[740px] md:py-4 lg:mt-12 lg:mr-[43px] lg:h-[850px] lg:w-[1000px] lg:justify-start lg:pl-[66px] xl:w-[1204px] desktop:h-[800px]">
-					{/* <div className="flex h-[640px] flex-col items-center border-gray/40 py-8 md:h-auto lg:w-full lg:border-r lg:py-0 lg:pr-[24px]"> */}
 					<div className="flex h-[640px] w-[300px] flex-col items-center border-gray/40 py-8 sm:w-[470px] md:h-auto lg:w-full lg:border-r lg:py-0 lg:pr-[24px]">
 						<h2 className="h-[67] w-full border-b border-gray/40 pb-4 text-center font-semibold text-gray md:mt-[188px] md:text-4xl lg:text-5xl">
 							{t('auth:welcome_back')}
@@ -168,53 +165,47 @@ const Login: React.FC = () => {
 						<div className="flex w-full justify-center border-b border-gray/40 pb-[7px] text-[13px] sm:text-lg">
 							<form className="w-full px-4 md:w-[300px] md:px-0 lg:w-[480px]">
 								<div className="mt-[41px] mb-[27px] font-normal text-label_gray  ">
-									<p>{t('i_am_a...')}</p>
+									{/* <p>{t('i_am_a...')}</p> */}
 
-									<div className=" block justify-between space-y-[2px] sm:flex sm:space-y-0 lg:space-x-2 xl:space-x-3">
-										<div className=" sm:w-[150px] md:w-[160px]">
-											<label>
-												<span className="mr-[7px]">
-													<input
-														className=" inline-block h-[18px] w-[18px] border align-text-top sm:h-[23px] sm:w-[23px] "
-														type="radio"
-														name="myRadio"
-														value="Buyer"
-														onChange={handleRadioChange}
-														defaultChecked
-													/>
-												</span>
-												{t('buyer')}
-											</label>
-										</div>
-										<div className=" sm:w-[150px] md:w-[150px]">
-											<label>
-												<span className=" mr-[7px]">
-													<input
-														className=" inline-block h-[18px] w-[18px] border align-text-top sm:h-[23px] sm:w-[23px]"
-														type="radio"
-														name="myRadio"
-														value="Seller"
-														onChange={handleRadioChange}
-													/>
-												</span>
-												{t('seller')}
-											</label>
-										</div>
-
-										<div className=" sm:w-[150px] md:w-[200px]">
-											<label>
-												<span className=" mr-[7px]">
-													<input
-														className=" inline-block h-[18px] w-[18px] border align-text-top sm:h-[23px] sm:w-[23px]"
-														type="radio"
-														name="myRadio"
-														value="BDM"
-														onChange={handleRadioChange}
-													/>
-												</span>
-												{t('business_agent')}
-											</label>
-										</div>
+									<div className="flex justify-center space-x-[15px] lg:space-x-2 xl:space-x-3">
+										<label>
+											<span className="mr-[7px]">
+												<input
+													className=" inline-block h-[18px] w-[18px] border align-text-top sm:h-[23px] sm:w-[23px] "
+													type="radio"
+													name="myRadio"
+													value="Buyer"
+													onChange={handleRadioChange}
+													defaultChecked
+												/>
+											</span>
+											{t('buyer')}
+										</label>
+										<label>
+											<span className=" mr-[7px]">
+												<input
+													className=" inline-block h-[18px] w-[18px] border align-text-top sm:h-[23px] sm:w-[23px]"
+													type="radio"
+													name="myRadio"
+													value="Seller"
+													onChange={handleRadioChange}
+												/>
+											</span>
+											{t('seller')}
+										</label>
+										<label>
+											<span className=" mr-[7px]">
+												<input
+													className=" inline-block h-[18px] w-[18px] border align-text-top sm:h-[23px] sm:w-[23px]"
+													type="radio"
+													name="myRadio"
+													value="BDM"
+													onChange={handleRadioChange}
+												/>
+											</span>
+											{/* {t('business_agent')} */}
+											BA
+										</label>
 									</div>
 								</div>
 								<Input
@@ -263,18 +254,9 @@ const Login: React.FC = () => {
 									{loading ? BUTTON_SPINNER : null} {t('auth:signin')}
 								</Button>
 
-								{/* <Button
-									variant="product"
-									className="w-full"
-									onClick={(e: any) => loginUser(e)}
-									disabled={loading}
-								>
-									{loading ? BUTTON_SPINNER : null} {t('auth:signin')}
-								</Button> */}
 								<p
 									className=" mt-[15px] cursor-pointer text-center text-base  text-accent-primary-main"
 									onClick={() => {
-										// setIsLoginOpen();
 										router.push('/forgot-password');
 									}}
 								>
@@ -291,7 +273,7 @@ const Login: React.FC = () => {
 								}}
 								className="cursor-pointer rounded-lg border-2 border-solid border-accent-primary-main px-4 py-[6px] text-center  text-base font-normal  text-accent-primary-main opacity-80 md:w-[346px]"
 							>
-								{t('auth:dont_have_an_account')}
+								{t('auth:dont_have_an_account')}? Sign up!
 							</p>
 						</div>
 

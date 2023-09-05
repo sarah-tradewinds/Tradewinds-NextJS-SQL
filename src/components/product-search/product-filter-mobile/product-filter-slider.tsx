@@ -23,7 +23,7 @@ const ProductFilterSlider: React.FC<ProductFilterSliderProps> = (
 	const { isOpen, onClose } = props;
 
 	const [isCustomizable, setIsCustomizable] = useState(false);
-	const [isReadyToShip, setIsReadyToShip] = useState(false);
+	const [isLiveBuy, setIsLiveBuy] = useState(false);
 	const [minOrder, setMinOrder] = useState(1);
 	const [maxOrder, setMaxOrder] = useState(100);
 	const [minPrice, setMinPrice] = useState(1);
@@ -35,7 +35,7 @@ const ProductFilterSlider: React.FC<ProductFilterSliderProps> = (
 	useEffect(() => {
 		const filterValue = getFilterValueFromQuery(query);
 		setIsCustomizable(filterValue.is_customizable);
-		setIsReadyToShip(filterValue.is_ready_to_ship);
+		setIsLiveBuy(filterValue.is_live_buy);
 
 		// order
 		setMinOrder(+(filterValue.minimum_order || minOrder));
@@ -99,13 +99,13 @@ const ProductFilterSlider: React.FC<ProductFilterSliderProps> = (
 					</p>
 					<input
 						type="checkbox"
-						checked={isReadyToShip}
+						checked={isLiveBuy}
 						className="h-5 w-5"
 						onChange={() => {
-							setIsReadyToShip((prevState) => {
+							setIsLiveBuy((prevState) => {
 								const updatedValue = !prevState;
 								getProductSearchURL(router, {
-									isReadyToShip: updatedValue
+									isLiveBuy: updatedValue
 								});
 								return updatedValue;
 							});

@@ -90,6 +90,7 @@ const ProductDetailsTile: React.FC<{
 		description,
 		is_customizable,
 		is_live,
+		is_live_buy,
 		is_ready_to_ship,
 		is_eco,
 		seller_country = [],
@@ -113,10 +114,6 @@ const ProductDetailsTile: React.FC<{
 		bulk_pricing = [],
 		inventory = {}
 	} = selectedVariant || {};
-	console.log(
-		'selectedVariant-selectedVariant-selectedVariant =',
-		selectedVariant
-	);
 
 	const productName = (
 		getLocaleText(name || {}, locale) || ''
@@ -127,13 +124,6 @@ const ProductDetailsTile: React.FC<{
 		is_bulk_pricing,
 		bulk_pricing
 	});
-
-	// const country = seller_country
-	// 	? {
-	// 			name: getLocaleText(seller_country[0]?.name || '', locale),
-	// 			imageUrl: seller_country[0]?.url || ''
-	// 	  } || {}
-	// 	: {};
 
 	const sellerCountry =
 		product?.edges?.sellers?.edges?.country?.edges
@@ -152,8 +142,10 @@ const ProductDetailsTile: React.FC<{
 	)?.toLowerCase();
 	const isInStock =
 		inventory?.available_quantity > 0 ||
-		selectedVariant?.is_unlimited_quantity ||
+		inventory?.is_unlimited_quantity ||
 		false;
+
+	console.log('inventory =inventory', inventory);
 
 	const metadataTileLists = [
 		// country of origin
@@ -233,7 +225,7 @@ const ProductDetailsTile: React.FC<{
 				icon={
 					<div
 						className={`text-[20px] md:text-[24] lg:pl-[2px] lg:text-[24px] ${
-							is_live && isInStock
+							is_live_buy && isInStock
 								? 'text-accent-primary-main'
 								: 'text-gray/40'
 						}`}
@@ -244,9 +236,10 @@ const ProductDetailsTile: React.FC<{
 				alt={t('common:save')}
 				title={t('cart')}
 				className={`!space-x-1 md:!space-x-4 ${
-					is_live && isInStock ? 'cursor-pointer' : 'cursor-not-allowed'
+					is_live_buy && isInStock
+						? 'cursor-pointer'
+						: 'cursor-not-allowed'
 				}`}
-				// onClick={is_live && isInStock ? onAddToCart : undefined}
 				onClick={onAddToCart}
 				titleClassName="md:text-cyan md:text-[13px] md:leading-4"
 			/>
@@ -573,10 +566,11 @@ const ProductDetailsTile: React.FC<{
 
 			{/* ADD to Cart button */}
 			<button
-				// onClick={is_live && isInStock ? onAddToCart : undefined}
 				onClick={onAddToCart}
 				className={`w-full ${baseButtonClass} ${
-					is_live && isInStock ? 'cursor-pointer' : 'cursor-not-allowed'
+					is_live_buy && isInStock
+						? 'cursor-pointer'
+						: 'cursor-not-allowed'
 				} border-[1.41px] border-[#37B04A] ${
 					hideCartButton ? 'hidden' : ''
 				}`}
@@ -827,12 +821,11 @@ const ProductDetailsTile: React.FC<{
 								<Button
 									variant="product"
 									className={`!flex !items-center !space-x-2 !px-2 !text-[16px] !font-medium ${
-										!is_live ? '!cursor-not-allowed !opacity-60' : ''
+										!is_live_buy
+											? '!cursor-not-allowed !opacity-60'
+											: ''
 									} ${hideCartButton ? 'hidden' : ''}`}
-									onClick={
-										// is_live && isInStock ? onAddToCart : undefined
-										onAddToCart
-									}
+									onClick={onAddToCart}
 								>
 									<MdOutlineShoppingCart className="h-6 w-6" />
 									<span>{t('common:add_to_cart')}</span>
