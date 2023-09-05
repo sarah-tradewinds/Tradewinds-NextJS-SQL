@@ -94,7 +94,7 @@ export const getFilterValueFromQuery = (query: any) => {
 		maxOrder,
 		searchQuery,
 		trendingProduct,
-		sort_price
+		sort_type
 	} = query;
 
 	return {
@@ -116,7 +116,7 @@ export const getFilterValueFromQuery = (query: any) => {
 		is_live_buy: is_live_buy === 'true' ? true : false,
 		minimum_order: minOrder,
 		maximum_order: maxOrder,
-		sort_price: sort_price
+		sort_type: sort_type
 	};
 }; // End of getFilterValueFromQuery
 

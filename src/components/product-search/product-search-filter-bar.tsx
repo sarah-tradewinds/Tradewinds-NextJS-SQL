@@ -59,7 +59,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 		console.log(filterValue);
 		setIsCustomizable(filterValue.is_customizable);
 		setIsLiveBuyShip(filterValue.is_live_buy);
-		setSortType(filterValue.sort_price);
+		setSortType(filterValue.sort_type);
 
 		// order
 		setMinOrder(+(filterValue.minimum_order || 1));
@@ -108,19 +108,19 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 	// sortBy();
 	const sortingBy = [
 		{
-			sort: 'low_to_high',
+			sort: 'price_low_to_high',
 			name: 'Price: Low to High'
 		},
 		{
-			sort: 'high_to_low',
+			sort: 'price_high_to_low',
 			name: 'Price: High to Low'
 		},
 		{
-			sort: 'low_to_high',
+			sort: 'moq_low_to_high',
 			name: 'MOQ: Low to High'
 		},
 		{
-			sort: 'high_to_low',
+			sort: 'moq_high_to_low',
 			name: 'MOQ: High to Low'
 		}
 	];
@@ -349,7 +349,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 					</Popover.Panel>
 				</Popover>
 			</div>
-			<div className="z-50 mt-2 ">
+			<div className="z-50  ">
 				<Menu as="div" className="relative inline-block text-left">
 					<div>
 						<Menu.Button className=" flex w-[150px] items-center font-semibold text-gray md:text-[10.8px] md:font-normal md:leading-[13.17px] lg:text-[14.5px] lg:leading-[17.57px]">

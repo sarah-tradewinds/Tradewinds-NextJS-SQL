@@ -274,7 +274,7 @@ const ProductSearchPage: NextPage<
 				getProductSearchURL(router, { is_live_buy: isLiveBuy });
 			}}
 			ProductSortType={(price) => {
-				getProductSearchURL(router, { sort_price: price });
+				getProductSearchURL(router, { sort_type: price });
 			}}
 		/>
 	);
