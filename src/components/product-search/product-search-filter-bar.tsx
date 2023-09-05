@@ -127,7 +127,7 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 
 	console.log('activeField', field);
 	return (
-		<div className="hidden justify-between rounded-md border border-gray/10 bg-white shadow-lg md:flex md:h-8 md:py-[7px] md:pl-[9px] md:pr-2 lg:h-[54px] lg:pl-[13px] lg:pr-[14px] lg:pt-2 lg:pb-[10px] xl:pl-[49px] xl:pr-[24.67px]">
+		<div className="hidden justify-between rounded-md border border-gray/10 bg-white shadow-lg md:flex md:h-8 md:py-[7px] md:pl-[6px] md:pr-2 lg:h-[54px] lg:pl-[8px] lg:pr-[14px] lg:pt-2 lg:pb-[10px] xl:pl-[20px] xl:pr-[24.67px]">
 			{/* Live Buy/ Ready to ship - checkbox */}
 			<label className="flex cursor-pointer items-center">
 				<input
@@ -349,22 +349,25 @@ const ProductSearchFilterBar: React.FC<ProductSearchFilterBarProps> = (
 					</Popover.Panel>
 				</Popover>
 			</div>
-			<div className="z-50  ">
-				<Menu as="div" className="relative inline-block text-left">
+			<div className="z-50 md:-mt-[5px] md:ml-[2px]   lg:mt-[4px] lg:ml-[4px] xl:ml-[6px] desktop:mt-[6px] desktop:ml-2 ">
+				<Menu
+					as="div"
+					className="relative inline-block text-left md:w-[90px] lg:w-[120px] xl:w-[120px] desktop:w-[155px]"
+				>
 					<div>
-						<Menu.Button className=" flex w-[150px] items-center font-semibold text-gray md:text-[10.8px] md:font-normal md:leading-[13.17px] lg:text-[14.5px] lg:leading-[17.57px]">
+						<Menu.Button className=" flex items-center text-[15px] font-semibold text-gray md:text-[10px] md:leading-[12px]  lg:text-[12px] lg:leading-[14.63px] xl:text-[14.5px] xl:leading-[17.29px] ">
 							<p className="font-semibold">Sort</p>
 						</Menu.Button>
 					</div>
 
-					<Menu.Items className="divide-gray-100 absolutes mt-2 origin-top-right divide-y rounded-md bg-white px-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none md:right-1">
-						<div className="px-1">
+					<Menu.Items className="divide-gray-100 absolute w-full origin-top-right divide-y rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none md:right-1 md:mt-1 desktop:mt-2">
+						<div className=" md:p-1 desktop:p-2">
 							{sortingBy.map(({ sort, name }) => {
 								return (
 									<Menu.Item key={sort}>
 										<button
 											onClick={() => ProductSortType?.(sort)}
-											className={`my-2 block text-sm capitalize `}
+											className={` block capitalize hover:text-primary-main md:my-1 md:text-[8px] md:leading-[10px] lg:my-1 lg:text-[10px] lg:leading-[12px] xl:text-[12px] xl:leading-[14.63px]  desktop:my-2 desktop:text-[14.5px] desktop:leading-[17.29px] `}
 											// 	locale === code
 											// 		? 'font-semibold text-primary-main'
 											// 		: ''

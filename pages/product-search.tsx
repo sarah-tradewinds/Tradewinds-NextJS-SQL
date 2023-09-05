@@ -273,8 +273,8 @@ const ProductSearchPage: NextPage<
 			onLiveBuyReadyToShipChange={(isLiveBuy) => {
 				getProductSearchURL(router, { is_live_buy: isLiveBuy });
 			}}
-			ProductSortType={(price) => {
-				getProductSearchURL(router, { sort_type: price });
+			ProductSortType={(priceOrMoq) => {
+				getProductSearchURL(router, { sort_type: priceOrMoq });
 			}}
 		/>
 	);
