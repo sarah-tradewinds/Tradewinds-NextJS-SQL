@@ -74,7 +74,8 @@ const Login: React.FC = () => {
 						redirect_to: SELLER_DASHBOARD_PAGES.sellers,
 						access_key: accessToken,
 						refresh_key: data.refresh_token.token
-					})
+					}),
+					'_self'
 				);
 				setLoading(false);
 				return;
@@ -84,7 +85,8 @@ const Login: React.FC = () => {
 						redirect_to: BDM_DASHBOARD_PAGES.bdms,
 						access_key: accessToken,
 						refresh_key: data.refresh_token.token
-					})
+					}),
+					'_self'
 				);
 				setLoading(false);
 				return;
@@ -168,7 +170,7 @@ const Login: React.FC = () => {
 									{/* <p>{t('i_am_a...')}</p> */}
 
 									<div className="flex justify-center space-x-[15px] lg:space-x-2 xl:space-x-3">
-										<label>
+										<label className="capitalize">
 											<span className="mr-[7px]">
 												<input
 													className=" inline-block h-[18px] w-[18px] border align-text-top sm:h-[23px] sm:w-[23px] "

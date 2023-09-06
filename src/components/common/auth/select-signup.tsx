@@ -56,11 +56,7 @@ const SelectSignUp: React.FC = () => {
 								<div className="mt-[30px] mb-[27px] flex items-center text-left text-[13px] font-normal text-label_gray sm:mt-[41px] sm:text-center sm:text-lg">
 									{/* <br /> */}
 									<div className="flex w-full items-center justify-center space-x-4 lg:space-x-8">
-										{/* <label className="whitespace-nowrap">
-											{t('i_am_a...')}
-										</label> */}
-
-										<label>
+										<label className="capitalize">
 											<span className="mr-[7px]">
 												<input
 													className=" inline-block h-[17px] w-[17px] border align-text-top sm:h-[23px] sm:w-[23px] "
@@ -115,12 +111,14 @@ const SelectSignUp: React.FC = () => {
 												window.open(
 													`${process.env.SELLER_DASHBOARD_SITE_URL}/${
 														isEco ? 'eco/' : ''
-													}seller-registration`
+													}seller-registration`,
+													'_self'
 												);
 												setSelectedOption('Buyer');
 											} else if (selectedOption === 'BDM') {
 												window.open(
-													`${process.env.BDM_DASHBOARD_SITE_URL}/bdm-registration`
+													`${process.env.BDM_DASHBOARD_SITE_URL}/bdm-registration`,
+													'_self'
 												);
 												setSelectedOption('Buyer');
 											}
