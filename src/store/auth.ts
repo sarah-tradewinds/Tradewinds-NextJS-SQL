@@ -29,6 +29,7 @@ interface AuthState {
 	isSignUpOpen: boolean;
 	isSelectSignUpOpen: boolean;
 	isLoginOpen: boolean;
+	freeTrailOpen: boolean;
 
 	autoLogin: () => any;
 	setCustomerData: (customerData: CustomerDataProps) => any;
@@ -36,6 +37,7 @@ interface AuthState {
 	setIsSelectSignUpOpen: () => any;
 	setIsLoginOpen: () => any;
 	logout: () => any;
+	setFreeTrailClose: () => any;
 }
 
 const initialCustomerData = {
@@ -62,6 +64,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 	isSignUpOpen: false,
 	isSelectSignUpOpen: false,
 	isLoginOpen: false,
+	freeTrailOpen: true,
 
 	autoLogin: async () => {
 		set({
@@ -126,5 +129,8 @@ export const useAuthStore = create<AuthState>((set) => ({
 			isAuth: false,
 			customerData: initialCustomerData
 		});
+	},
+	setFreeTrailClose: () => {
+		set((state) => ({ freeTrailOpen: !state.freeTrailOpen }));
 	}
 }));

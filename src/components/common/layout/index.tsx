@@ -42,6 +42,7 @@ import { useCartStore } from 'store/cart-store-v2';
 import { useHomeStore } from 'store/home';
 import useNoLiveBuyPopupStore from 'store/no-live-buy-popup-store';
 import { getLocaleText } from 'utils/get_locale_text';
+import FreeTrailPopup from '../free-trail';
 
 const Layout: React.FC<{ productName?: string; seo: any }> = (
 	props
@@ -139,6 +140,7 @@ const Layout: React.FC<{ productName?: string; seo: any }> = (
 				<SelectSignUpPage />
 				<SignUpPage />
 				<Login />
+				<FreeTrailPopup />
 
 				<main className="tablet:scale-[0.85]s tablet:transforms bg-bg-main pb-8 dark:bg-bg-eco">
 					{children}
