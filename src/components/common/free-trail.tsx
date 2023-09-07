@@ -11,7 +11,7 @@ const FreeTrailPopup: React.FC = () => {
 		<Modal
 			open={freeTrailOpen}
 			className="!left-1/2 top-[60px] !z-[51000] !-translate-x-1/2 sm:top-[86px] lg:top-[118px]  xl:!top-[161px]"
-			overlayClassName=" !bg-transparent "
+			// overlayClassName=" !bg-transparent "
 			onClose={setFreeTrailClose}
 		>
 			<div className=" h-[288px] w-[278px] bg-white text-center sm:h-[322px] sm:w-[542px] lg:h-[420px] lg:w-[698px] xl:h-[495px] xl:w-[822px]  ">
