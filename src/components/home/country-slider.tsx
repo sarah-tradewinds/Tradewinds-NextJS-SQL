@@ -1,4 +1,8 @@
 // Third party packages
+import {
+	ChevronLeftIcon,
+	ChevronRightIcon
+} from '@heroicons/react/20/solid';
 import { useKeenSlider } from 'keen-slider/react'; // import from 'keen-slider/react.es' for to get an ES module
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
@@ -128,10 +132,38 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 				</div>
 			</div>
 
+			{/* Medium and Desktop */}
 			<div className="navigation-wrapper relative mt-[11.14px] hidden md:block md:px-8">
 				<div ref={ref} className="keen-slider">
 					{countriesSlider}
 				</div>
+
+				{loaded && instanceRef.current && (
+					<>
+						<button
+							onClick={(e: any) =>
+								e.stopPropagation() || instanceRef.current?.prev()
+							}
+							disabled={currentSlide === 0}
+							className="absolute top-1/2 left-2 z-10 -translate-y-1/2 rounded-full bg-black p-2 text-white"
+						>
+							<ChevronLeftIcon className="w-5" />
+						</button>
+
+						<button
+							onClick={(e: any) =>
+								e.stopPropagation() || instanceRef.current?.next()
+							}
+							disabled={
+								currentSlide ===
+								instanceRef.current.track.details.slides.length - 1
+							}
+							className="absolute top-1/2 right-2 z-10 -translate-y-1/2 rounded-full bg-black p-2 text-white "
+						>
+							<ChevronRightIcon className="w-5" />
+						</button>
+					</>
+				)}
 			</div>
 
 			{/* Shading */}

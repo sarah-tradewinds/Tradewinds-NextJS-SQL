@@ -25,7 +25,7 @@ const CartIcon: React.FC<CartIconProps> = ({
 			<div
 				className={`absolute -top-6 -right-2 flex h-[20px] w-[20px] items-center justify-center rounded-full bg-secondary text-center align-middle text-sm font-semibold text-white md:h-[24px] md:w-[24px] md:text-xs lg:-top-6 ${countClassName}`}
 			>
-				<span>{count}</span>
+				<span>({count})</span>
 			</div>
 		</div>
 	);

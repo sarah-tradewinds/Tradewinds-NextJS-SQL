@@ -80,28 +80,28 @@ const Header = (props: any) => {
 	const cartIconAndUsername = (
 		<div className="flex items-center justify-end">
 			<div
-				className={`flex flex-col items-center ${
+				className={`flex flex-col items-center justify-center md:mr-8 xl:mr-14  ${
 					isAuth
 						? 'md:mt-5s md:mx-4 desktop:mr-[58px] desktop:ml-[90px]'
 						: 'md:mx-[38px]s md:mt-5s md:mr-[40.1px] desktop:ml-[111.43px]'
 				}`}
 			>
-				<div className="md:mt-3">
+				<div className="md:mt-2">
 					<CartIcon
 						count={totalItemCartItem}
 						onClick={() => router.push('/cart')}
-						iconClassName={`xl:!w-6 xl:!h-6 ${
-							isAuth ? 'md:!w-4 md:!h-4' : '!w-6 !h-6'
+						iconClassName={`lg:!w-7 lg:!h-7 ${
+							isAuth ? 'md:!w-4 md:!h-4' : '!w-7 !h-7'
 						}`}
-						countClassName={`xl:!bg-secondary md:!-top-4 lg:!-top-5 ${
-							isAuth ? 'md:!bg-transparent' : ''
+						countClassName={`xl:!bg-secondary md:!-top-2 md:!-right-3  ${
+							isAuth ? 'md:!-right-6 lg:md:!-right-4' : ''
 						}`}
 					/>
 				</div>
 
 				{/* Name and logout button */}
 				{isAuth && (
-					<div className="group relative cursor-pointer md:mr-8 xl:mr-14">
+					<div className="xl:mr-14s md:mr-8s group relative cursor-pointer">
 						<p
 							className="overflow-ellipsis whitespace-nowrap text-xs text-white md:w-[64px] md:text-xs md:leading-[15px] lg:leading-[17.57px] lg:text-[14.4114.41px]"
 							onMouseEnter={() => setShowLogout(true)}

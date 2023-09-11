@@ -20,7 +20,9 @@ const Index = ({ hcd, cardAList, cardBData }: Props) => {
 		<section className="relative h-[348px] sm:h-[432px] lg:h-[648px] xl:h-[756px] desktop:h-[880px]">
 			<HeroCarousel heroCarouselData={hcd} />
 			<div className="absolute bottom-0 w-full">
-				<CardWrapper cardAList={cardAList} cardBData={cardBData} />
+				<div className="lg:container desktop:w-[1478px]">
+					<CardWrapper cardAList={cardAList} cardBData={cardBData} />
+				</div>
 			</div>
 		</section>
 	);

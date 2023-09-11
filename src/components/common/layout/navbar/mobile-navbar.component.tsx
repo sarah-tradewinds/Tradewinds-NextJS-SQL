@@ -88,7 +88,7 @@ const MobileHeader = (props: any) => {
 					countClassName={`${
 						isAuth
 							? '!-top-1 !right-4 md:!-top-3 !desktop:-top-0 md:!right-2'
-							: '!-top-3 md:!-top-5'
+							: '!-top-2 !-right-3 md:!-top-5'
 					}`}
 				/>
 
