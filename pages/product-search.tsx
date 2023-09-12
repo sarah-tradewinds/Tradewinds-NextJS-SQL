@@ -53,6 +53,7 @@ import {
 	generateBuyerDashboardUrl
 } from 'data/buyer/buyer-actions';
 
+import Button from 'components/common/form/button';
 import RFQCard from 'components/product-search/rfq-card.components';
 import {
 	getProducts,
@@ -529,7 +530,71 @@ const ProductSearchPage: NextPage<
 									<RFQCard size="lg" />
 								</div>
 								<div className="px-4 md:hidden">
-									<MiniRFQCard size="xs" />
+									{/* <MiniRFQCard size="xs" /> */}
+
+									<div className="h-[125px]s mt-8 flex items-center rounded-md bg-gradient-to-r from-[#E7CA00] via-[#E8A30E] to-[#E8A30E] p-2">
+										<div className="relative h-[53px] w-[50px] sm:h-[84px] sm:w-[80px]">
+											<ImageWithErrorHandler
+												src="/static/rfq-box.png"
+												alt="rfq box"
+												fill={true}
+											/>
+										</div>
+
+										<div className="ml-4 sm:ml-10">
+											<p className="font-semibold leading-5 text-white">
+												{t('submit_an_RFQ_for_anything!')}{' '}
+											</p>
+											<ul className="ml-3 grid list-disc grid-cols-1 text-[13px] font-normal text-white md:grid-cols-12 md:text-[16px] md:leading-5 lg:grid-cols-2 lg:gap-x-24">
+												<li className="md:col-span-8 lg:col-span-1">
+													{' '}
+													{t('one_request')}
+												</li>
+												<li className="hidden md:col-span-4 md:list-item lg:col-span-1">
+													{t('responed')}
+												</li>
+												<li className="md:col-span-8 lg:col-span-1">
+													{t('receive_multiple_quotes')}
+												</li>
+												<li className="hidden md:col-span-4 md:list-item lg:col-span-1">
+													{t('close_the_deal')}
+												</li>
+											</ul>
+											<div className="mt-4">
+												<Button
+													onClick={() => {
+														if (!isAuth) {
+															setIsLoginOpen();
+														} else {
+															router.push(
+																`${generateBuyerDashboardUrl({
+																	redirect_to:
+																		BUYER_DASHBOARD_PAGES.buyer_rfq,
+																	action:
+																		BUYER_DASHBOARD_ACTIONS.create_rfq,
+																	access_key: customerData.access.token,
+																	refresh_key:
+																		customerData.refresh.token
+																})}`
+															);
+														}
+													}}
+													className="flex !min-h-[29.74px] w-[187px] items-center bg-white py-1 !px-2 !text-secondary"
+												>
+													<div className="relative h-[29.74px] w-[36px]">
+														<ImageWithErrorHandler
+															src="/static/rfq-orange.png"
+															alt="rfq orange icon"
+															fill={true}
+														/>
+													</div>
+													<p className="px-2 md:pl-[14px] md:text-[16px] md:leading-5 lg:w-full lg:text-[21px] lg:leading-[26px]">
+														{t('common:submit_rfq')}
+													</p>
+												</Button>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						)}
