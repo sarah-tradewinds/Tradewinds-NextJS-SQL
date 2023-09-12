@@ -309,14 +309,14 @@ const ProductSearchPage: NextPage<
 			</div>
 
 			{/* ProductSearchFilterBar */}
-			<div className="top-[97px] z-10 hidden md:sticky md:ml-[9px] md:mr-[10px] md:block md:pt-[14.01px] lg:hidden desktop:top-[121px] desktop:ml-[26px] desktop:mr-[23px] desktop:pt-[18.14px]">
+			<div className="top-[68px] z-10 hidden md:sticky md:ml-[9px] md:mr-[10px] md:block md:pt-[14.01px] lg:hidden desktop:top-[121px] desktop:ml-[26px] desktop:mr-[23px] desktop:pt-[18.14px]">
 				{productSearchFilerComponent}
 			</div>
 
 			<div className="lg:container">
 				<div className="relative mx-auto flex md:mt-[9px] md:ml-[10px] lg:mt-[19px] xl:ml-[24px] xl:mr-[24px]">
 					{/* Side container */}
-					<section className="mr-[14px]s hidden md:block md:w-[159px] xl:mr-[17px] xl:!w-[297px] 900px:w-[203px]">
+					<section className="top-[97px] hidden md:sticky md:block md:w-[159px] xl:mr-[17px] xl:!w-[297px] 900px:w-[203px] desktop:top-[121px]">
 						{/* filters */}
 						<div className="md:mb-[14px] md:h-[383px] md:w-full lg:h-[361px] xl:h-[475px] xl:w-[297px]">
 							<ProductFilter />
@@ -386,7 +386,7 @@ const ProductSearchPage: NextPage<
 
 					{/* Category container and Product list */}
 					<div className="md:ml-[14px] md:mr-[11px] lg:ml-[8px] lg:w-[779px] xl:w-full">
-						<div className="mb-[13px] hidden lg:block">
+						<div className="top-[97px] z-10 mb-[13px] hidden md:sticky lg:block desktop:top-[121px]">
 							{productSearchFilerComponent}
 						</div>
 
