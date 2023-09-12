@@ -11,7 +11,7 @@ const FreeTrailPopup: React.FC = () => {
 		<Modal
 			open={freeTrailOpen}
 			className="!left-1/2 top-[60px] !z-[51000] !-translate-x-1/2 sm:top-[86px] lg:top-[118px]  xl:!top-[161px]"
-			// overlayClassName=" !bg-transparent "
+			overlayClassName=" !bg-transparent "
 			onClose={setFreeTrailClose}
 		>
 			<div className=" h-[288px] w-[278px] bg-white text-center sm:h-[322px] sm:w-[542px] lg:h-[420px] lg:w-[698px] xl:h-[495px] xl:w-[822px]  ">
@@ -32,7 +32,7 @@ const FreeTrailPopup: React.FC = () => {
 					free for 5 days, no credit card required
 				</p>
 				<Link
-					href={'https://www.dashboard.tradewindsmarketplace.com/#/'}
+					href={`${process.env.SELLER_DASHBOARD_SITE_URL}/seller-registration`}
 				>
 					<p className=" mx-auto mt-[22px] h-[31px] w-[110px] rounded-[3px] bg-[#36B04A] py-[8px] px-[11px] text-[12.18px]  font-semibold text-white sm:mt-[21px] sm:h-[38px] sm:w-[134px] sm:rounded-[4px] sm:py-[10px]  sm:px-[13px] sm:text-[14px] lg:mt-[45px] lg:h-[47px] lg:w-[163px] lg:rounded-[5px] lg:py-[12px]  lg:px-[17px] lg:text-[18px] xl:mt-[48px]  ">
 						Start free trial
