@@ -30,7 +30,7 @@ const CardWrapper: React.FC<{
 	return (
 		<>
 			{/* Medium and desktop */}
-			<div className="hidden justify-center space-x-2  md:flex lg:space-x-[11.21px] desktop:space-x-8">
+			<div className="hidden justify-center space-x-2 md:flex lg:space-x-[11.21px] desktop:space-x-8">
 				{cardAList.map((cardAData, index) => (
 					<div key={cardAData.id}>
 						<CardA

@@ -110,7 +110,7 @@ const HomePage: NextPage<
 
 				<div className="mt-[27px] lg:container desktop:w-[1478px]">
 					{/* Category and sub categories */}
-					<div className="mx-2 space-y-[33px] sm:mx-4 sm:space-y-[42px] md:space-y-[20px] desktop:space-y-[27px]">
+					<div className="mx-2 space-y-[33px] sm:mx-4 sm:space-y-[42px] md:mx-[10px] md:space-y-[20px] lg:mx-[12px] xl:mx-5 2xl:mx-2 desktop:space-y-[27px]">
 						{homeMainCategoriesAndCategories?.cat_section &&
 							homeMainCategoriesAndCategories?.cat_section?.map(
 								(

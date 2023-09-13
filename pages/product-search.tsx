@@ -443,6 +443,7 @@ const ProductSearchPage: NextPage<
 							/>
 						</div>
 
+						{/* For medium and large device */}
 						<div className="hidden md:block">
 							{/* MainCategory and categories list */}
 							{((!isTrending && selectedCategories.length > 0) ||
@@ -465,20 +466,38 @@ const ProductSearchPage: NextPage<
 												backgroundColor: selectedMainCategory?.color,
 												border: selectedMainCategory?.color
 													? ''
+													: selectedCountry?.image
+													? ''
 													: '2px solid gray'
 											}}
 										>
-											<div className="absolute bottom-0 right-0">
-												<div className="relative overflow-hidden md:h-[30px] md:w-[30px] lg:h-[40.77px] lg:w-[40.93px] xl:h-[60px] xl:w-[60px]">
+											{/* Category Image */}
+											{selectedCountry?.category_search_image && (
+												<div className="absolute bottom-0 right-0">
+													<div className="relative overflow-hidden md:h-[30px] md:w-[30px] lg:h-[40.77px] lg:w-[40.93px] xl:h-[60px] xl:w-[60px]">
+														<ImageWithErrorHandler
+															key={
+																selectedMainCategory?.category_search_image
+															}
+															src={
+																selectedMainCategory?.category_search_image
+															}
+															alt={getLocaleText(
+																selectedMainCategory?.title || {},
+																router.locale
+															)}
+															fill={true}
+														/>
+													</div>
+												</div>
+											)}
+
+											{/* Country Image */}
+											{selectedCountry?.image && (
+												<div className="relative h-full w-full overflow-hidden">
 													<ImageWithErrorHandler
-														key={
-															selectedMainCategory?.category_search_image ||
-															selectedCountry?.image
-														}
-														src={
-															selectedMainCategory?.category_search_image ||
-															selectedCountry?.image
-														}
+														key={selectedCountry?.image}
+														src={selectedCountry?.image}
 														alt={getLocaleText(
 															selectedMainCategory?.title || {},
 															router.locale
@@ -486,7 +505,7 @@ const ProductSearchPage: NextPage<
 														fill={true}
 													/>
 												</div>
-											</div>
+											)}
 										</div>
 									</div>
 

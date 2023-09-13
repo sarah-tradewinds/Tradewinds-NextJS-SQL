@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import MetadataTile from './metadata/metadata-tile';
 
 // data
+import { ChatBubbleLeftRightIcon } from '@heroicons/react/20/solid';
 import { metadataList } from 'data/product-search/metadata-list';
 import { useTranslation } from 'next-i18next';
 import {
@@ -105,19 +106,20 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 	const messageVendorButton = (
 		<button
 			onClick={onMessageVendorClick}
-			className="mr-1 flex h-[30px] items-center space-x-1 rounded border-[0.594234px] border-primary-main outline-none  xl:w-[138.32px] xl:border-[1.23px]"
+			className="mr-1 flex h-[30px] items-center space-x-1 overflow-hidden rounded border-[0.594234px] border-primary-main outline-none  xl:w-[138.32px] xl:border-[1.23px]"
 		>
-			<div className="flex h-full w-[17.28px] justify-center bg-accent-primary-main xl:w-[26.4px]">
-				<div className="relative h-[20px] w-[12.08px] xl:w-[18px]">
+			<div className="flex h-full w-6 justify-center rounded-l bg-accent-primary-main xl:w-[26.4px]">
+				{/* <div className="relative h-[20px] w-[12.08px] xl:w-[18px]">
 					<ImageWithErrorHandler
 						src="/message-vendor-icon.png"
 						alt="message vendor icon"
 						fill={true}
 					/>
-				</div>
+				</div> */}
+				<ChatBubbleLeftRightIcon className="w-5 text-white" />
 			</div>
 
-			<p className="py-1 text-[10px] text-accent-primary-main desktop:w-full desktop:text-xs">
+			<p className="py-1 pr-1 text-[10px] text-accent-primary-main desktop:w-full desktop:text-xs">
 				{t('message_vendor')}
 			</p>
 		</button>
@@ -242,7 +244,7 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 					{isEco && (
 						<div className="absolute top-2 left-2 desktop:top-0">
 							<ImageWithErrorHandler
-								src="/static/icons/eco-icon.png"
+								src="/icons/eco-icon.svg"
 								alt="eco-icon"
 								width={32}
 								height={32}
@@ -289,12 +291,20 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 					</div>
 
 					{/* Metadata - For desktop only */}
-					<div className="hidden items-center justify-between space-x-1 lg:mt-[12.14px] lg:flex">
-						<div className=" flex flex-col">
+					<div className="hidden grid-cols-3 gap-y-3 lg:mt-[12.14px] lg:grid">
+						{metadataTileList[0]}
+						{metadataTileList[3]}
+						{metadataTileList[1]}
+						{metadataTileList[4]}
+						{metadataTileList[2]}
+						{metadataTileList[5]}
+					</div>
+					{/* <div className="hidden items-center justify-between space-x-1 lg:mt-[12.14px] lg:flex">
+						<div className="flex flex-col">
 							{metadataTileList[0]}
 							{metadataTileList[3]}
 						</div>
-						<div className=" flex flex-col">
+						<div className="flex flex-col">
 							{metadataTileList[1]}
 							{metadataTileList[4]}
 						</div>
@@ -302,12 +312,22 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 							{metadataTileList[2]}
 							{metadataTileList[5]}
 						</div>
-					</div>
+					</div> */}
 				</div>
 			</div>
 
 			{/* Metadata - For sm and tablet only */}
-			<div className="flex items-center space-x-2 sm:mt-[10px] sm:ml-[25px] sm:w-[72%] lg:hidden">
+			<div className="grid grid-cols-3 gap-y-3 sm:mt-[10px] sm:ml-[25px] sm:w-[72%] lg:hidden">
+				{metadataTileList[0]}
+				{metadataTileList[3]}
+				{metadataTileList[1]}
+				<div className={isLive ? '' : '-mt-5'}>
+					{metadataTileList[4]}
+				</div>
+				{metadataTileList[2]}
+				{metadataTileList[5]}
+			</div>
+			{/* <div className="flex items-center space-x-2 sm:mt-[10px] sm:ml-[25px] sm:w-[72%] lg:hidden">
 				<div className="flex flex-col space-y-2">
 					{metadataTileList[0]}
 					{metadataTileList[3]}
@@ -322,13 +342,13 @@ const ProductTile: React.FC<ProductTileProps> = (props) => {
 					{metadataTileList[2]}
 					{metadataTileList[5]}
 				</div>
-			</div>
+			</div> */}
 
 			<div className="absolute right-0 bottom-[19.37px] flex w-[126px] flex-col items-center space-y-2 xl:right-[32px] xl:bottom-[29.02px] desktop:right-[68px] desktop:w-[138.32px]">
 				{/* Verified Image */}
 				<div className="relative h-[54.87px] w-[83.09px] lg:h-[55.29px] lg:w-[83.61px] xl:h-[82px] xl:w-[124px]">
 					<ImageWithErrorHandler
-						src="/twmp-verified.png"
+						src="/images/twmp-verified.svg"
 						alt=""
 						fill={true}
 					/>
