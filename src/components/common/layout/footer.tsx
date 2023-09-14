@@ -36,21 +36,29 @@ const Footer: React.FC = () => {
 							Follow us
 						</p>
 						<div className=" flex space-x-[15px] sm:space-x-[18px] md:space-x-[9px] lg:space-x-[15px] xl:space-x-[20px]">
-							<img
-								alt="insta"
-								src="/icons/insta.png"
-								className=" h-[31px] w-[31px] sm:h-[38px] sm:w-[38px] md:h-[18px] md:w-[18px] lg:h-[30px] lg:w-[30px] xl:h-[40px] xl:w-[40px] "
-							/>
-							<img
-								alt="facebook"
-								src="/icons/facebook.png"
-								className="h-[31px] w-[31px] sm:h-[38px] sm:w-[38px] md:h-[18px] md:w-[18px] lg:h-[30px] lg:w-[30px] xl:h-[40px] xl:w-[40px]"
-							/>
-							<img
-								alt="linkedin"
-								src="/icons/linkedin.png"
-								className="h-[31px] w-[31px] sm:h-[38px] sm:w-[38px] md:h-[18px] md:w-[18px] lg:h-[30px] lg:w-[30px] xl:h-[40px] xl:w-[40px]"
-							/>
+							<a href="https://instagram.com/tradewindsmarketplace?igshid=NzZlODBkYWE4Ng==">
+								<img
+									alt="insta"
+									src="/icons/insta.png"
+									className=" h-[31px] w-[31px] sm:h-[38px] sm:w-[38px] md:h-[18px] md:w-[18px] lg:h-[30px] lg:w-[30px] xl:h-[40px] xl:w-[40px] "
+								/>
+							</a>
+
+							<a href="https://www.facebook.com/profile.php?id=100092549536900">
+								<img
+									alt="facebook"
+									src="/icons/facebook.png"
+									className="h-[31px] w-[31px] sm:h-[38px] sm:w-[38px] md:h-[18px] md:w-[18px] lg:h-[30px] lg:w-[30px] xl:h-[40px] xl:w-[40px]"
+								/>
+							</a>
+
+							<a href="https://www.linkedin.com/company/tradewindsmarketplace/">
+								<img
+									alt="linkedin"
+									src="/icons/linkedin.png"
+									className="h-[31px] w-[31px] sm:h-[38px] sm:w-[38px] md:h-[18px] md:w-[18px] lg:h-[30px] lg:w-[30px] xl:h-[40px] xl:w-[40px]"
+								/>
+							</a>
 						</div>
 					</div>
 					<button
