@@ -187,11 +187,6 @@ const HomePage: NextPage<
 							What’s Trending
 						</Link>
 
-						{/*  Search Categories And Trending Banner */}
-						{/* <div className="mb-[45.25px] mt-[30px] hidden md:my-[30px] md:block">
-							{searchCategoriesAndTrendingBanner}
-						</div> */}
-
 						<div className="hidden h-[79px] w-full overflow-hidden rounded-md sm:block md:h-[102px] lg:h-[136.13px] xl:h-[170px]">
 							<CountrySlider
 								key={homeCountries?.length}
