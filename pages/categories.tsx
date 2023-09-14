@@ -75,18 +75,6 @@ const Categories: NextPage<InferGetStaticPropsType<GetStaticProps>> = ({
 			{/* Banner */}
 			<div className="3xl:container 3xl:w-[1700px]">
 				<div className="relative h-[106px] w-full bg-[url('/images/category-search.png')] bg-cover bg-no-repeat sm:h-[235px] sm:bg-[url('/images/categories-banner-md.png')] lg:h-[228px] lg:bg-[url('/images/categories-banner.png')] xl:h-[192.67px] desktop:h-[234px]">
-					{/* <Image
-						src="/images/category-search.png"
-						alt="category-search"
-						fill={true}
-						className="md:hidden"
-					/>
-					<Image
-						src="/images/categories-banner.png"
-						alt="category-search"
-						fill={true}
-						className="hidden md:block"
-					/> */}
 					<p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform text-[21px] font-semibold leading-[25.6px] text-[#BBD3DD] lg:text-[48px] lg:leading-[58.51px] xl:text-[40.63px] xl:leading-[49.53px] desktop:text-[81px] desktop:leading-[98.74px]">
 						{t('catagories')}
 					</p>

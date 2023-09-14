@@ -49,6 +49,7 @@ const CategoryTileAccordion: React.FC<CategoryTileAccordionProps> = (
 							src={imageUrl}
 							alt="category-search"
 							fill={true}
+							className="object-contain"
 						/>
 					</div>
 				</div>

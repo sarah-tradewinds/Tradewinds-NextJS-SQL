@@ -36,6 +36,7 @@ const LocationHolder: React.FC<LocationHolderProps> = (props) => {
 										src={imageUrl}
 										alt={title || ''}
 										fill={true}
+										className="object-contain"
 									/>
 								</div>
 							</div>

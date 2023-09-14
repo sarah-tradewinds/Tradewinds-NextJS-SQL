@@ -27,11 +27,11 @@ const WhySellOnTradewindsPage: NextPage = () => {
 				{/* Header */}
 
 				<div className=" w-full">
-					<div className="relative mx-auto h-[203px] w-full bg-[url('/static/images/why-sell-on-tradewinds-images/why-sell-on-tradewinds-header.png')] bg-cover bg-center bg-no-repeat sm:h-[298px]  md:h-[358px] lg:h-[478px] desktop:h-[703px] 3xl:container">
+					{/* <div className="relative mx-auto h-[203px] w-full bg-[url('/static/images/why-sell-on-tradewinds-images/why-sell-on-tradewinds-header.png')] bg-cover bg-center bg-no-repeat sm:h-[298px]  md:h-[358px] lg:h-[478px] desktop:h-[703px] 3xl:container"> */}
+					<div className="relative mx-auto h-[203px] w-full bg-[url('/images/why-sell-on-tradewinds/why-sell-on-tradewinds-header-desktop.svg')] bg-cover bg-center bg-no-repeat sm:h-[298px]  md:h-[358px] lg:h-[478px] desktop:h-[703px] 3xl:container">
 						<div className="absolute inset-0 z-[1] bg-black opacity-40"></div>
 
 						{/* content */}
-						{/* <div className="4k:left-1/2 4k:-translate-x-1/2 absolute left-20 top-8 z-[50] text-white lg:top-32 lg:w-1/2"> */}
 						<div className="absolute z-[50] ml-[16px] mt-[19px] text-white sm:ml-[37px] sm:mt-[60px] md:ml-[44px] md:mt-[71px] lg:ml-[59px] lg:mt-[95px] desktop:ml-[87px] desktop:mt-[px] ">
 							<p className=" w-[160px] text-[15px] font-semibold leading-[18px] sm:w-[160px] sm:text-[15px] md:w-[240px] md:text-[24px] md:leading-[25px] lg:w-[306px] lg:text-[32px] lg:leading-[34px] desktop:w-[530px] desktop:text-[50px] desktop:leading-[51px]">
 								{t('expand_your_business_globally')}

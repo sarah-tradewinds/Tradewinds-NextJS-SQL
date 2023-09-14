@@ -9,6 +9,7 @@ import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
 const TrendingCategorySlider: React.FC<{
 	categories: any[];
 	selectedCategoryIds?: string[];
+	onTileClickGotoIndex?: number;
 	onTileClick?: (categoryId: string, data: any) => any;
 	className?: string;
 	selectedTitleClassName?: string;
@@ -22,6 +23,7 @@ const TrendingCategorySlider: React.FC<{
 
 	const {
 		categories = [],
+		onTileClickGotoIndex,
 		onTileClick,
 		selectedCategoryIds,
 		className,
@@ -111,9 +113,15 @@ const TrendingCategorySlider: React.FC<{
 							<div
 								key={subCat.id}
 								className={`transform cursor-pointer transition duration-300 ease-in-out hover:-translate-y-2 lg:mb-[26.3px] xl:mb-[39px] ${slideContainerClassName}`}
-								onClick={() =>
-									onTileClick?.(categoryData?.id, categoryData)
-								}
+								onClick={() => {
+									onTileClick?.(categoryData?.id, categoryData);
+
+									if (onTileClickGotoIndex !== undefined) {
+										(slider?.current as any)?.slickGoTo(
+											onTileClickGotoIndex
+										);
+									}
+								}}
 							>
 								<div className="flex items-center">
 									<div className="relative min-h-[30px] min-w-[30px] lg:min-h-[40.46px] lg:min-w-[40.46px] xl:min-h-[60px] xl:min-w-[60px] tablet:mr-[6px] desktop:mr-[7px]">

@@ -515,6 +515,7 @@ const ProductSearchPage: NextPage<
 											<TrendingCategorySlider
 												categories={[...selectedCategories]}
 												selectedCategoryIds={selectedCategoryList || []}
+												onTileClickGotoIndex={0}
 												onTileClick={(categoryId, data) => {
 													const { id: mainCategoryId, title } =
 														data?.edges?.main_category;
@@ -527,6 +528,8 @@ const ProductSearchPage: NextPage<
 														categoryId,
 														data?.title?.en
 													);
+
+													console.log('[setCategory] params =', params);
 
 													navigateWithShallow(params?.payload);
 												}}
