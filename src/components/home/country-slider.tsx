@@ -152,11 +152,11 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 
 						<button
 							onClick={(e: any) =>
-								e.stopPropagation() || instanceRef.current?.next()
+								e.stopPropagation() || instanceRef?.current?.next?.()
 							}
 							disabled={
 								currentSlide ===
-								instanceRef.current.track.details.slides.length - 1
+								instanceRef?.current?.track?.details?.slides?.length - 1
 							}
 							className="absolute top-1/2 right-2 z-10 -translate-y-1/2 rounded-full bg-black p-2 text-white "
 						>

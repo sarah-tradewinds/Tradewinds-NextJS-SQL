@@ -35,7 +35,11 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 					clearTimeout(timeout);
 					if (mouseOver) return;
 					timeout = setTimeout(() => {
-						slider?.next?.();
+						try {
+							slider?.next?.();
+						} catch (error) {
+							// console.log("[Error occurred] =", error);
+						}
 					}, 2000);
 				}
 				slider?.on('created', () => {
