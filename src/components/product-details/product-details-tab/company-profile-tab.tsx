@@ -560,8 +560,6 @@ const CompanyProfileTab: React.FC<{
 										name || {},
 										locale
 									);
-									const productId =
-										collectionProduct?.edges?.products[0]?.id;
 
 									return (
 										<div
