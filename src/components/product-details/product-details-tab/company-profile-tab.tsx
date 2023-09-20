@@ -568,15 +568,13 @@ const CompanyProfileTab: React.FC<{
 											key={id}
 											className="border-[#C4C4C4] last:border-none md:border-b"
 										>
-											<Link href={`/product/${productId}`}>
-												<CollectionSliderOld
-													key={id}
-													name={collectionName}
-													dataList={
-														collectionProduct?.edges?.products || []
-													}
-												/>
-											</Link>
+											<CollectionSliderOld
+												key={id}
+												name={collectionName}
+												dataList={
+													collectionProduct?.edges?.products || []
+												}
+											/>
 										</div>
 									);
 								})}
