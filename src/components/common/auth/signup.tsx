@@ -82,9 +82,7 @@ const SignUp: React.FC = () => {
 
 			if (
 				field === 'phone_number' &&
-				(signupData[field] === null ||
-					signupData[field] === 0 ||
-					signupData[field].toString().length < 10)
+				(signupData[field] === null || signupData[field] === 0)
 			) {
 				error['phone_number'] = true;
 				errorFound = true;
