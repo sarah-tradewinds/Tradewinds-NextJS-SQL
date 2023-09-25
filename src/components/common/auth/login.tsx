@@ -42,6 +42,7 @@ const Login: React.FC = () => {
 	} = useAuthStore();
 	const [loading, setLoading] = useState(false);
 	const [selectedOption, setSelectedOption] = useState('Buyer');
+	console.log('selectedOption', selectedOption);
 	const [loginData, setLoginData] = useState<ILoginData>({
 		email: '',
 		password: ''
@@ -66,7 +67,10 @@ const Login: React.FC = () => {
 		setLoading(true);
 
 		try {
-			const data = await userLogin(loginData);
+			const data = await userLogin({
+				...loginData,
+				login_as: selectedOption?.toLocaleLowerCase()
+			});
 			const accessToken = data?.access_token?.token || '';
 			if (selectedOption === 'Seller') {
 				window.open(
