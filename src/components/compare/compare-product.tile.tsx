@@ -1,8 +1,8 @@
 // components
 import Button from 'components/common/form/button';
-import MetadataList from 'components/product-search/metadata/metadata-list';
 
 // data
+import MetadataTile from 'components/product-search/metadata/metadata-tile';
 import {
 	BUYER_DASHBOARD_ACTIONS,
 	BUYER_DASHBOARD_PAGES,
@@ -10,11 +10,11 @@ import {
 } from 'data/buyer/buyer-actions';
 import { metadataList } from 'data/product-search/metadata-list';
 import { useKeenSlider } from 'keen-slider/react';
+import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import { useAuthStore } from 'store/auth';
 import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
-import Input from '../common/form/input';
 import RatingStars from '../product-details/product-details-tab/product-review/rating-stars';
 
 interface CompareProductTileProps {
@@ -28,7 +28,15 @@ interface CompareProductTileProps {
 	productPrice: number;
 	displayPrice?: string;
 	isBulkPricing?: boolean;
+	isCustomizable?: boolean;
 	minimumOrderQuantity: number;
+	totalVariantCount?: number;
+	totalReviewCount?: number;
+	totalRateCount?: number;
+	country?: {
+		name: string;
+		imageUrl: string;
+	};
 	className?: string;
 	onProductRemove?: () => any;
 }
@@ -46,15 +54,19 @@ const CompareProductTile: React.FC<CompareProductTileProps> = (
 		productPrice,
 		displayPrice,
 		isBulkPricing,
+		isCustomizable,
 		minimumOrderQuantity,
+		totalVariantCount,
+		totalReviewCount,
+		totalRateCount,
+		country,
 		className,
 		onProductRemove
 	} = props;
 
-	console.log('images----images----images =', images);
-
 	const [currentSlide, setCurrentSlide] = useState(0);
 	const [loaded, setLoaded] = useState(false);
+	const { t } = useTranslation();
 
 	const { isAuth, setIsLoginOpen, customerData } = useAuthStore(
 		(state) => ({
@@ -177,7 +189,6 @@ const CompareProductTile: React.FC<CompareProductTileProps> = (
 
 			{/* Rating and metadata container */}
 			<div className="flex flex-col items-center space-y-6 sm:flex-row sm:items-start sm:justify-between sm:space-y-0 sm:space-x-4">
-				{/* <VerifiedAndRating rating={4} totalReviewCount={105} /> */}
 				<div>
 					<ImageWithErrorHandler
 						key="twmp-verified"
@@ -188,24 +199,55 @@ const CompareProductTile: React.FC<CompareProductTileProps> = (
 					/>
 					<RatingStars
 						starNumber={5}
-						rating={5}
+						rating={totalRateCount}
 						className="w-[14px]"
 						selectedClassName="text-secondary"
 						containerClassName="space-x-1 w-[120px]"
 					/>
 					<p className="text-center text-[12px] text-secondary">
-						146 Reviews
+						{totalReviewCount} Reviews
 					</p>
 				</div>
-				<MetadataList
-					metadataList={[
-						metadataList[0],
-						metadataList[1],
-						metadataList[3],
-						metadataList[4]
-					]}
-					className="!grid-cols-1"
-				/>
+				<div className="space-y-2">
+					<MetadataTile
+						key={country?.name}
+						imageUrl={country?.imageUrl}
+						alt={country?.name}
+						title={country?.name}
+					/>
+					<MetadataTile
+						key={`${t('common:live_buy')}/${t('common:ready_to_ship')}`}
+						imageUrl={metadataList[1].imageUrl}
+						alt={`${t('common:live_buy')}/${t('common:ready_to_ship')}`}
+						title={`${t('common:live_buy')}/${t(
+							'common:ready_to_ship'
+						)}`}
+					/>
+					{/* Customizable */}
+					<MetadataTile
+						key={t('common:customizable')}
+						className="!space-x-1"
+						imageContainerClassName="xl:!w-[22px] xl:!h-[20px]"
+						imageUrl={metadataList[3].imageUrl}
+						alt={t('common:customizable')}
+						title={
+							<p>
+								{t('common:customizable')}{' '}
+								<span className="text-secondary">
+									{isCustomizable ? 'YES' : 'NO'}
+								</span>
+							</p>
+						}
+						titleClassName="lg:!text-[10px] sm:!text-[12px] sm:!leading-[14.63px] xl:!text-[13px] xl:!leading-[15.85px]"
+					/>
+					{/*variantCount */}
+					<MetadataTile
+						key={metadataList[4].title}
+						imageUrl={metadataList[4].imageUrl}
+						alt={metadataList[4].title}
+						title={`${t('common:variants')} ${totalVariantCount}`}
+					/>
+				</div>
 			</div>
 
 			{/* Action Button */}
@@ -248,10 +290,10 @@ const CompareProductTile: React.FC<CompareProductTileProps> = (
 				>
 					Submit RFQ
 				</Button>
-				{/* Save checkbox */}
 			</div>
 
-			<div className="flex justify-center lg:justify-start">
+			{/* Save checkbox */}
+			{/* <div className="flex justify-center lg:justify-start">
 				<div className="flex w-[124px] items-center space-x-2">
 					<Input id="save" type="checkbox" className="h-6 w-6" />
 					<label
@@ -261,7 +303,7 @@ const CompareProductTile: React.FC<CompareProductTileProps> = (
 						Save
 					</label>
 				</div>
-			</div>
+			</div> */}
 		</div>
 	);
 };

@@ -101,7 +101,6 @@ const ProductSearchPage: NextPage<
 
 	const router = useRouter();
 	const { push, query } = router;
-	console.log('Quearyparameter', query);
 	const { main_category } = query;
 	const [categoryId] = getIdAndName((query.category || '') as string);
 

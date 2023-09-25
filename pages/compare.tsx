@@ -55,13 +55,16 @@ const ComparePage: NextPage = (props) => {
 		colSpan = 'col-span-3';
 	}
 
+	console.log('compareProducts-compareProducts =', { compareProducts });
+
 	const compareProductTiles = (isSlider?: boolean) => {
 		return compareProducts.map((compareProduct: any, index) => {
-			const { id, seo, edges } = compareProduct;
+			const { id, product_seo, edges } = compareProduct;
 
-			const { defaultVariant } = getDefaultProductAndProductVariants(
-				edges?.product_variants || []
-			);
+			const { defaultVariant, totalVariantCount } =
+				getDefaultProductAndProductVariants(
+					edges?.product_variants || []
+				);
 
 			const {
 				retail_price = 0,
@@ -78,20 +81,9 @@ const ComparePage: NextPage = (props) => {
 				bulk_pricing
 			});
 
-			// const {
-			// 	id,
-			// 	product_price,
-			// 	is_bulk_pricing,
-			// 	bulk_pricing,
-			// 	inventory,
-			// 	seo
-			// } = compareProduct;
-
-			// const displayPrice = getDisplayBulkPrice({
-			// 	product_price,
-			// 	is_bulk_pricing,
-			// 	bulk_pricing
-			// });
+			const sellerCountry =
+				compareProduct?.edges?.sellers?.edges?.country?.edges
+					?.region_country?.[0] || {};
 
 			return (
 				<div
@@ -118,6 +110,14 @@ const ComparePage: NextPage = (props) => {
 							inventory?.minimum_order_quantity || 0
 						}
 						images={defaultVariant?.images || []}
+						isCustomizable={compareProduct.is_customizable}
+						country={{
+							name: getLocaleText(sellerCountry?.name || '', locale),
+							imageUrl: sellerCountry?.image || '/coming-soon.png'
+						}}
+						totalVariantCount={totalVariantCount}
+						totalReviewCount={compareProduct.total_review_count || 0}
+						totalRateCount={compareProduct.total_rate_count || 0}
 						onProductRemove={() => removeProductFromCompareList(id)}
 						className={
 							compareProducts?.length - 1 === index
@@ -137,13 +137,13 @@ const ComparePage: NextPage = (props) => {
 						<ProductDetailsTab
 							product={compareProduct || {}}
 							productDetailItems={
-								compareProduct?.product_detail_item || []
+								compareProduct?.product_detail_items || []
 							}
 							certifications={compareProduct?.certification || []}
-							shipping={compareProduct?.product_dimension || {}}
-							seoTitle={getLocaleText(seo?.title || {}, locale)}
+							shipping={{}}
+							seoTitle={getLocaleText(product_seo?.title || {}, locale)}
 							seoDescription={getLocaleText(
-								seo?.description || {},
+								product_seo?.description || {},
 								locale
 							)}
 							productDetailsContainerClassName="h-[280px] overflow-y-auto"
@@ -170,7 +170,7 @@ const ComparePage: NextPage = (props) => {
 						>
 							{`<`} Back to Products
 						</Button>
-						<h1 className="text-[30px] font-bold !text-primary-main">
+						<h1 className="font-bold !text-primary-main sm:text-[30px]">
 							Compare Products
 						</h1>
 						<Button className="flex items-center !px-0">

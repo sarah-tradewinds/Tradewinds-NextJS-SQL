@@ -37,7 +37,7 @@ interface AuthState {
 	setIsSelectSignUpOpen: () => any;
 	setIsLoginOpen: () => any;
 	logout: () => any;
-	setFreeTrailClose: () => any;
+	setFreeTrailClose: (isOpen?: boolean) => any;
 }
 
 const initialCustomerData = {
@@ -64,7 +64,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 	isSignUpOpen: false,
 	isSelectSignUpOpen: false,
 	isLoginOpen: false,
-	freeTrailOpen: true,
+	freeTrailOpen: false,
 
 	autoLogin: async () => {
 		set({
@@ -130,7 +130,22 @@ export const useAuthStore = create<AuthState>((set) => ({
 			customerData: initialCustomerData
 		});
 	},
-	setFreeTrailClose: () => {
-		set((state) => ({ freeTrailOpen: !state.freeTrailOpen }));
+	setFreeTrailClose: (isOpen?: boolean) => {
+		set((state) => {
+			const updatedFreeTrailOpen = !state.freeTrailOpen;
+			localStorage.setItem(
+				'is_free_trial_popup_shown',
+				JSON.stringify(true)
+			);
+
+			// console.log('freeTrailOpen-freeTrailOpen =', {
+			// 	updatedFreeTrailOpen
+			// });
+
+			return {
+				freeTrailOpen:
+					isOpen !== undefined ? isOpen : updatedFreeTrailOpen
+			};
+		});
 	}
 }));

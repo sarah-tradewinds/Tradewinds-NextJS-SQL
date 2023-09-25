@@ -2,21 +2,35 @@
 import { useAuthStore } from 'store/auth';
 
 import Link from 'next/link';
+import { useEffect } from 'react';
 import { Modal } from './modal/modal';
 
 const FreeTrailPopup: React.FC = () => {
 	const { freeTrailOpen, setFreeTrailClose } = useAuthStore();
+
+	useEffect(() => {
+		const isFreeTrialPopupShown = localStorage.getItem(
+			'is_free_trial_popup_shown'
+		);
+		console.log('is_free_trial_popup_shown =', {
+			isFreeTrialPopupShown
+		});
+
+		if (!isFreeTrialPopupShown) {
+			setFreeTrailClose(true);
+		}
+	}, []);
 
 	return (
 		<Modal
 			open={freeTrailOpen}
 			className="!left-1/2 top-[60px] !z-[51000] !-translate-x-1/2 sm:top-[86px] lg:top-[118px]  xl:!top-[161px]"
 			overlayClassName=" !bg-transparent "
-			onClose={setFreeTrailClose}
+			onClose={() => setFreeTrailClose(false)}
 		>
 			<div className=" h-[250px] w-[278px] bg-white text-center sm:h-[322px] sm:w-[542px] lg:h-[420px] lg:w-[698px] xl:h-[495px] xl:w-[822px]  ">
 				<div
-					onClick={setFreeTrailClose}
+					onClick={() => setFreeTrailClose()}
 					className=" float-right mt-[3px] mr-[4.3px] h-[19px] w-[19px] rounded-full bg-[#D9D9D9] pt-[8px] sm:hidden"
 				>
 					<div className=" m-auto h-[3px] w-[10px] rounded-[2px] bg-white "></div>
