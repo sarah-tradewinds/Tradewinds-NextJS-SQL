@@ -49,7 +49,6 @@ export const getHomeMainCategoriesAndCategories = async (): Promise<{
 	is_custom: boolean;
 }> => {
 	try {
-		// const { data } = await axiosInstance.get('/cms/category-cms');
 		const { data } = await axiosInstance.get('/cms/category-cms');
 
 		return {

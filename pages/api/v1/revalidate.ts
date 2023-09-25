@@ -13,7 +13,7 @@ const handler: NextApiHandler = async (req, res) => {
 		// e.g. for "/blog/[slug]" this should be "/blog/post-1"
 		const pathToRevalidate = (path || '')?.toString();
 		console.log('pathToRevalidate =', pathToRevalidate);
-		await res.revalidate((path || '')?.toString());
+		await res.revalidate(pathToRevalidate);
 		return res.json({ revalidated: true });
 	} catch (err) {
 		// If there was an error, Next.js will continue

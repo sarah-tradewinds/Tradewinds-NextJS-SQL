@@ -1,6 +1,6 @@
 import {
-	GetServerSideProps,
-	InferGetServerSidePropsType,
+	GetStaticProps,
+	InferGetStaticPropsType,
 	NextPage
 } from 'next';
 import Link from 'next/link';
@@ -32,10 +32,12 @@ import { useCountriesStore } from 'store/countries-store';
 import { useHomeStore } from 'store/home';
 import { CatSubCatSectionType } from 'types/home';
 
-// const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
-const HomePage: NextPage<
-	InferGetServerSidePropsType<GetServerSideProps>
-> = (props) => {
+// const HomePage: NextPage<
+// 	InferGetServerSidePropsType<GetServerSideProps>
+// > = (props) => {
+const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
+	props
+) => {
 	const {
 		cardAList = [],
 		cardBData = {},
@@ -242,10 +244,10 @@ const HomePage: NextPage<
 export default HomePage;
 
 // Static Props
-// export const getStaticProps: GetStaticProps = async ({ locale }) => {
-export const getServerSideProps: GetServerSideProps = async ({
-	locale
-}) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+	// export const getServerSideProps: GetServerSideProps = async ({
+	// 	locale
+	// }) => {
 	const dateS = new Date();
 	console.log(
 		'Home page = [getServerSideProps] started data fetching',
@@ -254,7 +256,6 @@ export const getServerSideProps: GetServerSideProps = async ({
 
 	try {
 		const cardAList = (await getCardAList()) || [];
-		// console.log('cardAList', cardAList);
 		const cardBData = (await getCardB()) || {};
 
 		const homeMainCategoriesAndCategories =
