@@ -3,27 +3,17 @@ import { useEffect, useState } from 'react';
 
 // store
 import { useCategoryStore } from 'store/category-store';
-import { useHomeStore } from 'store/home';
 
 // Types
 import { CatSubCatSectionType } from 'types/home';
 
-// utile
+// utils
 import { getLocaleText } from 'utils/get_locale_text';
 
 // components
 import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
 import CategoryCollapse from './category-collapse.component';
 
-import useDeviceSize from 'hooks/use-device-size.hooks';
-import { useTranslation } from 'next-i18next';
-
-// import required modules
-
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/grid';
-import 'swiper/css/pagination';
 import HomeCategorySlider from './home-category-slider';
 
 type HomeCategorySubCategoriesSectionProps = {
@@ -37,24 +27,11 @@ type HomeCategorySubCategoriesSectionProps = {
 
 const HomeCategorySubCategoriesSection: React.FC<
 	HomeCategorySubCategoriesSectionProps
-> = ({
-	catSubCat,
-	isReverse,
-	isCustom,
-	subCategorySliderClassName,
-	subCategorySliderLeftButtonClassName,
-	subCategorySliderRightButtonClassName
-}) => {
+> = ({ catSubCat }) => {
 	const [screenSize, setScreenSize] = useState<null | number>(null);
 	const [isTablet, setIsTablet] = useState<boolean>(false);
-	const [isOpen, setIsOpen] = useState<boolean>(false);
 
-	const { deviceWidth, deviceSize } = useDeviceSize();
-
-	const { t } = useTranslation('common');
 	const { setMainCategory, setCategory } = useCategoryStore();
-
-	const isEco = useHomeStore((state) => state.isEco);
 
 	const router = useRouter();
 	const { locale } = router;
@@ -62,10 +39,6 @@ const HomeCategorySubCategoriesSection: React.FC<
 	const { main_category, categories = [] } = catSubCat;
 
 	const mainCategoryTitle = getLocaleText(main_category.title, locale);
-	const mainCategoryDescription = getLocaleText(
-		main_category.description,
-		locale
-	);
 
 	useEffect(() => {
 		const handleResize = () => setScreenSize(window.innerWidth);

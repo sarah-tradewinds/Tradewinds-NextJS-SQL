@@ -37,9 +37,7 @@ const HeroCarousel = ({ heroCarouselData }: Props) => {
 					timeout = setTimeout(() => {
 						try {
 							slider?.next?.();
-						} catch (error) {
-							// console.log("[Error occurred] =", error);
-						}
+						} catch (error) {}
 					}, 2000);
 				}
 				slider?.on('created', () => {
