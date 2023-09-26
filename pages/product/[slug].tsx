@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 // Third party packages
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import useSWR from 'swr';
 
 // components
 import Button from 'components/common/form/button';
@@ -44,7 +45,6 @@ import {
 	generateBuyerDashboardUrl
 } from 'data/buyer/buyer-actions';
 import {
-	getOrderIdByProductId,
 	getProductById,
 	getProductReviewAnalyticsByProductId,
 	getProductReviewsByProductId,
@@ -67,16 +67,19 @@ const ProductDetailsPage: NextPage<
 	productReviews = [],
 	reviewAnalytics,
 	seller = {},
-	similarProducts = [],
-	orderedId
+	similarProducts = []
 }) => {
 	const { t } = useTranslation();
 	const router = useRouter();
-	const { pathname, query, push } = router;
+	const { push } = router;
 
 	const [productData, setProductData] = useState(product);
-	const [productReviewList, setProductReviewList] =
-		useState(productReviews);
+
+	const { data: productReviewList, mutate: mutateReviews } = useSWR(
+		`/product/reviews/${productData?.id}`,
+		() => getProductReviewsByProductId(productData?.id || '')
+	);
+
 	const [productReviewAnalytics, setProductReviewAnalytics] =
 		useState(reviewAnalytics);
 	const [isReviewLoading, setIsReviewLoading] = useState(false);
@@ -199,7 +202,7 @@ const ProductDetailsPage: NextPage<
 			const updatedProductReviewAnalytics =
 				await getProductReviewAnalyticsByProductId(productData.id);
 
-			setProductReviewList(productReviews);
+			mutateReviews(productReviews);
 			setProductReviewAnalytics(updatedProductReviewAnalytics);
 			setIsReviewLoading(false);
 		} catch (error) {
@@ -321,17 +324,10 @@ export const getServerSideProps: GetServerSideProps = async ({
 		const productId = (params as any).slug;
 
 		const product = (await getProductById(productId)) || {};
-		console.log('productproductproductproduct =', product, productId);
 
 		if (!product || !product?.id) {
 			return notFound;
 		}
-		const orderedId = (await getOrderIdByProductId(productId)) || {};
-		console.log('updatevalue', orderedId);
-
-		// Fetch product reviews
-		const productReviews =
-			(await getProductReviewsByProductId(productId)) || [];
 
 		const reviewAnalytics =
 			(await getProductReviewAnalyticsByProductId(productId)) || {};
@@ -350,13 +346,11 @@ export const getServerSideProps: GetServerSideProps = async ({
 			props: {
 				product,
 				productName,
-				productReviews,
 				reviewAnalytics,
 				seller,
 				similarProducts,
 				slug: productId,
 				seo: seo,
-				orderedId,
 
 				...(await serverSideTranslations(locale || 'en'))
 			}

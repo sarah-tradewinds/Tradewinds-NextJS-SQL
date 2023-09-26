@@ -1,12 +1,24 @@
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+
 // Third party packages
 import { Tab } from '@headlessui/react';
 import { useTranslation } from 'next-i18next';
-import { useRouter } from 'next/router';
+
+// utils
 import { getDefaultProductAndProductVariants } from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
-import CompanyProfileTab from './company-profile-tab';
+
+// components
 import ProductDetailsTab from './product-details-tab';
-import ReviewsDetailsTab from './product-reviews-details-tab';
+
+const ReviewsDetailsTab = dynamic(
+	() => import('./product-reviews-details-tab')
+);
+
+const CompanyProfileTab = dynamic(
+	() => import('./company-profile-tab')
+);
 
 const ProductDetailsTabContainer: React.FC<{
 	className?: string;
