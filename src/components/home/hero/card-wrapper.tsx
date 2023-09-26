@@ -53,18 +53,23 @@ const CardWrapper: React.FC<{
 					</div>
 				))}
 
-				<CardB
-					title={getLocaleText(cardBData.title || {}, locale)}
-					imageUrl={cardBData?.image}
-					subtitle={getLocaleText(cardBData.description || {}, locale)}
-					description={getLocaleText(
-						cardBData.description2 || {},
-						locale
-					)}
-					buttonText={getLocaleText(cardBData.btn_text || {}, locale)}
-					href={'/what-is-rfq' || cardBData.slug?.en}
-					alt={cardBData.title?.en}
-				/>
+				{cardBData?.id && (
+					<CardB
+						title={getLocaleText(cardBData.title || {}, locale)}
+						imageUrl={cardBData?.image}
+						subtitle={getLocaleText(
+							cardBData.description || {},
+							locale
+						)}
+						description={getLocaleText(
+							cardBData.description2 || {},
+							locale
+						)}
+						buttonText={getLocaleText(cardBData.btn_text || {}, locale)}
+						href={'/what-is-rfq' || cardBData.slug?.en}
+						alt={cardBData.title?.en}
+					/>
+				)}
 			</div>
 
 			{/* Card Slider only visible on mobile */}

@@ -12,8 +12,14 @@ import { getLocaleText } from 'utils/get_locale_text';
 
 // components
 import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
-import CategoryCollapse from './category-collapse.component';
+const CategoryCollapse = dynamic(
+	() => import('./category-collapse.component'),
+	{
+		loading: () => <></>
+	}
+);
 
+import dynamic from 'next/dynamic';
 import HomeCategorySlider from './home-category-slider';
 
 type HomeCategorySubCategoriesSectionProps = {
@@ -132,42 +138,48 @@ const HomeCategorySubCategoriesSection: React.FC<
 	return (
 		<>
 			{/* For Mobile only */}
-			<div className="md:hidden">
-				<CategoryCollapse
-					backgroundColor={main_category.color}
-					title={mainCategoryTitle || ''}
-					imageUrl={main_category?.image || ''}
-					onTitleClick={onMainCategoryPressed}
-				>
-					<div className="ml-7 mr-[34px] mt-2 pb-4">
-						{subCategoriesMobile}
-					</div>
-				</CategoryCollapse>
-			</div>
+			{screenSize && screenSize < 768 && (
+				<div className="md:hidden">
+					<CategoryCollapse
+						backgroundColor={main_category.color}
+						title={mainCategoryTitle || ''}
+						imageUrl={main_category?.image || ''}
+						onTitleClick={onMainCategoryPressed}
+					>
+						<div className="ml-7 mr-[34px] mt-2 pb-4">
+							{subCategoriesMobile}
+						</div>
+					</CategoryCollapse>
+				</div>
+			)}
 
 			{/* For Medium and Large screen */}
-			<div className="hidden rounded-md bg-white md:flex md:h-[216px] md:w-full xl:h-[269.13px] desktop:h-[317px]">
-				{/* Category Container */}
-				<MainCategoryCard
-					backgroundColor={main_category.color}
-					buttonBackgroundColor={main_category?.source_now_button_color}
-					title={mainCategoryTitle || ''}
-					imageUrl={main_category?.image || ''}
-					onPressed={onMainCategoryPressed}
-				/>
-
-				<div className="bg-errors relative md:ml-[31.84px] md:mt-[17.16px] md:w-[68%] lg:!w-[68%] xl:mt-[23px] 900px:w-[72%] desktop:mt-[26px]">
-					<HomeCategorySlider
-						categories={categories || []}
-						onTileClick={(categoryId, data) =>
-							onSubCategoryTileClickHandler(
-								categoryId,
-								data?.title?.en || ''
-							)
+			{screenSize && screenSize >= 768 && (
+				<div className="hidden rounded-md bg-white md:flex md:h-[216px] md:w-full xl:h-[269.13px] desktop:h-[317px]">
+					{/* Category Container */}
+					<MainCategoryCard
+						backgroundColor={main_category.color}
+						buttonBackgroundColor={
+							main_category?.source_now_button_color
 						}
+						title={mainCategoryTitle || ''}
+						imageUrl={main_category?.image || ''}
+						onPressed={onMainCategoryPressed}
 					/>
+
+					<div className="bg-errors relative md:ml-[31.84px] md:mt-[17.16px] md:w-[68%] lg:!w-[68%] xl:mt-[23px] 900px:w-[72%] desktop:mt-[26px]">
+						<HomeCategorySlider
+							categories={categories || []}
+							onTileClick={(categoryId, data) =>
+								onSubCategoryTileClickHandler(
+									categoryId,
+									data?.title?.en || ''
+								)
+							}
+						/>
+					</div>
 				</div>
-			</div>
+			)}
 		</>
 	);
 };

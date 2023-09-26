@@ -39,15 +39,12 @@ import dynamic from 'next/dynamic';
 import { useCountriesStore } from 'store/countries-store';
 import { CatSubCatSectionType } from 'types/home';
 
-// const HomePage: NextPage<
-// 	InferGetServerSidePropsType<GetServerSideProps>
-// > = (props) => {
 const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 	props
 ) => {
 	const {
-		cardAList = [],
-		cardBData = {},
+		// cardAList = [],
+		// cardBData = {},
 		homeMainCategoriesAndCategories = []
 	} = props;
 
@@ -55,6 +52,17 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 	const { data: heroCarousels = [] } = useSWR(
 		'/cms/carousel?isEco=false',
 		() => getHeroCarousels(false)
+	);
+	// Fetching cardA
+	const { data: cardAList = [] } = useSWR(
+		'/cms/cardA?isEco=false',
+		() => getCardAList(false)
+	);
+
+	// Fetching CardB
+	const { data: cardBData = [], isLoading: isCardBLoading } = useSWR(
+		'/cms/cardB?isEco=false',
+		() => getCardB(false)
 	);
 
 	// Fetching Countries
@@ -222,19 +230,7 @@ export default HomePage;
 
 // Static Props
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-	// export const getServerSideProps: GetServerSideProps = async ({
-	// 	locale
-	// }) => {
-	const dateS = new Date();
-	console.log(
-		'Home page = [getServerSideProps] started data fetching',
-		dateS.toLocaleTimeString()
-	);
-
 	try {
-		const cardAList = (await getCardAList()) || [];
-		const cardBData = (await getCardB()) || {};
-
 		const homeMainCategoriesAndCategories =
 			await getHomeMainCategoriesAndCategories();
 
@@ -242,17 +238,11 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 			props: {
 				...(await serverSideTranslations(locale || 'en')),
 
-				cardAList,
-				cardBData,
 				homeMainCategoriesAndCategories:
 					homeMainCategoriesAndCategories ?? {
 						cat_section: [],
 						is_custom: false
 					}
-
-				// cardAList: [],
-				// cardBData: []
-				// homeMainCategoriesAndCategories: []
 			}
 		};
 	} catch (error) {
@@ -261,8 +251,6 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 			props: {
 				...(await serverSideTranslations(locale || 'en')),
 
-				cardAList: [],
-				cardBData: {},
 				homeMainCategoriesAndCategories: {
 					cat_section: [],
 					is_custom: false
