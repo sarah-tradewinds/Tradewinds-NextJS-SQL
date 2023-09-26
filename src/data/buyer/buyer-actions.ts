@@ -25,18 +25,18 @@ export const BUYER_DASHBOARD_ACTIONS = {
 
 export const generateBuyerDashboardUrl = (paramsData: object) => {
 	const queryString = generateQueryString(paramsData);
-	const url = `${process.env.BUYER_DASHBOARD_SITE_URL}/app/buyers?role=buyer&${queryString}`;
+	const url = `${process.env.BUYER_DASHBOARD_SITE_URL}/buyers?role=buyer&${queryString}`;
 	return url;
 };
 
 export const generateSellerDashboardUrl = (paramsData: object) => {
 	const queryString = generateQueryStringSeller(paramsData);
-	const url = `${process.env.SELLER_DASHBOARD_SITE_URL}/app/profile?role=seller&${queryString}`;
+	const url = `${process.env.SELLER_DASHBOARD_SITE_URL}/profile?role=seller&${queryString}`;
 	return url;
 };
 
 export const generateBdmDashboardUrl = (paramsData: object) => {
 	const queryString = generateQueryStringBDM(paramsData);
-	const url = `${process.env.BDM_DASHBOARD_SITE_URL}/app/profile?role=bdm&${queryString}`;
+	const url = `${process.env.BDM_DASHBOARD_SITE_URL}/profile?role=bdm&${queryString}`;
 	return url;
 };
