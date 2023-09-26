@@ -121,10 +121,12 @@ const Layout: React.FC<{ productName?: string; seo: any }> = (
 				text="Authenticating..."
 			/>
 
-			<ProductFilterSlider
-				isOpen={isProductFilterSliderOpen}
-				onClose={() => setIsProductFilterSliderOpen(false)}
-			/>
+			{isProductFilterSliderOpen && (
+				<ProductFilterSlider
+					isOpen={isProductFilterSliderOpen}
+					onClose={() => setIsProductFilterSliderOpen(false)}
+				/>
+			)}
 
 			<div className={isEco ? 'dark' : 'light'}>
 				<ResponsiveHeader productName={productName} />

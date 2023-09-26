@@ -69,7 +69,7 @@ export const getHomeMainCategoriesAndCategories = async (): Promise<{
 export const getHomeCountries = async () => {
 	try {
 		const { data } = await axiosInstance.get(
-			'/region/all/region-countries?limit=10000'
+			'/region/all/region-countries?limit=100'
 		);
 
 		return data.data || [];

@@ -35,6 +35,7 @@ import {
 } from 'lib/home.lib';
 
 // stores
+import useDeviceSize from 'hooks/use-device-size.hooks';
 import dynamic from 'next/dynamic';
 import { useCountriesStore } from 'store/countries-store';
 import { CatSubCatSectionType } from 'types/home';
@@ -42,11 +43,9 @@ import { CatSubCatSectionType } from 'types/home';
 const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 	props
 ) => {
-	const {
-		// cardAList = [],
-		// cardBData = {},
-		homeMainCategoriesAndCategories = []
-	} = props;
+	const { homeMainCategoriesAndCategories = [] } = props;
+
+	const { deviceWidth } = useDeviceSize();
 
 	// Fetching Hero carousel
 	const { data: heroCarousels = [] } = useSWR(
@@ -67,10 +66,7 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 
 	// Fetching Countries
 	const { data: homeCountries, isValidating: isCountriesValidating } =
-		useSWR(
-			'/region/all/region-countries?limit=10000',
-			getHomeCountries
-		);
+		useSWR('/region/all/region-countries?limit=100', getHomeCountries);
 
 	const { t } = useTranslation();
 
@@ -184,41 +180,49 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 							What’s Trending
 						</Link>
 
-						<div className="hidden h-[79px] w-full overflow-hidden rounded-md sm:block md:h-[102px] lg:h-[136.13px] xl:h-[170px]">
-							<CountrySlider
-								key={homeCountries?.length}
-								countries={homeCountries}
-								onCountryClick={(country) => {
-									router.push(
-										`/product-search?region=${country?.region_id}_${
-											country?.edges?.region?.name?.en
-										}&country=${country?.id}_${country?.name?.en || ''}`
-									);
-								}}
-								isLoading={isCountriesValidating && !homeCountries}
-								className="overflow-hidden md:!rounded-md"
-							/>
-						</div>
+						{deviceWidth >= 640 && (
+							<div className="hidden h-[79px] w-full overflow-hidden rounded-md sm:block md:h-[102px] lg:h-[136.13px] xl:h-[170px]">
+								<CountrySlider
+									key={homeCountries?.length}
+									countries={homeCountries}
+									onCountryClick={(country) => {
+										router.push(
+											`/product-search?region=${country?.region_id}_${
+												country?.edges?.region?.name?.en
+											}&country=${country?.id}_${
+												country?.name?.en || ''
+											}`
+										);
+									}}
+									isLoading={isCountriesValidating && !homeCountries}
+									className="overflow-hidden md:!rounded-md"
+								/>
+							</div>
+						)}
 					</div>
 
 					{/* Shop by country and ads */}
 					<div className="space-y-8 lg:mx-[23px]">
 						{/* Shop by country */}
-						<div className="mt-[30px] h-[78.75px] sm:hidden md:h-[81px] lg:h-[168px]">
-							<CountrySlider
-								key={homeCountries?.length}
-								countries={homeCountries}
-								onCountryClick={(country) => {
-									router.push(
-										`/product-search?region=${country?.region_id}_${
-											country?.edges?.region?.name?.en
-										}&country=${country?.id}_${country?.name?.en || ''}`
-									);
-								}}
-								isLoading={isCountriesValidating && !homeCountries}
-								className="overflow-hidden md:!rounded-md"
-							/>
-						</div>
+						{deviceWidth < 640 && (
+							<div className="mt-[30px] h-[78.75px] sm:hidden md:h-[81px] lg:h-[168px]">
+								<CountrySlider
+									key={homeCountries?.length}
+									countries={homeCountries}
+									onCountryClick={(country) => {
+										router.push(
+											`/product-search?region=${country?.region_id}_${
+												country?.edges?.region?.name?.en
+											}&country=${country?.id}_${
+												country?.name?.en || ''
+											}`
+										);
+									}}
+									isLoading={isCountriesValidating && !homeCountries}
+									className="overflow-hidden md:!rounded-md"
+								/>
+							</div>
+						)}
 					</div>
 				</div>
 			</div>

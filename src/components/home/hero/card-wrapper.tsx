@@ -5,7 +5,6 @@ import CardA from './card-a';
 import CardB from './card-b';
 
 import useDeviceSize from 'hooks/use-device-size.hooks';
-import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 import { useHomeStore } from 'store/home';
 
 const CardWrapper: React.FC<{

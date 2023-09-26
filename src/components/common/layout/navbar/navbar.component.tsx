@@ -101,7 +101,7 @@ const Header = (props: any) => {
 
 				{/* Name and logout button */}
 				{isAuth && (
-					<div className="xl:mr-14s md:mr-8s group relative cursor-pointer">
+					<div className="group relative cursor-pointer">
 						<p
 							className="overflow-ellipsis whitespace-nowrap text-xs text-white md:w-[64px] md:text-xs md:leading-[15px] lg:leading-[17.57px] lg:text-[14.4114.41px]"
 							onMouseEnter={() => setShowLogout(true)}

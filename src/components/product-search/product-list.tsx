@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { useAuthStore } from 'store/auth';
 import { useCartStore } from 'store/cart-store-v2';
 
+import useDeviceSize from 'hooks/use-device-size.hooks';
 import useNoLiveBuyPopupStore from 'store/no-live-buy-popup-store';
 import {
 	generateListByCount,
@@ -36,6 +37,7 @@ const ProductList: React.FC<ProductListProps> = ({
 	onCompareClick
 }) => {
 	const { locale, push } = useRouter();
+	const { deviceWidth } = useDeviceSize();
 
 	const { addProductVariantToCart, cartItems } = useCartStore(
 		(state) => ({
@@ -292,18 +294,20 @@ const ProductList: React.FC<ProductListProps> = ({
 							)}
 
 							<div className="w-full sm:hidden">
-								<MobileProductTile
-									{...productData}
-									onClick={navigateWithShallow}
-								/>
+								{deviceWidth < 640 && (
+									<MobileProductTile
+										{...productData}
+										onClick={navigateWithShallow}
+									/>
+								)}
 							</div>
 
-							<div className="hidden sm:block">
+							{deviceWidth >= 640 && (
 								<ProductTile
 									{...productData}
 									onClick={navigateWithShallow}
 								/>
-							</div>
+							)}
 						</>
 					);
 				})}

@@ -3,6 +3,7 @@ import {
 	ChevronLeftIcon,
 	ChevronRightIcon
 } from '@heroicons/react/20/solid';
+import useDeviceSize from 'hooks/use-device-size.hooks';
 import { useKeenSlider } from 'keen-slider/react'; // import from 'keen-slider/react.es' for to get an ES module
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
@@ -26,9 +27,11 @@ interface CountrySliderProps {
 
 const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 	const { countries, onCountryClick, isLoading, className } = props;
+	console.log('countries', countries?.length);
 
 	const [currentSlide, setCurrentSlide] = useState(0);
 	const [loaded, setLoaded] = useState(false);
+	const { deviceWidth } = useDeviceSize();
 
 	const { t } = useTranslation('home');
 	const { locale } = useRouter();
@@ -83,7 +86,6 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 					<p className="mt-[2.56px] text-[10px] font-semibold leading-3 text-white md:hidden">
 						{getLocaleText(country?.name || '', locale)}
 					</p>
-					{/* </div> */}
 				</button>
 		  ));
 
@@ -133,38 +135,41 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 			</div>
 
 			{/* Medium and Desktop */}
-			<div className="navigation-wrapper relative mt-[11.14px] hidden md:block md:px-8">
-				<div ref={ref} className="keen-slider">
-					{countriesSlider}
+			{deviceWidth >= 768 && (
+				<div className="navigation-wrapper relative mt-[11.14px] hidden md:block md:px-8">
+					<div ref={ref} className="keen-slider">
+						{countriesSlider}
+					</div>
+
+					{loaded && instanceRef.current && (
+						<>
+							<button
+								onClick={(e: any) =>
+									e.stopPropagation() || instanceRef.current?.prev()
+								}
+								disabled={currentSlide === 0}
+								className="absolute top-1/2 left-2 z-10 -translate-y-1/2 rounded-full bg-black p-2 text-white"
+							>
+								<ChevronLeftIcon className="w-5" />
+							</button>
+
+							<button
+								onClick={(e: any) =>
+									e.stopPropagation() || instanceRef?.current?.next?.()
+								}
+								disabled={
+									currentSlide ===
+									instanceRef?.current?.track?.details?.slides?.length -
+										1
+								}
+								className="absolute top-1/2 right-2 z-10 -translate-y-1/2 rounded-full bg-black p-2 text-white "
+							>
+								<ChevronRightIcon className="w-5" />
+							</button>
+						</>
+					)}
 				</div>
-
-				{loaded && instanceRef.current && (
-					<>
-						<button
-							onClick={(e: any) =>
-								e.stopPropagation() || instanceRef.current?.prev()
-							}
-							disabled={currentSlide === 0}
-							className="absolute top-1/2 left-2 z-10 -translate-y-1/2 rounded-full bg-black p-2 text-white"
-						>
-							<ChevronLeftIcon className="w-5" />
-						</button>
-
-						<button
-							onClick={(e: any) =>
-								e.stopPropagation() || instanceRef?.current?.next?.()
-							}
-							disabled={
-								currentSlide ===
-								instanceRef?.current?.track?.details?.slides?.length - 1
-							}
-							className="absolute top-1/2 right-2 z-10 -translate-y-1/2 rounded-full bg-black p-2 text-white "
-						>
-							<ChevronRightIcon className="w-5" />
-						</button>
-					</>
-				)}
-			</div>
+			)}
 
 			{/* Shading */}
 			<div className="absolute left-0 top-0 h-full w-14 bg-gradient-to-r from-[#01243b]/80 md:w-32 lg:w-[180px] "></div>

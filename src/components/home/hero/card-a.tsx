@@ -25,7 +25,8 @@ const CardA: React.FC<CardAProps> = (props) => {
 				<ImageWithErrorHandler
 					src={imageUrl}
 					alt={alt || ''}
-					fill={true}
+					width={420}
+					height={196}
 				/>
 			</div>
 

@@ -13,22 +13,25 @@ const SearchBar = dynamic(
 );
 
 // stores
+import useDeviceSize from 'hooks/use-device-size.hooks';
 import { useMainCategories } from 'hooks/useMainCategories';
 
 const ResponsiveHeader = (props: any) => {
 	const { t } = useTranslation('navigation');
+	const { deviceWidth } = useDeviceSize();
 
 	useMainCategories();
 
 	return (
 		<>
-			<MobileHeader />
-			<div className="hidden h-[26px] items-center justify-center bg-[#DEDFE0] sm:flex md:hidden">
-				<SearchBar placeholder={' '} />
-			</div>
-
+			{deviceWidth < 768 && <MobileHeader />}
+			{deviceWidth >= 640 && (
+				<div className="hidden h-[26px] items-center justify-center bg-[#DEDFE0] sm:flex md:hidden">
+					<SearchBar placeholder={' '} />
+				</div>
+			)}
 			{/* Desktop navbar */}
-			<Header />
+			{deviceWidth >= 768 && <Header />}
 		</>
 	);
 };

@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import { useState } from 'react';
 
 // store
 import { useCategoryStore } from 'store/category-store';
@@ -29,8 +28,6 @@ type HomeCategorySubCategoriesSectionProps = {
 const HomeCategorySubCategoriesSection: React.FC<
 	HomeCategorySubCategoriesSectionProps
 > = ({ catSubCat }) => {
-	const [screenSize, setScreenSize] = useState<number>(0);
-	const [isTablet, setIsTablet] = useState<boolean>(false);
 	const { deviceWidth } = useDeviceSize();
 
 	const { setMainCategory, setCategory } = useCategoryStore();
@@ -41,15 +38,6 @@ const HomeCategorySubCategoriesSection: React.FC<
 	const { main_category, categories = [] } = catSubCat;
 
 	const mainCategoryTitle = getLocaleText(main_category.title, locale);
-
-	// useEffect(() => {
-	// 	const handleResize = () => setScreenSize(window.innerWidth);
-	// 	setIsTablet(
-	// 		window.innerWidth > 700 && window.innerWidth < 1024 ? true : false
-	// 	);
-	// 	window.addEventListener('resize', handleResize);
-	// 	return () => window.removeEventListener('resize', handleResize);
-	// }, [isTablet, screenSize]);
 
 	const onSubCategoryTileClickHandler = async (
 		categoryId: string,
@@ -93,15 +81,13 @@ const HomeCategorySubCategoriesSection: React.FC<
 							)
 						}
 					>
-						<div className="mb-[7px]">
-							<ImageWithErrorHandler
-								src={categoryData?.image || ''}
-								alt=""
-								// fill={true}
-								width={40}
-								height={40}
-							/>
-						</div>
+						<ImageWithErrorHandler
+							src={categoryData?.image || ''}
+							alt=""
+							width={40}
+							height={40}
+							className="mb-[7px]"
+						/>
 
 						<p className="ml-[17px] text-[18px] font-semibold leading-[21.94px] text-gray">
 							{subCategoryTitle}
@@ -161,7 +147,7 @@ const HomeCategorySubCategoriesSection: React.FC<
 						onPressed={onMainCategoryPressed}
 					/>
 
-					<div className="bg-errors relative md:ml-[31.84px] md:mt-[17.16px] md:w-[68%] lg:!w-[68%] xl:mt-[23px] 900px:w-[72%] desktop:mt-[26px]">
+					<div className="relative md:ml-[31.84px] md:mt-[17.16px] md:w-[68%] lg:!w-[68%] xl:mt-[23px] 900px:w-[72%] desktop:mt-[26px]">
 						<HomeCategorySlider
 							categories={categories || []}
 							onTileClick={(categoryId, data) =>
@@ -213,11 +199,6 @@ const MainCategoryCard: React.FC<MainCategoryCardProps> = (props) => {
 				<div className="absolute bottom-0 right-0">
 					<div className="relative overflow-hidden md:h-[100px] md:w-[100px] lg:h-[150px] lg:w-[150px] xl:h-[200px] xl:w-[200px]">
 						<div className="absolute bottom-0 right-0">
-							{/* <img
-								src={imageUrl}
-								alt={''}
-								className="h-auto w-auto object-contain"
-							/> */}
 							<ImageWithErrorHandler
 								src={imageUrl}
 								alt={''}

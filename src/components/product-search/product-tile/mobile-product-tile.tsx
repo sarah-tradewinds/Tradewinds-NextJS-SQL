@@ -181,8 +181,8 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 						<ImageWithErrorHandler
 							src={imageUrl}
 							alt={alt || ''}
-							fill={true}
-							className="object-contain"
+							width={79}
+							height={81}
 							onClick={onClick}
 						/>
 					</div>

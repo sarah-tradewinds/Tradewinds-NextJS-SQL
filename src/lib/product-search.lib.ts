@@ -31,7 +31,7 @@ export const getProducts = async (params: {
 		params.minimum_order_quantity = true;
 	}
 
-	params.limit = '1000';
+	params.limit = '10';
 	const queryString = generateQueryString(params);
 
 	try {
