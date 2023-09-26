@@ -12,14 +12,8 @@ import { getLocaleText } from 'utils/get_locale_text';
 
 // components
 import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
-const CategoryCollapse = dynamic(
-	() => import('./category-collapse.component'),
-	{
-		loading: () => <></>
-	}
-);
+import CategoryCollapse from './category-collapse.component';
 
-import dynamic from 'next/dynamic';
 import HomeCategorySlider from './home-category-slider';
 
 type HomeCategorySubCategoriesSectionProps = {
@@ -138,20 +132,18 @@ const HomeCategorySubCategoriesSection: React.FC<
 	return (
 		<>
 			{/* For Mobile only */}
-			{screenSize && screenSize < 768 && (
-				<div className="md:hidden">
-					<CategoryCollapse
-						backgroundColor={main_category.color}
-						title={mainCategoryTitle || ''}
-						imageUrl={main_category?.image || ''}
-						onTitleClick={onMainCategoryPressed}
-					>
-						<div className="ml-7 mr-[34px] mt-2 pb-4">
-							{subCategoriesMobile}
-						</div>
-					</CategoryCollapse>
-				</div>
-			)}
+			<div className="md:hidden">
+				<CategoryCollapse
+					backgroundColor={main_category.color}
+					title={mainCategoryTitle || ''}
+					imageUrl={main_category?.image || ''}
+					onTitleClick={onMainCategoryPressed}
+				>
+					<div className="ml-7 mr-[34px] mt-2 pb-4">
+						{subCategoriesMobile}
+					</div>
+				</CategoryCollapse>
+			</div>
 
 			{/* For Medium and Large screen */}
 			{screenSize && screenSize >= 768 && (
