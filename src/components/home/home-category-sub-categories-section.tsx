@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 // store
 import { useCategoryStore } from 'store/category-store';
@@ -14,6 +14,7 @@ import { getLocaleText } from 'utils/get_locale_text';
 import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
 import CategoryCollapse from './category-collapse.component';
 
+import useDeviceSize from 'hooks/use-device-size.hooks';
 import HomeCategorySlider from './home-category-slider';
 
 type HomeCategorySubCategoriesSectionProps = {
@@ -28,8 +29,9 @@ type HomeCategorySubCategoriesSectionProps = {
 const HomeCategorySubCategoriesSection: React.FC<
 	HomeCategorySubCategoriesSectionProps
 > = ({ catSubCat }) => {
-	const [screenSize, setScreenSize] = useState<null | number>(null);
+	const [screenSize, setScreenSize] = useState<number>(0);
 	const [isTablet, setIsTablet] = useState<boolean>(false);
+	const { deviceWidth } = useDeviceSize();
 
 	const { setMainCategory, setCategory } = useCategoryStore();
 
@@ -40,14 +42,14 @@ const HomeCategorySubCategoriesSection: React.FC<
 
 	const mainCategoryTitle = getLocaleText(main_category.title, locale);
 
-	useEffect(() => {
-		const handleResize = () => setScreenSize(window.innerWidth);
-		setIsTablet(
-			window.innerWidth > 700 && window.innerWidth < 1024 ? true : false
-		);
-		window.addEventListener('resize', handleResize);
-		return () => window.removeEventListener('resize', handleResize);
-	}, [isTablet, screenSize]);
+	// useEffect(() => {
+	// 	const handleResize = () => setScreenSize(window.innerWidth);
+	// 	setIsTablet(
+	// 		window.innerWidth > 700 && window.innerWidth < 1024 ? true : false
+	// 	);
+	// 	window.addEventListener('resize', handleResize);
+	// 	return () => window.removeEventListener('resize', handleResize);
+	// }, [isTablet, screenSize]);
 
 	const onSubCategoryTileClickHandler = async (
 		categoryId: string,
@@ -92,13 +94,13 @@ const HomeCategorySubCategoriesSection: React.FC<
 						}
 					>
 						<div className="mb-[7px]">
-							<div className="relative h-[40px] w-[40px]">
-								<ImageWithErrorHandler
-									src={categoryData?.image || ''}
-									alt=""
-									fill={true}
-								/>
-							</div>
+							<ImageWithErrorHandler
+								src={categoryData?.image || ''}
+								alt=""
+								// fill={true}
+								width={40}
+								height={40}
+							/>
 						</div>
 
 						<p className="ml-[17px] text-[18px] font-semibold leading-[21.94px] text-gray">
@@ -146,7 +148,7 @@ const HomeCategorySubCategoriesSection: React.FC<
 			</div>
 
 			{/* For Medium and Large screen */}
-			{screenSize && screenSize >= 768 && (
+			{deviceWidth >= 768 && (
 				<div className="hidden rounded-md bg-white md:flex md:h-[216px] md:w-full xl:h-[269.13px] desktop:h-[317px]">
 					{/* Category Container */}
 					<MainCategoryCard
@@ -211,10 +213,16 @@ const MainCategoryCard: React.FC<MainCategoryCardProps> = (props) => {
 				<div className="absolute bottom-0 right-0">
 					<div className="relative overflow-hidden md:h-[100px] md:w-[100px] lg:h-[150px] lg:w-[150px] xl:h-[200px] xl:w-[200px]">
 						<div className="absolute bottom-0 right-0">
-							<img
+							{/* <img
 								src={imageUrl}
 								alt={''}
 								className="h-auto w-auto object-contain"
+							/> */}
+							<ImageWithErrorHandler
+								src={imageUrl}
+								alt={''}
+								width={200}
+								height={200}
 							/>
 						</div>
 					</div>

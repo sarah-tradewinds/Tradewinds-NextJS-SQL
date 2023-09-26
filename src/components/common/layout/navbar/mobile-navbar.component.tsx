@@ -24,13 +24,10 @@ import {
 // stores
 import CartIcon from 'components/common/elements/cart-icon';
 import Button from 'components/common/form/button';
-import { useMainCategories } from 'hooks/useMainCategories';
 import Image from 'next/image';
 
 import { useAuthStore } from 'store/auth';
 import { useCartStore } from 'store/cart-store-v2';
-import { useCountriesStore } from 'store/countries-store';
-import { useCategoryStore } from 'store/eco/category-store';
 import { useHomeStore } from 'store/home';
 
 const MobileHeader = (props: any) => {
@@ -50,14 +47,6 @@ const MobileHeader = (props: any) => {
 		setIsEco
 	}));
 
-	const removeCategoryFilter = useCategoryStore(
-		(state) => state.removeCategoryFilter
-	);
-
-	const removeSelectedCountries = useCountriesStore(
-		(state) => state.removeSelectedCountries
-	);
-
 	const { totalItemCartItem, resetCart } = useCartStore((state) => ({
 		totalItemCartItem: state.totalItem,
 		resetCart: state.resetCart
@@ -66,7 +55,6 @@ const MobileHeader = (props: any) => {
 	const { t } = useTranslation('navigation');
 
 	const router = useRouter();
-	useMainCategories();
 
 	const drawerHandler = () => {
 		setIsOpen((pevState) => !pevState);

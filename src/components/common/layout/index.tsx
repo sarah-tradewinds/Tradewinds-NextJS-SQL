@@ -40,7 +40,6 @@ import { useState } from 'react';
 import { useAuthStore } from 'store/auth';
 import { useCartStore } from 'store/cart-store-v2';
 import { useHomeStore } from 'store/home';
-import useNoLiveBuyPopupStore from 'store/no-live-buy-popup-store';
 import { getLocaleText } from 'utils/get_locale_text';
 import FreeTrailPopup from '../free-trail';
 
@@ -74,8 +73,6 @@ const Layout: React.FC<{ productName?: string; seo: any }> = (
 
 	const { route } = useRouter();
 	const { routeChangeStart } = useRouteEvent();
-	const { isNoLiveBuyPopupOpen, setIsNoLiveBuyPopupOpen } =
-		useNoLiveBuyPopupStore();
 
 	useEffect(() => {
 		autoLogin();
@@ -119,12 +116,6 @@ const Layout: React.FC<{ productName?: string; seo: any }> = (
 				description={getLocaleText(seo?.description || {}, locale)}
 			/>
 
-			{/* <NoLiveBuyPopup
-				open={isNoLiveBuyPopupOpen}
-				onClose={() => setIsNoLiveBuyPopupOpen(false)}
-				className="top-20 sm:top-32 md:top-24 lg:top-44 xl:top-40"
-			/> */}
-
 			<Loader
 				isOpen={routeChangeStart || isAuthenticating}
 				text="Authenticating..."
@@ -157,11 +148,6 @@ const Layout: React.FC<{ productName?: string; seo: any }> = (
 									alt="home icon"
 									width={29}
 									height={20}
-									// onClick={() =>
-									// 	setIsProductFilterSliderOpen(
-									// 		(prevState) => !prevState
-									// 	)
-									// }
 								/>
 							</Link>
 

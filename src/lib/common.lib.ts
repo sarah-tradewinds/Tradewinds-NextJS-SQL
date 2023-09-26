@@ -3,7 +3,7 @@ import { axiosInstance } from 'utils/axios-instance.utils';
 export const getMainCategories = async (isEco?: boolean) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/cms/main-category?limit=10000&alpha_sort=${true}&isEco=${isEco}`
+			`/cms/main-category?limit=50&alpha_sort=${true}&isEco=${isEco}`
 		);
 		return data.data || [];
 	} catch (error) {

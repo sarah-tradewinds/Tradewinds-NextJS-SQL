@@ -31,12 +31,6 @@ const ImageWithErrorHandler: React.FC<ImageWithErrorHandlerProps> = (
 			new URL(url?.toString());
 			return true;
 		} catch (error) {
-			// if (alt === 'cat-banner') {
-			// 	console.log('imageUrlimageUrlimageUrl =', {
-			// 		alt,
-			// 		url
-			// 	});
-			// }
 			const [isRelativePath] = url ? url?.split('/') : [];
 			if (isRelativePath === '') {
 				return true;
@@ -44,21 +38,6 @@ const ImageWithErrorHandler: React.FC<ImageWithErrorHandlerProps> = (
 			return false;
 		}
 	}; // End of isValidUrl function
-
-	// const imageSrc = src?.toString()?.toLowerCase() || '';
-
-	// const [slashFirst] = imageSrc?.split('/');
-	// const [httpFirst] = imageSrc?.split('http');
-	// const [httpsFirst] = imageSrc?.split('https');
-
-	// let isImageUrlIsInCorrectFormat = true;
-	// if (
-	// 	imageSrc &&
-	// 	slashFirst !== '' &&
-	// 	(httpFirst !== '' || httpsFirst !== '')
-	// ) {
-	// 	isImageUrlIsInCorrectFormat = false;
-	// }
 
 	const [imageUrl, setImageUrl] = useState(src || defaultImageUrl);
 
@@ -69,29 +48,6 @@ const ImageWithErrorHandler: React.FC<ImageWithErrorHandlerProps> = (
 	const onErrorHandler = () => {
 		setImageUrl(errorImageUrl);
 	}; // End of onErrorHandler method
-
-	// if (alt === 'cat-banner') {
-	// 	console.log(
-	// 		'imageUrlimageUrlimageUrl =',
-	// 		alt,
-	// 		isValidUrl(imageUrl?.toString()),
-	//     {
-	// 			src,
-	// 			imageUrl
-	// 		}
-
-	// 		// imageSrc?.split('/'),
-	// 		// imageSrc?.split('http'),
-	// 		// imageSrc?.split('https'),
-	// 		// new URL(''),
-	// 		// imageSrc,
-	// 		// {
-	// 		// 	isImageUrlIsInCorrectFormat,
-	// 		// 	imageUrl,
-	// 		// 	src
-	// 		// }
-	// 	);
-	// }
 
 	return (
 		<Image

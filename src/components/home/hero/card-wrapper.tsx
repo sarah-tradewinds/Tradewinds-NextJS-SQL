@@ -4,6 +4,7 @@ import { getLocaleText } from 'utils/get_locale_text';
 import CardA from './card-a';
 import CardB from './card-b';
 
+import useDeviceSize from 'hooks/use-device-size.hooks';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 import { useHomeStore } from 'store/home';
 
@@ -12,6 +13,7 @@ const CardWrapper: React.FC<{
 	cardBData: any;
 }> = ({ cardAList, cardBData = {} }) => {
 	const { locale } = useRouter();
+	const { deviceWidth } = useDeviceSize();
 
 	const { setIsEco, isEco } = useHomeStore(({ setIsEco, isEco }) => ({
 		setIsEco,
@@ -30,47 +32,52 @@ const CardWrapper: React.FC<{
 	return (
 		<>
 			{/* Medium and desktop */}
-			<div className="hidden justify-center space-x-2 md:flex lg:space-x-[11.21px] desktop:space-x-8">
-				{cardAList.map((cardAData, index) => (
-					<div key={cardAData.id}>
-						<CardA
-							title={getLocaleText(cardAData?.title || {}, locale)}
+			{deviceWidth >= 768 && (
+				<div className="hidden justify-center space-x-2 md:flex lg:space-x-[11.21px] desktop:space-x-8">
+					{cardAList.map((cardAData, index) => (
+						<div key={cardAData.id}>
+							<CardA
+								title={getLocaleText(cardAData?.title || {}, locale)}
+								subtitle={getLocaleText(
+									cardAData?.description || {},
+									locale
+								)}
+								imageUrl={cardAData.image}
+								href={
+									index == 0
+										? isEco
+											? '/eco/why-sell-on-tradewinds'
+											: '/why-sell-on-tradewinds'
+										: isEco
+										? '/eco/why-sell-on-tradewinds'
+										: '/eco'
+								}
+							/>
+						</div>
+					))}
+
+					{cardBData?.id && (
+						<CardB
+							title={getLocaleText(cardBData.title || {}, locale)}
+							imageUrl={cardBData?.image}
 							subtitle={getLocaleText(
-								cardAData?.description || {},
+								cardBData.description || {},
 								locale
 							)}
-							imageUrl={cardAData.image}
-							href={
-								index == 0
-									? isEco
-										? '/eco/why-sell-on-tradewinds'
-										: '/why-sell-on-tradewinds'
-									: isEco
-									? '/eco/why-sell-on-tradewinds'
-									: '/eco'
-							}
+							description={getLocaleText(
+								cardBData.description2 || {},
+								locale
+							)}
+							buttonText={getLocaleText(
+								cardBData.btn_text || {},
+								locale
+							)}
+							href={'/what-is-rfq' || cardBData.slug?.en}
+							alt={cardBData.title?.en}
 						/>
-					</div>
-				))}
-
-				{cardBData?.id && (
-					<CardB
-						title={getLocaleText(cardBData.title || {}, locale)}
-						imageUrl={cardBData?.image}
-						subtitle={getLocaleText(
-							cardBData.description || {},
-							locale
-						)}
-						description={getLocaleText(
-							cardBData.description2 || {},
-							locale
-						)}
-						buttonText={getLocaleText(cardBData.btn_text || {}, locale)}
-						href={'/what-is-rfq' || cardBData.slug?.en}
-						alt={cardBData.title?.en}
-					/>
-				)}
-			</div>
+					)}
+				</div>
+			)}
 
 			{/* Card Slider only visible on mobile */}
 			<div ref={ref} className="keen-slider md:!hidden">

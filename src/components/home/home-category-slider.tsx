@@ -156,7 +156,9 @@ const SubCategoryCard: React.FC<SubCategoryCardProps> = (props) => {
 					<ImageWithErrorHandler
 						src={imageUrl}
 						alt={title}
-						fill={true}
+						// fill={true}
+						width={120}
+						height={120}
 					/>
 				</div>
 			</div>
