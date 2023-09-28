@@ -2,31 +2,29 @@ import Skeleton from 'react-loading-skeleton';
 
 const SkeletonProductTile: React.FC = () => {
 	const metaDataSkeleton = (
-		<div className="flex space-x-2">
-			<Skeleton width={24} />
-			<Skeleton width={160} />
+		<div className="flex space-x-1">
+			<Skeleton className="w-2 sm:w-6" />
+			<Skeleton className="w-10 sm:w-24" />
 		</div>
 	);
 
 	return (
-		<div className="grid w-full grid-cols-12 overflow-hidden bg-white md:rounded-xl md:shadow-md lg:p-4">
+		<div className="grid w-full grid-cols-12 overflow-hidden rounded-md bg-white p-2 md:rounded-xl md:shadow-md lg:p-4">
 			{/* Product Image Container */}
-			<div className="col-span-2">
-				<Skeleton height="100%" />
+			<div className="col-span-4">
+				<Skeleton height="120px" />
 			</div>
 
 			{/* Content */}
-			<div className="col-span-7 pl-4">
-				<Skeleton width="80%" />
-				<Skeleton width="80%" />
-				<div className="flex space-x-2">
-					<Skeleton width={200} />
-					<Skeleton width={200} />
+			<div className="col-span-8 mx-2">
+				<div>
+					<Skeleton className="h-3" />
+					<Skeleton className="h-3" />
+					<Skeleton className="h-3" />
 				</div>
-				<Skeleton width={200} />
 
 				{/* Metadata for large screen*/}
-				<div className="mt-2 grid grid-cols-3">
+				<div className="mt-2 grid grid-cols-3 sm:gap-x-2">
 					{metaDataSkeleton}
 					{metaDataSkeleton}
 					{metaDataSkeleton}

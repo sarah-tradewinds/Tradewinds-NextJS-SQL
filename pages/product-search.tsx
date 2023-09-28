@@ -41,7 +41,6 @@ const ProductSearchTopBanner = dynamic(
 );
 
 // stores
-import useDeviceSize from 'hooks/use-device-size.hooks';
 import {
 	getCountryById,
 	getTrendingCategoriesByCountry
@@ -53,6 +52,10 @@ import {
 	generateBuyerDashboardUrl
 } from 'data/buyer/buyer-actions';
 
+import {
+	ChevronLeftIcon,
+	ChevronRightIcon
+} from '@heroicons/react/20/solid';
 import Button from 'components/common/form/button';
 import RFQCard from 'components/product-search/rfq-card.components';
 import {
@@ -74,11 +77,11 @@ const ProductSearchPage: NextPage<
 	InferGetServerSidePropsType<GetServerSideProps>
 > = (props) => {
 	const [products, setProducts] = useState(props.products?.data || []);
+	const [isProductsLoading, setIsProductsLoading] = useState(false);
 	const [minPrice, setMinPrice] = useState('0');
 	const [maxPrice, setMaxPrice] = useState('0');
 	const [filterBuyEco, setFilterBuyEco] = useState(false);
-
-	console.log('products =', products);
+	const [pageNumber, setPageNumber] = useState(1);
 
 	const [
 		isSelectedMainCategoryAndCategoriesLoading,
@@ -100,7 +103,7 @@ const ProductSearchPage: NextPage<
 	const [isInitialFilterSet, setIsInitialFilterSet] = useState(false);
 
 	const router = useRouter();
-	const { push, query } = router;
+	const { push, query, locale } = router;
 	const { main_category } = query;
 	const [categoryId] = getIdAndName((query.category || '') as string);
 
@@ -132,7 +135,6 @@ const ProductSearchPage: NextPage<
 	);
 
 	const { t } = useTranslation();
-	const { deviceWidth } = useDeviceSize();
 
 	useEffect(() => {
 		const [mainCategoryId] =
@@ -195,29 +197,33 @@ const ProductSearchPage: NextPage<
 	// Fetching products
 	useEffect(() => {
 		const filterValue = getFilterValueFromQuery(query);
-
+		setIsProductsLoading(true);
 		getProducts({
 			...filterValue,
-			is_eco: isEco || (main_category ? false : filterBuyEco)
-		}).then((data: any) => {
-			const productList = data.data || [];
-			setProducts(productList);
-			console.log(' ');
-			console.log('Calling only products', query, productList);
-			console.log(' ');
-			const { main_category } = data.categories || {};
-			if (main_category) {
-				setIsSelectedMainCategoryAndCategoriesLoading(true);
-				getSelectedMainCategoryAndCategories(
-					main_category as string
-				).then((data) => {
-					setSelectedMainCategory(data.main_category || {});
-					setSelectedCategories(data.categories || []);
-					setIsSelectedMainCategoryAndCategoriesLoading(false);
-				});
-			}
-		});
-	}, [query, isEco]);
+			is_eco: isEco || (main_category ? false : filterBuyEco),
+			page_number: pageNumber,
+			lang: locale
+		})
+			.then((data: any) => {
+				const productList = data.data || [];
+				setProducts(productList);
+				console.log(' ');
+				console.log('Calling only products', query, productList);
+				console.log(' ');
+				const { main_category } = data.categories || {};
+				if (main_category) {
+					setIsSelectedMainCategoryAndCategoriesLoading(true);
+					getSelectedMainCategoryAndCategories(
+						main_category as string
+					).then((data) => {
+						setSelectedMainCategory(data.main_category || {});
+						setSelectedCategories(data.categories || []);
+						setIsSelectedMainCategoryAndCategoriesLoading(false);
+					});
+				}
+			})
+			.finally(() => setIsProductsLoading(false));
+	}, [query, isEco, pageNumber, locale]);
 
 	useEffect(() => {
 		const updatedProductList = products?.map((product: any) => {
@@ -624,6 +630,7 @@ const ProductSearchPage: NextPage<
 						<div className="mt-[12px]">
 							<ProductList
 								products={products}
+								isLoading={isProductsLoading}
 								onCompareClick={addProductToCompareList}
 							/>
 						</div>
@@ -634,15 +641,37 @@ const ProductSearchPage: NextPage<
 						</div>
 
 						{/* Pagination */}
-						{/* <div className="col-span-12 hidden justify-center md:flex ">
-						<div className="flex space-x-3 font-semibold text-gray md:text-[20px] desktop:text-[25px]">
-							<p>{`<`}</p>
-							<p>1</p>
-							<p>of</p>
-							<p>46</p>
-							<p>{`>`}</p>
-						</div>
-					</div> */}
+						{!isProductsLoading && (
+							<div className="mt-10 flex justify-center">
+								<div className="flex items-center space-x-3 font-semibold text-gray md:text-[20px] desktop:text-[25px]">
+									<button
+										onClick={() =>
+											setPageNumber((prevState) => {
+												const updatedPageNumber = prevState + 1;
+												if (updatedPageNumber <= 0) {
+													return 1;
+												}
+												return updatedPageNumber;
+											})
+										}
+										className="rounded-md border bg-primary-main px-2 text-white outline-none"
+									>
+										<ChevronLeftIcon className="h-8 w-8" />
+									</button>
+									<p>{pageNumber}</p>
+									<p>of</p>
+									<p>46</p>
+									<button
+										onClick={() =>
+											setPageNumber((prevState) => prevState + 1)
+										}
+										className="rounded-md border bg-primary-main px-2 text-white outline-none"
+									>
+										<ChevronRightIcon className="h-8 w-8" />
+									</button>
+								</div>
+							</div>
+						)}
 					</div>
 
 					{/* Compare */}

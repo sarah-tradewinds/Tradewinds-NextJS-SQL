@@ -75,10 +75,10 @@ const ProductDetailsPage: NextPage<
 
 	const [productData, setProductData] = useState(product);
 
-	const { data: productReviewList, mutate: mutateReviews } = useSWR(
-		`/product/reviews/${productData?.id}`,
-		() => getProductReviewsByProductId(productData?.id || '')
-	);
+	const { data: productReviewList = [], mutate: mutateReviews } =
+		useSWR(`/product/reviews/${productData?.id}`, () =>
+			getProductReviewsByProductId(productData?.id || '')
+		);
 
 	const [productReviewAnalytics, setProductReviewAnalytics] =
 		useState(reviewAnalytics);
@@ -222,7 +222,7 @@ const ProductDetailsPage: NextPage<
 					setSelectedVariantId(variantId);
 				}}
 				selectedVariantId={selectedVariantId}
-				totalReviewCount={productReviewList.length}
+				totalReviewCount={productReviewList?.length}
 				hideCartButton={!product.is_live_buy}
 				onAddToCart={async () => {
 					if (!productData?.is_live_buy) {

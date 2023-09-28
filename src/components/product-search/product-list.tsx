@@ -84,10 +84,12 @@ const ProductList: React.FC<ProductListProps> = ({
 		return (
 			<>
 				{generateListByCount(
-					10,
+					5,
 					undefined,
 					undefined,
-					<SkeletonProductTile />
+					<div className="mx-2 my-4">
+						<SkeletonProductTile />
+					</div>
 				)}
 			</>
 		);
