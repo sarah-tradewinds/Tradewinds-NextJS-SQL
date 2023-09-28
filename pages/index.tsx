@@ -22,6 +22,7 @@ const CountrySlider = dynamic(
 
 import Seo from 'components/common/seo';
 // import CountrySlider from 'components/home/country-slider';
+import Hero from 'components/home/hero';
 import HomeCategorySubCategoriesSection from 'components/home/home-category-sub-categories-section';
 
 // lib
@@ -115,11 +116,11 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 				description={t('home:meta_description')}
 			/>
 			<div className="3xl:container 3xl:w-[1700px]">
-				{/* <Hero
+				<Hero
 					hcd={heroCarousels}
 					cardAList={cardAList}
 					cardBData={cardBData}
-				/> */}
+				/>
 
 				<div className="mt-[27px] lg:container desktop:w-[1478px]">
 					{/* Category and sub categories */}
