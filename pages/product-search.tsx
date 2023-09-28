@@ -95,10 +95,6 @@ const ProductSearchPage: NextPage<
 		banner_image: props.countryBannerImageUrl || ''
 	});
 
-	console.log('selectedMainCategory-selectedCountry', {
-		selectedMainCategory,
-		selectedCountry
-	});
 	const [isInitialFilterSet, setIsInitialFilterSet] = useState(false);
 
 	const router = useRouter();
@@ -702,27 +698,10 @@ export const getServerSideProps: GetServerSideProps = async ({
 		...filterValue
 	});
 
-	// let countryBannerImageUrl = '';
-	// const [countryIds] = getIdAndName((query.country || '') as string);
-	// if (countryIds) {
-	// 	const [countryId] = countryIds?.split(',');
-	// 	getCountryById(countryId)
-	// 		.then((data) => {
-	// 			countryBannerImageUrl =
-	// 				data?.banner_image?.url || '/coming-soon.png';
-	// 		})
-	// 		.finally(() => {
-	// 			if (!countryBannerImageUrl) {
-	// 				countryBannerImageUrl = '/coming-soon.png';
-	// 			}
-	// 		});
-	// }
-
 	return {
 		props: {
 			...(await serverSideTranslations(locale || 'en')),
 			products
-			// countryBannerImageUrl
 		}
 	};
 }; // End of getServerSideProps function
