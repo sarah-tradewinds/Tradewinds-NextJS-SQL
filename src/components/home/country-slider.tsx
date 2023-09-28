@@ -5,16 +5,17 @@ import {
 } from '@heroicons/react/20/solid';
 import useDeviceSize from 'hooks/use-device-size.hooks';
 import { useKeenSlider } from 'keen-slider/react'; // import from 'keen-slider/react.es' for to get an ES module
+import { fetchHomeCountries } from 'lib/home.lib';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { generateListByCount } from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
 import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
 
 interface CountrySliderProps {
-	countries: {
+	countries?: {
 		id: string;
 		name: any;
 		slug: any;
@@ -26,8 +27,17 @@ interface CountrySliderProps {
 }
 
 const CountrySlider: React.FC<CountrySliderProps> = (props) => {
-	const { countries, onCountryClick, isLoading, className } = props;
-	console.log('countries', countries?.length);
+	const { onCountryClick, className } = props;
+	const [countries, setCountries] = useState<
+		{
+			id: string;
+			name: any;
+			slug: any;
+			image: string;
+		}[]
+	>([]);
+	const [pageNumber, setPageNumber] = useState(1);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const [currentSlide, setCurrentSlide] = useState(0);
 	const [loaded, setLoaded] = useState(false);
@@ -58,21 +68,41 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 		}
 	});
 
+	useEffect(() => {
+		setIsLoading(true);
+		fetchHomeCountries(pageNumber)
+			.then((data) =>
+				setCountries((prevState) => {
+					if (pageNumber === 1) {
+						return data;
+					}
+					return [...prevState, ...data];
+				})
+			)
+			.finally(() => setIsLoading(false));
+	}, [pageNumber]);
+	console.log('countries', countries.length);
+
 	const countriesSlider = isLoading
 		? generateListByCount(8).map((id) => (
 				<div key={id} className="keen-slider__slide">
 					<Skeleton width="132px" height="80px" />
 				</div>
 		  ))
-		: countries?.map((country) => (
-				<button
+		: countries?.map((country, index) => (
+				<IntersectionObserverComponent
 					key={country.id}
+					isFirst={index === 0}
+					isLast={index === countries.length - 1}
+					fetchNextData={() =>
+						setPageNumber((prevState) => prevState + 1)
+					}
+					className="keen-slider__slide !relative flex !h-9 !min-w-[36.06px] !max-w-[36.06px] flex-col items-center md:!mx-5 md:!h-[30.59px] md:!min-w-[52.04px] md:!max-w-[52.04px] lg:!mx-[41px] lg:!h-[64px] lg:!min-w-[107px] lg:!max-w-[107px]"
 					onClick={() => {
 						if (onCountryClick) {
 							onCountryClick(country);
 						}
 					}}
-					className="keen-slider__slide !relative flex !h-9 !min-w-[36.06px] !max-w-[36.06px] flex-col items-center md:!mx-5 md:!h-[30.59px] md:!min-w-[52.04px] md:!max-w-[52.04px] lg:!mx-[41px] lg:!h-[64px] lg:!min-w-[107px] lg:!max-w-[107px]"
 				>
 					<div className="relative !min-h-[24.44px] !min-w-[36.06px] !max-w-[36.06px] md:!h-full md:!min-w-[61.47px] md:!max-w-[61.47px] lg:!min-w-[107px] lg:!max-w-[107px]">
 						<ImageWithErrorHandler
@@ -86,7 +116,8 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 					<p className="mt-[2.56px] text-[10px] font-semibold leading-3 text-white md:hidden">
 						{getLocaleText(country?.name || '', locale)}
 					</p>
-				</button>
+					{/* </button> */}
+				</IntersectionObserverComponent>
 		  ));
 
 	return (
@@ -107,29 +138,38 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 					ref={ref}
 					className="scrollbar-hide flex space-x-8 overflow-x-auto"
 				>
-					{countries?.map((country) => (
-						<button
+					{countries?.map((country, index) => (
+						<IntersectionObserverComponent
 							key={country.id}
-							onClick={() => {
-								if (onCountryClick) {
-									onCountryClick(country);
-								}
-							}}
-							className="flex flex-col items-center"
+							isFirst={index === 0}
+							isLast={index === countries.length - 1}
+							fetchNextData={() =>
+								setPageNumber((prevState) => prevState + 1)
+							}
 						>
-							<div className="relative h-[24.44px] w-[36.06px]">
-								<ImageWithErrorHandler
-									key={country.image + country.id}
-									src={country.image}
-									alt={country.name?.toString()}
-									fill={true}
-								/>
-							</div>
+							<button
+								key={country.id}
+								onClick={() => {
+									if (onCountryClick) {
+										onCountryClick(country);
+									}
+								}}
+								className="flex flex-col items-center"
+							>
+								<div className="relative h-[24.44px] w-[36.06px]">
+									<ImageWithErrorHandler
+										key={country.image + country.id}
+										src={country.image}
+										alt={country.name?.toString()}
+										fill={true}
+									/>
+								</div>
 
-							<p className="mt-[2.56px] whitespace-nowrap text-[10px] font-semibold leading-3 text-white">
-								{getLocaleText(country?.name || '', locale)}
-							</p>
-						</button>
+								<p className="mt-[2.56px] whitespace-nowrap text-[10px] font-semibold leading-3 text-white">
+									{getLocaleText(country?.name || '', locale)}
+								</p>
+							</button>
+						</IntersectionObserverComponent>
 					))}
 				</div>
 			</div>
@@ -179,3 +219,61 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 };
 
 export default CountrySlider;
+
+export const IntersectionObserverComponent: React.FC<{
+	isFirst: boolean;
+	isLast: boolean;
+	className?: string;
+	fetchPreviousData?: () => void;
+	fetchNextData?: () => void;
+	onClick?: () => void;
+}> = (props) => {
+	const {
+		isFirst,
+		isLast,
+		children,
+		className,
+		fetchPreviousData,
+		fetchNextData,
+		onClick
+	} = props;
+
+	const ref = useRef(null);
+
+	useEffect(() => {
+		const observer = new IntersectionObserver(
+			([entry]) => {
+				if (isFirst && entry.isIntersecting) {
+					if (fetchPreviousData) fetchPreviousData?.();
+					observer.unobserve(entry.target);
+				}
+				if (isLast && entry.isIntersecting) {
+					console.log(
+						'entry',
+						'entry.isIntersecting',
+						entry.isIntersecting
+					);
+					if (fetchNextData) fetchNextData?.();
+					observer.unobserve(entry.target);
+				}
+			},
+			{
+				threshold: 0.5
+			}
+		);
+
+		if (ref.current) {
+			observer.observe(ref.current);
+		}
+
+		return () => {
+			observer.disconnect();
+		};
+	}, [isFirst, isLast]);
+
+	return (
+		<div ref={ref} className={className} onClick={onClick}>
+			{children}
+		</div>
+	);
+};

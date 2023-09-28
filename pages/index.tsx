@@ -30,7 +30,6 @@ import {
 	getCardAList,
 	getCardB,
 	getHeroCarousels,
-	getHomeCountries,
 	getHomeMainCategoriesAndCategories
 } from 'lib/home.lib';
 
@@ -64,10 +63,6 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 		() => getCardB(false)
 	);
 
-	// Fetching Countries
-	const { data: homeCountries, isValidating: isCountriesValidating } =
-		useSWR('/region/all/region-countries?limit=100', getHomeCountries);
-
 	const { t } = useTranslation();
 
 	const { fetchCountries, removeSelectedCountries } = useCountriesStore(
@@ -80,7 +75,7 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 
 	// Fetching countries
 	useEffect(() => {
-		fetchCountries(homeCountries);
+		fetchCountries();
 		removeSelectedCountries();
 	}, []);
 
@@ -183,8 +178,6 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 						{deviceWidth >= 640 && (
 							<div className="hidden h-[79px] w-full overflow-hidden rounded-md sm:block md:h-[102px] lg:h-[136.13px] xl:h-[170px]">
 								<CountrySlider
-									key={homeCountries?.length}
-									countries={homeCountries}
 									onCountryClick={(country) => {
 										router.push(
 											`/product-search?region=${country?.region_id}_${
@@ -194,7 +187,6 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 											}`
 										);
 									}}
-									isLoading={isCountriesValidating && !homeCountries}
 									className="overflow-hidden md:!rounded-md"
 								/>
 							</div>
@@ -207,8 +199,6 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 						{deviceWidth < 640 && (
 							<div className="mt-[30px] h-[78.75px] sm:hidden md:h-[81px] lg:h-[168px]">
 								<CountrySlider
-									key={homeCountries?.length}
-									countries={homeCountries}
 									onCountryClick={(country) => {
 										router.push(
 											`/product-search?region=${country?.region_id}_${
@@ -218,7 +208,6 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 											}`
 										);
 									}}
-									isLoading={isCountriesValidating && !homeCountries}
 									className="overflow-hidden md:!rounded-md"
 								/>
 							</div>
@@ -232,7 +221,6 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 
 export default HomePage;
 
-// Static Props
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
 	try {
 		const homeMainCategoriesAndCategories =

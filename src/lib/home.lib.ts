@@ -49,7 +49,7 @@ export const getHomeMainCategoriesAndCategories = async (): Promise<{
 	is_custom: boolean;
 }> => {
 	try {
-		const { data } = await axiosInstance.get('/cms/category-cms');
+		const { data } = await axiosInstance.get('/cms/category-cms/cms');
 
 		return {
 			cat_section: data.data[0].cat_section,
@@ -69,7 +69,7 @@ export const getHomeMainCategoriesAndCategories = async (): Promise<{
 export const getHomeCountries = async () => {
 	try {
 		const { data } = await axiosInstance.get(
-			'/region/all/region-countries?limit=100'
+			`/region/all/region-countries?limit=100`
 		);
 
 		return data.data || [];
@@ -80,6 +80,22 @@ export const getHomeCountries = async () => {
 		return [];
 	}
 }; // End of getHomeCountries function
+
+export const fetchHomeCountries = async (pageNumber: number) => {
+	console.log('pageNumberpageNumberpageNumber', pageNumber);
+	try {
+		const { data } = await axiosInstance.get(
+			`/region/all/region-countries?data_per_page=10&page_number=${pageNumber}`
+		);
+
+		return data.data || [];
+	} catch (error) {
+		console.log('[fetchHomeCountries] =', error);
+		const { data } = (error as any).response || {};
+		// throw Error(data || 'Error occurred fetchHomeCountries');
+		return [];
+	}
+}; // End of fetchHomeCountries function
 
 export const getHomeAdvertisements = async () => {
 	try {

@@ -25,8 +25,8 @@ const CardA: React.FC<CardAProps> = (props) => {
 				<ImageWithErrorHandler
 					src={imageUrl}
 					alt={alt || ''}
-					width={420}
-					height={196}
+					fill
+					sizes="(min-width: 1512px) 420px, (min-width: 1280px) 366.22px,  (min-width: 1024px) 300px, 168px"
 				/>
 			</div>
 
