@@ -99,7 +99,6 @@ const ProductSearchPage: NextPage<
 		selectedMainCategory,
 		selectedCountry
 	});
-	console.log(props);
 	const [isInitialFilterSet, setIsInitialFilterSet] = useState(false);
 
 	const router = useRouter();
