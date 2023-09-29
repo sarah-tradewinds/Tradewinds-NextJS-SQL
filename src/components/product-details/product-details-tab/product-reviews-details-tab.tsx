@@ -1,12 +1,26 @@
 import Button from 'components/common/form/button';
 import { canCustomerGiveReviewOnThisProduct } from 'lib/product-details.lib';
-import { useTranslation } from 'next-i18next';
+import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from 'react';
+
+// Third party packages
+import { useTranslation } from 'next-i18next';
+
+// auth
 import { useAuthStore } from 'store/auth';
+
+// components
 import { Modal } from '../../common/modal/modal';
-import ProductReview from './product-review/product-review';
-import RatingStars from './product-review/rating-stars';
-import UserReviewAndRatingTile from './user-review-and-rating-tile';
+
+const ProductReview = dynamic(
+	() => import('./product-review/product-review')
+);
+const RatingStars = dynamic(
+	() => import('./product-review/rating-stars')
+);
+const UserReviewAndRatingTile = dynamic(
+	() => import('./user-review-and-rating-tile')
+);
 
 const ProductReviewsDetailsTab: React.FC<{
 	productId: string;
@@ -71,7 +85,6 @@ const ProductReviewsDetailsTab: React.FC<{
 
 	useEffect(() => {
 		canCustomerGiveReviewOnThisProduct(productId).then((data: any) => {
-			console.log('[setCanCustomerWriteReviewForThisProduct] =', data);
 			setCanCustomerWriteReviewForThisProduct(
 				data.canCustomerWiteReviewForThisProduct
 			);
@@ -104,10 +117,6 @@ const ProductReviewsDetailsTab: React.FC<{
 			</div>
 		</div>
 	);
-
-	console.log('[[canCustomerWriteReviewForThisProduct]]', {
-		canCustomerWriteReviewForThisProduct
-	});
 
 	return (
 		<>

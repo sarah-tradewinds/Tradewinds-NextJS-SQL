@@ -1,10 +1,16 @@
-import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
-import { useKeenSlider } from 'keen-slider/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+
+// Third party packages
+import { useKeenSlider } from 'keen-slider/react';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
+
+// utils
 import { getDefaultProductAndProductVariants } from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
+
+// components
+import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import Button from '../common/form/button';
 
 interface SimilarProductListProps {

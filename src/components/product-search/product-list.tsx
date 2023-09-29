@@ -26,11 +26,6 @@ import { getLocaleText } from 'utils/get_locale_text';
 
 // components
 import Button from '../common/form/button';
-// import ErrorPopup from '../common/popup/error-popup';
-// import MessageVendorPopup from '../common/popup/message-vendor.popup';
-// import ProductTile from './product-tile';
-// import MobileProductTile from './product-tile/mobile-product-tile';
-// import RFQCard from './rfq-card.components';
 
 const ErrorPopup = dynamic(() => import('../common/popup/error-popup'));
 const MessageVendorPopup = dynamic(

@@ -1,13 +1,25 @@
+import dynamic from 'next/dynamic';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+
+// Third party packages
 import { Tab } from '@headlessui/react';
 import {
 	DocumentDuplicateIcon,
 	PlayCircleIcon,
 	ShareIcon
 } from '@heroicons/react/20/solid';
-import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
-import Button from 'components/common/form/button';
-import MessageVendorPopup from 'components/common/popup/message-vendor.popup';
 import { useKeenSlider } from 'keen-slider/react';
+import { useTranslation } from 'next-i18next';
+import {
+	MdChevronLeft,
+	MdChevronRight,
+	MdOutlineMessage
+} from 'react-icons/md';
+
+// lib
 import {
 	createConversation,
 	sendMessageToSeller
@@ -17,20 +29,25 @@ import {
 	getProductsWithCollectionBySellerId,
 	getSellerStorefrontDetailsSellerId
 } from 'lib/product-details.lib';
-import { useTranslation } from 'next-i18next';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import {
-	MdChevronLeft,
-	MdChevronRight,
-	MdOutlineMessage
-} from 'react-icons/md';
+
+// store
 import { useAuthStore } from 'store/auth';
+
+// util
 import { getLocaleText } from 'utils/get_locale_text';
-import CollectionSliderOld from '../product-collection/collection-slider-old';
-import VideoPreviewModal from './video-preivew-modal';
+
+// components
+import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
+import Button from 'components/common/form/button';
+const MessageVendorPopup = dynamic(
+	() => import('components/common/popup/message-vendor.popup')
+);
+const VideoPreviewModal = dynamic(
+	() => import('./video-preivew-modal')
+);
+const CollectionSliderOld = dynamic(
+	() => import('../product-collection/collection-slider-old')
+);
 
 const CompanyProfileTab: React.FC<{
 	seller: any;
