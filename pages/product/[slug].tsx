@@ -12,9 +12,8 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import useSWR from 'swr';
 
 // components
-import Button from 'components/common/form/button';
 import ProductDetailsTile from 'components/product-details/product-details-tile';
-
+const Button = dynamic(() => import('components/common/form/button'));
 const ProductDetailsTabContainer = dynamic(
 	() =>
 		import(
@@ -61,27 +60,12 @@ import { getLocaleText } from 'utils/get_locale_text';
 
 const ProductDetailsPage: NextPage<
 	InferGetServerSidePropsType<GetServerSideProps>
-> = ({
-	slug,
-	product,
-	productReviews = [],
-	reviewAnalytics,
-	seller = {},
-	similarProducts = []
-}) => {
+> = ({ slug, product }) => {
 	const { t } = useTranslation();
 	const router = useRouter();
 	const { push } = router;
 
 	const [productData, setProductData] = useState(product);
-
-	const { data: productReviewList = [], mutate: mutateReviews } =
-		useSWR(`/product/reviews/${productData?.id}`, () =>
-			getProductReviewsByProductId(productData?.id || '')
-		);
-
-	const [productReviewAnalytics, setProductReviewAnalytics] =
-		useState(reviewAnalytics);
 	const [isReviewLoading, setIsReviewLoading] = useState(false);
 	const [selectedVariantId, setSelectedVariantId] = useState('');
 
@@ -97,6 +81,27 @@ const ProductDetailsPage: NextPage<
 	const { setIsNoLiveBuyPopupOpen } = useNoLiveBuyPopupStore();
 
 	const { locale } = useRouter();
+	const { data: productReviewList = [], mutate: mutateReviews } =
+		useSWR(`/product/reviews/${productData?.id}`, () =>
+			getProductReviewsByProductId(productData?.id || '')
+		);
+
+	const {
+		data: productReviewAnalytics = {},
+		mutate: mutateReviewAnalytic
+	} = useSWR(`/product/analytical-reviews/${productData?.id}`, () =>
+		getProductReviewAnalyticsByProductId(productData?.id || '')
+	);
+
+	const { data: similarProducts = [], mutate: mutateSimilarProducts } =
+		useSWR(`/product/similar/${productData?.id}`, () =>
+			getSimilarProducts(productData?.id || '')
+		);
+
+	const { data: seller = {}, mutate } = useSWR(
+		`/seller/${productData?.seller_id}`,
+		() => getSellerDetailsBySellerId(productData?.seller_id || '')
+	);
 
 	useEffect(() => {
 		setProductData(product);
@@ -203,7 +208,7 @@ const ProductDetailsPage: NextPage<
 				await getProductReviewAnalyticsByProductId(productData.id);
 
 			mutateReviews(productReviews);
-			setProductReviewAnalytics(updatedProductReviewAnalytics);
+			mutateReviewAnalytic(updatedProductReviewAnalytics);
 			setIsReviewLoading(false);
 		} catch (error) {
 			setIsReviewLoading(false);
@@ -215,10 +220,6 @@ const ProductDetailsPage: NextPage<
 			<ProductDetailsTile
 				product={productData}
 				onVariantClick={(variantId) => {
-					console.log(
-						'[setSelectedVariantId] = [setSelectedVariantId]',
-						variantId
-					);
 					setSelectedVariantId(variantId);
 				}}
 				selectedVariantId={selectedVariantId}
@@ -314,7 +315,6 @@ export const getServerSideProps: GetServerSideProps = async ({
 	params,
 	locale
 }) => {
-	console.log('Product details getting called...');
 	const notFound = {
 		props: {},
 		notFound: true
@@ -329,16 +329,6 @@ export const getServerSideProps: GetServerSideProps = async ({
 			return notFound;
 		}
 
-		const reviewAnalytics =
-			(await getProductReviewAnalyticsByProductId(productId)) || {};
-
-		// Fetch seller company Data
-		const sellerId = product?.seller_id || '';
-		const seller = (await getSellerDetailsBySellerId(sellerId)) || {};
-		seller.id = sellerId;
-
-		const similarProducts = (await getSimilarProducts(productId)) || [];
-
 		const seo = product.product_seo || {};
 		const productName = product?.name?.[locale || 'en'] || '';
 
@@ -346,9 +336,6 @@ export const getServerSideProps: GetServerSideProps = async ({
 			props: {
 				product,
 				productName,
-				reviewAnalytics,
-				seller,
-				similarProducts,
 				slug: productId,
 				seo: seo,
 

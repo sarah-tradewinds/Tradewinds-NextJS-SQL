@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 
 // Third party packages
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import useSWR from 'swr';
 
 // components
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
@@ -50,6 +51,7 @@ const MiniRFQCard = dynamic(
 // stores
 import {
 	getCountryById,
+	getMainCategoryById,
 	getTrendingCategoriesByCountry
 } from 'lib/common.lib';
 
@@ -67,7 +69,7 @@ import Button from 'components/common/form/button';
 import RFQCard from 'components/product-search/rfq-card.components';
 import {
 	getProducts,
-	getSelectedMainCategoryAndCategories
+	getTrendingCategoriesByMainCategoryId
 } from 'lib/product-search.lib';
 import { useTranslation } from 'next-i18next';
 import { useAuthStore } from 'store/auth';
@@ -89,14 +91,10 @@ const ProductSearchPage: NextPage<
 	const [maxPrice, setMaxPrice] = useState('0');
 	const [filterBuyEco, setFilterBuyEco] = useState(false);
 	const [pageNumber, setPageNumber] = useState(1);
+	const [totalPageCount, setTotalPageCount] = useState(1);
 
-	const [
-		isSelectedMainCategoryAndCategoriesLoading,
-		setIsSelectedMainCategoryAndCategoriesLoading
-	] = useState(false);
-	const [selectedMainCategory, setSelectedMainCategory] =
-		useState<any>();
-	const [selectedCategories, setSelectedCategories] = useState([]);
+	const [selectedTrendingCategories, setSelectedTrendingCategories] =
+		useState([]);
 
 	const [selectedCountry, setSelectedCountry] = useState<any>({
 		banner_image: props.countryBannerImageUrl || ''
@@ -137,6 +135,35 @@ const ProductSearchPage: NextPage<
 	);
 
 	const { t } = useTranslation();
+	const [rawMainCategoryId] = getIdAndName(
+		(main_category || '') as string
+	);
+
+	const [mainCategoryId = ''] = rawMainCategoryId?.split(',') || [];
+
+	const {
+		data: selectedMainCategory = {},
+		isLoading: isMainCategoryDataLoading
+	} = useSWR(`/cms/main-category/${mainCategoryId}`, () =>
+		mainCategoryId ? getMainCategoryById(mainCategoryId) : null
+	);
+	const {
+		data: trendingCategories = [],
+		isLoading: isSelectedCategoriesLoading
+	} = useSWR(
+		`/cms/category/shopping?mainCategoryId=${mainCategoryId}&data_per_page=10&sortByTrending=true&page_number=${1}`,
+		() =>
+			mainCategoryId
+				? getTrendingCategoriesByMainCategoryId({
+						mainCategoryId,
+						pageNumber: 1
+				  })
+				: null
+	);
+	const selectedCategories =
+		trendingCategories?.length > 0
+			? trendingCategories
+			: selectedTrendingCategories;
 
 	useEffect(() => {
 		const [mainCategoryId] =
@@ -159,26 +186,6 @@ const ProductSearchPage: NextPage<
 		}
 	}, [isInitialFilterSet]);
 
-	// Fetching selectedMainCategory and selectedCategories
-	useEffect(() => {
-		const [rawMainCategoryId] = getIdAndName(
-			(main_category || '') as string
-		);
-
-		const [mainCategoryId] = rawMainCategoryId?.split(',') || [];
-
-		if (mainCategoryId) {
-			setIsSelectedMainCategoryAndCategoriesLoading(true);
-			getSelectedMainCategoryAndCategories(
-				mainCategoryId as string
-			).then((data) => {
-				setSelectedMainCategory(data.main_category || {});
-				setSelectedCategories(data.categories || []);
-				setIsSelectedMainCategoryAndCategoriesLoading(false);
-			});
-		}
-	}, [main_category]);
-
 	// Fetching country by id
 	useEffect(() => {
 		const [countryIds] = getIdAndName((query.country || '') as string);
@@ -191,7 +198,7 @@ const ProductSearchPage: NextPage<
 				const categories = await getTrendingCategoriesByCountry(
 					data?.name?.en
 				);
-				setSelectedCategories(categories || []);
+				setSelectedTrendingCategories(categories || []);
 			});
 		}
 	}, [query.country]);
@@ -204,25 +211,15 @@ const ProductSearchPage: NextPage<
 			...filterValue,
 			is_eco: isEco || (main_category ? false : filterBuyEco),
 			page_number: pageNumber,
-			lang: locale
+			lang: locale,
+			use_new_url: true
 		})
 			.then((data: any) => {
 				const productList = data.data || [];
+				const paginationData = data.pagination || {};
+				setPageNumber(paginationData?.page_number || 1);
+				setTotalPageCount(paginationData?.total_page_count || 1);
 				setProducts(productList);
-				console.log(' ');
-				console.log('Calling only products', query, productList);
-				console.log(' ');
-				const { main_category } = data.categories || {};
-				if (main_category) {
-					setIsSelectedMainCategoryAndCategoriesLoading(true);
-					getSelectedMainCategoryAndCategories(
-						main_category as string
-					).then((data) => {
-						setSelectedMainCategory(data.main_category || {});
-						setSelectedCategories(data.categories || []);
-						setIsSelectedMainCategoryAndCategoriesLoading(false);
-					});
-				}
 			})
 			.finally(() => setIsProductsLoading(false));
 	}, [query, isEco, pageNumber, locale]);
@@ -479,7 +476,7 @@ const ProductSearchPage: NextPage<
 											}}
 										>
 											{/* Category Image */}
-											{selectedCountry?.category_search_image && (
+											{!selectedCountry?.category_search_image && (
 												<div className="absolute bottom-0 right-0">
 													<div className="relative overflow-hidden md:h-[30px] md:w-[30px] lg:h-[40.77px] lg:w-[40.93px] xl:h-[60px] xl:w-[60px]">
 														<ImageWithErrorHandler
@@ -553,7 +550,7 @@ const ProductSearchPage: NextPage<
 						</div>
 
 						{/*If no any product in the product list - Speed your search up!! RFQ Card  */}
-						{products?.length <= 0 && (
+						{products?.length <= 0 && !isProductsLoading && (
 							<div className="my-5 md:my-0">
 								<div className="hidden md:block">
 									<RFQCard size="lg" />
@@ -637,11 +634,13 @@ const ProductSearchPage: NextPage<
 
 						{/* If product are available in the product list - Submit RFQ Card */}
 						<div className="mt-4 hidden md:mt-4 desktop:block">
-							{products?.length > 0 && <MiniRFQCard size="xs" />}
+							{products?.length > 0 && !isProductsLoading && (
+								<MiniRFQCard size="xs" />
+							)}
 						</div>
 
 						{/* Pagination */}
-						{!isProductsLoading && (
+						{!isProductsLoading && totalPageCount > 1 && (
 							<div className="mt-10 flex justify-center">
 								<div className="flex items-center space-x-3 font-semibold text-gray md:text-[20px] desktop:text-[25px]">
 									<button
@@ -660,7 +659,7 @@ const ProductSearchPage: NextPage<
 									</button>
 									<p>{pageNumber}</p>
 									<p>of</p>
-									<p>46</p>
+									<p>{totalPageCount}</p>
 									<button
 										onClick={() =>
 											setPageNumber((prevState) => prevState + 1)

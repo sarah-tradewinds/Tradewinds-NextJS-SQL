@@ -28,6 +28,7 @@ export const getProducts = async (params: {
 	page_number?: string | number;
 	data_per_page?: string | number;
 	lang?: string;
+	use_new_url?: boolean;
 }) => {
 	if (params.minimum_order || params.maximum_order) {
 		params.minimum_order_quantity = true;
@@ -38,7 +39,9 @@ export const getProducts = async (params: {
 
 	try {
 		const { data } = await axiosInstance.get(
-			`/product/search?${queryString}`
+			params.use_new_url
+				? `product/search/shopping?${queryString}`
+				: `/product/search?${queryString}`
 		);
 
 		const products = data?.data?.map((product: any) => {
@@ -89,3 +92,23 @@ export const getSelectedMainCategoryAndCategories = async (
 		return {};
 	}
 }; // End of getSelectedMainCategoryAndCategories
+
+export const getTrendingCategoriesByMainCategoryId = async (options: {
+	mainCategoryId: string;
+	pageNumber?: string | number;
+}) => {
+	try {
+		const { data } = await axiosInstance.get(
+			`cms/category/shopping?mainCategoryId=${
+				options.mainCategoryId
+			}&data_per_page=10&sortByTrending=true&page_number=${
+				options.pageNumber || 1
+			}`
+		);
+		return data.data || [];
+	} catch (error) {
+		console.log('[getTrendingCategoriesByMainCategoryId] =', error);
+		const { data, status } = (error as any).response || {};
+		return [];
+	}
+}; // End of getTrendingCategoriesByMainCategoryId

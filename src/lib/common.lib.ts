@@ -13,6 +13,19 @@ export const getMainCategories = async (isEco?: boolean) => {
 	}
 }; // End of getMainCategories function
 
+export const getMainCategoryById = async (id: string) => {
+	try {
+		const { data } = await axiosInstance.get(
+			`/cms/main-category/shopping/${id}`
+		);
+		return data.data || {};
+	} catch (error) {
+		console.log('[getMainCategoryById] =', error);
+		const { data } = (error as any).response || {};
+		return {};
+	}
+}; // End of getMainCategoryById function
+
 export const getCategoriesByMainCategoryId = async (
 	mainCategoryId: string,
 	countryName?: string

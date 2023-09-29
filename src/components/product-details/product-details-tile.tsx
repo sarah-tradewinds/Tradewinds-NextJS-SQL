@@ -1,43 +1,56 @@
+import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
-// components
-import Button from 'components/common/form/button';
+// Third party
+import {
+	ChevronDownIcon,
+	ChevronLeftIcon
+} from '@heroicons/react/20/solid';
+import { useKeenSlider } from 'keen-slider/react';
+import { useTranslation } from 'next-i18next';
+import { BiMessageAltDetail } from 'react-icons/bi';
+import {
+	MdBookmark,
+	MdOutlineBookmarkBorder,
+	MdOutlineShoppingCart
+} from 'react-icons/md';
+
+// actions
 import {
 	BUYER_DASHBOARD_ACTIONS,
 	BUYER_DASHBOARD_PAGES,
 	generateBuyerDashboardUrl
 } from 'data/buyer/buyer-actions';
 import { metadataList } from 'data/product-search/metadata-list';
-import { BiMessageAltDetail } from 'react-icons/bi';
+
+// store
 import { useAuthStore } from 'store/auth';
-import { getDisplayBulkPrice } from 'utils/get-bulk-price';
-import MetadataTile from '../product-search/metadata/metadata-tile';
-import RatingStars from './product-details-tab/product-review/rating-stars';
 
 // utils
-import {
-	ChevronDownIcon,
-	ChevronLeftIcon
-} from '@heroicons/react/20/solid';
-import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
-import MessageVendorPopup from 'components/common/popup/message-vendor.popup';
-import { useKeenSlider } from 'keen-slider/react';
 import {
 	createConversation,
 	sendMessageToSeller
 } from 'lib/common.lib';
-import { useTranslation } from 'next-i18next';
-import Image from 'next/image';
-import { useState } from 'react';
-import {
-	MdBookmark,
-	MdOutlineBookmarkBorder,
-	MdOutlineShoppingCart
-} from 'react-icons/md';
 import { getDefaultProductAndProductVariants } from 'utils/common.util';
+import { getDisplayBulkPrice } from 'utils/get-bulk-price';
 import { getLocaleText } from 'utils/get_locale_text';
+
+// components
+import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
+import Button from 'components/common/form/button';
+import MetadataTile from '../product-search/metadata/metadata-tile';
 import ImageContainer from './product-details-images/image-contaier';
-import ProductOptionsValuesAccordion from './product-options-values-accordion';
+const MessageVendorPopup = dynamic(
+	() => import('components/common/popup/message-vendor.popup')
+);
+const RatingStars = dynamic(
+	() => import('./product-details-tab/product-review/rating-stars')
+);
+const ProductOptionsValuesAccordion = dynamic(
+	() => import('./product-options-values-accordion')
+);
 
 const ProductDetailsTile: React.FC<{
 	totalReviewCount: number;
@@ -48,7 +61,6 @@ const ProductDetailsTile: React.FC<{
 	onAddToCart: () => any;
 }> = (props) => {
 	const {
-		totalReviewCount,
 		product = {},
 		hideCartButton,
 		onVariantClick,
@@ -56,12 +68,10 @@ const ProductDetailsTile: React.FC<{
 		selectedVariantId
 	} = props;
 
-	// const [selected, setSelected] = useState<any>({});
 	const [isMessageVendorPopupOpen, setIsMessageVendorPopupOpen] =
 		useState(false);
 
 	const [sliderRef] = useKeenSlider<HTMLDivElement>({
-		// slides: { perView: 4, spacing: 16 }
 		loop: false,
 		mode: 'snap',
 		rtl: false,
@@ -92,8 +102,6 @@ const ProductDetailsTile: React.FC<{
 		is_live,
 		is_live_buy,
 		is_ready_to_ship,
-		is_eco,
-		seller_country = [],
 		total_rate_count = 0,
 		total_review_count = 0,
 		product_features = []
@@ -144,8 +152,6 @@ const ProductDetailsTile: React.FC<{
 		inventory?.available_quantity > 0 ||
 		inventory?.is_unlimited_quantity ||
 		false;
-
-	console.log('inventory =inventory', inventory);
 
 	const metadataTileLists = [
 		// country of origin
@@ -245,12 +251,6 @@ const ProductDetailsTile: React.FC<{
 			/>
 		</div>
 	];
-
-	// const images = product?.images?.length
-	// 	? product?.images
-	// 	: selectedVariant?.images || [];
-
-	// const masterImageUrl = images?.[0];
 
 	const images = defaultVariant?.images || [];
 	const masterImageUrl = selectedVariant?.images?.[0] || '';
@@ -457,14 +457,6 @@ const ProductDetailsTile: React.FC<{
 	const productDescription =
 		getLocaleText(description || {}, locale) || '';
 
-	// Start Handlers
-	const sendMessageVendorHandler = () => {}; // End of sendMessageVendorHandler
-
-	// const sendMessageVendorHandler = () => {
-
-	// }// End of sendMessageVendorHandler
-	// End Handlers
-
 	const messageVendor = (
 		<button
 			onClick={() => setIsMessageVendorPopupOpen(true)}
@@ -483,40 +475,6 @@ const ProductDetailsTile: React.FC<{
 			<p className="ml-[24px] text-[19.6px] font-semibold leading-[23.89px] text-cyan sm:ml-[16.28px] sm:text-[7.34px] sm:leading-[8.95px] lg:text-[9.44px] lg:leading-[11.51px] xl:text-[13.87px] xl:leading-[16.91px]">
 				{t('common:message_vendor')}
 			</p>
-		</button>
-	);
-
-	const submitRFQ = (
-		<button
-			onClick={() => {
-				if (!isAuth) {
-					setIsLoginOpen();
-				} else {
-					router.push(
-						`${generateBuyerDashboardUrl({
-							redirect_to: BUYER_DASHBOARD_PAGES.buyer_rfq,
-							action: BUYER_DASHBOARD_ACTIONS.create_rfq,
-							access_key: customerData.access.token,
-							refresh_key: customerData.refresh.token
-						})}`
-					);
-				}
-			}}
-			className="relative flex items-center rounded-lg border-[1.74px] border-[#33A7DF] sm:rounded-sm lg:h-[15.65px] lg:w-[114.85px] xl:h-[23px] xl:w-[169.64px] desktop:rounded-md"
-		>
-			<div className="absolute top-0 bottom-0 flex h-full w-[31.08px] items-center justify-center bg-cyan sm:w-[9.77px] lg:w-[16px]">
-				<div className="relative h-[22.02px] w-[24px] sm:h-[8.32px] sm:w-[9.77px]">
-					<Image
-						src="/icons/message-vendor-white-outline-icon.svg"
-						alt="message-vendor-white-outline-icon"
-						fill={true}
-					/>
-				</div>
-			</div>
-
-			<span className="ml-[62.17px] text-[19.6px] font-semibold leading-[23.89px] text-cyan sm:ml-[16.28px] sm:text-[7.34px] sm:leading-[8.95px] lg:ml-[32px] lg:text-[9.44px] lg:leading-[11.51px] xl:text-[13.87px] xl:leading-[16.91px]">
-				{t('common:submit_rfq')}
-			</span>
 		</button>
 	);
 
@@ -722,9 +680,6 @@ const ProductDetailsTile: React.FC<{
 							</p>
 						</div>
 
-						{/* <div className="hidden lg:block">{submitRFQ}</div> */}
-
-						{/* {!is_verified && ( */}
 						<div className="relative h-[30px] w-[162px] md:h-[17.42px] md:w-[97.43px]">
 							<ImageWithErrorHandler
 								src="/tradewinds-horizontal-logo.png"
@@ -733,18 +688,6 @@ const ProductDetailsTile: React.FC<{
 							/>
 						</div>
 						{/* )} */}
-
-						{/* {is_eco && (
-							<div className="ml-20 flex items-center space-x-2">
-								<ImageWithErrorHandler
-									src="/static/icons/eco-icon.png"
-									alt="Eco icon"
-									width={40}
-									height={40}
-								/>
-								<span className="font-semibold text-green">ECO</span>
-							</div>
-						)} */}
 					</div>
 
 					{/* Message Vendor button only for mobile*/}
@@ -910,9 +853,6 @@ const ProductDetailsTile: React.FC<{
 									const { id } = optionAndValueList || {};
 									const showImage = index === 0;
 
-									// const filteredOptionAndValue =
-									// 	selectedOptionAndValue?.[id];
-
 									const isLastItem =
 										updatedOptionsAndValueLists?.length === index + 1;
 
@@ -951,15 +891,6 @@ const ProductDetailsTile: React.FC<{
 								<div>{productFeatures}</div>
 							</div>
 						)}
-
-						{/* <p className="hidden text-[21px] leading-[26px] text-primary-main xl:block">
-							<span className="font-semibold capitalize">
-								{t('common:customizable')}:
-							</span>{' '}
-							<span>
-								{is_customizable ? t('common:yes') : t('common:no')}
-							</span>
-						</p> */}
 					</div>
 				</div>
 			</div>
