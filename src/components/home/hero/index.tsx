@@ -7,9 +7,17 @@ type Props = {
 	hcd: HeroCarouselType[];
 	cardAList: any[];
 	cardBData: any;
+	isCardALoading?: boolean;
+	isCardBLoading?: boolean;
 };
 
-const Index = ({ hcd, cardAList, cardBData }: Props) => {
+const Index = ({
+	hcd,
+	cardAList,
+	cardBData,
+	isCardALoading,
+	isCardBLoading
+}: Props) => {
 	const { setIsNoLiveBuyPopupOpen } = useNoLiveBuyPopupStore();
 
 	useEffect(() => {
@@ -21,7 +29,12 @@ const Index = ({ hcd, cardAList, cardBData }: Props) => {
 			<HeroCarousel heroCarouselData={hcd} />
 			<div className="absolute bottom-0 w-full">
 				<div className="lg:container desktop:w-[1478px]">
-					<CardWrapper cardAList={cardAList} cardBData={cardBData} />
+					<CardWrapper
+						cardAList={cardAList}
+						cardBData={cardBData}
+						isCardALoading={isCardALoading}
+						isCardBLoading={isCardBLoading}
+					/>
 				</div>
 			</div>
 		</section>

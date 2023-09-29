@@ -5,16 +5,24 @@ import CardA from './card-a';
 import CardB from './card-b';
 
 import useDeviceSize from 'hooks/use-device-size.hooks';
+import Skeleton from 'react-loading-skeleton';
 import { useHomeStore } from 'store/home';
 
 const CardWrapper: React.FC<{
 	cardAList: any[];
 	cardBData: any;
-}> = ({ cardAList, cardBData = {} }) => {
+	isCardALoading?: boolean;
+	isCardBLoading?: boolean;
+}> = ({
+	cardAList,
+	cardBData = {},
+	isCardALoading,
+	isCardBLoading
+}) => {
 	const { locale } = useRouter();
 	const { deviceWidth } = useDeviceSize();
 
-	const { setIsEco, isEco } = useHomeStore(({ setIsEco, isEco }) => ({
+	const { isEco } = useHomeStore(({ setIsEco, isEco }) => ({
 		setIsEco,
 		isEco
 	}));
@@ -78,49 +86,67 @@ const CardWrapper: React.FC<{
 				</div>
 			)}
 
-			{/* Card Slider only visible on mobile */}
-			<div ref={ref} className="keen-slider md:!hidden">
-				{cardAList.map((cardAData, index) => (
-					<div
-						key={cardAData.id}
-						className="keen-slider__slide h-[153px] !min-w-[203px] !max-w-[203px] sm:!min-h-[203px] sm:!min-w-[245px]"
-					>
-						<CardA
-							title={getLocaleText(cardAData?.title || {}, locale)}
-							subtitle={getLocaleText(
-								cardAData?.description || {},
-								locale
-							)}
-							imageUrl={cardAData.image}
-							href={
-								index == 0
-									? isEco
+			<div
+				ref={ref}
+				key={`${isCardALoading}_${isCardBLoading}`}
+				className="keen-slider md:!hidden"
+			>
+				{isCardALoading && (
+					<>
+						<Skeleton className="keen-slider__slide h-[153px] !min-w-[203px] !max-w-[203px] sm:!min-h-[203px] sm:!min-w-[245px]" />
+						<Skeleton className="keen-slider__slide h-[153px] !min-w-[203px] !max-w-[203px] sm:!min-h-[203px] sm:!min-w-[245px]" />
+					</>
+				)}
+
+				{!isCardALoading &&
+					cardAList.map((cardAData, index) => (
+						<div
+							key={cardAData.id}
+							className="keen-slider__slide h-[153px] !min-w-[203px] !max-w-[203px] sm:!min-h-[203px] sm:!min-w-[245px]"
+						>
+							<CardA
+								title={getLocaleText(cardAData?.title || {}, locale)}
+								subtitle={getLocaleText(
+									cardAData?.description || {},
+									locale
+								)}
+								imageUrl={cardAData.image}
+								href={
+									index == 0
+										? isEco
+											? '/eco/why-sell-on-tradewinds'
+											: '/why-sell-on-tradewinds'
+										: isEco
 										? '/eco/why-sell-on-tradewinds'
-										: '/why-sell-on-tradewinds'
-									: isEco
-									? '/eco/why-sell-on-tradewinds'
-									: '/eco'
-							}
-						/>
-					</div>
-				))}
+										: '/eco'
+								}
+							/>
+						</div>
+					))}
 
 				<div className="keen-slider__slide h-[153px] !min-w-[203px] !max-w-[203px] sm:!min-h-[203px] sm:!min-w-[245px]">
-					<CardB
-						title={getLocaleText(cardBData.title || {}, locale)}
-						imageUrl={cardBData?.image}
-						subtitle={getLocaleText(
-							cardBData.description || {},
-							locale
-						)}
-						description={getLocaleText(
-							cardBData.description2 || {},
-							locale
-						)}
-						buttonText={getLocaleText(cardBData.btn_text || {}, locale)}
-						href={'/what-is-rfq' || cardBData.slug?.en}
-						alt={cardBData.title?.en}
-					/>
+					{isCardBLoading ? (
+						<Skeleton className="h-[153px] w-[203px] overflow-hidden rounded-md sm:h-[203px] sm:w-[245px] lg:h-[244.24px] lg:w-[325.92px] xl:h-[305px] xl:w-[405.73px] desktop:h-[352px] desktop:w-[466px]" />
+					) : (
+						<CardB
+							title={getLocaleText(cardBData.title || {}, locale)}
+							imageUrl={cardBData?.image}
+							subtitle={getLocaleText(
+								cardBData.description || {},
+								locale
+							)}
+							description={getLocaleText(
+								cardBData.description2 || {},
+								locale
+							)}
+							buttonText={getLocaleText(
+								cardBData.btn_text || {},
+								locale
+							)}
+							href={'/what-is-rfq' || cardBData.slug?.en}
+							alt={cardBData.title?.en}
+						/>
+					)}
 				</div>
 			</div>
 		</>

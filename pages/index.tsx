@@ -52,7 +52,7 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 		() => getHeroCarousels(false)
 	);
 	// Fetching cardA
-	const { data: cardAList = [] } = useSWR(
+	const { data: cardAList = [], isLoading: isCardALoading } = useSWR(
 		'/cms/cardA?isEco=false',
 		() => getCardAList(false)
 	);
@@ -120,6 +120,8 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 					hcd={heroCarousels}
 					cardAList={cardAList}
 					cardBData={cardBData}
+					isCardALoading={isCardALoading}
+					isCardBLoading={isCardBLoading}
 				/>
 
 				<div className="mt-[27px] lg:container desktop:w-[1478px]">
