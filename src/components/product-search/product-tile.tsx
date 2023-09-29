@@ -1,20 +1,24 @@
 import { useRouter } from 'next/router';
 
-// components
-import MetadataTile from './metadata/metadata-tile';
-
-// data
+// Third party packages
 import { ChatBubbleLeftRightIcon } from '@heroicons/react/20/solid';
-import { metadataList } from 'data/product-search/metadata-list';
 import { useTranslation } from 'next-i18next';
 import {
 	MdBookmark,
 	MdOutlineBookmarkBorder,
 	MdOutlineShoppingCart
 } from 'react-icons/md';
-import { useAuthStore } from 'store/auth';
+
+// components
 import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
 import RatingStars from '../product-details/product-details-tab/product-review/rating-stars';
+import MetadataTile from './metadata/metadata-tile';
+
+// data
+import { metadataList } from 'data/product-search/metadata-list';
+
+// store
+import { useAuthStore } from 'store/auth';
 
 interface ProductTileProps {
 	isEco?: boolean;
@@ -24,7 +28,6 @@ interface ProductTileProps {
 	description: string;
 	imageUrl: string;
 	alt?: string;
-	countryOfOrigin: string;
 	country?: {
 		name: string;
 		imageUrl: string;
@@ -43,7 +46,6 @@ interface ProductTileProps {
 	onMessageVendorClick?: () => any;
 	onClick?: () => any;
 	isInCompareList?: boolean;
-	isVerified?: boolean;
 	isLive?: boolean;
 	isLiveBuy?: boolean;
 	isReadyToShip?: boolean;

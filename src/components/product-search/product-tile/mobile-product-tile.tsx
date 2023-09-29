@@ -1,14 +1,17 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+
+// Third party packages
+import { useTranslation } from 'next-i18next';
 
 // components
+import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
+import RatingStars from 'components/product-details/product-details-tab/product-review/rating-stars';
 import MetadataTile from '../metadata/metadata-tile';
 
 // data
-import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
-import RatingStars from 'components/product-details/product-details-tab/product-review/rating-stars';
 import { metadataList } from 'data/product-search/metadata-list';
-import { useTranslation } from 'next-i18next';
-import { useRouter } from 'next/router';
+
 import {
 	MdBookmark,
 	MdOutlineBookmarkBorder,
@@ -24,7 +27,6 @@ interface MobileProductTileProps {
 	description: string;
 	imageUrl: string;
 	alt?: string;
-	countryOfOrigin: string;
 	country?: {
 		name: string;
 		imageUrl: string;
@@ -43,7 +45,6 @@ interface MobileProductTileProps {
 	onClick?: () => any;
 
 	isInCompareList?: boolean;
-	isVerified?: boolean;
 	isLive?: boolean;
 	isLiveBuy?: boolean;
 	isReadyToShip?: boolean;
@@ -61,7 +62,6 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 		description,
 		imageUrl,
 		alt,
-		countryOfOrigin,
 		country,
 		productPrice,
 		salePrice,
@@ -73,7 +73,6 @@ const MobileProductTile: React.FC<MobileProductTileProps> = (props) => {
 		totalReviewCount,
 		onCompareClick,
 		isInCompareList,
-		isVerified,
 		isLive,
 		isLiveBuy,
 		isReadyToShip,

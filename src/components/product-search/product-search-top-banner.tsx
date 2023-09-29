@@ -32,6 +32,7 @@ const ProductSearchTopBanner: React.FC<ProductSearchTopBannerProps> = (
 				src={imageUrl}
 				alt={text || ''}
 				fill={true}
+				sizes="(min-width: 1512px) 1512px, (min-width: 1280px) 1280px,  (min-width: 1024px) 1024px, (min-width: 768px) 768px , (min-width: 640px) 640px, 300px"
 			/>
 
 			{text && (

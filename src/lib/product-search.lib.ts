@@ -77,7 +77,7 @@ export const getSelectedMainCategoryAndCategories = async (
 		return (
 			{
 				main_category: data.data?.[0]?.edges?.main_category || {},
-				categories: data.data || {}
+				categories: data.data || []
 			} || {}
 		);
 	} catch (error) {

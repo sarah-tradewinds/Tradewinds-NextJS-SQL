@@ -13,10 +13,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 // components
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import Seo from 'components/common/seo';
-import ProductFilter from 'components/product-search/product-filter/product-filter';
 import ProductList from 'components/product-search/product-list';
-import ProductSearchFilterBar from 'components/product-search/product-search-filter-bar';
-import MiniRFQCard from 'components/product-search/rfq-mini-card.components';
 
 const MainCategoryAndCategoriesTile = dynamic(
 	() =>
@@ -38,6 +35,16 @@ const CompareProductList = dynamic(
 );
 const ProductSearchTopBanner = dynamic(
 	() => import('components/product-search/product-search-top-banner')
+);
+const ProductSearchFilterBar = dynamic(
+	() => import('components/product-search/product-search-filter-bar')
+);
+const ProductFilter = dynamic(
+	() =>
+		import('components/product-search/product-filter/product-filter')
+);
+const MiniRFQCard = dynamic(
+	() => import('components/product-search/rfq-mini-card.components')
 );
 
 // stores
@@ -284,7 +291,7 @@ const ProductSearchPage: NextPage<
 		<div className="3xl:container 3xl:w-[1700px]">
 			<Seo title="Product search page" description="" />
 
-			{/* Main Category Banner and Category banner */}
+			{/* Main Category and Country banner */}
 			<div>
 				{/* Main Category Banner */}
 				{main_category && (
@@ -552,8 +559,6 @@ const ProductSearchPage: NextPage<
 									<RFQCard size="lg" />
 								</div>
 								<div className="px-4 md:hidden">
-									{/* <MiniRFQCard size="xs" /> */}
-
 									<div className="h-[125px]s mt-8 flex items-center rounded-md bg-gradient-to-r from-[#E7CA00] via-[#E8A30E] to-[#E8A30E] p-2">
 										<div className="relative h-[53px] w-[50px] sm:h-[84px] sm:w-[80px]">
 											<ImageWithErrorHandler
@@ -687,38 +692,15 @@ export const getServerSideProps: GetServerSideProps = async ({
 	locale,
 	query
 }) => {
-	const dateS = new Date();
-	console.log(
-		'Product Search page = [getServerSideProps] started data fetching',
-		dateS.toLocaleTimeString()
-	);
-
 	const filterValue = getFilterValueFromQuery(query);
 	const products = await getProducts({
 		...filterValue
 	});
 
-	// let countryBannerImageUrl = '';
-	// const [countryIds] = getIdAndName((query.country || '') as string);
-	// if (countryIds) {
-	// 	const [countryId] = countryIds?.split(',');
-	// 	getCountryById(countryId)
-	// 		.then((data) => {
-	// 			countryBannerImageUrl =
-	// 				data?.banner_image?.url || '/coming-soon.png';
-	// 		})
-	// 		.finally(() => {
-	// 			if (!countryBannerImageUrl) {
-	// 				countryBannerImageUrl = '/coming-soon.png';
-	// 			}
-	// 		});
-	// }
-
 	return {
 		props: {
 			...(await serverSideTranslations(locale || 'en')),
 			products
-			// countryBannerImageUrl
 		}
 	};
 }; // End of getServerSideProps function

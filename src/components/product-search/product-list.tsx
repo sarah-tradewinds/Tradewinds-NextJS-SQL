@@ -1,27 +1,49 @@
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+
+// lib
 import {
 	createConversation,
 	sendMessageToSeller
 } from 'lib/common.lib';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
+
+// hooks
+import useDeviceSize from 'hooks/use-device-size.hooks';
+
+// store
 import { useAuthStore } from 'store/auth';
 import { useCartStore } from 'store/cart-store-v2';
-
-import useDeviceSize from 'hooks/use-device-size.hooks';
 import useNoLiveBuyPopupStore from 'store/no-live-buy-popup-store';
+
+// utils
 import {
 	generateListByCount,
 	getDefaultProductAndProductVariants
 } from 'utils/common.util';
 import { getDisplayBulkPrice } from 'utils/get-bulk-price';
 import { getLocaleText } from 'utils/get_locale_text';
+
+// components
 import Button from '../common/form/button';
-import ErrorPopup from '../common/popup/error-popup';
-import MessageVendorPopup from '../common/popup/message-vendor.popup';
-import ProductTile from './product-tile';
-import MobileProductTile from './product-tile/mobile-product-tile';
-import RFQCard from './rfq-card.components';
-import SkeletonProductTile from './skeleton-product-tile';
+// import ErrorPopup from '../common/popup/error-popup';
+// import MessageVendorPopup from '../common/popup/message-vendor.popup';
+// import ProductTile from './product-tile';
+// import MobileProductTile from './product-tile/mobile-product-tile';
+// import RFQCard from './rfq-card.components';
+
+const ErrorPopup = dynamic(() => import('../common/popup/error-popup'));
+const MessageVendorPopup = dynamic(
+	() => import('../common/popup/message-vendor.popup')
+);
+const ProductTile = dynamic(() => import('./product-tile'));
+const MobileProductTile = dynamic(
+	() => import('./product-tile/mobile-product-tile')
+);
+const RFQCard = dynamic(() => import('./rfq-card.components'));
+const SkeletonProductTile = dynamic(
+	() => import('./skeleton-product-tile')
+);
 
 interface ProductListProps {
 	isLoading?: boolean;
@@ -39,21 +61,15 @@ const ProductList: React.FC<ProductListProps> = ({
 	const { locale, push } = useRouter();
 	const { deviceWidth } = useDeviceSize();
 
-	const { addProductVariantToCart, cartItems } = useCartStore(
-		(state) => ({
-			addProductVariantToCart: state.addProductVariantToCart,
-			cartItems: state.cartItems
-		})
-	);
+	const { addProductVariantToCart } = useCartStore((state) => ({
+		addProductVariantToCart: state.addProductVariantToCart
+	}));
 
-	const { isAuth, setIsLoginOpen, customerData } = useAuthStore(
-		(state) => ({
-			isAuth: state.isAuth,
-			setIsLoginOpen: state.setIsLoginOpen,
-			customerData: state.customerData,
-			autoLogin: state.autoLogin
-		})
-	);
+	const { isAuth, setIsLoginOpen } = useAuthStore((state) => ({
+		isAuth: state.isAuth,
+		setIsLoginOpen: state.setIsLoginOpen,
+		autoLogin: state.autoLogin
+	}));
 
 	const [isMessageVendorPopupOpen, setIsMessageVendorPopupOpen] =
 		useState(false);
@@ -159,8 +175,6 @@ const ProductList: React.FC<ProductListProps> = ({
 				className={`mx-[9px] grid grid-cols-1 gap-y-[14px] sm:mx-[10px] sm:mt-[19px] sm:gap-y-[20px] md:mx-0 md:mt-[10px] md:gap-y-[15px] xl:gap-[26px] ${className}`}
 			>
 				{products.map((product, index) => {
-					console.log('product-product-product = ', product);
-
 					const { defaultVariant, totalVariantCount } =
 						getDefaultProductAndProductVariants(
 							product?.edges?.product_variants || []
@@ -169,9 +183,6 @@ const ProductList: React.FC<ProductListProps> = ({
 					const sellerCountry =
 						product?.edges?.sellers?.edges?.country?.edges
 							?.region_country?.[0] || {};
-
-					const { country_of_region = [], seller_country = [] } =
-						product || {};
 
 					const {
 						retail_price: product_price = 0,
@@ -229,9 +240,6 @@ const ProductList: React.FC<ProductListProps> = ({
 						slug: product?.id,
 						description: getLocaleText(product.description, locale),
 						imageUrl: defaultVariant?.images?.[0],
-						countryOfOrigin: country_of_region
-							? country_of_region[0]
-							: '',
 						country: {
 							name: getLocaleText(sellerCountry?.name || '', locale),
 							imageUrl: sellerCountry?.image || '/coming-soon.png'
@@ -271,15 +279,12 @@ const ProductList: React.FC<ProductListProps> = ({
 							}
 						},
 						isInCompareList: product.isInCompareList,
-						isVerified: product.is_verified,
 						isLive: product.is_live,
 						isLiveBuy: product?.is_live_buy,
 						isReadyToShip: product.is_live_buy,
-						// isReadyToShip: product.is_ready_to_ship,
 						isCustomizable: product.is_customizable,
 						variantCount: totalVariantCount || 0,
 						onMessageVendorClick: () => {
-							console.log('product---product', product);
 							setSelectedSellerUserId(
 								product?.edges?.sellers?.edges?.user?.id
 							);
