@@ -58,6 +58,8 @@ const ImageWithErrorHandler: React.FC<ImageWithErrorHandlerProps> = (
 			}
 			alt={alt || ''}
 			onError={onErrorHandler}
+			placeholder="blur"
+			blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP88PlrPQAJDANZ3cJsWgAAAABJRU5ErkJggg=="
 		/>
 	);
 }; // End of ImageWithErrorHandler

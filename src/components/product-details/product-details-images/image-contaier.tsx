@@ -1,12 +1,16 @@
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+
+// Third party packages
 import { useKeenSlider } from 'keen-slider/react';
 import { MdOutlineClose } from 'react-icons/md';
-import ThumbnailList from './thumbnail-list';
 
 // styles
-import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import 'keen-slider/keen-slider.min.css';
-import { useRouter } from 'next/dist/client/router';
-import { useState } from 'react';
+
+// components
+import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
+import ThumbnailList from './thumbnail-list';
 
 interface ImageContainerProps {
 	imageUrl: string;
@@ -48,7 +52,6 @@ const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 						alt={alt || ''}
 						fill={true}
 						className="object-contain"
-						// className="object-cover"
 					/>
 				</div>
 				<button
