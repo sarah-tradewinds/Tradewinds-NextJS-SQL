@@ -116,10 +116,7 @@ const Layout: React.FC<{ productName?: string; seo: any }> = (
 				description={getLocaleText(seo?.description || {}, locale)}
 			/>
 
-			<Loader
-				isOpen={routeChangeStart || isAuthenticating}
-				text="Authenticating..."
-			/>
+			<Loader isOpen={routeChangeStart || isAuthenticating} />
 
 			{isProductFilterSliderOpen && (
 				<ProductFilterSlider
