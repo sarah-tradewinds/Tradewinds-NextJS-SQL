@@ -233,10 +233,7 @@ const SellerProfileTab: NextPage<
 												<span className="font-semibold md:min-w-[148px]">
 													{t('common:tw_page')}:
 												</span>
-												{/* <span className=" text-primary-main">
-													https://tradewindsmppreprodshoppingsite.azurewebsites.net/seller/
-													{seller?.id}
-												</span> */}
+
 												<button
 													type="button"
 													onClick={async () => {

@@ -17,7 +17,6 @@ module.exports = {
 			current: 'currentColor',
 			white: '#ffffff',
 			black: '#000000',
-			// 'bg-main': '#DEDFE0',
 			'bg-main': '#F5F5F5',
 			'bg-eco': '#F9ECD7',
 			'primary-main': '#044E86',
@@ -57,27 +56,6 @@ module.exports = {
 			'agri-main': '#C4CE7F',
 			'header-bar': '#EDD3A9'
 		},
-		// screens: {
-		// 	sm: '640px',
-		// 	md: '768px',
-		// 	lg: '1024px',
-		// 	xl: '1280px',
-		// 	'512': '512px',
-		// 	'2xl': '1536px',
-		// 	'4k': '2560px',
-		// 	mobile: '320px',
-		// 	tablet: '744px',
-		// 	desktop: '1512px'
-		// 	// 	sm: '640px',
-		// 	// 	md: '744px',
-		// 	// 	lg: '1512px'
-		// 	// },
-		// 	// container: {
-		// 	//  screens: {
-		// 	//      md: '744px',
-		// 	//      lg: '1512px'
-		// 	//  }
-		// },
 		container: {
 			center: true
 		},
