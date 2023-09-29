@@ -1,17 +1,26 @@
+import { useRouter } from 'next/router';
+import { useEffect, useRef, useState } from 'react';
+
 // Third party packages
 import {
 	ChevronLeftIcon,
 	ChevronRightIcon
 } from '@heroicons/react/20/solid';
-import useDeviceSize from 'hooks/use-device-size.hooks';
 import { useKeenSlider } from 'keen-slider/react'; // import from 'keen-slider/react.es' for to get an ES module
-import { fetchHomeCountries } from 'lib/home.lib';
 import { useTranslation } from 'next-i18next';
-import { useRouter } from 'next/router';
-import { useEffect, useRef, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
+
+// hooks
+import useDeviceSize from 'hooks/use-device-size.hooks';
+
+// lib
+import { fetchHomeCountries } from 'lib/home.lib';
+
+// utils
 import { generateListByCount } from 'utils/common.util';
 import { getLocaleText } from 'utils/get_locale_text';
+
+// components
 import ImageWithErrorHandler from '../common/elements/image-with-error-handler';
 
 interface CountrySliderProps {
@@ -177,7 +186,11 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 			{/* Medium and Desktop */}
 			{deviceWidth >= 768 && (
 				<div className="navigation-wrapper relative mt-[11.14px] hidden md:block md:px-8">
-					<div ref={ref} className="keen-slider">
+					<div
+						ref={ref}
+						key={isLoading?.toString()}
+						className="keen-slider"
+					>
 						{countriesSlider}
 					</div>
 

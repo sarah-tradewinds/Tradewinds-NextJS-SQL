@@ -82,7 +82,6 @@ export const getHomeCountries = async () => {
 }; // End of getHomeCountries function
 
 export const fetchHomeCountries = async (pageNumber: number) => {
-	console.log('pageNumberpageNumberpageNumber', pageNumber);
 	try {
 		const { data } = await axiosInstance.get(
 			`/region/all/region-countries?data_per_page=10&page_number=${pageNumber}`
