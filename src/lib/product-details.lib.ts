@@ -2,7 +2,9 @@ import { axiosInstance } from 'utils/axios-instance.utils';
 
 export const getProductById = async (productId: string) => {
 	try {
-		const { data } = await axiosInstance.get(`/product/${productId}`);
+		const { data } = await axiosInstance.get(
+			`product/fetch/${productId}`
+		);
 
 		if (data?.data) {
 			data.data.tags = data.data.seo?.keyword || [];

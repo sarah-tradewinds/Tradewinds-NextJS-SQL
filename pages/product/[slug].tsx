@@ -20,7 +20,6 @@ const ProductDetailsTabContainer = dynamic(
 			'components/product-details/product-details-tab/product-details-tab-container'
 		)
 );
-
 const ProductReviewsDetailsTab = dynamic(
 	() =>
 		import(
@@ -216,7 +215,7 @@ const ProductDetailsPage: NextPage<
 	}; // End of submitReviewHandler function
 
 	return (
-		<div className="lg::space-y-[51px] pb-16 md:space-y-[18px] lg:container desktop:w-[1512px] desktop:space-y-[32px]">
+		<div className="pb-16 md:space-y-[18px] lg:container desktop:w-[1512px] desktop:space-y-[32px]">
 			<ProductDetailsTile
 				product={productData}
 				onVariantClick={(variantId) => {

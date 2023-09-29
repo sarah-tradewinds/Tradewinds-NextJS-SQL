@@ -51,6 +51,7 @@ const ImageContainer: React.FC<ImageContainerProps> = (props) => {
 						src={selectedImageUrl || imageUrl}
 						alt={alt || ''}
 						fill={true}
+						loading="eager"
 						className="object-contain"
 					/>
 				</div>

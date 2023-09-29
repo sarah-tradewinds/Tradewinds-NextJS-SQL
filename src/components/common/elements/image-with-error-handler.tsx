@@ -18,12 +18,8 @@ const ImageWithErrorHandler: React.FC<ImageWithErrorHandlerProps> = (
 	const {
 		src,
 		alt = '',
-		fill,
-		width,
-		height,
 		defaultImageUrl = '/coming-soon.png',
-		errorImageUrl = '/coming-soon.png',
-		className
+		errorImageUrl = '/coming-soon.png'
 	} = props;
 
 	const isValidUrl = (url: string) => {
