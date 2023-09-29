@@ -57,13 +57,13 @@ const nextConfig = (phase) => {
 			SITE_URL: 'https://www.tradewindsmarketplace.com',
 
 			BUYER_DASHBOARD_SITE_URL:
-				'https://www.dashboard.tradewindsmarketplace.com/#',
+				'https://www.dashboard.tradewindsmarketplace.com',
 
 			BDM_DASHBOARD_SITE_URL:
-				'https://www.dashboard.tradewindsmarketplace.com/#',
+				'https://www.dashboard.tradewindsmarketplace.com',
 
 			SELLER_DASHBOARD_SITE_URL:
-				'https://www.dashboard.tradewindsmarketplace.com/#',
+				'https://www.dashboard.tradewindsmarketplace.com',
 
 			API_BASE_URL:
 				'https://tradewinds-sql-production-as.azurewebsites.net',
