@@ -1,6 +1,6 @@
 import {
-	GetServerSideProps,
-	InferGetServerSidePropsType,
+	GetStaticProps,
+	InferGetStaticPropsType,
 	NextPage
 } from 'next';
 import Link from 'next/link';
@@ -25,7 +25,7 @@ import { useCategoryStore } from 'store/category-store';
 import { getLocaleText } from 'utils/get_locale_text';
 
 const CategoriesPage: NextPage<
-	InferGetServerSidePropsType<GetServerSideProps>
+	InferGetStaticPropsType<GetStaticProps>
 > = ({ allCategoryByAlphabets }) => {
 	const [showAll, setShowAll] = useState(false);
 	const [searchQuery, setSearchQuery] = useState('');
@@ -34,9 +34,6 @@ const CategoriesPage: NextPage<
 	const { t } = useTranslation();
 
 	const router = useRouter();
-	const removeCategoryFilter = useCategoryStore(
-		(state) => state.removeCategoryFilter
-	);
 
 	const alphabetList = showAll ? alphabets : [...alphabets].slice(0, 3);
 
@@ -54,9 +51,6 @@ const CategoriesPage: NextPage<
 	}
 
 	const [value, setValue] = useState('');
-	const Searchvalue = (event: any) => {
-		setValue(event.target.value);
-	};
 
 	const {
 		setMainCategory,
@@ -332,13 +326,8 @@ const CategoriesPage: NextPage<
 	);
 }; // End of CategoriesPage
 
-export const getServerSideProps: GetServerSideProps = async ({
-	locale,
-	query
-}) => {
-	const allCategoryByAlphabets = await getAllCategoryByAlphabets(
-		Boolean(query.is_eco)
-	);
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+	const allCategoryByAlphabets = await getAllCategoryByAlphabets(false);
 
 	return {
 		props: {

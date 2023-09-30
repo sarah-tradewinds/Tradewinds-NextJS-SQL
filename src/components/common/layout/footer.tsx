@@ -136,7 +136,7 @@ const Footer: React.FC = () => {
 							<Link
 								href={
 									isEco
-										? '/6500-categories?is_eco=${true}'
+										? `/6500-categories?is_eco=${true}`
 										: '/6500-categories'
 								}
 								className=" hover:text-accent-primary-main"
