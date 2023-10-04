@@ -32,7 +32,7 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 							className={`${class1} h-[375px] rounded-[10px] pl-[13px] pt-[20px] sm:h-[193px] sm:pl-[13px] sm:pt-[25px] md:h-[232px] md:pl-[15px] md:pt-[29px] lg:h-[310px] lg:pl-[19px] lg:pt-[39px] desktop:h-[456px] desktop:pl-[30px] desktop:pt-[58px]`}
 						>
 							<WhySellOnTWOperationTile
-								imageUrl="/static/images/why-sell-on-tradewinds-images/store-front-img.png"
+								imageUrl="/static/images/why-sell-on-tradewinds-images/store-front-img.webp"
 								title={t('storefront')}
 								className=" pl-[4px] sm:pl-[20px] md:pl-[13px] lg:pl-[32px] desktop:pl-8"
 								containerClassName={leftSideClassName}
@@ -75,7 +75,7 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 						</div>
 
 						<WhySellOnTWOperationTile
-							imageUrl="/static/images/why-sell-on-tradewinds-images/communication.png"
+							imageUrl="/static/images/why-sell-on-tradewinds-images/communication.webp"
 							title={t('common:communication_center')}
 							className="pl-[4px] sm:pl-[20px] md:pl-[13px] lg:pl-[32px] desktop:pl-8"
 							containerClassName="md:pr-4 lg:pr-0 sm:flex-row-reverse md:flex-row-reverse lg:flex-row-reverse  pb-8 lg:pb-0"
@@ -110,7 +110,7 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 							className={`${class1} h-[460px] rounded-[10px]  pl-[13px] pt-[20px] sm:h-[238px] sm:pl-[13px] sm:pt-[0px] md:h-[292px] md:pl-[15px] md:pt-[12px] lg:h-[310px] lg:pl-[19px] lg:pt-[39px] desktop:h-[456px] desktop:pl-[30px] desktop:pt-[58px]`}
 						>
 							<WhySellOnTWOperationTile
-								imageUrl="/static/images/why-sell-on-tradewinds-images/Order Management.png"
+								imageUrl="/static/images/why-sell-on-tradewinds-images/Order Management.webp"
 								title={t('common:order_management')}
 								className="pl-[4px] sm:pl-[20px] md:pl-[13px]  lg:pl-[32px] desktop:pl-8"
 								containerClassName={leftSideClassName}
@@ -155,7 +155,7 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 						</div>
 
 						<WhySellOnTWOperationTile
-							imageUrl="/static/images/why-sell-on-tradewinds-images/RFQ-tool.png"
+							imageUrl="/static/images/why-sell-on-tradewinds-images/RFQ-tool.webp"
 							title={t('rfq_tool-Request_for_quotation')}
 							className="pl-[4px] sm:pl-[20px] md:pl-[13px] lg:pl-[32px] desktop:pl-8"
 							containerClassName="md:pr-4 lg:pr-0 sm:flex-row-reverse md:flex-row-reverse  pb-8 lg:pb-0 lg:flex-row-reverse "
@@ -178,7 +178,7 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 							className={`${class1} h-[457px] rounded-[10px]  pl-[13px] pt-[20px] sm:h-[237px] sm:pl-[13px] sm:pt-[0px] md:h-[295px] md:pl-[15px] md:pt-[12px] lg:h-[310px] lg:pl-[19px] lg:pt-[39px] desktop:h-[456px] desktop:pl-[30px] desktop:pt-[58px]`}
 						>
 							<WhySellOnTWOperationTile
-								imageUrl="/static/images/why-sell-on-tradewinds-images/Marketing-img.png"
+								imageUrl="/static/images/why-sell-on-tradewinds-images/Marketing-img.webp"
 								title={t('marketing')}
 								className="pl-[4px] sm:pl-[20px] md:pl-[13px]  lg:pl-[32px] desktop:pl-8"
 								containerClassName={leftSideClassName}
@@ -222,7 +222,7 @@ const WhySellPlatform: React.FC<platformprops> = (props) => {
 						</div>
 
 						<WhySellOnTWOperationTile
-							imageUrl="/static/images/why-sell-on-tradewinds-images/analytics-img.png"
+							imageUrl="/static/images/why-sell-on-tradewinds-images/analytics-img.webp"
 							title={t('common:analytics')}
 							className="pl-[4px] sm:pl-[20px] md:pl-[13px]  lg:pl-[32px] desktop:pl-8"
 							containerClassName="md:pr-4 sm:flex-row-reverse md:flex-row-reverse  lg:pr-0 lg:flex-row-reverse  pb-8 lg:pb-0"

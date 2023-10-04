@@ -29,7 +29,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 				<div>
 					{/* Header */}
 					<div className=" w-full bg-header-bar">
-						<div className="relative mx-auto h-[203px] w-full bg-[url('/images/why-sell-on-tradewinds/why-sell-on-tradewinds-header-desktop.svg')] bg-cover bg-center bg-no-repeat sm:h-[298px]  md:h-[358px] lg:h-[478px] desktop:h-[703px] 3xl:container">
+						<div className="relative mx-auto h-[203px] w-full bg-[url('/images/why-sell-on-tradewinds/why-sell-on-tradewinds-header-desktop.webp')] bg-cover bg-center bg-no-repeat sm:h-[298px]  md:h-[358px] lg:h-[478px] desktop:h-[703px] 3xl:container">
 							<div className="absolute inset-0 z-[1] bg-black opacity-40"></div>
 							<div className="absolute z-[50] ml-[16px] mt-[19px] text-white sm:ml-[36px] sm:mt-[60px] md:ml-[44px] md:mt-[35px] lg:ml-[59px] lg:mt-[58px] desktop:ml-[87px] desktop:mt-[137px]">
 								<p className="w-[70%] text-[15px] font-semibold leading-[18px] sm:w-[283px] sm:text-[15px] sm:leading-[18px] md:w-[273px] md:text-[24px] md:leading-[29px] lg:w-[380px] lg:text-[32px] lg:leading-[39px] desktop:w-[566px] desktop:text-[50px] desktop:leading-[51px]">
