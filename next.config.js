@@ -54,8 +54,7 @@ const nextConfig = (phase) => {
 		reactStrictMode: true,
 		output: 'standalone',
 		env: {
-			SITE_URL:
-				'https://tradewindsmppreprodshoppingsite.azurewebsites.net',
+			SITE_URL: 'https://next-tradewinds.vercel.app',
 
 			BUYER_DASHBOARD_SITE_URL:
 				'https://white-ocean-019fe600f.2.azurestaticapps.net',
