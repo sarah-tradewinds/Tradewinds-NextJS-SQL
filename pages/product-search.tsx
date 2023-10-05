@@ -217,6 +217,7 @@ const ProductSearchPage: NextPage<
 			.then((data: any) => {
 				const productList = data.data || [];
 				const paginationData = data.pagination || {};
+				console.log('paginationData', { data });
 				setPageNumber(paginationData?.page_number || 1);
 				setTotalPageCount(paginationData?.total_page_count || 1);
 				setProducts(productList);
@@ -640,6 +641,7 @@ const ProductSearchPage: NextPage<
 						</div>
 
 						{/* Pagination */}
+
 						{!isProductsLoading && totalPageCount > 1 && (
 							<div className="mt-10 flex justify-center">
 								<div className="flex items-center space-x-3 font-semibold text-gray md:text-[20px] desktop:text-[25px]">

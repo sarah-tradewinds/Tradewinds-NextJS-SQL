@@ -56,13 +56,15 @@ export const getProducts = async (params: {
 
 		return {
 			categories: data.categories || {},
-			data: products || []
+			data: products || [],
+			pagination: data?.pagination || []
 		};
 	} catch (error) {
 		console.log('[getProducts] =', error);
 		return {
 			categories: {},
-			data: []
+			data: [],
+			pagination: {}
 		};
 	}
 }; // End of getProducts
