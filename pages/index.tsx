@@ -21,7 +21,6 @@ const CountrySlider = dynamic(
 );
 
 import Seo from 'components/common/seo';
-// import CountrySlider from 'components/home/country-slider';
 import Hero from 'components/home/hero';
 import HomeCategorySubCategoriesSection from 'components/home/home-category-sub-categories-section';
 
