@@ -169,8 +169,8 @@ const ProductList: React.FC<ProductListProps> = ({
 			<div
 				className={`mx-[9px] grid grid-cols-1 gap-y-[14px] sm:mx-[10px] sm:mt-[19px] sm:gap-y-[20px] md:mx-0 md:mt-[10px] md:gap-y-[15px] xl:gap-[26px] ${className}`}
 			>
-				{products.map((product, index) => {
-					const { defaultVariant, totalVariantCount } =
+				{products.map((product) => {
+					const { defaultVariant } =
 						getDefaultProductAndProductVariants(
 							product?.edges?.product_variants || []
 						);
@@ -278,7 +278,7 @@ const ProductList: React.FC<ProductListProps> = ({
 						isLiveBuy: product?.is_live_buy,
 						isReadyToShip: product.is_live_buy,
 						isCustomizable: product.is_customizable,
-						variantCount: totalVariantCount || 0,
+						variantCount: product?.variant_count || 0,
 						onMessageVendorClick: () => {
 							setSelectedSellerUserId(
 								product?.edges?.sellers?.edges?.user?.id

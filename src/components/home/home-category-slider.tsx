@@ -118,12 +118,13 @@ const SubCategoryCard: React.FC<SubCategoryCardProps> = (props) => {
 
 	return (
 		<div
-			className="relative flex flex-col justify-between border-[1.36px] border-[#C4C4C4] md:h-[86.43px] md:w-[162.48px] xl:h-[107.93px] xl:w-[202.91px] desktop:h-[127.13px] desktop:w-[239px]"
+			className="relative flex cursor-pointer flex-col justify-between border-[1.36px] border-[#C4C4C4] md:h-[86.43px] md:w-[162.48px] xl:h-[107.93px] xl:w-[202.91px] desktop:h-[127.13px] desktop:w-[239px]"
 			style={{ backgroundColor }}
+			onClick={onTileClick}
 		>
 			<h4
-				onClick={onTileClick}
-				className={`mt-[9.74px] ml-[6.12px] w-[76%] cursor-pointer font-semibold text-gray lg:w-[78%] lg:text-[13px] ${
+				// onClick={onTileClick}
+				className={`mt-[9.74px] ml-[6.12px] w-[76%] font-semibold text-gray lg:w-[78%] lg:text-[13px] ${
 					title?.length >= 20 ? 'text-[12px]' : 'text-[14px]'
 				}`}
 			>

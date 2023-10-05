@@ -22,7 +22,7 @@ function PlatformFeatures() {
 				<div className="space-y-[96px]">
 					<div className=" h-[456px] rounded-[10px] bg-bg_gray pt-[58px] pl-[30px]">
 						<WhySellOnTWOperationTile
-							imageUrl="/static/images/why-sell-on-tradewinds-images/store-front-img.png"
+							imageUrl="/static/images/why-sell-on-tradewinds-images/store-front-img.webp"
 							title={t('Storefront')}
 							className="pl-8"
 							containerClassName={leftSideClassName}
@@ -56,7 +56,7 @@ function PlatformFeatures() {
 					</div>
 
 					<WhySellOnTWOperationTile
-						imageUrl="/static/images/why-sell-on-tradewinds-images/communication.png"
+						imageUrl="/static/images/why-sell-on-tradewinds-images/communication.webp"
 						title={t('common:communication_center')}
 						className="pl-8"
 						containerClassName="md:pr-4 lg:pr-0 lg:flex-row-reverse border-b lg:border-b-0 border-gray/40 pb-8 lg:pb-0"
@@ -83,7 +83,7 @@ function PlatformFeatures() {
 
 					<div className=" h-[456px] rounded-[10px] bg-bg_gray pt-[58px] pl-[30px]">
 						<WhySellOnTWOperationTile
-							imageUrl="/static/images/why-sell-on-tradewinds-images/Order Management.png"
+							imageUrl="/static/images/why-sell-on-tradewinds-images/Order Management.webp"
 							title={t('Order Management')}
 							className="pl-8"
 							containerClassName={leftSideClassName}
@@ -119,7 +119,7 @@ function PlatformFeatures() {
 					</div>
 
 					<WhySellOnTWOperationTile
-						imageUrl="/static/images/why-sell-on-tradewinds-images/RFQ-tool.png"
+						imageUrl="/static/images/why-sell-on-tradewinds-images/RFQ-tool.webp"
 						title={t('RFQ Tool- "Request for Quotation"')}
 						className="pl-8"
 						containerClassName="md:pr-4 lg:pr-0 lg:border-b-0 border-gray/40 pb-8 lg:pb-0 lg:flex-row-reverse border-b"
@@ -136,7 +136,7 @@ function PlatformFeatures() {
 					</WhySellOnTWOperationTile>
 					<div className=" h-[456px] rounded-[10px] bg-bg_gray pt-[58px] pl-[30px]">
 						<WhySellOnTWOperationTile
-							imageUrl="/static/images/why-sell-on-tradewinds-images/Marketing-img.png"
+							imageUrl="/static/images/why-sell-on-tradewinds-images/Marketing-img.webp"
 							title={t('Marketing')}
 							className="pl-8"
 							containerClassName={leftSideClassName}
@@ -170,7 +170,7 @@ function PlatformFeatures() {
 						</WhySellOnTWOperationTile>
 					</div>
 					<WhySellOnTWOperationTile
-						imageUrl="/static/images/why-sell-on-tradewinds-images/analytics-img.png"
+						imageUrl="/static/images/why-sell-on-tradewinds-images/analytics-img.webp"
 						title={t('common:analytics')}
 						className="pl-8"
 						containerClassName="md:pr-4 lg:pr-0 lg:flex-row-reverse border-b lg:border-b-0 border-gray/40 pb-8 lg:pb-0"

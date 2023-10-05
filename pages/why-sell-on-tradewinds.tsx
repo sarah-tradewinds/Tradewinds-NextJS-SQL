@@ -8,10 +8,9 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import ImageWithErrorHandler from 'components/common/elements/image-with-error-handler';
 import Seo from 'components/common/seo';
 import WhySellPlatform from 'components/eco/why-buy/whysell-platform';
+
 const WhySellOnTradewindsPage: NextPage = () => {
 	const { t } = useTranslation('why_sell_on_tw');
-
-	const leftSideClassName = 'md:pr-4 lg:pr-0  pb-8 lg:pb-0';
 
 	const gotoSellerSignup = () => {
 		window?.open(
@@ -27,8 +26,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 				{/* Header */}
 
 				<div className=" w-full">
-					{/* <div className="relative mx-auto h-[203px] w-full bg-[url('/static/images/why-sell-on-tradewinds-images/why-sell-on-tradewinds-header.png')] bg-cover bg-center bg-no-repeat sm:h-[298px]  md:h-[358px] lg:h-[478px] desktop:h-[703px] 3xl:container"> */}
-					<div className="relative mx-auto h-[203px] w-full bg-[url('/images/why-sell-on-tradewinds/why-sell-on-tradewinds-header-desktop.svg')] bg-cover bg-center bg-no-repeat sm:h-[298px]  md:h-[358px] lg:h-[478px] desktop:h-[703px] 3xl:container">
+					<div className="relative mx-auto h-[203px] w-full bg-[url('/images/why-sell-on-tradewinds/why-sell-on-tradewinds-header-desktop.webp')] bg-cover bg-center bg-no-repeat sm:h-[298px]  md:h-[358px] lg:h-[478px] desktop:h-[703px] 3xl:container">
 						<div className="absolute inset-0 z-[1] bg-black opacity-40"></div>
 
 						{/* content */}
@@ -118,7 +116,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 							<div className="text-left sm:h-[173px] sm:w-[200px] sm:text-center md:h-[160px] md:w-[225px] lg:h-[205px] lg:w-[300px] desktop:h-[279px] desktop:w-[445px] ">
 								<div className=" relative mt-[30px] h-[45px] w-[45px] sm:mx-auto sm:-mt-[0px] sm:h-[46px] sm:w-[46px] md:mt-0 md:h-[55px] md:w-[55px] lg:mt-[0px] lg:h-[73px] lg:w-[73px] desktop:mt-0 desktop:h-[108px] desktop:w-[109px] ">
 									<ImageWithErrorHandler
-										src="/static/images/why-sell-on-tradewinds-images/sell_wholesale.png"
+										src="/static/images/why-sell-on-tradewinds-images/sell_wholesale.webp"
 										alt=""
 										fill={true}
 									/>
@@ -148,7 +146,7 @@ const WhySellOnTradewindsPage: NextPage = () => {
 						</button>
 					</div>
 				</div>
-				<div className=" h-full">
+				<div className="h-full">
 					<WhySellPlatform
 						mainClass="text-primary-main bg-white"
 						class1="bg-bg-main"
