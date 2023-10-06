@@ -81,10 +81,15 @@ export const getHomeCountries = async () => {
 	}
 }; // End of getHomeCountries function
 
-export const fetchHomeCountries = async (pageNumber: number) => {
+export const fetchHomeCountries = async (
+	pageNumber: number,
+	options?: { dataPerPage: number }
+) => {
 	try {
 		const { data } = await axiosInstance.get(
-			`/region/all/region-countries?data_per_page=10&page_number=${pageNumber}`
+			`/region/all/region-countries?data_per_page=${
+				options?.dataPerPage || 10
+			}&page_number=${pageNumber}`
 		);
 
 		return data.data || [];

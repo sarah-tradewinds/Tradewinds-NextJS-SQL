@@ -1,6 +1,6 @@
 import {
-	GetServerSideProps,
-	InferGetServerSidePropsType,
+	GetStaticProps,
+	InferGetStaticPropsType,
 	NextPage
 } from 'next';
 import { useState } from 'react';
@@ -25,7 +25,7 @@ import { useCategoryStore } from 'store/category-store';
 import { useCountriesStore } from 'store/countries-store';
 
 const ShopByCountryPage: NextPage<
-	InferGetServerSidePropsType<GetServerSideProps>
+	InferGetStaticPropsType<GetStaticProps>
 > = ({ regionsAndCountries = [] }) => {
 	const { t } = useTranslation('search_by_country');
 
@@ -63,7 +63,7 @@ const ShopByCountryPage: NextPage<
 			<div className="relative bg-bg-main sm:container  sm:mx-auto sm:justify-center md:m-auto ">
 				{/* Headers */}
 				<div className=" relative ">
-					<div className="relative h-[411px] w-full bg-[url('/static/images/search-by-country-images/mobile-search-by-country-header.png')] bg-cover bg-center bg-no-repeat sm:container sm:mx-auto sm:h-[298px] sm:justify-center sm:bg-[url('/images/shop-by-country-banner.png')] md:h-[238px] md:!bg-[url('/images/shop-by-country-banner.png')] lg:h-[318px] desktop:h-[436px] 3xl:container">
+					<div className="relative h-[411px] w-full bg-[url('/static/images/search-by-country-images/mobile-search-by-country-header.webp')] bg-cover bg-center bg-no-repeat sm:container sm:mx-auto sm:h-[298px] sm:justify-center sm:bg-[url('/images/shop-by-country-banner.webp')] md:h-[238px] md:!bg-[url('/images/shop-by-country-banner.webp')] lg:h-[318px] desktop:h-[436px] 3xl:container">
 						<p className=" absolute pl-[58px] pt-[31px] text-[32px] font-semibold text-white sm:pt-[83px] sm:pl-[202px] sm:text-[25px] md:pt-[85px] md:pl-[113px] md:text-[25px] lg:pt-[115px] lg:pl-[151px] lg:text-[40px] desktop:pt-[180px] desktop:pl-[332px] desktop:text-[96px]">
 							{t('shop_by_country')}
 						</p>
@@ -140,9 +140,7 @@ const ShopByCountryPage: NextPage<
 	);
 };
 
-export const getServerSideProps: GetServerSideProps = async ({
-	locale
-}) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
 	const regionsAndCountries = await getRegionsAndCountries();
 
 	// Top Row, from left to right: North America, Mexico and Central America, The Caribbean, South America
@@ -157,15 +155,12 @@ export const getServerSideProps: GetServerSideProps = async ({
 		'south america'
 	];
 
-	const middleRegionsAndCountries: any[] = [];
 	const middleRegionsNames = [
 		'europe',
 		'africa',
 		'middle east',
 		'asia'
 	];
-
-	const bottomRegionsAndCountries: any[] = [];
 
 	const getRegionsAndCountriesList = (
 		regionNames: string[],
