@@ -47,6 +47,7 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 	>([]);
 	const [pageNumber, setPageNumber] = useState(1);
 	const [isLoading, setIsLoading] = useState(false);
+	const [isRenderedFirstTime, setIsRenderedFirstTime] = useState(false);
 
 	const [currentSlide, setCurrentSlide] = useState(0);
 	const [loaded, setLoaded] = useState(false);
@@ -80,17 +81,25 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 	useEffect(() => {
 		setIsLoading(true);
 		fetchHomeCountries(pageNumber)
-			.then((data) =>
+			.then((data) => {
 				setCountries((prevState) => {
 					if (pageNumber === 1) {
 						return data;
 					}
 					return [...prevState, ...data];
-				})
-			)
+				});
+				setIsRenderedFirstTime(true);
+			})
 			.finally(() => setIsLoading(false));
 	}, [pageNumber]);
-	console.log('countries', countries.length);
+
+	useEffect(() => {
+		if (isRenderedFirstTime && deviceWidth >= 768) {
+			fetchHomeCountries(pageNumber, { dataPerPage: 300 }).then(
+				setCountries
+			);
+		}
+	}, [isRenderedFirstTime, deviceWidth]);
 
 	const countriesSlider = isLoading
 		? generateListByCount(8).map((id) => (
@@ -99,14 +108,9 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 				</div>
 		  ))
 		: countries?.map((country, index) => (
-				<IntersectionObserverComponent
+				<div
 					key={country.id}
-					isFirst={index === 0}
-					isLast={index === countries.length - 1}
-					fetchNextData={() =>
-						setPageNumber((prevState) => prevState + 1)
-					}
-					className="keen-slider__slide !relative flex !h-9 !min-w-[36.06px] !max-w-[36.06px] flex-col items-center md:!mx-5 md:!h-[30.59px] md:!min-w-[52.04px] md:!max-w-[52.04px] lg:!mx-[41px] lg:!h-[64px] lg:!min-w-[107px] lg:!max-w-[107px]"
+					className="keen-slider__slide !relative flex !h-9 !min-w-[36.06px] !max-w-[36.06px] cursor-pointer flex-col items-center md:!mx-5 md:!h-[30.59px] md:!min-w-[52.04px] md:!max-w-[52.04px] lg:!mx-[41px] lg:!h-[64px] lg:!min-w-[107px] lg:!max-w-[107px]"
 					onClick={() => {
 						if (onCountryClick) {
 							onCountryClick(country);
@@ -126,7 +130,7 @@ const CountrySlider: React.FC<CountrySliderProps> = (props) => {
 						{getLocaleText(country?.name || '', locale)}
 					</p>
 					{/* </button> */}
-				</IntersectionObserverComponent>
+				</div>
 		  ));
 
 	return (
