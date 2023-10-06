@@ -46,10 +46,8 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 	const { deviceWidth } = useDeviceSize();
 
 	// Fetching Hero carousel
-	const { data: heroCarousels = [] } = useSWR(
-		'/cms/carousel?isEco=false',
-		() => getHeroCarousels(false)
-	);
+	const { data: heroCarousels = [], isLoading: isHeroCarouselLoading } =
+		useSWR('/cms/carousel?isEco=false', () => getHeroCarousels(false));
 	// Fetching cardA
 	const { data: cardAList = [], isLoading: isCardALoading } = useSWR(
 		'/cms/cardA?isEco=false',
@@ -119,6 +117,7 @@ const HomePage: NextPage<InferGetStaticPropsType<GetStaticProps>> = (
 					hcd={heroCarousels}
 					cardAList={cardAList}
 					cardBData={cardBData}
+					isHeroCarouselLoading={isHeroCarouselLoading}
 					isCardALoading={isCardALoading}
 					isCardBLoading={isCardBLoading}
 				/>
